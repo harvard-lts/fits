@@ -1,4 +1,4 @@
-RELEASE NOTES
+RELEASE NOTES 
 -------------
 OPENFits, provisionally named 0.6.2 (11/16/12). Not part of Harvard development.
 ----------------------
