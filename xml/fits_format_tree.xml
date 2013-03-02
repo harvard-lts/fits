@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<format-tree>
+	<branch format="Raw JPEG Stream">
+		<branch format="jpeg">
+			<branch format="JPEG File Interchange Format"/>
+			<branch format="Exchangeable Image File Format"/>
+		</branch>
+	</branch>
+	<branch format="JPEG 2000">
+		<branch format="JPEG 2000 JP2"/>
+		<branch format="JPEG 2000 JPX"/>
+	</branch>
+	<branch format="Portable Document Format">
+		<branch format="PDF/A"/>
+		<branch format="PDF/X"/>
+	</branch>
+	<branch format="Plain text">
+		<branch format="Extensible Markup Language">
+			<branch format="Scalable Vector Graphics (SVG)"/>
+		</branch>
+		<branch format="Hypertext Markup Language"/>
+		<branch format="Postscript"/>
+	</branch>
+	<branch format="ZIP Format">
+		<branch format="OpenDocument"/>
+		<branch format="OpenDocument Text"/>
+		<branch format="OpenDocument Text Template"/>
+		<branch format="OpenDocument Drawing"/>
+		<branch format="OpenDocument Drawing Template"/>
+		<branch format="OpenDocument Spreadsheet"/>
+		<branch format="OpenDocument Spreadsheet Template"/>
+		<branch format="OpenDocument Presentation"/>
+		<branch format="OpenDocument Presentation Template"/>
+		<branch format="OpenDocument Chart"/>
+		<branch format="OpenDocument Chart Template"/>
+		<branch format="OpenDocument Image"/>
+		<branch format="OpenDocument Image Template"/>
+		<branch format="OpenDocument Formula"/>
+		<branch format="OpenDocument Formula Template"/>
+		<branch format="OpenDocument Master Document"/>
+		<branch format="OpenDocument HTML Document Template"/>	
+	</branch>
+</format-tree>

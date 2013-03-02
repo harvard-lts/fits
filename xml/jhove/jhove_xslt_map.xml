@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<transformMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../xslt_map.xsd">
+	<!-- image -->
+	<map format="JPEG" transform="jhove_image_to_fits.xslt"/>
+	<map format="TIFF" transform="jhove_image_to_fits.xslt"/>
+	<map format="JPEG 2000" transform="jhove_image_to_fits.xslt"/>
+	<map format="GIF" transform="jhove_image_to_fits.xslt"/>
+	
+	<!-- audio -->
+	<map format="WAVE" transform="jhove_audio_to_fits.xslt"/>
+	<map format="AIFF" transform="jhove_audio_to_fits.xslt"/>
+	
+	<!-- text -->
+	<map format="XML" transform="jhove_xml_to_fits.xslt"/>
+	<map format="HTML" transform="jhove_html_to_fits.xslt"/>
+	<map format="ASCII" transform="jhove_text_to_fits.xslt"/>
+	<map format="UTF-8" transform="jhove_text_to_fits.xslt"/>
+	
+	<!-- document -->
+	<map format="PDF" transform="jhove_document_to_fits.xslt"/>
+</transformMap>
+
+ 

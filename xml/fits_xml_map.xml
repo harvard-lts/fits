@@ -1,0 +1,198 @@
+<fitsXmlMap>
+
+	<tool name="jhove" version="1.5">
+		<mime type="all">
+			<element name="colorSpace">
+				<map from="Greyscale" to="Grayscale"/>
+			</element>
+		</mime>
+	</tool>
+
+	<tool name="exiftool" version="9.05">
+		<mime type="all">
+			<element name="samplingFrequencyUnit">
+				<map from="None" to="no absolute unit of measurement"/>
+				<map from="inches" to="in."/>
+				<!--  cm is output correctly -->
+			</element>
+			<element name="captureDevice">
+				<map from="Film Scanner" to="transmission scanner"/>
+				<map from="Reflection Print Scanner" to="reflection print scanner"/>
+				<map from="Digital Camera" to="digital still camera"/>
+			</element>
+			<element name="exposureProgram">
+				<map from="Not Defined" to="Not defined"/>
+				<map from="Program AE" to="Normal program"/>
+				<map from="Aperture-priority AE" to="Aperture priority"/>
+				<map from="Shutter speed priority AE" to="Shutter priority"/>
+				<map from="Creative (Slow speed)" to="Creative program (biased toward depth of field)"/>
+				<map from="Action (High speed)" to="Action program (biased toward fast shutter speed)"/>
+				<map from="Portrait" to="Portrait mode (for closeup photos with the background out of focus)"/>
+				<map from="Landscape" to="Landscape mode (for landscape photos with the background in focus)"/>
+			</element>
+			<element name="meteringMode">
+				<map from="Center-weighted average" to="Center weighted average"/>
+				<map from="Multi-spot" to="Multispot"/>
+				<map from="Evaluative" to="Pattern"/>
+				<map from="Multi-segment" to="Pattern"/>
+			</element>
+			<element name="lightSource">
+				<map from="Unknown" to="unknown"/>
+				<map from="Tungsten" to="Tungsten (incandescent light)"/>
+				<map from="Cloudy" to="Cloudy weather"/>
+				<map from="Daylight Fluorescent" to="Daylight fluorescent (D 5700 - 7100K)"/>
+				<map from="Day White Fluorescent" to="Day white fluorescent (N 4600 - 5400K)"/>
+				<map from="Cool White Fluorescent" to="Cool white fluorescent (W 3900 - 4500K)"/>
+				<map from="White Fluorescent" to="White fluorescent (WW 3200 - 3700K)"/>
+				<map from="ISO Studio Tungsten" to="ISO studio tungsten"/>
+				<map from="Other" to="other light source"/>
+			</element>
+			<element name="flash">
+				<map from="No Flash" to="Flash did not fire"/>
+				<map from="Fired" to="Flash fired"/>
+				<map from="Fired, Return not detected" to="Strobe return light light not detected"/>
+				<map from="Fired, Return detected" to="Strobe return light detected"/>
+				<map from="On, Fired" to="Flash fired, compulsary flash mode"/>
+				<map from="On, Return not detected" to="Flash fired, compulsary flash mode, return light not detected"/>
+				<map from="On, Return detected" to="Flash fired, compulsary flash mode, return light detected"/>
+				<map from="Off, Did not fire" to="Flash did not fire, compulsory flash mode"/>
+				<map from="Auto, Did not fire" to="Flash did not fire, auto mode"/>
+				<map from="Auto, Fired" to="Flash fired, auto mode"/>
+				<map from="Auto, Fired, Return not detected" to="Flash fired, auto mode, return light not detected"/>
+				<map from="Auto, Fired, Return detected" to="Flash fired, auto mode, return light detected"/>
+				<map from="Fired, Red-eye reduction" to="Flash fired, red-eye reduction mode"/>
+				<map from="Fired, Red-eye reduction, Return not detected" to="Flash fired, red-eye reduction mode, return light not detected"/>
+				<map from="Fired, Red-eye reduction, Return detected" to="Flash fired, red-eye reduction mode, return light detected"/>
+				<map from="On, Red-eye reduction" to="Flash fired, compulsory flash mode, red-eye reduction mode"/>
+				<map from="On, Red-eye reduction, Return not detected" to="Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected"/>
+				<map from="On, Red-eye reduction, Return detected" to="Flash fired, compulsory flash mode, red-eye reduction mode, return light detected"/>
+				<map from="Auto, Fired, Red-eye reduction" to="Flash fired, auto mode, red-eye reduction mode"/>
+				<map from="Auto, Fired, Red-eye reduction, Return not detected" to="Flash fired, auto mode, return light not detected, red-eye reduction mode"/>
+				<map from="Auto, Fired, Red-eye reduction, Return detected" to="Flash fired, auto mode, return light detected, red-eye reduction mode"/>
+			</element>
+			<element name="sensingMethod">
+				<map from="One-chip color area" to="One-chip color area sensor"/>
+				<map from="Two-chip color area" to="Two-chip color area sensor"/>
+				<map from="Three-chip color area" to="Three-chip color area sensor"/>
+				<map from="Color sequential area" to="Color sequential area sensor"/>
+				<map from="Trilinear" to="Trilinear sensor"/>
+				<map from="Color sequential linear" to="Color sequential linear sensor"/>
+			</element>
+			<element name="gpsLatitudeRef">
+				<map from="North" to="N"/>
+				<map from="South" to="S"/>
+			</element>
+			<element name="gpsLongitudeRef">
+				<map from="East" to="E"/>
+				<map from="West" to="W"/>
+			</element>
+			<element name="gpsStatus">
+				<map from="Measurement Active" to="A"/>
+				<map from="Measurement Void" to="V"/>
+			</element>
+			<element name="gpsImgDirectionRef">
+				<map from="True North" to="T"/>
+				<map from="Magnetic North" to="M"/>
+			</element>
+			<element name="gpsTrackRef">
+				<map from="True North" to="T"/>
+				<map from="Magnetic North" to="M"/>
+			</element>
+			<element name="gpsDestBearingRef">
+				<map from="True North" to="T"/>
+				<map from="Magnetic North" to="M"/>
+			</element>
+			<element name="YCbCrPositioning">
+				<map from="Centered" to="1"/>
+				<map from="Co-sited" to="2"/>
+			</element>
+		</mime>
+	</tool>
+
+	<tool name="NLNZ Metadata Extractor" version="3.4GA">
+		<mime type="all">
+			<element name="flash">
+				<map from="No Flash" to="Flash did not fire"/>
+				<map from="Fired" to="Flash fired"/>
+				<map from="Fired, Return not detected" to="Strobe return light light not detected"/>
+				<map from="Fired, Return detected" to="Strobe return light detected"/>
+				<map from="On, Fired" to="Flash fired, compulsary flash mode"/>
+				<map from="On, Return not detected" to="Flash fired, compulsary flash mode, return light not detected"/>
+				<map from="On, Return detected" to="Flash fired, compulsary flash mode, return light detected"/>
+				<map from="Off, Did not fire" to="Flash did not fire, compulsory flash mode"/>
+				<map from="Auto, Did not fire" to="Flash did not fire, auto mode"/>
+				<map from="Auto, Fired" to="Flash Fired, auto mode"/>
+				<map from="Auto, Fired, Return not detected" to="Flash fired, auto mode, return light not detected"/>
+				<map from="Auto, Fired, Return detected" to="Flash fired, auto mode, return light detected"/>
+				<map from="Fired, Red-eye reduction" to="Flash fired, red-eye reduction mode"/>
+				<map from="Fired, Red-eye reduction, Return not detected" to="Flash fired, red-eye reduction mode, return light not detected"/>
+				<map from="Fired, Red-eye reduction, Return detected" to="Flash fired, red-eye reduction mode, return light detected"/>
+				<map from="On, Red-eye reduction" to="Flash fired, compulsory flash mode, red-eye reduction mode"/>
+				<map from="On, Red-eye reduction, Return not detected" to="Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected"/>
+				<map from="On, Red-eye reduction, Return detected" to="Flash fired, compulsory flash mode, red-eye reduction mode, return light detected"/>
+				<map from="Auto, Fired, Red-eye reduction" to="Flash fired, auto mode, red-eye reduction mode"/>
+				<map from="Auto, Fired, Red-eye reduction, Return not detected" to="Flash fired, auto mode, return light not detected, red-eye reduction mode"/>
+				<map from="Auto, Fired, Red-eye reduction, Return detected" to="Flash fired, auto mode, return light detected, red-eye reduction mode"/>
+			</element>
+		</mime>
+	</tool>
+
+
+<!-- METADATA EXTRACTION TOOLS -->
+
+	<!-- Mapping Example -->
+	<!-- 
+	<tool name="jhove" version="1.2">
+		<mime type="all">
+			<element name="identity">
+				<attribute name="format">
+					<map from="JPEG JFIF" to="JPEG File Interchange Format"/>
+					<map from="GIF GIF 87a" to="Graphics Interchange Format"/>
+					<map from="TIFF" to="Tagged Image File Format"/>	
+					<map from="TIFF Baseline RGB (Class R)" to="Tagged Image File Format"/>		
+					<map from="TIFF TIFF/IT-BP/P2 (ISO 12639:1998)" to="Tagged Image File Format"/>
+					<map from="XML" to="Extensible Markup Language"/>			
+					<map from="HTML" to="Hypertext Markup Language"/>
+					<map from="WAVE PCMWAVEFORMAT" to="Waveform Audio"/>
+					<map from="WAVE WAVEFORMATEX" to="Waveform Audio"/>
+					<map from="JPEG 2000 JP2" to="JPEG 2000"/>					
+				</attribute>	
+				<attribute name="mimetype">
+					<map from="text/plain; charset=US-ASCII" to="text/plain"/>
+					<map from="text/plain; charset=UTF-8" to="text/plain"/>					
+				</attribute>
+			</element>
+		</mime>
+		<mime type="image/jpeg,image/jp2,image/tiff">
+			<element name="compression">
+				<map from="0" to="Non"/>
+				<map from="1" to="Uncompressed"/>
+				<map from="2" to="CCITT 1D"/>
+				<map from="3" to="T5/Group 3 Fax"/>
+				<map from="4" to="T6/Group 4 Fax"/>
+				<map from="5" to="LZW"/>
+				<map from="6" to="JPEG"/>
+				<map from="32773" to="PackBits"/>
+				<map from="34712" to="JPEG 2000"/>
+			</element>	
+			<element name="samplingFrequencyUnit">
+				<map from="1" to="None"/>
+				<map from="2" to="inches"/>
+				<map from="3" to="cm"/>
+			</element>	
+			<element name="colorSpace">
+				<map from="0" to="WhiteIsZero"/>
+				<map from="1" to="BlackIsZero"/>
+				<map from="2" to="RGB"/>
+				<map from="3" to="Palette"/>
+				<map from="4" to="Transparency"/>
+				<map from="5" to="CMYK"/>
+				<map from="6" to="YCbCr"/>
+				<map from="8" to="CIELab"/>
+			</element>
+		</mime>
+	</tool>
+	 -->
+</fitsXmlMap>
+
+

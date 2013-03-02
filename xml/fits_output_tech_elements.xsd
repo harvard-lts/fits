@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="fits">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="identification" type="identificationType" minOccurs="0"/>
+				<xs:element name="fileinfo" type="fileinfoType" minOccurs="0"/>
+				<xs:element name="filestatus" type="filestatusType" minOccurs="0"/>
+				<xs:element name="metadata" type="metadataType" minOccurs="0"/>
+				<xs:element name="toolOutput" type="toolOutputType" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string" use="optional"/>
+			<xs:attribute name="timestamp" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Attribute Groups -->
+	<xs:attributeGroup name="nameVersionStatusAttrGrp">
+		<xs:attributeGroup ref="nameVersionAttrGrp"/>
+		<xs:attribute ref="status" use="optional"/>
+	</xs:attributeGroup>
+	<xs:attribute name="status">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="SINGLE_RESULT"/>
+				<xs:enumeration value="CONFLICT"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:attributeGroup name="nameVersionAttrGrp">
+		<xs:attribute name="toolname" type="xs:string" use="optional"/>
+		<xs:attribute name="toolversion" type="xs:string" use="optional"/>
+	</xs:attributeGroup>
+	<!-- FITS Metadata type -->
+	<!--	
+	<xs:complexType name="fitsMetadataType">
+		  <xs:complexContent>
+			<xs:extension base="xs:anyType">
+				<xs:attributeGroup ref="nameVersionStatusAttrGrp"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	-->
+	<xs:complexType name="fitsMetadataType">
+		<xs:complexContent>
+			<xs:extension base="xs:anyType">
+				<xs:attributeGroup ref="nameVersionStatusAttrGrp"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Identification elements-->
+	<xs:complexType name="identificationType">
+		<xs:sequence>
+			<xs:element name="identity" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="tool" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="version" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="externalIdentifier" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+					<xs:attribute name="format" type="xs:string" use="required"/>
+					<xs:attribute name="mimetype" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute ref="status" use="optional"/>
+	</xs:complexType>
+	<xs:element name="tool">
+		<xs:complexType>
+			<xs:attributeGroup ref="nameVersionAttrGrp"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="version">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="nameVersionStatusAttrGrp"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="externalIdentifier">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="nameVersionAttrGrp"/>
+					<xs:attribute name="type" type="xs:string" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<!--file info elements-->
+	
+<xs:group name="fileInfoElements">
+	<xs:choice>
+		<xs:element name="filename" type="fitsMetadataType"/>
+		<xs:element name="size" type="fitsMetadataType"/>
+		<xs:element name="md5checksum" type="fitsMetadataType"/>
+		<xs:element name="lastmodified" type="fitsMetadataType"/>
+		<xs:element name="fslastmodified" type="fitsMetadataType"/>
+		<xs:element name="created" type="fitsMetadataType"/>
+		<xs:element name="creatingApplicationName" type="fitsMetadataType"/>
+		<xs:element name="creatingApplicationVersion" type="fitsMetadataType"/>
+		<xs:element name="inhibitorType" type="fitsMetadataType"/>
+		<xs:element name="inhibitorTarget" type="fitsMetadataType"/>
+		<xs:element name="rightsBasis" type="fitsMetadataType"/>
+		<xs:element name="copyrightBasis" type="fitsMetadataType"/>
+		<xs:element name="copyrightNote" type="fitsMetadataType"/>
+	</xs:choice>	
+</xs:group>	
+	
+	<xs:complexType name="fileinfoType">
+		<xs:group ref="fileInfoElements" maxOccurs="unbounded" minOccurs="0"/>	
+	</xs:complexType>
+	
+	<!-- file status elements -->
+	<xs:complexType name="filestatusType">
+		<xs:sequence>
+			<xs:element name="well-formed" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="valid" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- metadata types -->
+	<xs:complexType name="metadataType">
+		<xs:choice>
+			<xs:element name="image" type="imageMetadata"/>
+			<xs:element name="text" type="textMetadata"/>
+			<xs:element name="document" type="documentMetadata"/>
+			<xs:element name="audio" type="audioMetadata"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="textMetadata">
+		<xs:sequence>
+			<xs:element name="linebreak" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="charset" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="markupBasis" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="markupBasisVersion" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="markupLanguage" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="markupLanguageVersion" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="audioMetadata">
+		<xs:sequence>
+			<xs:element name="duration" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="bitDepth" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="sampleRate" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="channels" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="dataFormatType" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="offset" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="blocksize" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="timeStampStart" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="documentMetadata">
+		<xs:sequence>
+			<xs:element name="pageCount" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="wordCount" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="characterCount" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="paragraphCount" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="lineCount" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="tableCount" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="graphicsCount" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="title" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="author" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="language" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="fontName" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="isEmbedded" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="isTagged" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="hasLayers" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="hasTransparancy" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="hasOutline" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="hasThumbnails" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="hasAttachments" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="isRightsManaged" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="hasForms" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="isProtected" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="hasAnnotations" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="hasDigitalSignature" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="imageMetadata">
+		<xs:sequence>
+			<xs:element name="byteOrder" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="compressionScheme" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="imageWidth" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="imageHeight" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="colorSpace" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="referenceBlackWhite" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="iccProfileName" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="iccProfileVersion" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="YCbCrSubSampling" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="YCbCrCoefficients" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="YCbCrPositioning" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="tileWidth" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="tileHeight" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="qualityLayers" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="resolutionLevels" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="orientation" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="samplingFrequencyUnit" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="xSamplingFrequency" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ySamplingFrequency" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="bitsPerSample" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="samplesPerPixel" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="extraSamples" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="colorMap" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="grayResponseCurve" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="grayResponseUnit" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="whitePointXValue" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="whitePointYValue" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="primaryChromaticitiesRedX" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="primaryChromaticitiesRedY" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="primaryChromaticitiesGreenX" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="primaryChromaticitiesGreenY" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="primaryChromaticitiesBlueX" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="primaryChromaticitiesBlueY" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="imageProducer" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="captureDevice" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="scannerManufacturer" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="scannerModelName" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="scannerModelNumber" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="scannerModelSerialNo" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="scanningSoftwareName" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="scanningSoftwareVersionNo" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="digitalCameraModelName" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="digitalCameraSerialNo" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="fNumber" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="exposureTime" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="exposureProgram" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="spectralSensitivity" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="isoSpeedRating" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="oECF" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="exifVersion" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="shutterSpeedValue" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="apertureValue" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="brightnessValue" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="exposureBiasValue" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="maxApertureValue" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="subjectDistance" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="meteringMode" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="lightSource" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="flash" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="focalLength" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="flashEnergy" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="exposureIndex" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="sensingMethod" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="cfaPattern" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="cfaPattern2" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsVersionID" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsLatitudeRef" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsLatitude" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsLongitudeRef" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsLongitude" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsAltitudeRef" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsAltitude" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsTimeStamp" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsSatellites" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsStatus" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsMeasureMode" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsDOP" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsSpeedRef" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsSpeed" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsTrackRef" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsTrack" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsImgDirectionRef" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsImgDirection" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsMapDatum" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsDestLatitudeRef" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsDestLatitude" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsDestLongitudeRef" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsDestLongitude" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsDestBearingRef" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsDestBearing" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsDestDistanceRef" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsDestDistance" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsProcessingMethod" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsAreaInformation" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsDateStamp" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="gpsDifferential" type="fitsMetadataType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- tool output type -->
+	<xs:complexType name="toolOutputType">
+		<xs:sequence>
+			<xs:any processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

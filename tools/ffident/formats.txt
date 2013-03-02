@@ -1,0 +1,60 @@
+# File format information for the FormatIdentification Java class
+# See <http://www.geocities.com/marcoschmidt.geo/java-file-format-identification.html>.
+# Send updates to <http://www.geocities.com/marcoschmidt.geo/contact.html>.
+#
+# Description of line structure (elements separated by semicolons):
+# (1) Format group
+# (2) Short format name
+# (3) Long format name
+# (4) MIME types (comma-separated list)
+# (5) File extensions (comma-separated list)
+# (6) Offset of magic byte sequence in the file
+# (7) Magic byte sequence; either a hexadecimal String or 
+#     a literal String enclosed by "quotes", character set is ISO-8859-1.
+#     No " or ; character can be inside of a literal string, use a 
+#     hexadecimal string if you need either character.
+# (8) Minimum valid file size for this format
+
+archive;BZ2;Bzip2;application/x-bzip2;bz2,tbz2;0;425a683931;20;
+archive;GZ;GZIP Format;application/x-gzip;gz,tgz;0;1f8b;20;
+archive;RAR;Rar;application/x-rar-compressed;rar;0;526172211a;20;
+archive;ZIP;ZIP Format;application/zip;zip;0;"PK";20;
+audio;MIDI;Midi;audio/unknown;mid,midi;0;"MThd";20;
+audio;MP3;MPEG 1/2 Audio Layer 3;audio/mpeg;mp3,mp2;0;"ID3";20;
+doc;DOC;Microsoft Word;application/msword;doc;512;eca5;1000;
+doc;DOC;Microsoft Word;application/msword;doc;512;dca5;1000;
+doc;HTML;Hypertext Markup Language;text/html;htm,html;0;"<HEAD";20;
+doc;HTML;Hypertext Markup Language;text/html;htm,html;0;"<head";20;
+doc;HTML;Hypertext Markup Language;text/html;htm,html;0;"<TITLE";20;
+doc;HTML;Hypertext Markup Language;text/html;htm,html;0;"<title";20;
+doc;HTML;Hypertext Markup Language;text/html;htm,html;0;"<!doctype HTML";20;
+doc;HTML;Hypertext Markup Language;text/html;htm,html;0;"<!DOCTYPE HTML";20;
+doc;HTML;Hypertext Markup Language;text/html;htm,html;0;"<!--";20;
+doc;HTML;Hypertext Markup Language;text/html;htm,html;0;"<html";20;
+doc;HTML;Hypertext Markup Language;text/html;htm,html;0;"<HTML";20;
+doc;HTML;Hypertext Markup Language;text/html;htm,html;0;"<h1>";20;
+doc;HTML;Hypertext Markup Language;text/html;htm,html;0;"<H1>";20;
+doc;XML;Extensible Markup Language;text/xml;xml;0;"<?xml";10;
+doc;PDF;Portable Document Format;application/pdf;pdf;0;"%PDF-";20;
+doc;PS;PostScript;application/postscript;ps;0;"%!";20;
+doc;RTF;Rich Text Format;text/rtf;rtf;0;"{\rtf";20;
+doc;XLS;Microsoft Excel Format;application/vnd.ms-excel;xls,xlt;512;fdff;1000;
+exec;CLASS;Java Class File;application/octet-stream;class;0;cafebabe;0;
+exec;ELF;ELF Binary;application/octet-stream;;0;7f454c46010101000000000000000000;0;
+exec;EXE;DOS/Windows executable;application/x-dosexec;exe;0;"MZ";20;
+image;BMP;Windows Bitmap;image/bmp;bmp;0;"BM";40;
+image;GIF;Graphics Interchange Format;image/gif;gif;0;"GIF8";40;
+image;JPEG;jpeg;image/jpeg;jpg;0;ffd8ff;40;
+image;PBM;Portable Bitmap;image/x-portable-bitmap;pgm;0;"P1";40;
+image;PBM;Portable Bitmap;image/x-portable-bitmap;pgm;0;"P4";40;
+image;PGM;Portable Graymap;image/x-portable-greymap;pgm;0;"P2";40;
+image;PGM;Portable Graymap;image/x-portable-greymap;pgm;0;"P5";40;
+image;PNG;Portable Network Graphics;image/png;png;0;89504e470d0a1a;40;
+image;PPM;Portable Pixmap;image/x-portable-pixmap;ppm;0;"P3";40;
+image;PPM;Portable Pixmap;image/x-portable-pixmap;ppm;0;"P6";40;
+image;TIFF;Tagged Image File Format;image/tiff;tif;0;4d4d002a;40;
+image;TIFF;Tagged Image File Format;image/tiff;tif;0;49492a00;40;
+video;AVI;Audio Video Interleave);video/x-msvideo;avi;8;41564920;20;
+video;MOV;Quicktime video;video/quicktime;mov;4;"moov";20;
+video;MPEG;MPEG video;video/mpeg;mpg,mpeg;0;000001b3;20;
+video;MPEG;MPEG video;video/mpeg;mpg,mpeg;0;000001ba;20;

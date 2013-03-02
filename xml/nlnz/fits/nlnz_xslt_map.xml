@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<transformMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xslt_map.xsd">
+	<!-- image -->
+	<map format="JPG" transform="nlnz_jpeg_to_fits.xslt"/>
+	<map format="TIFF" transform="nlnz_tiff_to_fits.xslt"/>
+	<map format="GIF" transform="nlnz_gif_to_fits.xslt"/>
+	<map format="BMP" transform="nlnz_bmp_to_fits.xslt"/>
+	
+	<!-- audio -->
+	<map format="WAV" transform="nlnz_wav_to_fits.xslt"/>
+	<map format="MP3" transform="nlnz_mp3_to_fits.xslt"/>
+	
+	<!-- text -->
+	<map format="XML" transform="nlnz_xml_to_fits.xslt"/>
+	<map format="HTML" transform="nlnz_html_to_fits.xslt"/>
+	
+	<!-- document -->
+	<map format="PDF" transform="nlnz_pdf_to_fits.xslt"/>
+	<map format="WORD" transform="nlnz_doc_to_fits.xslt"/>
+	<!-- 
+	<map format="XLS" transform="nlnz_xls_to_fits.xslt"/>
+	<map format="PPT" transform="nlnz_ppt_to_fits.xslt"/>
+	 -->
+	<map format="WORDPERFECT" transform="nlnz_wpd_to_fits.xslt"/> 
+	<map format="MSWORKS" transform="nlnz_wks_to_fits.xslt"/> 
+	<map format="OPENOFFICE" transform="nlnz_ooo_to_fits.xslt"/>
+	
+	<map format="DEFAULT" transform="nlnz_default_to_fits.xslt"/>
+</transformMap>
+
+ 

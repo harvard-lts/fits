@@ -1,0 +1,21 @@
+This is a fork of the Harvard Library's FITS, created for the 
+CURATECamp / Open Planets Foundation Hackathon and other attempts
+at optimizing it. The official version of FITS is found at
+(https://code.google.com/p/fits/). This fork is taken from version
+0.61 on Google Code.
+
+NOTE: This repository (under the "gmcgath" account) will be going away 
+in early December. If you want to fork it or grab anything from it, 
+be sure to do it soon.
+
+Quoting from that site:
+
+"The File Information Tool Set (FITS) identifies, validates, and extracts 
+technical metadata for various file formats. It wraps several third-party 
+open source tools, normalizes and consolidates their output, and reports 
+any errors. FITS was created by the Harvard University Library Office 
+for Information Systems for use in its Digital Repository Service (DRS)."
+
+FITS is licensed under the GNU Lesser GPL.
+
+The FITS user guide is found at (http://code.google.com/p/fits/wiki/user_guide).

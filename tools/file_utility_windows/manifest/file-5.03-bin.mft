@@ -1,0 +1,25 @@
+bin/file.exe 0d76b6d325bb9336c6c6a5c220f02c37
+bin/magic1.dll 87307712a13f3282ceb7c5868312cd76
+share/misc/magic 62e9a86aaab6d5111f945cd320d4eae8
+share/misc/magic.mgc 1dfd3dfbb62862a93112c02b26e53493
+man/cat1/file.1.txt af9bd212c1f5159c75ddcbbf1944cd19
+man/cat1p/file.1p.txt d785be55df3e000a442a66d829d35c5c
+man/cat3/libmagic.3.txt 3d27f4a2ab83001f63c2b9bc3c652420
+man/cat5/magic.5.txt 690c6cc03a955034a71505ae74ebeb3a
+contrib/file/5.03/file-5.03/check.log 079dd58207b4337229c9ff05c67c22e2
+contrib/file/5.03/file-5.03-GnuWin32.README c55ec4bb727c2785cb27941cd6d599ce
+contrib/file/5.03/file-5.03-src/AUTHORS 4b28a4081004b1965edb47d0796317a2
+contrib/file/5.03/file-5.03-src/ChangeLog 336b1e4e617b62f90b1cd31d074d1cf0
+contrib/file/5.03/file-5.03-src/COPYING c9d069b760269fd5364b578a1256ec8d
+contrib/file/5.03/file-5.03-src/INSTALL c59cbaf0df9bcf35feca0d0f1fc01dae
+contrib/file/5.03/file-5.03-src/magic/Header 3d7224cdc754105cf58015e85b6b9d14
+contrib/file/5.03/file-5.03-src/magic/Magdir/fonts 84078dfc8c3005ea4c9bf325befb18a6
+contrib/file/5.03/file-5.03-src/magic/Magdir/news d40091b2d63a7de72ebecb3203326400
+contrib/file/5.03/file-5.03-src/MAINT b8e2d2a430c1ae4a03526305480d10d5
+contrib/file/5.03/file-5.03-src/NEWS 3ddab3d6494614ae3e464e159c5c50c3
+contrib/file/5.03/file-5.03-src/python/README 60da99d5b953725db75a05a0a5501a1e
+contrib/file/5.03/file-5.03-src/README 3b9580052a05a6312ff86c957b261c2e
+contrib/file/5.03/file-5.03-src/tests/README 659027f2af6653a1d668bba1a9eef7b7
+contrib/file/5.03/file-5.03-src/TODO ee96ce2fbd4a80854d92e72bb2968b28
+manifest/file-5.03-bin.mft
+manifest/file-5.03-bin.ver d800bd4a05b544df04b0bf54fdf1ae88

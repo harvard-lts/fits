@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by Nic Evans (Sytec Resources) -->
+<meta-config>
+	<harvester>
+		<title name="NLNZ Metadata Extractor v3.0" />
+		<xml-location url="xml/nlnz" />
+		<jar-location url="METADATA_BASE/installed-adapters" />
+		<input-files dir="METADATA_BASE" />
+		<log-dir dir="logs" />
+		<admin-password>
+			a19f9e8a6f3fdf6cb86662217e25bb9cafed2acb0ea0fb26
+		</admin-password>
+		<copyright>
+			National Library of New Zealand Metadata Extraction Tool
+			By Sytec Resources Limited (2003)
+		</copyright>
+	</harvester>
+	
+	<!--
+		adapters take care of processing from a native format (binary) into a dtd (known by the adapter)
+		adapters must extend the DataAdapter class and have a default constructor.  The order of the
+		adapters will be the search order when searching for an adapter to process a native format (binary)
+		file.
+		You can pass parameters to the adapters by including as many <parameter name="" value=""/> the adapter
+		class will have the bean acessor "get" method "name" called with the parameter, "value"
+	-->
+	<adapters>
+        <adapter class="nz.govt.natlib.adapter.any.DefaultAdapter" jar="lt;SYSTEMgt;"  output-dtd="default.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.bmp.BitmapAdapter" jar="bmp_adapter_1_0.jar"  output-dtd="bmp.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.excel.ExcelAdapter" jar="excel_adapter_1_0.jar"  output-dtd="excel.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.gif.GIFAdapter" jar="gif_adapter_1_0.jar"  output-dtd="gif.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.html.HTMLAdapter" jar="html_adapater_1_0.jar"  output-dtd="html.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.jpg.JpgAdapter" jar="jpg_adapter_1_1.jar"  output-dtd="jpg.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.mp3.MP3Adapter" jar="mp3_adapter_1_0.jar"  output-dtd="mp3.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.openoffice.OpenOfficeAdapter" jar="openoffice_adapter_1_0.jar"  output-dtd="openoffice.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.pdfbox.PDFBoxAdapter" jar="pdfbox_adapter_1_0.jar"  output-dtd="pdf.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.powerpoint.PowerPointAdapter" jar="powerpoint_adapter_1_0.jar"  output-dtd="powerpoint.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.tiff.TIFFAdapter" jar="tiff_adapter_1_0.jar"  output-dtd="tiff_6_0.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.wav.WaveAdapter" jar="wave_adapter_1_0.jar"  output-dtd="wav.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.word.WordAdapter" jar="msword_adapter_2_0.jar"  output-dtd="word.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.wordperfect.WPAdapter" jar="wordperfect_adapter_1_0.jar"  output-dtd="wordperfect.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.works.DocAdapter" jar="msworks_adapter_1_0.jar"  output-dtd="msworks.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.xml.XMLAdapter" jar="xml_adapter_1_0.jar"  output-dtd="xml.dtd"/>	
+	</adapters>
+	<!-- XSLT maps allow the harvester to map from one DTD to another.  For instance the harvester may be trying to output
+		a dtd as given by the configuration selected - the data from an adapter may not be the right format, if there is a mapping
+		xslt function listed here the harvester will select it and use it.
+	-->
+	<xslt-map>
+        <map>
+            <input-dtd doc-name="default.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="default_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="bmp.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="bmp_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="excel.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="excel_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="gif.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="gif_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="html.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="html_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="jpg.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="jpg_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="mp3.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="mp3_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="openoffice.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="openoffice_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="pdf.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="pdf_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="powerpoint.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="powerpoint_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="tiff_6_0.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="tiff_6_0_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="wav.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="wav_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="word.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="word_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="wordperfect.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="wordperfect_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="msworks.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="msworks_to_nlnz_presmet.xslt" />
+        </map>
+        <map>
+            <input-dtd doc-name="xml.dtd" />
+            <output-dtd doc-name="nlnz_presmet.xsd" />
+            <xslt doc-name="xml_to_nlnz_presmet.xslt" />
+        </map>        
+
+
+	</xslt-map>
+	<!--
+		Configurations are the ways the harvester can work to output certain formats.  output-dtd is optional, if not included
+		the output will not be xslt post-processed.
+	-->
+	<configurations>
+		<configuration name="NLNZ Data Dictionary">
+			<output-directory dir="METADATA_BASE/harvested/nlnz_dd" />
+			<harvester
+				class="nz.govt.natlib.meta.harvester.NLNZHarvester" />
+		</configuration>
+		<configuration name="Extract in Native form">
+			<output-directory dir="METADATA_BASE/harvested/native" />
+			<harvester
+				class="nz.govt.natlib.meta.harvester.POCHarvester" />
+		</configuration>
+	</configurations>
+	<profiles default="Default">
+		<profile name="Default">
+			<input-files dir="METADATA_BASE" />
+			<log-dir dir="logs" />
+            <adapter class="nz.govt.natlib.adapter.any.DefaultAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.bmp.BitmapAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.excel.ExcelAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.gif.GIFAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.html.HTMLAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.jpg.JpgAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.mp3.MP3Adapter"/>
+            <adapter class="nz.govt.natlib.adapter.openoffice.OpenOfficeAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.pdfbox.PDFBoxAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.powerpoint.PowerPointAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.tiff.TIFFAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.wav.WaveAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.word.WordAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.wordperfect.WPAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.works.DocAdapter"/>
+            <adapter class="nz.govt.natlib.adapter.xml.XMLAdapter"/>
+		</profile>
+	</profiles>
+
+	<users default="admin">
+		<user name="admin" />
+	</users>
+</meta-config>

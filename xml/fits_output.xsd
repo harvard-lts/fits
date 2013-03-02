@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" targetNamespace="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="fits">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="identification" type="identificationType" minOccurs="0"/>
+				<xs:element name="fileinfo" type="fileInfoType" minOccurs="0"/>
+				<xs:element name="filestatus" type="fileStatusType" minOccurs="0"/>
+				<xs:element name="metadata" type="metadataType" minOccurs="0"/>
+				<xs:element name="toolOutput" type="toolOutputType" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string" use="optional"/>
+			<xs:attribute name="timestamp" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Attribute Groups -->
+	<xs:simpleType name="statusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SINGLE_RESULT"/>
+			<xs:enumeration value="CONFLICT"/>
+			<xs:enumeration value="PARTIAL"/>
+			<xs:enumeration value="UNKNOWN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:attributeGroup name="nameVersionStatusAttrGrp">
+		<xs:attributeGroup ref="nameVersionAttrGrp"/>
+		<xs:attribute name="status" type="statusType" use="optional"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="nameVersionAttrGrp">
+		<xs:attribute name="toolname" type="xs:string" use="optional"/>
+		<xs:attribute name="toolversion" type="xs:string" use="optional"/>
+	</xs:attributeGroup>
+	<!-- FITS Metadata type -->
+	<xs:complexType name="fitsMetadataType">
+		<xs:complexContent>
+			<xs:extension base="xs:anyType">
+				<xs:attributeGroup ref="nameVersionStatusAttrGrp"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- Identification elements-->
+	<xs:complexType name="identificationType">
+		<xs:sequence>
+			<xs:element name="identity" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="tool" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="version" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="externalIdentifier" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+					<xs:attribute name="format" type="xs:string"/>
+					<xs:attribute name="mimetype" type="xs:string"/>
+					<xs:attribute name="toolname" type="xs:string" use="optional"/>
+					<xs:attribute name="toolversion" type="xs:string" use="optional"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="status" type="statusType" use="optional"/>
+	</xs:complexType>
+	<xs:element name="tool">
+		<xs:complexType>
+			<xs:attributeGroup ref="nameVersionAttrGrp"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="version">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="nameVersionStatusAttrGrp"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="externalIdentifier">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attributeGroup ref="nameVersionAttrGrp"/>
+					<xs:attribute name="type" type="xs:string" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<!--file info elements-->
+	<xs:complexType name="fileInfoType">
+		<xs:group ref="fileInfoElements" minOccurs="0" maxOccurs="unbounded"/>
+	</xs:complexType>
+	<xs:group name="fileInfoElements">
+		<xs:choice>
+			<xs:element name="filepath" type="fitsMetadataType"/>
+			<xs:element name="filename" type="fitsMetadataType"/>
+			<xs:element name="size" type="fitsMetadataType"/>
+			<xs:element name="md5checksum" type="fitsMetadataType"/>
+			<xs:element name="lastmodified" type="fitsMetadataType"/>
+			<xs:element name="fslastmodified" type="fitsMetadataType"/>
+			<xs:element name="created" type="fitsMetadataType"/>
+			<xs:element name="creatingApplicationName" type="fitsMetadataType"/>
+			<xs:element name="creatingApplicationVersion" type="fitsMetadataType"/>
+			<xs:element name="inhibitorType" type="fitsMetadataType"/>
+			<xs:element name="inhibitorTarget" type="fitsMetadataType"/>
+			<xs:element name="rightsBasis" type="fitsMetadataType"/>
+			<xs:element name="copyrightBasis" type="fitsMetadataType"/>
+			<xs:element name="copyrightNote" type="fitsMetadataType"/>
+			<xs:element name="creatingos" type="fitsMetadataType"/>
+		</xs:choice>
+	</xs:group>
+	<!-- file status elements -->
+	<xs:complexType name="fileStatusType">
+		<xs:group ref="fileStatusElements" minOccurs="0" maxOccurs="unbounded"/>
+	</xs:complexType>
+	<xs:group name="fileStatusElements">
+		<xs:choice>
+			<xs:element name="well-formed" type="fitsMetadataType"/>
+			<xs:element name="valid" type="fitsMetadataType"/>
+			<xs:element name="message" type="fitsMetadataType"/>
+		</xs:choice>
+	</xs:group>
+	<!-- metadata types -->
+	<xs:complexType name="metadataType">
+		<xs:choice>
+			<xs:element name="image" type="technicalMetadata" minOccurs="0"/>
+			<xs:element name="text" type="technicalMetadata" minOccurs="0"/>
+			<xs:element name="document" type="technicalMetadata" minOccurs="0"/>
+			<xs:element name="audio" type="technicalMetadata" minOccurs="0"/>
+			<xs:element name="video" type="technicalMetadata" minOccurs="0"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="technicalMetadata">
+		<xs:sequence>
+			<xs:any processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- tool output type -->
+	<xs:complexType name="toolOutputType">
+		<xs:sequence>
+			<xs:any processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

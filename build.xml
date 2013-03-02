@@ -1,0 +1,285 @@
+
+<!-- ====================================================================== -->
+<!-- Slightly modified version of OIS Standard Build file.                  -->
+<!-- Removed .java files from JAR                                           -->
+<!-- ====================================================================== -->
+
+<project name="FITS Build File" default="compile" basedir=".">
+
+<!-- ===================== Property Definitions =========================== -->
+
+  <property file="project.properties"/>
+	
+<!-- ==================== File and Directory Names ======================== -->
+
+  <property name="app.name"              value="fits"/>
+  <property name="app.longName"          value="File Information Toolset"/>	
+  <property name="app.package"           value="edu.harvard.hul.ois.fits"/>
+  <property name="jar.name"	         	 value="${app.name}.jar"/>
+  <property name="jar.home"	         	 value="lib"/>
+  <property name="compile.dirs"	         value="src"/>
+  <property name="javadoc.home"          value="javadoc"/>
+  <property name="manifest.name"         value="MANIFEST.MF"/>
+  <property name="output.location" 		 value="release_temp"/>
+
+<!-- ===================== Compilation Control Options ==================== -->
+
+<!--
+
+  These properties control option settings on the Javac compiler when it
+  is invoked using the <javac> task.
+
+  compile.debug        Should compilation include the debug option?
+  compile.deprecation  Should compilation include the deprecation option?
+  compile.optimize     Should compilation include the optimize option?
+
+-->
+
+  <property name="compile.debug"       value="true"/>
+  <property name="compile.deprecation" value="true"/>
+  <property name="compile.optimize"    value="true"/>
+
+<!-- ==================== Compilation Classpath =========================== -->
+
+<!--
+
+  Rather than relying on the CLASSPATH environment variable, Ant includes
+  features that makes it easy to dynamically construct the classpath you
+  need for each compilation.  The example below constructs the compile
+  classpath to include the servlet.jar file, as well as the other components
+  that Tomcat makes available to web applications automatically, plus anything
+  that you explicitly added.
+
+-->
+
+  <path id="compile.classpath">
+    <!-- Include all JAR files that will be included in lib -->
+    <fileset dir=".">
+      <include name="lib/*.jar"/>
+	  <include name="lib/droid/*.jar"/>
+      <include name="lib/jhove/*.jar"/>
+      <include name="lib/nzmetool/*.jar"/>
+    </fileset>
+  </path>
+
+<!-- ==================== Compile Target ================================== -->
+
+<!--
+
+  The "compile" target transforms source files (from your "src" directory)
+  into object files in the appropriate location in the build directory.
+
+-->
+
+  <target name="compile" description="Compile Java sources">
+
+    <javac srcdir="${compile.dirs}"
+           debug="${compile.debug}"
+           deprecation="${compile.deprecation}"
+	   optimize="${compile.optimize}">
+        <classpath refid="compile.classpath">
+        </classpath>
+    </javac>
+  	
+    <antcall target="create-tmp-jar" />
+    <antcall target="compile-copy-lib" />
+    <antcall target="delete-tmp-jar" />
+
+  </target>
+
+
+  <target name="compile-copy-lib" if="lib.present" depends="check-lib">
+    <copy file="${app.name}.jar" todir="lib" />
+  </target>
+
+
+<!-- ==================== Clean Target ==================================== -->
+
+<!--
+
+  The "clean" target deletes any previous "build" and "dist" directory,
+  so that you can be ensured the application can be built from scratch.
+
+-->
+
+  <target name="clean"
+   description="Delete old build and dist directories">
+    <delete quiet="true">
+       <fileset  dir="src" includes="**/*.class"/>
+    </delete>
+  </target>
+
+
+<!-- ===================== Create Tmp Jar Target ========================== -->
+
+  <target name="create-tmp-jar"
+          description="Create the jar for this project">
+    <antcall target="create-manifest" />
+    <antcall target="create-tmp-jar-src" />
+    <antcall target="delete-manifest" />
+  </target>
+
+  <target name="create-tmp-jar-src" if="src.present" depends="check-src">
+    <jar jarfile="${app.name}.jar"
+         update="true"
+	 manifest="${manifest.name}">
+         <fileset dir="src">
+	   <include name="**/*.class"/>      
+	   <include name="**/*.properties"/>
+	   <include name="**/*.xml"/>
+	 </fileset>
+    </jar>
+  </target>
+
+  <target name="create-manifest"
+          description="Create the manifest for the jar file">
+    
+    <condition property="jar.version" 
+               value="${build.version.major}.${build.version.minor}.${build.version.micro}">
+      <and>
+        <isset property="build.version.major" />
+        <isset property="build.version.minor" />
+        <isset property="build.version.micro" />
+      </and>
+    </condition>
+
+    <tstamp>
+      <format property="timestamp.isoformat"
+              pattern="yyyy-MM-dd'T'HH:mm:ss"/>
+    </tstamp>
+
+    <condition property="build.timestamp" value="development" else="${timestamp.isoformat}">
+      <not>
+        <isset property="jar.version" />
+      </not>
+    </condition>
+
+    <condition property="build.date" value="development" else="${TODAY}">
+      <not>
+        <isset property="jar.version" />
+      </not>
+    </condition>
+
+    <condition property="jar.version" value="development">
+      <not>
+        <isset property="jar.version" />
+      </not>
+    </condition>
+
+    <manifest file="${manifest.name}">
+      <attribute name="Application-Name" value="${app.longName}"/>
+      <attribute name="Specification-Title" value="${app.name} Java Classes"/>
+      <attribute name="Specification-Version" value="${jar.version}"/>
+      <attribute name="Implementation-Title" value="${app.package}"/>
+      <attribute name="Implementation-Version" value="${jar.version}"/>
+      <attribute name="Implementation-Vendor" value="OIS Harvard University Library"/>
+      <attribute name="Build-Date" value="${build.date}"/>
+      <attribute name="Build-Timestamp" value="${build.timestamp}"/>
+    </manifest>
+  </target>
+
+  <target name="delete-manifest"
+          description="Deletes the tmp manifest file">
+    <delete quiet="true" file="${manifest.name}" />
+  </target>
+
+  <target name="delete-tmp-jar"
+          description="Delete the tmp jar for this project">
+    <delete file="${app.name}.jar" quiet="true" />
+  </target>
+
+    
+<!-- ==================== Javadoc Target ================================== -->
+
+<!--
+
+  The "javadoc" target creates Javadoc API documentation for the Java
+  classes included in your application.  Normally, this is only required
+  when preparing a distribution release, but is available as a separate
+  target in case the developer wants to create Javadocs independently.
+
+-->
+
+  <target name="javadoc" description="Create Javadoc API documentation">
+
+    <mkdir dir="${javadoc.home}"/>
+    <javadoc destdir="${javadoc.home}"
+           packagenames="*">
+      <fileset dir=".">
+	<include name="src/**/*.java"/>
+      </fileset>
+      <classpath refid="compile.classpath"/>
+    </javadoc>
+
+  </target>
+
+
+<!-- ==================== Check and Set Targets =========================== -->
+
+  <target name="check-conf">
+    <available file="conf" type="dir" property="conf.present" />
+  </target>
+
+  <target name="check-lib">
+    <available file="lib" type="dir" property="lib.present" />
+  </target>
+
+  <target name="check-src">
+    <available file="src" type="dir" property="src.present" />
+  </target>
+
+<!-- ========================= Release Targets ============================ -->
+	<target name="release">
+		<property name="output.location.version" 
+			value="${output.location}/${app.name}-${build.version.major}.${build.version.minor}.${build.version.micro}"/>
+		<mkdir dir="${output.location}" />
+		<copy todir="${output.location.version}/xml">
+			<fileset dir="xml">
+		  		<exclude name="**/CVS"/>
+				<exclude name="**/.cvsignore"/>
+			</fileset>
+		</copy>
+		<copy todir="${output.location.version}/tools">
+			<fileset dir="tools">
+		  		<exclude name="**/CVS"/>
+				<exclude name="**/.cvsignore"/>
+			</fileset>
+		</copy>
+		<copy todir="${output.location.version}/lib">
+			<fileset dir="lib">
+		  		<exclude name="**/CVS"/>
+				<exclude name="**/.cvsignore"/>
+			</fileset>
+		</copy>
+		<copy todir="${output.location.version}/src">
+			<fileset dir="src">
+		  		<exclude name="**/CVS"/>
+				<exclude name="**/.cvsignore"/>
+				<exclude name="**/*.class"/>
+			</fileset>
+		</copy>
+		<copy file="cpappend.bat" todir="${output.location.version}"/>
+		<copy file="fits.bat" todir="${output.location.version}"/>
+		<copy file="fits.sh" todir="${output.location.version}"/>
+		<copy file="RELEASE.txt" todir="${output.location.version}"/>
+		<copy file="COPYING" todir="${output.location.version}"/>
+		<copy file="COPYING.LESSER" todir="${output.location.version}"/>
+		<copy file="COPYING_APACHE_LICENSE_v2.txt" todir="${output.location.version}"/>
+		<copy file="build.xml" todir="${output.location.version}"/>
+		<copy file="project.properties" todir="${output.location.version}"/>
+		<antcall target="zip-output" />
+		<antcall target="delete-output" /> 
+    </target>
+	
+	
+	<target name="zip-output">
+		<input message="Enter output location for zip file:" addproperty="zip.output"/>
+		<zip basedir="${output.location}" destfile="${zip.output}/${app.name}-${build.version.major}.${build.version.minor}.${build.version.micro}.zip"/>
+	</target>
+	
+	<target name="delete-output">
+		<delete dir="${output.location}" quiet="true"/>
+	</target>
+
+
+</project>
