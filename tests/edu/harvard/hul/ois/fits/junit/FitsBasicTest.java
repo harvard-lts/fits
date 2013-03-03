@@ -34,7 +34,7 @@ public class FitsBasicTest extends XMLTestCase {
 	@Test
 	public void testFits() throws Exception {	
     	Fits fits = new Fits("");
-    	File input = new File("testfiles/006607203_00018.jp2");
+    	File input = new File("testfiles/test.jp2");
     	
     	for(Tool t : fits.getToolbelt().getTools()) {
     		if(t.getToolInfo().getName().equals("Jhove")) {

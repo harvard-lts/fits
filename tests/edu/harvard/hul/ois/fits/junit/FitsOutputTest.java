@@ -50,6 +50,10 @@ public class FitsOutputTest extends TestCase {
 		
 		
 		File problemsDir = new File("testfiles/problems");
+		if(!problemsDir.exists()) {
+			System.out.println("No files in the problem directory!");
+			return;
+		}
 		for(File f : problemsDir.listFiles()) {
 			if(f.getName().equals("CVS")) {
 				continue;

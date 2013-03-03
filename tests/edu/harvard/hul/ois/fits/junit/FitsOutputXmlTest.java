@@ -18,10 +18,6 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-
-/**
- * BROKEN
- */
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.StringWriter;
@@ -45,7 +41,11 @@ import edu.harvard.hul.ois.fits.tests.IgnoreAttributeValuesDifferenceListener;
 
 import org.custommonkey.xmlunit.*;
 
+/*
+ * BROKEN TEST
+ */
 
+@RunWith(value=Parameterized.class)
 public class FitsOutputXmlTest extends XMLTestCase {
 	
     private FitsOutput expected;
@@ -57,7 +57,7 @@ public class FitsOutputXmlTest extends XMLTestCase {
         this.actual = value;
     }
     
-    
+    @Parameters
     public static Collection data() throws Exception {	
     	Fits fits = new Fits("");
     	SAXBuilder builder = new SAXBuilder();
@@ -87,8 +87,8 @@ public class FitsOutputXmlTest extends XMLTestCase {
         return inputs;
     }
     
-	
-	public void equality() throws Exception {	
+	@Test
+	public void testEquality() throws Exception {	
 		//convert FitsOutput xml doms to strings for the diff	
 		StringWriter sw = new StringWriter();
 		Document expectedDom = expected.getFitsXml();
@@ -106,11 +106,6 @@ public class FitsOutputXmlTest extends XMLTestCase {
 	    diff.overrideDifferenceListener(myDifferenceListener);
 
 	    assertXMLEqual("Error comparing: "+item.getValue(),diff,true);
-	}
-	
-	@Test
-	public void testIt() {
-		assertTrue(true);
 	}
 	
 }

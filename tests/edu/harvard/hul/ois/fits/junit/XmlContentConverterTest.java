@@ -28,9 +28,12 @@
 
 package edu.harvard.hul.ois.fits.junit;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
-import edu.harvard.hul.ois.fits.Fits;
+import junit.framework.TestCase;
+
 import edu.harvard.hul.ois.fits.XmlContentConverter;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD.Feature;
@@ -57,17 +60,13 @@ import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 //import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.Namespace;
 import org.junit.Test;
 //import org.jdom.JDOMException;
 
-import org.custommonkey.xmlunit.*;
-/**
- * BROKEN
- */
-public class XmlContentConverterTest extends XMLTestCase {
 
-    public void toMix () {
+public class XmlContentConverterTest {
+
+    public void testToMix () {
         // Construct a document using JDOM
         Document jdoc = new Document ();
         Element imgElem = new Element ("image");
@@ -94,11 +93,7 @@ public class XmlContentConverterTest extends XMLTestCase {
         imgElem.addContent (elem);
         
         XmlContentConverter conv = new XmlContentConverter ();
-        Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
-    	Element fileinfo = jdoc.getRootElement().getChild("fileinfo",ns);
-        // Process image metadata...
-    	
-        Mix mix = (Mix) conv.toMix (imgElem,fileinfo);
+        Mix mix = (Mix) conv.toMix (imgElem,null);
         BasicDigitalObjectInformation bdoi = mix.getBasicDigitalObjectInformation();
         String byteOrder = bdoi.getByteOrder().toString ();
         assertEquals ("big endian", byteOrder);
@@ -140,7 +135,7 @@ public class XmlContentConverterTest extends XMLTestCase {
         assertTrue (lumaBlue == 30.0);    
     }
 
-    public void toDocumentMD () {
+    public void testToDocumentMD () {
         // Construct a document using JDOM
         Document jdoc = new Document ();
         Element docElem = new Element ("document");
@@ -182,9 +177,9 @@ public class XmlContentConverterTest extends XMLTestCase {
         assertTrue (feature == Feature.hasForms);
 
         assertTrue (dmd.getPageCount() == 6);
-}
+	}
         
-    public void toTextMD () {
+    public void testToTextMD () {
         final String mln = "http://www.loc.gov/standards/mets/mets.xsd";
         // Construct a document using JDOM
         Document jdoc = new Document ();
@@ -230,11 +225,6 @@ public class XmlContentConverterTest extends XMLTestCase {
         assertTrue (mklangs.size() == 1);
         MarkupLanguage mklang = mklangs.get(0);
         assertEquals (mln, mklang.getValue());
-    }
-    
-    @Test
-    public void fakeTest() {
-    	assertTrue(true);
     }
 
 }

@@ -29,14 +29,12 @@ import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.ots.schemas.AES.AudioObject;
-import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
 import org.custommonkey.xmlunit.*;
 
-/**
- * BROKEN
+/*
+ * BROKEN TEST
  */
 public class audioStdSchemaTest extends XMLTestCase {
 
@@ -51,7 +49,7 @@ public class audioStdSchemaTest extends XMLTestCase {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		XmlContent xml = (AudioObject)fitsOut.getStandardXmlContent();
+		XmlContent xml = fitsOut.getStandardXmlContent();
 		
 		if(xml != null) {
 			xml.setRoot(true);
@@ -61,11 +59,6 @@ public class audioStdSchemaTest extends XMLTestCase {
 			xml.output(writer);
 		}
     	
-	}
-	
-	@Test
-	public void testIt() {
-		
 	}
 
 }
