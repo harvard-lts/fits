@@ -1,1 +1,3 @@
 /build_local
+*.class
+/fitsBasicTestOutput.xml

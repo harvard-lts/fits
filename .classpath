@@ -65,5 +65,6 @@
 	<classpathentry kind="lib" path="lib/woodstox-core-lgpl-4.0.7.jar"/>
 	<classpathentry kind="lib" path="lib/droid/AllLibraries.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="output" path="build_local"/>
 </classpath>
