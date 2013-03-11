@@ -14,6 +14,7 @@
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.FileInfo"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.XmlMetadata" include-exts="xml"/>	
 		<tool class="edu.harvard.hul.ois.fits.tools.ffident.FFIdent" exclude-exts="dng,wps,vsd"/>		
+		<tool class="edu.harvard.hul.ois.fits.tools.tika.Tika"/>
 	</tools>
 		
 	<output>
