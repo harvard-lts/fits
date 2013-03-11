@@ -24,15 +24,13 @@ import org.xml.sax.SAXException;
 public class Tika extends ToolBase {
 
     private final static String TOOL_NAME = "Tika";
+    private boolean enabled = true;
 
     public Tika() throws FitsToolException {
-        // TODO Auto-generated constructor stub
-        info = new ToolInfo();
-        info.setName(TOOL_NAME);
+        info = new ToolInfo(TOOL_NAME,"1.3","");
     }
 
     public ToolOutput extractInfo(File file) throws FitsToolException {
-        // TODO Auto-generated method stub
         Parser parser = new AutoDetectParser();
         ContentHandler handler = null;
         Metadata metadata = new Metadata();
@@ -76,14 +74,12 @@ public class Tika extends ToolBase {
         return null;
     }
 
-    public boolean isEnabled() {
-        // TODO Auto-generated method stub
-        return false;
-    }
+	public boolean isEnabled() {
+		return enabled;
+	}
 
-    public void setEnabled(boolean value) {
-        // TODO Auto-generated method stub
-
-    }
+	public void setEnabled(boolean value) {
+		enabled = value;		
+	}
 
 }
