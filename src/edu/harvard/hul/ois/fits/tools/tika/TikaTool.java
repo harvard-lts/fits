@@ -20,6 +20,7 @@ import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
+import org.apache.tika.mime.MediaTypeRegistry;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -30,14 +31,16 @@ public class TikaTool extends ToolBase {
 
     private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
     private final static String TOOL_NAME = "Tika";
+    private final static String TOOL_VERSION = "1.3";  // Hard-coded version till we can do better
+    
+    private final static MediaTypeRegistry typeRegistry = MediaTypeRegistry.getDefaultRegistry();
     private boolean enabled = true;
 
     public TikaTool() throws FitsToolException {
-        info = new ToolInfo(TOOL_NAME,"1.3","");
+        info = new ToolInfo(TOOL_NAME, TOOL_VERSION,"");
     }
 
     public ToolOutput extractInfo(File file) throws FitsToolException {
-//        TikaWrapper wrapper = TikaWrapper.getTika();
         Tika tika = new Tika ();
         Metadata metadata = new Metadata(); // = new Metadata();
         FileInputStream instrm = null;
@@ -45,18 +48,16 @@ public class TikaTool extends ToolBase {
             instrm = new FileInputStream (file);
         }
         catch (FileNotFoundException e) {
-            throw new FitsToolException ("Can't open file", e);
+            throw new FitsToolException ("Can't open file with Tika", e);
         }
         try {
             tika.parse (instrm, metadata);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return null;
+            throw new FitsToolException ("IOException in Tika", e);
         }
-        // TODO convert the information in metadata to FITS output.
+        // convert the information in metadata to FITS output.
         String [] propertyNames = metadata.names();
-        // TODO look through these values to better understand what Tika returns.
+        // TODO DEBUG: look through these values to better understand what Tika returns.
         for (String name : propertyNames) {
             String value = metadata.get (name);
             System.out.println (name + ": " + value);
@@ -81,18 +82,35 @@ public class TikaTool extends ToolBase {
 
 	/* Create the tool data from the Metadata object */
 	private Document buildToolData (Metadata metadata) {
+        String mimeType = metadata.get ("Content-Type");
+        String wordCountStr = metadata.get ("Word-Count");
+        String appName = metadata.get ("Application-Name");
+        String lastModified = metadata.get ("Last-Modified");
+        String contentLength = metadata.get ("Content-Length");
+        String resourceLength = metadata.get ("resourceName");
+        
         Element fitsElem = new Element ("fits", fitsNS);
         Element idElem = new Element ("identification", fitsNS);
         fitsElem.addContent(idElem);
         Element identityElem = new Element ("identity", fitsNS);
-        Attribute attr = new Attribute ("format", "");
+        
+        // Format and mime type info. 
+        // TODO create real format name
+        Attribute attr = new Attribute ("format", mimeType);
         identityElem.setAttribute (attr);
-        attr = new Attribute ("mimetype", "image/jpeg");
+        attr = new Attribute ("mimetype", mimeType);
         identityElem.setAttribute (attr);
         idElem.addContent (identityElem);
         Document toolDoc = new Document (fitsElem);
 
-        // TODO put some actual content in
+        // Put together the fileinfo element
+        Element fileInfoElem = new Element ("fileinfo", fitsNS);
+        fitsElem.addContent (fileInfoElem);
+        if (lastModified != null) {
+            Element lastModElem = new Element ("lastmodified", fitsNS);
+            lastModElem.addContent (lastModified);
+            fileInfoElem.addContent (lastModElem);
+        }
         return toolDoc;
 	}
 	
@@ -102,13 +120,12 @@ public class TikaTool extends ToolBase {
 	    StringReader srdr = new StringReader (xml);
 	    try {
 	        Document rawDoc = saxBuilder.build (srdr);
-//	    Element tikaElem = new Element ("tika");
-//	    Document rawDoc = new Document (tikaElem);
-	        return rawDoc;     // TODO stub
+	        return rawDoc; 
 	    }
 	    catch (Exception e) {
 	        throw new FitsToolException ("Exception reading metadata", e);
 	    }
 	}
+	
 
 }
