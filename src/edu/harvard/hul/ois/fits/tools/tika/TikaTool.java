@@ -21,6 +21,9 @@ import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaTypeRegistry;
+import org.apache.tika.mime.MimeType;
+import org.apache.tika.mime.MimeTypeException;
+import org.apache.tika.mime.MimeTypes;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -34,6 +37,9 @@ public class TikaTool extends ToolBase {
     private final static String TOOL_VERSION = "1.3";  // Hard-coded version till we can do better
     
     private final static MediaTypeRegistry typeRegistry = MediaTypeRegistry.getDefaultRegistry();
+    private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
+
+    
     private boolean enabled = true;
 
     public TikaTool() throws FitsToolException {
@@ -81,41 +87,30 @@ public class TikaTool extends ToolBase {
 	}
 
 	/* Create the tool data from the Metadata object */
-	private Document buildToolData (Metadata metadata) {
+	private Document buildToolData (Metadata metadata) throws FitsToolException {
         String mimeType = metadata.get ("Content-Type");
-        String wordCountStr = metadata.get ("Word-Count");
-        String appName = metadata.get ("Application-Name");
-        String lastModified = metadata.get ("Last-Modified");
-        String contentLength = metadata.get ("Content-Length");
-        String resourceLength = metadata.get ("resourceName");
-        
+        String wordCountStr = metadata.get ("Word-Count"); 
+
         Element fitsElem = new Element ("fits", fitsNS);
+        Document toolDoc = new Document (fitsElem);
         Element idElem = new Element ("identification", fitsNS);
         fitsElem.addContent(idElem);
         Element identityElem = new Element ("identity", fitsNS);
-        
         // Format and mime type info. 
         // TODO create real format name
-        Attribute attr = new Attribute ("format", mimeType);
+        
+        Attribute attr = new Attribute ("format", mimeToFileType(mimeType));
         identityElem.setAttribute (attr);
         attr = new Attribute ("mimetype", mimeType);
         identityElem.setAttribute (attr);
         idElem.addContent (identityElem);
-        Document toolDoc = new Document (fitsElem);
-
-        // Put together the fileinfo element
-        Element fileInfoElem = new Element ("fileinfo", fitsNS);
+        Element fileInfoElem = buildFileInfoElement (metadata);
         fitsElem.addContent (fileInfoElem);
-        if (lastModified != null) {
-            Element lastModElem = new Element ("lastmodified", fitsNS);
-            lastModElem.addContent (lastModified);
-            fileInfoElem.addContent (lastModElem);
-        }
         return toolDoc;
 	}
 	
 	/* Create a dummy raw data object */
-	public Document buildRawData (Metadata metadata) throws FitsToolException {
+	private Document buildRawData (Metadata metadata) throws FitsToolException {
 	    String xml = MetadataFormatter.toXML(metadata);
 	    StringReader srdr = new StringReader (xml);
 	    try {
@@ -128,4 +123,45 @@ public class TikaTool extends ToolBase {
 	}
 	
 
+	private Element buildFileInfoElement (Metadata metadata) {
+        String lastModified = metadata.get ("Last-Modified");
+        String contentLength = metadata.get ("Content-Length");
+        String resourceName = metadata.get ("resourceName");
+        String appName = metadata.get ("Application-Name");
+        
+
+        // Put together the fileinfo element
+        Element fileInfoElem = new Element ("fileinfo", fitsNS);
+        if (lastModified != null) {
+            Element lastModElem = new Element ("lastmodified", fitsNS);
+            lastModElem.addContent (lastModified);
+            fileInfoElem.addContent (lastModElem);
+        }
+        
+        if (appName != null) {
+            Element appNameElem = new Element ("creatingApplicationName", fitsNS);
+            appNameElem.addContent (appName);
+            fileInfoElem.addContent (appNameElem);
+        }
+        
+        if (contentLength != null) {
+            Element sizeElem = new Element ("size", fitsNS);
+            sizeElem.addContent (sizeElem);
+            fileInfoElem.addContent (sizeElem);
+        }
+        return fileInfoElem;
+	    
+	}
+	
+	private String mimeToFileType (String mime) throws FitsToolException {
+	    String format = "";
+	    try {
+	        MimeType mimeType = mimeTypes.forName(mime);
+	        format = mimeType.getDescription();
+	        return format;
+	    } catch (MimeTypeException e) {
+	        throw new FitsToolException("Tika error looking up mime type");
+
+	    }
+	}
 }
