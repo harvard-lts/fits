@@ -50,12 +50,14 @@ public abstract class ToolBase implements Tool {
 
     
     private List<String> excludedExtensions;
+    private List<String> includedExtensions;
 	
 	public ToolBase() throws FitsToolException {
 		info = new ToolInfo();
 		tFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl",null);
 		saxBuilder = new SAXBuilder();
 		excludedExtensions = new ArrayList<String>();
+		includedExtensions = new ArrayList<String>();
 	}
 	
 	public ToolInfo getToolInfo() {
@@ -126,6 +128,28 @@ public abstract class ToolBase implements Tool {
 		return false;
 	}
 	
+	public void addIncludedExtension(String ext) {
+		includedExtensions.add(ext);
+	}
+	
+	public boolean hasIncludedExtensions() {
+		if(includedExtensions.size() > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean hasIncludedExtension(String ext) {
+		for(String extension : includedExtensions) {
+			if(extension.equalsIgnoreCase(ext)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public ToolOutput getOutput() {
 		return output;
 	}
@@ -143,15 +167,6 @@ public abstract class ToolBase implements Tool {
 			//System.out.println(new java.sql.Time(time2.getTime()) +" FINISHED "+this.getClass());
 		} catch (FitsToolException e) {
 			e.printStackTrace();
-			// GDM 16-Nov-2012 Provide additional exception information
-			Throwable cause = e.getCause();
-			if (cause != null) {
-			    System.out.println ("Caused by " + cause.getClass().getName());
-			    String msg = cause.getMessage ();
-			    if (msg != null) {
-			        System.out.println (msg);
-			    }
-			}
 			//System.err.println(e.getMessage());
 		}
 	}

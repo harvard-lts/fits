@@ -62,11 +62,31 @@ public interface Tool extends Runnable {
 	public void addExcludedExtension(String ext);
 	
 	/**
+	 * Add a file extension that the tool should not process
+	 * @param ext
+	 */
+	public void addIncludedExtension(String ext);
+	
+	/**
 	 * Checks if the tool excluded extensions list contains the provided extension
 	 * @param ext
 	 * @return boolean
 	 */
 	public boolean hasExcludedExtension(String ext);
+	
+	/**
+	 * Checks if the tool included extensions list contains the provided extension
+	 * @param ext
+	 * @return boolean
+	 */
+	public boolean hasIncludedExtension(String ext);
+	
+	/**
+	 * Checks if the tool uses an 'include-ext' list
+	 * @param ext
+	 * @return boolean
+	 */
+	public boolean hasIncludedExtensions();
 	
 	public void resetOutput();
 	

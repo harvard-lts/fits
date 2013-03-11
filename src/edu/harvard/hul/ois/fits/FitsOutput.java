@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,13 @@ public class FitsOutput {
 	private List<Exception> caughtExceptions = new ArrayList<Exception>();
 	private Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
+	
+	public FitsOutput(String fitsXmlStr) throws JDOMException, IOException {
+		SAXBuilder builder = new SAXBuilder();
+		Reader in = new StringReader(fitsXmlStr);
+		Document fitsXml = builder.build(in);
+		this.fitsXml = fitsXml;
+	}
 	
 	public FitsOutput(Document fitsXml) {
 		this.fitsXml = fitsXml;
@@ -294,6 +302,7 @@ public class FitsOutput {
     
     public void addStandardCombinedFormat() throws XMLStreamException, IOException, FitsException {
 		//get the normal fits xml output
+		Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 		
 		Element metadata = (Element) fitsXml.getRootElement().getChild("metadata",ns); 
 		Element techmd = null;
@@ -330,7 +339,7 @@ public class FitsOutput {
 		List<FitsIdentity> identities = new ArrayList<FitsIdentity>();
 		try {
 			XPath xpath = XPath.newInstance("//fits:identity");
-			//Namespace ns = Namespace.getNamespace("fits",Fits.XML_NAMESPACE);
+			Namespace ns = Namespace.getNamespace("fits",Fits.XML_NAMESPACE);
 			xpath.addNamespace(ns);
 			List<Element> identElements = xpath.selectNodes(fitsXml);
 			for(Element element : identElements) {
