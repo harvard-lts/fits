@@ -230,12 +230,20 @@ public class TikaTool extends ToolBase {
 	    Element elem = new Element ("image", fitsNS);
 	    String imgWidth = metadata.get ("Image Width");
 	    if (imgWidth != null) {
+	        int idx = imgWidth.indexOf (" pixels");
+	        if (idx > 0) {
+	            imgWidth = imgWidth.substring (0, idx);
+	        }
 	        Element wElem = new Element ("imageWidth", fitsNS);
 	        wElem.addContent (imgWidth);
 	        elem.addContent (wElem);
 	    }
 	    String imgHeight = metadata.get ("Image Height");
         if (imgHeight != null) {
+            int idx = imgHeight.indexOf (" pixels");
+            if (idx > 0) {
+                imgHeight = imgHeight.substring (0, idx);
+            }
             Element hElem = new Element ("imageHeight", fitsNS);
             hElem.addContent (imgHeight);
             elem.addContent (hElem);
