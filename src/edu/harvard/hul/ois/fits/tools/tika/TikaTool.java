@@ -143,7 +143,7 @@ public class TikaTool extends ToolBase {
         String contentLength = metadata.get ("Content-Length");
         String resourceName = metadata.get ("resourceName");
         String appName = metadata.get ("Application-Name");
-        
+        String creatorApp = metadata.get ("xmp:CreatorTool");
 
         // Put together the fileinfo element
         Element fileInfoElem = new Element ("fileinfo", fitsNS);
@@ -156,6 +156,11 @@ public class TikaTool extends ToolBase {
         if (appName != null) {
             Element appNameElem = new Element ("creatingApplicationName", fitsNS);
             appNameElem.addContent (appName);
+            fileInfoElem.addContent (appNameElem);
+        }
+        else if (creatorApp != null) {
+            Element appNameElem = new Element ("creatingApplicationName", fitsNS);
+            appNameElem.addContent (creatorApp);
             fileInfoElem.addContent (appNameElem);
         }
         
@@ -248,6 +253,18 @@ public class TikaTool extends ToolBase {
             hElem.addContent (imgHeight);
             elem.addContent (hElem);
         }
+        String compression = metadata.get ("Compression Type");
+        if (compression != null) {
+            Element cElem = new Element ("compressionScheme", fitsNS);
+            cElem.addContent (compression);
+            elem.addContent (cElem);
+        }
+        String bps = metadata.get ("tiff:BitsPerSample");
+        if (bps != null) {
+            Element bElem = new Element ("bitsPerSample", fitsNS);
+            bElem.addContent (bps);
+            elem.addContent (bElem);
+        }
 	    return elem;
 	}
 	
@@ -266,6 +283,19 @@ public class TikaTool extends ToolBase {
             authElem.addContent (author);
             elem.addContent (authElem);
         }
+        String subject = metadata.get ("subject");
+        if (subject != null) {
+            Element subjElem = new Element ("subject", fitsNS);
+            subjElem.addContent (subject);
+            elem.addContent (subjElem);
+        }
+        String npg = metadata.get ("xmpTPg:NPages");
+        if (npg != null) {
+            Element pgElem = new Element("pageCount", fitsNS);
+            pgElem.addContent (npg);
+            elem.addContent (pgElem);
+        }
+
         return elem;
    // TODO stub
     }
@@ -273,6 +303,12 @@ public class TikaTool extends ToolBase {
     /* Return an element for a text file */
     private Element buildTextElement(Metadata metadata) {
         Element elem = new Element ("text", fitsNS);
+        String wc = metadata.get ("Word-Count");
+        if (wc != null) {
+            Element wcElem = new Element ("wordCount", fitsNS);
+            wcElem.addContent (wc);
+            elem.addContent (wcElem);
+        }
         return elem;
    // TODO stub
     }
