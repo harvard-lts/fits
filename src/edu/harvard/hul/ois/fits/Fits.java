@@ -49,6 +49,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
@@ -89,6 +91,8 @@ public class Fits {
 	}
 	
 	public Fits(String fits_home) throws FitsConfigurationException {
+		Logger.getRootLogger().setLevel(Level.OFF);
+		
 		//Set BB_HOME dir with environment variable
 		FITS_HOME = System.getenv("FITS_HOME");
 		if(FITS_HOME == null) {
