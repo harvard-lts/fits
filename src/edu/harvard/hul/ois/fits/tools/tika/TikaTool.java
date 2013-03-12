@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
@@ -16,7 +17,10 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
+import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
 
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
@@ -38,7 +42,7 @@ public class TikaTool extends ToolBase {
     
     private final static MediaTypeRegistry typeRegistry = MediaTypeRegistry.getDefaultRegistry();
     private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
-
+    private Tika tika = new Tika ();
     
     private boolean enabled = true;
 
@@ -47,7 +51,6 @@ public class TikaTool extends ToolBase {
     }
 
     public ToolOutput extractInfo(File file) throws FitsToolException {
-        Tika tika = new Tika ();
         Metadata metadata = new Metadata(); // = new Metadata();
         FileInputStream instrm = null;
         try {
@@ -64,10 +67,10 @@ public class TikaTool extends ToolBase {
         // convert the information in metadata to FITS output.
         String [] propertyNames = metadata.names();
         // TODO DEBUG: look through these values to better understand what Tika returns.
-        for (String name : propertyNames) {
-            String value = metadata.get (name);
-            System.out.println (name + ": " + value);
-        }
+//        for (String name : propertyNames) {
+//            String value = metadata.get (name);
+//            System.out.println (name + ": " + value);
+//        }
         
         // Now we start constructing the tool output JDOM document
         Document toolData = buildToolData (metadata);
@@ -112,6 +115,7 @@ public class TikaTool extends ToolBase {
 	/* Create a dummy raw data object */
 	private Document buildRawData (Metadata metadata) throws FitsToolException {
 	    String xml = MetadataFormatter.toXML(metadata);
+	    xml = XmlUtils.cleanXmlNulls(xml);
 	    StringReader srdr = new StringReader (xml);
 	    try {
 	        Document rawDoc = saxBuilder.build (srdr);

@@ -20,6 +20,8 @@ package edu.harvard.hul.ois.fits.tools.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import org.jdom.Attribute;
@@ -130,6 +132,15 @@ public class XmlUtils {
 		return foundE;
 	}
 	
-	
+	public static String cleanXmlNulls(String xml) {
+		Pattern pattern = null;
+		Matcher matcher = null;
+		pattern = Pattern.compile("[\\000]*");
+		matcher = pattern.matcher(xml);
+		if (matcher.find()) {
+		   xml = matcher.replaceAll("");
+		}
+		return xml;
+	}
 
 }
