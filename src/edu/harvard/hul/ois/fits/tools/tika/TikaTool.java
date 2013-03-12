@@ -173,6 +173,11 @@ public class TikaTool extends ToolBase {
 	    try {
 	        MimeType mimeType = mimeTypes.forName(mime);
 	        format = mimeType.getDescription();
+	        
+	        // HACK HACK HACK convert to FITS standard file types
+	        if (mime.startsWith("image/jpeg")) {
+	            format = "JPEG File Interchange Format";
+	        }
 	        return format;
 	    } catch (MimeTypeException e) {
 	        throw new FitsToolException("Tika error looking up mime type");
@@ -183,7 +188,8 @@ public class TikaTool extends ToolBase {
 	/* Select a document type based on the MIME type. 
 	 * This should be made more elegant. */
 	private Doctype mimeToDoctype (String mime) {
-	    if (mime.startsWith("image/jpeg")) {
+	    if (mime.startsWith("image/jpeg") || 
+	            mime.startsWith ("image/png")) {
 	        return Doctype.IMAGE;
 	    }
 	    else if (mime.startsWith("application/pdf")) {
