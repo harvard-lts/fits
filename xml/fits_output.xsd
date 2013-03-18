@@ -3,6 +3,7 @@
 	<xs:element name="fits">
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element name="statistics" type="statisticsType" minOccurs="0"/>
 				<xs:element name="identification" type="identificationType" minOccurs="0"/>
 				<xs:element name="fileinfo" type="fileInfoType" minOccurs="0"/>
 				<xs:element name="filestatus" type="fileStatusType" minOccurs="0"/>
