@@ -58,33 +58,19 @@ public class Jhove extends ToolBase {
 	public Jhove() throws FitsException {
 
 		try {
-			//Initialize Jhove  
-			File config = new File(Fits.FITS_XML+"jhove"+File.separator+"jhove.conf");
-			//= new File((this.getClass().getResource("jhove.conf")).toURI());
-			jhoveConf = config.getPath();
-	        jhove = new JhoveBase ();
-	        jhove.init (jhoveConf, "org.apache.xerces.parsers.SAXParser");
-	        jhove.setChecksumFlag(false);	
-	    	jhove.setSignatureFlag(false);
-	    	jhove.setShowRawFlag(false);
-	        xh = new XmlHandler();
-	        // GDM 16-Nov-2012: Use actual information from JHOVE instead of
-	        // hard-coding. 
-	        //jhoveApp = new App ("Jhove","1.5", new int[] {2009, 12, 23}, "","");
-	        calendar.setTime(jhove.getDate());
-	        
-	        int[] dtArray = new int[] {
-	            calendar.get(Calendar.YEAR),
-	            calendar.get(Calendar.MONTH) + 1,
-	            calendar.get(Calendar.DAY_OF_MONTH)
-	        };
-	        jhoveApp = new App ("Jhove",
-	                jhove.getRelease(), 
-                    dtArray, 
-                    "",
-                    "");
+            //Initialize Jhove  
+            File config = new File(Fits.FITS_XML+"jhove"+File.separator+"jhove.conf");
+            //= new File((this.getClass().getResource("jhove.conf")).toURI());
+            jhoveConf = config.getPath();
+            jhove = new JhoveBase ();
+            jhove.init (jhoveConf, "org.apache.xerces.parsers.SAXParser");
+            jhove.setChecksumFlag(false);   
+            jhove.setSignatureFlag(false);
+            jhove.setShowRawFlag(false);
+      	    xh = new XmlHandler();
+      	    jhoveApp = new App ("Jhove","1.5", new int[] {2009, 12, 23}, "","");
             xh.setApp(jhoveApp);
-			xh.setBase(jhove);				
+            xh.setBase(jhove);   		
 		}
 		catch (JhoveException e) {
 			throw new FitsToolException("Error initializing Jhove",e);
