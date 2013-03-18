@@ -48,8 +48,11 @@ public class XmlMetadata extends ToolBase {
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {	
+		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
 		output = new ToolOutput(this,(Document)doc.clone(),doc);
+		duration = System.currentTimeMillis()-startTime;
+		runStatus = RunStatus.SUCCESSFUL;
 		return output;
 	}
 	
@@ -84,6 +87,7 @@ public class XmlMetadata extends ToolBase {
 								
 				Element xmlRoot = xml.getRootElement();					
 				String defaultNamespaceURI = xmlRoot.getNamespaceURI();
+				@SuppressWarnings("unchecked")
 				List<Namespace> namespaces = xmlRoot.getAdditionalNamespaces();
 				String schemaPrefix = null;
 				for(Namespace n : namespaces) {

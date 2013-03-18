@@ -53,9 +53,12 @@ public class AudioInfo extends ToolBase {
 		info.setDate("2/17/11");
 	}
 
-	public ToolOutput extractInfo(File file) throws FitsToolException {	
+	public ToolOutput extractInfo(File file) throws FitsToolException {
+		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
 		output = new ToolOutput(this,(Document)doc.clone(),doc);
+		duration = System.currentTimeMillis()-startTime;
+		runStatus = RunStatus.SUCCESSFUL;
 		return output;
 	}
 	

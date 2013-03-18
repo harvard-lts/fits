@@ -24,6 +24,8 @@ import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 
 
 public interface Tool extends Runnable {
+	
+	public enum RunStatus {SHOULDNOTRUN,SHOULDRUN,FAILED,SUCCESSFUL};
 		
 	/**
 	 * Extracts the identification and metadata from the provided file
@@ -88,6 +90,8 @@ public interface Tool extends Runnable {
 	 */
 	public boolean hasIncludedExtensions();
 	
+	public boolean hasExcludedExtensions();
+	
 	public void resetOutput();
 	
 	public boolean isEnabled();
@@ -97,4 +101,11 @@ public interface Tool extends Runnable {
 	public void setInputFile(File file);
 	
 	public ToolOutput getOutput();
+	
+	public long getDuration();
+	
+	public RunStatus getRunStatus();
+	
+	public void setRunStatus(RunStatus runStatus);
+	
 }

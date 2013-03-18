@@ -52,8 +52,11 @@ public class ADLTool extends ToolBase {
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {	
+		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
 		output = new ToolOutput(this,(Document)doc.clone(),doc);
+		duration = System.currentTimeMillis()-startTime;
+		runStatus = RunStatus.SUCCESSFUL;
 		return output;
 	}
 	

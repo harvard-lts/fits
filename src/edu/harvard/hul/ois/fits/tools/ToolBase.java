@@ -45,8 +45,10 @@ public abstract class ToolBase implements Tool {
 	protected ToolOutput output = null;
 	protected SAXBuilder saxBuilder;
 	protected TransformerFactory tFactory;
-    protected Hashtable transformMap;
+    protected Hashtable<String,String> transformMap;
     protected File inputFile;
+    protected long duration;
+    protected RunStatus runStatus;
 
     
     private List<String> excludedExtensions;
@@ -141,6 +143,15 @@ public abstract class ToolBase implements Tool {
 		}
 	}
 	
+	public boolean hasExcludedExtensions() {
+		if(excludedExtensions.size() > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public boolean hasIncludedExtension(String ext) {
 		for(String extension : includedExtensions) {
 			if(extension.equalsIgnoreCase(ext)) {
@@ -158,6 +169,22 @@ public abstract class ToolBase implements Tool {
 		output = null;
 	}
 	
+	public long getDuration() {
+		return duration;
+	}
+
+	public void setDuration(long duration) {
+		this.duration = duration;
+	}
+	
+	public RunStatus getRunStatus() { 
+		return runStatus;
+	}
+	
+	public void setRunStatus(RunStatus runStatus) {
+		this.runStatus = runStatus;
+	}
+
 	public void run() {
 		try {
 			//java.util.Date time = new java.util.Date();

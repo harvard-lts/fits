@@ -38,7 +38,6 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
-import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
 
 public class ToolOutput {	
 

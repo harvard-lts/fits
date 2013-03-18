@@ -26,6 +26,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.xml.stream.XMLOutputFactory;
@@ -46,6 +47,9 @@ import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
 import edu.harvard.hul.ois.fits.identity.FormatVersion;
+import edu.harvard.hul.ois.fits.tools.Tool;
+import edu.harvard.hul.ois.fits.tools.Tool.RunStatus;
+import edu.harvard.hul.ois.fits.tools.ToolBelt;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.ots.schemas.AES.AudioObject;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
@@ -410,5 +414,39 @@ public class FitsOutput {
 			e.printStackTrace();
 		}
 		return identities;
+	}
+	
+	public void createStatistics(ToolBelt toolBelt, String ext, long totalExecutionTime) {
+		Element root = fitsXml.getRootElement();
+		Element statistics = new Element("statistics",ns); 
+
+		for(Tool t: toolBelt.getTools()) {
+			
+			//if the tool should have been used for the file, else ignore it because it did not run
+			ToolInfo info = t.getToolInfo();
+			Element tool = new Element("tool",ns);
+			tool.setAttribute("toolname", info.getName());
+			tool.setAttribute("toolversion", info.getVersion());
+			
+			//if the tool ran successfully then output the execution time
+			if(t.getRunStatus() == RunStatus.SUCCESSFUL) {
+				tool.setAttribute("executionTime",String.valueOf(t.getDuration()));
+			}
+			//else if the tool should have run but never changed to a successful state
+			else if (t.getRunStatus() == RunStatus.SHOULDRUN){
+				tool.setAttribute("status","failed");
+			}
+			//else if the tool should have run but never changed to a successful state
+			else if (t.getRunStatus() == RunStatus.SHOULDNOTRUN){
+				tool.setAttribute("status","did not run");
+			}
+			
+			statistics.addContent(tool);
+			
+		}
+		statistics.setAttribute("fitsExecutionTime",String.valueOf(totalExecutionTime));
+		
+		root.addContent(statistics);
+		
 	}
 }

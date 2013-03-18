@@ -51,6 +51,7 @@ public class MetadataExtractor extends ToolBase {
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+		long startTime = System.currentTimeMillis();
 		Document dom = null;
 		//Document rawDom = null;
 
@@ -146,7 +147,8 @@ public class MetadataExtractor extends ToolBase {
 		//XmlUtils.printToConsole(dom);
 		
 		output = new ToolOutput(this,fitsXml,dom);
-		
+		duration = System.currentTimeMillis()-startTime;
+		runStatus = RunStatus.SUCCESSFUL;
 		return output;
 	}
 	/*

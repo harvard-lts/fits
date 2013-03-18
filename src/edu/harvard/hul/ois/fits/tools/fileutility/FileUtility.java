@@ -85,6 +85,8 @@ public class FileUtility extends ToolBase {
 			//Tool cannot be used on this system
 			return null;
 		}
+		long startTime = System.currentTimeMillis();
+		
 		List<String> execCommand = new ArrayList<String>();
 		if (osIsWindows) {
 			//use provided Windows File Utility
@@ -175,6 +177,9 @@ public class FileUtility extends ToolBase {
 		
 		
 		output = new ToolOutput(this,fitsXml,rawOut);
+		
+		duration = System.currentTimeMillis()-startTime;
+		runStatus = RunStatus.SUCCESSFUL;
 		return output;
 	}
 	

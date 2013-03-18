@@ -46,9 +46,13 @@ public class ToolBelt {
 		// for each tools get the class path and any excluded extensions
 		for(int i=0;i<size;i++) {
 			String tClass = config.getString("tools.tool("+i+")[@class]");
+			@SuppressWarnings("unchecked")
 			List<String> excludes = config.getList("tools.tool("+i+")[@exclude-exts]");
+			@SuppressWarnings("unchecked")
+			List<String> includes = config.getList("tools.tool("+i+")[@include-exts]");
 			Tool t = null;
 			try {
+				@SuppressWarnings("rawtypes")
 				Class c = Class.forName(tClass);
 				t = (Tool)c.newInstance();
 			}
@@ -58,6 +62,9 @@ public class ToolBelt {
 			if(t != null) {
 				for(String ext : excludes) {
 					t.addExcludedExtension(ext);
+				}
+				for(String ext : includes) {
+					t.addIncludedExtension(ext);
 				}
 				tools.add(t);
 			}

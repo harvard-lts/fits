@@ -53,6 +53,7 @@ public class FFIdent extends ToolBase {
 	}
 	
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+		long startTime = System.currentTimeMillis();
 		FormatDescription desc = identifier.identify(file);
 		//FileIdentity identity = null;
 		Document rawOut = null;
@@ -65,8 +66,9 @@ public class FFIdent extends ToolBase {
 			fitsXml = transform(xslt,rawOut);
 		//}
 		output = new ToolOutput(this,fitsXml,rawOut);
+		duration = System.currentTimeMillis()-startTime;
+		runStatus = RunStatus.SUCCESSFUL;
 		return output;
-
 	}
 	
    private Document createXml(FormatDescription desc) throws FitsToolException {    	

@@ -8,6 +8,9 @@ Version 0.7
 -Improved video support with Exiftool
 -Fixed ordering of File utility command line options
 -New configuration option to limit the max number of threads
+-Fixed bug in how the include-ext and exclude-ext lists were being processed
+-Added a new option to enable output of statistics
+-Initial experimental support for Apache Tika - disabled by default.
 
 Version 0.6.1 (04/25/12)
 ----------------------

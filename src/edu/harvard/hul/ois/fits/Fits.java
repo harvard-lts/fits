@@ -61,6 +61,7 @@ import edu.harvard.hul.ois.fits.exceptions.FitsException;
 
 import edu.harvard.hul.ois.fits.mapping.FitsXmlMapper;
 import edu.harvard.hul.ois.fits.tools.Tool;
+import edu.harvard.hul.ois.fits.tools.Tool.RunStatus;
 import edu.harvard.hul.ois.fits.tools.ToolBelt;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
@@ -73,6 +74,7 @@ public class Fits {
 	public static XMLConfiguration config;
 	public static FitsXmlMapper mapper;
 	public static boolean validateToolOutput;
+	public static boolean enableStatistics;
 	public static String externalOutputSchema;
 	public static String internalOutputSchema;
 	public static int maxThreads = 20;       // GDM 16-Nov-2012
@@ -129,6 +131,7 @@ public class Fits {
 		    validateToolOutput = config.getBoolean("output.validate-tool-output");
 		    externalOutputSchema   = config.getString("output.external-output-schema");
 		    internalOutputSchema   = config.getString("output.internal-output-schema");
+		    enableStatistics = config.getBoolean("output.enable-statistics");
 		}
 		catch (NoSuchElementException e) {
 		    System.out.println ("Error inconfiguration file: " + e.getMessage());
@@ -418,7 +421,8 @@ public class Fits {
 	}
 	*/
 	
-	public FitsOutput examine(File input) throws FitsException {	
+	public FitsOutput examine(File input) throws FitsException {
+		long t1 = System.currentTimeMillis();
 		if(!input.exists()) {
 			throw new FitsConfigurationException(input+" does not exist or is not readable");
 		}
@@ -434,7 +438,29 @@ public class Fits {
 		// GDM 16-Nov-12: Implement limit on maximum threads
 		for(Tool t : toolbelt.getTools()) {			
 			if(t.isEnabled()) {
-				if(!t.hasExcludedExtension(ext)) {
+				
+				//figure out of the tool should be run against the file depending on the include and exclude extension lists
+				RunStatus runStatus = RunStatus.SHOULDNOTRUN;
+				//if the tool has an include-exts list and it has the extension in it, then run
+				if(t.hasIncludedExtensions()) {
+					if(t.hasIncludedExtension(ext)) {
+						runStatus = RunStatus.SHOULDRUN;
+					}
+				}
+				//if the tool has an exclude-exts list and it does NOT have the extension in it, then run
+				else if(t.hasExcludedExtensions()) {
+					if(!t.hasExcludedExtension(ext)) {
+						runStatus = RunStatus.SHOULDRUN;
+					}
+				}
+				//if the tool does not have an include-exts or exclude-exts list then run
+				else if(!t.hasIncludedExtensions() && !t.hasExcludedExtensions()) {
+					runStatus = RunStatus.SHOULDRUN;
+				}
+				
+				t.setRunStatus(runStatus);
+				
+				if(runStatus == RunStatus.SHOULDRUN) {
 				    // Don't exceed the maximum thread count
 				    while (countActiveTools(threads) >= maxThreads) {
 				        try {
@@ -469,6 +495,11 @@ public class Fits {
 		// consolidate the results into a single DOM
 		FitsOutput result = consolidator.processResults(toolResults);
 		result.setCaughtExceptions(caughtExceptions);
+		
+		long t2 = System.currentTimeMillis();
+		if(enableStatistics) {
+			result.createStatistics(toolbelt,ext,t2-t1);
+		}
 		
 		for(Tool t: toolbelt.getTools()) {
 			t.resetOutput();

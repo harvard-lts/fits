@@ -43,8 +43,8 @@ public class Exiftool extends ToolBase {
 
 	private boolean osIsWindows = false;
 	private boolean osHasPerl = false;
-	private List<String> winCommand = new ArrayList(Arrays.asList(Fits.FITS_TOOLS+"exiftool/windows/exiftool.exe"));
-	private List<String> unixCommand = new ArrayList(Arrays.asList("perl",Fits.FITS_TOOLS+"exiftool/perl/exiftool"));
+	private List<String> winCommand = new ArrayList<String>(Arrays.asList(Fits.FITS_TOOLS+"exiftool/windows/exiftool.exe"));
+	private List<String> unixCommand = new ArrayList<String>(Arrays.asList("perl",Fits.FITS_TOOLS+"exiftool/perl/exiftool"));
 	private List<String> perlTestCommand = Arrays.asList("which", "perl");
 	private final static String TOOL_NAME = "Exiftool";
 	private boolean enabled = true;
@@ -58,7 +58,7 @@ public class Exiftool extends ToolBase {
 		info = new ToolInfo();
 		info.setName(TOOL_NAME);
 		String versionOutput = null;
-		List infoCommand = new ArrayList();
+		List<String> infoCommand = new ArrayList<String>();
 		if (osName.startsWith("Windows")) {
 			//use provided Windows exiftool.exe 
 			osIsWindows = true;
@@ -82,7 +82,8 @@ public class Exiftool extends ToolBase {
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {
-		List execCommand = new ArrayList();
+		long startTime = System.currentTimeMillis();
+		List<String> execCommand = new ArrayList<String>();
 		//determine if the file can be used on the current platform
 		if (osIsWindows) {
 			//use provided Windows File Utility
@@ -146,6 +147,9 @@ public class Exiftool extends ToolBase {
 		}
 		output = new ToolOutput(this,fitsXml,rawOut);
 		//}
+		
+		duration = System.currentTimeMillis()-startTime;
+		runStatus = RunStatus.SUCCESSFUL;
 		return output;
 	}
 	

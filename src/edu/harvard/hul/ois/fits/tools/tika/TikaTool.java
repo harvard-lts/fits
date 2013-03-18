@@ -1,28 +1,20 @@
 package edu.harvard.hul.ois.fits.tools.tika;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Reader;
 import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
+
 
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.exceptions.FitsException;
-import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.log4j.BasicConfigurator;
 import org.apache.tika.Tika;
-import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaTypeRegistry;
 import org.apache.tika.mime.MimeType;
@@ -58,6 +50,7 @@ public class TikaTool extends ToolBase {
     }
 
     public ToolOutput extractInfo(File file) throws FitsToolException {
+    	long startTime = System.currentTimeMillis();
         Metadata metadata = new Metadata(); // = new Metadata();
         FileInputStream instrm = null;
         try {
@@ -84,7 +77,8 @@ public class TikaTool extends ToolBase {
         // Now construct the raw data JDOM document
         Document rawData = buildRawData (metadata);
         ToolOutput output = new ToolOutput (this, toolData, rawData);
-        
+        duration = System.currentTimeMillis()-startTime;
+        runStatus = RunStatus.SUCCESSFUL;
         return output;
     }
 
@@ -143,7 +137,7 @@ public class TikaTool extends ToolBase {
         String contentLength = metadata.get ("Content-Length");
         String resourceName = metadata.get ("resourceName");
         String appName = metadata.get ("Application-Name");
-        
+        String creatorApp = metadata.get ("xmp:CreatorTool");
 
         // Put together the fileinfo element
         Element fileInfoElem = new Element ("fileinfo", fitsNS);
@@ -156,6 +150,11 @@ public class TikaTool extends ToolBase {
         if (appName != null) {
             Element appNameElem = new Element ("creatingApplicationName", fitsNS);
             appNameElem.addContent (appName);
+            fileInfoElem.addContent (appNameElem);
+        }
+        else if (creatorApp != null) {
+            Element appNameElem = new Element ("creatingApplicationName", fitsNS);
+            appNameElem.addContent (creatorApp);
             fileInfoElem.addContent (appNameElem);
         }
         
@@ -230,15 +229,35 @@ public class TikaTool extends ToolBase {
 	    Element elem = new Element ("image", fitsNS);
 	    String imgWidth = metadata.get ("Image Width");
 	    if (imgWidth != null) {
+	        int idx = imgWidth.indexOf (" pixels");
+	        if (idx > 0) {
+	            imgWidth = imgWidth.substring (0, idx);
+	        }
 	        Element wElem = new Element ("imageWidth", fitsNS);
 	        wElem.addContent (imgWidth);
 	        elem.addContent (wElem);
 	    }
 	    String imgHeight = metadata.get ("Image Height");
         if (imgHeight != null) {
+            int idx = imgHeight.indexOf (" pixels");
+            if (idx > 0) {
+                imgHeight = imgHeight.substring (0, idx);
+            }
             Element hElem = new Element ("imageHeight", fitsNS);
             hElem.addContent (imgHeight);
             elem.addContent (hElem);
+        }
+        String compression = metadata.get ("Compression Type");
+        if (compression != null) {
+            Element cElem = new Element ("compressionScheme", fitsNS);
+            cElem.addContent (compression);
+            elem.addContent (cElem);
+        }
+        String bps = metadata.get ("tiff:BitsPerSample");
+        if (bps != null) {
+            Element bElem = new Element ("bitsPerSample", fitsNS);
+            bElem.addContent (bps);
+            elem.addContent (bElem);
         }
 	    return elem;
 	}
@@ -258,6 +277,19 @@ public class TikaTool extends ToolBase {
             authElem.addContent (author);
             elem.addContent (authElem);
         }
+        String subject = metadata.get ("subject");
+        if (subject != null) {
+            Element subjElem = new Element ("subject", fitsNS);
+            subjElem.addContent (subject);
+            elem.addContent (subjElem);
+        }
+        String npg = metadata.get ("xmpTPg:NPages");
+        if (npg != null) {
+            Element pgElem = new Element("pageCount", fitsNS);
+            pgElem.addContent (npg);
+            elem.addContent (pgElem);
+        }
+
         return elem;
    // TODO stub
     }
@@ -265,6 +297,12 @@ public class TikaTool extends ToolBase {
     /* Return an element for a text file */
     private Element buildTextElement(Metadata metadata) {
         Element elem = new Element ("text", fitsNS);
+        String wc = metadata.get ("Word-Count");
+        if (wc != null) {
+            Element wcElem = new Element ("wordCount", fitsNS);
+            wcElem.addContent (wc);
+            elem.addContent (wcElem);
+        }
         return elem;
    // TODO stub
     }

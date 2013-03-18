@@ -30,8 +30,8 @@ import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 
 public class XsltTransformMap {
 	
-	public static Hashtable getMap(String config) throws FitsConfigurationException {
-		Hashtable mappings = new Hashtable();
+	public static Hashtable<String,String> getMap(String config) throws FitsConfigurationException {
+		Hashtable<String,String> mappings = new Hashtable<String,String>();
 		XMLConfiguration conf = null;
 		try {
 			conf = new XMLConfiguration(config);
@@ -39,8 +39,10 @@ public class XsltTransformMap {
 			throw new FitsConfigurationException("Error reading "+config+"fits.xml",e);
 		}
 		
+		@SuppressWarnings("rawtypes")
 		List fields = conf.configurationsAt("map");
-		for(Iterator it = fields.iterator(); it.hasNext();)	{
+		for(@SuppressWarnings("rawtypes")
+		Iterator it = fields.iterator(); it.hasNext();)	{
 		    HierarchicalConfiguration sub = (HierarchicalConfiguration) it.next();
 		    // sub contains now all data about a single field
 		    String format = sub.getString("[@format]");

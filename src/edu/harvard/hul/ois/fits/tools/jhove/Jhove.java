@@ -135,6 +135,7 @@ public class Jhove extends ToolBase {
 	 * @throws FitsToolException 
 	 */
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+		long startTime = System.currentTimeMillis();
 		Document dom = null;
 		try {
 			dom = characterize(file);
@@ -180,7 +181,8 @@ public class Jhove extends ToolBase {
 		*/
 		
 		output = new ToolOutput(this,fitsXml,dom);
-
+		duration = System.currentTimeMillis()-startTime;
+		runStatus = RunStatus.SUCCESSFUL;
 		return output;
 	}
 /*

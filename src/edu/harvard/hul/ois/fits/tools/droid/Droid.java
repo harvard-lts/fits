@@ -60,6 +60,7 @@ public class Droid extends ToolBase {
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+		long startTime = System.currentTimeMillis();
 		IdentificationFile idFile = droid.identify(file.getPath());
 		/*List<FileIdentity> identities = new ArrayList();
 		for(int i=0;i<idFile.getNumHits();i++) {
@@ -83,6 +84,8 @@ public class Droid extends ToolBase {
 		*/
 		
 		output = new ToolOutput(this,fitsXml,rawOut);
+		duration = System.currentTimeMillis()-startTime;
+		runStatus = RunStatus.SUCCESSFUL;
 		return output;
 	}
 
