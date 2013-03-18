@@ -80,7 +80,7 @@ public class Fits {
 	public static int maxThreads = 20;       // GDM 16-Nov-2012
 	public static final String XML_NAMESPACE = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output";
 	
-	public static String VERSION = "0.7.0";
+	public static String VERSION = "0.6.2";
 	
 	private ToolOutputConsolidator consolidator;
 	private static XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();

@@ -1,6 +1,6 @@
 RELEASE NOTES 
 
-Version 0.7
+Version 0.6.2
 ---------------------
 -Initial merge and commit from openfits
 -Updated Exiftool to 9.06
