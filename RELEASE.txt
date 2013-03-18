@@ -4,7 +4,6 @@ Version 0.7
 ---------------------
 -Initial merge and commit from openfits
 -Updated Exiftool to 9.06
--Updated Jhove to 1.8
 -Improved video support with Exiftool
 -Fixed ordering of File utility command line options
 -New configuration option to limit the max number of threads
