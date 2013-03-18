@@ -81,10 +81,6 @@ public class FileUtility extends ToolBase {
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {
-		if(!osHasTool) {
-			//Tool cannot be used on this system
-			return null;
-		}
 		long startTime = System.currentTimeMillis();
 		
 		List<String> execCommand = new ArrayList<String>();
@@ -96,8 +92,10 @@ public class FileUtility extends ToolBase {
 			execCommand.addAll(UNIX_COMMAND);
 		}
 		execCommand.add("-b"); // omit file name in output
-		execCommand.add("-e"); // exclude specified test
-		execCommand.add("cdf"); //  details of Compound Document Files
+		if(info.getVersion().startsWith("5")) {
+			execCommand.add("-e"); // exclude specified test
+			execCommand.add("cdf"); //  details of Compound Document Files
+		}
 		execCommand.add(file.getPath());
 
 		String execOut = CommandLine.exec(execCommand,null);
