@@ -28,6 +28,10 @@
 		<enable-statistics>false</enable-statistics>
 	</output>
 	
+	<process>
+		<max-threads>20</max-threads>
+	</process>
+	
 	<!-- file name of the droid signature file to use in tools/droid/-->
 	<droid_sigfile>DROID_SignatureFile_V35.xml</droid_sigfile>
 	
