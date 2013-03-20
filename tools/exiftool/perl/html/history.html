@@ -11,11 +11,84 @@
 
 <p>RSS feed: <a href="http://owl.phy.queensu.ca/~phil/exiftool/rss.xml">http://owl.phy.queensu.ca/~phil/exiftool/rss.xml</a></p>
 
-<p><b>Note:</b> The most recent production release is <a href="Image-ExifTool-9.04.tar.gz">Version 9.04</a>. (Other versions are
+<p><b>Note:</b> The most recent production release is <a href="Image-ExifTool-9.12.tar.gz">Version 9.12</a>. (Other versions are
 considered development releases, and are not uploaded to <a href="http://search.cpan.org/dist/Image-ExifTool/">CPAN</a>.)</p>
 
 <!-- Use line width of 80 -->
 <!-- *********************************************************************** -->
+
+<a name='v9.13'><b>Jan. 10, 2013 - Version 9.13</b></a> <span class=grn>(production release)</span>
+<ul>
+<li>Added basic validation of ExifVersion and FlashpixVersion tags when writing
+<li>Fixed problem where MPF PreviewImage was lost when editing metadata in Nikon
+    D4, D600 or D800 images
+</ul>
+
+<a name='v9.12'><b>Jan. 2, 2013 - Version 9.12</b></a> <span class=grn>(production release)</span>
+<ul>
+<li>Fixed problem introduced in 9.10 preserving file modification date/time when
+    some options are used
+</ul>
+
+<a name='v9.11'><b>Jan. 2, 2013 - Version 9.11</b></a> <span class=grn>(production release)</span>
+<ul>
+<li>Improved decoding of some Sony tags
+<li>Changed 3 tag names to avoid a leading digit to fix XML validation problem
+<li>Fixed bug introduced in 9.04 that could double-encipher some Sony MakerNote
+    information when writing (affected files are fixed by writing any tag with
+    ExifTool 9.11)
+</ul>
+
+<a name='v9.10'><b>Dec. 29, 2012 - Version 9.10</b></a>
+<ul>
+<li>Added write support for a few new XMP-crs and XMP-photomech tags
+<li>Added a new Samsung LensType (thanks Jaroslav Stepanek)
+<li>Added a new Pentax LensType (thanks Helmut Sch&uuml;tz)
+<li>Added a new Canon LensType
+<li>Decode Sony A99 FocusMode (thanks Michael Tapes for the samples)
+<li>Tolerate (but warn about) up to 4 bytes of garbage at start of EXIF segment
+<li>Changed -P option to also preserve FileCreateDate on Windows (requires
+    Win32API::File::Time)
+<li>Changed "[minor]" warning messages to capitalize the "M" (ie. "[Minor]") if
+    processing is affected when the warning is ignored
+<li>Patched to avoid problem of slow processing with some corrupted EXIF
+</ul>
+
+<a name='v9.09'><b>Dec. 15, 2012 - Version 9.09</b></a>
+<ul>
+<li>Added a few new Google XMP GPano tags
+<li>Added a new Olympus CameraType
+<li>Added a couple of new Minolta LensTypes
+<li>Added two new Nikon LensID's (thanks David P&uuml;schel and Robert
+    Rottmerhusen)
+<li>Decode Nikon D7000 AFPointsUsed and make this tag writable
+<li>Decode a new Olympus tag (thanks Christoph Anton Mitterer)
+<li>Renamed one of the FujiFilm RAF RawImageWidth/Height pairs to
+    RawImageFullWidth/Height
+<li>Changed -stay_open when combined with -q to flush output after each command
+    (as already done without -q) (requires IO::Handle)
+<li>Fixed problem shifting FileCreateDate when writing other "real" tags in the
+    same command
+</ul>
+
+<a name='v9.08'><b>Nov. 26, 2012 - Version 9.08</b></a>
+<ul>
+<li>Fixed bug introduced in 9.07 that broke writing of FileModifyDate
+</ul>
+
+<a name='v9.07'><b>Nov. 24, 2012 - Version 9.07</b></a>
+<ul>
+<li>Added ability to read/write FileCreateDate (Windows only)
+<li>Added ability to read FileInodeChangeDate (non-Windows only)
+<li>Added support for new tags in DNG 1.4 specification
+<li>Added support for Google Photosphere GPano XMP tags
+<li>Added a couple of new Olympus filter effects
+<li>Changed a Panasonic LensType (thanks Olaf Ulrich)
+<li>API Changes:
+    <ul>
+    <li>Enhanced SetFileModifyDate() to write FileCreateDate (Windows only)
+    </ul>
+</ul>
 
 <a name='v9.06'><b>Nov. 17, 2012 - Version 9.06</b></a>
 <ul>
@@ -24,6 +97,7 @@ considered development releases, and are not uploaded to <a href="http://search.
 <li>Added support for FujiFilm X-E1 RAF images
 <li>Added a new Olympus CameraType
 <li>Added a new PentaxModelID and a new Pentax LensType
+<li>Extract FileCreateDate (Windows) and FileInodeChangeDate (other systems)
 <li>Fixed bug decoding UTF-16 ID3 synchronized lyrics
 </ul>
 

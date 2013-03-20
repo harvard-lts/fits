@@ -32,7 +32,7 @@ use Image::ExifTool::XMP;
 use Image::ExifTool::Canon;
 use Image::ExifTool::Nikon;
 
-$VERSION = '2.51';
+$VERSION = '2.54';
 @ISA = qw(Exporter);
 
 sub NumbersFirst;
@@ -274,13 +274,15 @@ L<the Field Name section of the Structured Information documentation|http://owl.
 details.
 
 ExifTool will extract XMP information even if it is not listed in these
-tables.  For example, the C<pdfx> namespace doesn't have a predefined set of
-tag names because it is used to store application-defined PDF information,
-but this information is extracted by ExifTool.
+tables, but other tags are not writable unless added as user-defined tags in
+the ExifTool config file.  For example, the C<pdfx> namespace doesn't have a
+predefined set of tag names because it is used to store application-defined
+PDF information, so although this information will be extracted, it is only
+writable if the corresponding user-defined tags have been created.
 
 The tables below list tags from the official XMP specification (with an
 underlined B<Namespace> in the HTML version of this documentation), as well
-as extensions from various other sources. See
+as extensions from various other sources.  See
 L<http://www.adobe.com/devnet/xmp/> for the official XMP specification.
 },
     IPTC => q{
@@ -438,14 +440,16 @@ in this column are write-only.
 
 Tags in the family 1 "System" group are referred to as "pseudo" tags because
 they don't represent real metadata in the file.  Instead, this information
-is stored in the directory structure of the filesystem.  The three writable
-"pseudo" tags (FileName, Directory and FileModifyDate) may be written
-without modifying the file itself.
+is stored in the directory structure of the filesystem.  The four writable
+"pseudo" tags (FileName, Directory, FileModifyDate and FileCreateDate) may
+be written without modifying the file itself.
 },
     Composite => q{
 The values of the composite tags are B<Derived From> the values of other
 tags.  These are convenience tags which are calculated after all other
-information is extracted.
+information is extracted.  User-defined Composite tags, useful for
+custom-formatting of tag values, may created in the ExifTool configuration
+file.
 },
     Shortcuts => q{
 Shortcut tags are convenience tags that represent one or more other tag
@@ -465,7 +469,7 @@ L<Image::ExifTool::BuildTagLookup|Image::ExifTool::BuildTagLookup>.
 
 ~head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
@@ -698,8 +702,13 @@ TagID:  foreach $tagID (@keys) {
             foreach $tagInfo (@infoArray) {
                 my $name = $$tagInfo{Name};
                 my $format = $$tagInfo{Format};
-                # validate Name
-                warn "Warning: Invalid tag name $short '$name'\n" if $name !~ /^[-\w]+$/;
+                # validate Name (must not start with a digit or else XML output will not be valid)
+                if ($name !~ /^[-_A-Za-z][-\w]+$/ and
+                    # single-character subdirectory names are allowed
+                    (not $$tagInfo{SubDirectory} or $name !~ /^[-_A-Za-z]$/))
+                {
+                    warn "Warning: Invalid tag name $short '$name'\n";
+                }
                 # accumulate information for consistency check of BinaryData tables
                 if ($processBinaryData and $$table{WRITABLE}) {
                     $isOffset{$tagID} = $name if $$tagInfo{IsOffset};
@@ -773,8 +782,7 @@ TagID:  foreach $tagID (@keys) {
                     # escapes descriptions if the default Lang option isn't default
                     warn "$name description contains special characters!\n";
                 }
-                # validate SubIFD flag
-                my $subdir = $$tagInfo{SubDirectory};
+                # generate structure lookup
                 my $struct = $$tagInfo{Struct};
                 my $strTable;
                 if (ref $struct) {
@@ -799,7 +807,9 @@ TagID:  foreach $tagID (@keys) {
                         undef $struct;
                     }
                 }
-                my $isSub = ($subdir and $$subdir{Start} and $$subdir{Start} eq '$val');
+                # validate SubIFD flag
+                my $subdir = $$tagInfo{SubDirectory};
+                my $isSub = ($subdir and $$subdir{Start} and $$subdir{Start} =~ /\$val\b/);
                 if ($$tagInfo{SubIFD}) {
                     warn "Warning: Wrong SubDirectory Start for SubIFD tag - $short $name\n" unless $isSub;
                 } else {
@@ -1460,12 +1470,22 @@ sub Doc2Html($)
     $doc =~ s/B&lt;(.*?)&gt;/<b>$1<\/b>/sg;
     $doc =~ s/C&lt;(.*?)&gt;/<code>$1<\/code>/sg;
     $doc =~ s/I&lt;(.*?)&gt;/<i>$1<\/i>/sg;
-    $doc =~ s{L&lt;([^&]+?)\|\Q$homePage\E/TagNames/(.*?)&gt;}{<a href="$2">$1<\/a>}sg;
+    # L<some text|http://owl.phy.queensu.ca/~phil/exiftool/struct.html#Fields> --> <a href="../struct.html#Fields">some text</a> 
     $doc =~ s{L&lt;([^&]+?)\|\Q$homePage\E/(.*?)&gt;}{<a href="../$2">$1<\/a>}sg;
-    $doc =~ s{L&lt;\Q$homePage\E/TagNames/(.*?)&gt;}{<a href="$1">$1<\/a>}sg;
+    # L<http://owl.phy.queensu.ca/~phil/exiftool/struct.html> --> <a href="http://owl.phy.queensu.ca/~phil/exiftool/struct.html">http://owl.phy.queensu.ca/~phil/exiftool/struct.html</a>
     $doc =~ s{L&lt;\Q$homePage\E/(.*?)&gt;}{<a href="../$1">$1<\/a>}sg;
+    # L<XMP DICOM Tags|Image::ExifTool::TagNames/XMP DICOM Tags> --> <a href="XMP.html#DICOM">XMP DICOM Tags</a>
+    # (specify "Image::ExifTool::TagNames" to link to another html file)
+    $doc =~ s{L&lt;([^&]+?)\|Image::ExifTool::TagNames/(\w+) ([^/&|]+) Tags&gt;}{<a href="$2.html#$3">$1</a>}sg;
+    # L<DICOM Tags|Image::ExifTool::TagNames/DICOM Tags> --> <a href="DICOM.html">DICOM Tags</a>
+    $doc =~ s{L&lt;([^&]+?)\|Image::ExifTool::TagNames/(\w+) Tags&gt;}{<a href="$2.html">$1</a>}sg;
+    # L<dc|/XMP dc Tags> --> <a href="#dc">dc</a>
+    # (a relative POD link turns into a relative HTML link)
     $doc =~ s{L&lt;([^&]+?)\|/\w+ ([^/&|]+) Tags&gt;}{<a href="#$2">$1</a>}sg;
+    # L<sample config file|../config.html> --> <a href="../config.html">sample config file</a>
+    # (these should only be used for Notes which do not propagate to TagNames.pod)
     $doc =~ s/L&lt;([^&]+?)\|(.+?)&gt;/<a href="$2">$1<\/a>/sg;
+    # L<http://some.web.site/> --> <a href="http://some.web.site">http://some.web.site</a>
     $doc =~ s/L&lt;(.*?)&gt;/<a href="$1">$1<\/a>/sg;
     return $doc;
 }
@@ -2314,7 +2334,7 @@ WriteTagNames().
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

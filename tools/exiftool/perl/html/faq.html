@@ -407,7 +407,7 @@ exiftool -tagsfromfile src.jpg -xmp dst.cr2
 <a name="Q10"></a>
 <p>10. <b>"How does ExifTool handle coded character sets?"</b></p>
 
-<!-- *************************************************************** -->
+<!-- vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv -->
 <!-- NOTE: CHANGES TO FAQ 10 MUST ALSO BE REFLECTED IN ExifTool.pod! -->
 
 <blockquote><i>[Also see <a href="#Q18">FAQ number 18</a> for help on displaying
@@ -459,6 +459,8 @@ The <code>-L</code> option is equivalent to "<code>-charset Latin</code>",
 handling for EXIF, IPTC, XMP, PNG, ID3, PDF, Photoshop, QuickTime, AIFF, MIE and
 Vorbis information:</blockquote>
 
+<!-- NOTE: CHANGES TO FAQ 10 MUST ALSO BE REFLECTED IN ExifTool.pod! -->
+
 <blockquote><b>EXIF</b>: Most textual information in EXIF is stored in "ASCII"
 format (called "string" in the <a href="TagNames/index.html">ExifTool tag name
 documentation</a>).  By default ExifTool does not convert these strings. 
@@ -489,6 +491,8 @@ be specified by setting the ExifUnicodeByteOrder tag (see the
 <blockquote>The EXIF "XP" tags (XPTitle, XPComment, etc) are always stored
 internally as little-endian Unicode (UCS&#8209;2), and are read and written
 using the specified external character set.</blockquote>
+
+<!-- NOTE: CHANGES TO FAQ 10 MUST ALSO BE REFLECTED IN ExifTool.pod! -->
 
 <blockquote><b>IPTC</b><span class='sm'><sup>&dagger;</sup></span>: The
 value of the IPTC:CodedCharacterSet tag determines how the internal IPTC string
@@ -526,6 +530,8 @@ The more recent
 <a href="http://iptc.cms.apa.at/site/Photo_Metadata/IPTC_Core_&amp;_Extension/">IPTC
 Core and Extension specifications</a> actually use the XMP format (see below).</span>
 </blockquote>
+
+<!-- NOTE: CHANGES TO FAQ 10 MUST ALSO BE REFLECTED IN ExifTool.pod! -->
 
 <blockquote><b>XMP</b>: Exiftool reads XMP encoded as UTF&#8209;8, UTF&#8209;16
 or UTF&#8209;32, and converts them all to UTF&#8209;8 internally.  Also, all XML
@@ -594,8 +600,6 @@ otherwise they are stored as ISO 8859&#8209;1.</blockquote>
 and are converted to the character set specified by <code>-charset</code> or
 <code>-L</code> when reading.</blockquote>
 
-<!-- NOTE: CHANGES TO FAQ 10 MUST ALSO BE REFLECTED IN ExifTool.pod! -->
-
 <blockquote class=prog>
 <b>Programmers</b>: ExifTool returns all values as byte strings of encoded
 characters. Perl wide characters are not used.  The encoding is UTF&#8209;8 by
@@ -603,9 +607,12 @@ default, but valid UTF&#8209;8 can not be guaranteed for all values, so the
 caller must validate the encoding if necessary.  The encodings described above
 are set by the various <a href="ExifTool.html#Charset">Charset options</a> of
 the API.
-<br><br> <b>Note</b>: Some settings of the system PERL_UNICODE environment
+<br><br><b>Note</b>: Some settings of the system PERL_UNICODE environment
 variable may be incompatible with ExifTool's character handling.
 </blockquote>
+
+<!-- NOTE: CHANGES TO FAQ 10 MUST ALSO BE REFLECTED IN ExifTool.pod! -->
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 
 <a name="Q11"></a>
 <p>11. <b>"My user-defined tags don't work"</b></p>
@@ -927,7 +934,7 @@ types.
 <blockquote class='sm'><sup>&dagger;</sup> <span class=lt>The
 <code>-listwf</code> option may be used to list the extensions of all writable file types.</span>
 <br><sup>&Dagger;</sup> <span class=lt>This includes "pseudo" tags like
-FileName, Directory and FileModifyDate.</span></blockquote>
+FileName, Directory, FileModifyDate and FileCreateDate.</span></blockquote>
 
 <a name="Q17"></a>
 <p>17. <b>"List-type tags do not behave as expected"</b></p>
@@ -973,8 +980,8 @@ this is allowed:
 </pre>
 
 But to distinguish these entries when extracting information, a different list
-separator must be used.  For instance, the following command uses
-"<code>//</code>" to separate list items,
+separator or a different output format must be used.  For instance, the
+following command uses "<code>//</code>" to separate list items,
 
 <pre>exiftool -contributor -sep "//" a.jpg
 </pre>
@@ -984,9 +991,14 @@ and produces an output like this:
 <pre class=blk>Contributor  : Harvey, Phil//Marley, Bob
 </pre>
 
-Note that the above examples overwrite any values which already existed in the
-original file for these tags.  Alternatively, "<code>+=</code>" or
-"<code>-=</code> may be used to add to or remove items from an existing list:
+Alternatively, the <code>-j</code>, <code>-php</code> and <code>-X</code>
+options use an output format which preserves the structure of a
+list (if <code>-sep</code> is NOT used).</blockquote>
+
+<blockquote>Note that the writing examples above overwrite any values which
+already existed in the original file for these tags.  Instead, to add or delete
+items from an existing list, use "<code>+=</code>" or "<code>-=</code>" in place
+of "<code>=</code>".  For example:
 
 <pre>exiftool -keywords+="add this" -keywords-="remove this" DIR
 </pre>
@@ -1307,6 +1319,8 @@ all date/time information with an indication of where it is stored:
 and should give an output something like this:
 
 <pre>[File:System]   FileModifyDate                  : 2009:10:05 20:40:36-04:00
+[File:System]   FileAccessDate                  : 2009:10:07 09:22:12-04:00
+[File:System]   FileCreateDate                  : 2009:10:05 20:40:36-04:00
 [EXIF:IFD0]     ModifyDate                      : 2003:10:31 15:44:19
 [EXIF:ExifIFD]  DateTimeOriginal                : 2003:10:31 15:44:19
 [EXIF:ExifIFD]  CreateDate                      : 2003:10:31 15:44:19</pre>
@@ -1316,13 +1330,20 @@ reported in square brackets for each tag.  Tags labelled "File:System" are
 stored in the filesystem, while other tags are stored in the location indicated
 inside the metadata of the file itself.</blockquote>
 
-<blockquote>ExifTool's default behaviour is to set the filesystem modification
-date/time (FileModifyDate) to the current date/time when any metadata in a file
-is changed, but the <code>-P</code> option may be used to preserve the original
-date.  <i class=lt>[Note that on systems where a filesystem creation date is
-maintained, ExifTool also sets this to the current date/time when the file is
-edited, and the only way to preserve it is with the
-<code>-overwrite_original_in_place</code> option.]</i></blockquote>
+<blockquote>ExifTool's default behaviour is to set all filesystem times to the
+current date/time when any metadata in a file is changed, but the
+<code>-P</code> option may be used to preserve the original FileModifyDate.
+FileAccessDate represents the time the file was last accessed, and is set to the
+current date/time whenever any software (including ExifTool) accesses the file.
+</blockquote>
+
+<blockquote>On systems where a filesystem creation date is maintained, ExifTool
+also sets this to the current date/time when the file is edited.  On Windows the
+creation date is accessed through the FileCreateDate tag, and is also preserved
+with the <code>-P</code> option if Win32API::File::Time is available.  On
+Mac/Linux FileInodeChangeDate is available instead of FileCreateDate, and the
+only way to preserve the file creation date is with the
+<code>-overwrite_original_in_place</code> option.</blockquote>
 
 <blockquote>For example, commands like the following act on common metadata
 tags, setting the filesystem modification date/time to the current date/time:
@@ -1353,7 +1374,7 @@ exiftool -alldates+=1 "-filemodifydate&lt;datetimeoriginal" c:\images
 </pre></blockquote>
 
 <hr>
-<i>Last revised Nov 2, 2012</i>
+<i>Last revised Dec 21, 2012</i>
 <p class='lf'><a href="index.html">&lt;-- Back to ExifTool home page</a></p>
 </body>
 </html>

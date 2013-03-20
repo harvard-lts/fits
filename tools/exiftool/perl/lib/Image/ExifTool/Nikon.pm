@@ -55,13 +55,15 @@ use vars qw($VERSION %nikonLensIDs %nikonTextEncoding);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Exif;
 
-$VERSION = '2.67';
+$VERSION = '2.68';
 
 sub LensIDConv($$$);
 sub ProcessNikonAVI($$$);
 sub ProcessNikonMOV($$$);
 sub FormatString($);
 sub ProcessNikonCaptureEditVersions($$$);
+sub PrintAFPoints($$);
+sub PrintAFPointsInv($$);
 
 # nikon lens ID numbers (ref 8/11)
 %nikonLensIDs = (
@@ -183,6 +185,7 @@ sub ProcessNikonCaptureEditVersions($$$);
     '53 48 60 80 24 24 57 02' => 'AF Zoom-Nikkor 80-200mm f/2.8D ED',
     '53 48 60 80 24 24 60 02' => 'AF Zoom-Nikkor 80-200mm f/2.8D ED',
     '54 44 5C 7C 34 3C 58 02' => 'AF Zoom-Micro Nikkor 70-180mm f/4.5-5.6D ED',
+    '54 44 5C 7C 34 3C 61 02' => 'AF Zoom-Micro Nikkor 70-180mm f/4.5-5.6D ED',
     '56 48 5C 8E 30 3C 5A 02' => 'AF Zoom-Nikkor 70-300mm f/4-5.6D ED',
     '59 48 98 98 24 24 5D 02' => 'AF-S Nikkor 400mm f/2.8D IF-ED',
     '59 48 98 98 24 24 F1 02' => 'AF-S Nikkor 400mm f/2.8D IF-ED + TC-14E',
@@ -265,6 +268,7 @@ sub ProcessNikonCaptureEditVersions($$$);
     'AF 54 44 44 0C 0C B1 06' => 'AF-S Nikkor 35mm f/1.4G',
     'B0 4C 50 50 14 14 B2 06' => 'AF-S Nikkor 50mm f/1.8G',
     'B1 48 48 48 24 24 B3 06' => 'AF-S DX Micro Nikkor 40mm f/2.8G', #27
+    'B2 48 5C 80 30 30 B4 0E' => 'AF-S Nikkor 70-200mm f/4 ED VR', #David Puschel
     'B3 4C 62 62 14 14 B5 06' => 'AF-S Nikkor 85mm f/1.8G',
     'B4 40 37 62 2C 34 B6 0E' => 'AF-S VR Zoom-Nikkor 24-85mm f/3.5-4.5G IF-ED', #30
     'B5 4C 3C 3C 14 14 B7 06' => 'AF-S Nikkor 28mm f/1.8G', #30
@@ -437,7 +441,7 @@ sub ProcessNikonCaptureEditVersions($$$);
     '00 40 2D 88 2C 40 62 06' => 'Tamron AF 18-250mm f/3.5-6.3 Di II LD Aspherical (IF) Macro (A18)',
     '00 40 2D 88 2C 40 00 06' => 'Tamron AF 18-250mm f/3.5-6.3 Di II LD Aspherical (IF) Macro (A18NII)', #JD
     'F5 40 2C 8A 2C 40 40 0E' => 'Tamron AF 18-270mm f/3.5-6.3 Di II VC LD Aspherical (IF) Macro (B003)',
-    'F0 3F 2D 8A 2C 40 DF 0E' => 'Tamron AF 18-270mm F/3.5-6.3 Di II VC PZD (B008)',
+    'F0 3F 2D 8A 2C 40 DF 0E' => 'Tamron AF 18-270mm f/3.5-6.3 Di II VC PZD (B008)',
     '07 40 2F 44 2C 34 03 02' => 'Tamron AF 19-35mm f/3.5-4.5 (A10)',
     '07 40 30 45 2D 35 03 02' => 'Tamron AF 19-35mm f/3.5-4.5 (A10)',
     '00 49 30 48 22 2B 00 02' => 'Tamron SP AF 20-40mm f/2.7-3.5 (166D)',
@@ -458,7 +462,7 @@ sub ProcessNikonCaptureEditVersions($$$);
     '00 47 53 80 30 3C 00 06' => 'Tamron AF 55-200mm f/4-5.6 Di II LD (A15)',
     'F7 53 5C 80 24 24 84 06' => 'Tamron SP AF 70-200mm f/2.8 Di LD (IF) Macro (A001)',
     'FE 53 5C 80 24 24 84 06' => 'Tamron SP AF 70-200mm f/2.8 Di LD (IF) Macro (A001)',
-    'F7 53 5C 80 24 24 40 06' => 'Tamron SP AF 70-200mm F/2.8 Di LD (IF) Macro (A001)',
+    'F7 53 5C 80 24 24 40 06' => 'Tamron SP AF 70-200mm f/2.8 Di LD (IF) Macro (A001)',
     '69 48 5C 8E 30 3C 6F 02' => 'Tamron AF 70-300mm f/4-5.6 LD Macro 1:2 (772D)',
     '69 47 5C 8E 30 3C 00 02' => 'Tamron AF 70-300mm f/4-5.6 Di LD Macro 1:2 (A17N)',
     '00 48 5C 8E 30 3C 00 06' => 'Tamron AF 70-300mm f/4-5.6 Di LD Macro 1:2 (A17NII)', #JD
@@ -644,6 +648,44 @@ my %retouchValues = ( #PH
     37 => 'Color Sketch', #31
     38 => 'Selective Color', # (S9200)
     40 => 'Drawing', # (S9200)
+);
+
+# AF point indices for models with 51 focus points, ie. D3 (ref JD/PH)
+#        A1  A2  A3  A4  A5  A6  A7  A8  A9
+#    B1  B2  B3  B4  B5  B6  B7  B8  B9  B10  B11
+#    C1  C2  C3  C4  C5  C6  C7  C8  C9  C10  C11
+#    D1  D2  D3  D4  D5  D6  D7  D8  D9  D10  D11
+#        E1  E2  E3  E4  E5  E6  E7  E8  E9
+my %afPoints51 = (
+    1 => 'C6',  11 => 'C5', 21 => 'C9', 31 => 'C11',41 => 'A2', 51 => 'D1',
+    2 => 'B6',  12 => 'B5', 22 => 'B9', 32 => 'B11',42 => 'D3',
+    3 => 'A5',  13 => 'A4', 23 => 'A8', 33 => 'D11',43 => 'E2',
+    4 => 'D6',  14 => 'D5', 24 => 'D9', 34 => 'C4', 44 => 'C2',
+    5 => 'E5',  15 => 'E4', 25 => 'E8', 35 => 'B4', 45 => 'B2',
+    6 => 'C7',  16 => 'C8', 26 => 'C10',36 => 'A3', 46 => 'A1',
+    7 => 'B7',  17 => 'B8', 27 => 'B10',37 => 'D4', 47 => 'D2',
+    8 => 'A6',  18 => 'A7', 28 => 'A9', 38 => 'E3', 48 => 'E1',
+    9 => 'D7',  19 => 'D8', 29 => 'D10',39 => 'C3', 49 => 'C1',
+    10 => 'E6', 20 => 'E7', 30 => 'E9', 40 => 'B3', 50 => 'B1',
+);
+
+# AF point indices for models with 39 focus points, ie. D7000 (ref 29)
+#                    A1  A2  A3
+#    B1  B2  B3  B4  B5  B6  B7  B8  B9  B10  B11
+#    C1  C2  C3  C4  C5  C6  C7  C8  C9  C10  C11
+#    D1  D2  D3  D4  D5  D6  D7  D8  D9  D10  D11
+#                    E1  E2  E3
+my %afPoints39 = (
+    1 => 'C6',  11 => 'C5', 21 => 'D9', 31 => 'C3',
+    2 => 'B6',  12 => 'B5', 22 => 'C10',32 => 'B3',
+    3 => 'A2',  13 => 'A1', 23 => 'B10',33 => 'D3',
+    4 => 'D6',  14 => 'D5', 24 => 'D10',34 => 'C2',
+    5 => 'E2',  15 => 'E1', 25 => 'C11',35 => 'B2',
+    6 => 'C7',  16 => 'C8', 26 => 'B11',36 => 'D2',
+    7 => 'B7',  17 => 'B8', 27 => 'D11',37 => 'C1',
+    8 => 'A3',  18 => 'D8', 28 => 'C4', 38 => 'B1',
+    9 => 'D7',  19 => 'C9', 29 => 'B4', 39 => 'D1',
+    10 => 'E3', 20 => 'B9', 30 => 'D4',
 );
 
 my %offOn = ( 0 => 'Off', 1 => 'On' );
@@ -1372,7 +1414,7 @@ my %binaryDataAttrs = (
                 DirOffset => 4,
             },
         },
-        {   # (1J1/1V1=0400)
+        {   # (1J1/1V1=0400, 1V2=0401)
             Name => 'ColorBalanceUnknown',
             Writable => 0,
         },
@@ -2294,40 +2336,17 @@ my %binaryDataAttrs = (
         { #PH/JD
             Name => 'PrimaryAFPoint',
             Condition => '$$self{PhaseDetectAF} < 2',
-            Notes => 'models with 51-point AF: D3, D3S, D3X, D300, D300S and D700',
+            Notes => 'models with 51-point AF: D3, D3S, D3X, D300, D300S, D700 and D800',
             PrintConvColumns => 5,
             PrintConv => {
-                0 => '(none)',      26 => 'C10',
-                1 => 'C6 (Center)', 27 => 'B10',
-                2 => 'B6',          28 => 'A9',
-                3 => 'A5',          29 => 'D10',
-                4 => 'D6',          30 => 'E9',
-                5 => 'E5',          31 => 'C11',
-                6 => 'C7',          32 => 'B11',
-                7 => 'B7',          33 => 'D11',
-                8 => 'A6',          34 => 'C4',
-                9 => 'D7',          35 => 'B4',
-                10 => 'E6',         36 => 'A3',
-                11 => 'C5',         37 => 'D4',
-                12 => 'B5',         38 => 'E3',
-                13 => 'A4',         39 => 'C3',
-                14 => 'D5',         40 => 'B3',
-                15 => 'E4',         41 => 'A2',
-                16 => 'C8',         42 => 'D3',
-                17 => 'B8',         43 => 'E2',
-                18 => 'A7',         44 => 'C2',
-                19 => 'D8',         45 => 'B2',
-                20 => 'E7',         46 => 'A1',
-                21 => 'C9',         47 => 'D2',
-                22 => 'B9',         48 => 'E1',
-                23 => 'A8',         49 => 'C1',
-                24 => 'D9',         50 => 'B1',
-                25 => 'E8',         51 => 'D1',
+                0 => '(none)',
+                %afPoints51,
+                1 => 'C6 (Center)', # (add " (Center)" to central point)
             },
         },
         { #10
             Name => 'PrimaryAFPoint',
-            Notes => 'models with 11-point AF: D90, D3000 and D5000',
+            Notes => 'models with 11-point AF: D90, D3000, D3100, D5000 and D5100',
             Condition => '$$self{PhaseDetectAF} == 2',
             PrintConvColumns => 2,
             PrintConv => {
@@ -2348,31 +2367,12 @@ my %binaryDataAttrs = (
         { #29
             Name => 'PrimaryAFPoint',
             Condition => '$$self{PhaseDetectAF} == 3',
-            Notes => 'models with 39-point AF: D7000 (not verified)',
+            Notes => 'models with 39-point AF: D600 and D7000',
             PrintConvColumns => 5,
             PrintConv => {
-                0 => '(none)',      22 => 'C10',
-                1 => 'C6 (Center)', 23 => 'B10',
-                2 => 'B6',          24 => 'D10',
-                3 => 'A2',          25 => 'C11',
-                4 => 'D6',          26 => 'B11',
-                5 => 'E2',          27 => 'D11',
-                6 => 'C7',          28 => 'C4',
-                7 => 'B7',          29 => 'B4',
-                8 => 'A3',          30 => 'D4',
-                9 => 'D7',          31 => 'C3',
-                10 => 'E3',         32 => 'B3',
-                11 => 'C5',         33 => 'D3',
-                12 => 'B5',         34 => 'C2',
-                13 => 'A1',         35 => 'B2',
-                14 => 'D5',         36 => 'D2',
-                15 => 'E1',         37 => 'C1',
-                16 => 'C8',         38 => 'B1',
-                17 => 'B8',         39 => 'D1',
-                18 => 'D8',
-                19 => 'C9',
-                20 => 'B9',
-                21 => 'D9',
+                0 => '(none)',
+                %afPoints39,
+                1 => 'C6 (Center)', # (add " (Center)" to central point)
             },
         },
         {
@@ -2389,11 +2389,12 @@ my %binaryDataAttrs = (
             Name => 'AFPointsUsed',
             Condition => '$$self{PhaseDetectAF} < 2',
             Notes => q{
-                models with 51-point AF -- 5 rows: A1-9, B1-11, C1-11, D1-11, E1-9, center
+                models with 51-point AF -- 5 rows: A1-9, B1-11, C1-11, D1-11, E1-9.  Center
                 point is C6
             },
             Format => 'undef[7]',
-            PrintConv => 'Image::ExifTool::Nikon::PrintAFPointsD3($val)',
+            PrintConv => sub { PrintAFPoints(shift, \%afPoints51); },
+            PrintConvInv => sub { PrintAFPointsInv(shift, \%afPoints51); },
         },
         { #10
             Name => 'AFPointsUsed',
@@ -2421,12 +2422,16 @@ my %binaryDataAttrs = (
                 },
             },
         },
-        { #29
+        { #29/PH
             Name => 'AFPointsUsed',
             Condition => '$$self{PhaseDetectAF} == 3',
-            Notes => 'models with 39-point AF: D7000 (not decoded)',
+            Notes => q{
+                models with 39-point AF -- 5 rows: A1-3, B1-11, C1-11, D1-11, E1-3.  Center
+                point is C6
+            },
             Format => 'undef[7]',
-            PrintConv => '$_=unpack("H*",$val); "Unknown (".join(" ", /(..)/g).")"',
+            PrintConv => sub { PrintAFPoints(shift, \%afPoints39); },
+            PrintConvInv => sub { PrintAFPointsInv(shift, \%afPoints39); },
         },
         {
             Name => 'AFPointsUsed',
@@ -5189,42 +5194,52 @@ sub ProcessNikonAVI($$$)
     }
     return 1;
 }
+
 #------------------------------------------------------------------------------
-# Print D3/D300 AF points (similar to Canon::PrintAFPoints1D)
-# Inputs: 0) value to convert (undef[7])
-# Focus point pattern:
-#        A1  A2  A3  A4  A5  A6  A7  A8  A9
-#    B1  B2  B3  B4  B5  B6  B7  B8  B9  B10  B11
-#    C1  C2  C3  C4  C5  C6  C7  C8  C9  C10  C11
-#    D1  D2  D3  D4  D5  D6  D7  D8  D9  D10  D11
-#        E1  E2  E3  E4  E5  E6  E7  E8  E9
-sub PrintAFPointsD3($)
+# Print conversion for Nikon AF points
+# Inputs: 0) value to convert (undef[7]),
+#         1) lookup for AF point bit number (starting at 1)
+sub PrintAFPoints($$)
 {
-    my $val = shift;
+    my ($val, $afPoints) = @_;
     return 'Unknown' unless length $val == 7;
-    # list of byte/bit positions for each focus point (upper/lower nibble)
-    my @focusPts = (
-             0x55,0x50,0x43,0x14,0x02,0x07,0x21,0x26,0x33,
-        0x61,0x54,0x47,0x42,0x13,0x01,0x06,0x20,0x25,0x32,0x37,
-        0x60,0x53,0x46,0x41,0x12,0x00,0x05,0x17,0x24,0x31,0x36,
-        0x62,0x56,0x51,0x44,0x15,0x03,0x10,0x22,0x27,0x34,0x40,
-             0x57,0x52,0x45,0x16,0x04,0x11,0x23,0x30,0x35
-    );
-    my ($focusPt, @points);
+    my ($i, @points);
     my @dat = unpack('C*', $val);
-    my @cols = (9,11,11,11,9);
-    my $cols = shift @cols;
-    my ($row, $col) = ('A', 1);
-    foreach $focusPt (@focusPts) {
-        push @points, $row . $col if $dat[$focusPt >> 4] & (0x01 << ($focusPt & 0x0f));
-        if (++$col > $cols) {
-            $cols = shift @cols;
-            $col = 1;
-            ++$row;
-        }
+    my $num = scalar(keys %$afPoints);
+    my ($byte, $mask) = (0, 0x01);
+    # loop through all AF points to find active ones
+    for ($i=1; $i<=$num; ++$i) {
+        push @points, $$afPoints{$i} if $dat[$byte] & $mask;
+        ($mask <<= 1) > 0x80 and $mask = 0x01, ++$byte;
     }
     return '(none)' unless @points;
-    return join(',',@points);
+    # sort the points and return as comma-separated string
+    return join ',', sort {
+        return $a cmp $b if length($a) == length($b);
+        return substr($a,0,1).'0'.substr($a,1,1) cmp $b if length($a) == 2;
+        return $a cmp substr($b,0,1).'0'.substr($b,1,1);
+    } @points;
+}
+
+#------------------------------------------------------------------------------
+# Inverse print conversion for AF points
+# Inputs: 0) AF point string, 1) AF point lookup
+# Returns: undef[7] AF point data
+sub PrintAFPointsInv($$)
+{
+    my ($val, $afPoints) = @_;
+    my @points = ($val =~ /[A-Za-z]\d+/g);
+    my @dat = (0) x 7;
+    if (@points) {
+        my (%bitNum, $point);
+        $bitNum{$$afPoints{$_}} = $_ foreach keys %$afPoints; # build reverse lookup
+        foreach $point (@points) {
+            my $bitNum = $bitNum{uc $point} or next;
+            my $byte = int(($bitNum - 1) / 8);
+            $dat[$byte] |= (1 << (($bitNum - 1) % 8));
+        }
+    }
+    return pack('C*', @dat);
 }
 
 #------------------------------------------------------------------------------
@@ -5719,7 +5734,7 @@ Nikon maker notes in EXIF information.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

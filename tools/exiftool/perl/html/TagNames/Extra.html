@@ -15,9 +15,9 @@ in this column are write-only.</p>
 
 <p>Tags in the family 1 &quot;System&quot; group are referred to as &quot;pseudo&quot; tags because
 they don&#39;t represent real metadata in the file.  Instead, this information
-is stored in the directory structure of the filesystem.  The three writable
-&quot;pseudo&quot; tags (FileName, Directory and FileModifyDate) may be written
-without modifying the file itself.
+is stored in the directory structure of the filesystem.  The four writable
+&quot;pseudo&quot; tags (FileName, Directory, FileModifyDate and FileCreateDate) may
+be written without modifying the file itself.
 </p>
 <blockquote>
 <table class=frame><tr><td>
@@ -93,21 +93,33 @@ specific order)</span>
 <td>FileAccessDate</td>
 <td class=c>N</td>
 <td class=c>System</td>
-<td><span class=s><span class=n>(the time of last access of the file.  Note that this access time is updated
-whenever any software, including ExifTool, reads the file)</span></span></td></tr>
+<td><span class=s><span class=n>(the date/time of last access of the file.  Note that this access time is
+updated whenever any software, including ExifTool, reads the file)</span></span></td></tr>
+<tr class=b>
+<td>FileCreateDate</td>
+<td class=c title=' ! = Unsafe'>Y!</td>
+<td class=c>System</td>
+<td><span class=s><span class=n>(the filesystem creation date/time.  Windows only.  Requires
+Win32API::File::Time for writing.  Note that although ExifTool can not
+currently access the filesystem creation time on other systems, the creation
+time is pushed backwards on OS X by writing an earlier modification time,
+which provides a mechanism to write this indirectly:  1) Rewrite the file to
+set the filesystem creation and modification times to the current time, 2)
+Set FileModifyDate to the desired creation time, then 3) Restore
+FileModifyDate to its original value)</span></span></td></tr>
+<tr>
+<td>FileInodeChangeDate</td>
+<td class=c>N</td>
+<td class=c>System</td>
+<td><span class=s><span class=n>(the date/time when the file&#39;s directory information was last changed.
+Non-Windows systems only)</span></span></td></tr>
 <tr class=b>
 <td>FileModifyDate</td>
 <td class=c title=' ! = Unsafe'>Y!</td>
 <td class=c>System</td>
-<td><span class=s><span class=n>(the filesystem modification time.  Note that although ExifTool can not write
-the filesystem creation time directly, in OS X the creation time is pushed
-backwards by writing an earlier modification time.  This provides a
-mechanism to indirectly set the creation time:  1) Rewrite the file to set
-the filesystem creation and modification times to the current time, 2) Set
-FileModifyDate to the desired creation time, then 3) Restore FileModifyDate
-to its original value.  This trick does not work in Windows.  Also note that
-ExifTool may not be able to handle filesystem dates before 1970 depending on
-the limitations of the standard C libraries for the system)</span></span></td></tr>
+<td><span class=s><span class=n>(the filesystem modification date/time.  Note that ExifTool may not be able
+to handle filesystem dates before 1970 depending on the limitations of the
+system&#39;s standard libraries)</span></span></td></tr>
 <tr>
 <td>FileName</td>
 <td class=c title=' ! = Unsafe'>Y!</td>
@@ -133,7 +145,8 @@ specifically requested)</span></span></td></tr>
 <td>FileSize</td>
 <td class=c>N</td>
 <td class=c>System</td>
-<td><span class=s><span class=n>(print conversion uses historic prefixes: 1 kB = 1024 bytes, etc.)</span></span></td></tr>
+<td><span class=s><span class=n>(note that the print conversion for this tag uses historic prefixes: 1 kB =
+1024 bytes, etc.)</span></span></td></tr>
 <tr>
 <td>FileType</td>
 <td class=c>N</td>
@@ -281,7 +294,7 @@ the command line)</span></span></td></tr>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Sep 6, 2012</i>
+<br><i>Last revised Nov 21, 2012</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

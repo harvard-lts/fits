@@ -5,7 +5,7 @@
 #
 # URL:          http://owl.phy.queensu.ca/~phil/exiftool/
 #
-# Legal:        Copyright (c) 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+# Legal:        Copyright (c) 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 #               This library is free software; you can redistribute it and/or
 #               modify it under the same terms as Perl itself.
 #------------------------------------------------------------------------------
@@ -654,8 +654,9 @@ warnings, and minor warnings to be ignored.  This option is provided mainly
 to allow writing of files when minor errors occur, but by ignoring some
 minor warnings the behaviour of ExifTool may be changed to allow some
 questionable operations to proceed (such as extracting thumbnail and preview
-images even if they don't have a recognizable header).  Minor
-errors/warnings are denoted by '[minor]' at the start of the message.
+images even if they don't have a recognizable header).  Minor errors and
+warnings are denoted by "[minor]" at the start of the message, or "[Minor]"
+(with a capital "M") for warnings that affect processing when ignored.
 
 =item Lang
 
@@ -1234,15 +1235,15 @@ hash reference or a serialized string (see the last two examples above).
 
 =item AddValue
 
-Specifies that the value be added to an existing list rather than
+Specifies that the value be added to an existing list in a file rather than
 overwriting.  Valid settings are 0 (overwrite any existing tag value), 1
 (add to an existing list and warn for non-list tags) or 2 (add to existing
 list and overwrite non-list tags).  Default is 0.
 
 =item DelValue
 
-Delete the existing tag if it has the specified value.  Valid values are
-0 or 1.  Default is 0.
+Delete existing tag from a file if it has the specified value.  Option
+values are 0 or 1.  Default is 0.
 
 =item EditGroup
 
@@ -1547,7 +1548,8 @@ None.
 
 =head2 SetFileModifyDate
 
-Set the file modification time from the new value of the FileModifyDate tag.
+Write the filesystem modification or creation time from the new value of the
+FileModifyDate or FileCreateDate tag.
 
     $exifTool->SetNewValue(FileModifyDate => '2000:01:02 03:04:05-05:00',
                            Protected => 1);
@@ -1563,6 +1565,8 @@ Set the file modification time from the new value of the FileModifyDate tag.
 
 2) [optional] Base time if applying shift (days before $^T)
 
+3) [optional] Tag to write: 'FileModifyDate' (default), or 'FileCreateDate'
+
 =item Return Value:
 
 1 if the time was changed, 0 if nothing was done, or -1 if there was an
@@ -1571,10 +1575,12 @@ error setting the time.
 =item Notes:
 
 Equivalent to, but more efficient than calling L</WriteInfo> when only the
-FileModifyDate tag has been set.  If a timezone is not specified in the
-FileModifyDate value, local time is assumed.  When shifting FileModifyDate,
-the time of the original file is used unless an optional base time is
-specified.
+FileModifyDate or FileCreateDate tag has been set.  If a timezone is not
+specified, local time is assumed.  When shifting, the time of the original
+file is used unless the optional base time is specified.
+
+The ability to write FileCreateDate is currently restricted to Windows
+systems only.
 
 =back
 
@@ -2109,7 +2115,9 @@ Currently, this can only be done with XMP, MIE, ICC, VRD and EXIF files.
 Certain meta information formats allow coded character sets other than plain
 ASCII.  When reading, most known encodings are converted to the external
 character set according to the L</Charset> option, or to UTF-8 by default.
-When writing, the inverse conversions are performed.
+When writing, the inverse conversions are performed.  Alternatively, special
+characters may be converted to/from HTML character entities with the
+L</Escape> HTML option.
 
 A distinction is made between the external character set visible to via the
 ExifTool API, and the internal character used to store text in the metadata
@@ -2134,7 +2142,9 @@ L</CharsetQuickTime> options.
 Values are returned as byte strings of encoded characters.  Perl wide
 characters are not used.  By default, most returned strings are encoded in
 UTF-8.  For these, Encode::decode_utf8() may be used to convert to a
-sequence of logical Perl characters.
+sequence of logical Perl characters.  Note that some settings of the
+PERL_UNICODE environment variable may be incompatible with ExifTool's
+character handling.
 
 More specific details are given below about how character coding is handled
 for EXIF, IPTC, XMP, PNG, ID3, PDF, Photoshop, QuickTime, AIFF, MIE and
@@ -2270,7 +2280,7 @@ specified by the L</Charset> option.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey
+Copyright 2003-2013, Phil Harvey
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

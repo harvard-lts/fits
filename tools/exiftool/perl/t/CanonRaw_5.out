@@ -1,9 +1,10 @@
-  ExifToolVersion = 9.02
+  ExifToolVersion = 9.07
   FileName = CanonRaw.crw
   Directory = t/images
   FileSize = 6816
-  FileModifyDate = 1327256981
-  FileAccessDate = 1346801128
+  FileModifyDate = 1327257119
+  FileAccessDate = 1353415777
+  FileInodeChangeDate = 1353161905
   FilePermissions = 33188
   FileType = CRW
   MIMEType = image/x-canon-crw

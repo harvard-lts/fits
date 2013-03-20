@@ -29,7 +29,7 @@ use vars qw($VERSION %leicaLensTypes);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Exif;
 
-$VERSION = '1.68';
+$VERSION = '1.69';
 
 sub ProcessPanasonicType2($$$);
 sub WhiteBalanceConv($;$$);
@@ -99,6 +99,7 @@ sub WhiteBalanceConv($;$$);
     39 => 'Macro-Elmar-M 90mm f/4',         # 11633/11634
     '39 0' => 'Tele-Elmar-M 135mm f/4 (II)',# 11861
     40 => 'Macro-Adapter M',                # 14409
+    '41 3' => 'Apo-Summicron-M 50mm f/2 Asph', #16
     42 => 'Tri-Elmar-M 28-35-50mm f/4 ASPH.',# 11625
     '42 1' => 'Tri-Elmar-M 28-35-50mm f/4 ASPH. (at 28mm)',
     '42 2' => 'Tri-Elmar-M 28-35-50mm f/4 ASPH. (at 35mm)',
@@ -115,7 +116,6 @@ sub WhiteBalanceConv($;$$);
     '51 2' => 'Super-Elmar-M 14mm f/3.8 Asph', # ? (ref 16)
     52 => 'Super-Elmar-M 18mm f/3.8 ASPH.', # ? (ref PH/11)
     '53 2' => 'Apo-Telyt-M 135mm f/3.4', #16
-    '53 3' => 'Apo-Summicron-M 50mm f/2 Asph', #16
 );
 
 # M9 frame selector bits for each lens
@@ -228,6 +228,7 @@ my %shootingMode = (
         PrintConv => {
             2 => 'High',
             3 => 'Normal',
+            # 5 - seen this for 1920x1080, 30fps SZ7 video - PH
             6 => 'Very High', #3 (Leica)
             7 => 'Raw', #3 (Leica)
             9 => 'Motion Picture', #PH (LZ6)
@@ -1836,7 +1837,7 @@ Panasonic and Leica maker notes in EXIF information.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

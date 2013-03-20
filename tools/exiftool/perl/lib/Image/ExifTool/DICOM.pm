@@ -20,7 +20,7 @@ use strict;
 use vars qw($VERSION %uid);
 use Image::ExifTool qw(:DataAccess :Utils);
 
-$VERSION = '1.14';
+$VERSION = '1.16';
 
 # DICOM VR (Value Representation) format conversions
 my %dicomFormat = (
@@ -57,6 +57,9 @@ my %implicitVR = (
         and element numbers in hexadecimal, as given in the DICOM specification (see
         L<http://medical.nema.org/>).  The table below contains tags from the DICOM
         2009 and earlier specifications plus some vendor-specific private tags.
+
+        Note that DICOM information may be saved in other file formats using the
+        L<XMP DICOM Tags|Image::ExifTool::TagNames/XMP DICOM Tags>.
     },
     # file meta information group (names end with VR)
     '0002,0000' => { VR => 'UL', Name => 'FileMetaInfoGroupLength' },
@@ -2340,7 +2343,7 @@ my %implicitVR = (
     '0072,0512' => { VR => 'FD', Name => 'ReformattingThickness' },
     '0072,0514' => { VR => 'FD', Name => 'ReformattingInterval' },
     '0072,0516' => { VR => 'CS', Name => 'ReformattingOpInitialViewDir' },
-    '0072,0520' => { VR => 'CS', Name => '3DRenderingType' },
+    '0072,0520' => { VR => 'CS', Name => 'RenderingType3D' },
     '0072,0600' => { VR => 'SQ', Name => 'SortingOperationsSequence' },
     '0072,0602' => { VR => 'CS', Name => 'SortByCategory' },
     '0072,0604' => { VR => 'CS', Name => 'SortingDirection' },
@@ -3804,7 +3807,7 @@ No translation of special characters sets is done.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

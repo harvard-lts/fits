@@ -140,15 +140,16 @@ required, however the following modules are recommended for decoding
 compressed and/or encrypted information from the indicated file types, and
 for calculating digest values for some information types:
 
-  Archive::Zip        (ZIP, DOCX, PPTX, XLSX, ODP, ODS, ODT, EIP and iWork)
-  Compress::Zlib      (DNG, PNG, PDF, DCM, MIE and SWF files)
-  Digest::MD5         (PDF files, IPTC information, and JPG Extended XMP)
-  Digest::SHA         (PDF with AES-256 encryption)
-  IO::Compress::Bzip2 (RWZ files)
+  Archive::Zip         (ZIP, DOCX, PPTX, XLSX, ODP, ODS, ODT, EIP, iWork)
+  Compress::Zlib       (DNG, PNG, PDF, DCM, MIE and SWF files)
+  Digest::MD5          (PDF files, IPTC information, and JPG Extended XMP)
+  Digest::SHA          (PDF with AES-256 encryption)
+  IO::Compress::Bzip2  (RWZ files)
+  Win32API::File::Time (enables writing of FileCreateDate in Windows)
 
 COPYRIGHT AND LICENSE
 
-Copyright 2003-2012, Phil Harvey
+Copyright 2003-2013, Phil Harvey
 
 This is free software; you can redistribute it and/or modify it under the
 same terms as Perl itself.

@@ -148,11 +148,29 @@ the &quot;XMP-photomech&quot; family 1 group name.</p>
 <tr class=h><th>Tag Name</th>
 <th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
 <tr>
+<td>ColorClass</td>
+<td class=c>integer</td>
+<td><table class=cols><tr>
+  <td>0 = 0 (None)
+  <br>1 = 1 (Winner)
+  <br>2 = 2 (Winner alt)
+  <br>3 = 3 (Superior)
+  <br>4 = 4 (Superior alt)</td><td>&nbsp;&nbsp;</td>
+  <td>5 = 5 (Typical)
+  <br>6 = 6 (Typical alt)
+  <br>7 = 7 (Extras)
+  <br>8 = 8 (Trash)</td><td>&nbsp;&nbsp;</td></tr></table>
+</td></tr>
+<tr class=b>
 <td>CountryCode</td>
 <td class=c title=' / = Avoided'>string/</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>EditStatus</td>
+<td class=c>string</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>PMVersion</td>
 <td class=c>string</td>
 <td>&nbsp;</td></tr>
 <tr>
@@ -160,6 +178,11 @@ the &quot;XMP-photomech&quot; family 1 group name.</p>
 <td class=c>string</td>
 <td><span class=s><span class=n>(format is &quot;Tagged:0, ColorClass:1, Rating:2, FrameNum:3&quot;)</span></span></td></tr>
 <tr class=b>
+<td>Tagged</td>
+<td class=c>boolean</td>
+<td><span class=s>&#39;False&#39; = No
+  <br>&#39;True&#39; = Yes</span></td></tr>
+<tr>
 <td>TimeCreated</td>
 <td class=c title=' / = Avoided'>string/</td>
 <td>&nbsp;</td></tr>
@@ -167,7 +190,7 @@ the &quot;XMP-photomech&quot; family 1 group name.</p>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Jan 22, 2011</i>
+<br><i>Last revised Dec 29, 2012</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

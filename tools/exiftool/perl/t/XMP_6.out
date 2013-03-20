@@ -1,13 +1,14 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.02
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
 [File, System, Image] FileName - File Name: XMP_6_failed.xmp
 [File, System, Image] Directory - Directory: t
 [File, System, Image] FileSize - File Size: 5.7 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:09:04 19:25:44-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:09:04 19:25:44-04:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:53-05:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:53-05:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:53-05:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: XMP
 [File, File, Image] MIMEType - MIME Type: application/rdf+xml
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.02
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.07
 [XMP, XMP-dc, Author] creator - Creator: Phil Harvey
 [XMP, XMP-dc, Image] description - Description: UTF-16 (big-endian) encoded XMP
 [XMP, XMP-dc, Author] rights - Rights: Copyright 2004 Phil Harvey

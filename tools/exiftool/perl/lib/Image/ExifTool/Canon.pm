@@ -80,7 +80,7 @@ sub ProcessSerialData($$$);
 sub ProcessFilters($$$);
 sub SwapWords($);
 
-$VERSION = '3.02';
+$VERSION = '3.03';
 
 # Note: Removed 'USM' from 'L' lenses since it is redundant - PH
 # (or is it?  Ref 32 shows 5 non-USM L-type lenses)
@@ -204,7 +204,7 @@ $VERSION = '3.02';
     137 => 'Canon EF 85mm f/1.2L or Sigma or Tamron Lens', #10
     137.1 => 'Sigma 18-50mm f/2.8-4.5 DC OS HSM', #PH
     137.2 => 'Sigma 50-200mm f/4-5.6 DC OS HSM', #PH
-    137.3 => 'Sigma 18-250mm f/3.5-6.3 DC OS HSM', #PH
+    137.3 => 'Sigma 18-250mm f/3.5-6.3 DC OS HSM', #PH (also Sigma 18-250mm f/3.5-6.3 DC Macro OS HSM)
     137.4 => 'Sigma 24-70mm f/2.8 IF EX DG HSM', #PH
     137.5 => 'Sigma 18-125mm f/3.8-5.6 DC OS HSM', #PH
     137.6 => 'Sigma 17-70mm f/2.8-4 DC Macro OS HSM', #http://u88.n24.queensu.ca/exiftool/forum/index.php/topic,2819.0.html
@@ -272,6 +272,7 @@ $VERSION = '3.02';
     169.4 => 'Sigma 50mm f/1.4 EX DG HSM', #PH
     169.5 => 'Sigma 85mm f/1.4 EX DG HSM', #Rolando Ruzic
     169.6 => 'Sigma 30mm f/1.4 EX DC HSM', #Rodolfo Borges
+    169.7 => 'Sigma 35mm f/1.4 DG HSM', #PH
     170 => 'Canon EF 200mm f/2.8L II', #9
     171 => 'Canon EF 300mm f/4L', #15
     172 => 'Canon EF 400mm f/5.6L', #32
@@ -613,6 +614,7 @@ $VERSION = '3.02';
 );
 
 my %canonQuality = (
+    -1 => 'n/a', # (PH, EOS M MOV video)
     1 => 'Economy',
     2 => 'Normal',
     3 => 'Fine',
@@ -1608,6 +1610,7 @@ my %binaryDataAttrs = (
     4 => {
         Name => 'CanonFlashMode',
         PrintConv => {
+            -1 => "n/a", # (PH, EOS M MOV video)
             0 => 'Off',
             1 => 'Auto',
             2 => 'On',
@@ -1644,6 +1647,7 @@ my %binaryDataAttrs = (
             6 => 'Manual Focus (6)',
            16 => 'Pan Focus', #PH
            # 137 - Single?
+           # 519 - seen in EOS M MOV video
         },
     },
     9 => { #PH
@@ -7537,7 +7541,7 @@ Canon maker notes in EXIF information.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

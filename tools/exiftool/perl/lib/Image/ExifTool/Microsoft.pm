@@ -16,7 +16,7 @@ use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::XMP;
 
-$VERSION = '1.06';
+$VERSION = '1.07';
 
 sub ProcessXtra($$$);
 
@@ -702,7 +702,7 @@ my %sRegions = (
     '{14B81DA1-0135-4D31-96D9-6CBFC9671A99} 33437' => 'F-stop',
     '{14B81DA1-0135-4D31-96D9-6CBFC9671A99} 37385' => 'FlashMode',
     '{14B81DA1-0135-4D31-96D9-6CBFC9671A99} 37386' => 'FocalLength',
-    '{A0E74609-B84D-4F49-B860-462BD9971F98} 100'   => '35mmFocalLength',
+    '{A0E74609-B84D-4F49-B860-462BD9971F98} 100'   => 'FocalLength35mm',
     '{14B81DA1-0135-4D31-96D9-6CBFC9671A99} 34855' => 'ISOSpeed',
     '{E6DDCAF7-29C5-4F0A-9A68-D19412EC7090} 100'   => 'LensMaker',
     '{E1277516-2B5F-4869-89B1-2E585BD38B7A} 100'   => 'LensModel',
@@ -857,7 +857,7 @@ Microsoft-specific EXIF and XMP tags.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
