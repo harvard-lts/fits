@@ -1,9 +1,10 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.02
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
 [File, System, Image] FileName - File Name: Panasonic_5_failed.rw2
 [File, System, Image] Directory - Directory: t
 [File, System, Image] FileSize - File Size: 14 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:09:06 07:19:36-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:09:06 07:19:36-04:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:46-05:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:46-05:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:46-05:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: RW2
 [File, File, Image] MIMEType - MIME Type: image/x-panasonic-rw2
@@ -206,7 +207,7 @@
 [PanasonicRaw, PanasonicRaw, Other] 9 - Distortion Param 09: 0.00579833984375
 [PanasonicRaw, PanasonicRaw, Other] 11 - Distortion Param 11: -0.02374267578125
 [PanasonicRaw, PanasonicRaw, Other] 12 - Distortion N: 2280
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.02
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.07
 [XMP, XMP-dc, Image] title - Title: new title
 [IPTC, IPTC, Other] 25 - Keywords: a keyword
 [IPTC, IPTC, Other] 0 - Application Record Version: 4

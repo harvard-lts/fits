@@ -52,7 +52,7 @@ EncodingProcess: Baseline DCT, Huffman coding
 ExifByteOrder: Little-endian (Intel, II)
 ExifImageHeight: 120
 ExifImageWidth: 160
-ExifToolVersion: 9.02
+ExifToolVersion: 9.07
 ExifVersion: 0221
 ExposureCompensation: 0
 ExposureCompensation (1): 0
@@ -62,8 +62,9 @@ ExposureTime (1): 128
 FNumber: 14.0
 FNumber (1): 14
 FOV: 37.7 deg
-FileAccessDate: 2012:09:04 19:25:42-04:00
-FileModifyDate: 2012:09:04 19:25:42-04:00
+FileAccessDate: 2012:11:20 07:49:51-05:00
+FileInodeChangeDate: 2012:11:20 07:49:51-05:00
+FileModifyDate: 2012:11:20 07:49:51-05:00
 FileName: Writer_2_failed.jpg
 FileNumber: 118-1861
 FilePermissions: rw-r--r--

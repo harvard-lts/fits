@@ -151,11 +151,11 @@
     <span class='com'># Composite tags are added to the Composite table:</span>
     'Image::ExifTool::Composite' =&gt; {
         <span class='com'># Composite tags are unique:  The Require/Desire elements specify
-        # tags that must/may exist, and the keys of these hashes are used
-        # as indices in the @val array of the ValueConv expression to
-        # derive the composite tag value.  All Require'd tags must exist
-        # for the Composite tag to be evaluated.  If no Require'd tags are
-        # specified, then at least one of the Desire'd tags must exist.
+        # tags that must/may exist, and the keys of these hashes are used as
+        # indices in the @val array of the ValueConv expression to access
+        # the numerical (-n) values of these tags.  All Require'd tags must
+        # exist for the Composite tag to be evaluated.  If no Require'd tags
+        # are specified, then at least one of the Desire'd tags must exist.
         # See the Composite table in Image::ExifTool::Exif for more
         # examples, and lib/Image/ExifTool/README for all of the details.</span>
         BaseName =&gt; {

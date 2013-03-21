@@ -754,8 +754,8 @@ official EXIF 2.3 specification.
   0xc719   PreviewSettingsDigest     IFD0       int8u!
   0xc71a   PreviewColorSpace         IFD0       int32u!
   0xc71b   PreviewDateTime           IFD0       string!
-  0xc71c   RawImageDigest            IFD0       int8u!
-  0xc71d   OriginalRawFileDigest     IFD0       int8u!
+  0xc71c   RawImageDigest            IFD0       int8u[16]!
+  0xc71d   OriginalRawFileDigest     IFD0       int8u[16]!
   0xc71e   SubTileBlockSize          -          N
   0xc71f   RowInterleaveFactor       -          N
   0xc725   ProfileLookTableDims      IFD0       int32u[3]!
@@ -764,6 +764,16 @@ official EXIF 2.3 specification.
   0xc741   OpcodeList2               -          N
   0xc74e   OpcodeList3               -          N
   0xc761   NoiseProfile              -          N
+  0xc791   OriginalDefaultFinalSize  IFD0       int32u[2]!
+  0xc792   OriginalBestQualitySize   IFD0       int32u[2]!
+  0xc793   OriginalDefaultCropSize   IFD0       rational64u[2]!
+  0xc7a3   ProfileHueSatMapEncoding  IFD0       int32u!
+  0xc7a4   ProfileLookTableEncoding  IFD0       int32u!
+  0xc7a5   BaselineExposureOffset    IFD0       rational64u!
+  0xc7a6   DefaultBlackRender        IFD0       int32u!
+  0xc7a7   NewRawImageDigest         IFD0       int8u[16]!
+  0xc7a8   RawToPreviewGain          IFD0       double!
+  0xc7b5   DefaultUserCrop           SubIFD     rational64u[4]!
   0xea1c   Padding                   ExifIFD    undef
   0xea1d   OffsetSchema              ExifIFD    int32s
   0xfde8   OwnerName                 ExifIFD    string/
@@ -1044,13 +1054,15 @@ L<http://owl.phy.queensu.ca/~phil/exiftool/struct.html#Fields> for more
 details.
 
 ExifTool will extract XMP information even if it is not listed in these
-tables.  For example, the C<pdfx> namespace doesn't have a predefined set of
-tag names because it is used to store application-defined PDF information,
-but this information is extracted by ExifTool.
+tables, but other tags are not writable unless added as user-defined tags in
+the ExifTool config file.  For example, the C<pdfx> namespace doesn't have a
+predefined set of tag names because it is used to store application-defined
+PDF information, so although this information will be extracted, it is only
+writable if the corresponding user-defined tags have been created.
 
 The tables below list tags from the official XMP specification (with an
 underlined B<Namespace> in the HTML version of this documentation), as well
-as extensions from various other sources. See
+as extensions from various other sources.  See
 L<http://www.adobe.com/devnet/xmp/> for the official XMP specification.
 
   Namespace                                     Writable
@@ -1071,6 +1083,7 @@ L<http://www.adobe.com/devnet/xmp/> for the official XMP specification.
   expressionmedia                               XMP ExpressionMedia
   extensis                                      XMP extensis
   fpv                                           XMP fpv
+  GPano                                         XMP GPano
   ics                                           XMP ics
   iptcCore                                      XMP iptcCore
   iptcExt                                       XMP iptcExt
@@ -1266,6 +1279,12 @@ Photoshop Camera Raw namespace tags.
   CropUnits                                     integer
   CropWidth                                     real
   Defringe                                      integer
+  DefringeGreenAmount                           integer
+  DefringeGreenHueHi                            integer
+  DefringeGreenHueLo                            integer
+  DefringePurpleAmount                          integer
+  DefringePurpleHueHi                           integer
+  DefringePurpleHueLo                           integer
   Exposure                                      real
   Exposure2012                                  real
   FillLight                                     integer
@@ -1285,10 +1304,20 @@ Photoshop Camera Raw namespace tags.
   GradientBasedCorrMaskZeroY                    real_
   GradientBasedCorrBrightness                   real_
   GradientBasedCorrClarity                      real_
+  GradientBasedCorrClarity2012                  real_
   GradientBasedCorrContrast                     real_
+  GradientBasedCorrContrast2012                 real_
+  GradientBasedCorrDefringe                     real_
   GradientBasedCorrExposure                     real_
+  GradientBasedCorrExposure2012                 real_
+  GradientBasedCorrHighlights2012               real_
+  GradientBasedCorrLuminanceNoise               real_
+  GradientBasedCorrMoire                        real_
   GradientBasedCorrSaturation                   real_
+  GradientBasedCorrShadows2012                  real_
   GradientBasedCorrSharpness                    real_
+  GradientBasedCorrTemperature                  real_
+  GradientBasedCorrTint                         real_
   GradientBasedCorrHue                          real_
   GradientBasedCorrSaturation                   real_
   GradientBasedCorrWhat                         string_
@@ -1356,10 +1385,20 @@ Photoshop Camera Raw namespace tags.
   PaintCorrectionMaskZeroY                      real_
   PaintCorrectionBrightness                     real_
   PaintCorrectionClarity                        real_
+  PaintCorrectionClarity2012                    real_
   PaintCorrectionContrast                       real_
+  PaintCorrectionContrast2012                   real_
+  PaintCorrectionDefringe                       real_
   PaintCorrectionExposure                       real_
+  PaintCorrectionExposure2012                   real_
+  PaintCorrectionHighlights2012                 real_
+  PaintCorrectionLuminanceNoise                 real_
+  PaintCorrectionMoire                          real_
   PaintCorrectionSaturation                     real_
+  PaintCorrectionShadows2012                    real_
   PaintCorrectionSharpness                      real_
+  PaintCorrectionTemperature                    real_
+  PaintCorrectionTint                           real_
   PaintCorrectionHue                            real_
   PaintCorrectionSaturation                     real_
   PaintCorrectionWhat                           string_
@@ -1436,10 +1475,20 @@ Photoshop Camera Raw namespace tags.
   CorrectionMasks                               CorrectionMask Struct+
   LocalBrightness                               real
   LocalClarity                                  real
+  LocalClarity2012                              real
   LocalContrast                                 real
+  LocalContrast2012                             real
+  LocalDefringe                                 real
   LocalExposure                                 real
+  LocalExposure2012                             real
+  LocalHighlights2012                           real
+  LocalLuminanceNoise                           real
+  LocalMoire                                    real
   LocalSaturation                               real
+  LocalShadows2012                              real
   LocalSharpness                                real
+  LocalTemperature                              real
+  LocalTint                                     real
   LocalToningHue                                real
   LocalToningSaturation                         real
   What                                          string
@@ -1500,7 +1549,10 @@ other XMP tags.  (see L<http://www.optimasc.com/products/fileid/>)
 
 =head3 XMP DICOM Tags
 
-DICOM namespace tags.
+DICOM namespace tags.  These XMP tags allow some DICOM information to be
+stored in files of other than DICOM format.  See the
+L<DICOM Tags documentation|Image::ExifTool::TagNames/DICOM Tags> for a list
+of tags available in DICOM-format files.
 
   Tag Name                                      Writable
   --------                                      --------
@@ -1703,6 +1755,39 @@ L<http://www.fastpictureviewer.com/help/#rtfcomments>).
   Tag Name                                      Writable
   --------                                      --------
   RichTextComment                               string
+
+=head3 XMP GPano Tags
+
+Panorama tags written by Google Photosphere. See
+L<https://developers.google.com/panorama/metadata/> for the specification.
+
+  Tag Name                                      Writable
+  --------                                      --------
+  CaptureSoftware                               string
+  CroppedAreaImageHeightPixels                  integer
+  CroppedAreaImageWidthPixels                   integer
+  CroppedAreaLeftPixels                         integer
+  CroppedAreaTopPixels                          integer
+  ExposureLockUsed                              boolean
+  FirstPhotoDate                                date
+  FullPanoHeightPixels                          integer
+  FullPanoWidthPixels                           integer
+  InitialHorizontalFOVDegrees                   real
+  InitialViewHeadingDegrees                     integer
+  InitialViewPitchDegrees                       integer
+  InitialViewRollDegrees                        integer
+  LargestValidInteriorRectHeight                integer
+  LargestValidInteriorRectLeft                  integer
+  LargestValidInteriorRectTop                   integer
+  LargestValidInteriorRectWidth                 integer
+  LastPhotoDate                                 date
+  PoseHeadingDegrees                            real
+  PosePitchDegrees                              real
+  PoseRollDegrees                               real
+  ProjectionType                                string
+  SourcePhotosCount                             integer
+  StitchingSoftware                             string
+  UsePanoramaViewer                             boolean
 
 =head3 XMP ics Tags
 
@@ -4147,8 +4232,9 @@ These tags are written by Nikon DSLR's which have the live view feature.
       5    AFAreaMode                           int8u
       6    PhaseDetectAF                        int8u
       7    PrimaryAFPoint                       int8u
-      8    AFPointsUsed                         undef[7]~
+      8    AFPointsUsed                         undef[7]
            AFPointsUsed                         undef[2]
+           AFPointsUsed                         undef[7]
            AFPointsUsed                         undef[7]~
      16    AFImageWidth                         int16u
      18    AFImageHeight                        int16u
@@ -5141,6 +5227,7 @@ any information found here will be extracted, even if the tag is not listed.
   0x0302   ExtenderSerialNumber                 string[32]
   0x0303   ExtenderModel                        string
   0x0304   ExtenderFirmwareVersion              int32u
+  0x0403   ConversionLens                       string
   0x1000   FlashType                            int16u
   0x1001   FlashModel                           int16u
   0x1002   FlashFirmwareVersion                 int32u
@@ -7949,8 +8036,8 @@ Tags found in the FujiIFD information of RAF images from some models.
   Tag ID   Tag Name                             Writable
   ------   --------                             --------
   0xf000   FujiIFD                              FujiFilm IFD
-  0xf001   RawImageWidth                        N
-  0xf002   RawImageHeight                       N
+  0xf001   RawImageFullWidth                    N
+  0xf002   RawImageFullHeight                   N
   0xf003   BitsPerSample                        N
   0xf007   StripOffsets                         N
   0xf008   StripByteCounts                      N
@@ -10755,6 +10842,7 @@ MakerNotes.
   0x2013   DistortionCorrection                 int32u
   0x2014   WBShiftAB_GM                         int32s[2]
   0x2016   AutoPortraitFramed                   N
+  0x201b   FocusMode                            int8u
   0x201e   AFPointSelected                      int8u
   0x3000   ShotInfo                             Sony ShotInfo
   0x9400   Tag9400                              Sony Tag9400
@@ -11037,7 +11125,7 @@ A560, A580, NEX-3, NEX-5, NEX-C3 and NEX-VG10E.
      52    DriveMode                            int8u
      53    MultiFrameNoiseReduction             int8u
      54    LiveViewAFSetting                    int8u
-     56    3DPanoramaSize                       int8u
+     56    PanoramaSize3D                       int8u
     131    AFButtonPressed                      int8u
     132    LiveViewMetering                     int8u
     133    ViewingMode2                         int8u
@@ -11159,7 +11247,7 @@ rotation -- the width is always the longer dimension.
 
 =head3 Sony Tag9400 Tags
 
-Data for tags 0x2010 and 0x94xx is encrypted by a simple substitution
+Data for tags 0x94xx and 0x2010 is encrypted by a simple substitution
 cipher, but the deciphered values are listed below.
 
   Tag ID   Tag Name                             Writable
@@ -13583,9 +13671,12 @@ the "XMP-photomech" family 1 group name.
 
   Tag Name                                      Writable
   --------                                      --------
+  ColorClass                                    integer
   CountryCode                                   string/
   EditStatus                                    string
+  PMVersion                                     string
   Prefs                                         string
+  Tagged                                        boolean
   TimeCreated                                   string/
 
 =head2 Microsoft Tags
@@ -14022,7 +14113,7 @@ are not shown because some are unruly GUID's.
   Priority                                      N
   HasAttachments                                N
   Spouse                                        N
-  35mmFocalLength                               N
+  FocalLength35mm                               N
   RecordingTime                                 N
   IsCompleted                                   N
   OfflineAvailability                           N
@@ -19954,6 +20045,9 @@ and element numbers in hexadecimal, as given in the DICOM specification (see
 L<http://medical.nema.org/>).  The table below contains tags from the DICOM
 2009 and earlier specifications plus some vendor-specific private tags.
 
+Note that DICOM information may be saved in other file formats using the
+L<XMP DICOM Tags|Image::ExifTool::TagNames/XMP DICOM Tags>.
+
   Tag ID     Tag Name                           Writable
   ------     --------                           --------
   0002,0000  FileMetaInfoGroupLength            N
@@ -22208,7 +22302,7 @@ L<http://medical.nema.org/>).  The table below contains tags from the DICOM
   0072,0512  ReformattingThickness              N
   0072,0514  ReformattingInterval               N
   0072,0516  ReformattingOpInitialViewDir       N
-  0072,0520  3DRenderingType                    N
+  0072,0520  RenderingType3D                    N
   0072,0600  SortingOperationsSequence          N
   0072,0602  SortByCategory                     N
   0072,0604  SortingDirection                   N
@@ -23824,9 +23918,9 @@ in this column are write-only.
 
 Tags in the family 1 "System" group are referred to as "pseudo" tags because
 they don't represent real metadata in the file.  Instead, this information
-is stored in the directory structure of the filesystem.  The three writable
-"pseudo" tags (FileName, Directory and FileModifyDate) may be written
-without modifying the file itself.
+is stored in the directory structure of the filesystem.  The four writable
+"pseudo" tags (FileName, Directory, FileModifyDate and FileCreateDate) may
+be written without modifying the file itself.
 
   Tag Name                   Group              Writable
   --------                   -----              --------
@@ -23841,6 +23935,8 @@ without modifying the file itself.
   ExifToolVersion            ExifTool           N
   ExifUnicodeByteOrder       -                  Y
   FileAccessDate             System             N
+  FileCreateDate             System             Y!
+  FileInodeChangeDate        System             N
   FileModifyDate             System             Y!
   FileName                   System             Y!
   FilePermissions            System             N
@@ -23874,7 +23970,9 @@ without modifying the file itself.
 
 The values of the composite tags are B<Derived From> the values of other
 tags.  These are convenience tags which are calculated after all other
-information is extracted.
+information is extracted.  User-defined Composite tags, useful for
+custom-formatting of tag values, may created in the ExifTool configuration
+file.
 
   Tag Name             Derived From             Writable
   --------             ------------             --------
@@ -24438,7 +24536,7 @@ L<Image::ExifTool::BuildTagLookup|Image::ExifTool::BuildTagLookup>.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

@@ -2780,7 +2780,7 @@ D200.</p>
 <td class=r title='7 = 0x7'>7</td>
 <td>PrimaryAFPoint</td>
 <td class=c>int8u</td>
-<td><span class=s><span class=n>(models with 51-point AF: D3, D3S, D3X, D300, D300S and D700)</span></span><table class=cols><tr>
+<td><span class=s><span class=n>(models with 51-point AF: D3, D3S, D3X, D300, D300S, D700 and D800)</span></span><table class=cols><tr>
   <td>0 = (none)
   <br>1 = C6 (Center)
   <br>2 = B6
@@ -2833,7 +2833,7 @@ D200.</p>
   <br>49 = C1
   <br>50 = B1
   <br>51 = D1</td><td>&nbsp;&nbsp;</td></tr></table>
-<span class=s><span class=n>(models with 11-point AF: D90, D3000 and D5000)</span></span><table class=cols><tr>
+<span class=s><span class=n>(models with 11-point AF: D90, D3000, D3100, D5000 and D5100)</span></span><table class=cols><tr>
   <td>0 = (none)
   <br>1 = Center
   <br>2 = Top
@@ -2846,7 +2846,7 @@ D200.</p>
   <br>9 = Upper-right
   <br>10 = Lower-right
   <br>11 = Far Right</td><td>&nbsp;&nbsp;</td></tr></table>
-<span class=s><span class=n>(models with 39-point AF: D7000 (not verified))</span></span><table class=cols><tr>
+<span class=s><span class=n>(models with 39-point AF: D600 and D7000)</span></span><table class=cols><tr>
   <td>0 = (none)
   <br>1 = C6 (Center)
   <br>2 = B6
@@ -2894,9 +2894,10 @@ D200.</p>
 <td class=r title='8 = 0x8'>8</td>
 <td>AFPointsUsed
   <br>AFPointsUsed
+  <br>AFPointsUsed
   <br>AFPointsUsed</td>
-<td class=c title=' ~ = Writable only with -n'>undef[7]~<br>undef[2]<br>undef[7]~</td>
-<td><span class=s><span class=n>(models with 51-point AF -- 5 rows: A1-9, B1-11, C1-11, D1-11, E1-9, center
+<td class=c title=' ~ = Writable only with -n'>undef[7]<br>undef[2]<br>undef[7]<br>undef[7]~</td>
+<td><span class=s><span class=n>(models with 51-point AF -- 5 rows: A1-9, B1-11, C1-11, D1-11, E1-9.  Center
 point is C6)</span>
   <br><span class=n>(models with 11-point AF)</span></span><table class=cols><tr>
   <td>0x7ff = All 11 Points
@@ -2911,7 +2912,8 @@ point is C6)</span>
   <br>Bit 8 = Upper-right
   <br>Bit 9 = Lower-right
   <br>Bit 10 = Far Right</td><td>&nbsp;&nbsp;</td></tr></table>
-<span class=s><span class=n>(models with 39-point AF: D7000 (not decoded))</span></span></td></tr>
+<span class=s><span class=n>(models with 39-point AF -- 5 rows: A1-3, B1-11, C1-11, D1-11, E1-3.  Center
+point is C6)</span></span></td></tr>
 <tr>
 <td class=r title='16 = 0x10'>16</td>
 <td>AFImageWidth</td>
@@ -4006,6 +4008,7 @@ ExifTool to choose in these cases (see the
 </tr><tr><td>'53 48 60 80 24 24 57 02'</td><td>= AF Zoom-Nikkor 80-200mm f/2.8D ED</td>
 </tr><tr><td>'53 48 60 80 24 24 60 02'</td><td>= AF Zoom-Nikkor 80-200mm f/2.8D ED</td>
 </tr><tr><td>'54 44 5C 7C 34 3C 58 02'</td><td>= AF Zoom-Micro Nikkor 70-180mm f/4.5-5.6D ED</td>
+</tr><tr><td>'54 44 5C 7C 34 3C 61 02'</td><td>= AF Zoom-Micro Nikkor 70-180mm f/4.5-5.6D ED</td>
 </tr><tr><td>'56 3C 5C 8E 30 3C 1C 02'</td><td>= Sigma 70-300mm F4-5.6 APO Macro Super II</td>
 </tr><tr><td>'56 48 5C 8E 30 3C 5A 02'</td><td>= AF Zoom-Nikkor 70-300mm f/4-5.6D ED</td>
 </tr><tr><td>'59 48 98 98 24 24 5D 02'</td><td>= AF-S Nikkor 400mm f/2.8D IF-ED</td>
@@ -4119,6 +4122,7 @@ ExifTool to choose in these cases (see the
 </tr><tr><td>'AF 54 44 44 0C 0C B1 06'</td><td>= AF-S Nikkor 35mm f/1.4G</td>
 </tr><tr><td>'B0 4C 50 50 14 14 B2 06'</td><td>= AF-S Nikkor 50mm f/1.8G</td>
 </tr><tr><td>'B1 48 48 48 24 24 B3 06'</td><td>= AF-S DX Micro Nikkor 40mm f/2.8G</td>
+</tr><tr><td>'B2 48 5C 80 30 30 B4 0E'</td><td>= AF-S Nikkor 70-200mm f/4 ED VR</td>
 </tr><tr><td>'B3 4C 62 62 14 14 B5 06'</td><td>= AF-S Nikkor 85mm f/1.8G</td>
 </tr><tr><td>'B4 40 37 62 2C 34 B6 0E'</td><td>= AF-S VR Zoom-Nikkor 24-85mm f/3.5-4.5G IF-ED</td>
 </tr><tr><td>'B5 4C 3C 3C 14 14 B7 06'</td><td>= AF-S Nikkor 28mm f/1.8G</td>
@@ -4137,7 +4141,7 @@ ExifTool to choose in these cases (see the
 </tr><tr><td>'ED 40 2D 80 2C 40 4B 0E'</td><td>= Sigma 18-200mm F3.5-6.3 DC OS HSM</td>
 </tr><tr><td>'EE 48 5C 80 24 24 4B 06'</td><td>= Sigma 70-200mm F2.8 EX APO DG Macro HSM II</td>
 </tr><tr><td>'F0 38 1F 37 34 3C 4B 06'</td><td>= Sigma 12-24mm F4.5-5.6 EX DG Aspherical HSM</td>
-</tr><tr><td>'F0 3F 2D 8A 2C 40 DF 0E'</td><td>= Tamron AF 18-270mm F/3.5-6.3 Di II VC PZD (B008)</td>
+</tr><tr><td>'F0 3F 2D 8A 2C 40 DF 0E'</td><td>= Tamron AF 18-270mm f/3.5-6.3 Di II VC PZD (B008)</td>
 </tr><tr><td>'F1 44 A0 A0 34 34 4B 02'</td><td>= Sigma APO 500mm F4.5 EX DG HSM</td>
 </tr><tr><td>'F1 47 5C 8E 30 3C DF 0E'</td><td>= Tamron SP 70-300mm f/4-5.6 Di VC USD (A005)</td>
 </tr><tr><td>'F3 48 68 8E 30 30 4B 02'</td><td>= Sigma APO 100-300mm F4 EX IF HSM</td>
@@ -4147,7 +4151,7 @@ ExifTool to choose in these cases (see the
 </tr><tr><td>'F5 48 76 76 24 24 4B 06'</td><td>= Sigma 150mm F2.8 EX DG APO Macro HSM</td>
 </tr><tr><td>'F6 3F 18 37 2C 34 84 06'</td><td>= Tamron SP AF 10-24mm f/3.5-4.5 Di II LD Aspherical (IF) (B001)</td>
 </tr><tr><td>'F6 48 2D 50 24 24 4B 06'</td><td>= Sigma 18-50mm F2.8 EX DC Macro</td>
-</tr><tr><td>'F7 53 5C 80 24 24 40 06'</td><td>= Tamron SP AF 70-200mm F/2.8 Di LD (IF) Macro (A001)</td>
+</tr><tr><td>'F7 53 5C 80 24 24 40 06'</td><td>= Tamron SP AF 70-200mm f/2.8 Di LD (IF) Macro (A001)</td>
 </tr><tr><td>'F7 53 5C 80 24 24 84 06'</td><td>= Tamron SP AF 70-200mm f/2.8 Di LD (IF) Macro (A001)</td>
 </tr><tr><td>'F8 54 3E 3E 0C 0C 4B 06'</td><td>= Sigma 30mm F1.4 EX DC HSM</td>
 </tr><tr><td>'F8 54 64 64 24 24 DF 06'</td><td>= Tamron SP AF 90mm f/2.8 Di Macro 1:1 (272NII)</td>
@@ -4167,7 +4171,7 @@ ExifTool to choose in these cases (see the
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Nov 2, 2012</i>
+<br><i>Last revised Dec 14, 2012</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

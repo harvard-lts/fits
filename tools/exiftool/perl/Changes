@@ -4,8 +4,72 @@ ExifTool Version History
 
 RSS feed: http://owl.phy.queensu.ca/~phil/exiftool/rss.xml
 
-Note: The most recent production release is Version 9.04. (Other versions are
+Note: The most recent production release is Version 9.12. (Other versions are
 considered development releases, and are not uploaded to CPAN.)
+
+Jan. 10, 2013 - Version 9.13 (production release)
+
+  - Added basic validation of ExifVersion and FlashpixVersion tags when writing
+  - Fixed problem where MPF PreviewImage was lost when editing metadata in Nikon
+    D4, D600 or D800 images
+
+Jan. 2, 2013 - Version 9.12 (production release)
+
+  - Fixed problem introduced in 9.10 preserving file modification date/time when
+    some options are used
+
+Jan. 2, 2013 - Version 9.11 (production release)
+
+  - Improved decoding of some Sony tags
+  - Changed 3 tag names to avoid a leading digit to fix XML validation problem
+  - Fixed bug introduced in 9.04 that could double-encipher some Sony MakerNote
+    information when writing (affected files are fixed by writing any tag with
+    ExifTool 9.11)
+
+Dec. 29, 2012 - Version 9.10
+
+  - Added write support for a few new XMP-crs and XMP-photomech tags
+  - Added a new Samsung LensType (thanks Jaroslav Stepanek)
+  - Added a new Pentax LensType (thanks Helmut Schutz)
+  - Added a new Canon LensType
+  - Decode Sony A99 FocusMode (thanks Michael Tapes for the samples)
+  - Tolerate (but warn about) up to 4 bytes of garbage at start of EXIF segment
+  - Changed -P option to also preserve FileCreateDate on Windows (requires
+    Win32API::File::Time)
+  - Changed "[minor]" warning messages to capitalize the "M" (ie. "[Minor]") if
+    processing is affected when the warning is ignored
+  - Patched to avoid problem of slow processing with some corrupted EXIF
+
+Dec. 15, 2012 - Version 9.09
+
+  - Added a few new Google XMP GPano tags
+  - Added a new Olympus CameraType
+  - Added a couple of new Minolta LensTypes
+  - Added two new Nikon LensID's (thanks David Puschel and Robert
+    Rottmerhusen)
+  - Decode Nikon D7000 AFPointsUsed and make this tag writable
+  - Decode a new Olympus tag (thanks Christoph Anton Mitterer)
+  - Renamed one of the FujiFilm RAF RawImageWidth/Height pairs to
+    RawImageFullWidth/Height
+  - Changed -stay_open when combined with -q to flush output after each command
+    (as already done without -q) (requires IO::Handle)
+  - Fixed problem shifting FileCreateDate when writing other "real" tags in the
+    same command
+
+Nov. 26, 2012 - Version 9.08
+
+  - Fixed bug introduced in 9.07 that broke writing of FileModifyDate
+
+Nov. 24, 2012 - Version 9.07
+
+  - Added ability to read/write FileCreateDate (Windows only)
+  - Added ability to read FileInodeChangeDate (non-Windows only)
+  - Added support for new tags in DNG 1.4 specification
+  - Added support for Google Photosphere GPano XMP tags
+  - Added a couple of new Olympus filter effects
+  - Changed a Panasonic LensType (thanks Olaf Ulrich)
+  - API Changes:
+      - Enhanced SetFileModifyDate() to write FileCreateDate (Windows only)
 
 Nov. 17, 2012 - Version 9.06
 
@@ -14,6 +78,7 @@ Nov. 17, 2012 - Version 9.06
   - Added support for FujiFilm X-E1 RAF images
   - Added a new Olympus CameraType
   - Added a new PentaxModelID and a new Pentax LensType
+  - Extract FileCreateDate (Windows) and FileInodeChangeDate (other systems)
   - Fixed bug decoding UTF-16 ID3 synchronized lyrics
 
 Nov. 10, 2012 - Version 9.05

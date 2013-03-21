@@ -601,7 +601,9 @@ distribution for examples.</p>
     but by ignoring some minor warnings the behaviour of ExifTool may be changed
     to allow some questionable operations to proceed (such as extracting
     thumbnail and preview images even if they don't have a recognizable header).
-     Minor errors/warnings are denoted by '[minor]' at the start of the message.</td>
+    Minor errors/warnings are denoted by "[minor]" at the start of the message,
+    or "[Minor]" (with a capital "M") for warnings that affect processing when
+    ignored.</td>
     <td align='center'>0 or 1</td><td align='center'>0</td></tr>
 <tr><td>Lang</td><td><a name="Lang"></a>Localized language for exiftool tag descriptions, etc.  If the
     specified language isn't available, the option is not changed.  May be set to
@@ -1065,13 +1067,13 @@ errors are printed to STDERR.
 <blockquote><table class='norm'>
 <tr><th colspan=4 bgcolor='#dddddd'>SetNewValue Options</th></tr>
 <tr><th>Option</th><th>Description</th><th width='30%'>Values</th><th>Default</th></tr>
-<tr><td>AddValue</td><td>Add value to existing list rather than overwriting</td>
+<tr><td>AddValue</td><td>Add value to existing list in a file rather than overwriting</td>
     <td><table class='clear'>
     <tr><td valign='top' align=center><b>0</b>&nbsp;=</td><td>Overwrite existing value(s)</td></tr>
     <tr><td valign='top' align=center><b>1</b>&nbsp;=</td><td>Add to existing list, or warn for non-list tags</td></tr>
     <tr><td valign='top' align=center><b>2</b>&nbsp;=</td><td>Add to existing list, or overwrite non-list tags</td></tr>
     </table></td><td align=center>0</td></tr>
-<tr><td>DelValue</td><td>Delete an existing tag if it has the specified value</td>
+<tr><td>DelValue</td><td>Delete existing tag from a file if it has the specified value</td>
     <td align=center>0 or 1</td><td align=center>0</td></tr>
 <tr><td>EditGroup</td><td>Create tags in existing groups only. Don't create new group</td>
     <td align=center>0 or 1</td><td align=center>0</td></tr>
@@ -1418,12 +1420,14 @@ See <a href="#SaveNewValues">SaveNewValues</a> above for an example.</p>
 </table></blockquote>
 
 <hr><h2><a name="SetFileModifyDate">SetFileModifyDate</a></h2>
-<p>Set the file modification time from the new value of the FileModifyDate tag.</p>
+<p>Write the filesystem modification or creation time from the new value of the
+FileModifyDate or FileCreateDate tag.</p>
 <blockquote><table class='norm'>
-<tr><td><b>Prototype</b></td><td>SetFileModifyDate($$;$)</td></tr>
+<tr><td><b>Prototype</b></td><td>SetFileModifyDate($$;$$)</td></tr>
 <tr><td valign='top'><b>Inputs</b></td><td><b>0)</b> ExifTool object reference
  <br><b>1)</b> File name
  <br><b>2)</b> [<i>optional</i>] Base time if applying shift (in days before $^T)
+ <br><b>3)</b> [<i>optional</i>] Tag to write: 'FileModifyDate' (default), or 'FileCreateDate'
 </td></tr>
 <tr><td valign='top'><b>Returns</b></td><td>1 if the time was changed, 0 if nothing was
 done, or -1 if there was an error setting the time.
@@ -1436,10 +1440,10 @@ my $result = $exifTool-&gt;<b>SetFileModifyDate</b>($file);
 </pre></td></tr></table></blockquote>
 <p><b>Notes:</b></p>
 <p>Equivalent to, but more efficient than calling <a href="#WriteInfo">WriteInfo</a>
-when only the FileModifyDate tag has been set.  If a timezone is not specified
-in the FileModifyDate value, local time is assumed.  When shifting
-FileModifyDate, the time of the original file is used unless an optional base
-time is specified.</p>
+when only the FileModifyDate or FileCreateDate tag has been set.  If a timezone is not
+specified, local time is assumed.  When shifting, the time of the original
+file is used unless the optional base time is specified.</p>
+<p>The ability to write FileCreateDate is currently restricted to Windows systems only.</p>
 
 <hr><h2><a name="SetFileName">SetFileName</a></h2>
 <p>Set the file name and directory.  If not specified, the new file name is
