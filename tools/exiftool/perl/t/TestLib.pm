@@ -24,7 +24,7 @@ require Exporter;
 use Image::ExifTool qw(ImageInfo);
 
 use vars qw($VERSION @ISA @EXPORT);
-$VERSION = '1.20';
+$VERSION = '1.21';
 @ISA = qw(Exporter);
 @EXPORT = qw(check writeCheck writeInfo testCompare binaryCompare testVerbose);
 
@@ -129,8 +129,9 @@ sub nearEnough($$)
                ($line2 eq "$1$Image::ExifTool::VERSION$Image::ExifTool::RELEASE$2" or
                 $line2 eq "$1$Image::ExifTool::VERSION$2");
 
-    # allow different FileModifyDate, FileAccessDate and FilePermissions
-    return 1 if $line1 =~ /(File\s?(Modif.*Date|Access\s?Date|Permissions))/ and $line2 =~ /$1/;
+    # allow different FileModifyDate, FileAccessDate, FileCreateDate/FileInodeChangeDate and FilePermissions
+    return 1 if $line1 =~ /(File\s?(Modif.*Date|Access\s?Date|Inode\s?Change\s?Date|Permissions))/ and
+               ($line2 =~ /$1/ or $line2 =~ /File\s?Creat.*Date/);
 
     # allow CurrentIPTCDigest to be zero if Digest::MD5 isn't installed
     return 1 if $line1 =~ /Current IPTC Digest/ and

@@ -12,7 +12,7 @@
 use strict;
 require 5.004;
 
-my $version = '9.06';
+my $version = '9.13';
 
 # add our 'lib' directory to the include list BEFORE 'use Image::ExifTool'
 my $exeDir;
@@ -47,6 +47,7 @@ sub DoSetFromFile($$$);
 sub CleanFilename($);
 sub ProcessFiles($;$);
 sub ScanDir($$;$);
+sub SetFileTime($@);
 sub PreserveTime();
 sub LoadPrintFormat($);
 sub FilenameSPrintf($;$);
@@ -279,13 +280,18 @@ if ($binaryStdout) {
 }
 
 # flush console and print "{ready}" message if -stay_open is in effect
-if ($stayOpen >= 2 and not $quiet) {
-    eval 'require IO::Handle' and STDERR->flush();
-    my $id = defined $executeID ? $executeID : '';
-    my $save = $|;
-    $| = 1;     # turn on output autoflush for stdout
-    print "{ready$id}\n";
-    $| = $save; # restore original autoflush setting
+if ($stayOpen >= 2) {
+    if ($quiet) {
+        # flush output if possible
+        eval 'require IO::Handle' and STDERR->flush(), STDOUT->flush();
+    } else {
+        eval 'require IO::Handle' and STDERR->flush();
+        my $id = defined $executeID ? $executeID : '';
+        my $save = $|;
+        $| = 1;     # turn on output autoflush for stdout
+        print "{ready$id}\n";
+        $| = $save; # restore original autoflush setting
+    }
 }
 
 $rtnVal = 0 unless defined $rtnVal;
@@ -580,7 +586,7 @@ for (;;) {
     }
     /^(-?)(a|duplicates)$/i and $mainTool->Options(Duplicates => ($1 ? 0 : 1)), next;
     /^arg(s|format)$/i and $argFormat = 1, next;
-    /^b(inary)?$/i and $mainTool->Options(Binary => 1), $binaryOutput = 1,  next;
+    /^b(inary)?$/i and $mainTool->Options(Binary => 1), $binaryOutput = 1, next;
     if (/^c(oordFormat)?$/i) {
         my $fmt = shift;
         $fmt or Error("Expecting coordinate format for -c option\n"), next Command;
@@ -2277,12 +2283,13 @@ sub SetImageInfo($$$)
             }
             # quickly rename file and/or set file date if this is all we are doing
             if ($numSet == $numPseudo) {
-                my $r1 = $exifTool->SetFileModifyDate($file);
-                my $r2 = 0;
-                $r2 = $exifTool->SetFileName($file, $outfile) if defined $outfile;
-                if ($r1 > 0 or $r2 > 0) {
+                my $r1 = $exifTool->SetFileModifyDate($file,undef,'FileCreateDate');
+                my $r2 = $exifTool->SetFileModifyDate($file);
+                my $r3 = 0;
+                $r3 = $exifTool->SetFileName($file, $outfile) if defined $outfile;
+                if ($r1 > 0 or $r2 > 0 or $r3 > 0) {
                     ++$countGoodWr;
-                } elsif ($r1 < 0 or $r2 < 0) {
+                } elsif ($r1 < 0 or $r2 < 0 or $r3 < 0) {
                     ++$countBadWr;
                     return 0;
                 } else {
@@ -2308,18 +2315,17 @@ sub SetImageInfo($$$)
     my $success = $exifTool->WriteInfo($file, $outfile, $outType);
 
     # get file time if preserving it
-    my ($modTime, $accTime);
+    my ($aTime, $mTime, $cTime);
     if ($preserveTime and $success and -e $file) {
-        $modTime = $^T - (-M $file) * (24 * 3600);
-        $accTime = $^T - (-A $file) * (24 * 3600);
+        $aTime = $^T - (-A _) * (24 * 3600);
+        $mTime = $^T - (-M _) * (24 * 3600);
+        $cTime = $^T - (-C _) * (24 * 3600);
     }
     if ($success == 1) {
         # preserve the original file times
         if (defined $tmpFile) {
             if (-e $file) {
-                if ($preserveTime and not utime($accTime, $modTime, $tmpFile)) {
-                    Warn "Error setting file time - $file\n";
-                }
+                SetFileTime($tmpFile, $aTime, $mTime, $cTime) if $preserveTime;
                 if ($isTemporary) {
                     # preserve original file attributes if possible
                     Image::ExifTool::CopyFileAttrs($file, $outfile);
@@ -2340,8 +2346,8 @@ sub SetImageInfo($$$)
                         Open(\*NEW_FILE, $newFile) or Error("Error opening $newFile\n"), return 0;
                         binmode(NEW_FILE);
 
-                        #........................................................
-                        # temporary disable CTRL-C during this critical operation
+                        #..........................................................
+                        # temporarily disable CTRL-C during this critical operation
                         $critical = 1;
                         undef $tmpFile;     # handle deletion of temporary file ourself
                         if (Open(\*ORIG_FILE, $file, '>')) {
@@ -2361,11 +2367,9 @@ sub SetImageInfo($$$)
                             } else {
                                 unlink $newFile;
                                 if ($preserveTime) {
-                                    unless (utime($accTime, $modTime, $file)) {
-                                        Warn "Error setting file time - $file\n";
-                                    }
+                                    SetFileTime($file, $aTime, $mTime, $cTime);
                                     # save time to set it later again to patch OS X 10.6 bug
-                                    $preserveTime{$file} = [ $accTime, $modTime ];
+                                    $preserveTime{$file} = [ $aTime, $mTime, $cTime ];
                                 }
                             }
                             ++$countGoodWr;
@@ -2377,7 +2381,7 @@ sub SetImageInfo($$$)
                         }
                         undef $critical;            # end critical section
                         SigInt() if $interrupted;   # issue delayed SIGINT if necessary
-                        #........................................................
+                        #..........................................................
 
                     # simply rename temporary file to replace original
                     # (if we didn't already rename it to add "_original")
@@ -2420,9 +2424,7 @@ sub SetImageInfo($$$)
             unlink $tmpFile;
             ++$countSameWr;
         } else {
-            if (defined $accTime and not utime($accTime, $modTime, $outfile)) {
-                Warn "Error setting file time - $file\n";
-            }
+            SetFileTime($outfile, $aTime, $mTime, $cTime) if defined $aTime;
             if ($overwriteOrig) {
                 unlink $file or Warn "Error erasing original $file\n";
             }
@@ -2790,12 +2792,28 @@ sub ScanDir($$;$)
 }
 
 #------------------------------------------------------------------------------
+# Set file system times
+# Inputs: 0) file name, 1) access time, 2) modification time, 3) creation time
+# Notes: issues warning if modification/access times can't be set
+sub SetFileTime($@)
+{
+    my ($file, $aTime, $mTime, $cTime) = @_;
+    unless (utime($aTime, $mTime, $file)) {
+        Warn "Error setting file time - $file\n";
+    }
+    # set creation time for Windows systems only (if Win32API::File::Time is available)
+    if ($^O eq 'MSWin32' and eval 'require Win32API::File::Time') {
+        Win32API::File::Time::SetFileTime($file,undef,undef,$cTime);
+    }
+}
+
+#------------------------------------------------------------------------------
 # patch for OS X 10.6 to preserve file modify date
 # (this probably isn't a 100% fix, but it may solve a majority of the cases)
 sub PreserveTime()
 {
     local $_;
-    utime @{$preserveTime{$_}}, $_ foreach keys %preserveTime;
+    SetFileTime($_, @{$preserveTime{$_}}) foreach keys %preserveTime;
     undef %preserveTime;
 }
 
@@ -3312,8 +3330,8 @@ L<Tag operations|/Tag operations>
 
 L<Input-output text formatting|/Input-output text formatting>
 
-  -args       (-argFormat)         Output data as exiftool arguments
-  -b          (-binary)            Output data in binary format
+  -args       (-argFormat)         Format metadata as exiftool arguments
+  -b          (-binary)            Output metadata in binary format
   -c FMT      (-coordFormat)       Set format for GPS coordinates
   -charset [[TYPE=]CHARSET]        Specify encoding for special characters
   -csv[=CSVFILE]                   Export/import tags in CSV format
@@ -3342,7 +3360,7 @@ L<Input-output text formatting|/Input-output text formatting>
   -t          (-tab)               Output in tab-delimited list format
   -T          (-table)             Output in tabular format
   -v[NUM]     (-verbose)           Print verbose messages
-  -w[!] EXT   (-textOut)           Write output text files
+  -w[!] EXT   (-textOut)           Write (or overwrite!) output text files
   -X          (-xmlFormat)         Use RDF/XML output format
 
 L<Processing control|/Processing control>
@@ -3482,10 +3500,16 @@ removed if the containing group is deleted:
   - Deleting EXIF only removes ExifIFD which also deletes
     InteropIFD and MakerNotes.
 
-Note:  MakerNotes tags may be edited, but not created or deleted
-individually.  This avoids many potential problems including the inevitable
-compatibility problems with OEM software which may be very inflexible about
-the information it expects to find in the maker notes.
+Notes:
+
+1) MakerNotes tags may be edited, but not created or deleted individually. 
+This avoids many potential problems including the inevitable compatibility
+problems with OEM software which may be very inflexible about the
+information it expects to find in the maker notes.
+
+2) Changes to PDF files are reversible because the original information is
+never actually deleted from the file.  So ExifTool alone may not be used to
+securely edit metadata in PDF files.
 
 Special feature:  Integer values may be specified in hexadecimal with a
 leading C<0x>, and simple rational values may be specified as fractions.
@@ -3641,13 +3665,13 @@ above will produce warning messages for any tags which are not writable.
 
 =item B<-b> (B<-binary>)
 
-Output requested data in binary format without tag names or descriptions.
-This option is mainly used for extracting embedded images or other binary
-data, but it may also be useful for some text strings since control
-characters (such as newlines) are not replaced by '.' as they are in the
-default output.  List items are separated by a newline when extracted with
-the B<-b> option.  May be combined with C<-php> or C<-X> to extract binary
-data in PHP or XML format.
+Output requested metadata in binary format without tag names or
+descriptions.  This option is mainly used for extracting embedded images or
+other binary data, but it may also be useful for some text strings since
+control characters (such as newlines) are not replaced by '.' as they are in
+the default output.  List items are separated by a newline when extracted
+with the B<-b> option.  May be combined with C<-php> or C<-X> to extract
+binary data in PHP or XML format.
 
 =item B<-c> I<FMT> (B<-coordFormat>)
 
@@ -3933,7 +3957,7 @@ with this command:
 
 produces output like this:
 
-    -- Generated by ExifTool 9.06 --
+    -- Generated by ExifTool 9.13 --
     File: a.jpg - 2003:10:31 15:44:19
     (f/5.6, 1/60s, ISO 100)
     File: b.jpg - 2006:05:23 11:57:38
@@ -4285,13 +4309,21 @@ also specified on the command line.  The alternative is to use the
 C<$GROUP:all> syntax. (ie. Use C<$exif:all> instead of C<$exif> in I<EXPR>
 to test for the existence of EXIF tags.)
 
+3) Tags in the string are interpolated the same way as with B<-p> before the
+expression is evaluated.  In this interpolation, C<$/> is converted to a
+newline and C<$$> represents a single C<$> symbol (so Perl variables, if
+used, require a double C<$>).
+
 =item B<-m> (B<-ignoreMinorErrors>)
 
 Ignore minor errors and warnings.  This enables writing to files with minor
 errors and disables some validation checks which could result in minor
 warnings.  Generally, minor errors/warnings indicate a problem which usually
 won't result in loss of metadata if ignored.  However, there are exceptions,
-so ExifTool leaves it up to you to make the final decision.
+so ExifTool leaves it up to you to make the final decision.  Minor errors
+and warnings are indicated by "[minor]" at the start of the message. 
+Warnings which affect processing when ignored are indicated by "[Minor]"
+(with a capital "M").
 
 =item B<-o> I<OUTFILE> or I<FMT> (B<-out>)
 
@@ -4352,9 +4384,10 @@ B<-overwrite_original> option should be used instead unless necessary.
 =item B<-P> (B<-preserve>)
 
 Preserve the filesystem modification date/time of the original file
-(C<FileModifyDate>) when writing.  Note that some filesystems (ie. Mac and
-Windows) store a creation date which is not preserved by this option.  For
-these systems, the B<-overwrite_original_in_place> option may be used to
+(C<FileModifyDate>) when writing.  Note that some filesystems store a
+creation date which is not preserved by this option, with the exception of
+Windows systems where Win32API::File::Time is available.  For other systems,
+the B<-overwrite_original_in_place> option may be used if necessary to
 preserve the creation date.
 
 =item B<-password> I<PASSWD>
@@ -5254,7 +5287,7 @@ error occured or if all files failed the B<-if> condition.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey
+Copyright 2003-2013, Phil Harvey
 
 This is free software; you can redistribute it and/or modify it under the
 same terms as Perl itself.

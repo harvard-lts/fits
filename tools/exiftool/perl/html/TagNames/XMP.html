@@ -70,13 +70,15 @@ inside structures instead of stand-alone tags.  See
 details.</p>
 
 <p>ExifTool will extract XMP information even if it is not listed in these
-tables.  For example, the <code>pdfx</code> namespace doesn&#39;t have a predefined set of
-tag names because it is used to store application-defined PDF information,
-but this information is extracted by ExifTool.</p>
+tables, but other tags are not writable unless added as user-defined tags in
+the ExifTool config file.  For example, the <code>pdfx</code> namespace doesn&#39;t have a
+predefined set of tag names because it is used to store application-defined
+PDF information, so although this information will be extracted, it is only
+writable if the corresponding user-defined tags have been created.</p>
 
 <p>The tables below list tags from the official XMP specification (with an
 underlined <b>Namespace</b> in the HTML version of this documentation), as well
-as extensions from various other sources. See
+as extensions from various other sources.  See
 <a href="http://www.adobe.com/devnet/xmp/">http://www.adobe.com/devnet/xmp/</a> for the official XMP specification.
 </p>
 <blockquote>
@@ -149,130 +151,134 @@ as extensions from various other sources. See
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#fpv'>XMP fpv Tags</a></td></tr>
 <tr>
+<td>GPano</td>
+<td class=c>-</td>
+<td>--&gt; <a href='XMP.html#GPano'>XMP GPano Tags</a></td></tr>
+<tr class=b>
 <td>ics</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#ics'>XMP ics Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>iptcCore</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#iptcCore'>XMP iptcCore Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td>iptcExt</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#iptcExt'>XMP iptcExt Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>lr</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#Lightroom'>XMP Lightroom Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td>mediapro</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#MediaPro'>XMP MediaPro Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>microsoft</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Microsoft.html#XMP'>Microsoft XMP Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td>MP</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Microsoft.html#MP'>Microsoft MP Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>MP1</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Microsoft.html#MP1'>Microsoft MP1 Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td>mwg-coll</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#mwg-coll'>XMP mwg-coll Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>mwg-kw</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#mwg-kw'>XMP mwg-kw Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td>mwg-rs</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#mwg-rs'>XMP mwg-rs Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td><u>pdf</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#pdf'>XMP pdf Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td><u>pdfx</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#pdfx'>XMP pdfx Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>photomech</td>
 <td class=c>-</td>
 <td>--&gt; <a href='PhotoMechanic.html#XMP'>PhotoMechanic XMP Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td><u>photoshop</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#photoshop'>XMP photoshop Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>PixelLive</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#PixelLive'>XMP PixelLive Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td>plus</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#plus'>XMP plus Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>prism</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#prism'>XMP prism Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td>prl</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#prl'>XMP prl Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>pur</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#pur'>XMP pur Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td>rdf</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#rdf'>XMP rdf Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>swf</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#swf'>XMP swf Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td><u>tiff</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#tiff'>XMP tiff Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td><u>x</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#x'>XMP x Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td><u>xmp</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#xmp'>XMP xmp Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td><u>xmpBJ</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#xmpBJ'>XMP xmpBJ Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td><u>xmpDM</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#xmpDM'>XMP xmpDM Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td><u>xmpMM</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#xmpMM'>XMP xmpMM Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td><u>xmpNote</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#xmpNote'>XMP xmpNote Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>xmpPLUS</td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#xmpPLUS'>XMP xmpPLUS Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td><u>xmpRights</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#xmpRights'>XMP xmpRights Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td><u>xmpTPg</u></td>
 <td class=c>-</td>
 <td>--&gt; <a href='XMP.html#xmpTPg'>XMP xmpTPg Tags</a></td></tr>
@@ -766,6 +772,30 @@ specific properties in XMP (see <a href="http://creativecommons.org/ns">http://c
 <td class=c>integer</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td>DefringeGreenAmount</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>DefringeGreenHueHi</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>DefringeGreenHueLo</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>DefringePurpleAmount</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>DefringePurpleHueHi</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>DefringePurpleHueLo</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td>Exposure</td>
 <td class=c>real</td>
 <td>&nbsp;</td></tr>
@@ -844,21 +874,61 @@ specific properties in XMP (see <a href="http://creativecommons.org/ns">http://c
 <td class=c title=' _ = Flattened'>real_</td>
 <td><span class=s><span class=n>(GradientBasedCorrectionsLocalClarity)</span></span></td></tr>
 <tr>
+<td>GradientBasedCorrClarity2012</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(GradientBasedCorrectionsLocalClarity2012)</span></span></td></tr>
+<tr class=b>
 <td>GradientBasedCorrContrast</td>
 <td class=c title=' _ = Flattened'>real_</td>
 <td><span class=s><span class=n>(GradientBasedCorrectionsLocalContrast)</span></span></td></tr>
+<tr>
+<td>GradientBasedCorrContrast2012</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(GradientBasedCorrectionsLocalContrast2012)</span></span></td></tr>
 <tr class=b>
+<td>GradientBasedCorrDefringe</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(GradientBasedCorrectionsLocalDefringe)</span></span></td></tr>
+<tr>
 <td>GradientBasedCorrExposure</td>
 <td class=c title=' _ = Flattened'>real_</td>
 <td><span class=s><span class=n>(GradientBasedCorrectionsLocalExposure)</span></span></td></tr>
+<tr class=b>
+<td>GradientBasedCorrExposure2012</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(GradientBasedCorrectionsLocalExposure2012)</span></span></td></tr>
 <tr>
+<td>GradientBasedCorrHighlights2012</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(GradientBasedCorrectionsLocalHighlights2012)</span></span></td></tr>
+<tr class=b>
+<td>GradientBasedCorrLuminanceNoise</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(GradientBasedCorrectionsLocalLuminanceNoise)</span></span></td></tr>
+<tr>
+<td>GradientBasedCorrMoire</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(GradientBasedCorrectionsLocalMoire)</span></span></td></tr>
+<tr class=b>
 <td>GradientBasedCorrSaturation</td>
 <td class=c title=' _ = Flattened'>real_</td>
 <td><span class=s><span class=n>(GradientBasedCorrectionsLocalSaturation)</span></span></td></tr>
+<tr>
+<td>GradientBasedCorrShadows2012</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(GradientBasedCorrectionsLocalShadows2012)</span></span></td></tr>
 <tr class=b>
 <td>GradientBasedCorrSharpness</td>
 <td class=c title=' _ = Flattened'>real_</td>
 <td><span class=s><span class=n>(GradientBasedCorrectionsLocalSharpness)</span></span></td></tr>
+<tr>
+<td>GradientBasedCorrTemperature</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(GradientBasedCorrectionsLocalTemperature)</span></span></td></tr>
+<tr class=b>
+<td>GradientBasedCorrTint</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(GradientBasedCorrectionsLocalTint)</span></span></td></tr>
 <tr>
 <td>GradientBasedCorrHue</td>
 <td class=c title=' _ = Flattened'>real_</td>
@@ -1131,21 +1201,61 @@ specific properties in XMP (see <a href="http://creativecommons.org/ns">http://c
 <td class=c title=' _ = Flattened'>real_</td>
 <td><span class=s><span class=n>(PaintBasedCorrectionsLocalClarity)</span></span></td></tr>
 <tr class=b>
+<td>PaintCorrectionClarity2012</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(PaintBasedCorrectionsLocalClarity2012)</span></span></td></tr>
+<tr>
 <td>PaintCorrectionContrast</td>
 <td class=c title=' _ = Flattened'>real_</td>
 <td><span class=s><span class=n>(PaintBasedCorrectionsLocalContrast)</span></span></td></tr>
+<tr class=b>
+<td>PaintCorrectionContrast2012</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(PaintBasedCorrectionsLocalContrast2012)</span></span></td></tr>
 <tr>
+<td>PaintCorrectionDefringe</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(PaintBasedCorrectionsLocalDefringe)</span></span></td></tr>
+<tr class=b>
 <td>PaintCorrectionExposure</td>
 <td class=c title=' _ = Flattened'>real_</td>
 <td><span class=s><span class=n>(PaintBasedCorrectionsLocalExposure)</span></span></td></tr>
+<tr>
+<td>PaintCorrectionExposure2012</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(PaintBasedCorrectionsLocalExposure2012)</span></span></td></tr>
 <tr class=b>
+<td>PaintCorrectionHighlights2012</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(PaintBasedCorrectionsLocalHighlights2012)</span></span></td></tr>
+<tr>
+<td>PaintCorrectionLuminanceNoise</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(PaintBasedCorrectionsLocalLuminanceNoise)</span></span></td></tr>
+<tr class=b>
+<td>PaintCorrectionMoire</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(PaintBasedCorrectionsLocalMoire)</span></span></td></tr>
+<tr>
 <td>PaintCorrectionSaturation</td>
 <td class=c title=' _ = Flattened'>real_</td>
 <td><span class=s><span class=n>(PaintBasedCorrectionsLocalSaturation)</span></span></td></tr>
+<tr class=b>
+<td>PaintCorrectionShadows2012</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(PaintBasedCorrectionsLocalShadows2012)</span></span></td></tr>
 <tr>
 <td>PaintCorrectionSharpness</td>
 <td class=c title=' _ = Flattened'>real_</td>
 <td><span class=s><span class=n>(PaintBasedCorrectionsLocalSharpness)</span></span></td></tr>
+<tr class=b>
+<td>PaintCorrectionTemperature</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(PaintBasedCorrectionsLocalTemperature)</span></span></td></tr>
+<tr>
+<td>PaintCorrectionTint</td>
+<td class=c title=' _ = Flattened'>real_</td>
+<td><span class=s><span class=n>(PaintBasedCorrectionsLocalTint)</span></span></td></tr>
 <tr class=b>
 <td>PaintCorrectionHue</td>
 <td class=c title=' _ = Flattened'>real_</td>
@@ -1452,19 +1562,59 @@ specific properties in XMP (see <a href="http://creativecommons.org/ns">http://c
 <td class=c>real</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
-<td>LocalContrast</td>
+<td>LocalClarity2012</td>
 <td class=c>real</td>
 <td>&nbsp;</td></tr>
 <tr>
-<td>LocalExposure</td>
+<td>LocalContrast</td>
 <td class=c>real</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td>LocalContrast2012</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>LocalDefringe</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>LocalExposure</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>LocalExposure2012</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>LocalHighlights2012</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>LocalLuminanceNoise</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>LocalMoire</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td>LocalSaturation</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>LocalShadows2012</td>
 <td class=c>real</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td>LocalSharpness</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>LocalTemperature</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>LocalTint</td>
 <td class=c>real</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
@@ -1651,7 +1801,10 @@ other XMP tags.  (see <a href="http://www.optimasc.com/products/fileid/">http://
 </table></td></tr></table></blockquote>
 
 <h2><a name='DICOM'>XMP DICOM Tags</a></h2>
-<p>DICOM namespace tags.</p>
+<p>DICOM namespace tags.  These XMP tags allow some DICOM information to be
+stored in files of other than DICOM format.  See the
+<a href="DICOM.html">DICOM Tags documentation</a> for a list
+of tags available in DICOM-format files.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class=inner cellspacing=1>
@@ -2397,6 +2550,116 @@ Composite:GPSDateTime when copying from EXIF)</span></span></td></tr>
 <tr>
 <td>RichTextComment</td>
 <td class=c>string</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='GPano'>XMP GPano Tags</a></h2>
+<p>Panorama tags written by Google Photosphere. See
+<a href="https://developers.google.com/panorama/metadata/">https://developers.google.com/panorama/metadata/</a> for the specification.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>CaptureSoftware</td>
+<td class=c>string</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>CroppedAreaImageHeightPixels</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>CroppedAreaImageWidthPixels</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>CroppedAreaLeftPixels</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>CroppedAreaTopPixels</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>ExposureLockUsed</td>
+<td class=c>boolean</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>FirstPhotoDate</td>
+<td class=c>date</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>FullPanoHeightPixels</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>FullPanoWidthPixels</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>InitialHorizontalFOVDegrees</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>InitialViewHeadingDegrees</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>InitialViewPitchDegrees</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>InitialViewRollDegrees</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>LargestValidInteriorRectHeight</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>LargestValidInteriorRectLeft</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>LargestValidInteriorRectTop</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>LargestValidInteriorRectWidth</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>LastPhotoDate</td>
+<td class=c>date</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>PoseHeadingDegrees</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>PosePitchDegrees</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>PoseRollDegrees</td>
+<td class=c>real</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>ProjectionType</td>
+<td class=c>string</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>SourcePhotosCount</td>
+<td class=c>integer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>StitchingSoftware</td>
+<td class=c>string</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>UsePanoramaViewer</td>
+<td class=c>boolean</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -7216,7 +7479,7 @@ XMP module for convenience.  (see <a href="http://www.w3.org/TR/SVG11/">http://w
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Nov 2, 2012</i>
+<br><i>Last revised Dec 29, 2012</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

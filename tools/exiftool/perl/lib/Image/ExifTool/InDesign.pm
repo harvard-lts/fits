@@ -126,7 +126,7 @@ sub ProcessIND($$)
                 if ($len > 300 * 1024 * 1024) {
                     my $msg = sprintf('Insanely large XMP (%.0f MB)', $len / (1024 * 1024));
                     if ($outfile) {
-                        $exifTool->Error($msg, 1) and $err = 1, last;
+                        $exifTool->Error($msg, 2) and $err = 1, last;
                     } elsif ($exifTool->Options('IgnoreMinorErrors')) {
                         $exifTool->Warn($msg);
                     } else {
@@ -256,7 +256,7 @@ the ability to handle large files like this is system dependent.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

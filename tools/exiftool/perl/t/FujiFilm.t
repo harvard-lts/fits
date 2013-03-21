@@ -39,7 +39,8 @@ my $testnum = 1;
 {
     ++$testnum;
     my $exifTool = new Image::ExifTool;
-    my @tags = qw(-filename -directory -filemodifydate -fileaccessdate -filepermissions);
+    my @tags = qw(-filename -directory -filemodifydate -fileaccessdate
+                  -filecreatedate -fileinodechangedate -filepermissions);
     my $info = $exifTool->ImageInfo('t/images/FujiFilm.raf', @tags, {Duplicates=>1});
     print 'not ' unless check($exifTool, $info, $testname, $testnum);
     print "ok $testnum\n";

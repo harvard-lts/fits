@@ -441,9 +441,9 @@ numerical.
                   'SubIFD' - used in writing to determine that the tag specifies
                   an offset to a sub-IFD.  When this flag is set, the Group1
                   name gives the name of the IFD.  Must be set if and only if
-                  the tag has a SubDirectory Start of '$val' (this is validated
-                  by BuildTagLookup).  Set to 2 for standard EXIF SubIFD's where
-                  the PutFirst flag is valid.
+                  the tag has a SubDirectory Start that references '$val' (this
+                  is validated by BuildTagLookup).  Set to 2 for standard EXIF
+                  SubIFD's where the PutFirst flag is valid.
 
                   'Unknown' - this is an unknown tag (only extracted when the
                   Unknown option is set).
@@ -919,7 +919,8 @@ generated (using an on-demand approach to reduce startup overhead).  Pre-defined
 flattened tags are allowed, and are used when it is necessary to change the Name
 or Description of a flattened tag.  The flattened tag information hash entries
 are copied from the corresponding structure field definitions, even for
-pre-defined flattened tags.  The exception that the List property is generated
-automatically unless explicity set to 0 in a pre-defined flattened tag.
+pre-defined flattened tags.  The exception is that the List property is
+generated automatically unless explicity set to 0 in a pre-defined flattened
+tag.
 
 --------------------------------------------------------------------------------

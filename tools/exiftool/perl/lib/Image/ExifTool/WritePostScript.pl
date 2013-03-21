@@ -443,7 +443,7 @@ sub WritePS($$)
     }
     $data .= $buff;
     unless ($data =~ /^%!PS-Adobe-3\.(\d+)\b/ and $1 < 2) {
-        if ($exifTool->Error("Document does not conform to DSC spec. Metadata may be unreadable by other apps", 1)) {
+        if ($exifTool->Error("Document does not conform to DSC spec. Metadata may be unreadable by other apps", 2)) {
             return 1;
         }
     }
@@ -764,7 +764,7 @@ Thanks to Tim Kordick for his help testing the EPS writer.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

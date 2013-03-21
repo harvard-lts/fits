@@ -52,7 +52,7 @@ use vars qw($VERSION %pentaxLensTypes);
 use Image::ExifTool::Exif;
 use Image::ExifTool::HP;
 
-$VERSION = '2.50';
+$VERSION = '2.52';
 
 sub CryptShutterCount($$);
 sub PrintFilter($$$);
@@ -270,6 +270,8 @@ sub PrintFilter($$$);
     '8 21' => 'Sigma 17-50mm F2.8 EX DC OS HSM', #26
     '8 22' => 'Sigma 85mm F1.4 EX DG HSM', #26
     '8 23' => 'Sigma 70-200mm F2.8 APO EX DG OS HSM', #27
+    '8 27' => 'Sigma 18-200mm F3.5-6.3 II DC HSM', #27
+    '8 210' => 'smc Pentax-DA 18-270mm F3.5-6.3 ED SDM', #Helmut Schutz
     '8 215' => 'smc PENTAX-DA 18-135mm F3.5-5.6 ED AL [IF] DC WR', #PH
     '8 226' => 'smc PENTAX-DA* 55mm F1.4 SDM', #JD
     '8 227' => 'smc PENTAX-DA* 60-250mm F4 [IF] SDM', #JD
@@ -5059,7 +5061,7 @@ values.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

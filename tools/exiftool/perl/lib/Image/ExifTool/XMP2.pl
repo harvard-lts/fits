@@ -783,7 +783,12 @@ my %plusImageSupplier = (
     %xmpTableDefaults,
     GROUPS => { 1 => 'XMP-DICOM', 2 => 'Image' },
     NAMESPACE => 'DICOM',
-    NOTES => 'DICOM namespace tags.',
+    NOTES => q{
+        DICOM namespace tags.  These XMP tags allow some DICOM information to be
+        stored in files of other than DICOM format.  See the
+        L<DICOM Tags documentation|Image::ExifTool::TagNames/DICOM Tags> for a list
+        of tags available in DICOM-format files.
+    },
     # change some tag names to correspond with DICOM tags
     PatientName             => { },
     PatientID               => { },
@@ -990,13 +995,7 @@ my %sSubVersion = (
     },
     jurisdiction    => { Resource => 1 },
     legalcode       => { Name => 'LegalCode', Resource => 1 },
-    deprecatedOn    => {
-        Writable => 'date',
-        Shift => 'Time',
-        Groups => { 2 => 'Time' },
-        PrintConv => '$self->ConvertDateTime($val)',
-        PrintConvInv => '$self->InverseDateTime($val,undef,1)',
-    },
+    deprecatedOn    => { %dateTimeInfo, Groups => { 2 => 'Time' } },
 );
 
 # Description Explorer namespace properties (dex) (ref 6)
@@ -1320,6 +1319,44 @@ my %sKeywordStruct;
     ConfidenceLevel => { Writable => 'integer' },
 );
 
+# Google panorama namespace properties
+# (ref http://u88.n24.queensu.ca/exiftool/forum/index.php/topic,4569.0.html)
+%Image::ExifTool::XMP::GPano = (
+    %xmpTableDefaults,
+    GROUPS => { 1 => 'XMP-GPano', 2 => 'Image' },
+    NAMESPACE => 'GPano',
+    NOTES => q{
+        Panorama tags written by Google Photosphere. See
+        L<https://developers.google.com/panorama/metadata/> for the specification.
+    },
+    UsePanoramaViewer               => { Writable => 'boolean' },
+    CaptureSoftware                 => { },
+    StitchingSoftware               => { },
+    ProjectionType                  => { },
+    PoseHeadingDegrees              => { Writable => 'real' },
+    PosePitchDegrees                => { Writable => 'real' },
+    PoseRollDegrees                 => { Writable => 'real' },
+    InitialViewHeadingDegrees       => { Writable => 'integer' },
+    InitialViewPitchDegrees         => { Writable => 'integer' },
+    InitialViewRollDegrees          => { Writable => 'integer' },
+    InitialHorizontalFOVDegrees     => { Writable => 'real' },
+    FirstPhotoDate                  => { %dateTimeInfo, Groups => { 2 => 'Time' } },
+    LastPhotoDate                   => { %dateTimeInfo, Groups => { 2 => 'Time' } },
+    SourcePhotosCount               => { Writable => 'integer' },
+    ExposureLockUsed                => { Writable => 'boolean' },
+    CroppedAreaImageWidthPixels     => { Writable => 'integer' },
+    CroppedAreaImageHeightPixels    => { Writable => 'integer' },
+    FullPanoWidthPixels             => { Writable => 'integer' },
+    FullPanoHeightPixels            => { Writable => 'integer' },
+    CroppedAreaLeftPixels           => { Writable => 'integer' },
+    CroppedAreaTopPixels            => { Writable => 'integer' },
+    # (the following have been observed, but are not in the specification)
+    LargestValidInteriorRectLeft    => { Writable => 'integer' },
+    LargestValidInteriorRectTop     => { Writable => 'integer' },
+    LargestValidInteriorRectWidth   => { Writable => 'integer' },
+    LargestValidInteriorRectHeight  => { Writable => 'integer' },
+);
+
 # SVG namespace properties (ref 9)
 %Image::ExifTool::XMP::SVG = (
     GROUPS => { 0 => 'SVG', 1 => 'SVG', 2 => 'Image' },
@@ -1377,7 +1414,7 @@ This file contains definitions for less common XMP namespaces.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

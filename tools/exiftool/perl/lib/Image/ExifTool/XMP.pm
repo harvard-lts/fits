@@ -46,7 +46,7 @@ use Image::ExifTool qw(:Utils);
 use Image::ExifTool::Exif;
 require Exporter;
 
-$VERSION = '2.56';
+$VERSION = '2.58';
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(EscapeXML UnescapeXML);
 
@@ -156,6 +156,7 @@ my %xmpNS = (
     ics       => 'http://ns.idimager.com/ics/1.0/',
     fpv       => 'http://ns.fastpictureviewer.com/fpv/1.0/',
    'apple-fi' => 'http://ns.apple.com/faceinfo/1.0/',
+    GPano     => 'http://ns.google.com/photos/1.0/panorama/',
 );
 
 # build reverse namespace lookup
@@ -401,6 +402,16 @@ my %sCorrection = (
     LocalBrightness  => { Writable => 'real' },
     LocalToningHue   => { Writable => 'real' },
     LocalToningSaturation => { Writable => 'real' },
+    LocalExposure2012     => { Writable => 'real' },
+    LocalContrast2012     => { Writable => 'real' },
+    LocalHighlights2012   => { Writable => 'real' },
+    LocalShadows2012      => { Writable => 'real' },
+    LocalClarity2012      => { Writable => 'real' },
+    LocalLuminanceNoise   => { Writable => 'real' },
+    LocalMoire       => { Writable => 'real' },
+    LocalDefringe    => { Writable => 'real' },
+    LocalTemperature => { Writable => 'real' },
+    LocalTint        => { Writable => 'real' },
     CorrectionMasks  => { Struct => \%sCorrectionMask, List => 'Seq' },
 );
 
@@ -612,6 +623,10 @@ my %sLocationDetails = (
    'apple-fi' => {
         Name => 'apple-fi',
         SubDirectory => { TagTable => 'Image::ExifTool::XMP::apple_fi' },
+    },
+    GPano => {
+        Name => 'GPano',
+        SubDirectory => { TagTable => 'Image::ExifTool::XMP::GPano' },
     },
 );
 
@@ -1174,6 +1189,46 @@ my %sPantryItem = (
         Name => 'GradientBasedCorrSaturation',
         Flat => 1, List => 0,
     },
+    GradientBasedCorrectionsLocalExposure2012 => {
+        Name => 'GradientBasedCorrExposure2012',
+        Flat => 1, List => 0,
+    },
+    GradientBasedCorrectionsLocalContrast2012 => {
+        Name => 'GradientBasedCorrContrast2012',
+        Flat => 1, List => 0,
+    },
+    GradientBasedCorrectionsLocalHighlights2012 => {
+        Name => 'GradientBasedCorrHighlights2012',
+        Flat => 1, List => 0,
+    },
+    GradientBasedCorrectionsLocalShadows2012 => {
+        Name => 'GradientBasedCorrShadows2012',
+        Flat => 1, List => 0,
+    },
+    GradientBasedCorrectionsLocalClarity2012 => {
+        Name => 'GradientBasedCorrClarity2012',
+        Flat => 1, List => 0,
+    },
+    GradientBasedCorrectionsLocalLuminanceNoise => {
+        Name => 'GradientBasedCorrLuminanceNoise',
+        Flat => 1, List => 0,
+    },
+    GradientBasedCorrectionsLocalMoire => {
+        Name => 'GradientBasedCorrMoire',
+        Flat => 1, List => 0,
+    },
+    GradientBasedCorrectionsLocalDefringe => {
+        Name => 'GradientBasedCorrDefringe',
+        Flat => 1, List => 0,
+    },
+    GradientBasedCorrectionsLocalTemperature => {
+        Name => 'GradientBasedCorrTemperature',
+        Flat => 1, List => 0,
+    },
+    GradientBasedCorrectionsLocalTint => {
+        Name => 'GradientBasedCorrTint',
+        Flat => 1, List => 0,
+    },
     GradientBasedCorrectionsCorrectionMasks => {
         Name => 'GradientBasedCorrMasks',
         Flat => 1
@@ -1263,6 +1318,46 @@ my %sPantryItem = (
         Name => 'PaintCorrectionSaturation',
         Flat => 1, List => 0,
     },
+    PaintBasedCorrectionsLocalExposure2012 => {
+        Name => 'PaintCorrectionExposure2012',
+        Flat => 1, List => 0,
+    },
+    PaintBasedCorrectionsLocalContrast2012 => {
+        Name => 'PaintCorrectionContrast2012',
+        Flat => 1, List => 0,
+    },
+    PaintBasedCorrectionsLocalHighlights2012 => {
+        Name => 'PaintCorrectionHighlights2012',
+        Flat => 1, List => 0,
+    },
+    PaintBasedCorrectionsLocalShadows2012 => {
+        Name => 'PaintCorrectionShadows2012',
+        Flat => 1, List => 0,
+    },
+    PaintBasedCorrectionsLocalLuminanceNoise => {
+        Name => 'PaintCorrectionLuminanceNoise',
+        Flat => 1, List => 0,
+    },
+    PaintBasedCorrectionsLocalMoire => {
+        Name => 'PaintCorrectionMoire',
+        Flat => 1, List => 0,
+    },
+    PaintBasedCorrectionsLocalDefringe => {
+        Name => 'PaintCorrectionDefringe',
+        Flat => 1, List => 0,
+    },
+    PaintBasedCorrectionsLocalTemperature => {
+        Name => 'PaintCorrectionTemperature',
+        Flat => 1, List => 0,
+    },
+    PaintBasedCorrectionsLocalTint => {
+        Name => 'PaintCorrectionTint',
+        Flat => 1, List => 0,
+    },
+    PaintBasedCorrectionsLocalClarity2012 => {
+        Name => 'PaintCorrectionClarity2012',
+        Flat => 1, List => 0,
+    },
     PaintBasedCorrectionsCorrectionMasks => {
         Name => 'PaintBasedCorrectionMasks',
         Flat => 1,
@@ -1347,6 +1442,12 @@ my %sPantryItem = (
     ToneCurvePV2012Red                   => { List => 'Seq' },
     ToneCurvePV2012Green                 => { List => 'Seq' },
     ToneCurvePV2012Blue                  => { List => 'Seq' },
+    DefringePurpleAmount                 => { Writable => 'integer' },
+    DefringePurpleHueLo                  => { Writable => 'integer' },
+    DefringePurpleHueHi                  => { Writable => 'integer' },
+    DefringeGreenAmount                  => { Writable => 'integer' },
+    DefringeGreenHueLo                   => { Writable => 'integer' },
+    DefringeGreenHueHi                   => { Writable => 'integer' },
 );
 
 # Tiff namespace properties (tiff)
@@ -3594,7 +3695,7 @@ information.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

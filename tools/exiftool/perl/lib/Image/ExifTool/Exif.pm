@@ -50,7 +50,7 @@ use vars qw($VERSION $AUTOLOAD @formatSize @formatName %formatNumber %intFormat
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::MakerNotes;
 
-$VERSION = '3.46';
+$VERSION = '3.47';
 
 sub ProcessExif($$$);
 sub WriteExif($$$);
@@ -224,6 +224,7 @@ sub BINARY_DATA_LIMIT { return 10 * 1024 * 1024; }
     34718 => 'Microsoft Document Imaging (MDI) Binary Level Codec', #18
     34719 => 'Microsoft Document Imaging (MDI) Progressive Transform Codec', #18
     34720 => 'Microsoft Document Imaging (MDI) Vector', #18
+    34892 => 'Lossy JPEG', # (DNG 1.4)
     65000 => 'Kodak DCR Compressed', #PH
     65535 => 'Pentax PEF Compressed', #Jens
 );
@@ -2143,7 +2144,7 @@ my %sampleFormat = (
 #
     0xc612 => {
         Name => 'DNGVersion',
-        Notes => 'tags 0xc612-0xc761 are used in DNG images unless otherwise noted',
+        Notes => 'tags 0xc612-0xc7b5 are used in DNG images unless otherwise noted',
         DataMember => 'DNGVersion',
         RawConv => '$$self{DNGVersion} = $val',
         PrintConv => '$val =~ tr/ /./; $val',
@@ -2452,6 +2453,42 @@ my %sampleFormat = (
         Binary => 1,
     },
     0xc761 => 'NoiseProfile', # DNG 1.3
+    0xc791 => 'OriginalDefaultFinalSize', # DNG 1.4
+    0xc792 => { # DNG 1.4
+        Name => 'OriginalBestQualitySize',
+        Notes => 'called OriginalBestQualityFinalSize by the DNG spec',
+    },
+    0xc793 => 'OriginalDefaultCropSize', # DNG 1.4
+    0xc7a3 => { # DNG 1.4
+        Name => 'ProfileHueSatMapEncoding',
+        PrintConv => {
+            0 => 'Linear',
+            1 => 'sRGB',
+        },
+    },
+    0xc7a4 => { # DNG 1.4
+        Name => 'ProfileLookTableEncoding',
+        PrintConv => {
+            0 => 'Linear',
+            1 => 'sRGB',
+        },
+    },
+    0xc7a5 => 'BaselineExposureOffset', # DNG 1.4
+    0xc7a6 => { # DNG 1.4
+        Name => 'DefaultBlackRender',
+        PrintConv => {
+            0 => 'Auto',
+            1 => 'None',
+        },
+    },
+    0xc7a7 => { # DNG 1.4
+        Name => 'NewRawImageDigest',
+        Format => 'undef',
+        ValueConv => 'unpack("H*", $val)',
+    },
+    0xc7a8 => 'RawToPreviewGain', # DNG 1.4
+    # 0xc7aa - undocumented DNG tag written by LR4 (int32u[1] - val=256, related to fast load data?)
+    0xc7b5 => 'DefaultUserCrop', # DNG 1.4
     0xea1c => { #13
         Name => 'Padding',
         Binary => 1,
@@ -3684,7 +3721,7 @@ sub ProcessExif($$$)
     my $warnCount = 0;
     for ($index=0; $index<$numEntries; ++$index) {
         if ($warnCount > 10) {
-            $exifTool->Warn("Too many warnings -- $name parsing aborted", 1) and return 0;
+            $exifTool->Warn("Too many warnings -- $name parsing aborted", 2) and return 0;
         }
         my $entry = $dirStart + 2 + 12 * $index;
         my $tagID = Get16u($dataPt, $entry);
@@ -3904,10 +3941,14 @@ sub ProcessExif($$$)
             $exifTool->Warn($str, $inMakerNotes);
         }
         if (defined $tagInfo) {
+            my $readFormat = $$tagInfo{Format};
             $subdir = $$tagInfo{SubDirectory};
+            # unless otherwise specified, all SubDirectory data except
+            # EXIF SubIFD offsets should be unformatted
+            $readFormat = 'undef' if $subdir and not $$tagInfo{SubIFD} and not $readFormat;
             # override EXIF format if specified
-            if ($$tagInfo{Format}) {
-                $formatStr = $$tagInfo{Format};
+            if ($readFormat) {
+                $formatStr = $readFormat;
                 my $newNum = $formatNumber{$formatStr};
                 if ($newNum and $newNum != $format) {
                     $origFormStr = $formatName[$format] . '[' . $count . ']';
@@ -3926,6 +3967,12 @@ sub ProcessExif($$$)
             next unless $verbose;
         }
         unless ($bad) {
+            # limit maximum length of data to reformat
+            # (avoids long delays when processing some corrupted files)
+            if ($count > 100000 and $formatStr !~ /^(undef|string|binary)$/) {
+                my $tagName = $tagInfo ? $$tagInfo{Name} : sprintf('tag 0x%.4x', $tagID);
+                next if $exifTool->Warn("Ignoring $dirName $tagName with excessive count", 2);
+            }
             # convert according to specified format
             $val = ReadValue($valueDataPt,$valuePtr,$formatStr,$count,$readSize,\$rational);
             # re-code if necessary
@@ -4333,7 +4380,7 @@ EXIF and TIFF meta information.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

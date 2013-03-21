@@ -14,15 +14,6 @@ use vars qw($VERSION);
 $VERSION = '1.10';
 
 %Image::ExifTool::Lang::it::Translate = (
-   '35mmFocalLength' => 'Lunghezza focale 35mm',
-   '3DPanoramaSize' => {
-      Description => 'Dimensione panomara 3D',
-      PrintConv => {
-        'Wide' => 'Ampio',
-        'n/a' => 'n/d',
-      },
-    },
-   '3DRenderingType' => 'Tipo resa 3D',
    'A100DataOffset' => 'Offset dati A100',
    'AAFManufacturerID' => 'ID AAF produttore',
    'ACoordOfBottomRightCorner' => 'Una coord in basso a destra',
@@ -3090,6 +3081,7 @@ $VERSION = '1.10';
     },
    'FocalLength' => 'Lunghezza focale',
    'FocalLength35efl' => 'Lunghezza focale',
+   'FocalLength35mm' => 'Lunghezza focale 35mm',
    'FocalLengthIn35mmFormat' => 'Lunghezza focale in formato 35mm',
    'FocalPlaneDiagonal' => 'Diagonale piano focale',
    'FocalPlaneResolutionUnit' => {
@@ -4931,6 +4923,13 @@ $VERSION = '1.10';
    'PanasonicRawVersion' => 'Versione raw Panasonic',
    'PanasonicTitle' => 'Titolo Panasonic',
    'PanasonicTitle2' => 'Titolo Panasonic 2',
+   'PanoramaSize3D' => {
+      Description => 'Dimensione panomara 3D',
+      PrintConv => {
+        'Wide' => 'Ampio',
+        'n/a' => 'n/d',
+      },
+    },
    'PartOfSet' => 'Parte del gruppo',
    'PaymentURL' => 'URL pagamento',
    'PeakValue' => 'Valore di picco',
@@ -6340,6 +6339,7 @@ $VERSION = '1.10';
         'Saturation' => 'Saturazione',
       },
     },
+   'RenderingType3D' => 'Tipo resa 3D',
    'RepeatingFlashCount' => 'Conteggio ripetizione flash',
    'RepeatingFlashOutput' => 'Uscita ripetizione flash',
    'RepeatingFlashRate' => 'Frequenza ripetizione flash',
@@ -7884,7 +7884,7 @@ and values.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

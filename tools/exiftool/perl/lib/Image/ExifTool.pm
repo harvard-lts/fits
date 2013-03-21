@@ -8,7 +8,7 @@
 # Revisions:    Nov. 12/2003 - P. Harvey Created
 #               (See html/history.html for revision history)
 #
-# Legal:        Copyright (c) 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+# Legal:        Copyright (c) 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 #               This library is free software; you can redistribute it and/or
 #               modify it under the same terms as Perl itself.
 #------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ use vars qw($VERSION $RELEASE @ISA @EXPORT_OK %EXPORT_TAGS $AUTOLOAD @fileTypes
             %mimeType $swapBytes $swapWords $currentByteOrder %unpackStd
             %jpegMarker %specialTags);
 
-$VERSION = '9.06';
+$VERSION = '9.13';
 $RELEASE = '';
 @ISA = qw(Exporter);
 %EXPORT_TAGS = (
@@ -65,7 +65,7 @@ sub CountNewValues($);
 sub SaveNewValues($);
 sub RestoreNewValues($);
 sub WriteInfo($$;$$);
-sub SetFileModifyDate($$;$);
+sub SetFileModifyDate($$;$$);
 sub SetFileName($$;$);
 sub GetAllTags(;$);
 sub GetWritableTags(;$);
@@ -870,7 +870,10 @@ sub DummyWriteProc { return 1; }
     },
     FileSize => {
         Groups => { 1 => 'System' },
-        Notes => 'print conversion uses historic prefixes: 1 kB = 1024 bytes, etc.',
+        Notes => q{
+            note that the print conversion for this tag uses historic prefixes: 1 kB =
+            1024 bytes, etc.
+        },
         PrintConv => \&ConvertFileSize,
     },
     ResourceForkSize => {
@@ -888,19 +891,13 @@ sub DummyWriteProc { return 1; }
     FileModifyDate => {
         Description => 'File Modification Date/Time',
         Notes => q{
-            the filesystem modification time.  Note that although ExifTool can not write
-            the filesystem creation time directly, in OS X the creation time is pushed
-            backwards by writing an earlier modification time.  This provides a
-            mechanism to indirectly set the creation time:  1) Rewrite the file to set
-            the filesystem creation and modification times to the current time, 2) Set
-            FileModifyDate to the desired creation time, then 3) Restore FileModifyDate
-            to its original value.  This trick does not work in Windows.  Also note that
-            ExifTool may not be able to handle filesystem dates before 1970 depending on
-            the limitations of the standard C libraries for the system
+            the filesystem modification date/time.  Note that ExifTool may not be able
+            to handle filesystem dates before 1970 depending on the limitations of the
+            system's standard libraries
         },
         Groups => { 1 => 'System', 2 => 'Time' },
         Writable => 1,
-        # all pseudo-tags must be protected so -tagsfromfile fails with
+        # all writable pseudo-tags must be protected so -tagsfromfile fails with
         # unrecognized files unless a pseudo tag is specified explicitly
         Protected => 1,
         Shift => 'Time',
@@ -912,8 +909,45 @@ sub DummyWriteProc { return 1; }
     FileAccessDate => {
         Description => 'File Access Date/Time',
         Notes => q{
-            the time of last access of the file.  Note that this access time is updated
-            whenever any software, including ExifTool, reads the file
+            the date/time of last access of the file.  Note that this access time is
+            updated whenever any software, including ExifTool, reads the file
+        },
+        Groups => { 1 => 'System', 2 => 'Time' },
+        ValueConv => 'ConvertUnixTime($val,1)',
+        PrintConv => '$self->ConvertDateTime($val)',
+    },
+    FileCreateDate => {
+        Description => 'File Creation Date/Time',
+        Notes => q{
+            the filesystem creation date/time.  Windows only.  Requires
+            Win32API::File::Time for writing.  Note that although ExifTool can not
+            currently access the filesystem creation time on other systems, the creation
+            time is pushed backwards on OS X by writing an earlier modification time,
+            which provides a mechanism to write this indirectly:  1) Rewrite the file to
+            set the filesystem creation and modification times to the current time, 2)
+            Set FileModifyDate to the desired creation time, then 3) Restore
+            FileModifyDate to its original value
+        },
+        Groups => { 1 => 'System', 2 => 'Time' },
+        Writable => 1,
+        Protected => 1, # all writable pseudo-tags must be protected!
+        Shift => 'Time',
+        ValueConv => 'ConvertUnixTime($val,1)',
+        ValueConvInv => q{
+            if ($^O ne 'MSWin32') {
+                warn "This tag is Windows only\n";
+                return undef;
+            }
+            return GetUnixTime($val,1);
+        },
+        PrintConv => '$self->ConvertDateTime($val)',
+        PrintConvInv => '$self->InverseDateTime($val)',
+    },
+    FileInodeChangeDate => {
+        Description => 'File Inode Change Date/Time',
+        Notes => q{
+            the date/time when the file's directory information was last changed.
+            Non-Windows systems only
         },
         Groups => { 1 => 'System', 2 => 'Time' },
         ValueConv => 'ConvertUnixTime($val,1)',
@@ -1625,11 +1659,14 @@ sub ExtractInfo($;@)
             my $fileSize = -s _;
             my $fileTime = -M _;
             my $accTime = -A _;
+            my $cTime = -C _;
             my @stat = stat _;
             $self->FoundTag('FileSize', $fileSize) if defined $fileSize;
             $self->FoundTag('ResourceForkSize', $rsize) if $rsize;
             $self->FoundTag('FileModifyDate', $^T - $fileTime*(24*3600)) if defined $fileTime;
             $self->FoundTag('FileAccessDate', $^T - $accTime*(24*3600)) if defined $accTime;
+            my $cTag = $^O eq 'MSWin32' ? 'FileCreateDate' : 'FileInodeChangeDate';
+            $self->FoundTag($cTag, $^T - $cTime*(24*3600));
             $self->FoundTag('FilePermissions', $stat[2]) if defined $stat[2];
         }
 
@@ -3221,14 +3258,15 @@ sub AUTOLOAD
 
 #------------------------------------------------------------------------------
 # Add warning tag
-# Inputs: 0) ExifTool object reference, 1) warning message, 2) true if minor
+# Inputs: 0) ExifTool object reference, 1) warning message
+#         2) true if minor (2 if behaviour changes when warning is ignored)
 # Returns: true if warning tag was added
 sub Warn($$;$)
 {
     my ($self, $str, $ignorable) = @_;
     if ($ignorable) {
         return 0 if $self->{OPTIONS}{IgnoreMinorErrors};
-        $str = "[minor] $str";
+        $str = $ignorable eq '2' ? "[Minor] $str" : "[minor] $str";
     }
     $self->FoundTag('Warning', $str);
     return 1;
@@ -4382,7 +4420,7 @@ sub ProcessTrailers($$)
                     $fixup = $$dirInfo{Fixup};  # save fixup
                 }
             } else {
-                $success = 0 if $self->Error("Error rewriting $dirName trailer", 1);
+                $success = 0 if $self->Error("Error rewriting $dirName trailer", 2);
                 last;
             }
         } elsif ($result < 0) {
@@ -4768,11 +4806,19 @@ sub ProcessJPEG($$)
                 $self->ProcessDirectory(\%dirInfo, $tagTablePtr);
             }
         } elsif ($marker == 0xe1) {         # APP1 (EXIF, XMP, QVCI)
-            if ($$segDataPt =~ /^Exif\0/) { # (some Kodak cameras don't put a second \0)
+            # (some Kodak cameras don't put a second "\0", and I have seen an
+            #  example where there was a second 4-byte APP1 segment header)
+            if ($$segDataPt =~ /^(.{0,4})Exif\0/is) {
                 undef $dumpType;    # (will be dumped here)
                 # this is EXIF data --
                 # get the data block (into a common variable)
                 my $hdrLen = length($exifAPP1hdr);
+                if (length $1) {
+                    $hdrLen += length $1;
+                    $self->Warn('Unknown garbage at start of EXIF segment',1);
+                } elsif ($$segDataPt !~ /^Exif\0/) {
+                    $self->Warn('Incorrect EXIF segment identifier',1);
+                }
                 my %dirInfo = (
                     Parent => $markerName,
                     DataPt => $segDataPt,
