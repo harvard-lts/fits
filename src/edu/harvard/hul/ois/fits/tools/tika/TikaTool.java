@@ -5,8 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
 
-
+import edu.harvard.hul.ois.fits.DocumentTypes;
+import edu.harvard.hul.ois.fits.FitsMetadataValues;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
@@ -28,17 +31,116 @@ import org.jdom.Namespace;
 
 public class TikaTool extends ToolBase {
 
-    enum Doctype {
-        UNKNOWN,
-        DOCUMENT,
-        IMAGE,
-        TEXT
-    };
+    /** Constants for all Tika property names, so that they're all gathered in
+     *  one place and we don't have to fix inline names. */
+    private final static String P_APPLICATION_NAME = "Application-Name";
+    private final static String P_AUTHOR = "Author";
+    private final static String P_TIFF_BITS_PER_SAMPLE = "tiff:BitsPerSample";
+    private final static String P_COMPRESSION_TYPE = "Compression Type";
+    private final static String P_CONTENT_LENGTH = "Content-Length";
+    private final static String P_CONTENT_TYPE = "Content-Type";
+    private final static String P_CREATED = "created";
+    private final static String P_CREATION_DATE = "Creation-Date";
+    private final static String P_CREATOR_TOOL = "xmp:CreatorTool";
+    private final static String P_DATE = "date";
+    private final static String P_DC_CREATED = "dcterms:created";
+    private final static String P_DC_MODIFIED = "dcterms:modified";
+    private final static String P_DC_TITLE = "dc:title";
+    private final static String P_IMAGE_HEIGHT = "Image Height";
+    private final static String P_IMAGE_WIDTH = "Image Width";
+    private final static String P_LAST_MODIFIED = "Last-Modified";
+    private final static String P_LAST_SAVE_DATE = "Last-Save-Date";
+    private final static String P_MODIFIED = "modified";
+    private final static String P_META_CREATION_DATE = "meta:creation-date";
+    private final static String P_META_SAVE_DATE = "meta:save-date";
+    private final static String P_NPAGES = "xmpTPg:NPages";
+    private final static String P_PRODUCER = "producer";
+    private final static String P_RESOURCE_NAME = "resourceName";
+    private final static String P_SUBJECT = "subject";
+    private final static String P_TIFF_IMAGE_LENGTH = "tiff:ImageLength";
+    private final static String P_TIFF_IMAGE_WIDTH = "tiff:ImageWidth";
+    private final static String P_TIFF_RESOLUTION_UNIT = "tiff:ResolutionUnit";
+    private final static String P_TITLE = "title";
+    private final static String P_WORD_COUNT = "Word-Count";
+
     
+    /** Enumeration of Tika properties. */
+    private enum TikaProperty {
+        APPLICATION_NAME,
+        AUTHOR,
+        BITS_PER_SAMPLE,
+        COMPRESSION_TYPE,
+        CONTENT_LENGTH,
+        CONTENT_TYPE,
+        CREATED,
+        CREATION_DATE,
+        CREATOR_TOOL,
+        DATE,
+        DC_CREATED,
+        DC_MODIFIED,
+        DC_TITLE,
+        IMAGE_HEIGHT,
+        IMAGE_WIDTH,
+        LAST_MODIFIED,
+        LAST_SAVE_DATE,
+        META_CREATION_DATE,
+        META_SAVE_DATE,
+        MODIFIED,
+        N_PAGES,
+        PRODUCER,
+        RESOURCE_NAME,
+        SUBJECT,
+        TIFF_BITS_PER_SAMPLE,
+        TIFF_IMAGE_LENGTH,
+        TIFF_IMAGE_WIDTH,
+        TIFF_RESOLUTION_UNIT,
+        TITLE,
+        WORD_COUNT
+    }
+    
+    /** Map of Tika properties to TikaProperty
+     */
+    private final static Map<String, TikaProperty> propertyNameMap = 
+            new HashMap<String, TikaProperty>();
+    static {
+        propertyNameMap.put (P_APPLICATION_NAME, TikaProperty.APPLICATION_NAME);
+        propertyNameMap.put (P_AUTHOR, TikaProperty.AUTHOR);
+        propertyNameMap.put (P_COMPRESSION_TYPE, TikaProperty.COMPRESSION_TYPE);
+        propertyNameMap.put (P_CONTENT_LENGTH, TikaProperty.CONTENT_LENGTH);
+        propertyNameMap.put (P_CONTENT_TYPE, TikaProperty.CONTENT_TYPE);
+        propertyNameMap.put (P_CREATED, TikaProperty.CREATED);
+        propertyNameMap.put (P_CREATION_DATE, TikaProperty.CREATION_DATE);
+        propertyNameMap.put (P_CREATOR_TOOL, TikaProperty.CREATOR_TOOL);
+        propertyNameMap.put (P_DATE, TikaProperty.DATE);
+        propertyNameMap.put (P_DC_CREATED, TikaProperty.DC_CREATED);
+        propertyNameMap.put (P_DC_MODIFIED, TikaProperty.DC_MODIFIED);
+        propertyNameMap.put (P_DC_TITLE, TikaProperty.DC_TITLE);
+        propertyNameMap.put (P_IMAGE_HEIGHT, TikaProperty.IMAGE_HEIGHT);
+        propertyNameMap.put (P_IMAGE_WIDTH, TikaProperty.IMAGE_WIDTH);
+        propertyNameMap.put (P_LAST_MODIFIED, TikaProperty.LAST_MODIFIED);
+        propertyNameMap.put (P_LAST_SAVE_DATE, TikaProperty.LAST_SAVE_DATE);
+        propertyNameMap.put (P_META_CREATION_DATE, TikaProperty.META_CREATION_DATE);
+        propertyNameMap.put (P_META_SAVE_DATE, TikaProperty.META_SAVE_DATE);
+        propertyNameMap.put (P_MODIFIED, TikaProperty.MODIFIED);
+        propertyNameMap.put (P_NPAGES, TikaProperty.N_PAGES);
+        propertyNameMap.put (P_PRODUCER, TikaProperty.PRODUCER);
+        propertyNameMap.put (P_RESOURCE_NAME, TikaProperty.RESOURCE_NAME);
+        propertyNameMap.put (P_SUBJECT, TikaProperty.SUBJECT);
+        propertyNameMap.put (P_TIFF_BITS_PER_SAMPLE, TikaProperty.TIFF_BITS_PER_SAMPLE);
+        propertyNameMap.put (P_TIFF_IMAGE_LENGTH, TikaProperty.TIFF_IMAGE_LENGTH);
+        propertyNameMap.put (P_TIFF_IMAGE_WIDTH, TikaProperty.TIFF_IMAGE_WIDTH);
+        propertyNameMap.put (P_TIFF_RESOLUTION_UNIT, TikaProperty.TIFF_RESOLUTION_UNIT);
+        propertyNameMap.put (P_TITLE, TikaProperty.TITLE);
+        propertyNameMap.put (P_WORD_COUNT, TikaProperty.WORD_COUNT);
+    }
+    
+
     private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
     private final static String TOOL_NAME = "Tika";
     private final static String TOOL_VERSION = "1.3";  // Hard-coded version till we can do better
     
+    // TODO could get the version by doing an exec of tika --version ...
+    // but then I have to know the path of the jar.
     private final static MediaTypeRegistry typeRegistry = MediaTypeRegistry.getDefaultRegistry();
     private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
     private Tika tika = new Tika ();
@@ -64,6 +166,8 @@ public class TikaTool extends ToolBase {
         } catch (IOException e) {
             throw new FitsToolException ("IOException in Tika", e);
         }
+        
+        /* Convert the metadata map into an indexed map */
         // convert the information in metadata to FITS output.
         String [] propertyNames = metadata.names();
         // TODO DEBUG: look through these values to better understand what Tika returns.
@@ -92,8 +196,8 @@ public class TikaTool extends ToolBase {
 
 	/* Create the tool data from the Metadata object */
 	private Document buildToolData (Metadata metadata) throws FitsToolException {
-        String mimeType = metadata.get ("Content-Type");
-        String wordCountStr = metadata.get ("Word-Count"); 
+        String mimeType = metadata.get (P_CONTENT_TYPE);
+
 
         Element fitsElem = new Element ("fits", fitsNS);
         Document toolDoc = new Document (fitsElem);
@@ -133,11 +237,11 @@ public class TikaTool extends ToolBase {
 	
 
 	private Element buildFileInfoElement (Metadata metadata) {
-        String lastModified = metadata.get ("Last-Modified");
-        String contentLength = metadata.get ("Content-Length");
-        String resourceName = metadata.get ("resourceName");
-        String appName = metadata.get ("Application-Name");
-        String creatorApp = metadata.get ("xmp:CreatorTool");
+        String lastModified = metadata.get (P_LAST_MODIFIED);
+        String contentLength = metadata.get (P_CONTENT_LENGTH);
+        String resourceName = metadata.get (P_RESOURCE_NAME);
+        String appName = metadata.get (P_APPLICATION_NAME);
+        String creatorApp = metadata.get (P_CREATOR_TOOL);
 
         // Put together the fileinfo element
         Element fileInfoElem = new Element ("fileinfo", fitsNS);
@@ -173,10 +277,14 @@ public class TikaTool extends ToolBase {
 	        MimeType mimeType = mimeTypes.forName(mime);
 	        format = mimeType.getDescription();
 	        
-	        // HACK HACK HACK convert to FITS standard file types
-	        if (mime.startsWith("image/jpeg")) {
-	            format = "JPEG File Interchange Format";
+	        // convert to FITS standard file types
+	        String stdText = FitsMetadataValues.mimeToDescMap.get(mime);
+	        if (stdText != null) {
+	            format = stdText;
 	        }
+//	        if (mime.startsWith("image/jpeg")) {
+//	            format = "JPEG File Interchange Format";
+//	        }
 	        return format;
 	    } catch (MimeTypeException e) {
 	        throw new FitsToolException("Tika error looking up mime type");
@@ -184,26 +292,9 @@ public class TikaTool extends ToolBase {
 	    }
 	}
 	
-	/* Select a document type based on the MIME type. 
-	 * This should be made more elegant. */
-	private Doctype mimeToDoctype (String mime) {
-	    if (mime.startsWith("image/jpeg") || 
-	            mime.startsWith ("image/png")) {
-	        return Doctype.IMAGE;
-	    }
-	    else if (mime.startsWith("application/pdf")) {
-	        return Doctype.DOCUMENT;
-	    }
-	    else if (mime.startsWith("text/plain")) {
-	        return Doctype.TEXT;
-	    }
-	    else {
-	        return Doctype.UNKNOWN;
-	    }
-	}
 
    private Element buildMetadataElement (Metadata metadata, String mimeType) {
-       Doctype doctype = mimeToDoctype(mimeType);
+       DocumentTypes.Doctype doctype = DocumentTypes.mimeToDoctype(mimeType);
        Element metadataElem = new Element ("metadata", fitsNS);
        switch (doctype) {
        case IMAGE:
@@ -226,87 +317,127 @@ public class TikaTool extends ToolBase {
 
 	/* Return an element for an image file */
 	private Element buildImageElement(Metadata metadata) {
-	    Element elem = new Element ("image", fitsNS);
-	    String imgWidth = metadata.get ("Image Width");
-	    if (imgWidth != null) {
-	        int idx = imgWidth.indexOf (" pixels");
-	        if (idx > 0) {
-	            imgWidth = imgWidth.substring (0, idx);
+        String[] metadataNames = metadata.names();
+	    Element elem = new Element (FitsMetadataValues.IMAGE, fitsNS);
+	    for (String name : metadataNames) {
+	        TikaProperty prop = propertyNameMap.get(name);
+	        if (prop == null) {
+	            // a property we don't know about?
+	            continue;
 	        }
-	        Element wElem = new Element ("imageWidth", fitsNS);
-	        wElem.addContent (imgWidth);
-	        elem.addContent (wElem);
-	    }
-	    String imgHeight = metadata.get ("Image Height");
-        if (imgHeight != null) {
-            int idx = imgHeight.indexOf (" pixels");
-            if (idx > 0) {
-                imgHeight = imgHeight.substring (0, idx);
+	        String value = metadata.get(name);
+	        
+	        int idx;
+	        switch (prop) {
+	        case IMAGE_WIDTH:
+	        case TIFF_IMAGE_WIDTH:
+	            idx = value.indexOf (" pixels");
+	            if (idx > 0) {
+	                value = value.substring (0, idx);
+	            }
+                addSimpleElement (elem, FitsMetadataValues.IMAGE_WIDTH, value);
+	            break;
+	            
+	        case IMAGE_HEIGHT:
+	        case TIFF_IMAGE_LENGTH:
+	            idx = value.indexOf (" pixels");
+	            if (idx > 0) {
+	                value = value.substring (0, idx);
+	            }
+	            addSimpleElement (elem, FitsMetadataValues.IMAGE_HEIGHT, value);
+	            break;
+
+	        case COMPRESSION_TYPE:
+	            addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
+	            break;
+	            
+	        case BITS_PER_SAMPLE:
+	        case TIFF_BITS_PER_SAMPLE:
+                addSimpleElement (elem, FitsMetadataValues.BITS_PER_SAMPLE, value);
+	            break;
+	        
+	        case TIFF_RESOLUTION_UNIT:
+	            // TODO we have to use this with XResolution and YResolution to get the image resolution.
+	            break;
             }
-            Element hElem = new Element ("imageHeight", fitsNS);
-            hElem.addContent (imgHeight);
-            elem.addContent (hElem);
-        }
-        String compression = metadata.get ("Compression Type");
-        if (compression != null) {
-            Element cElem = new Element ("compressionScheme", fitsNS);
-            cElem.addContent (compression);
-            elem.addContent (cElem);
-        }
-        String bps = metadata.get ("tiff:BitsPerSample");
-        if (bps != null) {
-            Element bElem = new Element ("bitsPerSample", fitsNS);
-            bElem.addContent (bps);
-            elem.addContent (bElem);
-        }
+	    }
 	    return elem;
 	}
 	
    /* Return an element for an document file */
     private Element buildDocElement(Metadata metadata) {
-        Element elem = new Element ("document", fitsNS);
-        String title = metadata.get ("title");
-        if (title != null) {
-            Element titleElem = new Element ("title", fitsNS);
-            titleElem.addContent (title);
-            elem.addContent (titleElem);
-        }
-        String author = metadata.get ("Author");
-        if (author != null) {
-            Element authElem = new Element ("author", fitsNS);
-            authElem.addContent (author);
-            elem.addContent (authElem);
-        }
-        String subject = metadata.get ("subject");
-        if (subject != null) {
-            Element subjElem = new Element ("subject", fitsNS);
-            subjElem.addContent (subject);
-            elem.addContent (subjElem);
-        }
-        String npg = metadata.get ("xmpTPg:NPages");
-        if (npg != null) {
-            Element pgElem = new Element("pageCount", fitsNS);
-            pgElem.addContent (npg);
-            elem.addContent (pgElem);
+        String[] metadataNames = metadata.names();
+        Element elem = new Element (FitsMetadataValues.DOCUMENT, fitsNS);
+        for (String name : metadataNames) {
+            TikaProperty prop = propertyNameMap.get(name);
+            if (prop == null) {
+                // a property we don't know about?
+                continue;
+            }
+            String value = metadata.get(name);
+            
+            switch (prop) {
+            case TITLE:
+                addSimpleElement (elem, FitsMetadataValues.TITLE, value);
+                break;
+            
+            case AUTHOR:
+                addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
+                break;
+                
+            case LAST_MODIFIED:
+                // TODO do something here
+                break;
+                
+            case SUBJECT:
+                addSimpleElement (elem, FitsMetadataValues.SUBJECT, value);
+                break;
+                
+            case CREATION_DATE:
+            case META_CREATION_DATE:
+                //TODO becomes what?
+                break;
+            
+            case N_PAGES:
+                addSimpleElement (elem, FitsMetadataValues.PAGE_COUNT, value);
+                break;
+            }
         }
 
         return elem;
-   // TODO stub
     }
 
     /* Return an element for a text file */
     private Element buildTextElement(Metadata metadata) {
-        Element elem = new Element ("text", fitsNS);
-        String wc = metadata.get ("Word-Count");
-        if (wc != null) {
-            Element wcElem = new Element ("wordCount", fitsNS);
-            wcElem.addContent (wc);
-            elem.addContent (wcElem);
+        String[] metadataNames = metadata.names();
+        Element elem = new Element (FitsMetadataValues.TEXT, fitsNS);
+        for (String name : metadataNames) {
+            TikaProperty prop = propertyNameMap.get(name);
+            if (prop == null) {
+                // a property we don't know about?
+                continue;
+            }
+            String value = metadata.get(name);
+            
+            switch (prop) {
+            case WORD_COUNT:
+                addSimpleElement (elem, FitsMetadataValues.WORD_COUNT, value);
+                break;
+            }
         }
+//        String wc = metadata.get ("Word-Count");
+//        if (wc != null) {
+//            Element wcElem = new Element ("wordCount", fitsNS);
+//            wcElem.addContent (wc);
+//            elem.addContent (wcElem);
+//        }
         return elem;
-   // TODO stub
     }
 
+    private void addSimpleElement (Element parent, String tag, String value ) {
+        Element newElem = new Element (tag, fitsNS);
+        newElem.addContent (value);
+        parent.addContent (newElem);
+    }
     
-
 }
