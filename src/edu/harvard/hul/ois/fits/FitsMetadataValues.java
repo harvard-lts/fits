@@ -33,12 +33,23 @@ public class FitsMetadataValues {
     public final static String VIDEO = "video";
     
     /** Standard property element names. */
+    public final static String AUDIO_ENCODING = "audioEncoding";
     public final static String AUTHOR = "author";
+    public final static String BIT_DEPTH = "bitDepth";
+    public final static String BIT_RATE = "bitRate";
+    public final static String BLOCK_SIZE_MAX = "blockSizeMax";
+    public final static String BLOCK_SIZE_MIN = "blockSizeMin";
+    public final static String CHANNELS = "channels";
+    public final static String CHARSET = "charset";
     public final static String COMPRESSION_SCHEME = "compressionScheme";
     public final static String BITS_PER_SAMPLE = "bitsPerSample";
+    public final static String DURATION = "duration";
     public final static String IMAGE_HEIGHT = "imageHeight";
     public final static String IMAGE_WIDTH = "imageWidth";
+    public final static String MARKUP_BASIS = "markupBasis";
+    public final static String ORIENTATION = "orientation";
     public final static String PAGE_COUNT = "pageCount";
+    public final static String SAMPLE_RATE = "sampleRate";
     public final static String SUBJECT = "subject";
     public final static String TITLE = "title";
     public final static String WORD_COUNT = "wordCount";
