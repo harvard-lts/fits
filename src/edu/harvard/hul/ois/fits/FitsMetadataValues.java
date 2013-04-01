@@ -50,9 +50,41 @@ public class FitsMetadataValues {
     public final static String ORIENTATION = "orientation";
     public final static String PAGE_COUNT = "pageCount";
     public final static String SAMPLE_RATE = "sampleRate";
+    public final static String SAMPLES_PER_PIXEL = "samplesPerPixel";
+    public final static String SAMPLING_FREQUENCY_UNIT = "samplingFrequencyUnit";
     public final static String SUBJECT = "subject";
     public final static String TITLE = "title";
+    public final static String X_SAMPLING_FREQUENCY = "xSamplingFrequency";
+    public final static String Y_SAMPLING_FREQUENCY = "YSamplingFrequency";
     public final static String WORD_COUNT = "wordCount";
+    
+    /** Standard compression values. */
+    public final static String CMPR_NONE = "Uncompressed";
+    public final static String CMPR_JP2 = "JPEG 2000";
+    public final static String CMPR_JP2_LOSSY = "JPEG 2000 Lossy";
+    public final static String CMPR_JP2_LOSSLESS = "JPEG 2000 Lossless";
+    public final static String CMPR_CCITT1D = "CCITT 1D";
+    public final static String CMPR_T4G3FAX = "T4/Group 3 Fax";
+    public final static String CMPR_T6G4FAX = "T6/Group 4 Fax";
+    public final static String CMPR_LZW = "LZW";
+    public final static String CMPR_JPEG_OLD = "JPEG (old-style)";
+    public final static String CMPR_JPEG = "JPEG";
+    public final static String CMPR_ADOBE_DEFLATE = "Adobe Deflate";
+    public final static String CMPR_JBIG = "JBIG";
+    public final static String CMPR_CCITTRLEW = "CCITTRLEW";
+    public final static String CMPR_PACKBITS = "PackBits";
+    public final static String CMPR_NEXT = "NeXT";
+    public final static String CMPR_THUNDERSCAN = "ThunderScan";
+    public final static String CMPR_IT8CTPAD = "IT8CTPAD";
+    public final static String CMPR_IT8LW = "IT8LW";
+    public final static String CMPR_IT8MP = "IT8MP";
+    public final static String CMPR_IT8BL = "IT8BL";
+    public final static String CMPR_PIXAR_FILM = "PixarFilm";
+    public final static String CMPR_PIXAR_LOG = "PixarLog";
+    public final static String CMPR_DEFLATE = "Deflate";
+    public final static String CMPR_DCS = "DCS";
+    public final static String CMPR_SGILOG = "SGILog";
+    public final static String CMPR_SGILOG24 = "SGILog24";
     
     /** Mapping from MIME types to standard names. This is an incomplete map,
      *  holding only cases where conversion is necessary. Expand as needed.
