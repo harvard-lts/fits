@@ -60,6 +60,7 @@ public class TikaTool extends ToolBase {
     private final static String P_DC_CONTRIBUTOR = "dc:contributor";
     private final static String P_DC_CREATED = "dcterms:created";
     private final static String P_DC_CREATOR = "dc:creator";
+    private final static String P_DC_FORMAT = "dc:format";
     private final static String P_DC_IDENTIFIER = "dc:identifier";
     private final static String P_DC_LANGUAGE = "dc:language";
     private final static String P_DC_MODIFIED = "dcterms:modified";
@@ -99,6 +100,7 @@ public class TikaTool extends ToolBase {
     private final static String P_PHYS = "pHYs";
     private final static String P_PRODUCER = "producer";
     private final static String P_PUBLISHER = "publisher";
+    private final static String P_RESOLUTION_UNIT = "Resolution Unit";
     private final static String P_RESOURCE_NAME = "resourceName";
     private final static String P_SAMPLE_RATE = "samplerate";
     private final static String P_SUBJECT = "subject";
@@ -107,11 +109,16 @@ public class TikaTool extends ToolBase {
     private final static String P_TIFF_IMAGE_LENGTH = "tiff:ImageLength";
     private final static String P_TIFF_IMAGE_WIDTH = "tiff:ImageWidth";
     private final static String P_TIFF_RESOLUTION_UNIT = "tiff:ResolutionUnit";
+    private final static String P_TIFF_SAMPLES_PER_PIXEL = "tiff:SamplesPerPixel";
+    private final static String P_TIFF_X_RESOLUTION = "tiff:XResolution";
+    private final static String P_TIFF_Y_RESOLUTION = "tiff:YResolution";
     private final static String P_TITLE = "title";
     private final static String P_TRANSPARENCY_ALPHA = "Transparency Alpha";
     private final static String P_WIDTH = "width";
     private final static String P_VERSION = "version";
     private final static String P_WORD_COUNT = "Word-Count";
+    private final static String P_X_RESOLUTION = "X Resolution";
+    private final static String P_Y_RESOLUTION = "Y Resolution";
     private final static String P_XMP_ARTIST = "xmpDM:artist";
     private final static String P_XMP_AUDIO_CHANNEL_TYPE = "xmpDM:audioChannelType";
     private final static String P_XMP_AUDIO_COMPRESSOR = "xmpDM:audioCompressor";
@@ -151,6 +158,7 @@ public class TikaTool extends ToolBase {
         DC_CONTRIBUTOR,
         DC_CREATED,
         DC_CREATOR,
+        DC_FORMAT,
         DC_IDENTIFIER,
         DC_LANGUAGE,
         DC_MODIFIED,
@@ -191,6 +199,7 @@ public class TikaTool extends ToolBase {
         PHYS,
         PRODUCER,
         PUBLISHER,
+        RESOLUTION_UNIT,
         RESOURCE_NAME,
         SAMPLE_RATE,
         SUBJECT,
@@ -199,11 +208,16 @@ public class TikaTool extends ToolBase {
         TIFF_IMAGE_LENGTH,
         TIFF_IMAGE_WIDTH,
         TIFF_RESOLUTION_UNIT,
+        TIFF_SAMPLES_PER_PIXEL,
+        TIFF_X_RESOLUTION,
+        TIFF_Y_RESOLUTION,
         TITLE,
         TRANSPARENCY_ALPHA,
         VERSION,
         WIDTH,
         WORD_COUNT,
+        X_RESOLUTION,
+        Y_RESOLUTION,
         XMP_ARTIST,
         XMP_AUDIO_CHANNEL_TYPE,
         XMP_AUDIO_COMPRESSOR,
@@ -245,9 +259,12 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_DC_CONTRIBUTOR, TikaProperty.DC_CONTRIBUTOR);
         propertyNameMap.put (P_DC_CREATED, TikaProperty.DC_CREATED);
         propertyNameMap.put (P_DC_CREATOR, TikaProperty.DC_CREATOR);
+        propertyNameMap.put (P_DC_FORMAT, TikaProperty.DC_FORMAT);
         propertyNameMap.put (P_DC_IDENTIFIER, TikaProperty.DC_IDENTIFIER);
         propertyNameMap.put (P_DC_LANGUAGE, TikaProperty.DC_LANGUAGE);
         propertyNameMap.put (P_DC_MODIFIED, TikaProperty.DC_MODIFIED);
+        propertyNameMap.put (P_DC_PUBLISHER, TikaProperty.DC_PUBLISHER);
+        propertyNameMap.put (P_DC_RIGHTS, TikaProperty.DC_RIGHTS);
         propertyNameMap.put (P_DC_SUBJECT, TikaProperty.DC_SUBJECT);
         propertyNameMap.put (P_DC_TITLE, TikaProperty.DC_TITLE);
         propertyNameMap.put (P_DIMENSION_HORIZONTAL_PIXEL_SIZE, TikaProperty.DIMENSION_HORIZONTAL_PIXEL_SIZE);
@@ -282,6 +299,7 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_PHYS, TikaProperty.PHYS);
         propertyNameMap.put (P_PRODUCER, TikaProperty.PRODUCER);
         propertyNameMap.put (P_PUBLISHER, TikaProperty.PUBLISHER);
+        propertyNameMap.put (P_RESOLUTION_UNIT, TikaProperty.RESOLUTION_UNIT);
         propertyNameMap.put (P_RESOURCE_NAME, TikaProperty.RESOURCE_NAME);
         propertyNameMap.put (P_SAMPLE_RATE, TikaProperty.SAMPLE_RATE);
         propertyNameMap.put (P_SUBJECT, TikaProperty.SUBJECT);
@@ -290,11 +308,16 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_TIFF_IMAGE_LENGTH, TikaProperty.TIFF_IMAGE_LENGTH);
         propertyNameMap.put (P_TIFF_IMAGE_WIDTH, TikaProperty.TIFF_IMAGE_WIDTH);
         propertyNameMap.put (P_TIFF_RESOLUTION_UNIT, TikaProperty.TIFF_RESOLUTION_UNIT);
+        propertyNameMap.put (P_TIFF_SAMPLES_PER_PIXEL, TikaProperty.TIFF_SAMPLES_PER_PIXEL);
+        propertyNameMap.put (P_TIFF_X_RESOLUTION, TikaProperty.TIFF_X_RESOLUTION);
+        propertyNameMap.put (P_TIFF_Y_RESOLUTION, TikaProperty.TIFF_Y_RESOLUTION);
         propertyNameMap.put (P_TITLE, TikaProperty.TITLE);
         propertyNameMap.put (P_TRANSPARENCY_ALPHA, TikaProperty.TRANSPARENCY_ALPHA);
         propertyNameMap.put (P_VERSION, TikaProperty.VERSION);
         propertyNameMap.put (P_WIDTH, TikaProperty.WIDTH);
         propertyNameMap.put (P_WORD_COUNT, TikaProperty.WORD_COUNT);
+        propertyNameMap.put (P_X_RESOLUTION, TikaProperty.X_RESOLUTION);
+        propertyNameMap.put (P_Y_RESOLUTION, TikaProperty.Y_RESOLUTION);
         propertyNameMap.put (P_XMP_ARTIST, TikaProperty.XMP_ARTIST);
         propertyNameMap.put (P_XMP_AUDIO_CHANNEL_TYPE, TikaProperty.XMP_AUDIO_CHANNEL_TYPE);
         propertyNameMap.put (P_XMP_AUDIO_COMPRESSOR, TikaProperty.XMP_AUDIO_COMPRESSOR);
@@ -305,6 +328,15 @@ public class TikaTool extends ToolBase {
     }
     
 
+    /** Map of Tika compression types to FITS compression types */
+    private final static Map<String, String> compressionTypeMap = new HashMap<String, String>();
+    static {
+        compressionTypeMap.put("lzw", FitsMetadataValues.CMPR_LZW);
+        compressionTypeMap.put("JPEG", FitsMetadataValues.CMPR_JPEG);
+        compressionTypeMap.put("deflate", FitsMetadataValues.CMPR_DEFLATE);
+    }
+    
+    
     private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
     private final static String TOOL_NAME = "Tika";
     private final static String TOOL_VERSION = "1.3";  // Hard-coded version till we can do better
@@ -566,6 +598,9 @@ public class TikaTool extends ToolBase {
 	    boolean bpsReported = false;
 	    boolean widthReported = false;
 	    boolean heightReported = false;
+	    boolean xresReported = false;
+        boolean yresReported = false;
+        boolean resUnitReported = false;
 	    for (String name : metadataNames) {
 	        TikaProperty prop = propertyNameMap.get(name);
 	        if (prop == null) {
@@ -607,10 +642,22 @@ public class TikaTool extends ToolBase {
 	            }
 	            break;
 
+	        case TIFF_SAMPLES_PER_PIXEL:
+	            addSimpleElement (elem, FitsMetadataValues.SAMPLES_PER_PIXEL, value);
+	            break;
+	            
 	        case COMPRESSION_TYPE:
 	            addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
 	            break;
 	            
+	        case COMPRESSION_COMPRESSION_TYPE_NAME:
+	            // is this the same as COMPRESSION_TYPE?
+	            String stdValue = compressionTypeMap.get(value);
+	            if (stdValue != null) {
+	                value = stdValue;
+	            }
+                addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
+                break;
 	        case TIFF_BITS_PER_SAMPLE:
 	        case DATA_BITS_PER_SAMPLE:
 	            // We may get the same data in more than one property
@@ -621,9 +668,38 @@ public class TikaTool extends ToolBase {
 	            break;
 	        
 	        case TIFF_RESOLUTION_UNIT:
-	            // TODO we have to use this with XResolution and YResolution to get the image resolution.
+	        case RESOLUTION_UNIT:
+	            if (!resUnitReported) {
+	                addSimpleElement (elem, FitsMetadataValues.SAMPLING_FREQUENCY_UNIT, value);
+	                resUnitReported = true;
+	            }
 	            break;
-            }
+	        
+	        case X_RESOLUTION:
+	        case TIFF_X_RESOLUTION:
+	            if (!xresReported) {
+	                int ix = value.indexOf (" dots");
+	                if (ix > 0) {
+	                    value = value.substring (0, ix);
+	                }
+	                addSimpleElement (elem, FitsMetadataValues.X_SAMPLING_FREQUENCY, value);
+	                xresReported = true;
+	            }
+	            break;
+
+	           case Y_RESOLUTION:
+	            case TIFF_Y_RESOLUTION:
+	                if (!yresReported) {
+	                    int ix = value.indexOf (" dots");
+	                    if (ix > 0) {
+	                        value = value.substring (0, ix);
+	                    }
+	                    addSimpleElement (elem, FitsMetadataValues.Y_SAMPLING_FREQUENCY, value);
+	                    yresReported = true;
+	                }
+	                break;
+
+	        }
 	    }
 	    return elem;
 	}
@@ -654,10 +730,6 @@ public class TikaTool extends ToolBase {
                 addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
                 break;
                 
-            case LAST_MODIFIED:
-                // TODO do something here
-                break;
-                
             case SUBJECT:
                 addSimpleElement (elem, FitsMetadataValues.SUBJECT, value);
                 break;
@@ -684,6 +756,11 @@ public class TikaTool extends ToolBase {
             String value = metadata.get(name);
             
             switch (prop) {
+            case TITLE:
+            case DC_TITLE:
+                addSimpleElement (elem, FitsMetadataValues.TITLE, value);
+                break;
+                
             case CONTENT_ENCODING:
                 addSimpleElement (elem, FitsMetadataValues.CHARSET, value);
                 break;

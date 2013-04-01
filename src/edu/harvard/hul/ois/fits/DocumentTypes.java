@@ -121,6 +121,7 @@ public class DocumentTypes {
         doctypeMap.put ("video/quicktime", Doctype.VIDEO);
         doctypeMap.put ("video/x-m4v", Doctype.VIDEO);
         doctypeMap.put ("video/x-ms-asf", Doctype.VIDEO);
+        doctypeMap.put ("video/x-msvideo", Doctype.VIDEO);
 
     }
     
