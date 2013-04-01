@@ -92,11 +92,13 @@ public class TikaTool extends ToolBase {
     private final static String P_META_KEYWORD = "meta:keyword";
     private final static String P_META_SAVE_DATE = "meta:save-date";
     private final static String P_META_OBJECT_COUNT = "meta:object-count";
+    private final static String P_META_PAGE_COUNT = "meta:page-count";
     private final static String P_META_TABLE_COUNT = "meta:table-count";
     private final static String P_MODIFIED = "modified";
     private final static String P_NBOBJECT = "nbObject";
     private final static String P_NBTAB = "nbTab";
     private final static String P_OBJECT_COUNT = "Object-Count";
+    private final static String P_PAGE_COUNT = "Page-Count";
     private final static String P_PHYS = "pHYs";
     private final static String P_PRODUCER = "producer";
     private final static String P_PUBLISHER = "publisher";
@@ -190,12 +192,14 @@ public class TikaTool extends ToolBase {
         META_KEYWORD,
         META_SAVE_DATE,
         META_OBJECT_COUNT,
+        META_PAGE_COUNT,
         META_TABLE_COUNT,
         MODIFIED,
         N_PAGES,
         NBOBJECT,
         NBTAB,
         OBJECT_COUNT,
+        PAGE_COUNT,
         PHYS,
         PRODUCER,
         PUBLISHER,
@@ -290,12 +294,14 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_META_INITIAL_AUTHOR, TikaProperty.META_INITIAL_AUTHOR);
         propertyNameMap.put (P_META_KEYWORD, TikaProperty.META_KEYWORD);
         propertyNameMap.put (P_META_OBJECT_COUNT, TikaProperty.META_OBJECT_COUNT);
+        propertyNameMap.put (P_META_PAGE_COUNT, TikaProperty.META_PAGE_COUNT);
         propertyNameMap.put (P_META_TABLE_COUNT, TikaProperty.META_TABLE_COUNT);
         propertyNameMap.put (P_META_SAVE_DATE, TikaProperty.META_SAVE_DATE);
         propertyNameMap.put (P_MODIFIED, TikaProperty.MODIFIED);
         propertyNameMap.put (P_NBOBJECT, TikaProperty.NBOBJECT);
         propertyNameMap.put (P_NBTAB, TikaProperty.NBTAB);
         propertyNameMap.put (P_OBJECT_COUNT, TikaProperty.OBJECT_COUNT);
+        propertyNameMap.put (P_PAGE_COUNT, TikaProperty.PAGE_COUNT);
         propertyNameMap.put (P_PHYS, TikaProperty.PHYS);
         propertyNameMap.put (P_PRODUCER, TikaProperty.PRODUCER);
         propertyNameMap.put (P_PUBLISHER, TikaProperty.PUBLISHER);
@@ -709,6 +715,8 @@ public class TikaTool extends ToolBase {
         String[] metadataNames = metadata.names();
         Element elem = new Element (FitsMetadataValues.DOCUMENT, fitsNS);
         boolean titleReported = false;
+        boolean authorReported = false;
+        boolean pageCountReported = false;
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {
@@ -727,7 +735,11 @@ public class TikaTool extends ToolBase {
                 break;
             
             case AUTHOR:
-                addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
+            case META_AUTHOR:
+                if (!authorReported) {
+                    addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
+                    authorReported = true;
+                }
                 break;
                 
             case SUBJECT:
@@ -735,7 +747,13 @@ public class TikaTool extends ToolBase {
                 break;
             
             case N_PAGES:
-                addSimpleElement (elem, FitsMetadataValues.PAGE_COUNT, value);
+            case PAGE_COUNT:
+            case XMP_NPAGES:
+            case META_PAGE_COUNT:
+                if (!pageCountReported) {
+                    addSimpleElement (elem, FitsMetadataValues.PAGE_COUNT, value);
+                    pageCountReported = true;
+                }
                 break;
             }
         }
