@@ -80,7 +80,7 @@ xmlns:mix="http://www.loc.gov/mix/v20">
 			<!--  ReferenceBlackWhite -->
 			<referenceBlackWhite>
 				<xsl:for-each select="//mix:ReferenceBlackWhite/mix:Component">
-					<xsl:value-of select="./componentPhotometricInterpretation"/> Footroom <xsl:value-of select="./mix:footroom/mix:numerator"/> / <xsl:value-of select="./mix:footroom/mix:denominator"/> Headroom <xsl:value-of select="./mix:headroom/mix:numerator"/> / <xsl:value-of select="./mix:headroom/mix:denominator"/>
+					<xsl:value-of select="./mix:componentPhotometricInterpretation"/> Footroom <xsl:for-each select="mix:footroom"><xsl:call-template name="rational"/></xsl:for-each> Headroom <xsl:for-each select="mix:headroom"><xsl:call-template name="rational"/><xsl:text> </xsl:text></xsl:for-each>
 				</xsl:for-each>
 			</referenceBlackWhite>
 
@@ -97,12 +97,9 @@ xmlns:mix="http://www.loc.gov/mix/v20">
 			
 			<!--  YCbCrCoefficients -->
 			<YCbCrCoefficients>
-		  		<xsl:value-of select="//mix:YCbCrCoefficients/mix:lumaRed/mix:numerator"/>
-		  		<xsl:value-of select="//mix:YCbCrCoefficients/mix:lumaRed/mix:denominator"/>
-		  		<xsl:value-of select="//mix:YCbCrCoefficients/mix:lumaGreen/mix:numerator"/>
-		  		<xsl:value-of select="//mix:YCbCrCoefficients/mix:lumaGreen/mix:denominator"/>
-		  		<xsl:value-of select="//mix:YCbCrCoefficients/mix:lumaBlue/mix:numerator"/>
-		  		<xsl:value-of select="//mix:YCbCrCoefficients/mix:lumaBlue/mix:denominator"/>
+				<xsl:for-each select="//mix:YCbCrCoefficients/mix:lumaRed">Red <xsl:call-template name="rational"/><xsl:text> </xsl:text></xsl:for-each>
+				<xsl:for-each select="//mix:YCbCrCoefficients/mix:lumaGreen">Green <xsl:call-template name="rational"/><xsl:text> </xsl:text></xsl:for-each>
+				<xsl:for-each select="//mix:YCbCrCoefficients/mix:lumaBlue">Blue <xsl:call-template name="rational"/><xsl:text> </xsl:text></xsl:for-each>
 			</YCbCrCoefficients>
 
 			<!--  YCbCrPositioning -->
@@ -153,12 +150,12 @@ xmlns:mix="http://www.loc.gov/mix/v20">
 			
 			<!--  xSamplingFrequency -->
 			<xSamplingFrequency>
-		  		<xsl:value-of select="//mix:xSamplingFrequency/mix:numerator"/> / <xsl:value-of select="//mix:xSamplingFrequency/mix:denominator"/>
+				<xsl:for-each select="//mix:ySamplingFrequency"><xsl:call-template name="rational"/></xsl:for-each>
 			</xSamplingFrequency>
 			
 			<!--  ySamplingFrequency -->
 			<ySamplingFrequency>
-		  		<xsl:value-of select="//mix:ySamplingFrequency/mix:numerator"/> / <xsl:value-of select="//mix:ySamplingFrequency/mix:denominator"/>
+				<xsl:for-each select="//mix:ySamplingFrequency"><xsl:call-template name="rational"/></xsl:for-each>
 			</ySamplingFrequency>
 			
 			<!--  bitsPerSample -->
@@ -352,5 +349,18 @@ xmlns:mix="http://www.loc.gov/mix/v20">
 		</metadata>
 	</fits>	
 
+</xsl:template>
+
+<xsl:template name="rational">
+	<xsl:if test="mix:numerator">
+		<xsl:choose>
+			<xsl:when test="mix:denominator">
+				<xsl:value-of select="mix:numerator"/><xsl:text>/</xsl:text><xsl:value-of select="mix:denominator"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="mix:numerator"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:if>
 </xsl:template>
 </xsl:stylesheet>

@@ -68,7 +68,7 @@ public class Jhove extends ToolBase {
             jhove.setSignatureFlag(false);
             jhove.setShowRawFlag(false);
       	    xh = new XmlHandler();
-      	    jhoveApp = new App ("Jhove","1.5", new int[] {2009, 12, 23}, "","");
+      	    jhoveApp = new App ("Jhove",jhove.getRelease(), JhoveBase.DATE, "","");
             xh.setApp(jhoveApp);
             xh.setBase(jhove);   		
 		}
@@ -110,7 +110,7 @@ public class Jhove extends ToolBase {
 		xh.setWriter(pWriter);	
 		jhove.process(jhoveApp, mod, xh, filepath);  		
 		pWriter.close();
-		out2.close();				
+		out2.close();	
 		Document dom = saxBuilder.build(new StringReader(out.toString()));		
 		out.close();   	
 		return dom;
