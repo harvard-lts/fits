@@ -80,7 +80,7 @@ public class Fits {
 	public static int maxThreads = 20;       // GDM 16-Nov-2012
 	public static final String XML_NAMESPACE = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output";
 	
-	public static String VERSION = "0.6.3";
+	public static String VERSION = "0.7.0 (fits-mcgath fork)";
 	
 	private ToolOutputConsolidator consolidator;
 	private static XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
@@ -207,10 +207,8 @@ public class Fits {
 			}
 			else {
 				FitsOutput result = fits.doSingleFile(inputFile);
-				if(result != null) {
-					fits.outputResults(result,cmd.getOptionValue("o"),cmd.hasOption("x"),cmd.hasOption("xc"),false);
-				}
-			}	
+				fits.outputResults(result,cmd.getOptionValue("o"),cmd.hasOption("x"),cmd.hasOption("xc"),false);
+			}
 		}
 		else {
 			System.err.println("Invalid CLI options");
@@ -232,17 +230,7 @@ public class Fits {
 	 * @throws FitsException 
 	 */
 	private void doDirectory(File inputDir, File outputDir, boolean useStandardSchemas, boolean standardCombinedFormat) throws FitsException, XMLStreamException, IOException {
-		if(inputDir.listFiles() == null) {
-			return;
-		}
-		
 		for(File f : inputDir.listFiles()) {
-			
-			if(f == null || !f.exists() || !f.canRead()) {
-				continue;
-			}
-			
-			System.out.println("processing " + f.getPath());
 			if(f.isDirectory() && traverseDirs) {
 				doDirectory(f, outputDir, useStandardSchemas,standardCombinedFormat);
 			}
@@ -263,9 +251,6 @@ public class Fits {
 				}
 				outputResults(result,outputFile,useStandardSchemas,standardCombinedFormat,true);
 			}
-			else if(!f.canRead()) {
-				System.out.println("warning: cannot read " + f.getPath());
-			}
 		}
 	}
 	
@@ -281,10 +266,6 @@ public class Fits {
 	 * @throws IOException
 	 */
 	private FitsOutput doSingleFile(File inputFile) throws FitsException, XMLStreamException, IOException {
-		if(!inputFile.canRead()) {
-			System.out.println("warning: cannot read " + inputFile.getPath());
-			return null;
-		}
 		
 		FitsOutput result = this.examine(inputFile);	
 		if(result.getCaughtExceptions().size() > 0) {
@@ -382,7 +363,7 @@ public class Fits {
 				out.flush();
 				
 			} catch (Exception e) {
-				System.err.println("error converting output to a standard schema format: " + e.getMessage());
+				System.err.println("error converting output to a standard schema format");
 			}
 			finally {
 				xmlOutStream.close();

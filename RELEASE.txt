@@ -1,9 +1,11 @@
 RELEASE NOTES 
 
-Version 0.6.3 (unreleased)
+Version 0.7.0 (4/5/13)
 ---------------------
--Fixed documentmd conversion bug when page count is null
--Fixed Exiftool resolution unit conversion error
+- Fork on https://github.com/gmcgath/fits-mcgath
+- Support Apache Tika
+- Update JHOVE to 1.9
+- Fix XSLT for JHOVE to use MIX 2.0 (necessary for recent versions of JHOVE)
 
 Version 0.6.2 (3/18/13)
 ---------------------

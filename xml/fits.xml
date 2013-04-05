@@ -5,16 +5,16 @@
 	<tools>		
 		<!-- exclude-exts attribute is a comma delimited list of file extensions that the tool should not try to process -->
  		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.AudioInfo" include-exts="wav"/>
-		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.ADLTool" include-exts="adl"/>
-		<tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,arw,adl,eml"/>	   
+		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.ADLTool" include-exts="adl"/> 
+		<tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,arw,adl,eml,odg,otg,odp,otp,ods,ots,otc,odi,odf,otf,odm,oth"/>	   
 	 	<tool class="edu.harvard.hul.ois.fits.tools.fileutility.FileUtility" exclude-exts="dng,wps,adl"/>	 	 
 	 	<tool class="edu.harvard.hul.ois.fits.tools.exiftool.Exiftool" exclude-exts="txt,wps,vsd"/>
 	 	<tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="dng"/>
 	 	<tool class="edu.harvard.hul.ois.fits.tools.nlnz.MetadataExtractor" exclude-exts="dng,zip,odb,ott,odg,otg,odp,otp,ods,ots,odc,otc,odi,oti,odf,otf,odm,oth"/>	
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.FileInfo"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.XmlMetadata" include-exts="xml"/>	
-		<tool class="edu.harvard.hul.ois.fits.tools.ffident.FFIdent" exclude-exts="dng,wps,vsd"/>
-		<!--  <tool class="edu.harvard.hul.ois.fits.tools.tika.TikaTool" include-exts="jpg,pdf,png"/> -->
+		<tool class="edu.harvard.hul.ois.fits.tools.ffident.FFIdent" exclude-exts="dng,wps,vsd"/> 
+		<tool class="edu.harvard.hul.ois.fits.tools.tika.TikaTool" /> 
 	</tools>
 		
 	<output>
