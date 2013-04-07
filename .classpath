@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="xml/nlnz"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/bcmail-jdk14-132.jar"/>
 	<classpathentry kind="lib" path="lib/serializer.jar"/>
@@ -27,19 +26,10 @@
 	<classpathentry kind="lib" path="lib/nzmetool/metadata.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/PDFBox-0.7.3.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/poi-2.5.1-final-20040804.jar"/>
-	<classpathentry kind="lib" path="lib/droid/activation.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid.jar"/>
-	<classpathentry kind="lib" path="lib/droid/jaxb-api.jar"/>
-	<classpathentry kind="lib" path="lib/droid/jaxb-impl.jar"/>
-	<classpathentry kind="lib" path="lib/droid/jh.jar"/>
-	<classpathentry kind="lib" path="lib/droid/jsr173_1.0_api.jar"/>
-	<classpathentry kind="lib" path="lib/droid/looks-1.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/droid/mail.jar"/>
-	<classpathentry kind="lib" path="lib/droid/soap.jar"/>
 	<classpathentry kind="lib" path="lib/commons-configuration-1.5.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang-2.4.jar"/>
-	<classpathentry kind="lib" path="lib/droid/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="lib/droid/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove-handler.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/JhoveApp.jar"/>
@@ -60,10 +50,96 @@
 	<classpathentry kind="lib" path="lib/hclaps.jar"/>
 	<classpathentry kind="lib" path="lib/stax2-api-3.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/woodstox-core-lgpl-4.0.7.jar"/>
-	<classpathentry kind="lib" path="lib/droid/AllLibraries.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-command-line-6.1.jar"/>
 	<classpathentry kind="lib" path="lib/tika-app-1.3.jar"/>
-	<classpathentry kind="lib" path="lib/commons-collections-3.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="src" path="tests"/>
+	<classpathentry kind="lib" path="lib/droid/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="lib/droid/antlr-3.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/antlr-runtime-3.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/droid/asm-2.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/aspectjrt-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/aspectjweaver-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/bcmail-jdk14-138.jar"/>
+	<classpathentry kind="lib" path="lib/droid/bcprov-jdk14-138.jar"/>
+	<classpathentry kind="lib" path="lib/droid/beansbinding-1.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/byteseek-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cglib-nodep-2.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/codelabor-commons-calendar-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-beanutils-core-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-cli-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-compress-1.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-configuration-1.8.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/droid/commons-pool-1.5.4.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-api-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-common-schemas-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-common-utilities-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-rt-bindings-http-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-rt-bindings-soap-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-rt-bindings-xml-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-rt-core-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-rt-databinding-jaxb-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-rt-frontend-jaxws-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-rt-frontend-simple-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-rt-transports-http-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-rt-ws-addr-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/cxf-tools-common-2.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/droid/de.huxhorn.lilith.3rdparty.flyingsaucer.core-renderer-8RC1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/derby-10.8.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-container-6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-core-6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-core-interfaces-6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-export-6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-export-interfaces-6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-help-6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-report-6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-report-interfaces-6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-results-6.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/hibernate-commons-annotations-3.1.0.GA.jar"/>
+	<classpathentry kind="lib" path="lib/droid/itext-2.0.8.jar"/>
+	<classpathentry kind="lib" path="lib/droid/javaee-api-6.0.jar"/>
+	<classpathentry kind="lib" path="lib/droid/javahelp-2.0.05.jar"/>
+	<classpathentry kind="lib" path="lib/droid/javassist-3.4.GA.jar"/>
+	<classpathentry kind="lib" path="lib/droid/jaxb-api-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/jaxb-impl-2.1.13.jar"/>
+	<classpathentry kind="lib" path="lib/droid/joda-time-1.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/jra-1.0-alpha-4.jar"/>
+	<classpathentry kind="lib" path="lib/droid/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/neethi-2.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/droid/opencsv-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/org-netbeans-swing-outline-7.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/org-openide-util-7.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/org-openide-util-lookup-7.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/persistence-api-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/poi-3.7.jar"/>
+	<classpathentry kind="lib" path="lib/droid/saaj-api-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/saaj-impl-1.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/slf4j-api-1.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/slf4j-log4j12-1.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/spring-2.5.6.SEC03.jar"/>
+	<classpathentry kind="lib" path="lib/droid/spring-aspects-2.5.6.SEC03.jar"/>
+	<classpathentry kind="lib" path="lib/droid/spring-beans-2.5.6.SEC03.jar"/>
+	<classpathentry kind="lib" path="lib/droid/spring-context-2.5.6.SEC03.jar"/>
+	<classpathentry kind="lib" path="lib/droid/spring-core-2.5.6.SEC03.jar"/>
+	<classpathentry kind="lib" path="lib/droid/spring-web-2.5.6.jar"/>
+	<classpathentry kind="lib" path="lib/droid/stringtemplate-3.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/truezip-6.8.4.jar"/>
+	<classpathentry kind="lib" path="lib/droid/wsdl4j-1.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/wstx-asl-3.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/droid/xercesImpl-2.9.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/xml-apis-1.3.04.jar"/>
+	<classpathentry kind="lib" path="lib/droid/xml-resolver-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/droid/XmlSchema-1.4.7.jar"/>
+	<classpathentry kind="lib" path="lib/droid/xz-1.0.jar"/>
 	<classpathentry kind="output" path="build_local"/>
 </classpath>
