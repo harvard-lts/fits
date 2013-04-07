@@ -49,6 +49,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
@@ -93,7 +94,6 @@ public class Fits {
 	}
 	
 	public Fits(String fits_home) throws FitsConfigurationException {
-		Logger.getRootLogger().setLevel(Level.OFF);
 		
 		//Set BB_HOME dir with environment variable
 		FITS_HOME = System.getenv("FITS_HOME");
@@ -116,6 +116,13 @@ public class Fits {
 		FITS_XML = FITS_HOME+"xml"+File.separator;
 		FITS_TOOLS = FITS_HOME+"tools"+File.separator;
 		
+        // Set up logging
+        //Setting defaultInitOverride is necessary because otherwise log4j finds something
+		//in the Droid jars that doesn't work.
+		System.setProperty("log4j.defaultInitOverride", "true");
+		BasicConfigurator.configure ();
+        Logger.getRootLogger().setLevel(Level.OFF);
+
 		try {
 			config = new XMLConfiguration(FITS_XML+"fits.xml");
 		} catch (ConfigurationException e) {
@@ -137,7 +144,8 @@ public class Fits {
 		    System.out.println ("Error inconfiguration file: " + e.getMessage());
 		    return;
 		}
-		// optional config values GDM 16-Nov-2012
+		
+        // optional config values GDM 16-Nov-2012
 		try {
 		    maxThreads = config.getShort("process.max-threads");
 		}
