@@ -26,6 +26,7 @@ import java.io.StringWriter;
 import java.net.URL;
 
 import org.jdom.Document;
+import org.jdom.input.SAXBuilder;
 import org.xml.sax.SAXException;
 
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
@@ -79,8 +80,15 @@ public class Droid extends ToolBase {
 	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
 		long startTime = System.currentTimeMillis();
-		IdentificationResultCollection results = droidQuery.queryFile(file);
-		DroidToolOutputter outputter = new DroidToolOutputter(results);
+		IdentificationResultCollection results;
+		try {
+		    results = droidQuery.queryFile(file);
+		}
+		catch (IOException e) {
+		    throw new FitsToolException("DROID can't query file " + file.getAbsolutePath(),
+		            e);
+		}
+		DroidToolOutputter outputter = new DroidToolOutputter(this, results);
 		ToolOutput output = outputter.toToolOutput();
 		
 		//IdentificationFile idFile = droid.identify(file.getPath());
@@ -98,8 +106,6 @@ public class Droid extends ToolBase {
 		return output;
 	}
 
-
-
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -108,6 +114,11 @@ public class Droid extends ToolBase {
 		enabled = value;		
 	}
 	
+	/** Make the SAXBuilder available to helper class */
+    protected SAXBuilder getSaxBuilder () {
+        return saxBuilder;
+    }
+
 	/* Get the version of DROID. This is about the cleanest I can manage. */
 	private String getDroidVersion () {
 	    StringWriter sw = new StringWriter ();

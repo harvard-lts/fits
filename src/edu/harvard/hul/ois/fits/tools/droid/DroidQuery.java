@@ -23,6 +23,9 @@
 package edu.harvard.hul.ois.fits.tools.droid;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
@@ -38,7 +41,7 @@ import uk.gov.nationalarchives.droid.core.interfaces.resource.RequestMetaData;
 public class DroidQuery {
 
     private File tempDir;
-    private BinarySignatureIdentifier sigIdentifier;
+    private static BinarySignatureIdentifier sigIdentifier = null;
     
     /** Create a DroidQuery object. This can be retained for any number of
      *  different queries.
@@ -48,26 +51,57 @@ public class DroidQuery {
      *  
      *   @throws SignatureParseException 
      */
-    public DroidQuery (File sigFile, File tempDir) throws SignatureParseException {
+    public DroidQuery (File sigFile, File tempDir) 
+            throws SignatureParseException,
+                   FileNotFoundException    {
+        if (!sigFile.exists()) {
+            throw new FileNotFoundException ("Signature file " + 
+                   sigFile.getAbsolutePath() +
+                   " not found");
+        }
+        if (!tempDir.exists()) {
+            throw new FileNotFoundException ("Temporary directory " + 
+                   sigFile.getAbsolutePath() +
+                   " not found");
+        }
         this.tempDir = tempDir;
-        sigIdentifier = new BinarySignatureIdentifier();
-        sigIdentifier.setSignatureFile (sigFile.getAbsolutePath());
-        sigIdentifier.init ();
+        if (sigIdentifier == null) {
+            sigIdentifier = new BinarySignatureIdentifier();
+            sigIdentifier.setSignatureFile (sigFile.getAbsolutePath());
+            sigIdentifier.init ();
+        }
     }
     
     /** Query a file and get back an XML response. */
-    public IdentificationResultCollection queryFile (File fil) {
+    public IdentificationResultCollection queryFile (File fil) 
+            throws IOException {
         RequestMetaData metadata = 
                 new RequestMetaData(fil.length(), 
                         fil.lastModified(), 
                         tempDir.getAbsolutePath());
         RequestIdentifier identifier = new RequestIdentifier (fil.toURI());
-        FileSystemIdentificationRequest req = 
-                new FileSystemIdentificationRequest(metadata, identifier);
-        IdentificationResultCollection results = 
-                sigIdentifier.matchBinarySignatures(req);
-//        List<IdentificationResult> resultsList = results.getResults();
-        // This gives us an unfiltered list of matching signatures
-        return results;
+        FileInputStream in = null;
+        FileSystemIdentificationRequest req = null;
+        try {
+            req = new FileSystemIdentificationRequest(metadata, identifier);
+            in = new FileInputStream (fil);
+            req.open(in);
+            IdentificationResultCollection results;
+            results = sigIdentifier.matchBinarySignatures(req);
+            if (results.getResults().size() > 1) {
+                sigIdentifier.removeLowerPriorityHits(results);
+            }
+    //        List<IdentificationResult> resultsList = results.getResults();
+                // This gives us an unfiltered list of matching signatures
+            return results;
+        }
+        finally {
+            if (req != null) {
+                req.close ();
+            }
+            if (in != null) {
+                in.close();
+            }
+        }
     }
 }
