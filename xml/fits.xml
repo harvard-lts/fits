@@ -14,7 +14,7 @@
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.FileInfo"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.XmlMetadata" include-exts="xml"/>	
 		<tool class="edu.harvard.hul.ois.fits.tools.ffident.FFIdent" exclude-exts="dng,wps,vsd"/> 
-		<tool class="edu.harvard.hul.ois.fits.tools.tika.TikaTool" /> 
+		<tool class="edu.harvard.hul.ois.fits.tools.tika.TikaTool" />
 	</tools>
 		
 	<output>
@@ -33,6 +33,7 @@
 	</process>
 	
 	<!-- file name of the droid signature file to use in tools/droid/-->
-	<droid_sigfile>DROID_SignatureFile_V35.xml</droid_sigfile>
+	<droid_sigfile>DROID_SignatureFile_V67.xml</droid_sigfile>
 	
+
 </fits_configuration>

@@ -39,6 +39,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
@@ -49,8 +50,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.output.Format;
@@ -116,12 +115,10 @@ public class Fits {
 		FITS_XML = FITS_HOME+"xml"+File.separator;
 		FITS_TOOLS = FITS_HOME+"tools"+File.separator;
 		
-        // Set up logging
-        //Setting defaultInitOverride is necessary because otherwise log4j finds something
-		//in the Droid jars that doesn't work.
-		System.setProperty("log4j.defaultInitOverride", "true");
-		BasicConfigurator.configure ();
-        Logger.getRootLogger().setLevel(Level.OFF);
+        // Set up logging.
+		// Now using an explicit properties file, because otherwoise DROID will
+		// hijack it, and it's cleaner this way anyway.
+		System.setProperty("log4j.configuration", FITS_TOOLS + "log4j.properties");
 
 		try {
 			config = new XMLConfiguration(FITS_XML+"fits.xml");
