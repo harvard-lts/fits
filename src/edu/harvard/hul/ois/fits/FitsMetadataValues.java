@@ -32,8 +32,14 @@ public class FitsMetadataValues {
     public final static String TEXT = "text";
     public final static String VIDEO = "video";
     
-    /** Standard property element names. */
+    /** Standard property element names. The idea is to include them
+     *  all here, even the ones that are generated only by
+     *  XSLT. */
+    public final static String AUDIO_BITS_PER_SAMPLE = "audioBitsPerSample";  // 11-Apr-2013
+    public final static String AUDIO_CHANNEL_TYPE = "audioChannelType";  // 11-Apr-2013
+    public final static String AUDIO_COMPRESSOR = "audioCompressor";   // 11-Apr-2013
     public final static String AUDIO_ENCODING = "audioEncoding";
+    public final static String AUDIO_SAMPLE_RATE = "audioSampleRate";  // 11-Apr-2013
     public final static String AUTHOR = "author";
     public final static String BIT_DEPTH = "bitDepth";
     public final static String BIT_RATE = "bitRate";
@@ -43,17 +49,22 @@ public class FitsMetadataValues {
     public final static String CHARSET = "charset";
     public final static String COMPRESSION_SCHEME = "compressionScheme";
     public final static String BITS_PER_SAMPLE = "bitsPerSample";
+    public final static String DATA_FORMAT_TYPE = "dataFormatType";
     public final static String DURATION = "duration";
+    public final static String FRAME_RATE = "frameRate";
     public final static String IMAGE_HEIGHT = "imageHeight";
     public final static String IMAGE_WIDTH = "imageWidth";
     public final static String MARKUP_BASIS = "markupBasis";
     public final static String ORIENTATION = "orientation";
+    public final static String ROTATION = "rotation";  // 11-Apr-2013
     public final static String PAGE_COUNT = "pageCount";
     public final static String SAMPLE_RATE = "sampleRate";
     public final static String SAMPLES_PER_PIXEL = "samplesPerPixel";
     public final static String SAMPLING_FREQUENCY_UNIT = "samplingFrequencyUnit";
     public final static String SUBJECT = "subject";
+    public final static String TIME_SCALE = "timeScale"; // 11-Apr-2013
     public final static String TITLE = "title";
+    public final static String VIDEO_COMPRESSOR = "videoCompressor";
     public final static String X_SAMPLING_FREQUENCY = "xSamplingFrequency";
     public final static String Y_SAMPLING_FREQUENCY = "YSamplingFrequency";
     public final static String WORD_COUNT = "wordCount";

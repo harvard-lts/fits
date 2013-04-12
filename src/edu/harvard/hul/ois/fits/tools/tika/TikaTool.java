@@ -795,6 +795,7 @@ public class TikaTool extends ToolBase {
     private Element buildVideoElement(Metadata metadata) {
         String[] metadataNames = metadata.names();
         Element elem = new Element (FitsMetadataValues.VIDEO, fitsNS);
+        boolean heightReported = false;
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {
@@ -815,7 +816,19 @@ public class TikaTool extends ToolBase {
             case COMPRESSION_TYPE:
                 addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
                 break;
-                
+   
+            case IMAGE_HEIGHT:
+            case TIFF_IMAGE_LENGTH:
+            case HEIGHT:
+                if (!heightReported) {
+                    int idx = value.indexOf (" pixels");
+                    if (idx > 0) {
+                        value = value.substring (0, idx);
+                    }
+                    addSimpleElement (elem, FitsMetadataValues.IMAGE_HEIGHT, value);
+                    heightReported = true;
+                }
+                break;
 //            case BITS_PER_SAMPLE:
 //                addSimpleElement (elem, FitsMetadataValues.BITS_PER_SAMPLE, value);
 //                break;

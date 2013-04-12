@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="xml/nlnz"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/bcmail-jdk14-132.jar"/>
 	<classpathentry kind="lib" path="lib/serializer.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/bmp_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/excel_adapter_1_0.jar"/>
@@ -21,7 +20,6 @@
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/wave_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/wordperfect_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/xml_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/bcmail-jdk14-132.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/bcprov-jdk14-132.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/bfj220.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/metadata.jar"/>
@@ -53,6 +51,7 @@
 	<classpathentry kind="lib" path="lib/woodstox-core-lgpl-4.0.7.jar"/>
 	<classpathentry kind="lib" path="lib/tika-app-1.3.jar" sourcepath="/Users/gmcgath/.m2/repository/org/apache/tika/tika-app/1.3/tika-app-1.3-sources.jar"/>
 	<classpathentry kind="lib" path="lib/droid/droid-command-line-6.1.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="lib" path="lib/droid/antlr-2.7.7.jar"/>
@@ -62,7 +61,6 @@
 	<classpathentry kind="lib" path="lib/droid/asm-2.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/droid/aspectjrt-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/droid/aspectjweaver-1.6.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/bcmail-jdk14-138.jar"/>
 	<classpathentry kind="lib" path="lib/droid/bcprov-jdk14-138.jar"/>
 	<classpathentry kind="lib" path="lib/droid/beansbinding-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/droid/byteseek-1.1.1.jar"/>
@@ -106,17 +104,6 @@
 	<classpathentry kind="lib" path="lib/droid/droid-report-6.1.jar"/>
 	<classpathentry kind="lib" path="lib/droid/droid-report-interfaces-6.1.jar"/>
 	<classpathentry kind="lib" path="lib/droid/droid-results-6.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/ejb3-persistence-1.0.2.GA.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-activation_1.1_spec-1.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-annotation_1.0_spec-1.1.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-javamail_1.4_spec-1.6.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-jaxws_2.1_spec-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-stax-api_1.0_spec-1.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-ws-metadata_2.0_spec-1.1.2.jar"/>
-	<classpathentry kind="lib" path="lib/droid/hibernate-annotations-3.4.0.GA.jar"/>
-	<classpathentry kind="lib" path="lib/droid/hibernate-commons-annotations-3.1.0.GA.jar"/>
-	<classpathentry kind="lib" path="lib/droid/hibernate-core-3.3.0.SP1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/hibernate-entitymanager-3.4.0.GA.jar"/>
 	<classpathentry kind="lib" path="lib/droid/itext-2.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/droid/javaee-api-6.0.jar"/>
 	<classpathentry kind="lib" path="lib/droid/javahelp-2.0.05.jar"/>
