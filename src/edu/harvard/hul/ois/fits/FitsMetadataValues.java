@@ -40,6 +40,7 @@ public class FitsMetadataValues {
     public final static String AUDIO_COMPRESSOR = "audioCompressor";   // 11-Apr-2013
     public final static String AUDIO_ENCODING = "audioEncoding";
     public final static String AUDIO_SAMPLE_RATE = "audioSampleRate";  // 11-Apr-2013
+    public final static String AUDIO_SAMPLE_TYPE = "audioSampleType";  // 12-Apr-2013
     public final static String AUTHOR = "author";
     public final static String BIT_DEPTH = "bitDepth";
     public final static String BIT_RATE = "bitRate";
@@ -47,6 +48,7 @@ public class FitsMetadataValues {
     public final static String BLOCK_SIZE_MIN = "blockSizeMin";
     public final static String CHANNELS = "channels";
     public final static String CHARSET = "charset";
+    public final static String COLOR_SPACE = "colorSpace";
     public final static String COMPRESSION_SCHEME = "compressionScheme";
     public final static String BITS_PER_SAMPLE = "bitsPerSample";
     public final static String DATA_FORMAT_TYPE = "dataFormatType";
@@ -56,6 +58,7 @@ public class FitsMetadataValues {
     public final static String IMAGE_WIDTH = "imageWidth";
     public final static String MARKUP_BASIS = "markupBasis";
     public final static String ORIENTATION = "orientation";
+    public final static String PIXEL_ASPECT_RATIO = "pixelAspectRatio";  // 12-Apr-2013
     public final static String ROTATION = "rotation";  // 11-Apr-2013
     public final static String PAGE_COUNT = "pageCount";
     public final static String SAMPLE_RATE = "sampleRate";

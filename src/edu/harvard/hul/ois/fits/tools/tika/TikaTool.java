@@ -8,6 +8,8 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import edu.harvard.hul.ois.fits.DocumentTypes;
 import edu.harvard.hul.ois.fits.FitsMetadataValues;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
@@ -126,6 +128,10 @@ public class TikaTool extends ToolBase {
     private final static String P_XMP_AUDIO_COMPRESSOR = "xmpDM:audioCompressor";
     private final static String P_XMP_AUDIO_SAMPLE_RATE = "xmpDM:audioSampleRate";
     private final static String P_XMP_AUDIO_SAMPLE_TYPE = "xmpDM:audioSampleType";
+    private final static String P_XMP_PIXEL_ASPECT_RATIO = "xmpDM:videoPixelAspectRatio";
+    private final static String P_XMP_VIDEO_COLOR_SPACE = "xmpDM:videoColorSpace";
+    private final static String P_XMP_VIDEO_FRAME_RATE = "xmpDM:videoFrameRate";
+    private final static String P_XMP_VIDEO_PIXEL_DEPTH = "xmpDM:videoPixelDepth";
     private final static String P_XMP_GENRE = "xmpDM:genre";
     private final static String P_XMP_NPAGES = "xmpTPg:NPages";
 
@@ -228,7 +234,11 @@ public class TikaTool extends ToolBase {
         XMP_AUDIO_SAMPLE_RATE,
         XMP_AUDIO_SAMPLE_TYPE,
         XMP_GENRE,
-        XMP_NPAGES
+        XMP_NPAGES,
+        XMP_PIXEL_ASPECT_RATIO,
+        XMP_VIDEO_COLOR_SPACE,
+        XMP_VIDEO_FRAME_RATE,
+        XMP_VIDEO_PIXEL_DEPTH
     }
     
     /** Map of Tika properties to TikaProperty
@@ -331,6 +341,10 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_XMP_AUDIO_SAMPLE_TYPE, TikaProperty.XMP_AUDIO_SAMPLE_TYPE);
         propertyNameMap.put (P_XMP_GENRE, TikaProperty.XMP_GENRE);
         propertyNameMap.put (P_XMP_NPAGES, TikaProperty.XMP_NPAGES);
+        propertyNameMap.put (P_XMP_PIXEL_ASPECT_RATIO, TikaProperty.XMP_PIXEL_ASPECT_RATIO);
+        propertyNameMap.put (P_XMP_VIDEO_COLOR_SPACE, TikaProperty.XMP_VIDEO_COLOR_SPACE);
+        propertyNameMap.put (P_XMP_VIDEO_FRAME_RATE, TikaProperty.XMP_VIDEO_FRAME_RATE);
+        propertyNameMap.put (P_XMP_VIDEO_PIXEL_DEPTH, TikaProperty.XMP_VIDEO_PIXEL_DEPTH);
     }
     
 
@@ -347,19 +361,22 @@ public class TikaTool extends ToolBase {
     private final static String TOOL_NAME = "Tika";
     private final static String TOOL_VERSION = "1.3";  // Hard-coded version till we can do better
     
-    // TODO could get the version by doing an exec of tika --version ...
-    // but then I have to know the path of the jar.
-    private final static MediaTypeRegistry typeRegistry = MediaTypeRegistry.getDefaultRegistry();
+
+//    private final static MediaTypeRegistry typeRegistry = MediaTypeRegistry.getDefaultRegistry();
     private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
     private Tika tika = new Tika ();
     
+    private static Logger logger;
     private boolean enabled = true;
 
     public TikaTool() throws FitsToolException {
         info = new ToolInfo(TOOL_NAME, TOOL_VERSION,"");
+        logger = Logger.getLogger(this.getClass());
+        logger.debug ("Initializing TikaTool");
     }
 
     public ToolOutput extractInfo(File file) throws FitsToolException {
+        logger.debug("TikaTool.extractInfo starting on " + file.getName());
     	long startTime = System.currentTimeMillis();
         Metadata metadata = new Metadata(); // = new Metadata();
         FileInputStream instrm = null;
@@ -382,6 +399,7 @@ public class TikaTool extends ToolBase {
         ToolOutput output = new ToolOutput (this, toolData, rawData);
         duration = System.currentTimeMillis()-startTime;
         runStatus = RunStatus.SUCCESSFUL;
+        logger.debug ("Tika.extractInfo finished on " + file.getName());
         return output;
     }
 
@@ -796,6 +814,8 @@ public class TikaTool extends ToolBase {
         String[] metadataNames = metadata.names();
         Element elem = new Element (FitsMetadataValues.VIDEO, fitsNS);
         boolean heightReported = false;
+        boolean compressionTypeReported = false;
+        boolean titleReported = false;
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {
@@ -806,6 +826,7 @@ public class TikaTool extends ToolBase {
             switch (prop) {
 
             case TITLE:
+            case DC_TITLE:
                 addSimpleElement (elem, FitsMetadataValues.TITLE, value);
                 break;
             
@@ -813,10 +834,42 @@ public class TikaTool extends ToolBase {
                 addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
                 break;
                 
+            case XMP_AUDIO_CHANNEL_TYPE:
+                addSimpleElement (elem, FitsMetadataValues.AUDIO_CHANNEL_TYPE, value);
+                break;
+                
+            case XMP_AUDIO_SAMPLE_RATE:
+                addSimpleElement (elem, FitsMetadataValues.AUDIO_SAMPLE_RATE, value);
+                break;
+                
+            case XMP_AUDIO_SAMPLE_TYPE:
+                addSimpleElement (elem, FitsMetadataValues.AUDIO_SAMPLE_TYPE, value);
+                break;
+
+            case XMP_AUDIO_COMPRESSOR:
             case COMPRESSION_TYPE:
-                addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
+                if (!compressionTypeReported) {
+                    addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
+                    compressionTypeReported = true;
+                }
                 break;
    
+            case XMP_VIDEO_FRAME_RATE:
+                addSimpleElement(elem, FitsMetadataValues.FRAME_RATE, value);
+                break;
+                
+            case XMP_PIXEL_ASPECT_RATIO:
+                addSimpleElement(elem, FitsMetadataValues.PIXEL_ASPECT_RATIO, value);
+                break;
+                
+            case XMP_VIDEO_PIXEL_DEPTH:
+                addSimpleElement (elem, FitsMetadataValues.BIT_DEPTH, value);
+                break;
+                
+            case XMP_VIDEO_COLOR_SPACE:
+                addSimpleElement (elem, FitsMetadataValues.COLOR_SPACE, value);
+                break;
+                
             case IMAGE_HEIGHT:
             case TIFF_IMAGE_LENGTH:
             case HEIGHT:
@@ -829,9 +882,6 @@ public class TikaTool extends ToolBase {
                     heightReported = true;
                 }
                 break;
-//            case BITS_PER_SAMPLE:
-//                addSimpleElement (elem, FitsMetadataValues.BITS_PER_SAMPLE, value);
-//                break;
             }
         }
         return elem;

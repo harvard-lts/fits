@@ -23,22 +23,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.URL;
 
-import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
-import org.xml.sax.SAXException;
+import org.apache.log4j.Logger;
 
-import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.SignatureParseException;
-//import uk.gov.nationalarchives.droid.AnalysisController;
-import uk.gov.nationalarchives.droid.core.signature.FileFormatHit;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
-import uk.gov.nationalarchives.droid.core.interfaces.ResultHandler;
-import uk.gov.nationalarchives.droid.results.handlers.BatchResultHandler;
+//import uk.gov.nationalarchives.droid.AnalysisController;
 //import uk.gov.nationalarchives.droid.IdentificationFile;
-import uk.gov.nationalarchives.droid.submitter.SubmissionGateway;
-import uk.gov.nationalarchives.droid.submitter.SubmissionQueue;
 import uk.gov.nationalarchives.droid.command.action.VersionCommand;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
@@ -53,11 +45,17 @@ public class Droid extends ToolBase {
 	//public final static String xslt = Fits.FITS_HOME+"xml/droid/droid_to_fits.xslt";
 	private boolean enabled = true;
 	private DroidQuery droidQuery;
-	
-	public Droid() throws FitsToolException {
+    private static Logger logger = Logger.getLogger(Droid.class);
 
+	public Droid() throws FitsToolException {
+        logger.debug ("Initializing Droid");
 		info = new ToolInfo("Droid", getDroidVersion(), null);		
 
+		// DROID 6.1 can't run under Java 7. 
+		String javaVersion = System.getProperty("java.version");
+		if (javaVersion.startsWith("1.7") || javaVersion.startsWith ("1.8")) {
+		    throw new FitsToolException ("DROID cannot run under Java 7");
+		}
 		try {
 			String droid_conf = Fits.FITS_TOOLS+"droid"+File.separator;
 			//URL droidConfig = new File(droid_conf+"DROID_config.xml").toURI().toURL();
@@ -79,6 +77,7 @@ public class Droid extends ToolBase {
 
 	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+        logger.debug("Droid.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		IdentificationResultCollection results;
 		try {
@@ -91,18 +90,9 @@ public class Droid extends ToolBase {
 		DroidToolOutputter outputter = new DroidToolOutputter(this, results);
 		ToolOutput output = outputter.toToolOutput();
 		
-		//IdentificationFile idFile = droid.identify(file.getPath());
-		/*List<FileIdentity> identities = new ArrayList();
-		for(int i=0;i<idFile.getNumHits();i++) {
-			FileFormatHit hit = idFile.getHit(i);
-			FileIdentity identity = new FileIdentity(hit.getMimeType(),hit.getFileFormatName(),hit.getFileFormatVersion());
-			//pronom id;
-			identity.addExternalIdentifier("puid",hit.getFileFormatPUID());
-			identities.add(identity);
-		}	*/
-
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
+        logger.debug("Droid.extractInfo finished on " + file.getName());
 		return output;
 	}
 

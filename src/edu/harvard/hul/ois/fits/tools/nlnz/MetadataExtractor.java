@@ -25,6 +25,7 @@ import java.io.StringReader;
 
 import org.jdom.Document;
 import org.jdom.JDOMException;
+import org.apache.log4j.Logger;
 
 import nz.govt.natlib.AdapterFactory;
 import nz.govt.natlib.adapter.DataAdapter;
@@ -44,13 +45,17 @@ public class MetadataExtractor extends ToolBase {
 	
 	public final static String nlnzFitsConfig = Fits.FITS_XML+"nlnz"+File.separator+"fits"+File.separator;
 	private boolean enabled = true;
+    private static Logger logger;
 	
 	public MetadataExtractor() throws FitsException {	
+        logger = Logger.getLogger(this.getClass());
+        logger.debug ("Initializing MetadataExtractor");
 		info = new ToolInfo("NLNZ Metadata Extractor","3.4GA","12/21/2007");
 		transformMap = XsltTransformMap.getMap(nlnzFitsConfig+"nlnz_xslt_map.xml");
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+        logger.debug("MetadataExtractor.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		Document dom = null;
 		//Document rawDom = null;
@@ -115,10 +120,12 @@ public class MetadataExtractor extends ToolBase {
 					
 		} 
 		catch (JDOMException e) {
+            logger.error("Error parsing NLNZ Metadata Extractor XML output: " + e.getClass().getName());
 			throw new FitsToolException("Error parsing NLNZ Metadata Extractor XML output",e);
 		}
 		catch (Exception e) {
 			// harvesting metadata failed
+            logger.error("NLNZ Metadata Extractor error while harvesting file: " + e.getClass().getName());
 			throw new FitsToolException("NLNZ Metadata Extractor error while harvesting file "+file.getName(),e);		
 		}
 		finally {
@@ -127,6 +134,7 @@ public class MetadataExtractor extends ToolBase {
 				adapterOutput.close();
 				//tAdapterOutput.close();
 			} catch (IOException e) {
+			    logger.error("Error closing NLNZ Metadata Extractor XML output stream: " + e.getClass().getName());
 				throw new FitsToolException("Error closing NLNZ Metadata Extractor XML output stream",e);
 			}
 		}
@@ -148,6 +156,7 @@ public class MetadataExtractor extends ToolBase {
 		
 		output = new ToolOutput(this,fitsXml,dom);
 		duration = System.currentTimeMillis()-startTime;
+        logger.debug("MetadataExtractor.extractInfo finished on " + file.getName());
 		runStatus = RunStatus.SUCCESSFUL;
 		return output;
 	}

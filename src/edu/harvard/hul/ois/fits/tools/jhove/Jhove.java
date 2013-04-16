@@ -28,6 +28,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.jdom.Document;
+import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
@@ -50,12 +51,14 @@ public class Jhove extends ToolBase {
     private XmlHandler xh; 
     private String jhoveConf;
     private boolean enabled = true;
-    
+    private static Logger logger = Logger.getLogger(Jhove.class);
+
     public final static Calendar calendar = GregorianCalendar.getInstance();
     
     public final static String jhoveFitsConfig = Fits.FITS_XML+"jhove"+File.separator;
 	
 	public Jhove() throws FitsException {
+        logger.debug ("Initializing Jhove");
 
 		try {
             //Initialize Jhove  
@@ -73,6 +76,7 @@ public class Jhove extends ToolBase {
             xh.setBase(jhove);   		
 		}
 		catch (JhoveException e) {
+		    logger.error ("Error initializing Jhove: " + e.getClass().getName());
 			throw new FitsToolException("Error initializing Jhove",e);
 		}
 
@@ -121,6 +125,7 @@ public class Jhove extends ToolBase {
 	 * @throws FitsToolException 
 	 */
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+        logger.debug("Jhove.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		Document dom = null;
 		try {
@@ -169,6 +174,7 @@ public class Jhove extends ToolBase {
 		output = new ToolOutput(this,fitsXml,dom);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
+        logger.debug("Jhove.extractInfo finished on " + file.getName());
 		return output;
 	}
 /*

@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -51,9 +52,12 @@ public class Exiftool extends ToolBase {
 	
 	public final static String exiftoolFitsConfig = Fits.FITS_XML+"exiftool"+File.separator;
 	public final static String genericTransform = "exiftool_generic_to_fits.xslt";
-	
+
+    private static Logger logger = Logger.getLogger(Exiftool.class);
+
 	public Exiftool() throws FitsException {
-		
+        logger.debug ("Initializing Exiftool");
+
 		String osName = System.getProperty("os.name");
 		info = new ToolInfo();
 		info.setName(TOOL_NAME);
@@ -64,15 +68,18 @@ public class Exiftool extends ToolBase {
 			osIsWindows = true;
 			infoCommand.addAll(winCommand);
 			info.setNote("exiftool for windows");
+			logger.debug("Exiftool will use Windows environment");
 		}
 		else if (testOSForPerl()){
 			osHasPerl = true;	
 			//use OS version of perl and the provided perl version of exiftool
 			infoCommand.addAll(unixCommand);
 			info.setNote("exiftool for unix");
+            logger.debug("Exiftool will use Unix Perl environment");
 		}
 		
 		else {
+		    logger.debug ("Perl and Windows not supported, not running Exiftool");
 			throw new FitsToolException("Exiftool cannot be used on this system");
 		}
 		infoCommand.add("-ver");
@@ -82,6 +89,7 @@ public class Exiftool extends ToolBase {
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+        logger.debug("Exiftool.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		List<String> execCommand = new ArrayList<String>();
 		//determine if the file can be used on the current platform
@@ -103,7 +111,9 @@ public class Exiftool extends ToolBase {
 		execCommand.add("-t");
 		execCommand.add("-s");
 		
+		logger.debug("Launching Exiftool, command = " + execCommand);
 		String execOut = CommandLine.exec(execCommand,null);
+		logger.debug("Finished running Exiftool");
 		
 		String[] outParts = execOut.split("\n");
 		String format = null;
@@ -150,6 +160,7 @@ public class Exiftool extends ToolBase {
 		
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
+        logger.debug("Exiftool.extractInfo finished on " + file.getName());
 		return output;
 	}
 	
