@@ -1,9 +1,10 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.02
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
 [File, System, Image] FileName - File Name: CanonRaw_4_failed.crw
 [File, System, Image] Directory - Directory: t
 [File, System, Image] FileSize - File Size: 12 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:09:04 19:25:28-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:09:04 19:25:28-04:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:37-05:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:37-05:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:37-05:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: CRW
 [File, File, Image] MIMEType - MIME Type: image/x-canon-crw
@@ -139,7 +140,7 @@
 [MakerNotes, CanonRaw, Image] 3 - Raw Jpg Width: 2048
 [MakerNotes, CanonRaw, Image] 4 - Raw Jpg Height: 1360
 [MakerNotes, CanonRaw, Camera] 6203 - Serial Number Format: Format 1
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.02
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.07
 [XMP, XMP-aux, Camera] Lens - Lens: 18.0 - 55.0 mm
 [XMP, XMP-aux, Camera] OwnerName - Owner Name: Phil Harvey
 [XMP, XMP-aux, Camera] SerialNumber - Serial Number: 1234

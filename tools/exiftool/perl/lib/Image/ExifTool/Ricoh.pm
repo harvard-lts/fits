@@ -108,6 +108,7 @@ my %ricohLensIDs = (
             Name => 'RicohSubdirIFD',
             # the CX6 and GR Digital 4 write an int32u pointer in AVI videos -- doh!
             Condition => '$self->{Model} !~ /^Caplio RR1\b/',
+            Flags => 'SubIFD',
             SubDirectory => {
                 TagTable => 'Image::ExifTool::Ricoh::Subdir',
                 Start => '$val + 20', # (skip over "[Ricoh Camera Info]\0" header)
@@ -695,7 +696,7 @@ interpret Ricoh maker notes EXIF meta information.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

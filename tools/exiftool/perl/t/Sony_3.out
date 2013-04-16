@@ -1,9 +1,10 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.02
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
 [File, System, Image] FileName - File Name: Sony_3_failed.jpg
 [File, System, Image] Directory - Directory: t
 [File, System, Image] FileSize - File Size: 5.5 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:09:04 19:25:41-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:09:04 19:25:41-04:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:50-05:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:50-05:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:50-05:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: JPEG
 [File, File, Image] MIMEType - MIME Type: image/jpeg
@@ -74,7 +75,7 @@
 [PrintIM, PrintIM, Printing] PrintIMVersion - PrintIM Version: 0250
 [PrintIM, PrintIM, Printing] 2 - Print IM 0x0002: 0x00000001
 [PrintIM, PrintIM, Printing] 257 - Print IM 0x0101: 0x00000000
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.02
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.07
 [XMP, XMP-exif, Camera] FlashFired - Flash Fired: True
 [Composite, Composite, Image] Aperture - Aperture: 7.1
 [Composite, Composite, Other] Flash - Flash: Fired

@@ -1,9 +1,10 @@
-  ExifToolVersion = 9.02
+  ExifToolVersion = 9.09
   FileName = Canon.jpg
   Directory = t/images
   FileSize = 2697
   FileModifyDate = 1159902631
-  FileAccessDate = 1346801130
+  FileAccessDate = 1355791141
+  FileInodeChangeDate = 1355575268
   FilePermissions = 33188
   FileType = JPEG
   MIMEType = image/jpeg
@@ -105,7 +106,7 @@ JPEG APP1 (2442 bytes):
   | |         [snip 1352 bytes]
   | | + [MakerNotes directory with 26 entries]
   | | | 0)  CanonCameraSettings (SubDirectory) -->
-  | | |     - Tag 0x0001 (92 bytes, int16u[46]):
+  | | |     - Tag 0x0001 (92 bytes, int16u[46] read as undef[92]):
   | | |         03e8: 5c 00 00 00 00 00 04 00 00 00 01 00 00 00 03 00 [\...............]
   | | |         03f8: 00 00 02 00 00 00 01 00 ff ff 01 00 01 00 01 00 [................]
   | | |         0408: 00 00 05 00 02 00 00 00 04 00 ff 7f ff ff 37 00 [..............7.]
@@ -222,7 +223,7 @@ JPEG APP1 (2442 bytes):
   | | | | - Tag 0x002a (2 bytes, int16s[1]):
   | | | |     043c: 00 00                                           [..]
   | | | 1)  CanonFocalLength (SubDirectory) -->
-  | | |     - Tag 0x0002 (8 bytes, int16u[4]):
+  | | |     - Tag 0x0002 (8 bytes, int16u[4] read as undef[8]):
   | | |         0444: 00 00 22 00 92 03 62 02                         [.."...b.]
   | | | + [BinaryData directory, 8 bytes]
   | | | | FocalType = 0
@@ -241,7 +242,7 @@ JPEG APP1 (2442 bytes):
   | | |     - Tag 0x0003 (8 bytes, int16u[4]):
   | | |         044c: 64 00 00 00 00 00 00 00                         [d.......]
   | | | 3)  CanonShotInfo (SubDirectory) -->
-  | | |     - Tag 0x0004 (66 bytes, int16u[33]):
+  | | |     - Tag 0x0004 (66 bytes, int16u[33] read as undef[66]):
   | | |         0454: 42 00 00 00 a0 00 38 ff f4 00 00 80 00 00 00 00 [B.....8.........]
   | | |         0464: 03 00 00 00 08 00 08 00 00 00 00 00 00 00 00 00 [................]
   | | |         0474: 00 00 00 00 01 00 ff ff 22 02 f4 00 20 ff 26 00 [........"... .&.]
@@ -330,7 +331,7 @@ JPEG APP1 (2442 bytes):
   | | | | - Tag 0x001d (2 bytes, int16s[1]):
   | | | |     048e: 00 00                                           [..]
   | | | 4)  CanonFileInfo (SubDirectory) -->
-  | | |     - Tag 0x0093 (18 bytes, int16u[9]):
+  | | |     - Tag 0x0093 (18 bytes, int16u[9] read as undef[18]):
   | | |         0496: 12 00 00 00 00 00 00 00 00 00 00 00 ff ff ff ff [................]
   | | |         04a6: ff ff                                           [..]
   | | | + [BinaryData directory, 18 bytes]
@@ -380,7 +381,7 @@ JPEG APP1 (2442 bytes):
   | | |     - Tag 0x000e (4 bytes, int32u[1]):
   | | |         0344: 36 5f 44 00                                     [6_D.]
   | | | 13) CanonCameraInfoUnknown (SubDirectory) -->
-  | | |     - Tag 0x000d (512 bytes, int8u[512]):
+  | | |     - Tag 0x000d (512 bytes, int8u[512] read as undef[512]):
   | | |         0508: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [................]
   | | |         0518: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [................]
   | | |         0528: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 [................]
@@ -402,7 +403,7 @@ JPEG APP1 (2442 bytes):
   | | |         0746: 1a 00 2b 01 77 01 77 01 aa 00 ca 00 8a 01 8b 01 [..+.w.w.........]
   | | |         0756: f0 00 99 00 c5 01 c6 01 77 01                   [........w.]
   | | | 17) MeasuredColor (SubDirectory) -->
-  | | |     - Tag 0x00aa (10 bytes, int16u[5]):
+  | | |     - Tag 0x00aa (10 bytes, int16u[5] read as undef[10]):
   | | |         0760: 0a 00 e6 03 fe 03 02 04 28 03                   [........(.]
   | | | + [BinaryData directory, 10 bytes]
   | | | | MeasuredRGGB = 998 1022 1026 808
@@ -413,7 +414,7 @@ JPEG APP1 (2442 bytes):
   | | |         076a: 14 00 46 14 46 14 58 1b 63 17 8e 0c 39 0f 3b 18 [..F.F.X.c...9.;.]
   | | |         077a: 46 14 50 14                                     [F.P.]
   | | | 19) ColorBalance (SubDirectory) -->
-  | | |     - Tag 0x00a9 (82 bytes, int16u[41]):
+  | | |     - Tag 0x00a9 (82 bytes, int16u[41] read as undef[82]):
   | | |         077e: 52 00 b7 06 40 03 3f 03 de 03 ba 06 40 03 3f 03 [R...@.?.....@.?.]
   | | |         078e: dd 03 f3 07 40 03 3f 03 47 03 56 07 40 03 3f 03 [....@.?.G.V.@.?.]
   | | |         079e: 87 03 cc 04 91 03 90 03 84 06 e2 05 4a 03 49 03 [............J.I.]
@@ -455,7 +456,7 @@ JPEG APP1 (2442 bytes):
   | | |     - Tag 0x00b4 (2 bytes, int16u[1]):
   | | |         03b0: 01 00                                           [..]
   | | | 22) CanonAFInfo (SubDirectory) -->
-  | | |     - Tag 0x0012 (48 bytes, int16u[24]):
+  | | |     - Tag 0x0012 (48 bytes, int16u[24] read as undef[48]):
   | | |         07d0: 07 00 07 00 00 0c 00 08 00 0c 00 08 97 00 97 00 [................]
   | | |         07e0: f6 03 60 02 00 00 00 00 00 00 a0 fd 0a fc 00 00 [..`.............]
   | | |         07f0: 00 00 06 fe 00 00 fa 01 00 00 00 00 00 00 ff ff [................]

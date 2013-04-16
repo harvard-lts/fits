@@ -1,9 +1,10 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.02
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
 [File, System, Image] FileName - File Name: OpenDoc.ods
 [File, System, Image] Directory - Directory: t/images
 [File, System, Image] FileSize - File Size: 6.9 kB
 [File, System, Time] FileModifyDate - File Modification Date/Time: 2010:05:13 10:39:54-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:08:25 07:03:57-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 08:15:41-05:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:17 09:18:25-05:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: ODS
 [File, File, Image] MIMEType - MIME Type: application/vnd.oasis.opendocument.spreadsheet

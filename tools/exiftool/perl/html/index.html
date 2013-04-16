@@ -74,9 +74,9 @@ table.dl td     { padding: .4em .8em }
 </div>
 
 <blockquote><table class='dl lg'><tr><td><b>
-<a href="Image-ExifTool-9.06.tar.gz">
-Download        Version 9.06</a> (3.3 MB) -
-<a href="history.html">Nov. 17, 2012</a></b></td></tr></table></blockquote>
+<a href="Image-ExifTool-9.13.tar.gz">
+Download        Version 9.13</a> (3.3 MB) -
+<a href="history.html">Jan. 11, 2013</a></b></td></tr></table></blockquote>
 
 <p><b>ExifTool is a platform-independent <a href="ExifTool.html">Perl
 library</a> plus a <a href="exiftool_pod.html">command-line application</a> for
@@ -122,8 +122,8 @@ distribution above.)</i></p>
 
 <blockquote><table class='dl lg'><tr><td><b>
 <a name="alone">Windows Executable:</a>
-<a href="exiftool-9.06.zip">
-         exiftool-9.06.zip</a> (3.3 MB)</b></td></tr></table></blockquote>
+<a href="exiftool-9.13.zip">
+         exiftool-9.13.zip</a> (3.4 MB)</b></td></tr></table></blockquote>
 
 <p><b>The stand-alone Windows executable</b> does not require Perl. Just
 download and un-zip the archive then double-click on
@@ -134,8 +134,8 @@ of Windows (including Windows 7).</p>
 
 <blockquote><table class='dl lg'><tr><td><b>
 Mac OS X Package:
-<a href="ExifTool-9.06.dmg">
-         ExifTool-9.06.dmg</a> (2.2 MB)</b></td></tr></table></blockquote>
+<a href="ExifTool-9.13.dmg">
+         ExifTool-9.13.dmg</a> (2.2 MB)</b></td></tr></table></blockquote>
 
 <p><b>The OS X package</b> installs the ExifTool command-line application and
 libraries in /usr/bin. After installing, type "<code>exiftool</code>" in a
@@ -181,7 +181,7 @@ installing ExifTool on Windows, Mac OS X and Unix systems.</p>
 <li>Copies meta information between files (even different-format files)</li>
 <li>Reads/writes <a href="struct.html">structured XMP information</a></li>
 <li>Deletes meta information individually, in groups, or altogether</li>
-<li>Sets the file modification date from EXIF information</li>
+<li>Sets the file modification date (and creation date in Windows) from EXIF information</li>
 <li>Supports alternate language tags in <a href="TagNames/XMP.html">XMP</a>,
     <a href="Tagnames/PNG.html#TextualData">PNG</a>, <a href="TagNames/ID3.html">ID3</a>,
     <a href="TagNames/Font.html#Name">Font</a>, <a href="TagNames/QuickTime.html">QuickTime</a>,
@@ -769,7 +769,7 @@ write syntaxes:</p>
 <tr><td>-[GROUP:]TAG&lt;=FILE</td><td>Sets tag value from contents of specified file</td></tr>
 </table></blockquote>
 
-<p>Note that quotes are required around VALUE if it contains spaces or other
+<p>Quotes are required around VALUE if it contains spaces or other
 special characters, and around the whole argument if the '<code>&lt;=</code>'
 syntax is used (to prevent shell redirection).</p>
 
@@ -779,6 +779,10 @@ basis by suffixing any tag name (including '<code>all</code>') with the
 <code>-n</code> option, but for a single tag.  See the
 <a href="exiftool_pod.html#item_n">-n option</a> in the application
 documentation for more details.</p>
+
+<p><b>Note:</b> Changes to PDF files are reversible because the original
+metadata is never actually deleted from these files.  See the
+<a href="TagNames/PDF.html">PDF Tags documentation</a> for details.</p>
 
 <h3>Group Priorities</h3>
 
@@ -1075,7 +1079,8 @@ three droplets to extract information [exiftool must be installed] (thanks to Ro
 <li><a href="http://www.xnview.com/en/xnview.html">XnView</a>: View and convert graphic files</li>
 <li><a href="http://sourceforge.net/projects/mapivi/">Mapivi</a>: Open-source and cross-platform picture manager</li>
 <li><a href="http://www.resourcespace.org/">ResourceSpace</a>: Open source digital asset management system</li>
-<li><a href="fix_corrupted_nef.html">fix_corrupted_nef</a>: Utility to fix Nikon D4/D600/D800/D800E NEF images corrupted by Nikon Transfer 1</li>
+<li><a href="http://owl.phy.queensu.ca/~phil/exiftool/fix_corrupted_nef.html">fix_corrupted_nef</a>: Utility to fix Nikon D4/D600/D800/D800E NEF images corrupted by Nikon Transfer 1</li>
+<li><a href="http://panorama.dyndns.org/index.php?lang=en&subject=pyExifToolGUI&texttag=pyExifToolGUI">pyExifToolGUI</a>: Python-based graphical frontend for ExifTool</li>
 </ul>
 
 <p><b><a name="related_online">Online</a></b></p>

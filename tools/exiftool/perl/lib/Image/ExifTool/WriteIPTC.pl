@@ -402,12 +402,12 @@ sub DoWriteIPTC($$$)
             if ($id == 0x1c) {
                 if ($rec < $lastRec) {
                     if ($rec == 0) {
-                        return undef if $exifTool->Warn("IPTC record 0 encountered, subsequent records ignored", 1);
+                        return undef if $exifTool->Warn("IPTC record 0 encountered, subsequent records ignored", 2);
                         undef $rec;
                         $pos = $dirEnd;
                         $len = 0;
                     } else {
-                        return undef if $exifTool->Warn("IPTC doesn't conform to spec: Records out of sequence", 1);
+                        return undef if $exifTool->Warn("IPTC doesn't conform to spec: Records out of sequence", 2);
                     }
                 }
                 # handle extended IPTC entry if necessary
@@ -605,7 +605,7 @@ sub DoWriteIPTC($$$)
     if ($tail < $dirEnd) {
         my $trailer = substr($$dataPt, $tail, $dirEnd-$tail);
         if ($trailer =~ /[^\0]/) {
-            return undef if $exifTool->Warn('Unrecognized data in IPTC trailer', 1);
+            return undef if $exifTool->Warn('Unrecognized data in IPTC trailer', 2);
         }
     }
     return $newData;
@@ -689,7 +689,7 @@ seldom-used routines.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

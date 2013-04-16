@@ -1382,7 +1382,7 @@ sub CountNewValues($)
     my $pseudo = 0;
     if ($newVal) {
         # (Note: all writable "pseudo" tags must be found in Extra table)
-        foreach $tag (qw{FileName Directory FileModifyDate}) {
+        foreach $tag (qw{FileName Directory FileModifyDate FileCreateDate}) {
             ++$pseudo if defined $$newVal{$Image::ExifTool::Extra{$tag}};
         }
     }
@@ -1471,33 +1471,49 @@ sub RestoreNewValues($)
 }
 
 #------------------------------------------------------------------------------
-# Set file modification time from FileModifyDate tag
+# Set filesystem time from from FileModifyDate or FileCreateDate tag
 # Inputs: 0) ExifTool object reference, 1) file name or file ref
 #         2) modify time (-M) of original file (needed for time shift)
+#         3) tag name to write (undef for 'FileModifyDate')
 # Returns: 1=time changed OK, 0=nothing done, -1=error setting time
 #          (and increments CHANGED flag if time was changed)
-sub SetFileModifyDate($$;$)
+sub SetFileModifyDate($$;$$)
 {
-    my ($self, $file, $originalTime) = @_;
-    my $nvHash;
-    my $val = $self->GetNewValues('FileModifyDate', \$nvHash);
+    my ($self, $file, $originalTime, $tag) = @_;
+    my ($nvHash, $err);
+    $tag = 'FileModifyDate' unless defined $tag;
+    my $val = $self->GetNewValues($tag, \$nvHash);
     return 0 unless defined $val;
     my $isOverwriting = $self->IsOverwriting($nvHash);
     return 0 unless $isOverwriting;
+    # can currently only set creation date on Windows systems
+    return 0 if $tag eq 'FileCreateDate' and $^O ne 'MSWin32';
     if ($isOverwriting < 0) {  # are we shifting time?
         # use original time of this file if not specified
-        $originalTime = -M $file unless defined $originalTime;
+        unless (defined $originalTime) {
+            $originalTime = ($tag eq 'FileCreateDate') ? -C $file : -M $file;
+        }
         return 0 unless defined $originalTime;
         return 0 unless $self->IsOverwriting($nvHash, $^T - $originalTime*(24*3600));
         $val = $nvHash->{Value}[0]; # get shifted value
     }
-    unless (utime($val, $val, $file)) {
-        $self->Warn('Error setting FileModifyDate');
-        return -1;
+    if ($tag eq 'FileCreateDate') {
+        unless (eval 'require Win32API::File::Time') {
+            $self->Warn("Install Win32API::File::Time to set $tag");
+            return -1;
+        }
+        $err = 1 unless Win32API::File::Time::SetFileTime($file,undef,undef,$val);
+    } else {
+        $err = 1 unless utime($val, $val, $file);
     }
-    ++$self->{CHANGED};
-    $self->VerboseValue('+ FileModifyDate', $val);
-    return 1;
+    if ($err) {
+        $self->Warn("Error setting $tag");
+        return -1;
+    } else {
+        ++$self->{CHANGED};
+        $self->VerboseValue("+ $tag", $val);
+        return 1;
+    }
 }
 
 #------------------------------------------------------------------------------
@@ -1599,12 +1615,18 @@ sub WriteInfo($$;$$)
 
     # first, save original file modify date if necessary
     # (do this now in case we are modifying file in place and shifting date)
-    my ($nvHash, $originalTime);
-    my $fileModifyDate =  $self->GetNewValues('FileModifyDate', \$nvHash);
+    my ($nvHash, $nvHash2, $originalTime, $createTime);
+    my $fileModifyDate = $self->GetNewValues('FileModifyDate', \$nvHash);
+    my $fileCreateDate = $self->GetNewValues('FileCreateDate', \$nvHash2);
     if (defined $fileModifyDate and $self->IsOverwriting($nvHash) < 0 and
         defined $infile and ref $infile ne 'SCALAR')
     {
         $originalTime = -M $infile;
+    }
+    if (defined $fileCreateDate and $self->IsOverwriting($nvHash2) < 0 and
+        defined $infile and ref $infile ne 'SCALAR')
+    {
+        $createTime = -C $infile;
     }
 #
 # do quick in-place change of file dir/name or date if that is all we are doing
@@ -1616,6 +1638,9 @@ sub WriteInfo($$;$$)
             $rtnVal = 2;
             if (defined $fileModifyDate and (not ref $infile or UNIVERSAL::isa($infile,'GLOB'))) {
                 $self->SetFileModifyDate($infile) > 0 and $rtnVal = 1;
+            }
+            if (defined $fileCreateDate and (not ref $infile or UNIVERSAL::isa($infile,'GLOB'))) {
+                $self->SetFileModifyDate($infile, undef, 'FileCreateDate') > 0 and $rtnVal = 1;
             }
             if (defined $newFileName and not ref $infile) {
                 $self->SetFileName($infile) > 0 and $rtnVal = 1;
@@ -1946,7 +1971,7 @@ sub WriteInfo($$;$$)
                     } else {
                         $err = 'opening';
                     }
-                    $rtnVal = 0 if $err and $self->Error("Error $err Mac OS resource fork", 1);
+                    $rtnVal = 0 if $err and $self->Error("Error $err Mac OS resource fork", 2);
                 }
             }
             # erase input file if renaming while editing information in place
@@ -1980,6 +2005,13 @@ sub WriteInfo($$;$$)
     if (defined $fileModifyDate and $rtnVal > 0 and
         ($closeOut or ($closeIn and defined $outBuff)) and
         $self->SetFileModifyDate($closeOut ? $outfile : $infile, $originalTime) > 0)
+    {
+        ++$self->{CHANGED}; # we changed something
+    }
+    # set FileCreateDate if requested (and if possible!)
+    if (defined $fileCreateDate and $rtnVal > 0 and
+        ($closeOut or ($closeIn and defined $outBuff)) and
+        $self->SetFileModifyDate($closeOut ? $outfile : $infile, $createTime, 'FileCreateDate') > 0)
     {
         ++$self->{CHANGED}; # we changed something
     }
@@ -3228,7 +3260,7 @@ sub WriteDirectory($$$;$)
             if (defined $$dirInfo{DirLen} and not $$dirInfo{DirLen} and $dirName ne $self->{PROCESSED}{$addr}) {
                 # it is hypothetically possible to have 2 different directories
                 # with the same address if one has a length of zero
-            } elsif ($self->Error("$dirName pointer references previous $self->{PROCESSED}{$addr} directory", 1)) {
+            } elsif ($self->Error("$dirName pointer references previous $self->{PROCESSED}{$addr} directory", 2)) {
                 return undef;
             } else {
                 $self->Warn("Deleting duplicate $dirName directory");
@@ -4321,7 +4353,7 @@ sub WriteJPEG($$)
                     $s =~ /^JFIF\0/         and $dirName = 'JFIF';
                     $s =~ /^JFXX\0\x10/     and $dirName = 'JFXX';
                 } elsif ($marker == 0xe1) {
-                    $s =~ /^$exifAPP1hdr/   and $dirName = 'IFD0';
+                    $s =~ /^(.{0,4})$exifAPP1hdr/s and $dirName = 'IFD0';
                     $s =~ /^$xmpAPP1hdr/    and $dirName = 'XMP';
                     $s =~ /^$xmpExtAPP1hdr/ and $dirName = 'XMP';
                 } elsif ($marker == 0xe2) {
@@ -4826,7 +4858,14 @@ sub WriteJPEG($$)
                 }
             } elsif ($marker == 0xe1) {         # APP1 (EXIF, XMP)
                 # check for EXIF data
-                if ($$segDataPt =~ /^$exifAPP1hdr/) {
+                if ($$segDataPt =~ /^(.{0,4})$exifAPP1hdr/is) {
+                    my $hdrLen = length $exifAPP1hdr;
+                    if (length $1) {
+                        $hdrLen += length $1;
+                        $self->Error('Unknown garbage at start of EXIF segment',1);
+                    } elsif ($$segDataPt !~ /^Exif\0/) {
+                        $self->Error('Incorrect EXIF segment identifier',1);
+                    }
                     $segType = 'EXIF';
                     $doneDir{IFD0} and $self->Warn('Multiple APP1 EXIF segments');
                     $doneDir{IFD0} = 1;
@@ -4840,9 +4879,9 @@ sub WriteJPEG($$)
                     # rewrite EXIF as if this were a TIFF file in memory
                     my %dirInfo = (
                         DataPt   => $segDataPt,
-                        DataPos  => -6, # (remember: relative to Base!)
-                        DirStart => 6,
-                        Base     => $segPos + 6,
+                        DataPos  => -$hdrLen, # (remember: relative to Base!)
+                        DirStart => $hdrLen,
+                        Base     => $segPos + $hdrLen,
                         Parent   => $markerName,
                         DirName  => 'IFD0',
                     );
@@ -5587,7 +5626,7 @@ used routines.
 
 =head1 AUTHOR
 
-Copyright 2003-2012, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

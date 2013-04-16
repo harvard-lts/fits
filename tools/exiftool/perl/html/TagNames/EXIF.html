@@ -2405,7 +2405,7 @@ unnecessary clutter)</span></span><table class=cols><tr>
 <td>DNGVersion</td>
 <td class=c title=' ! = Unsafe'>int8u[4]!</td>
 <td class=c>IFD0</td>
-<td><span class=s><span class=n>(tags 0xc612-0xc761 are used in DNG images unless otherwise noted)</span></span></td></tr>
+<td><span class=s><span class=n>(tags 0xc612-0xc7b5 are used in DNG images unless otherwise noted)</span></span></td></tr>
 <tr class=b>
 <td title='0xc613 = 50707'>0xc613</td>
 <td>DNGBackwardVersion</td>
@@ -2863,13 +2863,13 @@ one; 2. Pixel width of segments except last; 3. Pixel width of last segment)</sp
 <tr class=b>
 <td title='0xc71c = 50972'>0xc71c</td>
 <td>RawImageDigest</td>
-<td class=c title=' ! = Unsafe'>int8u!</td>
+<td class=c title=' ! = Unsafe'>int8u[16]!</td>
 <td class=c>IFD0</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td title='0xc71d = 50973'>0xc71d</td>
 <td>OriginalRawFileDigest</td>
-<td class=c title=' ! = Unsafe'>int8u!</td>
+<td class=c title=' ! = Unsafe'>int8u[16]!</td>
 <td class=c>IFD0</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
@@ -2919,6 +2919,69 @@ one; 2. Pixel width of segments except last; 3. Pixel width of last segment)</sp
 <td>NoiseProfile</td>
 <td class=c>N</td>
 <td class=c>-</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0xc791 = 51089'>0xc791</td>
+<td>OriginalDefaultFinalSize</td>
+<td class=c title=' ! = Unsafe'>int32u[2]!</td>
+<td class=c>IFD0</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0xc792 = 51090'>0xc792</td>
+<td>OriginalBestQualitySize</td>
+<td class=c title=' ! = Unsafe'>int32u[2]!</td>
+<td class=c>IFD0</td>
+<td><span class=s><span class=n>(called OriginalBestQualityFinalSize by the DNG spec)</span></span></td></tr>
+<tr class=b>
+<td title='0xc793 = 51091'>0xc793</td>
+<td>OriginalDefaultCropSize</td>
+<td class=c title=' ! = Unsafe'>rational64u[2]!</td>
+<td class=c>IFD0</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0xc7a3 = 51107'>0xc7a3</td>
+<td>ProfileHueSatMapEncoding</td>
+<td class=c title=' ! = Unsafe'>int32u!</td>
+<td class=c>IFD0</td>
+<td><span class=s>0 = Linear
+  <br>1 = sRGB</span></td></tr>
+<tr class=b>
+<td title='0xc7a4 = 51108'>0xc7a4</td>
+<td>ProfileLookTableEncoding</td>
+<td class=c title=' ! = Unsafe'>int32u!</td>
+<td class=c>IFD0</td>
+<td><span class=s>0 = Linear
+  <br>1 = sRGB</span></td></tr>
+<tr>
+<td title='0xc7a5 = 51109'>0xc7a5</td>
+<td>BaselineExposureOffset</td>
+<td class=c title=' ! = Unsafe'>rational64u!</td>
+<td class=c>IFD0</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0xc7a6 = 51110'>0xc7a6</td>
+<td>DefaultBlackRender</td>
+<td class=c title=' ! = Unsafe'>int32u!</td>
+<td class=c>IFD0</td>
+<td><span class=s>0 = Auto
+  <br>1 = None</span></td></tr>
+<tr>
+<td title='0xc7a7 = 51111'>0xc7a7</td>
+<td>NewRawImageDigest</td>
+<td class=c title=' ! = Unsafe'>int8u[16]!</td>
+<td class=c>IFD0</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0xc7a8 = 51112'>0xc7a8</td>
+<td>RawToPreviewGain</td>
+<td class=c title=' ! = Unsafe'>double!</td>
+<td class=c>IFD0</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0xc7b5 = 51125'>0xc7b5</td>
+<td>DefaultUserCrop</td>
+<td class=c title=' ! = Unsafe'>rational64u[4]!</td>
+<td class=c>SubIFD</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td title='0xea1c = 59932'>0xea1c</td>
@@ -3069,6 +3132,7 @@ these unless they already exist in the file)</span></span></td></tr>
 </tr><tr><td class=r>34718</td><td>= Microsoft Document Imaging (MDI) Binary Level Codec</td>
 </tr><tr><td class=r>34719</td><td>= Microsoft Document Imaging (MDI) Progressive Transform Codec</td>
 </tr><tr><td class=r>34720</td><td>= Microsoft Document Imaging (MDI) Vector</td>
+</tr><tr><td class=r>34892</td><td>= Lossy JPEG</td>
 </tr><tr><td class=r>65000</td><td>= Kodak DCR Compressed</td>
 </tr><tr><td class=r>65535</td><td>= Pentax PEF Compressed</td>
 </tr></table></td></tr></table></blockquote>
@@ -3140,7 +3204,7 @@ these unless they already exist in the file)</span></span></td></tr>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Nov 16, 2012</i>
+<br><i>Last revised Nov 19, 2012</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>
