@@ -18,6 +18,9 @@
  */
 package edu.harvard.hul.ois.fits.tools;
 
+/** Holder of information about a piece of software that 
+ *  analyzes files.
+ */
 public class ToolInfo {
 	
 	public String name;
@@ -43,9 +46,15 @@ public class ToolInfo {
 		this.date = date;
 	}
 	
+	/** Returns the name of the software, not to be confused with
+	 *  the name of the Tool object. */
 	public String getName() {
 		return name;
 	}
+	
+	
+    /** Sets the name of the software, not to be confused with
+     *  the name of the Tool object. */
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -55,6 +64,9 @@ public class ToolInfo {
 	public void setVersion(String version) {
 		this.version = version;
 	}
+	
+	/** Returns the publication date reported by the software (or
+	 *  which FITS has hard-coded based on available information). */
 	public String getDate() {
 		return date;
 	}
@@ -62,6 +74,7 @@ public class ToolInfo {
 		this.date = date;
 	}
 	
+	/** Returns a String with human-readable information about the tool. */
 	public String print() {
 		String value = "Name= "+name+"\nVersion= "+version+"\nDate= "+date+"\n";
 		if(note != null && note.length() > 0) {
