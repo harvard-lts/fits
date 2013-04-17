@@ -54,13 +54,13 @@ public class DroidToolOutputter {
         Element idElem = new Element ("identification", fitsNS);
         fitsElem.addContent(idElem);
         for (IdentificationResult res : resList) {
-            //String filePuid = res.getPuid();
+            String filePuid = res.getPuid();
             String formatName = res.getName();
             String mimeType = res.getMimeType();
             String version = res.getVersion();
-            if (version != null && formatName != null) {
-                formatName += " " + version;
-            }
+//            if (version != null && formatName != null) {
+//                formatName += " " + version;
+//            }
             Element identityElem = new Element ("identity", fitsNS);
             Attribute attr = null;
             if (formatName != null) {
@@ -74,7 +74,22 @@ public class DroidToolOutputter {
             // Is there anything to put into the fileinfo or metadata elements?
             // Both are optional, so they can be left out if they'd be empty.
             idElem.addContent (identityElem);
+            
+            // If there's a PUID, report it as an external identifier
+            if (filePuid != null) {
+                Element puidElem = new Element ("externalIdentifier", fitsNS);
+                identityElem.addContent (puidElem);
+                puidElem.addContent (filePuid);
+                attr = new Attribute ("type", "puid");
+                puidElem.setAttribute (attr);
+            }
 
+            // If there's a version, report it
+            if (version != null) {
+                Element versionElem = new Element ("version", fitsNS);
+                identityElem.addContent(versionElem);
+                versionElem.addContent (version);
+            }
         }
 
         return toolDoc;     // TODO stub

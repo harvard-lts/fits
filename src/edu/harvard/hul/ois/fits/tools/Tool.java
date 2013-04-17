@@ -19,6 +19,8 @@
 package edu.harvard.hul.ois.fits.tools;
 
 import java.io.File;
+import java.util.List;
+
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 
@@ -58,6 +60,16 @@ public interface Tool extends Runnable {
 	public Boolean canIdentify();
 	
 	/**
+	 *  Returns the name of the tool object (not the name of the software).
+	 */
+	public String getName();
+	
+	/**
+	 *  Sets the name of the tool object (not the name of the software). 
+	 */
+	public void setName(String name);
+	
+	/**
 	 * Add a file extension that the tool should not process
 	 * @param ext
 	 */
@@ -91,6 +103,11 @@ public interface Tool extends Runnable {
 	public boolean hasIncludedExtensions();
 	
 	public boolean hasExcludedExtensions();
+	
+	/**
+	 *  Applies the restrictions in a tools-used item to the tool
+	 */
+	public void applyToolsUsed (List<ToolBelt.ToolsUsedItem> toolsUsedItems);
 	
 	public void resetOutput();
 	
