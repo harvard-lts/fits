@@ -1,5 +1,24 @@
 RELEASE NOTES 
 
+Version 0.7.3 (4/24/13)
+---------------------
+- Javadoc added
+- Correction to XML output by DROID
+- Enhancement of video metadata definitions and Exiftool video metadata
+- Tool identification info moved to static definitions rather than inline
+  strings where it's hard-coded
+
+Version 0.7.2 (4/17/13)
+---------------------
+- Fixes to DROID glue
+- Tools-used element supported in fits.xml
+
+Version 0.7.1 (4/12/13)
+---------------------
+- Update DROID to 6.1
+- Added log4j calls and properties file
+- Some enhancement of video metadata
+
 Version 0.7.0 (4/5/13)
 ---------------------
 - Fork on https://github.com/gmcgath/fits-mcgath

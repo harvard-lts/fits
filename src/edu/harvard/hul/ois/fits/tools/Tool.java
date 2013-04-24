@@ -24,7 +24,7 @@ import java.util.List;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 
-
+/** All FITS tools implement this interface. */
 public interface Tool extends Runnable {
 	
 	public enum RunStatus {SHOULDNOTRUN,SHOULDRUN,FAILED,SUCCESSFUL};

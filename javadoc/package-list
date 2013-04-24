@@ -1,0 +1,16 @@
+edu.harvard.hul.ois.fits
+edu.harvard.hul.ois.fits.consolidation
+edu.harvard.hul.ois.fits.exceptions
+edu.harvard.hul.ois.fits.identity
+edu.harvard.hul.ois.fits.mapping
+edu.harvard.hul.ois.fits.tests
+edu.harvard.hul.ois.fits.tools
+edu.harvard.hul.ois.fits.tools.droid
+edu.harvard.hul.ois.fits.tools.exiftool
+edu.harvard.hul.ois.fits.tools.ffident
+edu.harvard.hul.ois.fits.tools.fileutility
+edu.harvard.hul.ois.fits.tools.jhove
+edu.harvard.hul.ois.fits.tools.nlnz
+edu.harvard.hul.ois.fits.tools.oisfileinfo
+edu.harvard.hul.ois.fits.tools.tika
+edu.harvard.hul.ois.fits.tools.utils

@@ -38,6 +38,8 @@ import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
+/**  The principal glue class for invoking DROID under FITS.
+ */
 public class Droid extends ToolBase {
 
 	//private uk.gov.nationalarchives.droid.Droid droid = null;

@@ -39,6 +39,9 @@ import org.jdom.Document;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 
+/** An abstract class implementing the Tool interface, the base
+ *  for all FITS tools.
+ */
 public abstract class ToolBase implements Tool {
 	
 	protected ToolInfo info = null;

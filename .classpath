@@ -4,27 +4,6 @@
 	<classpathentry kind="src" path="xml/nlnz"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/serializer.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/bmp_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/excel_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/gif_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/html_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/jpg_adapter_1_1.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/mp3_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/msword_adapter_2_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/msworks_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/openoffice_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/pdf_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/pdfbox_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/powerpoint_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/tiff_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/wave_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/wordperfect_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/xml_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/bcprov-jdk14-132.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/bfj220.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/metadata.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/PDFBox-0.7.3.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/poi-2.5.1-final-20040804.jar"/>
 	<classpathentry kind="lib" path="lib/commons-configuration-1.5.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
@@ -139,5 +118,25 @@
 	<classpathentry kind="lib" path="lib/droid/xml-resolver-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/XmlSchema-1.4.7.jar"/>
 	<classpathentry kind="lib" path="lib/droid/xz-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/bfj220.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/metadata.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/PDFBox-0.7.3.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/poi-2.5.1-final-20040804.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/bmp_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/excel_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/gif_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/html_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/jpg_adapter_1_1.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/mp3_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/msword_adapter_2_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/msworks_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/openoffice_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/pdf_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/pdfbox_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/powerpoint_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/tiff_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/wave_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/wordperfect_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/xml_adapter_1_0.jar"/>
 	<classpathentry kind="output" path="build_local"/>
 </classpath>

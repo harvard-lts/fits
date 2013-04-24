@@ -41,8 +41,14 @@ import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
 
+/**  The glue class for invoking the NLNZ Metadata Extractor under FITS.
+ */
 public class MetadataExtractor extends ToolBase {
 	
+    private final static String TOOL_NAME = "NLNZ Metadata Extractor";
+    private final static String TOOL_VERSION = "3.4GA";
+    private final static String TOOL_DATE = "12/21/2007";
+    
 	public final static String nlnzFitsConfig = Fits.FITS_XML+"nlnz"+File.separator+"fits"+File.separator;
 	private boolean enabled = true;
     private static Logger logger;
@@ -50,7 +56,7 @@ public class MetadataExtractor extends ToolBase {
 	public MetadataExtractor() throws FitsException {	
         logger = Logger.getLogger(this.getClass());
         logger.debug ("Initializing MetadataExtractor");
-		info = new ToolInfo("NLNZ Metadata Extractor","3.4GA","12/21/2007");
+		info = new ToolInfo(TOOL_NAME,TOOL_VERSION,TOOL_DATE);
 		transformMap = XsltTransformMap.getMap(nlnzFitsConfig+"nlnz_xslt_map.xml");
 	}
 

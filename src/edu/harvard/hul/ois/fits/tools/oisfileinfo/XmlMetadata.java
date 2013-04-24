@@ -21,6 +21,7 @@ package edu.harvard.hul.ois.fits.tools.oisfileinfo;
 import java.io.File;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -31,6 +32,8 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
+/** A FITS-native tool for getting informationa about XML files.
+ */
 public class XmlMetadata extends ToolBase {
 	
     private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
@@ -39,12 +42,20 @@ public class XmlMetadata extends ToolBase {
     private final static String XML_SCHEMA_INSTANCE = "http://www.w3.org/2001/XMLSchema-instance";
 	private final static String XML_FORMAT = "Extensible Markup Language";
 	private final static String XML_MIME = "text/xml";
+	
+    private final static String TOOL_NAME = "OIS XML Metadata";
+    private final static String TOOL_VERSION = "0.2";
+    private final static String TOOL_DATE = "12/22/10";
+    
 	private boolean enabled = true;
 	
+    private static Logger logger = Logger.getLogger(XmlMetadata.class);
+    
 	public XmlMetadata() throws FitsToolException{
-		info.setName("OIS XML Metadata");
-		info.setVersion("0.2");
-		info.setDate("12/22/10");
+	    logger.debug ("Initializing XmlMetadata");
+		info.setName(TOOL_NAME);
+		info.setVersion(TOOL_VERSION);
+		info.setDate(TOOL_DATE);
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {	

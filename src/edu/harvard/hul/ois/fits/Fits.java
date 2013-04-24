@@ -66,6 +66,9 @@ import edu.harvard.hul.ois.fits.tools.ToolBelt;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
+/**
+ *  The main class for FITS.
+ */
 public class Fits {
 	
     private static Logger logger;
@@ -82,7 +85,7 @@ public class Fits {
 	public static int maxThreads = 20;       // GDM 16-Nov-2012
 	public static final String XML_NAMESPACE = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output";
 	
-	public static String VERSION = "0.7.0 (fits-mcgath fork)";
+	public static String VERSION = "0.7.3 (fits-mcgath fork)";
 	
 	private ToolOutputConsolidator consolidator;
 	private static XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();

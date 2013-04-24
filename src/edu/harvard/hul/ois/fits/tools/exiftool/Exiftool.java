@@ -40,6 +40,9 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
 import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
 
+/** 
+ *  The glue class for invoking Exiftool under FITS. 
+ */
 public class Exiftool extends ToolBase {
 
 	private boolean osIsWindows = false;
