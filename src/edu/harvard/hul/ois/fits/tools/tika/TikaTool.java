@@ -603,7 +603,7 @@ public class TikaTool extends ToolBase {
                break;
                
            case ENCODING:
-               addSimpleElement (elem, FitsMetadataValues.AUDIO_ENCODING, value);
+               addSimpleElement (elem, FitsMetadataValues.AUDIO_DATA_ENCODING, value);
                break;
 
            case SAMPLE_RATE:

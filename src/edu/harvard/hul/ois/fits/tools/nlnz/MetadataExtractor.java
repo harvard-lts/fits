@@ -1,5 +1,5 @@
 /* 
- * Copyright 2009 Harvard University Library
+ll * Copyright 2009 Harvard University Library
  * 
  * This file is part of FITS (File Information Tool Set).
  * 

@@ -75,6 +75,13 @@ public class DroidToolOutputter {
             // Both are optional, so they can be left out if they'd be empty.
             idElem.addContent (identityElem);
             
+            // If there's a version, report it
+            if (version != null) {
+                Element versionElem = new Element ("version", fitsNS);
+                identityElem.addContent(versionElem);
+                versionElem.addContent (version);
+            }
+
             // If there's a PUID, report it as an external identifier
             if (filePuid != null) {
                 Element puidElem = new Element ("externalIdentifier", fitsNS);
@@ -82,13 +89,6 @@ public class DroidToolOutputter {
                 puidElem.addContent (filePuid);
                 attr = new Attribute ("type", "puid");
                 puidElem.setAttribute (attr);
-            }
-
-            // If there's a version, report it
-            if (version != null) {
-                Element versionElem = new Element ("version", fitsNS);
-                identityElem.addContent(versionElem);
-                versionElem.addContent (version);
             }
         }
 
