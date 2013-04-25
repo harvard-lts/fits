@@ -381,11 +381,13 @@ public class TikaTool extends ToolBase {
             instrm = new FileInputStream (file);
         }
         catch (FileNotFoundException e) {
+            logger.debug(("FileNotFoundException with Tika on file " + file.getAbsolutePath()));
             throw new FitsToolException ("Can't open file with Tika", e);
         }
         try {
             tika.parse (instrm, metadata);
         } catch (IOException e) {
+            logger.debug (e.getClass().getName() + " in Tika: " + e.getMessage());
             throw new FitsToolException ("IOException in Tika", e);
         }
         

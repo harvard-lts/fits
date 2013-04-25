@@ -47,7 +47,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</xsl:choose>
 				
 				<xsl:choose>
-					<xsl:when text="exiftool/PixelsPerMeterX and exiftool/PixelsPerMeterY">
+					<xsl:when test="exiftool/PixelsPerMeterX and exiftool/PixelsPerMeterY">
 						<pixelAspectRatio>
 							<xsl:value-of select="exiftool/PixelsPerMeterX"/><xsl:value-of select="'/'"/><xsl:value-of select="exiftool/PixelsPerMeterY"/>
 						</pixelAspectRatio>

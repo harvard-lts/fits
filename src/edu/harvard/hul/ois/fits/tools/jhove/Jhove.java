@@ -134,9 +134,12 @@ public class Jhove extends ToolBase {
 			Module mod = jhove.getModule(jhoveModule);
 			dom = getFileInfo(file,mod);
 		} catch (Exception e) {
+		    logger.error("Jhove error while processing "+file.getName() + ": " +
+                    e.getClass().getName() + ", message = " + e.getMessage());
 			throw new FitsToolException("Jhove error while processing "+file.getName(),e);
 		}
 		catch (OutOfMemoryError e) {
+            logger.error("Jhove OutOfMemoryError while processing "+file.getName());
 			throw new FitsToolException("Jhove OutOfMemoryError while processing "+file.getName());
 		}
 		String format = XmlUtils.getDomValue(dom,"format");
