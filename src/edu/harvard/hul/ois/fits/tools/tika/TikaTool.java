@@ -366,12 +366,11 @@ public class TikaTool extends ToolBase {
     private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
     private Tika tika = new Tika ();
     
-    private static Logger logger;
+    private static Logger logger = Logger.getLogger(TikaTool.class);
     private boolean enabled = true;
 
     public TikaTool() throws FitsToolException {
         info = new ToolInfo(TOOL_NAME, TOOL_VERSION,"");
-        logger = Logger.getLogger(this.getClass());
         logger.debug ("Initializing TikaTool");
     }
 
@@ -384,11 +383,13 @@ public class TikaTool extends ToolBase {
             instrm = new FileInputStream (file);
         }
         catch (FileNotFoundException e) {
+            logger.debug(("FileNotFoundException with Tika on file " + file.getAbsolutePath()));
             throw new FitsToolException ("Can't open file with Tika", e);
         }
         try {
             tika.parse (instrm, metadata);
         } catch (IOException e) {
+            logger.debug (e.getClass().getName() + " in Tika: " + e.getMessage());
             throw new FitsToolException ("IOException in Tika", e);
         }
         

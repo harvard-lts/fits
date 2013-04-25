@@ -56,6 +56,8 @@ public abstract class ToolBase implements Tool {
     
     private List<String> excludedExtensions;
     private List<String> includedExtensions;
+    
+    private Exception caughtException;
 	
 	public ToolBase() throws FitsToolException {
 		info = new ToolInfo();
@@ -238,6 +240,23 @@ public abstract class ToolBase implements Tool {
 	public void setRunStatus(RunStatus runStatus) {
 		this.runStatus = runStatus;
 	}
+	
+	/** Save an exception for reporting. */
+	public void setCaughtException (Exception e) {
+	    caughtException = e;
+	}
+	
+	/** Append any reported exceptions to a master list.
+	 *  This is called after the tool has finished running.
+	 *  
+	 *  @param List of Exceptions. Exceptions may be appended
+	 *         to it by this call.
+	 */
+    public void addExceptions(List<Exception> exceptions) {
+        if (caughtException != null) {
+            exceptions.add (caughtException);
+        }
+    }
 
 	public void run() {
 		try {
@@ -247,6 +266,7 @@ public abstract class ToolBase implements Tool {
 			//java.util.Date time2 = new java.util.Date();
 			//System.out.println(new java.sql.Time(time2.getTime()) +" FINISHED "+this.getClass());
 		} catch (FitsToolException e) {
+		    setCaughtException (e);
 			e.printStackTrace();
 			//System.err.println(e.getMessage());
 		}
