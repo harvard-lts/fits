@@ -25,7 +25,14 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.consolidation.VersionComparer;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 /**
- * Wraps FileIdentity with the tool information that reported it
+ * A non-tool-specific container for identification information about a file.
+ * Like ToolIdentity, it holds the format name,
+ *  MIME type, and external identifiers, but it holds a list of
+ *  identifying tools rather than a single one. It holds one format 
+ *  name and one MIME type, but can hold multiple versions where
+ *  different tools disagree.
+ * 
+ * Wraps file identity with the tool information that reported it
  * @author spmcewen
  *
  */
@@ -63,10 +70,12 @@ public class FitsIdentity {
 		return mimetype;
 	}
 	
+	/** Sets the format name */
 	public void setFormat(String format) {
 		this.format = format;
 	}
 	
+	/** Sets the MIME type */
 	public void setMimetype(String mimetype) {
 		this.mimetype = mimetype;
 	}
@@ -76,14 +85,18 @@ public class FitsIdentity {
 		this.mimetype = mimetype;
 	}
 	
+	/** Adds a format version vote to the list */
 	public void addFormatVersion(FormatVersion version) {
 		formatVersions.add(version);
 	}
 	
+	/** Returns a list of tool votes on what version of the
+	 *  format is being used, with identification of the tool */
 	public List<FormatVersion> getFormatVersions() {
 		return formatVersions;
 	}
 	
+	/** Sets the entire format version vote list */
 	public void setFormatVersions(List<FormatVersion> versions) {
 		formatVersions = versions;
 	}
@@ -112,6 +125,7 @@ public class FitsIdentity {
 		reportingTools.add(info);
 	}
 	
+	/** Returns the list of all tools that contributed to this identity. */
 	public List<ToolInfo> getReportingTools() {
 		return reportingTools;
 	}
@@ -156,6 +170,7 @@ public class FitsIdentity {
 		}
 	}
 
+	/** This will always return "FITS" */
 	public String getToolName() {
 		return toolName;
 	}
