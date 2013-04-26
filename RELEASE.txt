@@ -1,5 +1,15 @@
 RELEASE NOTES 
 
+Version 0.7.4 (Future)
+---------------------
+- Exceptions reported by tools weren't being reported at the end. 
+  This is an old bug. Reporting is now working again.
+- Exif video stylesheet had a typo that invalidated it. Fixed.
+- Deleted obsolete fits_output_tech_elements.xsd
+- Deleted fits.out.xml, which had been added by accident
+- If a tool constructor throws an exception, the tool initialization 
+  loop now just drops the tool instead of terminating FITS.
+
 Version 0.7.3 (4/24/13)
 ---------------------
 - Javadoc added

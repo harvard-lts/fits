@@ -77,7 +77,7 @@ public class FileUtility extends ToolBase {
 		else {
 			//Tool cannot be used on this system
 		    logger.error("File Utility cannot be used on this system");
-			//throw new FitsToolException("File Utility cannot be used on this system");
+			throw new FitsToolException("File Utility cannot be used on this system");
 		}
 		infoCommand.add("-v");		
 		versionOutput = CommandLine.exec(infoCommand,null);		

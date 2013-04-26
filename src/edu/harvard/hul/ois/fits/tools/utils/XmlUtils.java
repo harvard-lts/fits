@@ -61,7 +61,7 @@ public class XmlUtils {
 	 * concatenates the values of all elements children into a single string and returns it
 	 * @param dom
 	 * @param element
-	 * @return
+	 * @return String
 	 */
 	public static String getChildDomValues(Document dom, String element) {
 		String s = "";
