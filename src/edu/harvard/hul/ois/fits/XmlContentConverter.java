@@ -573,25 +573,32 @@ public class XmlContentConverter {
             
                 switch (fitsElem) {
                 case pageCount:
-                    dm.docMD.setPageCount (intValue);
+                	if(intValue != null)
+                		dm.docMD.setPageCount (intValue);
                     break;
                 case wordCount:
-                    dm.docMD.setWordCount(intValue);
+                	if(intValue != null)
+                		dm.docMD.setWordCount(intValue);
                     break;
                 case characterCount:
-                    dm.docMD.setCharacterCount(intValue);
+                	if(intValue != null)
+                		dm.docMD.setCharacterCount(intValue);
                     break;
                 case lineCount:
-                    dm.docMD.setLineCount(intValue);
+                	if(intValue != null)
+                		dm.docMD.setLineCount(intValue);
                     break;
                 case graphicsCount:
-                    dm.docMD.setGraphicsCount(intValue);
+                	if(intValue != null)
+                		dm.docMD.setGraphicsCount(intValue);
                     break;
                 case tableCount:
-                    dm.docMD.setTableCount(intValue);
+                	if(intValue != null)
+                		dm.docMD.setTableCount(intValue);
                     break;
                 case language:
-                    dm.docMD.addLanguage(dataValue);
+                	if(dataValue != null)
+                		dm.docMD.addLanguage(dataValue);
                     break;
                 case font:
                     // Currently not provided by FITS
@@ -607,7 +614,8 @@ public class XmlContentConverter {
                 case isProtected:
                 case hasAnnotations:
                 case hasDigitalSignature:
-                    dm.addFeature(dataElement);
+                	if(dataElement != null)
+                		dm.addFeature(dataElement);
                     break;
                 }
             }
