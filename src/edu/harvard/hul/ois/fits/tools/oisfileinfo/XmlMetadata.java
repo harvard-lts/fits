@@ -59,11 +59,13 @@ public class XmlMetadata extends ToolBase {
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {	
+        logger.debug("XmlMetadata.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
 		output = new ToolOutput(this,(Document)doc.clone(),doc);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
+        logger.debug("XmlMetadata.extractInfo finished on " + file.getName());
 		return output;
 	}
 	
@@ -83,6 +85,8 @@ public class XmlMetadata extends ToolBase {
 				saxBuilder.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 				xml = saxBuilder.build(file);
 			} catch (Exception e) {
+			    logger.error ("Error parsing "+file.getPath() +
+			            ": " + e.getClass().getName());
 				throw new FitsToolException("Error parsing "+file.getPath(),e);
 			}
 			if(xml != null) {

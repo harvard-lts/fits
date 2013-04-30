@@ -124,13 +124,54 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				  <xsl:value-of select="exiftool/YResolution"/>
 			</ySamplingFrequency>
 			
- 			<captureXResolution>
-		  		<xsl:value-of select="exiftool/CaptureXResolution"/>
-			</captureXResolution>	
- 			<captureYResolution>
-		  		<xsl:value-of select="exiftool/CaptureYResolution"/>
-			</captureYResolution>							
-	
+			<xsl:choose>
+		  		<xsl:when test="string(exiftool/CaptureXResolutionUnit)">
+	  				<samplingFrequencyUnit>
+				  		<xsl:value-of select="exiftool/CaptureXResolutionUnit"/>
+					</samplingFrequencyUnit>
+		  		</xsl:when>
+		  		<xsl:when test="string(exiftool/CaptureYResolutionUnit)">
+	  				<samplingFrequencyUnit>
+				  		<xsl:value-of select="exiftool/CaptureYResolutionUnit"/>
+					</samplingFrequencyUnit>
+		  		</xsl:when>
+		  		<xsl:when test="string(exiftool/ResolutionUnit)">
+	  				<samplingFrequencyUnit>
+				  	  <xsl:choose>
+               		      <xsl:when test="exiftool/ResolutionUnit = 'inches'">
+		                    <xsl:value-of select="string(in.)"/>
+       		              </xsl:when>
+        	              <xsl:otherwise>
+		                    <xsl:value-of select="exiftool/ResolutionUnit"/>
+		                  </xsl:otherwise>
+		              </xsl:choose> 
+					</samplingFrequencyUnit>
+		  		</xsl:when>
+			</xsl:choose>
+			<xsl:choose>
+		  		<xsl:when test="string(exiftool/CaptureXResolution)">
+	  				<xSamplingFrequency>
+				  		<xsl:value-of select="exiftool/CaptureXResolution"/>
+					</xSamplingFrequency>
+		  		</xsl:when>
+		  		<xsl:when test="string(exiftool/XResolution)">
+	  				<xSamplingFrequency>
+				  		<xsl:value-of select="exiftool/XResolution"/>
+					</xSamplingFrequency>
+		  		</xsl:when>
+			</xsl:choose>			
+			<xsl:choose>
+		  		<xsl:when test="string(exiftool/CaptureYResolution)">
+	  				<ySamplingFrequency>
+				  		<xsl:value-of select="exiftool/CaptureYResolution"/>
+					</ySamplingFrequency>
+		  		</xsl:when>
+		  		<xsl:when test="string(exiftool/YResolution)">
+	  				<ySamplingFrequency>
+				  		<xsl:value-of select="exiftool/YResolution"/>
+					</ySamplingFrequency>
+		  		</xsl:when>
+			</xsl:choose>	
 			<!--  bits per sample -->
 		  	<xsl:choose>
 		  	<xsl:when test="exiftool/ColorComponents">

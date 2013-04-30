@@ -21,6 +21,7 @@ package edu.harvard.hul.ois.fits.tools.oisfileinfo;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -43,24 +44,29 @@ public class FileInfo extends ToolBase {
     private final static String TOOL_NAME = "OIS File Information";
     private final static String TOOL_VERSION = "0.1";
     private final static String TOOL_DATE = null;
-    
+
+    private static Logger logger = Logger.getLogger(FileInfo.class);
+
     private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
     private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
     private boolean enabled = true;
 	
 	public FileInfo() throws FitsToolException{
-		info.setName(TOOL_NAME);
+        logger.debug ("Initializing FileInfo");
+        info.setName(TOOL_NAME);
 		info.setVersion(TOOL_VERSION);
 		info.setDate(TOOL_DATE);
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {	
-		long startTime = System.currentTimeMillis();
+        logger.debug("FileInfo.extractInfo starting on " + file.getName());
+        long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
 		output = new ToolOutput(this,(Document)doc.clone(),doc);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
+        logger.debug("FileInfo.extractInfo finished on " + file.getName());
 		return output;
 	}
 	
@@ -90,6 +96,8 @@ public class FileInfo extends ToolBase {
 			signature.setText(md5Hash);
 			fileInfo.addContent(signature);
 		} catch (IOException e) {
+		    logger.error("Could not calculate the MD5 for "+file.getPath() + 
+		            ": " + e.getClass().getName());
 			throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
 		}
 		//fslastmodified

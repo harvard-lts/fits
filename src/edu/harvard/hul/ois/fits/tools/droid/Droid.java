@@ -21,7 +21,6 @@ package edu.harvard.hul.ois.fits.tools.droid;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringReader;
 import java.io.StringWriter;
 
 import org.jdom.input.SAXBuilder;

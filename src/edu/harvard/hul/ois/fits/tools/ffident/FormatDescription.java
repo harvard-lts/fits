@@ -27,13 +27,13 @@ import java.util.List;
  * Data class to store information on a file format.
  * @author Marco Schmidt
  */
-public class FormatDescription implements Comparable
+public class FormatDescription implements Comparable<FormatDescription>
 {
-	private List fileExtensions;
+	private List<String> fileExtensions;
 	private String group;
 	private String longName;
 	private byte[] magicBytes;
-	private List mimeTypes;
+	private List<String> mimeTypes;
 	private Integer minimumSize;
 	private Integer offset;
 	private String shortName;
@@ -50,7 +50,7 @@ public class FormatDescription implements Comparable
 		}
 		if (fileExtensions == null)
 		{
-			fileExtensions = new ArrayList();
+			fileExtensions = new ArrayList<String>();
 		}
 		fileExtensions.add(ext);
 	}
@@ -89,7 +89,7 @@ public class FormatDescription implements Comparable
 		}
 		if (mimeTypes == null)
 		{
-			mimeTypes = new ArrayList();
+			mimeTypes = new ArrayList<String>();
 		}
 		mimeTypes.add(mimeType);
 	}
@@ -116,9 +116,9 @@ public class FormatDescription implements Comparable
 		}
 	}
 
-	public int compareTo(Object obj)
+	public int compareTo(FormatDescription desc)
 	{
-		FormatDescription desc = (FormatDescription)obj;
+		//FormatDescription desc = (FormatDescription)obj;
 		int relation = getGroup().compareTo(desc.getGroup());
 		if (relation != 0)
 		{
@@ -127,7 +127,7 @@ public class FormatDescription implements Comparable
 		return getLongName().compareTo(desc.getLongName());
 	}
 
-	public List getFileExtensions()
+	public List<String> getFileExtensions()
 	{
 		return fileExtensions;
 	}
@@ -164,7 +164,7 @@ public class FormatDescription implements Comparable
 		}
 	}
 
-	public List getMimeTypes()
+	public List<String> getMimeTypes()
 	{
 		return mimeTypes;
 	}
@@ -310,7 +310,7 @@ public class FormatDescription implements Comparable
 		sb.append(PRIMARY_SEPARATOR);
 		if (getMimeTypes() != null)
 		{
-			Iterator iter = getMimeTypes().iterator();
+			Iterator<String> iter = getMimeTypes().iterator();
 			while (iter.hasNext())
 			{
 				sb.append(iter.next()); 
@@ -324,7 +324,7 @@ public class FormatDescription implements Comparable
 		sb.append(PRIMARY_SEPARATOR);
 		if (getFileExtensions() != null)
 		{
-			Iterator iter = getFileExtensions().iterator();
+			Iterator<String> iter = getFileExtensions().iterator();
 			while (iter.hasNext())
 			{
 				sb.append(iter.next()); 

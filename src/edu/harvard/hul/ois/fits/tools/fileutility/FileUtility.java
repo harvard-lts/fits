@@ -47,12 +47,11 @@ public class FileUtility extends ToolBase {
 	private final static String WIN_FILE_DATE = "6/7/2008";
 	private boolean enabled = true;
 	
-    private static Logger logger;
+    private static Logger logger = Logger.getLogger(FileUtility.class);
 
 	public final static String xslt = Fits.FITS_XML+"fileutility/fileutility_to_fits.xslt";
 
 	public FileUtility() throws FitsToolException{	
-        logger = Logger.getLogger(this.getClass());
         logger.debug ("Initializing FileUtility");
 		String osName = System.getProperty("os.name");
 		info = new ToolInfo();

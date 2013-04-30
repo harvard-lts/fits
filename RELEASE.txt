@@ -1,6 +1,14 @@
 RELEASE NOTES 
 
-Version 0.7.4 (Future)
+
+Version 0.7.5 (4/30/13)
+---------------------
+- (Merged from 0.6.3) Fixed documentmd conversion bug when page count is null
+- (Merged from 0.6.3) Fixed Exiftool resolution unit conversion error 
+- Miscellaneous Javadoc improvements
+- Some additional logger calls
+
+Version 0.7.4 (4/26/13)
 ---------------------
 - Exceptions reported by tools weren't being reported at the end. 
   This is an old bug. Reporting is now working again.

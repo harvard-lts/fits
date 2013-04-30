@@ -424,7 +424,6 @@ public class TikaTool extends ToolBase {
         fitsElem.addContent(idElem);
         Element identityElem = new Element ("identity", fitsNS);
         // Format and mime type info. 
-        // TODO create real format name
         
         Attribute attr = new Attribute ("format", mimeToFileType(mimeType));
         identityElem.setAttribute (attr);
@@ -478,7 +477,6 @@ public class TikaTool extends ToolBase {
             created = metadata.get(P_DC_CREATED);
         }
         String contentLength = metadata.get (P_CONTENT_LENGTH);
-        String resourceName = metadata.get (P_RESOURCE_NAME);
         String appName = metadata.get (P_APPLICATION_NAME);
         if (appName == null) {
             appName = metadata.get (P_CREATOR_TOOL);
@@ -816,7 +814,7 @@ public class TikaTool extends ToolBase {
         Element elem = new Element (FitsMetadataValues.VIDEO, fitsNS);
         boolean heightReported = false;
         boolean compressionTypeReported = false;
-        boolean titleReported = false;
+        
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {
