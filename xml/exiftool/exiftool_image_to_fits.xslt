@@ -121,7 +121,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 		  		</xsl:when>
 		  		<xsl:when test="string(exiftool/ResolutionUnit)">
 	  				<samplingFrequencyUnit>
-				  		<xsl:value-of select="exiftool/ResolutionUnit"/>
+				  			<xsl:choose>
+								<xsl:when test="exiftool/ResolutionUnit = 'inches'">
+									<xsl:value-of select="string(in.)"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="exiftool/ResolutionUnit"/>
+								</xsl:otherwise>
+							</xsl:choose>
 					</samplingFrequencyUnit>
 		  		</xsl:when>
 			</xsl:choose>
