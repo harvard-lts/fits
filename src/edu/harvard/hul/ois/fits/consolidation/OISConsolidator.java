@@ -384,7 +384,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	private List<FitsIdentity> consolidateIdentities(List<ToolIdentity> identities) {
 		List<FitsIdentity> consolidatedIdentities = new ArrayList<FitsIdentity>();
 		for(ToolIdentity ident : identities) {
-			ListIterator iter = consolidatedIdentities.listIterator();
+			ListIterator<FitsIdentity> iter = consolidatedIdentities.listIterator();
 			boolean anyMatches = false;
 			boolean formatTreeMatch = false;
 			while ( iter.hasNext() ) {
