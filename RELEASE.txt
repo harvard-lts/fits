@@ -1,5 +1,10 @@
 RELEASE NOTES 
 
+Version 0.6.3 (unreleased)
+---------------------
+-Fixed documentmd conversion bug when page count is null
+-Fixed Exiftool resolution unit conversion error
+
 Version 0.6.2 (3/18/13)
 ---------------------
 -Initial merge and commit from openfits
