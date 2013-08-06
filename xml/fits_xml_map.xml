@@ -52,9 +52,9 @@
 				<map from="Fired" to="Flash fired"/>
 				<map from="Fired, Return not detected" to="Strobe return light light not detected"/>
 				<map from="Fired, Return detected" to="Strobe return light detected"/>
-				<map from="On, Fired" to="Flash fired, compulsary flash mode"/>
-				<map from="On, Return not detected" to="Flash fired, compulsary flash mode, return light not detected"/>
-				<map from="On, Return detected" to="Flash fired, compulsary flash mode, return light detected"/>
+				<map from="On, Fired" to="Flash fired, compulsory flash mode"/>
+				<map from="On, Return not detected" to="Flash fired, compulsory flash mode, return light not detected"/>
+				<map from="On, Return detected" to="Flash fired, compulsory flash mode, return light detected"/>
 				<map from="Off, Did not fire" to="Flash did not fire, compulsory flash mode"/>
 				<map from="Auto, Did not fire" to="Flash did not fire, auto mode"/>
 				<map from="Auto, Fired" to="Flash fired, auto mode"/>
@@ -116,9 +116,9 @@
 				<map from="Fired" to="Flash fired"/>
 				<map from="Fired, Return not detected" to="Strobe return light light not detected"/>
 				<map from="Fired, Return detected" to="Strobe return light detected"/>
-				<map from="On, Fired" to="Flash fired, compulsary flash mode"/>
-				<map from="On, Return not detected" to="Flash fired, compulsary flash mode, return light not detected"/>
-				<map from="On, Return detected" to="Flash fired, compulsary flash mode, return light detected"/>
+				<map from="On, Fired" to="Flash fired, compulsory flash mode"/>
+				<map from="On, Return not detected" to="Flash fired, compulsory flash mode, return light not detected"/>
+				<map from="On, Return detected" to="Flash fired, compulsory flash mode, return light detected"/>
 				<map from="Off, Did not fire" to="Flash did not fire, compulsory flash mode"/>
 				<map from="Auto, Did not fire" to="Flash did not fire, auto mode"/>
 				<map from="Auto, Fired" to="Flash Fired, auto mode"/>
