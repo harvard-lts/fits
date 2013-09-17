@@ -207,8 +207,10 @@ public class Fits {
 			}
 			else {
 				FitsOutput result = fits.doSingleFile(inputFile);
-				fits.outputResults(result,cmd.getOptionValue("o"),cmd.hasOption("x"),cmd.hasOption("xc"),false);
-			}
+				if(result != null) {
+					fits.outputResults(result,cmd.getOptionValue("o"),cmd.hasOption("x"),cmd.hasOption("xc"),false);
+				}
+			}	
 		}
 		else {
 			System.err.println("Invalid CLI options");
@@ -257,6 +259,9 @@ public class Fits {
 				}
 				outputResults(result,outputFile,useStandardSchemas,standardCombinedFormat,true);
 			}
+			else if(!f.canRead()) {
+				System.out.println("warning: cannot read " + f.getPath());
+			}
 		}
 	}
 	
@@ -272,6 +277,10 @@ public class Fits {
 	 * @throws IOException
 	 */
 	private FitsOutput doSingleFile(File inputFile) throws FitsException, XMLStreamException, IOException {
+		if(!inputFile.canRead()) {
+			System.out.println("warning: cannot read " + inputFile.getPath());
+			return null;
+		}
 		
 		FitsOutput result = this.examine(inputFile);	
 		if(result.getCaughtExceptions().size() > 0) {
@@ -369,7 +378,7 @@ public class Fits {
 				out.flush();
 				
 			} catch (Exception e) {
-				System.err.println("error converting output to a standard schema format");
+				System.err.println("error converting output to a standard schema format: " + e.getMessage());
 			}
 			finally {
 				xmlOutStream.close();
