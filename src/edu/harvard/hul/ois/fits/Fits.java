@@ -231,11 +231,16 @@ public class Fits {
 	 */
 	private void doDirectory(File inputDir, File outputDir, boolean useStandardSchemas, boolean standardCombinedFormat) throws FitsException, XMLStreamException, IOException {
 		for(File f : inputDir.listFiles()) {
+			
+			if(f == null || !f.exists() || !f.canRead()) {
+				continue;
+			}
+			
 			System.out.println("processing " + f.getPath());
-			if(f.isDirectory() && traverseDirs && f.canRead()) {
+			if(f.isDirectory() && traverseDirs) {
 				doDirectory(f, outputDir, useStandardSchemas,standardCombinedFormat);
 			}
-			else if(f.isFile() && f.canRead()) {
+			else if(f.isFile()) {
 				FitsOutput result = doSingleFile(f);
 				String outputFile = outputDir.getPath() + File.separator + f.getName() + ".fits.xml";
 				File output = new File(outputFile);
