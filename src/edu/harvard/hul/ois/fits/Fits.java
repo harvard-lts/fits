@@ -232,6 +232,10 @@ public class Fits {
 	 * @throws FitsException 
 	 */
 	private void doDirectory(File inputDir, File outputDir, boolean useStandardSchemas, boolean standardCombinedFormat) throws FitsException, XMLStreamException, IOException {
+		if(inputDir.listFiles() == null) {
+			return;
+		}
+		
 		for(File f : inputDir.listFiles()) {
 			
 			if(f == null || !f.exists() || !f.canRead()) {
