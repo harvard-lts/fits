@@ -157,6 +157,8 @@ public class MixModel {
             dcc.setDigitalCameraModel(dcm);
             ccs = new CameraCaptureSettings ();
             dcc.setCameraCaptureSettings(ccs);
+            
+            cm = new Colormap();
         }
         catch (XmlContentException e) {
             // Should never happen, unless the code is buggy
