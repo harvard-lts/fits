@@ -20,7 +20,7 @@ package edu.harvard.hul.ois.fits.tools.jhove;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringReader;
@@ -28,6 +28,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.jdom.Document;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -147,7 +149,7 @@ public class Jhove extends ToolBase {
 		String format = XmlUtils.getDomValue(dom,"format");
 		String xsltTransform = (String)transformMap.get(format.toUpperCase());
 
-		/* debug code
+		/*
 		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
 		try {
 			outputter.output(dom, System.out);
@@ -156,7 +158,7 @@ public class Jhove extends ToolBase {
 			e.printStackTrace();
 		}
 		System.out.println("-------------------------------------------------------------------------------------");
-		 */
+		*/
 		
 		Document fitsXml = null;
 		if(xsltTransform != null) {
@@ -168,14 +170,15 @@ public class Jhove extends ToolBase {
 		
 		/*
 		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+		
 		try {
 			outputter.output(fitsXml, System.out);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
 		
+		*/
 		output = new ToolOutput(this,fitsXml,dom);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;

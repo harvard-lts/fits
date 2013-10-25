@@ -30,7 +30,6 @@ import uk.gov.nationalarchives.droid.core.SignatureParseException;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 //import uk.gov.nationalarchives.droid.AnalysisController;
 //import uk.gov.nationalarchives.droid.IdentificationFile;
-import uk.gov.nationalarchives.droid.command.action.VersionCommand;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
@@ -112,6 +111,8 @@ public class Droid extends ToolBase {
 
 	/* Get the version of DROID. This is about the cleanest I can manage. */
 	private String getDroidVersion () {
+		return "";
+		/*
 	    StringWriter sw = new StringWriter ();
 	    PrintWriter pw = new PrintWriter (sw);
 	    VersionCommand vcmd = new VersionCommand (pw);
@@ -122,6 +123,7 @@ public class Droid extends ToolBase {
 	        return "(Version unknown)";
 	    }
 	    return sw.toString().trim();
+	    */
 	}
     
 }

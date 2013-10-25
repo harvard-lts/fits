@@ -57,9 +57,12 @@ public class DroidQuery {
                    " not found");
         }
         if (!tempDir.exists()) {
+        	tempDir.mkdirs();
+        	/*
             throw new FileNotFoundException ("Temporary directory " + 
                    sigFile.getAbsolutePath() +
                    " not found");
+            */
         }
         this.tempDir = tempDir;
         if (sigIdentifier == null) {

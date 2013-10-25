@@ -477,7 +477,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		while ( iter.hasNext() ) {			
 			ToolOutput result = iter.next();
 			//if the identity section doesn't contain the results from the tool remove it
-			if(!section.hasOutputFromTool(result.getTool().getToolInfo())) {
+			if(result.getTool().canIdentify() && !section.hasOutputFromTool(result.getTool().getToolInfo())) {
 				iter.remove();
 			}
 		}
@@ -490,8 +490,10 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	public FitsOutput processResults(List<ToolOutput> results) {
 		//Remove any null results, or results from tools that have the capability to identify files,
 		// but couldn't identify the file.
+
 		List<ToolOutput> culledResults = cullResults(results);
-			
+
+		
 		//start building the FITS xml document
 		Document mergedDoc = new Document();
 		Element fits = new Element("fits",fitsNS);
@@ -514,6 +516,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		//check identities
 			//one "identity" per unique combination of format and mimetype
 		List<ToolIdentity> identities = getAllIdentities(culledResults);
+
 		List<FitsIdentity> identitySections = new ArrayList<FitsIdentity>();
 		boolean unknownStatus = false;
 		boolean partialStatus = false;
@@ -628,19 +631,31 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		Element s = new Element(curSecName,fitsNS);
 		fits.addContent(s);
 		Element e = null;
+		
 		while((e = findAnElement(culledResults,curSec,false)) != null) {
 			List<Element> fitsElements = mergeXmlesults(culledResults, e);
 			for(Element fitsElement : fitsElements) {
 				s.addContent(fitsElement);
 			}
 		}
+
 		
 		//Only use the output from tools that were able to identify
 		// the file and are in the first identity section
+		/**TODO: why the identification and validation/features extraction are dependent **/
+	
+		/*
 		if(identitySections.size() > 0) {
 			filterToolOutput(identitySections.get(0),culledResults);
 		}
-				
+		*/
+		
+		
+
+		
+		
+		
+		
 		//check filestatus, do normal xml comparison
 		curSec = "/fits:fits/fits:filestatus";
 		//curSec = "/fits/filestatus";

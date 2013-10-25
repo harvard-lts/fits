@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ConfigFile xmlns="http://www.nationalarchives.gov.uk/pronom/ConfigFile">
-  <SigFile>DROID_SignatureFile_V35.xml</SigFile>
+  <SigFile>DROID_SignatureFile_V70.xml</SigFile>
   <SigFileVersion>13</SigFileVersion>
   <SigFileURL>http://www.nationalarchives.gov.uk/pronom/service.asmx</SigFileURL>
   <ProxyHost />

@@ -29,7 +29,6 @@
 	<classpathentry kind="lib" path="lib/stax2-api-3.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/woodstox-core-lgpl-4.0.7.jar"/>
 	<classpathentry kind="lib" path="lib/tika-app-1.3.jar" sourcepath="/Users/gmcgath/.m2/repository/org/apache/tika/tika-app/1.3/tika-app-1.3-sources.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-command-line-6.1.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="src" path="tests"/>
@@ -74,15 +73,6 @@
 	<classpathentry kind="lib" path="lib/droid/de.huxhorn.lilith.3rdparty.flyingsaucer.core-renderer-8RC1.jar"/>
 	<classpathentry kind="lib" path="lib/droid/derby-10.8.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-container-6.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-core-6.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-core-interfaces-6.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-export-6.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-export-interfaces-6.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-help-6.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-report-6.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-report-interfaces-6.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-results-6.1.jar"/>
 	<classpathentry kind="lib" path="lib/droid/itext-2.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/droid/javaee-api-6.0.jar"/>
 	<classpathentry kind="lib" path="lib/droid/javahelp-2.0.05.jar"/>
@@ -138,5 +128,14 @@
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/wave_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/wordperfect_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/xml_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-container-6.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-core-6.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-core-interfaces-6.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-export-6.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-export-interfaces-6.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-help-6.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-report-6.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-report-interfaces-6.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/droid/droid-results-6.1.3.jar"/>
 	<classpathentry kind="output" path="build_local"/>
 </classpath>
