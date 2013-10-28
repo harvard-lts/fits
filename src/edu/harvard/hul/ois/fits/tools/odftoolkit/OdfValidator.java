@@ -45,11 +45,6 @@ public class OdfValidator extends ToolBase{
 		String execOut = CommandLine.exec(execCommand,null);
 		Document rawOut = createXml(execOut);	
 		Document fitsXml = transform(xslt, rawOut);
-		
-		
-		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
-	    String xmlString = outputter.outputString(fitsXml);
-	    System.out.println(xmlString);
 	    
 		output = new ToolOutput(this, fitsXml,rawOut);
 

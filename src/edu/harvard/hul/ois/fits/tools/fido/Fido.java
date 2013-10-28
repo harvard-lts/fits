@@ -113,7 +113,6 @@ public class Fido extends ToolBase{
         out.write("</fido>");
         out.write("\n");
         out.flush();
-        System.out.println(out.toString());
         try {
 			out.close();
 		} catch (IOException e) {

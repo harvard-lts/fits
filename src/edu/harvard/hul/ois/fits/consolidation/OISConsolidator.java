@@ -644,11 +644,11 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		// the file and are in the first identity section
 		/**TODO: why the identification and validation/features extraction are dependent **/
 	
-		/*
+		
 		if(identitySections.size() > 0) {
 			filterToolOutput(identitySections.get(0),culledResults);
 		}
-		*/
+		
 		
 		
 
