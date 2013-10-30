@@ -112,7 +112,15 @@
 								<xsl:value-of select="string('PDF/A')"/>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:value-of select="string('Portable Document Format')"/>
+								<xsl:choose>
+									<xsl:when test='repInfo/version'>
+									<xsl:value-of select="string('Acrobat PDF ')"/><xsl:value-of select="repInfo/version"/><xsl:value-of select="string(' - Portable Document Format')" />
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="string('Portable Document Format')"/>
+									</xsl:otherwise>
+								</xsl:choose>
+
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>												

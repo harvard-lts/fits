@@ -23723,7 +23723,7 @@
             <InternalSignatureID>372</InternalSignatureID>
             <Extension>cmx</Extension>
         </FileFormat>
-        <FileFormat ID="66" Name="Corel Presentation Exchange File"
+        <FileFormat ID="66" MIMEType="application/cmx" Name="Corel Presentation Exchange File"
             PUID="x-fmt/35" Version="6 and Later">
             <InternalSignatureID>731</InternalSignatureID>
             <Extension>cmx</Extension>
@@ -24814,11 +24814,11 @@
             <InternalSignatureID>325</InternalSignatureID>
             <Extension>sdw</Extension>
         </FileFormat>
-        <FileFormat ID="444" Name="CorelDraw Drawing" PUID="x-fmt/291" Version="7.0">
+        <FileFormat ID="444" MIMEType="application/coreldraw" Name="CorelDraw Drawing" PUID="x-fmt/291" Version="7.0">
             <InternalSignatureID>375</InternalSignatureID>
             <Extension>cdr</Extension>
         </FileFormat>
-        <FileFormat ID="445" Name="CorelDraw Drawing" PUID="x-fmt/292" Version="8.0">
+        <FileFormat ID="445" MIMEType="application/coreldraw" Name="CorelDraw Drawing" PUID="x-fmt/292" Version="8.0">
             <InternalSignatureID>376</InternalSignatureID>
             <Extension>cdr</Extension>
         </FileFormat>
@@ -25158,11 +25158,11 @@
         <FileFormat ID="549" Name="XYWrite Document" PUID="x-fmt/373" Version="IV">
             <Extension>xy4</Extension>
         </FileFormat>
-        <FileFormat ID="552" Name="CorelDraw Drawing" PUID="x-fmt/374" Version="9.0">
+        <FileFormat ID="552" MIMEType="application/coreldraw" Name="CorelDraw Drawing" PUID="x-fmt/374" Version="9.0">
             <InternalSignatureID>377</InternalSignatureID>
             <Extension>cdr</Extension>
         </FileFormat>
-        <FileFormat ID="553" Name="CorelDraw Drawing" PUID="x-fmt/375" Version="10.0">
+        <FileFormat ID="553" MIMEType="application/coreldraw" Name="CorelDraw Drawing" PUID="x-fmt/375" Version="10.0">
             <InternalSignatureID>378</InternalSignatureID>
             <Extension>cdr</Extension>
         </FileFormat>
@@ -25176,7 +25176,7 @@
             <InternalSignatureID>509</InternalSignatureID>
             <Extension>psp</Extension>
         </FileFormat>
-        <FileFormat ID="556" Name="CorelDraw Drawing" PUID="x-fmt/378" Version="11.0">
+        <FileFormat ID="556" MIMEType="application/coreldraw" Name="CorelDraw Drawing" PUID="x-fmt/378" Version="11.0">
             <InternalSignatureID>379</InternalSignatureID>
             <Extension>cdr</Extension>
         </FileFormat>
@@ -27946,20 +27946,20 @@
             <InternalSignatureID>637</InternalSignatureID>
             <Extension>hm</Extension>
         </FileFormat>
-        <FileFormat ID="1211" Name="CorelDraw Drawing" PUID="fmt/427" Version="12.0">
+        <FileFormat ID="1211" MIMEType="application/coreldraw" Name="CorelDraw Drawing" PUID="fmt/427" Version="12.0">
             <InternalSignatureID>638</InternalSignatureID>
             <Extension>cdr</Extension>
         </FileFormat>
-        <FileFormat ID="1213" Name="CorelDraw Drawing" PUID="fmt/428" Version="X3">
+        <FileFormat ID="1213" MIMEType="application/coreldraw" Name="CorelDraw Drawing" PUID="fmt/428" Version="X3">
             <InternalSignatureID>640</InternalSignatureID>
             <Extension>cdr</Extension>
         </FileFormat>
-        <FileFormat ID="1215" Name="CorelDraw Drawing" PUID="fmt/429" Version="X4">
+        <FileFormat ID="1215" MIMEType="application/coreldraw" Name="CorelDraw Drawing" PUID="fmt/429" Version="X4">
             <InternalSignatureID>642</InternalSignatureID>
             <Extension>cdr</Extension>
             <HasPriorityOverFileFormatID>382</HasPriorityOverFileFormatID>
         </FileFormat>
-        <FileFormat ID="1216" Name="CorelDraw Drawing" PUID="fmt/430" Version="X5">
+        <FileFormat ID="1216" MIMEType="application/coreldraw" Name="CorelDraw Drawing" PUID="fmt/430" Version="X5">
             <InternalSignatureID>644</InternalSignatureID>
             <Extension>cdr</Extension>
             <HasPriorityOverFileFormatID>382</HasPriorityOverFileFormatID>

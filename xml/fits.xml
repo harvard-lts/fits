@@ -5,13 +5,13 @@
 	<tools>				
 		
 		<tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="dng"/>
-
+		<tool class="edu.harvard.hul.ois.fits.tools.fido.Fido" />
 		<tool class="edu.harvard.hul.ois.fits.tools.odftoolkit.OdfValidator" include-exts="odt,odp,ods,odf"/>
 
 		<tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,arw,adl,eml,odg,otg,odp,otp,ods,ots,otc,odi,odf,otf,odm,oth,nsf"/>
 		 
 		<tool class="edu.harvard.hul.ois.fits.tools.exiftool.Exiftool" exclude-exts="txt,wps,vsd"/>
-		<tool class="edu.harvard.hul.ois.fits.tools.fido.Fido" />
+		
 		
 
  		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.AudioInfo" include-exts="wav"/>
@@ -34,12 +34,12 @@
 	<output>
 		<dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
 		<display-tool-output>false</display-tool-output>
-		<report-conflicts>false</report-conflicts>	
+		<report-conflicts>true</report-conflicts>	
 		<validate-tool-output>true</validate-tool-output>
 		<internal-output-schema>xml/fits_output.xsd</internal-output-schema>
 		<external-output-schema>http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd</external-output-schema>
 		<fits-xml-namespace>http://hul.harvard.edu/ois/xml/ns/fits/fits_output</fits-xml-namespace>
-		<enable-statistics>false</enable-statistics>
+		<enable-statistics>true</enable-statistics>
 	</output>
 	
 	<process>
