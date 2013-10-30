@@ -53,7 +53,7 @@ public class Droid extends ToolBase {
 
 		// DROID 6.1 can't run under Java 7. 
 		String javaVersion = System.getProperty("java.version");
-		if (javaVersion.startsWith("1.7") || javaVersion.startsWith ("1.8")) {
+		if (javaVersion.startsWith ("1.8")) {
 		    throw new FitsToolException ("DROID cannot run under Java 7");
 		}
 		try {
