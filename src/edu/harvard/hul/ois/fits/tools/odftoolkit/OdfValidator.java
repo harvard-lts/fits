@@ -10,8 +10,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Document;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
@@ -22,7 +20,7 @@ import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
 
 public class OdfValidator extends ToolBase{
 	public final static String xslt = Fits.FITS_HOME+"xml/odfValidator/odfValidatorToFits.xslt";
-	private List<String> command = new ArrayList<String>(Arrays.asList("java", "-Djavax.xml.validation.SchemaFactory:http://relaxng.org/ns/structure/1.0=org.iso_relax.verifier.jaxp.validation.RELAXNGSchemaFactoryImpl","-Dorg.iso_relax.verifier.VerifierFactoryLoader=com.sun.msv.verifier.jarv.FactoryLoaderImpl","-jar",Fits.FITS_TOOLS+"odftoolkit/odfvalidator-1.1.7-incubating-SNAPSHOT-jar-with-dependencies.jar"));
+	private List<String> command = new ArrayList<String>(Arrays.asList("java","-jar",Fits.FITS_TOOLS+"odftoolkit/odfvalidator-1.1.7-incubating-SNAPSHOT-jar-with-dependencies.jar"));
 	private final static String TOOL_NAME = "OdfToolkitValidator";
 	private boolean enabled = true;
 	

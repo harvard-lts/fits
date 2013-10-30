@@ -51,10 +51,9 @@ public class Droid extends ToolBase {
         logger.debug ("Initializing Droid");
 		info = new ToolInfo("Droid", getDroidVersion(), null);		
 
-		// DROID 6.1 can't run under Java 7. 
 		String javaVersion = System.getProperty("java.version");
 		if (javaVersion.startsWith ("1.8")) {
-		    throw new FitsToolException ("DROID cannot run under Java 7");
+		    throw new FitsToolException ("DROID cannot run under Java 8");
 		}
 		try {
 			String droid_conf = Fits.FITS_TOOLS+"droid"+File.separator;
