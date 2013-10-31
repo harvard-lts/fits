@@ -640,6 +640,35 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		}
 
 		
+		
+		
+		//check metadata/child
+		//if child.getParent() !exist in mergedDoc, then create and add these elements to it.
+		//  else, add to existing section in mergedDoc
+		//then do normal xml comparison
+	curSec = "/fits:fits/fits:metadata";
+	//curSec = "/fits/metadata";
+	curSecName = "metadata";
+	s = new Element(curSecName,fitsNS);
+	fits.addContent(s);
+	e = null;
+	while((e = findAnElement(culledResults,curSec,true)) != null) {
+		Element eParent = e.getParentElement();
+		Element metadataType = null;
+		if(!parentContainsChild(s,eParent.getName())) {
+			metadataType = new Element(eParent.getName(),fitsNS);
+			s.addContent(metadataType);
+		}
+		else {
+			metadataType = s.getChild(eParent.getName(),fitsNS);
+		}
+		List<Element> fitsElements = mergeXmlesults(culledResults, e);
+		for(Element fitsElement : fitsElements) {
+			metadataType.addContent(fitsElement);
+		}
+	}
+	
+		
 		//Only use the output from tools that were able to identify
 		// the file and are in the first identity section
 		/**TODO: why the identification and validation/features extraction are dependent **/
@@ -670,31 +699,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 			}
 		}
 					
-		//check metadata/child
-			//if child.getParent() !exist in mergedDoc, then create and add these elements to it.
-			//  else, add to existing section in mergedDoc
-			//then do normal xml comparison
-		curSec = "/fits:fits/fits:metadata";
-		//curSec = "/fits/metadata";
-		curSecName = "metadata";
-		s = new Element(curSecName,fitsNS);
-		fits.addContent(s);
-		e = null;
-		while((e = findAnElement(culledResults,curSec,true)) != null) {
-			Element eParent = e.getParentElement();
-			Element metadataType = null;
-			if(!parentContainsChild(s,eParent.getName())) {
-				metadataType = new Element(eParent.getName(),fitsNS);
-				s.addContent(metadataType);
-			}
-			else {
-				metadataType = s.getChild(eParent.getName(),fitsNS);
-			}
-			List<Element> fitsElements = mergeXmlesults(culledResults, e);
-			for(Element fitsElement : fitsElements) {
-				metadataType.addContent(fitsElement);
-			}
-		}
+		
 
 		
 		//Consolidate results from each tool
