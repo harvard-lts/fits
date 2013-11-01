@@ -67,7 +67,6 @@ public class Fido extends ToolBase{
 	private Document createXml(String execOut) throws FitsToolException {    	
     	StringWriter out = new StringWriter();
     	String[] tokens = execOut.split(",");
-    	
     	out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         out.write("\n");
         out.write("<fido>");
@@ -78,35 +77,35 @@ public class Fido extends ToolBase{
         	out.write("<correctlyIdentified>false</correctlyIdentified>");
         }
         out.write("\n");
-        if(tokens[1]!=null && !tokens[1].trim().equals("") && !tokens[1].trim().equalsIgnoreCase("None")){
+        if(tokens[1]!=null && !tokens[1].trim().equals("")){
 	        out.write("<time>"+StringEscapeUtils.escapeXml(tokens[1])+" ms</time>");
 	        out.write("\n");
         }
-        if(tokens[2]!=null && !tokens[2].trim().equals("") && !tokens[2].trim().equalsIgnoreCase("None")){
+        if(tokens[2]!=null && !tokens[2].trim().equals("")){
 	        out.write("<puid>"+StringEscapeUtils.escapeXml(tokens[2])+"</puid>");
 	        out.write("\n");
         }
-        if(tokens[3]!=null && !tokens[3].trim().equals("") && !tokens[3].trim().equalsIgnoreCase("None")){
+        if(tokens[3]!=null && !tokens[3].trim().equals("")){
 	        out.write("<formatName>"+StringEscapeUtils.escapeXml(tokens[3].substring(1, tokens[3].length()-1))+"</formatName>");
 	        out.write("\n");
         }
-        if(tokens[4]!=null && !tokens[4].trim().equals("") && !tokens[4].trim().equalsIgnoreCase("None")){
+        if(tokens[4]!=null && !tokens[4].trim().equals("")){
 	        out.write("<signatureName>"+StringEscapeUtils.escapeXml(tokens[4].substring(1, tokens[4].length()-1))+"</signatureName>");
 	        out.write("\n");
         }
-        if(tokens[5]!=null && !tokens[5].trim().equals("") && !tokens[5].trim().equalsIgnoreCase("None")){
+        if(tokens[5]!=null && !tokens[5].trim().equals("")){
 	        out.write("<fileSize>"+StringEscapeUtils.escapeXml(tokens[5])+"</fileSize>");
 	        out.write("\n");
         }
-        if(tokens[6]!=null && !tokens[6].trim().equals("") && !tokens[6].trim().equalsIgnoreCase("None")){
+        if(tokens[6]!=null && !tokens[6].trim().equals("")){
 	        out.write("<fileName>"+StringEscapeUtils.escapeXml(tokens[6].substring(1, tokens[6].length()-1))+"</fileName>");
 	        out.write("\n");
         }
-        if(tokens[7]!=null && !tokens[7].trim().equals("") && !tokens[7].trim().equalsIgnoreCase("None")){
+        if(tokens[7]!=null && !tokens[7].trim().equals("")){
 	        out.write("<mimeType>"+StringEscapeUtils.escapeXml(tokens[7].substring(1, tokens[7].length()-1))+"</mimeType>");
 	        out.write("\n");
         }
-        if(tokens[8]!=null && !tokens[8].trim().equals("") && !tokens[8].trim().equalsIgnoreCase("None")){
+        if(tokens[8]!=null && !tokens[8].trim().equals("")){
 	        out.write("<matchType>"+StringEscapeUtils.escapeXml(tokens[8].substring(1, tokens[8].length()-1))+"</matchType>");
 	        out.write("\n");
         }
@@ -118,6 +117,8 @@ public class Fido extends ToolBase{
 		} catch (IOException e) {
 			throw new FitsToolException("Error closing OdfValidator XML output stream",e);
 		}
+        
+        
         Document doc = null;
 		try {
 			doc = saxBuilder.build(new StringReader(out.toString()));
