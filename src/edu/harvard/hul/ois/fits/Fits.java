@@ -458,7 +458,7 @@ public class Fits {
 		
 		ArrayList<Thread> threads = new ArrayList<Thread>();
 		// GDM 16-Nov-12: Implement limit on maximum threads
-		for(Tool t : toolbelt.getTools()) {			
+		for(Tool t : toolbelt.getTools()) {	
 			if(t.isEnabled()) {
 				
 				//figure out of the tool should be run against the file depending on the include and exclude extension lists
