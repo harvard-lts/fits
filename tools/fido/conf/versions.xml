@@ -3,6 +3,6 @@
 	<pronomVersion>70</pronomVersion>
 	<pronomSignature>formats-v70.xml</pronomSignature>
 	<pronomContainerSignature>container-signature-20130501.xml</pronomContainerSignature>
-	<fidoExtensionSignature>format_extensions.xml</fidoExtensionSignature>
+	<fidoExtensionSignature>format_extensions_keep.xml</fidoExtensionSignature>
 	<updateScript>1.2.2</updateScript>
 </versions>

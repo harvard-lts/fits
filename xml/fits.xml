@@ -6,8 +6,9 @@
 		
 		<tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="dng"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.fido.Fido" />
-		<!-- <tool class="edu.harvard.hul.ois.fits.tools.odftoolkit.OdfToolkitValidator" include-exts="odt,odp,ods,odf"/> -->
+		<tool class="edu.harvard.hul.ois.fits.tools.odftoolkit.OdfToolkitValidator" include-exts="odt,odp,ods,odf"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.odfValidator.OdfValidator" include-exts="odt,odp,ods,odf"/>
+		<tool class="edu.harvard.hul.ois.fits.tools.shpCharacterizationTool.ShpCharacterizationTool" include-exts="shp" />
 		<tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,arw,adl,eml,odg,otg,odp,otp,ods,ots,otc,odi,odf,otf,odm,oth,nsf"/>
 		 
 		<tool class="edu.harvard.hul.ois.fits.tools.exiftool.Exiftool" exclude-exts="txt,wps,vsd"/>
@@ -33,8 +34,8 @@
 		
 	<output>
 		<dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
-		<display-tool-output>true</display-tool-output>
-		<report-conflicts>false</report-conflicts>	
+		<display-tool-output>false</display-tool-output>
+		<report-conflicts>true</report-conflicts>	
 		<validate-tool-output>true</validate-tool-output>
 		<internal-output-schema>xml/fits_output.xsd</internal-output-schema>
 		<external-output-schema>http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd</external-output-schema>
@@ -47,7 +48,7 @@
 	</process>
 	
 	<!-- file name of the droid signature file to use in tools/droid/-->
-	<droid_sigfile>DROID_SignatureFile_V70.xml</droid_sigfile>
+	<droid_sigfile>DROID_SignatureFile_V70_keeps.xml</droid_sigfile>
 	
 
 </fits_configuration>
