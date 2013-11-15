@@ -54,6 +54,8 @@ public class OdfToolkitValidator extends ToolBase{
 	
 	
 	private Document createXml(String execOut) throws FitsToolException {    	
+		
+		System.out.println("\n\n\n\n"+execOut+"\n\n\n");
     	StringWriter out = new StringWriter();
     	
         out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");

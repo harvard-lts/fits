@@ -26,7 +26,7 @@ public class Fido extends ToolBase{
 	
 
 	
-	private List<String> command = new ArrayList<String>(Arrays.asList("python", Fits.FITS_TOOLS+"fido/fido.py","-pronom_only","-q"));
+	private List<String> command = new ArrayList<String>(Arrays.asList("python", Fits.FITS_TOOLS+"fido/fido.py","-q"));
 	private final static String TOOL_NAME = "fido";
 	private boolean enabled = true;
 	
@@ -64,9 +64,14 @@ public class Fido extends ToolBase{
 	}
 	
 	
-	private Document createXml(String execOut) throws FitsToolException {    	
+	private Document createXml(String execOut) throws FitsToolException {  
+		
+		
+		String[] lines = execOut.split("\n");
+		String selected = lines[lines.length-1];
+		
     	StringWriter out = new StringWriter();
-    	String[] tokens = execOut.split(",");
+    	String[] tokens = selected.split(",");
     	out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         out.write("\n");
         out.write("<fido>");
