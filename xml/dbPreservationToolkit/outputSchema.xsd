@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+       <xs:element name="databaseCharacterizationResult">
+              <xs:complexType>
+                     <xs:sequence>
+                            <xs:element name="name" type="xs:string"></xs:element>
+                            <xs:element name="productName" type="xs:string"></xs:element>
+                            <xs:element name="productVersion" type="xs:string"></xs:element>
+                            <xs:element name="tables">
+                                   <xs:complexType>
+                                          <xs:sequence>
+                                                 <xs:element name="table" maxOccurs="unbounded">
+                                                        <xs:complexType>
+                                                               <xs:sequence>
+                                                                      <xs:element name="columns">
+                                                                             <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                           <xs:element name="column" maxOccurs="unbounded" type="xs:string"></xs:element>
+                                                                                       </xs:sequence>
+                                                                                </xs:complexType>
+                                                                         </xs:element>
+                                                                      <xs:element name="id" type="xs:string"></xs:element>
+                                                                      <xs:element name="name" type="xs:string"></xs:element>
+                                                                      <xs:element name="numberOfRecords" type="xs:int"></xs:element>
+                                                                  </xs:sequence>
+                                                           </xs:complexType>
+                                                    </xs:element>
+                                             </xs:sequence>
+                                      </xs:complexType>
+                               </xs:element>
+                            <xs:element name="totalNumberOfRecords" type="xs:int"></xs:element>
+                        </xs:sequence>
+                 </xs:complexType>
+          </xs:element>
+   </xs:schema>

@@ -19,10 +19,38 @@
 package edu.harvard.hul.ois.fits.tools.utils;
 
 //import java.util.ArrayList;
+import java.io.File;
+import java.io.StringReader;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.jdom.Attribute;
 import org.jdom.Document;
@@ -30,6 +58,7 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 //import org.jdom.Namespace;
 import org.jdom.xpath.XPath;
+import org.xml.sax.InputSource;
 
 //import edu.harvard.hul.ois.fits.Fits;
 //import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
@@ -141,6 +170,43 @@ public class XmlUtils {
 		   xml = matcher.replaceAll("");
 		}
 		return xml;
+	}
+	
+	public static boolean isXMLValid(File xmlFile, File schemaFile){
+
+		SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
+
+		try {
+			Schema schema = factory.newSchema(schemaFile);
+			Validator validator = schema.newValidator();
+			Source source = new StreamSource(xmlFile);
+			validator.validate(source);
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
+
+	}
+	
+	public static boolean isXMLValid(String xmlString, File schemaFile){
+		try{
+			System.err.close();
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
+			factory.setNamespaceAware(true);
+	        DocumentBuilder builder = factory.newDocumentBuilder();  
+	        org.w3c.dom.Document document = builder.parse( new InputSource(new StringReader( xmlString ) ) );  
+	
+	        Source source = new DOMSource( document );  
+			SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+			Schema schema = schemaFactory.newSchema(schemaFile);
+			Validator validator = schema.newValidator();
+			
+			validator.validate(source);
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
+
 	}
 
 }
