@@ -261,6 +261,8 @@
 		<copy file="cpappend.bat" todir="${output.location.version}"/>
 		<copy file="fits.bat" todir="${output.location.version}"/>
 		<copy file="fits.sh" todir="${output.location.version}"/>
+		<copy file="fits-env.sh" todir="${output.location.version}"/>
+		<copy file="fits-ngserver.sh" todir="${output.location.version}"/>
 		<copy file="RELEASE.txt" todir="${output.location.version}"/>
 		<copy file="COPYING" todir="${output.location.version}"/>
 		<copy file="COPYING.LESSER" todir="${output.location.version}"/>
