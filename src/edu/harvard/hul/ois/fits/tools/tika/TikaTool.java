@@ -8,18 +8,8 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.harvard.hul.ois.fits.DocumentTypes;
-import edu.harvard.hul.ois.fits.FitsMetadataValues;
-import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
-import edu.harvard.hul.ois.fits.tools.ToolBase;
-import edu.harvard.hul.ois.fits.tools.ToolOutput;
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.tools.ToolInfo;
-import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
-
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
-import org.apache.tika.mime.MediaTypeRegistry;
 import org.apache.tika.mime.MimeType;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
@@ -27,6 +17,15 @@ import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
+
+import edu.harvard.hul.ois.fits.DocumentTypes;
+import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsMetadataValues;
+import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
+import edu.harvard.hul.ois.fits.tools.ToolBase;
+import edu.harvard.hul.ois.fits.tools.ToolInfo;
+import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
 
 
 public class TikaTool extends ToolBase {
@@ -126,6 +125,10 @@ public class TikaTool extends ToolBase {
     private final static String P_XMP_AUDIO_COMPRESSOR = "xmpDM:audioCompressor";
     private final static String P_XMP_AUDIO_SAMPLE_RATE = "xmpDM:audioSampleRate";
     private final static String P_XMP_AUDIO_SAMPLE_TYPE = "xmpDM:audioSampleType";
+    private final static String P_XMP_PIXEL_ASPECT_RATIO = "xmpDM:videoPixelAspectRatio";
+    private final static String P_XMP_VIDEO_COLOR_SPACE = "xmpDM:videoColorSpace";
+    private final static String P_XMP_VIDEO_FRAME_RATE = "xmpDM:videoFrameRate";
+    private final static String P_XMP_VIDEO_PIXEL_DEPTH = "xmpDM:videoPixelDepth";
     private final static String P_XMP_GENRE = "xmpDM:genre";
     private final static String P_XMP_NPAGES = "xmpTPg:NPages";
 
@@ -228,7 +231,11 @@ public class TikaTool extends ToolBase {
         XMP_AUDIO_SAMPLE_RATE,
         XMP_AUDIO_SAMPLE_TYPE,
         XMP_GENRE,
-        XMP_NPAGES
+        XMP_NPAGES,
+        XMP_PIXEL_ASPECT_RATIO,
+        XMP_VIDEO_COLOR_SPACE,
+        XMP_VIDEO_FRAME_RATE,
+        XMP_VIDEO_PIXEL_DEPTH
     }
     
     /** Map of Tika properties to TikaProperty
@@ -331,6 +338,10 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_XMP_AUDIO_SAMPLE_TYPE, TikaProperty.XMP_AUDIO_SAMPLE_TYPE);
         propertyNameMap.put (P_XMP_GENRE, TikaProperty.XMP_GENRE);
         propertyNameMap.put (P_XMP_NPAGES, TikaProperty.XMP_NPAGES);
+        propertyNameMap.put (P_XMP_PIXEL_ASPECT_RATIO, TikaProperty.XMP_PIXEL_ASPECT_RATIO);
+        propertyNameMap.put (P_XMP_VIDEO_COLOR_SPACE, TikaProperty.XMP_VIDEO_COLOR_SPACE);
+        propertyNameMap.put (P_XMP_VIDEO_FRAME_RATE, TikaProperty.XMP_VIDEO_FRAME_RATE);
+        propertyNameMap.put (P_XMP_VIDEO_PIXEL_DEPTH, TikaProperty.XMP_VIDEO_PIXEL_DEPTH);
     }
     
 
@@ -347,9 +358,8 @@ public class TikaTool extends ToolBase {
     private final static String TOOL_NAME = "Tika";
     private final static String TOOL_VERSION = "1.3";  // Hard-coded version till we can do better
     
-    // TODO could get the version by doing an exec of tika --version ...
-    // but then I have to know the path of the jar.
-    private final static MediaTypeRegistry typeRegistry = MediaTypeRegistry.getDefaultRegistry();
+
+//    private final static MediaTypeRegistry typeRegistry = MediaTypeRegistry.getDefaultRegistry();
     private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
     private Tika tika = new Tika ();
     
@@ -405,7 +415,6 @@ public class TikaTool extends ToolBase {
         fitsElem.addContent(idElem);
         Element identityElem = new Element ("identity", fitsNS);
         // Format and mime type info. 
-        // TODO create real format name
         
         Attribute attr = new Attribute ("format", mimeToFileType(mimeType));
         identityElem.setAttribute (attr);
@@ -459,7 +468,6 @@ public class TikaTool extends ToolBase {
             created = metadata.get(P_DC_CREATED);
         }
         String contentLength = metadata.get (P_CONTENT_LENGTH);
-        String resourceName = metadata.get (P_RESOURCE_NAME);
         String appName = metadata.get (P_APPLICATION_NAME);
         if (appName == null) {
             appName = metadata.get (P_CREATOR_TOOL);
@@ -585,7 +593,7 @@ public class TikaTool extends ToolBase {
                break;
                
            case ENCODING:
-               addSimpleElement (elem, FitsMetadataValues.AUDIO_ENCODING, value);
+               addSimpleElement (elem, FitsMetadataValues.AUDIO_DATA_ENCODING, value);
                break;
 
            case SAMPLE_RATE:
@@ -795,6 +803,8 @@ public class TikaTool extends ToolBase {
     private Element buildVideoElement(Metadata metadata) {
         String[] metadataNames = metadata.names();
         Element elem = new Element (FitsMetadataValues.VIDEO, fitsNS);
+        boolean heightReported = false;
+        boolean compressionTypeReported = false;
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {
@@ -805,6 +815,7 @@ public class TikaTool extends ToolBase {
             switch (prop) {
 
             case TITLE:
+            case DC_TITLE:
                 addSimpleElement (elem, FitsMetadataValues.TITLE, value);
                 break;
             
@@ -812,13 +823,54 @@ public class TikaTool extends ToolBase {
                 addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
                 break;
                 
-            case COMPRESSION_TYPE:
-                addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
+            case XMP_AUDIO_CHANNEL_TYPE:
+                addSimpleElement (elem, FitsMetadataValues.AUDIO_CHANNEL_TYPE, value);
                 break;
                 
-//            case BITS_PER_SAMPLE:
-//                addSimpleElement (elem, FitsMetadataValues.BITS_PER_SAMPLE, value);
-//                break;
+            case XMP_AUDIO_SAMPLE_RATE:
+                addSimpleElement (elem, FitsMetadataValues.AUDIO_SAMPLE_RATE, value);
+                break;
+                
+            case XMP_AUDIO_SAMPLE_TYPE:
+                addSimpleElement (elem, FitsMetadataValues.AUDIO_SAMPLE_TYPE, value);
+                break;
+
+            case XMP_AUDIO_COMPRESSOR:
+            case COMPRESSION_TYPE:
+                if (!compressionTypeReported) {
+                    addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
+                    compressionTypeReported = true;
+                }
+                break;
+   
+            case XMP_VIDEO_FRAME_RATE:
+                addSimpleElement(elem, FitsMetadataValues.FRAME_RATE, value);
+                break;
+                
+            case XMP_PIXEL_ASPECT_RATIO:
+                addSimpleElement(elem, FitsMetadataValues.PIXEL_ASPECT_RATIO, value);
+                break;
+                
+            case XMP_VIDEO_PIXEL_DEPTH:
+                addSimpleElement (elem, FitsMetadataValues.BIT_DEPTH, value);
+                break;
+                
+            case XMP_VIDEO_COLOR_SPACE:
+                addSimpleElement (elem, FitsMetadataValues.COLOR_SPACE, value);
+                break;
+                
+            case IMAGE_HEIGHT:
+            case TIFF_IMAGE_LENGTH:
+            case HEIGHT:
+                if (!heightReported) {
+                    int idx = value.indexOf (" pixels");
+                    if (idx > 0) {
+                        value = value.substring (0, idx);
+                    }
+                    addSimpleElement (elem, FitsMetadataValues.IMAGE_HEIGHT, value);
+                    heightReported = true;
+                }
+                break;
             }
         }
         return elem;
