@@ -21,30 +21,20 @@ package edu.harvard.hul.ois.fits.tools.droid;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.URL;
 
-import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
-import org.xml.sax.SAXException;
 
-import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
-import uk.gov.nationalarchives.droid.core.SignatureParseException;
-//import uk.gov.nationalarchives.droid.AnalysisController;
-import uk.gov.nationalarchives.droid.core.signature.FileFormatHit;
-import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
-import uk.gov.nationalarchives.droid.core.interfaces.ResultHandler;
-import uk.gov.nationalarchives.droid.results.handlers.BatchResultHandler;
-//import uk.gov.nationalarchives.droid.IdentificationFile;
-import uk.gov.nationalarchives.droid.submitter.SubmissionGateway;
-import uk.gov.nationalarchives.droid.submitter.SubmissionQueue;
 import uk.gov.nationalarchives.droid.command.action.VersionCommand;
+import uk.gov.nationalarchives.droid.core.SignatureParseException;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+//import uk.gov.nationalarchives.droid.AnalysisController;
+//import uk.gov.nationalarchives.droid.IdentificationFile;
 
 public class Droid extends ToolBase {
 
