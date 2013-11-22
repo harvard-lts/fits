@@ -179,7 +179,7 @@ public class Exiftool extends ToolBase {
     	for(String line : lines) {
     		String[] parts = line.split("\t");
     		String field = parts[0].trim();
-    		if(parts.length > 1) {
+    		if(parts.length > 1 && field.length() > 0) {
     			String value = parts[1].trim();
     			out.write("<"+field+">"+StringEscapeUtils.escapeXml(value)+"</"+field+">");
     			out.write("\n");
