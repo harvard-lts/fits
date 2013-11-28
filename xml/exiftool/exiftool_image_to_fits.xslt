@@ -210,7 +210,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			
 			<xsl:variable name="source" select="exiftool/FileSource"/>
 			<captureDevice>
-				<xsl:value-of select="$source"/>
+				<xsl:choose>
+					<xsl:when test="exiftool/FileSource='Digital Camera'">
+						<xsl:value-of select="'digital still camera'"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$source"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</captureDevice>
 			
 			<!--  make and model are ambiguous for identifying 
