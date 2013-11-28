@@ -8,6 +8,7 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MimeType;
@@ -363,13 +364,16 @@ public class TikaTool extends ToolBase {
     private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
     private Tika tika = new Tika ();
     
+    private static final Logger logger = Logger.getLogger(TikaTool.class);
     private boolean enabled = true;
 
     public TikaTool() throws FitsToolException {
         info = new ToolInfo(TOOL_NAME, TOOL_VERSION,"");
+        logger.debug ("Initializing TikaTool");
     }
 
     public ToolOutput extractInfo(File file) throws FitsToolException {
+        logger.debug("TikaTool.extractInfo starting on " + file.getName());
     	long startTime = System.currentTimeMillis();
         Metadata metadata = new Metadata(); // = new Metadata();
         FileInputStream instrm = null;
@@ -392,6 +396,7 @@ public class TikaTool extends ToolBase {
         ToolOutput output = new ToolOutput (this, toolData, rawData);
         duration = System.currentTimeMillis()-startTime;
         runStatus = RunStatus.SUCCESSFUL;
+        logger.debug ("Tika.extractInfo finished on " + file.getName());
         return output;
     }
 
@@ -805,6 +810,7 @@ public class TikaTool extends ToolBase {
         Element elem = new Element (FitsMetadataValues.VIDEO, fitsNS);
         boolean heightReported = false;
         boolean compressionTypeReported = false;
+        boolean titleReported = false;
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {

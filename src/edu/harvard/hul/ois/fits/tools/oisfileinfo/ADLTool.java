@@ -26,6 +26,7 @@ import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
+import org.apache.log4j.Logger;
 
 import com.therockquarry.aes31.adl.ADL;
 
@@ -44,7 +45,8 @@ public class ADLTool extends ToolBase {
 	private boolean enabled = true;
 	private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
-	
+    private static final Logger logger = Logger.getLogger(ADLTool.class);
+    
 	public ADLTool() throws FitsToolException {
 		info.setName("ADL Tool");
 		info.setVersion("0.1");
@@ -52,11 +54,13 @@ public class ADLTool extends ToolBase {
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {	
+        logger.debug("ADLTool.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
 		output = new ToolOutput(this,(Document)doc.clone(),doc);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
+		logger.debug("ADLTool.extractInfo finishing on " + file.getName());
 		return output;
 	}
 	

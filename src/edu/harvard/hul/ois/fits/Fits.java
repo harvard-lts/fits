@@ -68,6 +68,8 @@ import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
 public class Fits {
 	
+    private static Logger logger;
+    
 	public static String FITS_HOME;
 	public static String FITS_XML;
 	public static String FITS_TOOLS;
@@ -80,7 +82,7 @@ public class Fits {
 	public static int maxThreads = 20;       // GDM 16-Nov-2012
 	public static final String XML_NAMESPACE = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output";
 	
-	public static String VERSION = "0.7.0 (fits-mcgath fork)";
+	public static String VERSION = "0.6.3";
 	
 	private ToolOutputConsolidator consolidator;
 	private static XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
@@ -119,15 +121,17 @@ public class Fits {
 		// Now using an explicit properties file, because otherwoise DROID will
 		// hijack it, and it's cleaner this way anyway.
 		System.setProperty("log4j.configuration", FITS_TOOLS + "log4j.properties");
-
+		logger = Logger.getLogger(this.getClass());
 		try {
 			config = new XMLConfiguration(FITS_XML+"fits.xml");
 		} catch (ConfigurationException e) {
+		    logger.fatal("Error reading "+FITS_XML+"fits.xml: " + e.getClass().getName());
 			throw new FitsConfigurationException("Error reading "+FITS_XML+"fits.xml",e);
 		}
 		try {
 			mapper = new FitsXmlMapper();
 		} catch (Exception  e) {
+            logger.fatal("Error creating FITS XML Mapper: " + e.getClass().getName());
 			throw new FitsConfigurationException("Error creating FITS XML Mapper",e);
 		} 
 		// required config values
@@ -138,6 +142,7 @@ public class Fits {
 		    enableStatistics = config.getBoolean("output.enable-statistics");
 		}
 		catch (NoSuchElementException e) {
+            logger.fatal("Error in configuration file: " + e.getClass().getName());
 		    System.out.println ("Error inconfiguration file: " + e.getMessage());
 		    return;
 		}
@@ -151,6 +156,7 @@ public class Fits {
 		    // If invalid number specified, use a default.
 		    maxThreads = 20;
 		}
+		logger.debug("Maximum threads = " + maxThreads);
 		
 		String consolidatorClass = config.getString("output.dataConsolidator[@class]");
 		try {
@@ -235,11 +241,17 @@ public class Fits {
 	 * @throws FitsException 
 	 */
 	private void doDirectory(File inputDir, File outputDir, boolean useStandardSchemas, boolean standardCombinedFormat) throws FitsException, XMLStreamException, IOException {
-		for(File f : inputDir.listFiles()) {
+	    logger.debug ("Processing directory " + inputDir.getAbsolutePath());
+	    for(File f : inputDir.listFiles()) {
 			if(f.isDirectory() && traverseDirs) {
 				doDirectory(f, outputDir, useStandardSchemas,standardCombinedFormat);
 			}
 			else if(f.isFile()) {
+			    if (".DS_Store".equals (f.getName())) {
+			        // Mac hidden directory services file, ignore
+			        logger.debug ("Skipping .DS_Store");
+			        continue;
+			    }
 				FitsOutput result = doSingleFile(f);
 				String outputFile = outputDir.getPath() + File.separator + f.getName() + ".fits.xml";
 				File output = new File(outputFile);
@@ -272,6 +284,7 @@ public class Fits {
 	 */
 	private FitsOutput doSingleFile(File inputFile) throws FitsException, XMLStreamException, IOException {
 		
+	    logger.debug ("Processing file " + inputFile.getAbsolutePath());
 		FitsOutput result = this.examine(inputFile);	
 		if(result.getCaughtExceptions().size() > 0) {
 			for(Exception e: result.getCaughtExceptions()) {
@@ -283,6 +296,7 @@ public class Fits {
 	
 	private void outputResults(FitsOutput result, String outputLocation, boolean standardSchema, boolean standardCombinedFormat, boolean dirMode) throws XMLStreamException, IOException, FitsException {
 		OutputStream out = null;
+		logger.debug ("Outputting results");
 		try {	
 		    //figure out the output location
 			if(outputLocation != null) {
@@ -478,6 +492,7 @@ public class Fits {
 					// GDM 16-Nov-12: Name the threads as a debugging aid
 					Thread thread = new Thread(t, t.getToolInfo().getName());
 					threads.add(thread);
+					logger.debug ("Starting thread " + thread.getName());
 					thread.start();
 				}
 			}
