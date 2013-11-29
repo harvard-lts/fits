@@ -114,6 +114,7 @@ public class ToolOutput {
 //			docBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
 //			docBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", Fits.FITS_HOME+Fits.internalOutputSchema);
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+			docBuilder.setErrorHandler (new ToolErrorHandler());   // TODO need an error handler here
 			
 			XMLOutputter outputter = new XMLOutputter();
 			String xml = outputter.outputString(output);

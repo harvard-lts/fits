@@ -47,6 +47,26 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</xsl:choose>
 				
 				<xsl:choose>
+					<xsl:when test="exiftool/PixelsPerMeterX and exiftool/PixelsPerMeterY">
+						<pixelAspectRatio>
+							<xsl:value-of select="exiftool/PixelsPerMeterX"/><xsl:value-of select="'/'"/><xsl:value-of select="exiftool/PixelsPerMeterY"/>
+						</pixelAspectRatio>
+					</xsl:when>
+				</xsl:choose>
+				
+				<maxBitRate>
+					<xsl:value-of select="exiftool/MaxDataRate"/>
+				</maxBitRate>
+				
+				<videoCompressor>
+					<xsl:value-of select="exiftool/VideoCodec"/>
+				</videoCompressor>
+				
+				<audioCompressor>
+					<xsl:value-of select="exiftool/AudioCodec"/>
+				</audioCompressor>
+				
+				<xsl:choose>
 					<xsl:when test="exiftool/VideoFrameRate">
 						<frameRate>
 							<xsl:value-of select="exiftool/VideoFrameRate"/>
@@ -75,10 +95,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 							<xsl:value-of select="exiftool/SampleSize"/>
 						</bitDepth>
 					</xsl:when>
+				</xsl:choose>
+					
+				<xsl:choose>
 					<xsl:when test="exiftool/AudioSampleBits">
-						<bitDepth>
+						<audioBitsPerSample>
 							<xsl:value-of select="exiftool/AudioSampleBits"/>
-						</bitDepth>
+						</audioBitsPerSample>
 					</xsl:when>
 				</xsl:choose>
 				
@@ -88,10 +111,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 							<xsl:value-of select="exiftool/SampleRate"/>
 						</sampleRate>
 					</xsl:when>
+				</xsl:choose>
+				
+				<xsl:choose>
 					<xsl:when test="exiftool/AudioSampleRate">
-						<sampleRate>
+						<audioSampleRate>
 							<xsl:value-of select="exiftool/AudioSampleRate"/>
-						</sampleRate>
+						</audioSampleRate>
 					</xsl:when>
 				</xsl:choose>
 	
@@ -130,6 +156,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					<xsl:value-of select="exiftool/ImageHeight"/>
 				</imageHeight>
 				
+				<rotation>
+	                <xsl:value-of select="exiftool/Rotation"/>
+                </rotation>
+				
 				<xsl:choose>
 			  		<xsl:when test="string(exiftool/CaptureXResolution)">
 		  				<xSamplingFrequency>
@@ -158,24 +188,24 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				
 				<xsl:choose>
 					<xsl:when test="exiftool/Encoding">
-						<dataFormatType>	
+						<encoding>	
 							<xsl:value-of select="exiftool/Encoding"/>
-						</dataFormatType>	
+						</encoding>	
 					</xsl:when>
 					<xsl:when test="exiftool/VideoEncoding and exiftool/AudioEncoding">
-						<dataFormatType>	
+						<encoding>	
 							<xsl:value-of select="concat(exiftool/VideoEncoding, ' + ', exiftool/AudioEncoding)"/>
-						</dataFormatType>	
+						</encoding>	
 					</xsl:when>
 					<xsl:when test="exiftool/VideoEncoding">
-						<dataFormatType>	
+						<encoding>	
 							<xsl:value-of select="exiftool/VideoEncoding"/>
-						</dataFormatType>	
+						</encoding>	
 					</xsl:when>
 					<xsl:when test="exiftool/AudioEncoding">
-						<dataFormatType>	
+						<audioDataEncoding>	
 							<xsl:value-of select="exiftool/AudioEncoding"/>
-						</dataFormatType>	
+						</audioDataEncoding>	
 					</xsl:when>
 				</xsl:choose>
 				
@@ -208,6 +238,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					</xsl:when>
 				</xsl:choose>
 
+				<compressionScheme>
+					<xsl:value-of select="exiftool/Compression"/>
+				</compressionScheme>
+				
 				<shutterSpeedValue>
 					<xsl:value-of select="exiftool/ShutterSpeed"/>
 				</shutterSpeedValue>

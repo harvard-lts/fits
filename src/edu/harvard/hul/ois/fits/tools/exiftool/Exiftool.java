@@ -79,8 +79,9 @@ public class Exiftool extends ToolBase {
 		}
 		
 		else {
-		    logger.debug ("Perl and Windows not supported, not running Exiftool");
-			throw new FitsToolException("Exiftool cannot be used on this system");
+		    logger.error ("Perl and Windows not supported, not running Exiftool");
+		    return;
+//			throw new FitsToolException("Exiftool cannot be used on this system");
 		}
 		infoCommand.add("-ver");
 		versionOutput = CommandLine.exec(infoCommand,null);	
