@@ -812,7 +812,7 @@ public class TikaTool extends ToolBase {
         Element elem = new Element (FitsMetadataValues.VIDEO, fitsNS);
         boolean heightReported = false;
         boolean compressionTypeReported = false;
-        boolean titleReported = false;
+        
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {

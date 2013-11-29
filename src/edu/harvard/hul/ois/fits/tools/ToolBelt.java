@@ -24,11 +24,14 @@ import java.util.List;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 
 public class ToolBelt {
 	
+    private static Logger logger = Logger.getLogger(ToolBelt.class);
+    
     /** The representation of one tools-used element in the config file */
     public class ToolsUsedItem {
         public List<String> extensions;
@@ -71,7 +74,12 @@ public class ToolBelt {
 				t = (Tool)c.newInstance();
 			}
 			catch(Exception e) {
-				throw new FitsConfigurationException("Error initializing "+tClass,e);
+			    // Can't use this tool, but continue anyway.
+				//throw new FitsConfigurationException("Error initializing "+tClass,e);
+			    logger.error ("Error initializing " + tClass + 
+			            ": " + e.getClass().getName() + 
+			            "  Message: " + e.getMessage());
+			    continue;
 			}
 			if(t != null) {
 			    t.setName(bareClassName(tClass));

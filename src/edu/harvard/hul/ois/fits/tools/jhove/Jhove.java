@@ -44,6 +44,8 @@ import edu.harvard.hul.ois.jhove.JhoveException;
 import edu.harvard.hul.ois.jhove.Module;
 import edu.harvard.hul.ois.jhove.handler.XmlHandler;
 
+/**  The glue class for invoking JHOVE under FITS.
+ */
 public class Jhove extends ToolBase {
 	
     private App jhoveApp;

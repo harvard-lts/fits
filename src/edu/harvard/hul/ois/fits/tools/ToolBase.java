@@ -39,6 +39,9 @@ import org.jdom.Document;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 
+/** An abstract class implementing the Tool interface, the base
+ *  for all FITS tools. 
+ */
 public abstract class ToolBase implements Tool {
 	
 	protected ToolInfo info = null;
@@ -64,22 +67,32 @@ public abstract class ToolBase implements Tool {
 		includedExtensions = new ArrayList<String>();
 	}
 	
+	/** Returns the name. This should be the name of the tool class,
+	 *  without the package prefix.
+	 */
 	public String getName () {
 	    return name;
 	}
 	
+	/** Sets the name. This should be the name of the tool class, without
+	 *  the package prefix (e.g., "Droid" or "Jhove").
+	 */
 	public void setName (String n) {
 	    name = n;
 	}
 	
+	/** Returns identifying information about the tool. */
 	public ToolInfo getToolInfo() {
 		return info;
 	}
 	
+	/** Returns true if the tool provides identification information.
+	 *  Override if a value other than true should ever be returned. */
 	public Boolean canIdentify() {
 		return true;
 	}
 	
+	/** Specifies the file to be processed. */
 	public void setInputFile(File file) {
 		inputFile = file;
 	}
@@ -246,7 +259,7 @@ public abstract class ToolBase implements Tool {
 	/** Append any reported exceptions to a master list.
 	 *  This is called after the tool has finished running.
 	 *  
-	 *  @param List of Exceptions. Exceptions may be appended
+	 *  @param exceptions   List of Exceptions. Exceptions may be appended
 	 *         to it by this call.
 	 */
     public void addExceptions(List<Exception> exceptions) {

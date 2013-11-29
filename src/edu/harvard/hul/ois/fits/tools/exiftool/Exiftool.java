@@ -40,6 +40,9 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
 import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
 
+/** 
+ *  The glue class for invoking Exiftool under FITS. 
+ */
 public class Exiftool extends ToolBase {
 
 	private boolean osIsWindows = false;
@@ -80,8 +83,7 @@ public class Exiftool extends ToolBase {
 		
 		else {
 		    logger.error ("Perl and Windows not supported, not running Exiftool");
-		    return;
-//			throw new FitsToolException("Exiftool cannot be used on this system");
+			throw new FitsToolException("Exiftool cannot be used on this system");
 		}
 		infoCommand.add("-ver");
 		versionOutput = CommandLine.exec(infoCommand,null);	

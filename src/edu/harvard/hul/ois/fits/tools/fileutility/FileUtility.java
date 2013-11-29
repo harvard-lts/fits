@@ -25,9 +25,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
-import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolCLIException;
@@ -76,7 +76,7 @@ public class FileUtility extends ToolBase {
 		else {
 			//Tool cannot be used on this system
 		    logger.error("File Utility cannot be used on this system");
-			//throw new FitsToolException("File Utility cannot be used on this system");
+			throw new FitsToolException("File Utility cannot be used on this system");
 		}
 		infoCommand.add("-v");		
 		versionOutput = CommandLine.exec(infoCommand,null);		

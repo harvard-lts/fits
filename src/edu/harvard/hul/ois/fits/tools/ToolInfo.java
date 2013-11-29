@@ -18,8 +18,7 @@
  */
 package edu.harvard.hul.ois.fits.tools;
 
-/** Holder of information about a piece of software that 
- *  analyzes files.
+/** Holder of identifying information about one tool.
  */
 public class ToolInfo {
 	

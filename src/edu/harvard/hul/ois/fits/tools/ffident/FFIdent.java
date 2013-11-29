@@ -35,8 +35,15 @@ import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
+/** The main class of the FFIdent tool, adapted for use under FITS.
+ *  Uses tools/ffident/formats.txt
+ */
 public class FFIdent extends ToolBase {
 	
+    private final static String TOOL_NAME = "ffident";
+    private final static String TOOL_VERSION = "0.2";
+    private final static String TOOL_DATE = "2005-10-21";
+            
 	private FormatIdentification identifier = null;
 	public final static String xslt =Fits.FITS_XML+"/ffident/ffident_to_fits.xslt";
 	private boolean enabled = true;
@@ -46,7 +53,7 @@ public class FFIdent extends ToolBase {
 	public FFIdent() throws FitsToolException{
 
         logger.debug ("Initializing FFIdent");
-		info = new ToolInfo("ffident","0.2","2005-10-21");
+		info = new ToolInfo(TOOL_NAME, TOOL_VERSION, TOOL_DATE);
 		
 		try {
 			File config = new File(Fits.FITS_TOOLS+"ffident/formats.txt");
@@ -57,7 +64,7 @@ public class FFIdent extends ToolBase {
 	}
 	
 	public ToolOutput extractInfo(File file) throws FitsToolException {
-	    logger.debug ("FFIdent.extractInfo starting");
+	    logger.debug ("FFIdent.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		FormatDescription desc = identifier.identify(file);
 		//FileIdentity identity = null;
@@ -73,7 +80,7 @@ public class FFIdent extends ToolBase {
 		output = new ToolOutput(this,fitsXml,rawOut);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
-        logger.debug ("FFIdent.extractInfo finished");
+        logger.debug ("FFIdent.extractInfo finished on " + file.getName());
 		return output;
 	}
 	

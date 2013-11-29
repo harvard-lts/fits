@@ -24,7 +24,7 @@ import java.util.List;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 
-
+/** All FITS tools implement this interface. */
 public interface Tool extends Runnable {
 	
 	public enum RunStatus {SHOULDNOTRUN,SHOULDRUN,FAILED,SUCCESSFUL};
@@ -49,13 +49,13 @@ public interface Tool extends Runnable {
 		
 	/**
 	 * Returns the information about the tool
-	 * @return
+	 * @return ToolInfo
 	 */
 	public ToolInfo getToolInfo();
 		
 	/**
 	 * If the tool can identify mimetype and format of files.
-	 * @return
+	 * @return Boolean
 	 */
 	public Boolean canIdentify();
 	
@@ -97,7 +97,6 @@ public interface Tool extends Runnable {
 	
 	/**
 	 * Checks if the tool uses an 'include-ext' list
-	 * @param ext
 	 * @return boolean
 	 */
 	public boolean hasIncludedExtensions();
