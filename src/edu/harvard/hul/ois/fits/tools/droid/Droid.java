@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import org.apache.log4j.Logger;
 import org.jdom.input.SAXBuilder;
 
 import uk.gov.nationalarchives.droid.command.action.VersionCommand;
@@ -33,8 +34,6 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
-//import uk.gov.nationalarchives.droid.AnalysisController;
-//import uk.gov.nationalarchives.droid.IdentificationFile;
 
 public class Droid extends ToolBase {
 
@@ -43,11 +42,16 @@ public class Droid extends ToolBase {
 	//public final static String xslt = Fits.FITS_HOME+"xml/droid/droid_to_fits.xslt";
 	private boolean enabled = true;
 	private DroidQuery droidQuery;
-	
-	public Droid() throws FitsToolException {
+    private static final Logger logger = Logger.getLogger(Droid.class);
 
+	public Droid() throws FitsToolException {
+        logger.debug ("Initializing Droid");
 		info = new ToolInfo("Droid", getDroidVersion(), null);		
 
+		String javaVersion = System.getProperty("java.version");
+		if (javaVersion.startsWith ("1.8")) {
+		    throw new FitsToolException ("DROID cannot run under Java 8");
+		}
 		try {
 			String droid_conf = Fits.FITS_TOOLS+"droid"+File.separator;
 			//URL droidConfig = new File(droid_conf+"DROID_config.xml").toURI().toURL();
@@ -69,6 +73,7 @@ public class Droid extends ToolBase {
 
 	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+        logger.debug("Droid.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		IdentificationResultCollection results;
 		try {
@@ -81,18 +86,9 @@ public class Droid extends ToolBase {
 		DroidToolOutputter outputter = new DroidToolOutputter(this, results);
 		ToolOutput output = outputter.toToolOutput();
 		
-		//IdentificationFile idFile = droid.identify(file.getPath());
-		/*List<FileIdentity> identities = new ArrayList();
-		for(int i=0;i<idFile.getNumHits();i++) {
-			FileFormatHit hit = idFile.getHit(i);
-			FileIdentity identity = new FileIdentity(hit.getMimeType(),hit.getFileFormatName(),hit.getFileFormatVersion());
-			//pronom id;
-			identity.addExternalIdentifier("puid",hit.getFileFormatPUID());
-			identities.add(identity);
-		}	*/
-
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
+        logger.debug("Droid.extractInfo finished on " + file.getName());
 		return output;
 	}
 

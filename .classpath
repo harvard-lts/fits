@@ -61,6 +61,7 @@
 	<classpathentry kind="lib" path="lib/droid/droid-results-6.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/droid/droid-command-line-6.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/fits.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="lib" path="lib/droid/antlr-2.7.7.jar"/>
