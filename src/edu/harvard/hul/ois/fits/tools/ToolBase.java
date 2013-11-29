@@ -49,7 +49,7 @@ public abstract class ToolBase implements Tool {
     protected File inputFile;
     protected long duration;
     protected RunStatus runStatus;
-
+    protected String name;
     
     private List<String> excludedExtensions;
     private List<String> includedExtensions;
@@ -60,6 +60,14 @@ public abstract class ToolBase implements Tool {
 		saxBuilder = new SAXBuilder();
 		excludedExtensions = new ArrayList<String>();
 		includedExtensions = new ArrayList<String>();
+	}
+	
+	public String getName () {
+	    return name;
+	}
+	
+	public void setName (String n) {
+	    name = n;
 	}
 	
 	public ToolInfo getToolInfo() {
@@ -161,6 +169,49 @@ public abstract class ToolBase implements Tool {
 		return false;
 	}
 	
+	/** Take the list of tools-used items and modify the included and
+	 *  excluded extensions if applicable. included-exts and
+	 *  excluded-exts attributes take priority.
+	 */
+	public void applyToolsUsed (List<ToolBelt.ToolsUsedItem> toolsUsedItems) {
+	    for (ToolBelt.ToolsUsedItem tui : toolsUsedItems) {
+ 	        if (tui.toolNames.contains (name)) {
+	            // If a tool is
+	            // listed by tui, we add its extensions to
+	            // included-extensions unless it's in excluded-extensions.
+	            // If a tool is not listed by tui, we add its extensions
+	            // to excluded-extensions unless it's in included-extensions.
+ 	            // If there are no included extensions, that means all extensions
+ 	            // are allowed unless excluded, so we don't add anything.
+	            for (String ext : tui.extensions) {
+	                if (hasIncludedExtensions()) {
+    	                if (!containsIgnoreCase(includedExtensions,ext) &&
+    	                        !containsIgnoreCase(excludedExtensions,ext)) {
+    	                    includedExtensions.add (ext);
+    	                }
+	                }
+	            }
+	        }
+	        else {
+	            for (String ext : tui.extensions) {
+	                if (!containsIgnoreCase(excludedExtensions,ext) &&
+	                        !containsIgnoreCase(includedExtensions,ext)) {
+	                    excludedExtensions.add(ext);
+	                }
+	            }
+	        }
+	    }
+	}
+	
+	/* A case-independent surrogate for List.contains */
+	private boolean containsIgnoreCase (List<String> lst, String s) {
+	    for (String s1 : lst) {
+	        if (s1.equalsIgnoreCase (s)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 	public ToolOutput getOutput() {
 		return output;
 	}
