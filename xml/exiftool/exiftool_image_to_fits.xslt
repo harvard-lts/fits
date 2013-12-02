@@ -105,32 +105,57 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<xsl:value-of select="$orientation"/>
 					</xsl:otherwise>
 				</xsl:choose>
-			</orientation>			
-
- 			<xSamplingFrequencyUnit>
-		  		<xsl:value-of select="exiftool/CaptureXResolutionUnit"/>
-			</xSamplingFrequencyUnit>
- 			<ySamplingFrequencyUnit>
-		  		<xsl:value-of select="exiftool/CaptureYResolutionUnit"/>
-			</ySamplingFrequencyUnit>
-			<samplingFrequencyUnit>
-		  		<xsl:value-of select="exiftool/ResolutionUnit"/>
-			</samplingFrequencyUnit>
-
-			<xSamplingFrequency>
-				<xsl:value-of select="exiftool/XResolution"/>
-			</xSamplingFrequency>
-	  		<ySamplingFrequency>
-				  <xsl:value-of select="exiftool/YResolution"/>
-			</ySamplingFrequency>
+			</orientation>
 			
- 			<captureXResolution>
-		  		<xsl:value-of select="exiftool/CaptureXResolution"/>
-			</captureXResolution>	
- 			<captureYResolution>
-		  		<xsl:value-of select="exiftool/CaptureYResolution"/>
-			</captureYResolution>							
-	
+			
+			<xsl:choose>
+		  		<xsl:when test="string(exiftool/CaptureXResolutionUnit)">
+	  				<samplingFrequencyUnit>
+				  		<xsl:value-of select="exiftool/CaptureXResolutionUnit"/>
+					</samplingFrequencyUnit>
+		  		</xsl:when>
+		  		<xsl:when test="string(exiftool/CaptureYResolutionUnit)">
+	  				<samplingFrequencyUnit>
+				  		<xsl:value-of select="exiftool/CaptureYResolutionUnit"/>
+					</samplingFrequencyUnit>
+		  		</xsl:when>
+		  		<xsl:when test="string(exiftool/ResolutionUnit)">
+	  				<samplingFrequencyUnit>
+				  	  <xsl:choose>
+               		      <xsl:when test="exiftool/ResolutionUnit = 'inches'">
+		                    <xsl:value-of select="string(in.)"/>
+       		              </xsl:when>
+        	              <xsl:otherwise>
+		                    <xsl:value-of select="exiftool/ResolutionUnit"/>
+		                  </xsl:otherwise>
+		              </xsl:choose> 
+					</samplingFrequencyUnit>
+		  		</xsl:when>
+			</xsl:choose>
+			<xsl:choose>
+		  		<xsl:when test="string(exiftool/CaptureXResolution)">
+	  				<xSamplingFrequency>
+				  		<xsl:value-of select="exiftool/CaptureXResolution"/>
+					</xSamplingFrequency>
+		  		</xsl:when>
+		  		<xsl:when test="string(exiftool/XResolution)">
+	  				<xSamplingFrequency>
+				  		<xsl:value-of select="exiftool/XResolution"/>
+					</xSamplingFrequency>
+		  		</xsl:when>
+			</xsl:choose>			
+			<xsl:choose>
+		  		<xsl:when test="string(exiftool/CaptureYResolution)">
+	  				<ySamplingFrequency>
+				  		<xsl:value-of select="exiftool/CaptureYResolution"/>
+					</ySamplingFrequency>
+		  		</xsl:when>
+		  		<xsl:when test="string(exiftool/YResolution)">
+	  				<ySamplingFrequency>
+				  		<xsl:value-of select="exiftool/YResolution"/>
+					</ySamplingFrequency>
+		  		</xsl:when>
+			</xsl:choose>	
 			<!--  bits per sample -->
 		  	<xsl:choose>
 		  	<xsl:when test="exiftool/ColorComponents">
@@ -210,7 +235,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			
 			<xsl:variable name="source" select="exiftool/FileSource"/>
 			<captureDevice>
-				<xsl:value-of select="$source"/>
+				<xsl:choose>
+					<xsl:when test="exiftool/FileSource='Digital Camera'">
+						<xsl:value-of select="'digital still camera'"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$source"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</captureDevice>
 			
 			<!--  make and model are ambiguous for identifying 

@@ -576,32 +576,33 @@ public class XmlContentConverter {
             
                 switch (fitsElem) {
                 case pageCount:
-                	if(intValue != null)
-                		dm.docMD.setPageCount (intValue);
+
+                 if(intValue != null)
+                 dm.docMD.setPageCount (intValue);
                     break;
                 case wordCount:
-                	if(intValue != null)
-                		dm.docMD.setWordCount(intValue);
+                 if(intValue != null)
+                 dm.docMD.setWordCount(intValue);
                     break;
                 case characterCount:
-                	if(intValue != null)
-                		dm.docMD.setCharacterCount(intValue);
+                 if(intValue != null)
+                 dm.docMD.setCharacterCount(intValue);
                     break;
                 case lineCount:
-                	if(intValue != null)
-                		dm.docMD.setLineCount(intValue);
+                 if(intValue != null)
+                 dm.docMD.setLineCount(intValue);
                     break;
                 case graphicsCount:
-                	if(intValue != null)
-                		dm.docMD.setGraphicsCount(intValue);
+                 if(intValue != null)
+                 dm.docMD.setGraphicsCount(intValue);
                     break;
                 case tableCount:
-                	if(intValue != null)
-                		dm.docMD.setTableCount(intValue);
+                 if(intValue != null)
+                 dm.docMD.setTableCount(intValue);
                     break;
                 case language:
-                	if(dataValue != null)
-                		dm.docMD.addLanguage(dataValue);
+                 if(dataValue != null)
+                 dm.docMD.addLanguage(dataValue);
                     break;
                 case font:
                     // Currently not provided by FITS
@@ -617,11 +618,12 @@ public class XmlContentConverter {
                 case isProtected:
                 case hasAnnotations:
                 case hasDigitalSignature:
-                	if(dataElement != null)
-                		dm.addFeature(dataElement);
+                 if(dataElement != null)
+                 dm.addFeature(dataElement);
                     break;
                 }
             }
+            
             
         return dm.docMD;  //TODO stub
     }

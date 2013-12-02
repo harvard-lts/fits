@@ -20,6 +20,10 @@ package edu.harvard.hul.ois.fits.identity;
 
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 
+/** A simple wrapper for a format version, with the tool that identified it. 
+ *  This is used where different tools may agree on the format but
+ *  not on the version.
+ */
 public class FormatVersion {
 	
 	private ToolInfo toolInfo;

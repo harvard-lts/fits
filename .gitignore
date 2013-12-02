@@ -3,3 +3,9 @@
 /fitsBasicTestOutput.xml
 CVS
 TAGS
+
+# Directory created by fits-blackbox-tester
+.bb-testing/
+
+# Mac OS X system file
+.DS_Store

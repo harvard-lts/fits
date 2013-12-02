@@ -39,6 +39,9 @@ import org.jdom.Document;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 
+/** An abstract class implementing the Tool interface, the base
+ *  for all FITS tools. 
+ */
 public abstract class ToolBase implements Tool {
 	
 	protected ToolInfo info = null;
@@ -49,10 +52,12 @@ public abstract class ToolBase implements Tool {
     protected File inputFile;
     protected long duration;
     protected RunStatus runStatus;
-
+    protected String name;
     
     private List<String> excludedExtensions;
     private List<String> includedExtensions;
+    
+    private Exception caughtException;
 	
 	public ToolBase() throws FitsToolException {
 		info = new ToolInfo();
@@ -62,14 +67,32 @@ public abstract class ToolBase implements Tool {
 		includedExtensions = new ArrayList<String>();
 	}
 	
+	/** Returns the name. This should be the name of the tool class,
+	 *  without the package prefix.
+	 */
+	public String getName () {
+	    return name;
+	}
+	
+	/** Sets the name. This should be the name of the tool class, without
+	 *  the package prefix (e.g., "Droid" or "Jhove").
+	 */
+	public void setName (String n) {
+	    name = n;
+	}
+	
+	/** Returns identifying information about the tool. */
 	public ToolInfo getToolInfo() {
 		return info;
 	}
 	
+	/** Returns true if the tool provides identification information.
+	 *  Override if a value other than true should ever be returned. */
 	public Boolean canIdentify() {
 		return true;
 	}
 	
+	/** Specifies the file to be processed. */
 	public void setInputFile(File file) {
 		inputFile = file;
 	}
@@ -161,6 +184,49 @@ public abstract class ToolBase implements Tool {
 		return false;
 	}
 	
+	/** Take the list of tools-used items and modify the included and
+	 *  excluded extensions if applicable. included-exts and
+	 *  excluded-exts attributes take priority.
+	 */
+	public void applyToolsUsed (List<ToolBelt.ToolsUsedItem> toolsUsedItems) {
+	    for (ToolBelt.ToolsUsedItem tui : toolsUsedItems) {
+ 	        if (tui.toolNames.contains (name)) {
+	            // If a tool is
+	            // listed by tui, we add its extensions to
+	            // included-extensions unless it's in excluded-extensions.
+	            // If a tool is not listed by tui, we add its extensions
+	            // to excluded-extensions unless it's in included-extensions.
+ 	            // If there are no included extensions, that means all extensions
+ 	            // are allowed unless excluded, so we don't add anything.
+	            for (String ext : tui.extensions) {
+	                if (hasIncludedExtensions()) {
+    	                if (!containsIgnoreCase(includedExtensions,ext) &&
+    	                        !containsIgnoreCase(excludedExtensions,ext)) {
+    	                    includedExtensions.add (ext);
+    	                }
+	                }
+	            }
+	        }
+	        else {
+	            for (String ext : tui.extensions) {
+	                if (!containsIgnoreCase(excludedExtensions,ext) &&
+	                        !containsIgnoreCase(includedExtensions,ext)) {
+	                    excludedExtensions.add(ext);
+	                }
+	            }
+	        }
+	    }
+	}
+	
+	/* A case-independent surrogate for List.contains */
+	private boolean containsIgnoreCase (List<String> lst, String s) {
+	    for (String s1 : lst) {
+	        if (s1.equalsIgnoreCase (s)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 	public ToolOutput getOutput() {
 		return output;
 	}
@@ -184,6 +250,23 @@ public abstract class ToolBase implements Tool {
 	public void setRunStatus(RunStatus runStatus) {
 		this.runStatus = runStatus;
 	}
+	
+	/** Save an exception for reporting. */
+	public void setCaughtException (Exception e) {
+	    caughtException = e;
+	}
+	
+	/** Append any reported exceptions to a master list.
+	 *  This is called after the tool has finished running.
+	 *  
+	 *  @param exceptions   List of Exceptions. Exceptions may be appended
+	 *         to it by this call.
+	 */
+    public void addExceptions(List<Exception> exceptions) {
+        if (caughtException != null) {
+            exceptions.add (caughtException);
+        }
+    }
 
 	public void run() {
 		try {
@@ -193,6 +276,7 @@ public abstract class ToolBase implements Tool {
 			//java.util.Date time2 = new java.util.Date();
 			//System.out.println(new java.sql.Time(time2.getTime()) +" FINISHED "+this.getClass());
 		} catch (FitsToolException e) {
+		    setCaughtException (e);
 			e.printStackTrace();
 			//System.err.println(e.getMessage());
 		}

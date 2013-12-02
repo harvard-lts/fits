@@ -20,169 +20,79 @@ package edu.harvard.hul.ois.fits.tools.droid;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
+import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URL;
 
-import org.jdom.Document;
-import org.xml.sax.SAXException;
+import org.apache.log4j.Logger;
+import org.jdom.input.SAXBuilder;
 
-import uk.gov.nationalarchives.droid.AnalysisController;
-import uk.gov.nationalarchives.droid.FileFormatHit;
-import uk.gov.nationalarchives.droid.IdentificationFile;
+import uk.gov.nationalarchives.droid.command.action.VersionCommand;
+import uk.gov.nationalarchives.droid.core.SignatureParseException;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
+/**  The principal glue class for invoking DROID under FITS.
+ */
 public class Droid extends ToolBase {
 
-	private uk.gov.nationalarchives.droid.Droid droid = null;
-	public final static String xslt = Fits.FITS_HOME+"xml/droid/droid_to_fits.xslt";
+	//private uk.gov.nationalarchives.droid.Droid droid = null;
+    //private BinarySignatureIdentifier droid = null;
+	//public final static String xslt = Fits.FITS_HOME+"xml/droid/droid_to_fits.xslt";
 	private boolean enabled = true;
-	
+	private DroidQuery droidQuery;
+    private static final Logger logger = Logger.getLogger(Droid.class);
+
 	public Droid() throws FitsToolException {
+        logger.debug ("Initializing Droid");
+		info = new ToolInfo("Droid", getDroidVersion(), null);		
 
-		info = new ToolInfo("Droid",AnalysisController.DROID_VERSION,null);		
-
+		String javaVersion = System.getProperty("java.version");
+		if (javaVersion.startsWith ("1.8")) {
+		    throw new FitsToolException ("DROID cannot run under Java 8");
+		}
 		try {
 			String droid_conf = Fits.FITS_TOOLS+"droid"+File.separator;
-			URL droidConfig = new File(droid_conf+"DROID_config.xml").toURI().toURL();
-			URL sigFile = new File(droid_conf+Fits.config.getString("droid_sigfile")).toURI().toURL();
-			// The Droid(URL configFile, URL sigFileURL) constructor is broken
-			//  So create droid instance and read signature file manually.
-			droid = new uk.gov.nationalarchives.droid.Droid(droidConfig);
-			droid.readSignatureFile(sigFile);
+			//URL droidConfig = new File(droid_conf+"DROID_config.xml").toURI().toURL();
+			File sigFile = new File(droid_conf+Fits.config.getString("droid_sigfile"));
+	        File tempDir = new File(Fits.FITS_TOOLS+"droid" + File.separator + "tmpdir");
+	        try {
+	            droidQuery = new DroidQuery (sigFile, tempDir);
+	        }
+	        catch (SignatureParseException e) {
+	            throw new FitsToolException("Problem with DROID signature file");
+	        }
+			//droid = new uk.gov.nationalarchives.droid.Droid(droidConfig);
+			//droid = new BinarySignatureIdentifier();
+			//droid.setSignatureFile(sigFile);
 		} catch (Exception e) {
 			throw new FitsToolException("Error initilizing DROID",e);
 		}
 	}
 
+	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+        logger.debug("Droid.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
-		IdentificationFile idFile = droid.identify(file.getPath());
-		/*List<FileIdentity> identities = new ArrayList();
-		for(int i=0;i<idFile.getNumHits();i++) {
-			FileFormatHit hit = idFile.getHit(i);
-			FileIdentity identity = new FileIdentity(hit.getMimeType(),hit.getFileFormatName(),hit.getFileFormatVersion());
-			//pronom id;
-			identity.addExternalIdentifier("puid",hit.getFileFormatPUID());
-			identities.add(identity);
-		}	*/
-		Document rawOut = createXml(idFile);
-		Document fitsXml = transform(xslt, rawOut);
-		
-		/*
-		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+		IdentificationResultCollection results;
 		try {
-			outputter.output(fitsXml, System.out);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    results = droidQuery.queryFile(file);
 		}
-		*/
+		catch (IOException e) {
+		    throw new FitsToolException("DROID can't query file " + file.getAbsolutePath(),
+		            e);
+		}
+		DroidToolOutputter outputter = new DroidToolOutputter(this, results);
+		ToolOutput output = outputter.toToolOutput();
 		
-		output = new ToolOutput(this,fitsXml,rawOut);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
+        logger.debug("Droid.extractInfo finished on " + file.getName());
 		return output;
 	}
-
-    /**
-     * Write the XML to the file, using the new schema format with elements for most of the data.
-     * @throws FitsToolException 
-     * @throws SAXException 
-     */
-    private Document createXml(IdentificationFile idFile) throws FitsToolException {
-    	
-    	StringWriter out = new StringWriter();
-    	
-        out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-        out.write("\n");
-        out.write("<FileCollection xmlns=\"" + AnalysisController.FILE_COLLECTION_NS + "\">");
-        out.write("\n");
-        out.write("  <DROIDVersion>" + AnalysisController.getDROIDVersion().replaceAll("&", "&amp;") + "</DROIDVersion>");
-        out.write("\n");
-        out.write("  <SignatureFileVersion>" + droid.getSignatureFileVersion() + "</SignatureFileVersion>");
-        out.write("\n");
-        out.write("  <DateCreated>" + AnalysisController.writeXMLDate(new java.util.Date()) + "</DateCreated>");
-        out.write("\n");
-
-        //create IdentificationFile element and its attributes
-        out.write("  <IdentificationFile ");
-        out.write("IdentQuality=\"" + idFile.getClassificationText() + "\" ");
-        out.write(">");
-        out.write("\n");
-        out.write("    <FilePath>" + idFile.getFilePath().replaceAll("&", "&amp;") + "</FilePath>");
-        out.write("\n");
-        if (/*saveResults && */!"".equals(idFile.getWarning())) {
-            out.write("    <Warning>" + idFile.getWarning().replaceAll("&", "&amp;") + "</Warning>");
-            out.write("\n");
-        }
-        
-        if(idFile.getNumHits() == 0) {
-            out.write("    <FileFormatHit>");
-            out.write("\n");        	
-            out.write("    </FileFormatHit>");
-            out.write("\n");
-        }
-        else {
-	        //now create an FileFormatHit element for each hit
-	        for (int hitCounter = 0; hitCounter < idFile.getNumHits(); hitCounter++) {
-	            FileFormatHit formatHit = idFile.getHit(hitCounter);
-	            out.write("    <FileFormatHit>");
-	            out.write("\n");
-	            out.write("      <Status>" + formatHit.getHitTypeVerbose() + "</Status>");
-	            out.write("\n");
-	            out.write("      <Name>" + formatHit.getFileFormatName().replaceAll("&", "&amp;") + "</Name>");
-	            out.write("\n");
-	            if (formatHit.getFileFormatVersion() != null) {
-	                out.write("      <Version>" + formatHit.getFileFormatVersion().replaceAll("&", "&amp;") + "</Version>");
-	                out.write("\n");
-	            }
-	            if (formatHit.getFileFormatPUID() != null) {
-	                out.write("      <PUID>" + formatHit.getFileFormatPUID().replaceAll("&", "&amp;") + "</PUID>");
-	                out.write("\n");
-	            }
-	            if (formatHit.getMimeType() != null) {
-	                out.write("      <MimeType>" + formatHit.getMimeType().replaceAll("&", "&amp;") + "</MimeType>");
-	                out.write("\n");
-	            }
-	            if (!"".equals(formatHit.getHitWarning())) {
-	                out.write("      <IdentificationWarning>"
-	                        + formatHit.getHitWarning().replaceAll("&", "&amp;") + "</IdentificationWarning>");
-	                out.write("\n");
-	            }
-	            out.write("    </FileFormatHit>");
-	            out.write("\n");
-	        }//end file hit FOR        
-        }
-
-        //close IdentificationFile element
-        out.write("  </IdentificationFile>");
-        out.write("\n");
-
-        //close FileCollection element
-        out.write("</FileCollection>");
-        out.write("\n");
-
-        out.flush();
-     
-		try {
-			out.close();
-		} catch (IOException e) {
-			throw new FitsToolException("Error closing DROID XML output stream",e);
-		}
-		
-        Document doc = null;
-		try {
-			doc = saxBuilder.build(new StringReader(out.toString()));
-		} catch (Exception e) {
-			throw new FitsToolException("Error parsing DROID XML Output",e);
-		} 
-        return doc;
-    }
 
 	public boolean isEnabled() {
 		return enabled;
@@ -190,6 +100,25 @@ public class Droid extends ToolBase {
 
 	public void setEnabled(boolean value) {
 		enabled = value;		
+	}
+	
+	/** Make the SAXBuilder available to helper class */
+    protected SAXBuilder getSaxBuilder () {
+        return saxBuilder;
+    }
+
+	/* Get the version of DROID. This is about the cleanest I can manage. */
+	private String getDroidVersion () {
+	    StringWriter sw = new StringWriter ();
+	    PrintWriter pw = new PrintWriter (sw);
+	    VersionCommand vcmd = new VersionCommand (pw);
+	    try {
+	        vcmd.execute ();
+	    }
+	    catch (Exception e) {
+	        return "(Version unknown)";
+	    }
+	    return sw.toString().trim();
 	}
     
 }

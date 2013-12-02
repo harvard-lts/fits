@@ -158,7 +158,7 @@ public class AESModel {
     /**
      * sets the timeline and timeRage startTime
      * @param time
-     * @param frequency
+     * @param editRate
      * @throws XmlContentException
      */
     protected void setStartTime(String time, int editRate) throws XmlContentException {
@@ -172,7 +172,8 @@ public class AESModel {
     /**
      * Sets the timeline and timeRange duration
      * @param time
-     * @param frequency
+     * @param editRate
+     * @param numSamples
      * @throws XmlContentException
      */
     protected void setDuration(String time, int editRate, long numSamples) throws XmlContentException {
