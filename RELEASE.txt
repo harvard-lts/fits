@@ -1,9 +1,17 @@
 RELEASE NOTES 
 
-Version 0.6.3 (unreleased)
+Version 0.8.x (unreleased)
 ---------------------
--Fixed documentmd conversion bug when page count is null
--Fixed Exiftool resolution unit conversion error
+- A few minor performance optimizations
+- The possibility to run FITS in a nailgun server
+- Droid update to version 6
+- Apache Tika enhancements
+- Numerous bug and stability fixes
+ 	-Fixed documentmd conversion bug when page count is null
+	-Fixed Exiftool resolution unit conversion error
+- Better Error reporting
+- Logging
+
 
 Version 0.6.2 (3/18/13)
 ---------------------
