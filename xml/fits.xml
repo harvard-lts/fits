@@ -24,7 +24,7 @@
 		<internal-output-schema>xml/fits_output.xsd</internal-output-schema>
 		<external-output-schema>http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd</external-output-schema>
 		<fits-xml-namespace>http://hul.harvard.edu/ois/xml/ns/fits/fits_output</fits-xml-namespace>
-		<enable-statistics>false</enable-statistics>
+		<enable-statistics>true</enable-statistics>
 		<enable-checksum>true</enable-checksum>
 	</output>
 	

@@ -21,6 +21,9 @@
 					<xsl:when test="$mime='text/plain; charset=UTF-8'">
 						<xsl:value-of select="string('text/plain')"/>
 					</xsl:when>
+					<xsl:when test="normalize-space(upper-case(//property[name='Brand']/values/value))='JPX'">		
+						<xsl:value-of select="string('image/jpx')"/>
+					</xsl:when>
 					<xsl:otherwise>
 						<xsl:value-of select="$mime"/>
 					</xsl:otherwise>

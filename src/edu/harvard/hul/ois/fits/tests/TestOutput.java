@@ -40,53 +40,33 @@ import edu.harvard.hul.ois.fits.FitsOutput;
 
 public class TestOutput {
 	
-	private static final String USAGE = "generatetestoutput [create | test]";
-	private static final String TEST_INPUT = "tests/input";
-	private static final String TEST_OUTPUT = "tests/output";
+	private static final String USAGE = "generatetestoutput [create | test] input_dir output_dir";
 
 	/**
 	 * @param args
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-		String action = "";
 		
-		if(args.length == 0) {
+		if(args.length != 3) {
 			System.out.println("Invalid Syntax");
 			System.out.println("Usage:\n"+ USAGE);
 			System.exit(0);
 		}
-		
-        for (int i=0; i<args.length; i++) {
-		    if (args[i].equals ("-h")) {
-		    	System.out.println("Usage:\n"+ USAGE);
-		    	System.exit(0);
-			}
-		    else if(args[i].equals("create")) {
-		    	action = "g";
-		    	break;
-		    }
-		    else if(args[i].equals("test")) {
-		    	action = "t";
-		    	break;
-		    }
-        }
         
-        if(action.equals("g")) {
-        	generate();
+        if(args[0].equals("create")) {
+        	createTestOutput(args[1],args[2]);
         }
-        else if(action.equals("t")){
-        	test();
+        else if(args[0].equals("test")){
+        	test(args[1],args[2]);
         }
         else {
 	    	System.out.println("Usage:\n"+ USAGE);
 	    	System.exit(0);       	
         }
-
-        
  	}
 	
-	private static void generate() throws Exception {
+	private static void createTestOutput(String input, String output) throws Exception {
 		//prompt for confirmation
 		System.out.print("This will erase all existing test output, continue? [y/n]: ");
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -103,59 +83,59 @@ public class TestOutput {
 			System.exit(0);
 		}
 		
-		File inputDir = new File(TEST_INPUT);
-		File outputDir = new File(TEST_OUTPUT);
+		File inputDir = new File(input);
+		File outputDir = new File(output);
 		
 		//delete all existing output
-		for(File output : outputDir.listFiles()) {
+		for(File outputFile : outputDir.listFiles()) {
 			//only delete the .xml files
-			if(!output.getPath().endsWith(".xml")) {
+			if(!outputFile.getPath().endsWith(".xml")) {
 				continue;
 			}
-			System.out.println("deleting " + output.getPath());
-			output.delete();
+			System.out.println("deleting " + outputFile.getPath());
+			outputFile.delete();
 		}
 		
 		Fits fits = new Fits("");
 		
 		//create new output for files in input dir
-		for(File input : inputDir.listFiles()) {
+		for(File inputFile : inputDir.listFiles()) {
 			//skip directories
-			if(input.isDirectory()) {
+			if(inputFile.isDirectory()) {
 				continue;
 			}
-			System.out.println("processing " + input.getPath());
-			FitsOutput fitsOutput = fits.examine(input);
-			fitsOutput.saveToDisk(outputDir.getPath()+File.separator+input.getName()+".xml");
+			System.out.println("processing " + inputFile.getPath());
+			FitsOutput fitsOutput = fits.examine(inputFile);
+			fitsOutput.saveToDisk(outputDir.getPath()+File.separator+inputFile.getName()+".xml");
 		}
 		
 		System.out.println("All Done");
 
 	}
 	
-	private static void test() throws Exception {
+	private static void test(String input, String output) throws Exception {
 	   	Fits fits = new Fits("");
     	SAXBuilder builder = new SAXBuilder();  	
     	XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());  	
     	
-		File inputDir =new File(TEST_INPUT);
-		File outputDir =new File(TEST_OUTPUT);
+		File inputDir =new File(input);
+		File outputDir =new File(output);
 		
 		int passed = 0;
 		int failed = 0;
 				
-		for(File input : inputDir.listFiles()) {
+		for(File inputFile : inputDir.listFiles()) {
 			//skip directories
-			if(input.isDirectory()) {
+			if(inputFile.isDirectory()) {
 				continue;
 			}
 			StringWriter sw = new StringWriter();
 			
-			FitsOutput fitsOut = fits.examine(input);
+			FitsOutput fitsOut = fits.examine(inputFile);
 			serializer.output(fitsOut.getFitsXml(), sw);
 			String actualStr = sw.toString(); 
 			
-			File outputFile = new File(outputDir + File.separator + input.getName()+".xml");
+			File outputFile = new File(outputDir + File.separator + inputFile.getName()+".xml");
 			if(!outputFile.exists()) {
 				System.err.println("Not Found: "+outputFile.getPath());
 				continue;

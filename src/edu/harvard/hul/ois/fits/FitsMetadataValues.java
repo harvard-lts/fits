@@ -24,6 +24,9 @@ import java.util.Map;
  *  as some standard values. All components are static.
  */
 public class FitsMetadataValues {
+	
+	public final static String DEFAULT_MIMETYPE="application/octet-stream";
+	public final static String DEFAULT_FORMAT="Unknown Binary";
 
     /** Standard document element names. */
     public final static String AUDIO = "audio";
@@ -159,9 +162,10 @@ public class FitsMetadataValues {
     /** Mapping from MIME types to standard names. This is an incomplete map,
      *  holding only cases where conversion is necessary. Expand as needed.
      */
-    public final static Map<String, String> mimeToDescMap =
-            new HashMap<String, String>();
+    public final static Map<String, String> mimeToDescMap =new HashMap<String, String>();
     static {
         mimeToDescMap.put ("image/jpeg", "JPEG File Interchange Format");
+        mimeToDescMap.put ("image/jpx",  "JPEG 2000 JPX");
+        mimeToDescMap.put ("image/jp2",  "JPEG 2000 JP2");
     }
 }

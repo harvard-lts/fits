@@ -49,13 +49,13 @@
    		<xsl:attribute name="format">    
    			<xsl:variable name="format">
 	   			<xsl:choose>
-		   			<xsl:when test="not(string-length($jfif) = 0)">
+		   			<xsl:when test="not(string-length($jfif) = 0) and not(exiftool/FileType = 'JP2')">
 						<xsl:value-of select="concat(exiftool/FileType,' JFIF')" />
 					</xsl:when>
-					<xsl:when test="not(string-length($exif) = 0)">
+					<xsl:when test="not(string-length($exif) = 0) and not(exiftool/FileType = 'JP2')">
 						<xsl:value-of select="concat(exiftool/FileType,' EXIF')" />
 					</xsl:when>
-					<xsl:when test="not(string-length($exifByteOrder) = 0)">
+					<xsl:when test="not(string-length($exifByteOrder) = 0) and not(exiftool/FileType = 'JP2')">
 						<xsl:value-of select="concat(exiftool/FileType,' EXIF')" />
 					</xsl:when>
 					<xsl:otherwise>
@@ -141,6 +141,9 @@
 				</xsl:when>	
 				<xsl:when test="$format='PS'">
 					<xsl:value-of select="string('Postscript')"/>
+				</xsl:when>	
+				<xsl:when test="$format='JPX'">
+					<xsl:value-of select="string('JPEG 2000 JPX')"/>
 				</xsl:when>	
 				<xsl:when test="$format=''">
 					<xsl:value-of select="string('Unknown Binary')"/>

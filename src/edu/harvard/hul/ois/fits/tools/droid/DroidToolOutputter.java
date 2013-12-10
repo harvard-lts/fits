@@ -6,9 +6,9 @@ import java.io.StringWriter;
 import java.util.List;
 
 import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsMetadataValues;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
-
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResult;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 
@@ -56,11 +56,12 @@ public class DroidToolOutputter {
         for (IdentificationResult res : resList) {
             String filePuid = res.getPuid();
             String formatName = res.getName();
+            formatName = mapFormatName(formatName);
             String mimeType = res.getMimeType();
+            mimeType = mapMimeType(mimeType);
             String version = res.getVersion();
-//            if (version != null && formatName != null) {
-//                formatName += " " + version;
-//            }
+            version = mapVersion(version);
+            
             Element identityElem = new Element ("identity", fitsNS);
             Attribute attr = null;
             if (formatName != null) {
@@ -93,6 +94,69 @@ public class DroidToolOutputter {
         }
 
         return toolDoc;     // TODO stub
+    }
+    
+    private String mapFormatName(String formatName) {
+    	
+    	if(formatName == null || formatName.length() == 0) {
+    		return FitsMetadataValues.DEFAULT_FORMAT;
+    	}
+    	else if(formatName.startsWith("Microsoft Word")) {
+    		return "Microsoft Word";
+    	}
+    	else if(formatName.startsWith("JPEG2000") || formatName.startsWith("JP2 (JPEG 2000")) {
+    		return "JPEG 2000 JP2";
+    	}
+    	else if(formatName.startsWith("Exchangeable Image File Format (Compressed)")) {
+    		return "Exchangeable Image File Format";
+    	}    	
+    	else if(formatName.equals("Plain Text File")) {
+    		return "Plain text";
+    	}
+    	else if(formatName.contains("PDF/A")) {
+    		return "PDF/A";
+    	}
+    	else if(formatName.contains("PDF/X")) {
+    		return "PDF/X";
+    	}
+    	else if(formatName.contains("Portable Document Format")) {
+    		return "Portable Document Format";
+    	}
+    	else if(formatName.equals("Scalable Vector Graphics")) {
+    		return "Scalable Vector Graphics (SVG)";
+    	}
+    	else {
+    		return formatName;
+    	}
+    }
+    
+    private String mapMimeType(String mime) {
+    	
+    	if(mime == null || mime.length() == 0) {
+    		return FitsMetadataValues.DEFAULT_MIMETYPE;
+    	}
+    	else if(mime.equals("text/xml")) {
+    		return "text/xml";
+    	}  
+    	else if(mime.equals("audio/x-wav")) {
+    		return "audio/x-wave";
+    	} 
+    	else {
+    		return mime;
+    	}
+    }
+    
+    private String mapVersion(String version) {
+    	
+    	if(version == null || version.length() == 0) {
+    		return version;
+    	}
+    	else if(version.equals("1987a")) {
+    		return "87a";
+    	}
+    	else {
+    		return version;
+    	}
     }
     
     /**

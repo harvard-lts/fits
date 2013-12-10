@@ -91,6 +91,14 @@ public class DroidQuery {
             if (results.getResults().size() > 1) {
                 sigIdentifier.removeLowerPriorityHits(results);
             }
+            
+            if(results.getResults().size() == 0) {
+            	results = sigIdentifier.matchExtensions(req,false);
+            }
+            if (results.getResults().size() > 1) {
+                sigIdentifier.removeLowerPriorityHits(results);
+            }
+            
     //        List<IdentificationResult> resultsList = results.getResults();
                 // This gives us an unfiltered list of matching signatures
             return results;

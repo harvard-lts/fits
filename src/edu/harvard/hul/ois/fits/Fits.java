@@ -57,7 +57,6 @@ import org.jdom.output.XMLOutputter;
 import edu.harvard.hul.ois.fits.consolidation.ToolOutputConsolidator;
 import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
-
 import edu.harvard.hul.ois.fits.mapping.FitsXmlMapper;
 import edu.harvard.hul.ois.fits.tools.Tool;
 import edu.harvard.hul.ois.fits.tools.Tool.RunStatus;
@@ -238,36 +237,48 @@ public class Fits {
    * @throws XMLStreamException
    * @throws FitsException
    */
-  private void doDirectory( File inputDir, File outputDir, boolean useStandardSchemas, boolean standardCombinedFormat )
-      throws FitsException, XMLStreamException, IOException {
-    logger.debug( "Processing directory " + inputDir.getAbsolutePath() );
-    for (File f : inputDir.listFiles()) {
-      if (f.isDirectory() && traverseDirs) {
-        doDirectory( f, outputDir, useStandardSchemas, standardCombinedFormat );
-      } else if (f.isFile()) {
-        if (".DS_Store".equals( f.getName() )) {
-          // Mac hidden directory services file, ignore
-          logger.debug( "Skipping .DS_Store" );
-          continue;
-        }
-        FitsOutput result = doSingleFile( f );
-        String outputFile = outputDir.getPath() + File.separator + f.getName() + ".fits.xml";
-        File output = new File( outputFile );
-        if (output.exists()) {
-          int cnt = 1;
-          while (true) {
-            outputFile = outputDir.getPath() + File.separator + f.getName() + "-" + cnt + ".fits.xml";
-            output = new File( outputFile );
-            if (!output.exists()) {
-              break;
-            }
-            cnt++;
-          }
-        }
-        outputResults( result, outputFile, useStandardSchemas, standardCombinedFormat, true );
-      }
-    }
-  }
+	private void doDirectory(File inputDir, File outputDir,boolean useStandardSchemas, boolean standardCombinedFormat) throws FitsException, XMLStreamException, IOException {
+		if(inputDir.listFiles() == null) {
+			return;
+		}
+		
+		logger.info("Processing directory " + inputDir.getAbsolutePath());
+		
+		for (File f : inputDir.listFiles()) {
+
+			if(f == null || !f.exists() || !f.canRead()) {
+				continue;
+			}
+			
+			logger.info("processing " + f.getPath());
+			
+			if (f.isDirectory() && traverseDirs) {
+				doDirectory(f, outputDir, useStandardSchemas, standardCombinedFormat);
+			} else if (f.isFile()) {
+				if (".DS_Store".equals(f.getName())) {
+					// Mac hidden directory services file, ignore
+					logger.debug("Skipping .DS_Store");
+					continue;
+				}
+				FitsOutput result = doSingleFile(f);
+				String outputFile = outputDir.getPath() + File.separator + f.getName() + ".fits.xml";
+				File output = new File(outputFile);
+				if (output.exists()) {
+					int cnt = 1;
+					while (true) {
+						outputFile = outputDir.getPath() + File.separator + f.getName() + "-" + cnt + ".fits.xml";
+						output = new File(outputFile);
+						if (!output.exists()) {
+							break;
+						}
+						cnt++;
+					}
+				}
+				outputResults(result, outputFile, useStandardSchemas,
+						standardCombinedFormat, true);
+			}
+		}
+	}
 
   /**
    * processes a single file and outputs to the provided output location.
