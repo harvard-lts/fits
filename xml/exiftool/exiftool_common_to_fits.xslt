@@ -118,6 +118,21 @@
 				<xsl:when test="$format='OGG'">
 					<xsl:value-of select="string('Ogg')"/>
 				</xsl:when>	
+				<xsl:when test="$format='ODP'">
+					<xsl:value-of select="string('OpenDocument Presentation')"/>
+				</xsl:when>	
+				<xsl:when test="$format='ODT'">
+					<xsl:value-of select="string('OpenDocument Text')"/>
+				</xsl:when>	
+				<xsl:when test="$format='ODS'">
+					<xsl:value-of select="string('OpenDocument Spreadsheet')"/>
+				</xsl:when>	
+				<xsl:when test="$format='ODF'">
+					<xsl:value-of select="string('OpenDocument Formula')"/>
+				</xsl:when>	
+				<xsl:when test="$format='ODG'">
+					<xsl:value-of select="string('OpenDocument Graphics')"/>
+				</xsl:when>	
 				<xsl:when test="$format='M4A'">
 					<xsl:value-of select="string('MPEG-4 Audio')"/>
 				</xsl:when>		

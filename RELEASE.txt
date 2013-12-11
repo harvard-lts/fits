@@ -2,16 +2,18 @@ RELEASE NOTES
 
 Version 0.8.x (unreleased)
 ---------------------
-- A few minor performance optimizations
-- The possibility to run FITS in a nailgun server
+- Minor performance optimizations
+- Nailgun server support
 - Droid update to version 6
-- Apache Tika enhancements
-- Numerous bug and stability fixes
+- Official support for Apache Tika
+- Many bug and stability fixes
  	-Fixed documentmd conversion bug when page count is null
 	-Fixed Exiftool resolution unit conversion error
-- Better Error reporting
-- Logging
+- Better Error reporting and logging
 
+Version 0.7.x (--/--/--)
+---------------------
+...skipping
 
 Version 0.6.2 (3/18/13)
 ---------------------

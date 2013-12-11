@@ -54,7 +54,7 @@ image;PPM;Portable Pixmap;image/x-portable-pixmap;ppm;0;"P3";40;
 image;PPM;Portable Pixmap;image/x-portable-pixmap;ppm;0;"P6";40;
 image;TIFF;Tagged Image File Format;image/tiff;tif;0;4d4d002a;40;
 image;TIFF;Tagged Image File Format;image/tiff;tif;0;49492a00;40;
-video;AVI;Audio Video Interleave);video/x-msvideo;avi;8;41564920;20;
+video;AVI;Audio Video Interleave;video/x-msvideo;avi;8;41564920;20;
 video;MOV;Quicktime video;video/quicktime;mov;4;"moov";20;
 video;MPEG;MPEG video;video/mpeg;mpg,mpeg;0;000001b3;20;
 video;MPEG;MPEG video;video/mpeg;mpg,mpeg;0;000001ba;20;

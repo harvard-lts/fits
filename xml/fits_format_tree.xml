@@ -27,6 +27,7 @@
 		<branch format="OpenDocument Text Template"/>
 		<branch format="OpenDocument Drawing"/>
 		<branch format="OpenDocument Drawing Template"/>
+		<branch format="OpenDocument Graphics"/>
 		<branch format="OpenDocument Spreadsheet"/>
 		<branch format="OpenDocument Spreadsheet Template"/>
 		<branch format="OpenDocument Presentation"/>

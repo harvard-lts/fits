@@ -422,7 +422,12 @@
 						<xsl:attribute name="format">
 							<xsl:value-of select="string('Unknown Binary')"/>
 						</xsl:attribute>
-					</xsl:when>													
+					</xsl:when>		
+					<xsl:when test="$format='OpenDocument Drawing'">
+						<xsl:attribute name="format">
+							<xsl:value-of select="string('OpenDocument Graphics')"/>
+						</xsl:attribute>
+					</xsl:when>												
 					<xsl:otherwise>
 						<xsl:attribute name="format">
 							<xsl:value-of select="$format"/>

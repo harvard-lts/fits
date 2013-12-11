@@ -8,6 +8,7 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
@@ -423,7 +424,7 @@ public class TikaTool extends ToolBase {
         Element identityElem = new Element ("identity", fitsNS);
         // Format and mime type info. 
         
-        Attribute attr = new Attribute ("format", mimeToFileType(mimeType));
+        Attribute attr = new Attribute ("format", getFormatType(mimeType));
         identityElem.setAttribute (attr);
         attr = new Attribute ("mimetype", mimeType);
         identityElem.setAttribute (attr);
@@ -442,6 +443,7 @@ public class TikaTool extends ToolBase {
 	    String xml = MetadataFormatter.toXML(metadata);
 	    xml = XmlUtils.cleanXmlNulls(xml);
 	    StringReader srdr = new StringReader (xml);
+	    
 	    try {
 	        Document rawDoc = saxBuilder.build (srdr);
 	        return rawDoc; 
@@ -503,17 +505,26 @@ public class TikaTool extends ToolBase {
 	    
 	}
 	
-	private String mimeToFileType (String mime) throws FitsToolException {
+	private String getFormatType(String mime) throws FitsToolException {
 	    String format = "";
 	    try {
 	        MimeType mimeType = mimeTypes.forName(mime);
 	        format = mimeType.getDescription();
+	        
+	        if(format != null) {
+	        	String stdFormat = FitsMetadataValues.formatToDescMap.get(format);
+	        	if(stdFormat != null) {
+	        		format = stdFormat;
+	        	}
+	        }
 	        
 	        // convert to FITS standard file types if necessary
 	        String stdText = FitsMetadataValues.mimeToDescMap.get(mime);
 	        if (stdText != null) {
 	            format = stdText;
 	        }
+	        
+	        
 	        return format;
 	    } catch (MimeTypeException e) {
 	        throw new FitsToolException("Tika error looking up mime type");

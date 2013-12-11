@@ -168,4 +168,18 @@ public class FitsMetadataValues {
         mimeToDescMap.put ("image/jpx",  "JPEG 2000 JPX");
         mimeToDescMap.put ("image/jp2",  "JPEG 2000 JP2");
     }
+    
+    /** Mapping from MIME types to standard names. This is an incomplete map,
+     *  holding only cases where conversion is necessary. Expand as needed.
+     */
+    public final static Map<String, String> formatToDescMap =new HashMap<String, String>();
+    static {
+    	formatToDescMap.put ("MPEG-1 Audio Layer 3",  "MPEG 1/2 Audio Layer 3");
+    	formatToDescMap.put ("OpenDocument v1.0: Presentation document",  "OpenDocument Presentation");
+    	formatToDescMap.put ("OpenDocument v1.0: Text document",  "OpenDocument Text");
+    	formatToDescMap.put ("OpenDocument v1.0: Spreadsheet document",  "OpenDocument Spreadsheet");
+    	formatToDescMap.put ("OpenDocument v1.0: Formula document",  "OpenDocument Formula");
+    	formatToDescMap.put ("OpenDocument v1.0: Graphics document (Drawing)",  "OpenDocument Graphics");
+    	
+    }
 }
