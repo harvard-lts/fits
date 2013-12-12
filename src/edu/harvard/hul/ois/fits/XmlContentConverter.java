@@ -178,8 +178,8 @@ public class XmlContentConverter {
                             mm.sm.setYSamplingFrequency(ratValue);
                         break;
                     case bitsPerSample:
-                        if (intValue != null)
-                            mm.setBitsPerSample (intValue);
+                        if (dataValue != null)
+                            mm.setBitsPerSample (dataValue);
                         break;
                     case samplesPerPixel:
                         if (intValue != null)
