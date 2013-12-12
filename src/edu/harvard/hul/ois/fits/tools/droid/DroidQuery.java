@@ -75,10 +75,7 @@ public class DroidQuery {
     /** Query a file and get back an XML response. */
     public IdentificationResultCollection queryFile (File fil) 
             throws IOException {
-        RequestMetaData metadata = 
-                new RequestMetaData(fil.length(), 
-                        fil.lastModified(), 
-                        tempDir.getAbsolutePath());
+        RequestMetaData metadata = new RequestMetaData(fil.length(), fil.lastModified(), fil.getName());
         RequestIdentifier identifier = new RequestIdentifier (fil.toURI());
         FileInputStream in = null;
         FileSystemIdentificationRequest req = null;
