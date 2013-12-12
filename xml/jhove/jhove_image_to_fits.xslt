@@ -507,13 +507,18 @@ xmlns:mix="http://www.loc.gov/mix/">
 			
 			<!--  fNumber -->
 			<fNumber>
-		  		<xsl:value-of select="//mix:FNumber"/>
+		  		<xsl:value-of select="//property[name='FNumber']/values/value"/>
 			</fNumber>
 
 			<!--  exposureTime -->
 			<exposureTime>
-		  		<xsl:value-of select="//mix:ExposureTime"/>
+		  		<xsl:value-of select="//property[name='ExposureTime']/values/value"/>
 			</exposureTime>
+			
+			<!--  ISO -->
+			<isoSpeedRating>
+				<xsl:value-of select="//property[name='ISOSpeedRatings']/values/value"/>
+			</isoSpeedRating>			
 			
 			<!--  brightnessValue -->
 			<brightnessValue>
@@ -522,8 +527,13 @@ xmlns:mix="http://www.loc.gov/mix/">
 
 			<!--  exposureBiasValue -->
 			<exposureBiasValue>
-		  		<xsl:value-of select="//mix:ExposureBiasValue"/>
+		  		<xsl:value-of select="//property[name='ExposureBiasValue']/values/value"/>
 			</exposureBiasValue>
+			
+			<!--  lightSource -->
+			<lightSource>
+				<xsl:value-of select="//property[name='LightSource']/values/value"/>
+			</lightSource>
 
 			<!--  subjectDistance -->
 			<subjectDistance>
@@ -532,20 +542,59 @@ xmlns:mix="http://www.loc.gov/mix/">
 
 			<!--  meteringMode -->
 			<meteringMode>
-		  		<xsl:value-of select="//mix:MeteringMode"/>
+				<xsl:choose>
+					<xsl:when test="//property[name='MeteringMode']/values/value='average'">
+						<xsl:value-of select="string('Average')"/>
+					</xsl:when>
+					<xsl:when test="//property[name='MeteringMode']/values/value='center weighted average'">
+						<xsl:value-of select="string('Center weighted average')"/>
+					</xsl:when>
+					<xsl:when test="//property[name='MeteringMode']/values/value='centre weighted average'"> <!--  catch the typo -->
+						<xsl:value-of select="string('Center weighted average')"/>
+					</xsl:when>
+					<xsl:when test="//property[name='MeteringMode']/values/value='spot'">
+						<xsl:value-of select="string('Spot')"/>
+					</xsl:when>		
+					<xsl:when test="//property[name='MeteringMode']/values/value='multispot'">
+						<xsl:value-of select="string('Multispot')"/>
+					</xsl:when>		
+					<xsl:when test="//property[name='MeteringMode']/values/value='pattern'">
+						<xsl:value-of select="string('Pattern')"/>
+					</xsl:when>		
+					<xsl:when test="//property[name='MeteringMode']/values/value='partial'">
+						<xsl:value-of select="string('Partial')"/>
+					</xsl:when>		
+				</xsl:choose>
+		  		
 			</meteringMode>
 			
 			<!--  flash -->
 			<flash>
-				<xsl:variable name="flash" select="//mix:Flash"/>
-		  		<xsl:choose>
-		  			<xsl:when test="$flash=0">
-		  				<xsl:value-of select="string('No Flash')"/>
-		  			</xsl:when>
-		  			<xsl:when test="$flash=1">
-		  				<xsl:value-of select="string('Fired')"/>
-		  			</xsl:when>
-		  		</xsl:choose>
+			<!-- JHOVE VALUES
+		"did not fire",
+        "fired",
+        "strobe return light not detected", 
+        "strobe return light detected", 
+        "fired, compulsory flash mode",
+        "fired, compulsory flash mode, return light not detected",
+        "fired, compulsory flash mode, return light detected",
+        "did not fire, compulsory flash mode",
+        "did not fire, auto mode",
+        "fired, auto mode",
+        "fired, auto mode, return light not detected",
+        "fired, auto mode, return light detected",
+        "no flash function",
+        "fired, red-eye reduction mode",
+        "fired, red-eye reduction mode, return light not detected",
+        "fired, red-eye reduction mode, return light detected",
+        "fired, compulsory mode",
+        "fired, compulsory mode, return light not detected",
+        "fired, compulsory flash mode, return light detected",
+        "fired, auto mode, red-eye reduction mode",
+        "fired, auto mode, red-eye reduction mode, return light not detected",
+        "fired, auto mode, red-eye reduction mode, return light detected",
+			 -->
+				<xsl:value-of select="//property[name='Flash']/values/value"/>
 			</flash>
 
 			<!--  focalLength -->
@@ -555,7 +604,7 @@ xmlns:mix="http://www.loc.gov/mix/">
 
 			<!--  flashEnergy -->
 			<flashEnergy>
-		  		<xsl:value-of select="//mix:FlashEnergy"/>
+		  		<xsl:value-of select="//property[name='FlashEnergy']/values/value"/>
 			</flashEnergy>
 			
 			<!--  exposureIndex -->

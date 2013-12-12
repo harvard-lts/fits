@@ -32,6 +32,7 @@ package edu.harvard.hul.ois.fits;
 import java.io.File;
 import java.text.ParseException;
 
+import org.apache.log4j.Logger;
 import org.jdom.Element;
 import org.jdom.Namespace;
 
@@ -49,6 +50,8 @@ import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
  *  for this to compile. */
 public class XmlContentConverter {
 	
+	Logger logger = Logger.getLogger( this.getClass() );
+	
 	private final static Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
     
     /** Converts an image element to a MIX object
@@ -57,8 +60,9 @@ public class XmlContentConverter {
      */
     public XmlContent toMix (Element fitsImage, Element fileinfo) {
         MixModel mm = new MixModel ();
-        try {
-            for (ImageElement fitsElem : ImageElement.values()) {
+        
+        for (ImageElement fitsElem : ImageElement.values()) {
+        	try {
                 String fitsName = fitsElem.getName ();
                 Element dataElement = fitsImage.getChild (fitsName,ns);
                 if (dataElement == null)
@@ -534,6 +538,13 @@ public class XmlContentConverter {
                     }
                 }
             }
+            catch (XmlContentException e) {
+            	logger.error("Invalid MIX content: " + e.getMessage ());
+            }
+        }//end of for loop
+            
+            
+       try {
             if(fileinfo != null) {
             	Element created = fileinfo.getChild (ImageElement.created.toString(),ns);
             	if(created != null) {
@@ -550,10 +561,11 @@ public class XmlContentConverter {
             		}
             	}
             }
-        }
-        catch (XmlContentException e) {
-            System.out.println ("Invalid content: " + e.getMessage ());
-        }
+       }
+       catch (XmlContentException e) {
+    	   logger.error("Invalid MIX content: " + e.getMessage ());
+       }
+            
         return mm.mix;
     }
 
