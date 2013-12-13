@@ -413,9 +413,7 @@ public class TikaTool extends ToolBase {
 
 	/* Create the tool data from the Metadata object */
 	private Document buildToolData (Metadata metadata) throws FitsToolException {
-        String mimeType = 
-                DocumentTypes.normalizeMimeType(metadata.get (P_CONTENT_TYPE));
-
+        String mimeType =  DocumentTypes.normalizeMimeType(metadata.get (P_CONTENT_TYPE));
 
         Element fitsElem = new Element ("fits", fitsNS);
         Document toolDoc = new Document (fitsElem);

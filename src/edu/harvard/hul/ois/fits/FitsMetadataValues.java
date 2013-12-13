@@ -164,12 +164,12 @@ public class FitsMetadataValues {
      */
     public final static Map<String, String> mimeToDescMap =new HashMap<String, String>();
     static {
-        mimeToDescMap.put ("image/jpeg", "JPEG File Interchange Format");
+        //mimeToDescMap.put ("image/jpeg", "JPEG File Interchange Format");
         mimeToDescMap.put ("image/jpx",  "JPEG 2000 JPX");
         mimeToDescMap.put ("image/jp2",  "JPEG 2000 JP2");
     }
     
-    /** Mapping from MIME types to standard names. This is an incomplete map,
+    /** Mapping from format names to standard names. This is an incomplete map,
      *  holding only cases where conversion is necessary. Expand as needed.
      */
     public final static Map<String, String> formatToDescMap =new HashMap<String, String>();
@@ -180,6 +180,9 @@ public class FitsMetadataValues {
     	formatToDescMap.put ("OpenDocument v1.0: Spreadsheet document",  "OpenDocument Spreadsheet");
     	formatToDescMap.put ("OpenDocument v1.0: Formula document",  "OpenDocument Formula");
     	formatToDescMap.put ("OpenDocument v1.0: Graphics document (Drawing)",  "OpenDocument Graphics");
-    	
+    	formatToDescMap.put ("Waveform Audio (PCMWAVEFORMAT)",  "Waveform Audio");
+    	formatToDescMap.put ("Microsoft Word Document",  "Microsoft Word");
+    	formatToDescMap.put ("Joint Photographic Experts Group",  "jpeg");
+    	formatToDescMap.put ("",  "Unknown Binary");
     }
 }

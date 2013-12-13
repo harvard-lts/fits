@@ -125,6 +125,12 @@ public class DroidToolOutputter {
     	else if(formatName.equals("Scalable Vector Graphics")) {
     		return "Scalable Vector Graphics (SVG)";
     	}
+    	else if(formatName.equals("Waveform Audio (PCMWAVEFORMAT)")) {
+    		return "Waveform Audio";
+    	}
+    	else if(formatName.equals("Tagged Image File Format for Internet Fax (TIFF-FX)")) {
+    		return "Tagged Image File Format";
+    	}
     	else {
     		return formatName;
     	}

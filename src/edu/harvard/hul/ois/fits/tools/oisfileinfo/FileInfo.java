@@ -42,8 +42,8 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 public class FileInfo extends ToolBase {
 	
     private final static String TOOL_NAME = "OIS File Information";
-    private final static String TOOL_VERSION = "0.1";
-    private final static String TOOL_DATE = null;
+    private final static String TOOL_VERSION = "0.2";
+    private final static String TOOL_DATE = "12/13/2013";
 
     private static Logger logger = Logger.getLogger(FileInfo.class);
 
@@ -83,7 +83,7 @@ public class FileInfo extends ToolBase {
 		fileInfo.addContent(filepath);
 		//filename
 		Element fileName = new Element("filename",fitsNS);
-		fileName.setText(file.getPath());
+		fileName.setText(file.getName());
 		fileInfo.addContent(fileName);
 		//size
 		Element size = new Element("size",fitsNS);

@@ -84,7 +84,7 @@
 						</xsl:when>			
 						<xsl:when test="$format='Kodak Color Management System, ICC Profile'">
 								<xsl:value-of select="string('application/x-icc')"/>
-						</xsl:when>													
+						</xsl:when>											
 						<xsl:otherwise>
 							<xsl:value-of select="$mime"/>
 						</xsl:otherwise>
@@ -427,7 +427,12 @@
 						<xsl:attribute name="format">
 							<xsl:value-of select="string('OpenDocument Graphics')"/>
 						</xsl:attribute>
-					</xsl:when>												
+					</xsl:when>		
+					<xsl:when test="starts-with($format,'x86 boot sector')">
+						<xsl:attribute name="format">	
+							<xsl:value-of select="string('x86 boot sector')"/>
+						</xsl:attribute>
+					</xsl:when>					
 					<xsl:otherwise>
 						<xsl:attribute name="format">
 							<xsl:value-of select="$format"/>

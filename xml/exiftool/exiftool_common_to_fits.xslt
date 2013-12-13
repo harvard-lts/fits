@@ -160,6 +160,9 @@
 				<xsl:when test="$format='JPX'">
 					<xsl:value-of select="string('JPEG 2000 JPX')"/>
 				</xsl:when>	
+				<xsl:when test="$format='XMP EXIF'">
+					<xsl:value-of select="string('Extensible Markup Language')"/>
+				</xsl:when>	
 				<xsl:when test="$format=''">
 					<xsl:value-of select="string('Unknown Binary')"/>
 				</xsl:when>		
