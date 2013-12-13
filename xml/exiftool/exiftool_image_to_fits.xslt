@@ -290,32 +290,33 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:value-of select="exiftool/ExposureTime"/>
 			</exposureTime>
 			<exposureProgram>
+				<xsl:variable name="exposureProgram" select="exiftool/ExposureProgram"/>
 				<xsl:choose>
-					<xsl:when test="exiftool/ExposureProgram='Not Defined'">
+					<xsl:when test="$exposureProgram='Not Defined'">
 						<xsl:value-of select="string('Not defined')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/ExposureProgram='Manual'">
+					<xsl:when test="$exposureProgram='Manual'">
 						<xsl:value-of select="string('Manual')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/ExposureProgram='Program AE'">
+					<xsl:when test="$exposureProgram='Program AE'">
 						<xsl:value-of select="string('Normal program')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/ExposureProgram='Aperture-priority AE'">
+					<xsl:when test="$exposureProgram='Aperture-priority AE'">
 						<xsl:value-of select="string('Aperture priority')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/ExposureProgram='Shutter speed priority AE'">
+					<xsl:when test="$exposureProgram='Shutter speed priority AE'">
 						<xsl:value-of select="string('Shutter priority')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/ExposureProgram='Creative (Slow speed)'">
+					<xsl:when test="$exposureProgram='Creative (Slow speed)'">
 						<xsl:value-of select="string('Creative program (biased toward depth of field)')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/ExposureProgram='Action (High speed)'">
+					<xsl:when test="$exposureProgram='Action (High speed)'">
 						<xsl:value-of select="string('Action program (biased toward fast shutter speed)')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/ExposureProgram='Portrait'">
+					<xsl:when test="$exposureProgram='Portrait'">
 						<xsl:value-of select="string('Portrait mode (for closeup photos with the background out of focus)')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/ExposureProgram='Landscape'">
+					<xsl:when test="$exposureProgram='Landscape'">
 						<xsl:value-of select="string('Landscape mode (for landscape photos with the background in focus)')"/>
 					</xsl:when>
 				</xsl:choose>
@@ -351,66 +352,136 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:value-of select="exiftool/SubjectDistance"/>
 			</subjectDistance>
 			<meteringMode>
+				<xsl:variable name="meteringMode" select="exiftool/MeteringMode"/>
 				<xsl:choose>
-					<xsl:when test="exiftool/MeteringMode='Center-weighted average'">
+					<xsl:when test="$meteringMode='Center-weighted average'">
 						<xsl:value-of select="string('Center weighted average')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/MeteringMode='Multi-spot'">
+					<xsl:when test="$meteringMode='Multi-spot'">
 						<xsl:value-of select="string('Multispot')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/MeteringMode='Multi-segment'">
+					<xsl:when test="$meteringMode='Multi-segment'">
 						<xsl:value-of select="string('Pattern')"/>
 					</xsl:when>
 				</xsl:choose>
 			</meteringMode>
 			<lightSource>
+				<xsl:variable name="lightSource" select="exiftool/LightSource"/>
 				<xsl:choose>
-					<xsl:when test="exiftool/LightSource='Unknown'">
+					<xsl:when test="$lightSource='Unknown'">
 						<xsl:value-of select="string('unknown')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='Tungsten (Incandescent)'">
+					<xsl:when test="$lightSource='Tungsten (Incandescent)'">
 						<xsl:value-of select="string('Tungsten (incandescent light)')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='Fine Weather'">
+					<xsl:when test="$lightSource='Fine Weather'">
 						<xsl:value-of select="string('Fine weather')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='Cloudy'">
+					<xsl:when test="$lightSource='Cloudy'">
 						<xsl:value-of select="string('Cloudy weather')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='Daylight Fluorescent'">
+					<xsl:when test="$lightSource='Daylight Fluorescent'">
 						<xsl:value-of select="string('Daylight fluorescent (D 5700 - 7100K)')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='Day White Fluorescent'">
+					<xsl:when test="$lightSource='Day White Fluorescent'">
 						<xsl:value-of select="string('Day white fluorescent (N 4600 - 5400K)')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='Cool White Fluorescent'">
+					<xsl:when test="$lightSource='Cool White Fluorescent'">
 						<xsl:value-of select="string('Cool white fluorescent (W 3900 - 4500K)')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='White Fluorescent'">
+					<xsl:when test="$lightSource='White Fluorescent'">
 						<xsl:value-of select="string('White fluorescent (WW 3200 - 3700K)')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='Warm White Fluorescent'"> <!-- NO MIX VALUE FOR THIS -->
+					<xsl:when test="$lightSource='Warm White Fluorescent'"> <!-- NO MIX VALUE FOR THIS -->
 						<xsl:value-of select="string('other light source')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='Standard Light A'">
+					<xsl:when test="$lightSource='Standard Light A'">
 						<xsl:value-of select="string('Standard light A')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='Standard light B'">
+					<xsl:when test="$lightSource='Standard light B'">
 						<xsl:value-of select="string('Standard light B')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='Standard light C'">
+					<xsl:when test="$lightSource='Standard light C'">
 						<xsl:value-of select="string('Standard light C')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='ISO Studio Tungsten'">
+					<xsl:when test="$lightSource='ISO Studio Tungsten'">
 						<xsl:value-of select="string('ISO studio tungsten')"/>
 					</xsl:when>
-					<xsl:when test="exiftool/LightSource='Other'">
+					<xsl:when test="$lightSource='Other'">
 						<xsl:value-of select="string('other light source')"/>
 					</xsl:when>
 				</xsl:choose>
 			</lightSource>
 			<flash>
-				<xsl:value-of select="exiftool/Flash"/>
+				<xsl:variable name="flash" select="exiftool/Flash"/>
+		      	<xsl:choose>
+					<xsl:when test="$flash='No Flash'">
+						<xsl:value-of select="string('Flash did not fire')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Fired'">
+						<xsl:value-of select="string('Flash fired')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Fired, Return not detected'">
+						<xsl:value-of select="string('Strobe return light not detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Fired, Return detected'">
+						<xsl:value-of select="string('Strobe return light detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='On, Did not fire'">
+						<xsl:value-of select="string('Flash did not fire, compulsory flash mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='On, Fired'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='On, Return not detected'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode, return light not detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='On, Return detected'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode, return light detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Auto, Did not fire'">
+						<xsl:value-of select="string('Flash did not fire, auto mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Auto, Fired'">
+						<xsl:value-of select="string('Flash fired, auto mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Auto, Fired, Return not detected'">
+						<xsl:value-of select="string('Flash fired, auto mode, return light not detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Auto, Fired, Return detected'">
+						<xsl:value-of select="string('Flash fired, auto mode, return light detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='No flash function'">
+						<xsl:value-of select="string('No flash function')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Fired, Red-eye reduction'">
+						<xsl:value-of select="string('Flash fired, red-eye reduction mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Fired, Red-eye reduction, Return not detected'">
+						<xsl:value-of select="string('Flash fired, red-eye reduction mode, return light not detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Fired, Red-eye reduction, Return detected'">
+						<xsl:value-of select="string('Flash fired, red-eye reduction mode, return light detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='On, Red-eye reduction'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode, red-eye reduction mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='On, Red-eye reduction, Return not detected'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='On, Red-eye reduction, Return detected'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode, red-eye reduction mode, return light detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Auto, Fired, Red-eye reduction'">
+						<xsl:value-of select="string('Flash fired, auto mode, red-eye reduction mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Auto, Fired, Red-eye reduction, Return not detected'">
+						<xsl:value-of select="string('Flash fired, auto mode, return light not detected, red-eye reduction mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='Auto, Fired, Red-eye reduction, Return detected'">
+						<xsl:value-of select="string('Flash fired, auto mode, return light detected, red-eye reduction mode')"/>
+					</xsl:when>
+				</xsl:choose>
 			</flash>
 			<focalLength>
 				<xsl:value-of select="replace(exiftool/FocalLength,' mm','')"/>				

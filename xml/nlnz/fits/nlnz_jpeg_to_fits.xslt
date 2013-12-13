@@ -467,7 +467,7 @@
 					<xsl:value-of select="string('Strobe return light detected')"/>
 				</xsl:when>
 				<xsl:when test="$flash=8">
-					<xsl:value-of select="string('Flash did not fire')"/>
+					<xsl:value-of select="string('Flash did not fire, compulsory flash mode')"/>
 				</xsl:when>
 				<xsl:when test="$flash=9">
 					<xsl:value-of select="string('Flash fired, compulsory flash mode')"/>
@@ -478,12 +478,14 @@
 				<xsl:when test="$flash=15">
 					<xsl:value-of select="string('Flash fired, compulsory flash mode, return light detected')"/>
 				</xsl:when>
+				<!-- 
 				<xsl:when test="$flash=16">
 					<xsl:value-of select="string('Flash did not fire, compulsory flash mode')"/>
 				</xsl:when>
 				<xsl:when test="$flash=20">
 					<xsl:value-of select="string('Flash did not fire')"/>
 				</xsl:when>
+				 -->
 				<xsl:when test="$flash=24">
 					<xsl:value-of select="string('Flash did not fire, auto mode')"/>
 				</xsl:when>
@@ -491,7 +493,7 @@
 					<xsl:value-of select="string('Flash fired, auto mode')"/>
 				</xsl:when>
 				<xsl:when test="$flash=29">
-					<xsl:value-of select="string('AFlash fired, auto mode, return light not detected')"/>
+					<xsl:value-of select="string('Flash fired, auto mode, return light not detected')"/>
 				</xsl:when>
 				<xsl:when test="$flash=31">
 					<xsl:value-of select="string('Flash fired, auto mode, return light detected')"/>
@@ -499,9 +501,11 @@
 				<xsl:when test="$flash=32">
 					<xsl:value-of select="string('No flash function')"/>
 				</xsl:when>
+				<!-- 
 				<xsl:when test="$flash=48">
 					<xsl:value-of select="string('Flash did not fire')"/>
 				</xsl:when>
+				 -->
 				<xsl:when test="$flash=65">
 					<xsl:value-of select="string('Flash fired, red-eye reduction mode')"/>
 				</xsl:when>
@@ -520,12 +524,14 @@
 				<xsl:when test="$flash=79">
 					<xsl:value-of select="string('Flash fired, compulsory flash mode, red-eye reduction mode, return light detected')"/>
 				</xsl:when>
+				<!-- 
 				<xsl:when test="$flash=80">
 					<xsl:value-of select="string('Flash did not fire')"/>
 				</xsl:when>
 				<xsl:when test="$flash=88">
 					<xsl:value-of select="string('Flash did not fire, auto mode')"/>
 				</xsl:when>
+				 -->
 				<xsl:when test="$flash=89">
 					<xsl:value-of select="string('Flash fired, auto mode, red-eye reduction mode')"/>
 				</xsl:when>
