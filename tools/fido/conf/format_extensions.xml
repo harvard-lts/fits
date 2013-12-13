@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <formats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xsi:noNamespaceSchemaLocation="fido-formats.xsd" version="0.3">
   <format>
-    <puid>fido-fmt/189.word</puid>
+    <puid>fmt/412</puid>
+    <mime>application/vnd.openxmlformats-officedocument.wordprocessingml.document</mime>
     <name>Microsoft Office Open XML - Word</name>
     <extension>docx</extension>
     <has_priority_over>x-fmt/263</has_priority_over>
@@ -23,7 +24,8 @@
     </signature>
   </format>
   <format>
-    <puid>fido-fmt/189.xl</puid>
+    <puid>fmt/214</puid>
+    <mime>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</mime>
     <name>Microsoft Office Open XML - Excel</name>
     <extension>xlsx</extension>
     <has_priority_over>x-fmt/263</has_priority_over>
@@ -45,7 +47,8 @@
     </signature>
   </format>
   <format>
-    <puid>fido-fmt/189.ppt</puid>
+    <puid>fmt/215</puid>
+    <mime>application/vnd.openxmlformats-officedocument.presentationml.presentation</mime>
     <name>Microsoft Office Open XML - Powerpoint</name>
     <extension>pptx</extension>
     <has_priority_over>x-fmt/263</has_priority_over>

@@ -24,7 +24,7 @@ defaults = {
     'tmp_dir': 'tmp', 
     'signatureFileName' : 'DROID_SignatureFile-v{0}.xml',
     'pronomZipFileName' : 'pronom-xml-v{0}.zip',
-    'fidoSignatureVersion' : 'format_extensions_keep.xml', 
+    'fidoSignatureVersion' : 'format_extensions.xml', 
     'versionsFileName' : 'versions.xml',
     'http_throttle' : 0.5, # in secs, to prevent DoS of PRONOM server
     'containerVersion' : 'container-signature-20130501.xml', # container version is frozen and needs human attention before updating

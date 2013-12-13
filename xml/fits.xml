@@ -3,17 +3,28 @@
 
 	<!-- Order of the tools determines preference -->
 	<tools>		
-		<tool class="edu.harvard.hul.ois.fits.tools.fido.Fido" exclude-exts="ai"/>
-
+	
+		<tool class="edu.harvard.hul.ois.fits.tools.libdwg.DwgDump" include-exts="dwg"/>
+		
+		<tool class="edu.harvard.hul.ois.fits.tools.dbPreservationToolkit.DbPreservationToolkit" include-exts="xml"/>
+		
+		<tool class="edu.harvard.hul.ois.fits.tools.fido.Fido" exclude-exts="ai,ppt,msg"/>
+		
+		
 		<tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="dng"/>
+
 		
 		
 		
 		<tool class="edu.harvard.hul.ois.fits.tools.odftoolkit.OdfToolkitValidator" include-exts="odt,odp,ods,odf"/>
+		
 		<!-- <tool class="edu.harvard.hul.ois.fits.tools.odfValidator.OdfValidator" include-exts="odt,odp,ods,odf"/> -->
+		 
 		<tool class="edu.harvard.hul.ois.fits.tools.shpCharacterizationTool.ShpCharacterizationTool" include-exts="shp" />
 		<tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,arw,adl,eml,odg,otg,odp,otp,ods,ots,otc,odi,odf,otf,odm,oth,nsf"/>
-		<tool class="edu.harvard.hul.ois.fits.tools.msOfficeCharacterizationTool.MsOfficeCharacterizationTool" include-exts="docx,xlsx,pptx,doc,xls,ppt" />
+		<tool class="edu.harvard.hul.ois.fits.tools.msOfficeCharacterizationTool.MsOfficeCharacterizationTool" include-exts="docx,xlsx,pptx,doc,xls,ppt,msg,pst" />
+
+		<tool class="edu.harvard.hul.ois.fits.tools.aiCharacterizationTool.AiCharacterizationTool" include-exts="ai" />
 		<tool class="edu.harvard.hul.ois.fits.tools.cdrCharacterizationTool.CdrCharacterizationTool" include-exts="cdr" />
 		<tool class="edu.harvard.hul.ois.fits.tools.exiftool.Exiftool" exclude-exts="txt,wps,vsd"/>
 		
@@ -21,6 +32,7 @@
 
  		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.AudioInfo" include-exts="wav"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.ADLTool" include-exts="adl"/> 
+		
 
 		 
 	 	<tool class="edu.harvard.hul.ois.fits.tools.fileutility.FileUtility" exclude-exts="dng,wps,adl"/>	 	 
@@ -31,14 +43,15 @@
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.XmlMetadata" include-exts="xml"/>	
 		<tool class="edu.harvard.hul.ois.fits.tools.ffident.FFIdent" exclude-exts="dng,wps,vsd"/> 
 		<tool class="edu.harvard.hul.ois.fits.tools.tika.TikaTool"/>
-
+		
+		
 		
 		
 	</tools>
 		
 	<output>
 		<dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
-		<display-tool-output>false</display-tool-output>
+		<display-tool-output>true</display-tool-output>
 		<report-conflicts>false</report-conflicts>	
 		<validate-tool-output>false</validate-tool-output>
 		<internal-output-schema>xml/fits_output.xsd</internal-output-schema>

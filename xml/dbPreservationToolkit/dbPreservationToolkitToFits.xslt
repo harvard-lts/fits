@@ -12,7 +12,7 @@
 				<identity>
 
 				<xsl:attribute name="format">
-					<xsl:value-of select="string('DBXML')"/>
+					<xsl:value-of select="string('DBML')"/>
 				</xsl:attribute> 
 				<xsl:attribute name="mimetype">		
 					<xsl:value-of select="string('text/xml')"/>

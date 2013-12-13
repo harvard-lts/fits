@@ -1,0 +1,3 @@
+Added mimetype "application/coreldraw" for CorelDraw Drawing formats
+Added mimetype "application/illustrator" for Adobe Illustrator formats
+Added mimetype "application/msoutlook" for Microsoft Outlook Email Message formats

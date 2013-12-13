@@ -68,7 +68,7 @@ public class Fido extends ToolBase{
 		
 		
 		String[] lines = execOut.split("\n");
-		String selected = lines[lines.length-1];
+		String selected = lines[0];
 		
     	StringWriter out = new StringWriter();
     	String[] tokens = selected.split(",");

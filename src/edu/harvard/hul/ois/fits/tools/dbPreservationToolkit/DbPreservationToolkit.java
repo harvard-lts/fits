@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
-import org.jdom.output.XMLOutputter;
 import org.xml.sax.InputSource;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -39,33 +38,42 @@ public class DbPreservationToolkit extends ToolBase{
 	}
 	@Override
 	
-	public ToolOutput extractInfo(File file) throws FitsToolException {
+	public ToolOutput extractInfo(File file)  {
 		long startTime = System.currentTimeMillis();
-		List<String> execCommand = new ArrayList<String>();
-		execCommand.addAll(command);
-		execCommand.add(file.getParent());
-		String execOut = CommandLine.exec(execCommand,null);
-		
-		
-		if(XmlUtils.isXMLValid(execOut, new File(Fits.FITS_HOME+"xml/dbPreservationToolkit/outputSchema.xsd"))){
-			try{
-				output = getFitsOutput(execOut);
-				duration = System.currentTimeMillis()-startTime;
-				runStatus = RunStatus.SUCCESSFUL;
-				return output;
-			}catch(Exception e){
-				return null;
+		try{
+			
+			List<String> execCommand = new ArrayList<String>();
+			execCommand.addAll(command);
+			execCommand.add(file.getParent());
+			String execOut = CommandLine.exec(execCommand,null);
+			
+			
+			if(XmlUtils.isXMLValid(execOut, new File(Fits.FITS_HOME+"xml/dbPreservationToolkit/outputSchema.xsd"))){
+				try{
+					output = getFitsOutput(execOut);
+					duration = System.currentTimeMillis()-startTime;
+					runStatus = RunStatus.SUCCESSFUL;
+					return output;
+				}catch(Exception e){
+					return null;
+				}
+			}else{
+				try{
+					execOut="<xml><out></out></xml>";
+					output = getFitsOutput(execOut);
+					duration = System.currentTimeMillis()-startTime;
+					runStatus = RunStatus.SUCCESSFUL;
+					return output;
+				}catch(Exception e){
+					return null;
+				}
 			}
-		}else{
-			try{
-				execOut="<xml><out></out></xml>";
-				output = getFitsOutput(execOut);
-				duration = System.currentTimeMillis()-startTime;
-				runStatus = RunStatus.SUCCESSFUL;
-				return output;
-			}catch(Exception e){
-				return null;
-			}
+		}catch(Exception e){
+			String execOut="<xml><out></out></xml>";
+			output = getFitsOutput(execOut);
+			duration = System.currentTimeMillis()-startTime;
+			runStatus = RunStatus.SUCCESSFUL;
+			return output;
 		}
 	}
 

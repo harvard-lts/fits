@@ -35,6 +35,12 @@
      				<xsl:value-of select="."/>
 			</xsl:element>
 		</xsl:for-each>
+		<xsl:for-each select="//msg/*">
+			<xsl:variable name="field" select="name(.)"></xsl:variable>
+			<xsl:element name="{$field}">
+     				<xsl:value-of select="."/>
+			</xsl:element>
+		</xsl:for-each>
 		</document>
 	</metadata>
     </fits>
