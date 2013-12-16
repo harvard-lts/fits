@@ -108,7 +108,10 @@
 				</xsl:when>	
 				<xsl:when test="$format='DOC'">
 					<xsl:value-of select="string('Microsoft Word')"/>
-				</xsl:when>	
+				</xsl:when>
+				<xsl:when test="$format='GZIP'">
+					<xsl:value-of select="string('GZIP Format')"/>
+				</xsl:when>		
 				<xsl:when test="$format='PSD'">
 					<xsl:value-of select="string('Adobe Photoshop (PSD)')"/>
 				</xsl:when>
@@ -116,7 +119,7 @@
 					<xsl:value-of select="string('Audio Interchange File Format')"/>
 				</xsl:when>	
 				<xsl:when test="$format='OGG'">
-					<xsl:value-of select="string('Ogg')"/>
+					<xsl:value-of select="string('Ogg Vorbis Codec Compressed Multimedia File')"/>
 				</xsl:when>	
 				<xsl:when test="$format='ODP'">
 					<xsl:value-of select="string('OpenDocument Presentation')"/>

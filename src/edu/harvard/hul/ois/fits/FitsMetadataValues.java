@@ -162,27 +162,59 @@ public class FitsMetadataValues {
     /** Mapping from MIME types to standard names. This is an incomplete map,
      *  holding only cases where conversion is necessary. Expand as needed.
      */
-    public final static Map<String, String> mimeToDescMap =new HashMap<String, String>();
+    public final static Map<String, String> mimeToFormatMap =new HashMap<String, String>();
     static {
         //mimeToDescMap.put ("image/jpeg", "JPEG File Interchange Format");
-        mimeToDescMap.put ("image/jpx",  "JPEG 2000 JPX");
-        mimeToDescMap.put ("image/jp2",  "JPEG 2000 JP2");
+        mimeToFormatMap.put ("image/jpx",  "JPEG 2000 JPX");
+        mimeToFormatMap.put ("image/jp2",  "JPEG 2000 JP2");
+        mimeToFormatMap.put ("application/zip",  "ZIP Format");
     }
     
     /** Mapping from format names to standard names. This is an incomplete map,
      *  holding only cases where conversion is necessary. Expand as needed.
      */
-    public final static Map<String, String> formatToDescMap =new HashMap<String, String>();
+    public final static Map<String, String> formatMap =new HashMap<String, String>();
     static {
-    	formatToDescMap.put ("MPEG-1 Audio Layer 3",  "MPEG 1/2 Audio Layer 3");
-    	formatToDescMap.put ("OpenDocument v1.0: Presentation document",  "OpenDocument Presentation");
-    	formatToDescMap.put ("OpenDocument v1.0: Text document",  "OpenDocument Text");
-    	formatToDescMap.put ("OpenDocument v1.0: Spreadsheet document",  "OpenDocument Spreadsheet");
-    	formatToDescMap.put ("OpenDocument v1.0: Formula document",  "OpenDocument Formula");
-    	formatToDescMap.put ("OpenDocument v1.0: Graphics document (Drawing)",  "OpenDocument Graphics");
-    	formatToDescMap.put ("Waveform Audio (PCMWAVEFORMAT)",  "Waveform Audio");
-    	formatToDescMap.put ("Microsoft Word Document",  "Microsoft Word");
-    	formatToDescMap.put ("Joint Photographic Experts Group",  "jpeg");
-    	formatToDescMap.put ("",  "Unknown Binary");
+    	formatMap.put ("MPEG-1 Audio Layer 3",  "MPEG 1/2 Audio Layer 3");
+    	formatMap.put ("OpenDocument v1.0: Presentation document",  "OpenDocument Presentation");
+    	formatMap.put ("OpenDocument v1.0: Text document",  "OpenDocument Text");
+    	formatMap.put ("OpenDocument v1.0: Spreadsheet document",  "OpenDocument Spreadsheet");
+    	formatMap.put ("OpenDocument v1.0: Formula document",  "OpenDocument Formula");
+    	formatMap.put ("OpenDocument v1.0: Graphics document (Drawing)",  "OpenDocument Graphics");
+    	formatMap.put ("Waveform Audio (PCMWAVEFORMAT)",  "Waveform Audio");
+    	formatMap.put ("Microsoft Word Document",  "Microsoft Word");
+    	formatMap.put ("Joint Photographic Experts Group",  "jpeg");
+    	formatMap.put ("Gzip Compressed Archive",  "GZIP Format");
+    	formatMap.put ("Windows bitmap",  "Windows Bitmap");
+    	formatMap.put ("",  "Unknown Binary");
+    }
+    
+    /** Mapping from mime types to standard mimetypes. This is an incomplete map,
+     *  holding only cases where conversion is necessary. Expand as needed.
+     */
+    public final static Map<String, String> mimeMap =new HashMap<String, String>();
+    static {
+    	mimeMap.put ("image/x-ms-bmp",  "image/bmp");
+    	mimeMap.put("application/rdf+xml","text/xml");
+    	mimeMap.put("application/xml","text/xml");
+    	mimeMap.put("audio/x-wav","audio/x-wave");
+    	mimeMap.put("audio/aiff","audio/x-aiff");
+    	mimeMap.put("audio/x-ogg","audio/ogg");
+    	mimeMap.put("audio/flac","audio/x-flac");
+    	mimeMap.put("application/photoshop","image/vnd.adobe.photoshop");
+    }
+    
+    /** Do some normalization on variant MIME types. */
+    public static String normalizeMimeType (String mime) {
+        if (mime == null || mime.length()==0) {
+            return "application/octet-stream";
+        }
+        String normMime = mimeMap.get(mime);
+        if (normMime != null) {
+            return normMime;
+        }
+        else {
+            return mime;
+        }
     }
 }

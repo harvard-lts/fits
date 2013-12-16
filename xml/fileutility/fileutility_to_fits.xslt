@@ -296,7 +296,7 @@
 						    <xsl:matching-substring>
 						    	<xsl:attribute name="format">
 						    		<xsl:if test="regex-group(1)='Ogg data, Vorbis audio'">
-										<xsl:value-of select="string('Ogg')"/>
+										<xsl:value-of select="string('Ogg Vorbis Codec Compressed Multimedia File')"/>
 									</xsl:if>
 						    	</xsl:attribute>
 						    	<!-- 
