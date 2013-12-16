@@ -28,6 +28,9 @@
 				<xsl:when test="$mime='audio/aiff'">
 					<xsl:value-of select="string('audio/x-aiff')"/>
 				</xsl:when>
+				<xsl:when test="$mime='application/vnd.adobe.photoshop'">
+					<xsl:value-of select="string('image/vnd.adobe.photoshop')"/>
+				</xsl:when>
 				<xsl:when test="$mime='audio/x-ogg'">
 					<xsl:value-of select="string('audio/ogg')"/>
 				</xsl:when>
@@ -70,6 +73,12 @@
 				<xsl:when test="$format='JPEG EXIF'">
 					<xsl:value-of select="string('Exchangeable Image File Format')"/>
 				</xsl:when>
+				<xsl:when test="$format='PSD EXIF'">
+					<xsl:value-of select="string('Adobe Photoshop')"/>
+				</xsl:when>
+				<xsl:when test="$format='PSD'">
+					<xsl:value-of select="string('Adobe Photoshop')"/>
+				</xsl:when>
 				<xsl:when test="$format='PNG'">
 					<xsl:value-of select="string('Portable Network Graphics')"/>
 				</xsl:when>		
@@ -81,6 +90,9 @@
 				</xsl:when>
 				<xsl:when test="$format='TIFF EXIF'">
 					<xsl:value-of select="string('Tagged Image File Format')"/>						
+				</xsl:when>
+				<xsl:when test="$format='AVI'">
+					<xsl:value-of select="string('Audio/Video Interleaved Format')"/>		
 				</xsl:when>
 				<xsl:when test="$format='BMP'">
 					<xsl:value-of select="string('Windows Bitmap')"/>		
@@ -136,6 +148,9 @@
 				<xsl:when test="$format='ODG'">
 					<xsl:value-of select="string('OpenDocument Graphics')"/>
 				</xsl:when>	
+				<xsl:when test="$format='PPT'">
+					<xsl:value-of select="string('Microsoft Powerpoint Presentation')"/>
+				</xsl:when>	
 				<xsl:when test="$format='M4A'">
 					<xsl:value-of select="string('MPEG-4 Audio')"/>
 				</xsl:when>		
@@ -155,13 +170,19 @@
 					<xsl:value-of select="string('ZIP Format')"/>
 				</xsl:when>		
 				<xsl:when test="$format='FLV'">
-					<xsl:value-of select="string('Flash Video (FLV)')"/>
+					<xsl:value-of select="string('Macromedia FLV')"/>
 				</xsl:when>	
 				<xsl:when test="$format='PS'">
 					<xsl:value-of select="string('Postscript')"/>
 				</xsl:when>	
 				<xsl:when test="$format='JPX'">
 					<xsl:value-of select="string('JPEG 2000 JPX')"/>
+				</xsl:when>	
+				<xsl:when test="$format='XLS'">
+					<xsl:value-of select="string('Microsoft Excel')"/>
+				</xsl:when>	
+				<xsl:when test="$format='XMP'">
+					<xsl:value-of select="string('Extensible Markup Language')"/>
 				</xsl:when>	
 				<xsl:when test="$format='XMP EXIF'">
 					<xsl:value-of select="string('Extensible Markup Language')"/>

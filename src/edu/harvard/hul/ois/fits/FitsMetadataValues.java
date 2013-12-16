@@ -181,12 +181,22 @@ public class FitsMetadataValues {
     	formatMap.put ("OpenDocument v1.0: Spreadsheet document",  "OpenDocument Spreadsheet");
     	formatMap.put ("OpenDocument v1.0: Formula document",  "OpenDocument Formula");
     	formatMap.put ("OpenDocument v1.0: Graphics document (Drawing)",  "OpenDocument Graphics");
+    	formatMap.put ("OpenDocument v1.0: Global Text document",  "OpenDocument Master Document");
     	formatMap.put ("Waveform Audio (PCMWAVEFORMAT)",  "Waveform Audio");
     	formatMap.put ("Microsoft Word Document",  "Microsoft Word");
     	formatMap.put ("Joint Photographic Experts Group",  "jpeg");
     	formatMap.put ("Gzip Compressed Archive",  "GZIP Format");
     	formatMap.put ("Windows bitmap",  "Windows Bitmap");
+    	formatMap.put ("PPT",  "Microsoft Powerpoint Presentation");
+    	formatMap.put ("Plain Text File",  "Plain text");
+    	formatMap.put ("Scalable Vector Graphics",  "Scalable Vector Graphics (SVG)");
+    	formatMap.put ("Tagged Image File Format for Internet Fax (TIFF-FX)",  "Tagged Image File Format");
+    	formatMap.put ("Microsoft Excel Spreadsheet",  "Microsoft Excel");
+    	formatMap.put ("Audio Video Interleave File",  "Audio/Video Interleaved Format");
+    	formatMap.put ("Photoshop Image",  "Adobe Photoshop");
     	formatMap.put ("",  "Unknown Binary");
+    	
+    	
     }
     
     /** Mapping from mime types to standard mimetypes. This is an incomplete map,
@@ -202,6 +212,8 @@ public class FitsMetadataValues {
     	mimeMap.put("audio/x-ogg","audio/ogg");
     	mimeMap.put("audio/flac","audio/x-flac");
     	mimeMap.put("application/photoshop","image/vnd.adobe.photoshop");
+    	mimeMap.put("application/fits, image/fits","application/fits");
+    	mimeMap.put("com.adobe.photoshop-image, image/vnd.adobe.photoshop","image/vnd.adobe.photoshop");
     }
     
     /** Do some normalization on variant MIME types. */

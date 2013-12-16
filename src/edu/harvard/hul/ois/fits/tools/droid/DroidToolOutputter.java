@@ -58,7 +58,11 @@ public class DroidToolOutputter {
             String formatName = res.getName();
             formatName = mapFormatName(formatName);
             String mimeType = res.getMimeType();
-            mimeType = mapMimeType(mimeType);
+            
+            if(FitsMetadataValues.mimeMap.get(mimeType) != null) {
+            	mimeType = FitsMetadataValues.mimeMap.get(mimeType); 
+            }
+            
             String version = res.getVersion();
             version = mapVersion(version);
             
@@ -110,9 +114,6 @@ public class DroidToolOutputter {
     	else if(formatName.startsWith("Exchangeable Image File Format (Compressed)")) {
     		return "Exchangeable Image File Format";
     	}    	
-    	else if(formatName.equals("Plain Text File")) {
-    		return "Plain text";
-    	}
     	else if(formatName.contains("PDF/A")) {
     		return "PDF/A";
     	}
@@ -122,33 +123,14 @@ public class DroidToolOutputter {
     	else if(formatName.contains("Portable Document Format")) {
     		return "Portable Document Format";
     	}
-    	else if(formatName.equals("Scalable Vector Graphics")) {
-    		return "Scalable Vector Graphics (SVG)";
+    	else if(formatName.startsWith("Microsoft Excel")) {
+    		return "Microsoft Excel";
     	}
-    	else if(formatName.equals("Waveform Audio (PCMWAVEFORMAT)")) {
-    		return "Waveform Audio";
-    	}
-    	else if(formatName.equals("Tagged Image File Format for Internet Fax (TIFF-FX)")) {
-    		return "Tagged Image File Format";
+    	else if(FitsMetadataValues.formatMap.get(formatName) != null){
+    		return FitsMetadataValues.formatMap.get(formatName);
     	}
     	else {
     		return formatName;
-    	}
-    }
-    
-    private String mapMimeType(String mime) {
-    	
-    	if(mime == null || mime.length() == 0) {
-    		return FitsMetadataValues.DEFAULT_MIMETYPE;
-    	}
-    	else if(mime.equals("text/xml")) {
-    		return "text/xml";
-    	}  
-    	else if(mime.equals("audio/x-wav")) {
-    		return "audio/x-wave";
-    	} 
-    	else {
-    		return mime;
     	}
     }
     

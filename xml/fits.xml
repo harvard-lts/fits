@@ -8,17 +8,17 @@
 		<tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,arw,adl,eml,java"/>
 	 	<tool class="edu.harvard.hul.ois.fits.tools.fileutility.FileUtility" exclude-exts="dng,wps,adl,jar"/>
 	 	<tool class="edu.harvard.hul.ois.fits.tools.exiftool.Exiftool" exclude-exts="txt,wps,vsd,jar"/>
-	 	<tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="dng"/>
+	 	<tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="dng,odm"/>
 	 	<tool class="edu.harvard.hul.ois.fits.tools.nlnz.MetadataExtractor" exclude-exts="dng,zip,odb,ott,odg,otg,odp,otp,ods,ots,odc,otc,odi,oti,odf,otf,odm,oth,tif,tiff"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.FileInfo"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.XmlMetadata" include-exts="xml"/>
-		<tool class="edu.harvard.hul.ois.fits.tools.ffident.FFIdent" exclude-exts="dng,wps,vsd,jar"/>
+		<tool class="edu.harvard.hul.ois.fits.tools.ffident.FFIdent" exclude-exts="dng,wps,vsd,jar,ppt"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.tika.TikaTool" exclude-exts="dng,jar"/>
 	</tools> 
   		
 	<output>
 		<dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
-		<display-tool-output>false</display-tool-output>
+		<display-tool-output>true</display-tool-output>
 		<report-conflicts>true</report-conflicts>	
 		<validate-tool-output>true</validate-tool-output>
 		<internal-output-schema>xml/fits_output.xsd</internal-output-schema>

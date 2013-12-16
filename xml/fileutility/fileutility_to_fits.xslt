@@ -415,7 +415,7 @@
 					</xsl:when>		
 					<xsl:when test="$format='Macromedia Flash Video'">
 						<xsl:attribute name="format">
-							<xsl:value-of select="string('Flash Video (FLV)')"/>
+							<xsl:value-of select="string('Macromedia FLV')"/>
 						</xsl:attribute>
 					</xsl:when>		
 					<xsl:when test="$format='data'">
@@ -432,7 +432,22 @@
 						<xsl:attribute name="format">	
 							<xsl:value-of select="string('x86 boot sector')"/>
 						</xsl:attribute>
-					</xsl:when>					
+					</xsl:when>			
+					<xsl:when test="starts-with($format,'Adobe Photoshop Image')">
+						<xsl:attribute name="format">	
+							<xsl:value-of select="string('Adobe Photoshop')"/>
+						</xsl:attribute>
+					</xsl:when>			
+					<xsl:when test="starts-with($format,'RIFF (little-endian) data, AVI')">
+						<xsl:attribute name="format">	
+							<xsl:value-of select="string('Audio/Video Interleaved Format')"/>
+						</xsl:attribute>
+					</xsl:when>			
+					<xsl:when test="starts-with($format,'MPEG ADTS, AAC')">
+						<xsl:attribute name="format">	
+							<xsl:value-of select="string('AAC')"/>
+						</xsl:attribute>
+					</xsl:when>			
 					<xsl:otherwise>
 						<xsl:attribute name="format">
 							<xsl:value-of select="$format"/>
