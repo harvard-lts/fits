@@ -35,7 +35,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<colorSpace>
 				<xsl:choose>
 					<!-- Ignore colorspace output for JPEG images -->
-					<xsl:when test="exiftool/FileType='JP2'">
+					<xsl:when test="exiftool/FileType='JP2' or exiftool/FileType='JPX'">
 						<!--  if there is no icc profile description, use the colorspace -->
 						<xsl:if test="string-length(exiftool/ProfileDescription) = 0">
 							<xsl:choose>
