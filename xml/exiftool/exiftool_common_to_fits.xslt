@@ -107,7 +107,27 @@
 					<xsl:value-of select="string('Waveform Audio')"/>
 				</xsl:when>
 				<xsl:when test="$format='JP2'">
-					<xsl:value-of select="string('JPEG 2000')"/>
+					<xsl:choose>
+						<xsl:when test="contains(exiftool/CompatibleBrands,'jp2')">
+							<xsl:value-of select="string('JPEG 2000 JP2')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="string('JPEG 2000')"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>	
+				<xsl:when test="$format='JPX'">
+					<xsl:choose>
+						<xsl:when test="contains(exiftool/CompatibleBrands,'jpx')">
+							<xsl:value-of select="string('JPEG 2000 JPX')"/>
+						</xsl:when>
+						<xsl:when test="contains(exiftool/CompatibleBrands,'jp2')">
+							<xsl:value-of select="string('JPEG 2000 JP2')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="string('JPEG 2000')"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:when>	
 		   		<xsl:when test="$format='RM'">
 						<xsl:value-of select="string('RealMedia')" />
@@ -174,9 +194,6 @@
 				</xsl:when>	
 				<xsl:when test="$format='PS'">
 					<xsl:value-of select="string('Postscript')"/>
-				</xsl:when>	
-				<xsl:when test="$format='JPX'">
-					<xsl:value-of select="string('JPEG 2000 JPX')"/>
 				</xsl:when>	
 				<xsl:when test="$format='XLS'">
 					<xsl:value-of select="string('Microsoft Excel')"/>
