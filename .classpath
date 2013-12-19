@@ -24,7 +24,7 @@
 	<classpathentry kind="lib" path="lib/saxon9-dom.jar"/>
 	<classpathentry kind="lib" path="lib/saxon9-jdom.jar"/>
 	<classpathentry kind="lib" path="lib/saxon9.jar"/>
-	<classpathentry kind="lib" path="lib/ots.jar"/>
+	<classpathentry kind="lib" path="lib/ots.jar" sourcepath="/OTS"/>
 	<classpathentry kind="lib" path="lib/AES31.jar"/>
 	<classpathentry kind="lib" path="lib/hclaps.jar"/>
 	<classpathentry kind="lib" path="lib/stax2-api-3.0.1.jar"/>

@@ -18,9 +18,9 @@
   		
 	<output>
 		<dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
-		<display-tool-output>true</display-tool-output>
+		<display-tool-output>false</display-tool-output>
 		<report-conflicts>true</report-conflicts>	
-		<validate-tool-output>true</validate-tool-output>
+		<validate-tool-output>false</validate-tool-output>
 		<internal-output-schema>xml/fits_output.xsd</internal-output-schema>
 		<external-output-schema>http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd</external-output-schema>
 		<fits-xml-namespace>http://hul.harvard.edu/ois/xml/ns/fits/fits_output</fits-xml-namespace>

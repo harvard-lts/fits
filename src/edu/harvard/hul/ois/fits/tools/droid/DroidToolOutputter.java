@@ -59,8 +59,8 @@ public class DroidToolOutputter {
             formatName = mapFormatName(formatName);
             String mimeType = res.getMimeType();
             
-            if(FitsMetadataValues.mimeMap.get(mimeType) != null) {
-            	mimeType = FitsMetadataValues.mimeMap.get(mimeType); 
+            if(FitsMetadataValues.getInstance().normalizeMimeType(mimeType) != null) {
+            	mimeType = FitsMetadataValues.getInstance().normalizeMimeType(mimeType); 
             }
             
             String version = res.getVersion();
@@ -126,8 +126,8 @@ public class DroidToolOutputter {
     	else if(formatName.startsWith("Microsoft Excel")) {
     		return "Microsoft Excel";
     	}
-    	else if(FitsMetadataValues.formatMap.get(formatName) != null){
-    		return FitsMetadataValues.formatMap.get(formatName);
+    	else if(FitsMetadataValues.getInstance().normalizeFormat(formatName) != null){
+    		return FitsMetadataValues.getInstance().normalizeFormat(formatName);
     	}
     	else {
     		return formatName;

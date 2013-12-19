@@ -262,9 +262,9 @@
 					<xsl:when test="$orientation=8">
 						<xsl:value-of select="string('normal, rotated cw 90°')"/>
 					</xsl:when>
-					<xsl:otherwise>
+<!-- 					<xsl:otherwise>
 						<xsl:value-of select="$orientation"/>
-					</xsl:otherwise>
+					</xsl:otherwise> -->
 				</xsl:choose>
 			</orientation>
           
@@ -559,9 +559,9 @@
           <sensingMethod>
 	       	<xsl:variable name="sensingMethod" select="JPG/EXIF/SENSINGMETHOD/VALUE"/>
 	      	<xsl:choose>
-				<xsl:when test="$sensingMethod=1">
+<!-- 				<xsl:when test="$sensingMethod=1">
 					<xsl:value-of select="string('Monochrome area')"/>
-				</xsl:when>
+				</xsl:when> -->
 				<xsl:when test="$sensingMethod=2">
 					<xsl:value-of select="string('One-chip color area sensor')"/>
 				</xsl:when>
@@ -574,9 +574,9 @@
 				<xsl:when test="$sensingMethod=5">
 					<xsl:value-of select="string('Color sequential area sensor')"/>
 				</xsl:when>
-				<xsl:when test="$sensingMethod=6">
+<!-- 				<xsl:when test="$sensingMethod=6">
 					<xsl:value-of select="string('Monochrome linear ')"/>
-				</xsl:when>
+				</xsl:when> -->
 				<xsl:when test="$sensingMethod=7">
 					<xsl:value-of select="string('Trilinear sensor')"/>
 				</xsl:when>

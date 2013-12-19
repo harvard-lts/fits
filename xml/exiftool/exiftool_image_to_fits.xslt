@@ -101,9 +101,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					<xsl:when test="$orientation='Rotate 270 CW'">
 						<xsl:value-of select="string('normal, rotated cw 90°')"/>
 					</xsl:when>
-					<xsl:otherwise>
+<!-- 					<xsl:otherwise>
 						<xsl:value-of select="$orientation"/>
-					</xsl:otherwise>
+					</xsl:otherwise> -->
 				</xsl:choose>
 			</orientation>
 			
@@ -493,7 +493,27 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:value-of select="exiftool/ExposureIndex"/>
 			</exposureIndex>
 			<sensingMethod>
-				<xsl:value-of select="exiftool/SensingMethod"/>
+				<xsl:variable name="sensingMethod" select="exiftool/SensingMethod"/>
+				<xsl:choose>
+ 					<xsl:when test="$sensingMethod='Trilinear'">
+						<xsl:value-of select="string('Trilinear sensor')"/>
+					</xsl:when>
+					<xsl:when test="$sensingMethod='Color sequential linear'">
+						<xsl:value-of select="string('Color sequential linear sensor')"/>
+					</xsl:when>
+					<xsl:when test="$sensingMethod='One-chip color area'">
+						<xsl:value-of select="string('One-chip color area sensor')"/>
+					</xsl:when>
+					<xsl:when test="$sensingMethod='Two-chip color area'">
+						<xsl:value-of select="string('Two-chip color area sensor')"/>
+					</xsl:when>
+					<xsl:when test="$sensingMethod='Three-chip color area'">
+						<xsl:value-of select="string('Three-chip color area sensor')"/>
+					</xsl:when>
+					<xsl:when test="$sensingMethod='Color sequential area'">
+						<xsl:value-of select="string('Color sequential area sensor')"/>
+					</xsl:when>
+				</xsl:choose>
 			</sensingMethod>
 			<cfaPattern>
 				<xsl:value-of select="exiftool/CFAPattern"/>
@@ -506,40 +526,50 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<gpsVersionID>
 				<xsl:value-of select="exiftool/GPSVersionID"/>
 			</gpsVersionID>
-			<xsl:choose>
-				<xsl:when test="exiftool/GPSLatitudeRef">
-					<gpsLatitudeRef>
-						<xsl:value-of select="exiftool/GPSLatitudeRef"/>
-					</gpsLatitudeRef>
-				</xsl:when>
-				<xsl:when test="exiftool/GPSLatitude">
-					<gpsLatitudeRef>
-						<xsl:value-of select="substring-after(exiftool/GPSLatitude,'&quot; ')"/>
-					</gpsLatitudeRef>
-				</xsl:when>
-			</xsl:choose>			
+			
+			
+			<gpsLatitudeRef>
+				<xsl:variable name="gpsLatRef" select="exiftool/GPSLatitudeRef"/>
+				<xsl:choose>
+					<xsl:when test="$gpsLatRef='North'">
+						<xsl:value-of select="string('N')"/>
+					</xsl:when>
+					<xsl:when test="$gpsLatRef='South'">
+						<xsl:value-of select="string('S')"/>
+					</xsl:when>
+				</xsl:choose>
+			</gpsLatitudeRef>
+					
 			<gpsLatitude>
 				<xsl:value-of select="exiftool/GPSLatitude"/>
 			</gpsLatitude>			
 			
-			<xsl:choose>
-				<xsl:when test="exiftool/GPSLongitudeRef">
-					<gpsLongitudeRef>
-						<xsl:value-of select="exiftool/GPSLongitudeRef"/>
-					</gpsLongitudeRef>
-				</xsl:when>
-				<xsl:when test="exiftool/GPSLongitude">
-					<gpsLongitudeRef>
-						<xsl:value-of select="substring-after(exiftool/GPSLongitude,'&quot; ')"/>
-					</gpsLongitudeRef>
-				</xsl:when>
-			</xsl:choose>			
+			<gpsLongitudeRef>
+				<xsl:variable name="gpsLonRef" select="exiftool/GPSLongitudeRef"/>
+				<xsl:choose>
+					<xsl:when test="$gpsLonRef='East'">
+						<xsl:value-of select="string('E')"/>
+					</xsl:when>
+					<xsl:when test="$gpsLonRef='West'">
+						<xsl:value-of select="string('W')"/>
+					</xsl:when>
+				</xsl:choose>
+			</gpsLongitudeRef>
+					
 			<gpsLongitude>
 				<xsl:value-of select="exiftool/GPSLongitude"/>
 			</gpsLongitude>	
 			
 			<gpsAltitudeRef>
-				<xsl:value-of select="exiftool/GPSAltitudeRef"/>
+				<xsl:variable name="gpsAltRef" select="exiftool/GPSAltitudeRef"/>
+				<xsl:choose>
+					<xsl:when test="$gpsAltRef='Above Sea Level'">
+						<xsl:value-of select="string('Sea level')"/>
+					</xsl:when>
+					<xsl:when test="$gpsAltRef='Below Sea Level'">
+						<xsl:value-of select="string('Sea level reference (negative value)')"/>
+					</xsl:when>
+				</xsl:choose>
 			</gpsAltitudeRef>
 			<gpsAltitude>
 				<xsl:value-of select="exiftool/GPSAltitude"/>
@@ -551,28 +581,65 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:value-of select="exiftool/GPSSatellites"/>
 			</gpsSatellites>
 			<gpsStatus>
-				<xsl:value-of select="exiftool/GPSStatus"/>
+				<xsl:variable name="gpsStatus" select="exiftool/GPSStatus"/>
+				<xsl:choose>
+					<xsl:when test="$gpsStatus='Measurement Active'">
+						<xsl:value-of select="string('A')"/>
+					</xsl:when>
+					<xsl:when test="$gpsStatus='Measurement Void'">
+						<xsl:value-of select="string('V')"/>
+					</xsl:when>
+				</xsl:choose>
 			</gpsStatus>
 			<gpsMeasureMode>
-				<xsl:value-of select="exiftool/GPSMeasureMode"/>
+				<xsl:if test="exiftool/GPSMeasureMode">
+					<xsl:value-of select="lower-case(exiftool/GPSMeasureMode)"/>
+				</xsl:if>
 			</gpsMeasureMode>
 			<gpsDOP>
 				<xsl:value-of select="exiftool/GPSDOP"/>
 			</gpsDOP>
 			<gpsSpeedRef>
-				<xsl:value-of select="exiftool/GPSSpeedRef"/>
+				<xsl:variable name="gpsSpeedRef" select="exiftool/GPSSpeedRef"/>
+				<xsl:choose>
+					<xsl:when test="$gpsSpeedRef='km/h'">
+						<xsl:value-of select="string('K')"/>
+					</xsl:when>
+					<xsl:when test="$gpsSpeedRef='mph'">
+						<xsl:value-of select="string('M')"/>
+					</xsl:when>
+					<xsl:when test="$gpsSpeedRef='knots'">
+						<xsl:value-of select="string('N')"/>
+					</xsl:when>
+				</xsl:choose>
 			</gpsSpeedRef>
 			<gpsSpeed>
 				<xsl:value-of select="exiftool/GPSSpeed"/>
 			</gpsSpeed>
 			<gpsTrackRef>
-				<xsl:value-of select="exiftool/GPSTrackRef"/>
+				<xsl:variable name="gpsTrackRef" select="exiftool/GPSTrackRef"/>
+				<xsl:choose>
+					<xsl:when test="$gpsTrackRef='Magnetic North'">
+						<xsl:value-of select="string('M')"/>
+					</xsl:when>
+					<xsl:when test="$gpsTrackRef='True North'">
+						<xsl:value-of select="string('T')"/>
+					</xsl:when>
+				</xsl:choose>
 			</gpsTrackRef>
 			<gpsTrack>
 				<xsl:value-of select="exiftool/GPSTrack"/>
 			</gpsTrack>
 			<gpsImgDirectionRef>
-				<xsl:value-of select="exiftool/GPSImgDirectionRef"/>
+				<xsl:variable name="gpsImgDirRef" select="exiftool/GPSImgDirectionRef"/>
+				<xsl:choose>
+					<xsl:when test="$gpsImgDirRef='Magnetic North'">
+						<xsl:value-of select="string('M')"/>
+					</xsl:when>
+					<xsl:when test="$gpsImgDirRef='True North'">
+						<xsl:value-of select="string('T')"/>
+					</xsl:when>
+				</xsl:choose>
 			</gpsImgDirectionRef>
 			<gpsImgDirection>
 				<xsl:value-of select="exiftool/GPSImgDirection"/>
@@ -580,45 +647,61 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<gpsMapDatum>
 				<xsl:value-of select="exiftool/GPSMapDatum"/>
 			</gpsMapDatum>
-			<xsl:choose>
-				<xsl:when test="exiftool/GPSDestLatitudeRef">
-					<gpsDestLatitudeRef>
-						<xsl:value-of select="exiftool/GPSDestLatitudeRef"/>
-					</gpsDestLatitudeRef>
-				</xsl:when>
-				<xsl:when test="exiftool/GPSDestLatitude">
-					<gpsDestLatitudeRef>
-						<xsl:value-of select="substring-after(exiftool/GPSDestLatitude,'&quot; ')"/>
-					</gpsDestLatitudeRef>
-				</xsl:when>
-			</xsl:choose>			
+			<gpsDestLatitudeRef>
+				<xsl:variable name="gpsDestLatRef" select="exiftool/GPSDestLatitudeRef"/>
+				<xsl:choose>
+					<xsl:when test="$gpsDestLatRef='North'">
+						<xsl:value-of select="string('N')"/>
+					</xsl:when>
+					<xsl:when test="gpsDestLatRef='South'">
+						<xsl:value-of select="string('S')"/>
+					</xsl:when>
+				</xsl:choose>
+			</gpsDestLatitudeRef>
 			<gpsDestLatitude>
 				<xsl:value-of select="exiftool/GPSDestLatitude"/>
-			</gpsDestLatitude>			
-			
-			<xsl:choose>
-				<xsl:when test="exiftool/GPSDestLongitudeRef">
-					<gpsDestLongitudeRef>
-						<xsl:value-of select="exiftool/GPSDestLongitudeRef"/>
-					</gpsDestLongitudeRef>
-				</xsl:when>
-				<xsl:when test="exiftool/GPSDestLongitude">
-					<gpsDestLongitudeRef>
-						<xsl:value-of select="substring-after(exiftool/GPSDestLongitude,'&quot; ')"/>
-					</gpsDestLongitudeRef>
-				</xsl:when>
-			</xsl:choose>			
+			</gpsDestLatitude>		
+			<gpsDestLongitudeRef>
+				<xsl:variable name="gpsDestLonRef" select="exiftool/GPSDestLongitudeRef"/>
+				<xsl:choose>
+					<xsl:when test="$gpsDestLonRef='East'">
+						<xsl:value-of select="string('E')"/>
+					</xsl:when>
+					<xsl:when test="$gpsDestLonRef='West'">
+						<xsl:value-of select="string('W')"/>
+					</xsl:when>
+				</xsl:choose>
+			</gpsDestLongitudeRef>
 			<gpsDestLongitude>
-				<xsl:value-of select="exiftool/GPSDestLongitudeRef"/>
+				<xsl:value-of select="exiftool/GPSDestLongitude"/>
 			</gpsDestLongitude>			
 			<gpsDestBearingRef>
-				<xsl:value-of select="exiftool/GPSDestBearingRef"/>
+				<xsl:variable name="gpsLatRef" select="exiftool/GPSDestBearingRef"/>
+				<xsl:choose>
+					<xsl:when test="$gpsLatRef='Magnetic North'">
+						<xsl:value-of select="string('M')"/>
+					</xsl:when>
+					<xsl:when test="$gpsLatRef='True North'">
+						<xsl:value-of select="string('T')"/>
+					</xsl:when>
+				</xsl:choose>
 			</gpsDestBearingRef>
 			<gpsDestBearing>
 				<xsl:value-of select="exiftool/GPSDestBearing"/>
 			</gpsDestBearing>
 			<gpsDestDistanceRef>
-				<xsl:value-of select="exiftool/GPSDestDistanceRef"/>
+				<xsl:variable name="gpsDestDistRef" select="exiftool/GPSDestDistanceRef"/>
+				<xsl:choose>
+					<xsl:when test="$gpsDestDistRef='Kilometers'">
+						<xsl:value-of select="string('K')"/>
+					</xsl:when>
+					<xsl:when test="$gpsDestDistRef='Miles'">
+						<xsl:value-of select="string('M')"/>
+					</xsl:when>
+					<xsl:when test="$gpsDestDistRef='Nautical Miles'">
+						<xsl:value-of select="string('N')"/>
+					</xsl:when>
+				</xsl:choose>
 			</gpsDestDistanceRef>
 			<gpsDestDistance>
 				<xsl:value-of select="exiftool/GPSDestDistance"/>
@@ -633,7 +716,15 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:value-of select="replace(exiftool/GPSDateStamp,':','-')"/>
 			</gpsDateStamp>
 			<gpsDifferential>
-				<xsl:value-of select="exiftool/GPSDifferential"/>
+				<xsl:variable name="gpsDiff" select="exiftool/GPSDifferential"/>
+				<xsl:choose>
+					<xsl:when test="$gpsDiff='No Correction'">
+						<xsl:value-of select="string('Measurement without differential correction')"/>
+					</xsl:when>
+					<xsl:when test="$gpsDiff='Differential Corrected'">
+						<xsl:value-of select="string('Differential correction applied')"/>
+					</xsl:when>
+				</xsl:choose>
 			</gpsDifferential>
 		</image>				
 		</metadata>

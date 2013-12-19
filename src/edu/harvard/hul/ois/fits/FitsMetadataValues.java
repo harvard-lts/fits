@@ -17,14 +17,30 @@
  */
 package edu.harvard.hul.ois.fits;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
+import org.apache.log4j.Logger;
+
 
 /** This class holds standard element names for FITS metadata output, as well
  *  as some standard values. All components are static.
  */
 public class FitsMetadataValues {
 	
+	private static FitsMetadataValues instance;
+	
+	private Logger logger = Logger.getLogger(this.getClass());
+	
+	private String mimeMapProperties = Fits.FITS_XML + "mime_map.txt";
+	private String formatMapProperties = Fits.FITS_XML + "format_map.txt";
+	private String mimeToFormatMapProperties = Fits.FITS_XML + "mime_to_format_map.txt";
+	
+    private HashMap<String, String> mimeMap = new HashMap<String, String>();
+    private HashMap<String, String> formatMap = new HashMap<String, String>();
+    private HashMap<String, String> mimeToFormatMap = new HashMap<String, String>();
+    
 	public final static String DEFAULT_MIMETYPE="application/octet-stream";
 	public final static String DEFAULT_FORMAT="Unknown Binary";
 
@@ -159,67 +175,26 @@ public class FitsMetadataValues {
     public final static String CMPR_SGILOG = "SGILog";
     public final static String CMPR_SGILOG24 = "SGILog24";
     
-    /** Mapping from MIME types to standard names. This is an incomplete map,
-     *  holding only cases where conversion is necessary. Expand as needed.
-     */
-    public final static Map<String, String> mimeToFormatMap =new HashMap<String, String>();
-    static {
-        //mimeToDescMap.put ("image/jpeg", "JPEG File Interchange Format");
-        mimeToFormatMap.put ("image/jpx",  "JPEG 2000 JPX");
-        mimeToFormatMap.put ("image/jp2",  "JPEG 2000 JP2");
-        mimeToFormatMap.put ("application/zip",  "ZIP Format");
-    }
     
-    /** Mapping from format names to standard names. This is an incomplete map,
-     *  holding only cases where conversion is necessary. Expand as needed.
-     */
-    public final static Map<String, String> formatMap =new HashMap<String, String>();
-    static {
-    	formatMap.put ("MPEG-1 Audio Layer 3",  "MPEG 1/2 Audio Layer 3");
-    	formatMap.put ("OpenDocument v1.0: Presentation document",  "OpenDocument Presentation");
-    	formatMap.put ("OpenDocument v1.0: Text document",  "OpenDocument Text");
-    	formatMap.put ("OpenDocument v1.0: Spreadsheet document",  "OpenDocument Spreadsheet");
-    	formatMap.put ("OpenDocument v1.0: Formula document",  "OpenDocument Formula");
-    	formatMap.put ("OpenDocument v1.0: Graphics document (Drawing)",  "OpenDocument Graphics");
-    	formatMap.put ("OpenDocument v1.0: Global Text document",  "OpenDocument Master Document");
-    	formatMap.put ("Waveform Audio (PCMWAVEFORMAT)",  "Waveform Audio");
-    	formatMap.put ("Microsoft Word Document",  "Microsoft Word");
-    	formatMap.put ("Joint Photographic Experts Group",  "jpeg");
-    	formatMap.put ("Gzip Compressed Archive",  "GZIP Format");
-    	formatMap.put ("Windows bitmap",  "Windows Bitmap");
-    	formatMap.put ("PPT",  "Microsoft Powerpoint Presentation");
-    	formatMap.put ("Plain Text File",  "Plain text");
-    	formatMap.put ("Scalable Vector Graphics",  "Scalable Vector Graphics (SVG)");
-    	formatMap.put ("Tagged Image File Format for Internet Fax (TIFF-FX)",  "Tagged Image File Format");
-    	formatMap.put ("Microsoft Excel Spreadsheet",  "Microsoft Excel");
-    	formatMap.put ("Audio Video Interleave File",  "Audio/Video Interleaved Format");
-    	formatMap.put ("Photoshop Image",  "Adobe Photoshop");
-    	formatMap.put ("",  "Unknown Binary");
+    private FitsMetadataValues() {
     	
+    	mimeMap = parseFile(mimeMapProperties);
+    	formatMap = parseFile(formatMapProperties);
+    	mimeToFormatMap = parseFile(mimeToFormatMapProperties);
     	
     }
     
-    /** Mapping from mime types to standard mimetypes. This is an incomplete map,
-     *  holding only cases where conversion is necessary. Expand as needed.
-     */
-    public final static Map<String, String> mimeMap =new HashMap<String, String>();
-    static {
-    	mimeMap.put ("image/x-ms-bmp",  "image/bmp");
-    	mimeMap.put("application/rdf+xml","text/xml");
-    	mimeMap.put("application/xml","text/xml");
-    	mimeMap.put("audio/x-wav","audio/x-wave");
-    	mimeMap.put("audio/aiff","audio/x-aiff");
-    	mimeMap.put("audio/x-ogg","audio/ogg");
-    	mimeMap.put("audio/flac","audio/x-flac");
-    	mimeMap.put("application/photoshop","image/vnd.adobe.photoshop");
-    	mimeMap.put("application/fits, image/fits","application/fits");
-    	mimeMap.put("com.adobe.photoshop-image, image/vnd.adobe.photoshop","image/vnd.adobe.photoshop");
-    }
-    
+	public static synchronized FitsMetadataValues getInstance() {
+		if (instance == null)
+			instance = new FitsMetadataValues();
+		
+		return instance;
+	}
+
     /** Do some normalization on variant MIME types. */
-    public static String normalizeMimeType (String mime) {
+    public String normalizeMimeType(String mime) {
         if (mime == null || mime.length()==0) {
-            return "application/octet-stream";
+            return DEFAULT_MIMETYPE;
         }
         String normMime = mimeMap.get(mime);
         if (normMime != null) {
@@ -228,5 +203,50 @@ public class FitsMetadataValues {
         else {
             return mime;
         }
+    }
+    
+    public String normalizeFormat(String format) {
+        if (format == null || format.length()==0) {
+            return DEFAULT_FORMAT;
+        }
+        String normformat = formatMap.get(format);
+        if (normformat != null) {
+            return normformat;
+        }
+        else {
+            return format;
+        }
+    }
+    
+    public String getFormatForMime(String mime) {
+        if (mime == null || mime.length()==0) {
+            return DEFAULT_FORMAT;
+        }
+        return mimeToFormatMap.get(mime);
+    }
+    
+    private HashMap<String,String> parseFile(String inputFile) {
+    	HashMap<String,String> map = new HashMap<String,String>();
+    	BufferedReader in = null;
+		try {
+			in = new BufferedReader(new FileReader(inputFile));
+			String line;
+			while ((line = in.readLine()) != null) {
+				if(!line.startsWith("#") && !line.startsWith("\"#") ) {
+					String[] parts = line.split("=");
+					if(parts.length != 2) {
+						logger.debug("Invalid map entry: " + line);
+						continue;
+					}
+					map.put(parts[0], parts[1]);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(in != null) try {in.close(); } catch (IOException e) { }
+		}
+		return map;
     }
 }

@@ -414,7 +414,7 @@ public class TikaTool extends ToolBase {
 	/* Create the tool data from the Metadata object */
 	private Document buildToolData (Metadata metadata) throws FitsToolException {
         //String mimeType =  DocumentTypes.normalizeMimeType(metadata.get (P_CONTENT_TYPE));
-        String mimeType = FitsMetadataValues.normalizeMimeType(metadata.get (P_CONTENT_TYPE));
+        String mimeType = FitsMetadataValues.getInstance().normalizeMimeType(metadata.get (P_CONTENT_TYPE));
         
         Element fitsElem = new Element ("fits", fitsNS);
         Document toolDoc = new Document (fitsElem);
@@ -512,14 +512,14 @@ public class TikaTool extends ToolBase {
 	        
 	        //try mapping the format to the standard form
 	        if(format != null) {
-	        	String stdFormat = FitsMetadataValues.formatMap.get(format);
+	        	String stdFormat = FitsMetadataValues.getInstance().normalizeFormat(format);
 	        	if(stdFormat != null) {
 	        		format = stdFormat;
 	        	}
 	        }
 	        
 	        // check if we need to get the format name based on the mime type
-	        String stdText = FitsMetadataValues.mimeToFormatMap.get(mime);
+	        String stdText = FitsMetadataValues.getInstance().getFormatForMime(mime);
 	        if (stdText != null) {
 	            format = stdText;
 	        }
