@@ -63,6 +63,10 @@ public class DroidToolOutputter {
             	mimeType = FitsMetadataValues.getInstance().normalizeMimeType(mimeType); 
             }
             
+            if(formatName.equals("Digital Negative (DNG)")) {
+            	mimeType="image/x-adobe-dng";
+            }
+            
             String version = res.getVersion();
             version = mapVersion(version);
             

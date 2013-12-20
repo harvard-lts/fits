@@ -21,3 +21,4 @@ Microsoft Excel Spreadsheet=Microsoft Excel
 Audio Video Interleave File=Audio/Video Interleaved Format
 Photoshop Image=Adobe Photoshop
 Macromedia FLV=Flash Video (FLV)
+Digital Negative Format (DNG)=Digital Negative (DNG)

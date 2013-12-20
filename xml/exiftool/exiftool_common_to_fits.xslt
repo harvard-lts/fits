@@ -133,8 +133,11 @@
 						<xsl:value-of select="string('RealMedia')" />
 				</xsl:when>
 				<xsl:when test="$format='DNG'">
-					<xsl:value-of select="string('Digital Negative')"/>
-				</xsl:when>		
+					<xsl:value-of select="string('Digital Negative (DNG)')"/>
+				</xsl:when>
+				<xsl:when test="$format='DNG EXIF'">
+					<xsl:value-of select="string('Digital Negative (DNG)')"/>
+				</xsl:when>	
 				<xsl:when test="$format='PDF'">
 					<xsl:value-of select="string('Portable Document Format')"/>
 				</xsl:when>	
