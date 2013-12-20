@@ -139,7 +139,7 @@
 					<xsl:value-of select="string('Portable Document Format')"/>
 				</xsl:when>	
 				<xsl:when test="$format='DOC'">
-					<xsl:value-of select="string('Microsoft Word')"/>
+					<xsl:value-of select="string('Microsoft Word Document')"/>
 				</xsl:when>
 				<xsl:when test="$format='GZIP'">
 					<xsl:value-of select="string('GZIP Format')"/>
@@ -190,7 +190,7 @@
 					<xsl:value-of select="string('ZIP Format')"/>
 				</xsl:when>		
 				<xsl:when test="$format='FLV'">
-					<xsl:value-of select="string('Macromedia FLV')"/>
+					<xsl:value-of select="string('Flash Video (FLV)')"/>
 				</xsl:when>	
 				<xsl:when test="$format='PS'">
 					<xsl:value-of select="string('Postscript')"/>
@@ -203,6 +203,9 @@
 				</xsl:when>	
 				<xsl:when test="$format='XMP EXIF'">
 					<xsl:value-of select="string('Extensible Markup Language')"/>
+				</xsl:when>	
+				<xsl:when test="$format='AI'">
+					<xsl:value-of select="string('Adobe Illustrator')"/>
 				</xsl:when>	
 				<xsl:when test="$format=''">
 					<xsl:value-of select="string('Unknown Binary')"/>

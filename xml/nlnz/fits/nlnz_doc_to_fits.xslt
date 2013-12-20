@@ -8,7 +8,7 @@
 		<identification>
 			<identity>
 				<xsl:attribute name="format">
-					<xsl:value-of select="string('Microsoft Word')" />
+					<xsl:value-of select="string('Microsoft Word Document')" />
 				</xsl:attribute>
 				<xsl:attribute name="mimetype">
 					<xsl:if test="//METADATA/TYPE='application/ms-word'">

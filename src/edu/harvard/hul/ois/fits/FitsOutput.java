@@ -71,6 +71,9 @@ public class FitsOutput {
 	private Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 	
+	//for backwards compatibility with older FITS clients
+	public static String VERSION = Fits.VERSION;
+	
 	public FitsOutput(String fitsXmlStr) throws JDOMException, IOException {
 		SAXBuilder builder = new SAXBuilder();
 		Reader in = new StringReader(fitsXmlStr);

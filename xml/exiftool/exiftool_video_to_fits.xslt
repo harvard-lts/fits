@@ -29,11 +29,11 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 							<xsl:value-of select="exiftool/AvgBitRate"/>
 						</bitRate>
 					</xsl:when>
-					<xsl:when test="exiftool/VideoBitrate and exiftool/AudioBitrate">
+<!-- 					<xsl:when test="exiftool/VideoBitrate and exiftool/AudioBitrate">
 						<bitRate>
 							<xsl:value-of select="exiftool/VideoBitrate + exiftool/AudioBitrate"/>
 						</bitRate>
-					</xsl:when>				
+					</xsl:when>	 -->			
 					<xsl:when test="exiftool/VideoBitrate">
 						<bitRate>
 							<xsl:value-of select="exiftool/VideoBitrate"/>

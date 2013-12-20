@@ -105,9 +105,6 @@ public class DroidToolOutputter {
     	if(formatName == null || formatName.length() == 0) {
     		return FitsMetadataValues.DEFAULT_FORMAT;
     	}
-    	else if(formatName.startsWith("Microsoft Word")) {
-    		return "Microsoft Word";
-    	}
     	else if(formatName.startsWith("JPEG2000") || formatName.startsWith("JP2 (JPEG 2000")) {
     		return "JPEG 2000 JP2";
     	}
