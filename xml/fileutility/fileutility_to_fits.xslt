@@ -80,10 +80,10 @@
 								<xsl:value-of select="string('application/vnd.oasis.opendocument.text-web')"/>
 						</xsl:when>		
 						<xsl:when test="$format='ColorSync ICC Profile'">
-								<xsl:value-of select="string('application/x-icc')"/>
+								<xsl:value-of select="string('application/vnd.iccprofile')"/>
 						</xsl:when>			
 						<xsl:when test="$format='Kodak Color Management System, ICC Profile'">
-								<xsl:value-of select="string('application/x-icc')"/>
+								<xsl:value-of select="string('application/vnd.iccprofile')"/>
 						</xsl:when>											
 						<xsl:otherwise>
 							<xsl:value-of select="$mime"/>
@@ -447,7 +447,12 @@
 						<xsl:attribute name="format">	
 							<xsl:value-of select="string('AAC')"/>
 						</xsl:attribute>
-					</xsl:when>			
+					</xsl:when>	
+	  			<xsl:when test="ends-with($format,'ICC Profile')">
+						<xsl:attribute name="format">	
+							<xsl:value-of select="string('ICC')"/>
+						</xsl:attribute>
+	  			</xsl:when>		
 					<xsl:otherwise>
 						<xsl:attribute name="format">
 							<xsl:value-of select="$format"/>
