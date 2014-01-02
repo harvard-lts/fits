@@ -109,13 +109,19 @@
                 <xsl:variable name="xdens" select="JPG/JFIF/XDENSITY"/>
                 <xsl:choose>
                   <xsl:when test="$units=0">
-                    <xsl:value-of select="$xdens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$xdens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:when test="$units=1">
-                    <xsl:value-of select="$xdens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$xdens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:when test="$units=2">
-                    <xsl:value-of select="$xdens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$xdens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:otherwise>
                     <xsl:value-of select="string('')"/>
@@ -126,13 +132,19 @@
                 <xsl:variable name="ydens" select="JPG/JFIF/YDENSITY"/>
                 <xsl:choose>
                   <xsl:when test="$units=0">
-                    <xsl:value-of select="$ydens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$ydens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:when test="$units=1">
-                    <xsl:value-of select="$ydens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$ydens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:when test="$units=2">
-                    <xsl:value-of select="$ydens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$ydens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:otherwise>
                     <xsl:value-of select="string('')"/>
@@ -161,10 +173,14 @@
               
               
               <xSamplingFrequency>
-                <xsl:value-of select="JPG/EXIF/XRESOLUTION/VALUE"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="JPG/EXIF/XRESOLUTION/VALUE"/>
+                  	</xsl:call-template>
               </xSamplingFrequency>
               <ySamplingFrequency>
-                <xsl:value-of select="JPG/EXIF/YRESOLUTION/VALUE"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="JPG/EXIF/YRESOLUTION/VALUE"/>
+                  	</xsl:call-template>
               </ySamplingFrequency>
             </xsl:otherwise>
           </xsl:choose>
@@ -615,6 +631,18 @@
    		<xsl:value-of select='substring($bps,1,string-length($bps) - 1)'/>
 	</xsl:when>
   </xsl:choose>
+</xsl:template>
+
+<xsl:template name="trimDecimal">
+	<xsl:param name="value"/>
+	<xsl:choose>
+		<xsl:when test="ends-with($value,'.0')">
+			<xsl:value-of select="substring-before($value,'.0')"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="$value"/>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>
