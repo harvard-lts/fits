@@ -476,10 +476,20 @@ public class TikaTool extends ToolBase {
             created = metadata.get(P_DC_CREATED);
         }
         String contentLength = metadata.get (P_CONTENT_LENGTH);
-        String appName = metadata.get (P_APPLICATION_NAME);
-        if (appName == null) {
-            appName = metadata.get (P_CREATOR_TOOL);
+        String producer = metadata.get (P_PRODUCER);
+        String creator = metadata.get (P_CREATOR_TOOL);
+        
+        String appName = "";
+        if(producer != null && creator != null) {
+        	appName = producer + "/" + creator;
         }
+        else if(producer != null) {
+        	appName = producer;
+        }
+        else if(creator != null) {
+        	appName = creator;
+        }
+        
 
         // Put together the fileinfo element
         Element fileInfoElem = new Element ("fileinfo", fitsNS);
