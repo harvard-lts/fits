@@ -616,9 +616,10 @@ public class TikaTool extends ToolBase {
                addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
                break;
                
-           case DATA_BITS_PER_SAMPLE:
-               addSimpleElement (elem, FitsMetadataValues.BIT_DEPTH, value);
-               break;
+//			Tika is not outputting the correct bits per sample               
+//           case DATA_BITS_PER_SAMPLE:
+//               addSimpleElement (elem, FitsMetadataValues.BIT_DEPTH, value);
+//               break;
                
            case ENCODING:
                addSimpleElement (elem, FitsMetadataValues.AUDIO_DATA_ENCODING, value);
@@ -700,18 +701,23 @@ public class TikaTool extends ToolBase {
 	            }
                 addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
                 break;
-	        case TIFF_BITS_PER_SAMPLE:
-	        case DATA_BITS_PER_SAMPLE:
-	            // We may get the same data in more than one property
-	            if (!bpsReported) {
-	                addSimpleElement (elem, FitsMetadataValues.BITS_PER_SAMPLE, value);
-	                bpsReported = true;
-	            }
-	            break;
+                
+// Tika is not outputting the correct bits per sample                       
+//	        case TIFF_BITS_PER_SAMPLE:
+//	        case DATA_BITS_PER_SAMPLE:
+//	            // We may get the same data in more than one property
+//	            if (!bpsReported) {
+//	                addSimpleElement (elem, FitsMetadataValues.BITS_PER_SAMPLE, value);
+//	                bpsReported = true;
+//	            }
+//	            break;
 	        
 	        case TIFF_RESOLUTION_UNIT:
 	        case RESOLUTION_UNIT:
 	            if (!resUnitReported) {
+	            	if(value.equals("Inch")) {
+	            		value = "In.";
+	            	}
 	                addSimpleElement (elem, FitsMetadataValues.SAMPLING_FREQUENCY_UNIT, value);
 	                resUnitReported = true;
 	            }
