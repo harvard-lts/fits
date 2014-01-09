@@ -37,39 +37,21 @@ import uk.gov.nationalarchives.droid.core.interfaces.resource.RequestMetaData;
 
 public class DroidQuery {
 
-    private File tempDir;
-    private static BinarySignatureIdentifier sigIdentifier = null;
+    private BinarySignatureIdentifier sigIdentifier = new BinarySignatureIdentifier();;
     
     /** Create a DroidQuery object. This can be retained for any number of
      *  different queries.
      *  
      *  @param sigFile   File object for a Droid signature file
-     *  @param tempDir   A temporary directory object
      *  
      *   @throws SignatureParseException 
      */
-    public DroidQuery (File sigFile, File tempDir) 
-            throws SignatureParseException,
-                   FileNotFoundException    {
+    public DroidQuery (File sigFile)  throws SignatureParseException, FileNotFoundException    {
         if (!sigFile.exists()) {
-            throw new FileNotFoundException ("Signature file " + 
-                   sigFile.getAbsolutePath() +
-                   " not found");
+            throw new FileNotFoundException ("Signature file " + sigFile.getAbsolutePath() + " not found");
         }
-        if (!tempDir.exists()) {
-          tempDir.mkdirs();
-          /*
-            throw new FileNotFoundException ("Temporary directory " + 
-                   sigFile.getAbsolutePath() +
-                   " not found");
-                   */
-        }
-        this.tempDir = tempDir;
-        if (sigIdentifier == null) {
-            sigIdentifier = new BinarySignatureIdentifier();
-            sigIdentifier.setSignatureFile (sigFile.getAbsolutePath());
-            sigIdentifier.init ();
-        }
+        sigIdentifier.setSignatureFile (sigFile.getAbsolutePath());
+        sigIdentifier.init ();
     }
     
     /** Query a file and get back an XML response. */

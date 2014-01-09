@@ -39,9 +39,6 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
  */
 public class Droid extends ToolBase {
 
-	//private uk.gov.nationalarchives.droid.Droid droid = null;
-    //private BinarySignatureIdentifier droid = null;
-	//public final static String xslt = Fits.FITS_HOME+"xml/droid/droid_to_fits.xslt";
 	private boolean enabled = true;
 	private DroidQuery droidQuery;
     private static final Logger logger = Logger.getLogger(Droid.class);
@@ -56,19 +53,15 @@ public class Droid extends ToolBase {
 		}
 		try {
 			String droid_conf = Fits.FITS_TOOLS+"droid"+File.separator;
-			//URL droidConfig = new File(droid_conf+"DROID_config.xml").toURI().toURL();
 			File sigFile = new File(droid_conf+Fits.config.getString("droid_sigfile"));
-	        File tempDir = new File(Fits.FITS_TOOLS+"droid" + File.separator + "tmpdir");
 	        try {
-	            droidQuery = new DroidQuery (sigFile, tempDir);
+	            droidQuery = new DroidQuery (sigFile);
 	        }
 	        catch (SignatureParseException e) {
 	            throw new FitsToolException("Problem with DROID signature file");
 	        }
-			//droid = new uk.gov.nationalarchives.droid.Droid(droidConfig);
-			//droid = new BinarySignatureIdentifier();
-			//droid.setSignatureFile(sigFile);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new FitsToolException("Error initilizing DROID",e);
 		}
 	}
