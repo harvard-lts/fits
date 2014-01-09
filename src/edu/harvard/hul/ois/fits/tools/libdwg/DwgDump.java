@@ -11,7 +11,6 @@ import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
-import org.jdom.output.XMLOutputter;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
@@ -21,7 +20,6 @@ import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
-import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
 
 public class DwgDump extends ToolBase {
 

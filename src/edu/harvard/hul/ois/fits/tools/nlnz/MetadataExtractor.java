@@ -23,16 +23,17 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 
-import org.jdom.Document;
-import org.jdom.JDOMException;
-import org.apache.log4j.Logger;
-
 import nz.govt.natlib.AdapterFactory;
 import nz.govt.natlib.adapter.DataAdapter;
 import nz.govt.natlib.fx.ParserContext;
 import nz.govt.natlib.fx.ParserListener;
 import nz.govt.natlib.meta.config.Config;
 import nz.govt.natlib.meta.harvester.DTDXmlParserListener;
+
+import org.apache.log4j.Logger;
+import org.jdom.Document;
+import org.jdom.JDOMException;
+
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;

@@ -9,19 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-
-import edu.harvard.hul.ois.fits.DocumentTypes;
-import edu.harvard.hul.ois.fits.FitsMetadataValues;
-import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
-import edu.harvard.hul.ois.fits.tools.ToolBase;
-import edu.harvard.hul.ois.fits.tools.ToolOutput;
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.tools.ToolInfo;
-import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
-
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
-import org.apache.tika.mime.MediaTypeRegistry;
 import org.apache.tika.mime.MimeType;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
@@ -29,6 +18,15 @@ import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
+
+import edu.harvard.hul.ois.fits.DocumentTypes;
+import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsMetadataValues;
+import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
+import edu.harvard.hul.ois.fits.tools.ToolBase;
+import edu.harvard.hul.ois.fits.tools.ToolInfo;
+import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
 
 
 public class TikaTool extends ToolBase {

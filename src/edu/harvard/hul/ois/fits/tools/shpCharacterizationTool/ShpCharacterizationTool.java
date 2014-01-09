@@ -2,17 +2,12 @@ package edu.harvard.hul.ois.fits.tools.shpCharacterizationTool;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
-import org.jdom.output.XMLOutputter;
 import org.xml.sax.InputSource;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -20,7 +15,6 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
-import edu.harvard.hul.ois.fits.tools.Tool.RunStatus;
 import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
 
 public class ShpCharacterizationTool extends ToolBase {

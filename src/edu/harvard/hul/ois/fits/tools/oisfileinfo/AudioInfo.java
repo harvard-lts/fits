@@ -23,11 +23,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
-import org.apache.log4j.Logger;
 
 import edu.harvard.hcl.hclaps.bwav.WAVEFile;
 import edu.harvard.hcl.hclaps.bwav.chunks.FormatChunk;

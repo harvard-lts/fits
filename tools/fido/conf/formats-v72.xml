@@ -19091,7 +19091,7 @@ This version was published in February 2005 and corrected the flaws in the first
     <alias />
     <pronom_id>822</pronom_id>
     <extension>msg</extension>
-    <has_priority_over>fmt/111</has_priority_over>
+    <has_priority_over>x-fmt/431</has_priority_over>
     <signature>
       <name>Outlook Message Format</name>
       <note>Compound document header + IPM.Note + recip_version stream header</note>
@@ -19126,6 +19126,51 @@ This version was published in February 2005 and corrected the flaws in the first
       </record_metadata>
     </details>
   </format>
+
+
+
+<format>
+    <puid>x-fmt/431</puid>
+    <mime>application/msoutlook</mime>
+    <name>Microsoft Outlook Email Message</name>
+    <version>97-2003</version>
+    <alias />
+    <pronom_id>822</pronom_id>
+    <extension>msg</extension>
+    <has_priority_over>fmt/111</has_priority_over>
+    <signature>
+      <name>Outlook Message Format</name>
+      <note>Compound document header + IPM.Note + recip_version stream header</note>
+      <pattern>
+        <position>BOF</position>
+        <pronom_pattern>D0CF11E0A1B11AE1{20}FEFF</pronom_pattern>
+        <regex>(?s)\A\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1.{20}\xfe\xff</regex>
+      </pattern>
+      <pattern>
+        <position>VAR</position>
+        <pronom_pattern>720065006300690070005F00760065007200730069006F006E00</pronom_pattern>
+        <regex>(?s)r\x00e\x00c\x00i\x00p\x00_\x00v\x00e\x00r\x00s\x00i\x00o\x00n\x00</regex>
+      </pattern>
+    </signature>
+    <details>
+      <dc:description>This is an outline record only, and requires further details, research or authentication to provide information that will enable users to further understand the format and to assess digital preservation risks associated with it if appropriate. If you are able to help by supplying any additional information concerning this entry, please return to the main PRONOM page and select &#8216;Add an Entry&#8217;.</dc:description>
+      <dcterms:available />
+      <dc:creator />
+      <dcterms:publisher />
+      <content_type>Email</content_type>
+      <record_metadata>
+        <status>unknown</status>
+        <dc:creator>Digital Preservation Department / The National Archives</dc:creator>
+        <dcterms:created>08 Feb 2008</dcterms:created>
+        <dcterms:modified>19 Apr 2012</dcterms:modified>
+        <dc:description>This format can be identified via a container signature in DROID version 6 or later. The PRONOM database cannot currently represent container signatures.</dc:description>
+      </record_metadata>
+    </details>
+  </format>
+
+
+
+
   <format>
     <puid>fmt/159</puid>
     <name>EBCDIC-US</name>

@@ -23,6 +23,7 @@ import java.io.File;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.custommonkey.xmlunit.XMLTestCase;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.junit.Test;
@@ -30,8 +31,6 @@ import org.junit.Test;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
-
-import org.custommonkey.xmlunit.*;
 
 
 public class TextMDTest extends XMLTestCase {

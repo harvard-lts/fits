@@ -22,11 +22,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
-import org.apache.log4j.Logger;
 
 import com.therockquarry.aes31.adl.ADL;
 

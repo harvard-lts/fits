@@ -15,7 +15,6 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
-import edu.harvard.hul.ois.fits.tools.Tool.RunStatus;
 import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
 
 public class CdrCharacterizationTool extends ToolBase{

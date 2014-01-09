@@ -7,9 +7,13 @@
     <xsl:choose>
 	    <xsl:when test="//valid"> 
 		     <xsl:variable name="valid" select="//valid"/>
+		     <xsl:variable name="validationError" select="//validationError"/>
 			<filestatus>
 				<well-formed><xsl:value-of select="$valid"/></well-formed>
 				<valid><xsl:value-of select="$valid"/></valid>
+				<message>
+					<xsl:value-of select="$validationError"/>				
+				</message>
 			</filestatus>
 		</xsl:when>
 	</xsl:choose>

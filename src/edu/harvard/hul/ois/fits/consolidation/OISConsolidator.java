@@ -38,9 +38,9 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
-import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
 import edu.harvard.hul.ois.fits.identity.FormatVersion;
+import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 import edu.harvard.hul.ois.fits.tools.Tool;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
@@ -351,9 +351,8 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	}
 	
 	private boolean identitiesMatch(ToolIdentity a, FitsIdentity b) {
-		//if format and mimetype match
-		if(a.getFormat().equalsIgnoreCase(b.getFormat())
-				&& a.getMime().equalsIgnoreCase(b.getMimetype())) {
+		if(/*a.getFormat().equalsIgnoreCase(b.getFormat())
+				&& */a.getMime().equalsIgnoreCase(b.getMimetype())) {
 			return true;
 		}
 		else {
@@ -671,7 +670,6 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		
 		//Only use the output from tools that were able to identify
 		// the file and are in the first identity section
-		/**TODO: why the identification and validation/features extraction are dependent **/
 	
 		
 		if(identitySections.size() > 0) {

@@ -20,11 +20,9 @@ package edu.harvard.hul.ois.fits.tools.droid;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
-import org.jdom.input.SAXBuilder;
 import org.apache.log4j.Logger;
+import org.jdom.input.SAXBuilder;
 
 import uk.gov.nationalarchives.droid.core.SignatureParseException;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;

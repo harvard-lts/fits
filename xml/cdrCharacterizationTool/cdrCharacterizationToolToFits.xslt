@@ -3,10 +3,14 @@
 
   <xsl:template match="/">
   <xsl:variable name="valid" select="//valid"/>
+  <xsl:variable name="validationError" select="//validationError"/>
     <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output">
 	<filestatus>
 		<well-formed><xsl:value-of select="$valid"/></well-formed>
 		<valid><xsl:value-of select="$valid"/></valid>
+		<message>
+			<xsl:value-of select="$validationError"/>				
+		</message>
 	</filestatus>
 	<metadata>
 		<document>
