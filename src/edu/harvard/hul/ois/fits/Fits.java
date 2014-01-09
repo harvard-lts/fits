@@ -71,7 +71,7 @@ public class Fits {
 
   private static Logger logger;
 
-  public static String FITS_HOME;
+  public static volatile String FITS_HOME;
   public static String FITS_XML;
   public static String FITS_TOOLS;
   public static XMLConfiguration config;
