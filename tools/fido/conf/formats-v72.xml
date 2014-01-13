@@ -19085,7 +19085,7 @@ This version was published in February 2005 and corrected the flaws in the first
   </format>
   <format>
     <puid>x-fmt/430</puid>
-    <mime>application/msoutlook</mime>
+    <mime>application/vnd.ms-outlook</mime>
     <name>Microsoft Outlook Email Message</name>
     <version>97-2003</version>
     <alias />
@@ -19131,7 +19131,7 @@ This version was published in February 2005 and corrected the flaws in the first
 
 <format>
     <puid>x-fmt/431</puid>
-    <mime>application/msoutlook</mime>
+    <mime>application/vnd.ms-outlook</mime>
     <name>Microsoft Outlook Email Message</name>
     <version>97-2003</version>
     <alias />

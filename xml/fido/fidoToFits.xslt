@@ -6,23 +6,26 @@
 	<xsl:variable name="identificationStatus" select="//correctlyIdentified" />
 	<xsl:choose>
 		<xsl:when test="$identificationStatus='true'">
-			<xsl:variable name="mimeType" select="//mimeType" />
-			<xsl:variable name="puid" select="//puid" />
-			<xsl:variable name="formatName" select="//formatName" />
-			<xsl:variable name="signatureName" select="//signatureName" />
+			
 			<identification>
-				<identity>
-					<xsl:attribute name="format">
-						<xsl:value-of select="$formatName"/>
-					</xsl:attribute>
-					<xsl:attribute name="mimetype">
-						<xsl:value-of select="$mimeType"/>
-					</xsl:attribute> 
-					<externalIdentifier type="puid">
-						<xsl:value-of select="$puid"/>
-					</externalIdentifier>
-				</identity>
-	    		</identification>
+				<xsl:for-each select="//identification">
+					<xsl:variable name="mimeType" select="mimeType" />
+					<xsl:variable name="puid" select="puid" />
+					<xsl:variable name="formatName" select="formatName" />
+					<xsl:variable name="signatureName" select="signatureName" />
+					<identity>
+						<xsl:attribute name="format">
+							<xsl:value-of select="$formatName"/>
+						</xsl:attribute>
+						<xsl:attribute name="mimetype">
+							<xsl:value-of select="$mimeType"/>
+						</xsl:attribute> 
+						<externalIdentifier type="puid">
+							<xsl:value-of select="$puid"/>
+						</externalIdentifier>
+					</identity>
+				</xsl:for-each>
+	    	</identification>
 		</xsl:when>
 	</xsl:choose>
     </fits>

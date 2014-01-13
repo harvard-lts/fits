@@ -22,10 +22,19 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
+import java.util.TreeMap;
 
+import org.apache.derby.tools.sysinfo;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -223,6 +232,8 @@ public class OISConsolidator implements ToolOutputConsolidator {
 			return fitsElements;
 		}
 		int equalityResult = testEquality(fitsElements);
+		
+		
 		if(equalityResult == ALL_AGREE) {
 			//since all tools agreed, or all conflicts could be resolved 
 			//return the element without the identifying tool name and version
@@ -253,7 +264,12 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		return consolidatedElements;	
 	}
 	
-	private boolean isRepeatableElement(List<Element> fitsElements) {
+	private List<Element> sortByFrequence(List<Element> fitsElements) {
+
+      return fitsElements;
+  }
+
+  private boolean isRepeatableElement(List<Element> fitsElements) {
 		String name = fitsElements.get(0).getName();
 		if(repeatableElements.contains(name)) {
 			return true;
@@ -339,17 +355,57 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	
 	private List<ToolIdentity> getAllIdentities(List<ToolOutput> results) {
 		List<ToolIdentity> identities = new ArrayList<ToolIdentity>();
+		
+		
 		for(ToolOutput result : results) {			
 			if(result.getTool().canIdentify()) {
 				List<ToolIdentity> identList = result.getFileIdentity();
+				
+				
+				
+				
+				Map<ToolIdentity,Integer> frequency = new Hashtable<ToolIdentity,Integer>();
 				for(ToolIdentity ident : identList) {
-					identities.add(ident);
+				  int counter=0;
+				  for(ToolOutput to : results){
+				    if(to.getTool().canIdentify()) {
+		                List<ToolIdentity> identList2 = to.getFileIdentity();
+		                for(ToolIdentity ident2 :identList2){
+		                  if(ident.getMime().equalsIgnoreCase(ident2.getMime())){
+		                    counter++;
+		                  }
+		                }
+				    }
+				  }
+				  frequency.put(ident, counter);
 				}
+				identities.addAll(orderByFrequency(frequency));
+				
 			}
 		}
 		return identities;
 	}
 	
+	
+	private List<ToolIdentity> orderByFrequency(Map<ToolIdentity,Integer> map) {
+	  List<Map.Entry> a = new ArrayList<Map.Entry>(map.entrySet());
+	  Collections.sort(a,
+	           new Comparator() {
+	               public int compare(Object o1, Object o2) {
+	                   Map.Entry e1 = (Map.Entry) o1;
+	                   Map.Entry e2 = (Map.Entry) o2;
+	                   return ((Comparable) e2.getValue()).compareTo(e1.getValue());
+	               }
+	           });
+
+	  
+	  List<ToolIdentity> ordered = new ArrayList<ToolIdentity>();
+	  for (Map.Entry e : a) {
+	    ToolIdentity ti = (ToolIdentity) e.getKey();
+	      ordered.add((ToolIdentity) e.getKey());
+	  }
+	  return ordered;
+	} 
 	private boolean identitiesMatch(ToolIdentity a, FitsIdentity b) {
 		if(/*a.getFormat().equalsIgnoreCase(b.getFormat())
 				&& */a.getMime().equalsIgnoreCase(b.getMimetype())) {
@@ -520,6 +576,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		boolean unknownStatus = false;
 		boolean partialStatus = false;
 		//If there are no known identities in the culled results
+		
 		if(identities.size() == 0) {
 			//try to find a partial identity match in the original results
 			identitySections = getFirstPartialIdentity(results);
@@ -538,6 +595,9 @@ public class OISConsolidator implements ToolOutputConsolidator {
 			identitySections = consolidateIdentities(identities);
 		}
 
+		/***
+		 * TODO
+		 */
 		for(FitsIdentity identSection : identitySections) {
 			Element identElement = new Element("identity",fitsNS);
 			Attribute identFormatAttr = new Attribute("format",identSection.getFormat());
@@ -583,14 +643,19 @@ public class OISConsolidator implements ToolOutputConsolidator {
 				}
 			}
 			
+			List<String> externalIdentifiers = new ArrayList<String>();
+			
 			for(ExternalIdentifier xId : identSection.getExternalIdentifiers()) {
-				Element externalID = new Element("externalIdentifier",fitsNS);
+				if(!externalIdentifiers.contains(xId.getName())){
+				  externalIdentifiers.add(xId.getName());
+			  Element externalID = new Element("externalIdentifier",fitsNS);
 				ToolInfo xIdInfo = xId.getToolInfo();
 				externalID.setAttribute("toolname",xIdInfo.getName());
 				externalID.setAttribute("toolversion",xIdInfo.getVersion());
 				externalID.setAttribute("type",xId.getName());
 				externalID.setText(xId.getValue());
 				identElement.addContent(externalID);
+				}
 			}
 			//set the status of the section
 			String status = "";
