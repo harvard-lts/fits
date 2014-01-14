@@ -25,7 +25,6 @@ public class NsfCharacterizationTool extends ToolBase {
   private final static String TOOL_NAME = "NSF Characterization Tool";
   private boolean enabled = true;
   String lotusNotesFolder = Fits.config.getString("lotus_notes_folder");
-  String lotusNotesJVMFolder = Fits.config.getString("lotus_notes_jvm_folder");
   public NsfCharacterizationTool() throws FitsToolException {
     String osName = System.getProperty("os.name");
     if (osName.startsWith("Windows")) {
@@ -38,8 +37,7 @@ public class NsfCharacterizationTool extends ToolBase {
     String versionOutput = null;
     List<String> infoCommand = new ArrayList<String>();
     infoCommand.addAll(osIsWindows?winCommand:unixCommand);
-    infoCommand.add(lotusNotesJVMFolder);
-    infoCommand.add("lotusNotesFolder");
+    infoCommand.add(lotusNotesFolder);
     versionOutput = CommandLine.exec(infoCommand, null);
     info.setVersion(versionOutput.trim());
   }
@@ -49,8 +47,7 @@ public class NsfCharacterizationTool extends ToolBase {
     long startTime = System.currentTimeMillis();
     List<String> execCommand = new ArrayList<String>();
     execCommand.addAll(osIsWindows?winCommand:unixCommand);
-    execCommand.add(lotusNotesJVMFolder);
-    execCommand.add("lotusNotesFolder");
+    execCommand.add(lotusNotesFolder);
     execCommand.add(file.getPath());
     String execOut = CommandLine.exec(execCommand, null);
     try {
