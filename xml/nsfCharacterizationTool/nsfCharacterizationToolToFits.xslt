@@ -15,34 +15,11 @@
 	</filestatus>
 	<metadata>
 		<document>
-		<xsl:for-each select="//excel/*">
-			<xsl:variable name="field" select="name(.)"></xsl:variable>
+		<xsl:for-each select="//item">
+			<xsl:variable name="field" select="key"></xsl:variable>
+
 			<xsl:element name="{$field}">
-     				<xsl:value-of select="."/>
-			</xsl:element>
-		</xsl:for-each>
-		<xsl:for-each select="//word/*">
-			<xsl:variable name="field" select="name(.)"></xsl:variable>
-			<xsl:element name="{$field}">
-     				<xsl:value-of select="."/>
-			</xsl:element>
-		</xsl:for-each>
-		<xsl:for-each select="//powerpoint/*">
-			<xsl:variable name="field" select="name(.)"></xsl:variable>
-			<xsl:element name="{$field}">
-     				<xsl:value-of select="."/>
-			</xsl:element>
-		</xsl:for-each>
-		<xsl:for-each select="//pst/*">
-			<xsl:variable name="field" select="name(.)"></xsl:variable>
-			<xsl:element name="{$field}">
-     				<xsl:value-of select="."/>
-			</xsl:element>
-		</xsl:for-each>
-		<xsl:for-each select="//msg/*">
-			<xsl:variable name="field" select="name(.)"></xsl:variable>
-			<xsl:element name="{$field}">
-     				<xsl:value-of select="."/>
+     				<xsl:value-of select="value"/>
 			</xsl:element>
 		</xsl:for-each>
 		</document>
