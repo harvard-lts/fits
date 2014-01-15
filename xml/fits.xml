@@ -46,7 +46,7 @@
 		
 	<output>
 		<dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
-		<display-tool-output>false</display-tool-output>
+		<display-tool-output>true</display-tool-output>
 		<report-conflicts>false</report-conflicts>	
 		<validate-tool-output>false</validate-tool-output>
 		<internal-output-schema>xml/fits_output.xsd</internal-output-schema>
@@ -61,6 +61,6 @@
 	
 	<!-- file name of the droid signature file to use in tools/droid/-->
 	<droid_sigfile>DROID_SignatureFile_V72_keeps.xml</droid_sigfile>
-	<lotus_notes_folder>/opt/ibm/notes</lotus_notes_folder>
+	<lotus_notes_folder>tools/nsf-characterization-tool/notes</lotus_notes_folder>
 
 </fits_configuration>

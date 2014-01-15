@@ -24,7 +24,7 @@ public class NsfCharacterizationTool extends ToolBase {
   public final static String xslt = Fits.FITS_HOME + "xml/nsfCharacterizationTool/nsfCharacterizationToolToFits.xslt";
   private final static String TOOL_NAME = "NSF Characterization Tool";
   private boolean enabled = true;
-  String lotusNotesFolder = Fits.config.getString("lotus_notes_folder");
+  String lotusNotesFolder = Fits.FITS_HOME+Fits.config.getString("lotus_notes_folder");
   public NsfCharacterizationTool() throws FitsToolException {
     String osName = System.getProperty("os.name");
     if (osName.startsWith("Windows")) {
