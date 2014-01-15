@@ -3,7 +3,6 @@
 
 	<!-- Order of the tools determines preference -->
 	<tools>		
-		
 		<tool class="edu.harvard.hul.ois.fits.tools.libdwg.DwgDump" include-exts="dwg"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.dwgCharacterizationTool.DwgCharacterizationTool" include-exts="dwg" />
 		<tool class="edu.harvard.hul.ois.fits.tools.dbPreservationToolkit.DbPreservationToolkit" include-exts="xml"/>
