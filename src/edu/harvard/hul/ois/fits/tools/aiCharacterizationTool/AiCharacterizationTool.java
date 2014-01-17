@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
 import org.xml.sax.InputSource;
@@ -22,6 +23,7 @@ public class AiCharacterizationTool extends ToolBase{
 	private List<String> command = new ArrayList<String>(Arrays.asList("java","-jar",Fits.FITS_TOOLS+"aiCharacterizationTool/ai-characterization-tool.jar"));
 	private final static String TOOL_NAME = "AI Characterization Tool";
 	private boolean enabled = true;
+	private static Logger logger = Logger.getLogger(AiCharacterizationTool.class);
 	public AiCharacterizationTool() throws FitsToolException {
 		info = new ToolInfo();
 		info.setName(TOOL_NAME);
@@ -50,7 +52,7 @@ public class AiCharacterizationTool extends ToolBase{
 			runStatus = RunStatus.SUCCESSFUL;
 			return output;
 		}catch(Exception e){
-			e.printStackTrace();
+		  logger.error(e.getMessage(),e);
 			return null;
 		}
 	}

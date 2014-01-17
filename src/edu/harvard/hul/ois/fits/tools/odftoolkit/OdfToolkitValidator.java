@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -23,7 +24,8 @@ public class OdfToolkitValidator extends ToolBase{
 	private List<String> command = new ArrayList<String>(Arrays.asList("java","-jar",Fits.FITS_TOOLS+"odftoolkit/odfvalidator-1.1.7-incubating-SNAPSHOT-jar-with-dependencies.jar"));
 	private final static String TOOL_NAME = "OdfToolkitValidator";
 	private boolean enabled = true;
-	
+	   private static Logger logger = Logger.getLogger(OdfToolkitValidator.class);
+
 	public OdfToolkitValidator() throws FitsToolException {
 		info = new ToolInfo();
 		info.setName(TOOL_NAME);
@@ -36,6 +38,7 @@ public class OdfToolkitValidator extends ToolBase{
 	}
 	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+	  try{
 		long startTime = System.currentTimeMillis();
 		List<String> execCommand = new ArrayList<String>();
 		execCommand.addAll(command);
@@ -49,6 +52,10 @@ public class OdfToolkitValidator extends ToolBase{
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
 		return output;
+	  }catch(Exception e){
+	    logger.error(e.getMessage(),e);
+	    return null;
+	  }
 
 	}
 	

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
 import org.xml.sax.InputSource;
@@ -24,7 +25,9 @@ public class NsfCharacterizationTool extends ToolBase {
   public final static String xslt = Fits.FITS_HOME + "xml/nsfCharacterizationTool/nsfCharacterizationToolToFits.xslt";
   private final static String TOOL_NAME = "NSF Characterization Tool";
   private boolean enabled = true;
-  String lotusNotesFolder = Fits.FITS_HOME+Fits.config.getString("lotus_notes_folder");
+  String lotusNotesFolder = Fits.config.getString("lotus_notes_folder");
+  private static Logger logger = Logger.getLogger(NsfCharacterizationTool.class);
+
   public NsfCharacterizationTool() throws FitsToolException {
     String osName = System.getProperty("os.name");
     if (osName.startsWith("Windows")) {
@@ -60,7 +63,7 @@ public class NsfCharacterizationTool extends ToolBase {
       runStatus = RunStatus.SUCCESSFUL;
       return output;
     } catch (Exception e) {
-      e.printStackTrace();
+      logger.error(e.getMessage(),e);
       return null;
     }
   }

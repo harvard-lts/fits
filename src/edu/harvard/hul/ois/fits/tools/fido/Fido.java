@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -22,7 +23,8 @@ public class Fido extends ToolBase{
 	public final static String xslt = Fits.FITS_HOME+"xml/fido/fidoToFits.xslt";
 	
 
-	
+	   private static Logger logger = Logger.getLogger(Fido.class);
+
 	private List<String> command = new ArrayList<String>(Arrays.asList("python", Fits.FITS_TOOLS+"fido/fido.py","-q"));
 	private final static String TOOL_NAME = "fido";
 	private boolean enabled = true;
@@ -38,6 +40,7 @@ public class Fido extends ToolBase{
 	}
 	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+	  try{
 		long startTime = System.currentTimeMillis();
 		List<String> execCommand = new ArrayList<String>();
 		execCommand.addAll(command);
@@ -57,6 +60,10 @@ public class Fido extends ToolBase{
 		runStatus = RunStatus.SUCCESSFUL;
 		
 		return output;
+	  }catch(FitsToolException fte){
+	    logger.error(fte.getMessage(),fte);
+	    return null;
+	  }
 
 	}
 	

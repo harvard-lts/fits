@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
 import org.xml.sax.InputSource;
@@ -22,7 +23,8 @@ public class DwgCharacterizationTool extends ToolBase{
 	private List<String> command = new ArrayList<String>(Arrays.asList("java","-jar",Fits.FITS_TOOLS+"dwgCharacterizationTool/dwg-characterization-tool.jar"));
 	private final static String TOOL_NAME = "DWG Characterization Tool";
 	private boolean enabled = true;
-	
+	   private static Logger logger = Logger.getLogger(DwgCharacterizationTool.class);
+
 	public DwgCharacterizationTool() throws FitsToolException {
 		info = new ToolInfo();
 		info.setName(TOOL_NAME);
@@ -53,6 +55,7 @@ public class DwgCharacterizationTool extends ToolBase{
 			runStatus = RunStatus.SUCCESSFUL;
 			return output;
 		}catch(Exception e){
+		  logger.error(e.getMessage(),e);
 			return null;
 		}
 	}

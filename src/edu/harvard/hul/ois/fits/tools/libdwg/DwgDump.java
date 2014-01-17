@@ -56,7 +56,8 @@ public class DwgDump extends ToolBase {
 		info.setVersion(versionOutput.trim());
 	}
 
-	public ToolOutput extractInfo(File file) throws FitsToolException {
+	public ToolOutput extractInfo(File file)  {
+	  try{
         logger.debug("dwg-dump starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		List<String> execCommand = new ArrayList<String>();
@@ -73,7 +74,7 @@ public class DwgDump extends ToolBase {
 		Document rawOut = createXml(execOut);		
 		
 			
-		Document fitsXml = fitsXml = transform(xslt,rawOut);
+		Document fitsXml = transform(xslt,rawOut);
 
 		output = new ToolOutput(this,fitsXml,rawOut);
 
@@ -81,6 +82,10 @@ public class DwgDump extends ToolBase {
 		runStatus = RunStatus.SUCCESSFUL;
         logger.debug("dwg-dump finished on " + file.getName());
 		return output;
+	  }catch(FitsToolException fte){
+	    logger.error(fte.getMessage(),fte);
+	    return null;
+	  }
 	}
 	
 	public boolean testOSForDwgDump() throws FitsToolCLIException {

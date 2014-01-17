@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
 import org.xml.sax.InputSource;
@@ -15,6 +16,7 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import edu.harvard.hul.ois.fits.tools.aiCharacterizationTool.AiCharacterizationTool;
 import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
 
 public class RtfCharacterizationTool extends ToolBase{
@@ -22,6 +24,8 @@ public class RtfCharacterizationTool extends ToolBase{
 	private List<String> command = new ArrayList<String>(Arrays.asList("java","-jar",Fits.FITS_TOOLS+"rtfCharacterizationTool/rtf-characterization-tool.jar"));
 	private final static String TOOL_NAME = "RTF Characterization Tool";
 	private boolean enabled = true;
+	   private static Logger logger = Logger.getLogger(RtfCharacterizationTool.class);
+
 	public RtfCharacterizationTool() throws FitsToolException {
 		info = new ToolInfo();
 		info.setName(TOOL_NAME);
@@ -50,7 +54,7 @@ public class RtfCharacterizationTool extends ToolBase{
 			runStatus = RunStatus.SUCCESSFUL;
 			return output;
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error(e.getMessage(),e);
 			return null;
 		}
 	}
