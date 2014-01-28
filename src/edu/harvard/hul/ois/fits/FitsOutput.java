@@ -71,6 +71,9 @@ public class FitsOutput {
 	private Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 	
+	//for backwards compatibility with older FITS clients
+	public static String VERSION = Fits.VERSION;
+	
 	public FitsOutput(String fitsXmlStr) throws JDOMException, IOException {
 		SAXBuilder builder = new SAXBuilder();
 		Reader in = new StringReader(fitsXmlStr);
@@ -317,22 +320,25 @@ public class FitsOutput {
 		if(techmd != null && techmd.getChildren().size() > 0) {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			XmlContent xml = getStandardXmlContent();
-			XMLStreamWriter sw = xmlOutputFactory.createXMLStreamWriter(baos);
-			xml.output(sw);
-			String stdxml = baos.toString("UTF-8");
+			if(xml != null) {
+				XMLStreamWriter sw = xmlOutputFactory.createXMLStreamWriter(baos);
+				xml.output(sw);
 			
-			//convert the std xml back to a JDOM element so we can insert it back into the fitsXml Document
-			try {
-				StringReader sReader = new StringReader(stdxml);
-				SAXBuilder saxBuilder = new SAXBuilder();
-				Document stdXmlDoc = saxBuilder.build(sReader);
-				Element stdElement = new Element("standard",ns);
-				stdElement.addContent(stdXmlDoc.getRootElement().detach());
-				techmd.addContent(stdElement);
+				String stdxml = baos.toString("UTF-8");
 				
-			}
-			catch(JDOMException e) {
-				throw new FitsException("error converting standard XML", e);
+				//convert the std xml back to a JDOM element so we can insert it back into the fitsXml Document
+				try {
+					StringReader sReader = new StringReader(stdxml);
+					SAXBuilder saxBuilder = new SAXBuilder();
+					Document stdXmlDoc = saxBuilder.build(sReader);
+					Element stdElement = new Element("standard",ns);
+					stdElement.addContent(stdXmlDoc.getRootElement().detach());
+					techmd.addContent(stdElement);
+					
+				}
+				catch(JDOMException e) {
+					throw new FitsException("error converting standard XML", e);
+				}
 			}
 		}
     }

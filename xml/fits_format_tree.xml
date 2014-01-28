@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <format-tree>
+	<branch format="Tagged Image File Format">
+		<branch format="Digital Negative (DNG)"/>
+	</branch>
 	<branch format="Raw JPEG Stream">
 		<branch format="jpeg">
 			<branch format="JPEG File Interchange Format"/>
@@ -11,7 +14,10 @@
 		<branch format="JPEG 2000 JPX"/>
 	</branch>
 	<branch format="Portable Document Format">
-		<branch format="PDF/A"/>
+		<branch format="Adobe Illustrator"/>
+		<branch format="PDF/A">
+			<branch format="Adobe Illustrator"/>
+		</branch>
 		<branch format="PDF/X"/>
 	</branch>
 	<branch format="Plain text">
@@ -27,6 +33,7 @@
 		<branch format="OpenDocument Text Template"/>
 		<branch format="OpenDocument Drawing"/>
 		<branch format="OpenDocument Drawing Template"/>
+		<branch format="OpenDocument Graphics"/>
 		<branch format="OpenDocument Spreadsheet"/>
 		<branch format="OpenDocument Spreadsheet Template"/>
 		<branch format="OpenDocument Presentation"/>

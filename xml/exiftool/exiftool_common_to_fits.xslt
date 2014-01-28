@@ -28,6 +28,9 @@
 				<xsl:when test="$mime='audio/aiff'">
 					<xsl:value-of select="string('audio/x-aiff')"/>
 				</xsl:when>
+				<xsl:when test="$mime='application/vnd.adobe.photoshop'">
+					<xsl:value-of select="string('image/vnd.adobe.photoshop')"/>
+				</xsl:when>
 				<xsl:when test="$mime='audio/x-ogg'">
 					<xsl:value-of select="string('audio/ogg')"/>
 				</xsl:when>
@@ -49,13 +52,13 @@
    		<xsl:attribute name="format">    
    			<xsl:variable name="format">
 	   			<xsl:choose>
-		   			<xsl:when test="not(string-length($jfif) = 0)">
+		   			<xsl:when test="not(string-length($jfif) = 0) and not(exiftool/FileType = 'JP2')">
 						<xsl:value-of select="concat(exiftool/FileType,' JFIF')" />
 					</xsl:when>
-					<xsl:when test="not(string-length($exif) = 0)">
+					<xsl:when test="not(string-length($exif) = 0) and not(exiftool/FileType = 'JP2')">
 						<xsl:value-of select="concat(exiftool/FileType,' EXIF')" />
 					</xsl:when>
-					<xsl:when test="not(string-length($exifByteOrder) = 0)">
+					<xsl:when test="not(string-length($exifByteOrder) = 0) and not(exiftool/FileType = 'JP2')">
 						<xsl:value-of select="concat(exiftool/FileType,' EXIF')" />
 					</xsl:when>
 					<xsl:otherwise>
@@ -70,6 +73,12 @@
 				<xsl:when test="$format='JPEG EXIF'">
 					<xsl:value-of select="string('Exchangeable Image File Format')"/>
 				</xsl:when>
+				<xsl:when test="$format='PSD EXIF'">
+					<xsl:value-of select="string('Adobe Photoshop')"/>
+				</xsl:when>
+				<xsl:when test="$format='PSD'">
+					<xsl:value-of select="string('Adobe Photoshop')"/>
+				</xsl:when>
 				<xsl:when test="$format='PNG'">
 					<xsl:value-of select="string('Portable Network Graphics')"/>
 				</xsl:when>		
@@ -81,6 +90,9 @@
 				</xsl:when>
 				<xsl:when test="$format='TIFF EXIF'">
 					<xsl:value-of select="string('Tagged Image File Format')"/>						
+				</xsl:when>
+				<xsl:when test="$format='AVI'">
+					<xsl:value-of select="string('Audio/Video Interleaved Format')"/>		
 				</xsl:when>
 				<xsl:when test="$format='BMP'">
 					<xsl:value-of select="string('Windows Bitmap')"/>		
@@ -95,20 +107,46 @@
 					<xsl:value-of select="string('Waveform Audio')"/>
 				</xsl:when>
 				<xsl:when test="$format='JP2'">
-					<xsl:value-of select="string('JPEG 2000')"/>
+					<xsl:choose>
+						<xsl:when test="contains(exiftool/CompatibleBrands,'jp2')">
+							<xsl:value-of select="string('JPEG 2000 JP2')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="string('JPEG 2000')"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>	
+				<xsl:when test="$format='JPX'">
+					<xsl:choose>
+						<xsl:when test="contains(exiftool/CompatibleBrands,'jpx')">
+							<xsl:value-of select="string('JPEG 2000 JPX')"/>
+						</xsl:when>
+						<xsl:when test="contains(exiftool/CompatibleBrands,'jp2')">
+							<xsl:value-of select="string('JPEG 2000 JP2')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="string('JPEG 2000')"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:when>	
 		   		<xsl:when test="$format='RM'">
 						<xsl:value-of select="string('RealMedia')" />
 				</xsl:when>
 				<xsl:when test="$format='DNG'">
-					<xsl:value-of select="string('Digital Negative')"/>
-				</xsl:when>		
+					<xsl:value-of select="string('Digital Negative (DNG)')"/>
+				</xsl:when>
+				<xsl:when test="$format='DNG EXIF'">
+					<xsl:value-of select="string('Digital Negative (DNG)')"/>
+				</xsl:when>	
 				<xsl:when test="$format='PDF'">
 					<xsl:value-of select="string('Portable Document Format')"/>
 				</xsl:when>	
 				<xsl:when test="$format='DOC'">
-					<xsl:value-of select="string('Microsoft Word')"/>
-				</xsl:when>	
+					<xsl:value-of select="string('Microsoft Word Document')"/>
+				</xsl:when>
+				<xsl:when test="$format='GZIP'">
+					<xsl:value-of select="string('GZIP Format')"/>
+				</xsl:when>		
 				<xsl:when test="$format='PSD'">
 					<xsl:value-of select="string('Adobe Photoshop (PSD)')"/>
 				</xsl:when>
@@ -116,7 +154,25 @@
 					<xsl:value-of select="string('Audio Interchange File Format')"/>
 				</xsl:when>	
 				<xsl:when test="$format='OGG'">
-					<xsl:value-of select="string('Ogg')"/>
+					<xsl:value-of select="string('Ogg Vorbis Codec Compressed Multimedia File')"/>
+				</xsl:when>	
+				<xsl:when test="$format='ODP'">
+					<xsl:value-of select="string('OpenDocument Presentation')"/>
+				</xsl:when>	
+				<xsl:when test="$format='ODT'">
+					<xsl:value-of select="string('OpenDocument Text')"/>
+				</xsl:when>	
+				<xsl:when test="$format='ODS'">
+					<xsl:value-of select="string('OpenDocument Spreadsheet')"/>
+				</xsl:when>	
+				<xsl:when test="$format='ODF'">
+					<xsl:value-of select="string('OpenDocument Formula')"/>
+				</xsl:when>	
+				<xsl:when test="$format='ODG'">
+					<xsl:value-of select="string('OpenDocument Graphics')"/>
+				</xsl:when>	
+				<xsl:when test="$format='PPT'">
+					<xsl:value-of select="string('Microsoft Powerpoint Presentation')"/>
 				</xsl:when>	
 				<xsl:when test="$format='M4A'">
 					<xsl:value-of select="string('MPEG-4 Audio')"/>
@@ -141,6 +197,18 @@
 				</xsl:when>	
 				<xsl:when test="$format='PS'">
 					<xsl:value-of select="string('Postscript')"/>
+				</xsl:when>	
+				<xsl:when test="$format='XLS'">
+					<xsl:value-of select="string('Microsoft Excel')"/>
+				</xsl:when>	
+				<xsl:when test="$format='XMP'">
+					<xsl:value-of select="string('Extensible Markup Language')"/>
+				</xsl:when>	
+				<xsl:when test="$format='XMP EXIF'">
+					<xsl:value-of select="string('Extensible Markup Language')"/>
+				</xsl:when>	
+				<xsl:when test="$format='AI'">
+					<xsl:value-of select="string('Adobe Illustrator')"/>
 				</xsl:when>	
 				<xsl:when test="$format=''">
 					<xsl:value-of select="string('Unknown Binary')"/>

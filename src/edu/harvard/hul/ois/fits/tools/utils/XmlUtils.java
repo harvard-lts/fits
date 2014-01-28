@@ -18,7 +18,7 @@
  */
 package edu.harvard.hul.ois.fits.tools.utils;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,13 +28,13 @@ import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-import org.jdom.Namespace;
+//import org.jdom.Namespace;
 import org.jdom.xpath.XPath;
 
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
-import edu.harvard.hul.ois.fits.identity.ToolIdentity;
-import edu.harvard.hul.ois.fits.tools.ToolInfo;
+//import edu.harvard.hul.ois.fits.Fits;
+//import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
+//import edu.harvard.hul.ois.fits.identity.ToolIdentity;
+//import edu.harvard.hul.ois.fits.tools.ToolInfo;
 
 public class XmlUtils {
 			
@@ -61,7 +61,7 @@ public class XmlUtils {
 	 * concatenates the values of all elements children into a single string and returns it
 	 * @param dom
 	 * @param element
-	 * @return
+	 * @return String
 	 */
 	public static String getChildDomValues(Document dom, String element) {
 		String s = "";

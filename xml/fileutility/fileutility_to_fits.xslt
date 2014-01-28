@@ -80,11 +80,11 @@
 								<xsl:value-of select="string('application/vnd.oasis.opendocument.text-web')"/>
 						</xsl:when>		
 						<xsl:when test="$format='ColorSync ICC Profile'">
-								<xsl:value-of select="string('application/x-icc')"/>
+								<xsl:value-of select="string('application/vnd.iccprofile')"/>
 						</xsl:when>			
 						<xsl:when test="$format='Kodak Color Management System, ICC Profile'">
-								<xsl:value-of select="string('application/x-icc')"/>
-						</xsl:when>													
+								<xsl:value-of select="string('application/vnd.iccprofile')"/>
+						</xsl:when>											
 						<xsl:otherwise>
 							<xsl:value-of select="$mime"/>
 						</xsl:otherwise>
@@ -296,7 +296,7 @@
 						    <xsl:matching-substring>
 						    	<xsl:attribute name="format">
 						    		<xsl:if test="regex-group(1)='Ogg data, Vorbis audio'">
-										<xsl:value-of select="string('Ogg')"/>
+										<xsl:value-of select="string('Ogg Vorbis Codec Compressed Multimedia File')"/>
 									</xsl:if>
 						    	</xsl:attribute>
 						    	<!-- 
@@ -340,7 +340,7 @@
 					<!--  MS Word -->
 					<xsl:when test="$mime='application/msword'">
 						<xsl:attribute name="format">
-						  	<xsl:value-of select="string('Microsoft Word')"/>
+						  	<xsl:value-of select="string('Microsoft Word Document')"/>
 						</xsl:attribute>				
 					</xsl:when>	
 					<!-- Zip archive data, at least v2.0 to extract -->
@@ -422,7 +422,37 @@
 						<xsl:attribute name="format">
 							<xsl:value-of select="string('Unknown Binary')"/>
 						</xsl:attribute>
-					</xsl:when>													
+					</xsl:when>		
+					<xsl:when test="$format='OpenDocument Drawing'">
+						<xsl:attribute name="format">
+							<xsl:value-of select="string('OpenDocument Graphics')"/>
+						</xsl:attribute>
+					</xsl:when>		
+					<xsl:when test="starts-with($format,'x86 boot sector')">
+						<xsl:attribute name="format">	
+							<xsl:value-of select="string('x86 boot sector')"/>
+						</xsl:attribute>
+					</xsl:when>			
+					<xsl:when test="starts-with($format,'Adobe Photoshop Image')">
+						<xsl:attribute name="format">	
+							<xsl:value-of select="string('Adobe Photoshop')"/>
+						</xsl:attribute>
+					</xsl:when>			
+					<xsl:when test="starts-with($format,'RIFF (little-endian) data, AVI')">
+						<xsl:attribute name="format">	
+							<xsl:value-of select="string('Audio/Video Interleaved Format')"/>
+						</xsl:attribute>
+					</xsl:when>			
+					<xsl:when test="starts-with($format,'MPEG ADTS, AAC')">
+						<xsl:attribute name="format">	
+							<xsl:value-of select="string('AAC')"/>
+						</xsl:attribute>
+					</xsl:when>	
+	  			<xsl:when test="ends-with($format,'ICC Profile')">
+						<xsl:attribute name="format">	
+							<xsl:value-of select="string('ICC')"/>
+						</xsl:attribute>
+	  			</xsl:when>		
 					<xsl:otherwise>
 						<xsl:attribute name="format">
 							<xsl:value-of select="$format"/>

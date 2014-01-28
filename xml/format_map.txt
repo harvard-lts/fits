@@ -1,0 +1,24 @@
+# This is currently used by Tika and DROID
+# Mapping from format names to standard names. This is an incomplete map,
+# holding only cases where conversion is necessary. Expand as needed.
+MPEG-1 Audio Layer 3=MPEG 1/2 Audio Layer 3
+OpenDocument v1.0: Presentation document=OpenDocument Presentation
+OpenDocument v1.0: Text document=OpenDocument Text
+OpenDocument v1.0: Spreadsheet document=OpenDocument Spreadsheet
+OpenDocument v1.0: Formula document=OpenDocument Formula
+OpenDocument v1.0: Graphics document (Drawing)=OpenDocument Graphics
+OpenDocument v1.0: Global Text document=OpenDocument Master Document
+Waveform Audio (PCMWAVEFORMAT)=Waveform Audio
+Waveform Audio (WAVEFORMATEX)=Waveform Audio
+Joint Photographic Experts Group=jpeg
+Gzip Compressed Archive=GZIP Format
+Windows bitmap=Windows Bitmap
+PPT=Microsoft Powerpoint Presentation
+Plain Text File=Plain text
+Scalable Vector Graphics=Scalable Vector Graphics (SVG)
+Tagged Image File Format for Internet Fax (TIFF-FX)=Tagged Image File Format
+Microsoft Excel Spreadsheet=Microsoft Excel
+Audio Video Interleave File=Audio/Video Interleaved Format
+Photoshop Image=Adobe Photoshop
+Macromedia FLV=Flash Video (FLV)
+Digital Negative Format (DNG)=Digital Negative (DNG)

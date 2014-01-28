@@ -23,6 +23,9 @@ import java.util.List;
 
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 
+/** Information about a file's format, MIME type, and identifiers,
+ *  as provided by a single tool. 
+ */
 public class ToolIdentity {
 	
 	//Some tools may report multiple mimetypes, formats or format versions
