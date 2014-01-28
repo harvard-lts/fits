@@ -1,14 +1,19 @@
 RELEASE NOTES 
 
-Version 0.8.x (unreleased)
+Version 0.8 (1/28/14)
 ---------------------
 - Minor performance optimizations
 - Nailgun server support
 - Droid update to version 6
 - Official support for Apache Tika
-- Many bug and stability fixes
- 	-Fixed documentmd conversion bug when page count is null
-	-Fixed Exiftool resolution unit conversion error
+- Normalized and consolidated identification and technical metadata output differences introduced by the new and updated tools
+- Improved stability when running against directories of files
+- Fixed documentmd conversion bug when page count is null
+- Fixed Exiftool resolution unit conversion error
+- Fixed incomplete conversion from FITS output to standard metadata schema formats (MIX, TextMD, DocumentMD, AES57)
+- Fixed concurrency issues when running multiple instances of FITS in a single JVM
+	- DROID 6 signature file initialization
+	- FITS_HOME initialization 
 - Better Error reporting and logging
 
 Version 0.7.x (--/--/--)
