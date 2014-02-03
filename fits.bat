@@ -1,6 +1,7 @@
 ::-----------------------------------------------------------------
 :: Windows script to execute FITS
 @echo off
+setlocal
 
 :: Set FITS_HOME
 set PRGDIR=%~dp0
