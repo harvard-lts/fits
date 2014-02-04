@@ -181,7 +181,7 @@ public class Fits {
     Options options = new Options();
     options.addOption( "i", true, "input file or directory" );
     options.addOption( "r", false, "process directories recursively when -i is a directory " );
-    options.addOption( "o", true, "output file" );
+    options.addOption( "o", true, "output file or directory if -i is a directory" );
     options.addOption( "h", false, "print this message" );
     options.addOption( "v", false, "print version information" );
     OptionGroup outputOptions = new OptionGroup();
