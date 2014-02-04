@@ -1,21 +1,20 @@
 ::-----------------------------------------------------------------
 :: Windows script to execute FITS
 @echo off
+setlocal
 
 :: Set FITS_HOME
-set PRGDIR=%~p0
+set PRGDIR=%~dp0
 set FITS_HOME=%PRGDIR:~0,-1%
-
-cd %FITS_HOME%
 
 set JARS=
 set CLASSPATH=
 
-for %%i in (lib\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
-for %%i in (lib\droid\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
-for %%i in (lib\jhove\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
-for %%i in (lib\nzmetool\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
-for %%i in (lib\nzmetool\adapters\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
+for %%i in (%FITS_HOME%\lib\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
+for %%i in (%FITS_HOME%\lib\droid\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
+for %%i in (%FITS_HOME%\lib\jhove\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
+for %%i in (%FITS_HOME%\lib\nzmetool\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
+for %%i in (%FITS_HOME%\lib\nzmetool\adapters\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
 
 set CLASSPATH=%JARS%;%FITS_HOME%\xml\nlnz
 
