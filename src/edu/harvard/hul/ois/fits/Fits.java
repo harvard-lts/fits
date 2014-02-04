@@ -216,7 +216,7 @@ public class Fits {
         String outputDir = cmd.getOptionValue( "o" );
         if (outputDir == null || !(new File( outputDir ).isDirectory())) {
           throw new FitsException(
-              "When FITS is run in directory processing mode the output location must be a diretory" );
+              "When FITS is run in directory processing mode the output location must be a directory" );
         }
         Fits fits = new Fits();
         fits.doDirectory( inputFile, new File( outputDir ), cmd.hasOption( "x" ), cmd.hasOption( "xc" ) );
