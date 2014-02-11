@@ -85,7 +85,8 @@ public class DbPreservationToolkit extends ToolBase{
 			Document fitsXml = transform(xslt, rawOut);
 			output = new ToolOutput(this, fitsXml,rawOut);
 		}catch(Exception e) {
-			e.printStackTrace();
+		  execOut="<xml><out></out></xml>";
+          output = getFitsOutput(execOut);
 		}
 		return output;
 	}
