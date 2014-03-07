@@ -23,17 +23,16 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 
+import org.jdom.Document;
+import org.jdom.JDOMException;
+import org.apache.log4j.Logger;
+
 import nz.govt.natlib.AdapterFactory;
 import nz.govt.natlib.adapter.DataAdapter;
 import nz.govt.natlib.fx.ParserContext;
 import nz.govt.natlib.fx.ParserListener;
 import nz.govt.natlib.meta.config.Config;
 import nz.govt.natlib.meta.harvester.DTDXmlParserListener;
-
-import org.apache.log4j.Logger;
-import org.jdom.Document;
-import org.jdom.JDOMException;
-
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
@@ -52,10 +51,9 @@ public class MetadataExtractor extends ToolBase {
     
 	public final static String nlnzFitsConfig = Fits.FITS_XML+"nlnz"+File.separator+"fits"+File.separator;
 	private boolean enabled = true;
-    private static Logger logger;
+    private static final Logger logger = Logger.getLogger(MetadataExtractor.class);
 	
 	public MetadataExtractor() throws FitsException {	
-        logger = Logger.getLogger(this.getClass());
         logger.debug ("Initializing MetadataExtractor");
 		info = new ToolInfo(TOOL_NAME,TOOL_VERSION,TOOL_DATE);
 		transformMap = XsltTransformMap.getMap(nlnzFitsConfig+"nlnz_xslt_map.xml");

@@ -83,8 +83,8 @@ public class Fido extends ToolBase{
         out.write("\n");
         boolean ok = false;
         for(String s : lines){
-          
-          String[] tokens = s.split(",");
+          String[] tokens = s.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+          //String[] tokens = s.split(",");
           if(tokens[0].equalsIgnoreCase("OK")){
             out.write("<identification>");
             out.write("\n");

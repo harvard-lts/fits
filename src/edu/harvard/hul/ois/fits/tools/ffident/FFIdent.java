@@ -26,8 +26,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.jdom.Document;
+import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
@@ -48,7 +48,7 @@ public class FFIdent extends ToolBase {
 	public final static String xslt =Fits.FITS_XML+"/ffident/ffident_to_fits.xslt";
 	private boolean enabled = true;
 
-    private static Logger logger = Logger.getLogger(FFIdent.class);
+    private static final Logger logger = Logger.getLogger(FFIdent.class);
 
 	public FFIdent() throws FitsToolException{
 

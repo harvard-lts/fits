@@ -18,9 +18,7 @@
  */
 package edu.harvard.hul.ois.fits.tools.utils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 import edu.harvard.hul.ois.fits.exceptions.FitsToolCLIException;

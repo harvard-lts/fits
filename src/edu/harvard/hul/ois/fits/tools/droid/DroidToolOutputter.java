@@ -5,18 +5,18 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
 
+import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsMetadataValues;
+import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
+import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResult;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
+
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
-import org.xml.sax.SAXException;
-
-import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResult;
-import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
-import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
 /** This class generates the tool output for DROID.
  * 
@@ -56,11 +56,20 @@ public class DroidToolOutputter {
         for (IdentificationResult res : resList) {
             String filePuid = res.getPuid();
             String formatName = res.getName();
+            formatName = mapFormatName(formatName);
             String mimeType = res.getMimeType();
+            
+            if(FitsMetadataValues.getInstance().normalizeMimeType(mimeType) != null) {
+            	mimeType = FitsMetadataValues.getInstance().normalizeMimeType(mimeType); 
+            }
+            
+            if(formatName.equals("Digital Negative (DNG)")) {
+            	mimeType="image/x-adobe-dng";
+            }
+            
             String version = res.getVersion();
-//            if (version != null && formatName != null) {
-//                formatName += " " + version;
-//            }
+            version = mapVersion(version);
+            
             Element identityElem = new Element ("identity", fitsNS);
             Attribute attr = null;
             if (formatName != null) {
@@ -93,6 +102,50 @@ public class DroidToolOutputter {
         }
 
         return toolDoc;     // TODO stub
+    }
+    
+    private String mapFormatName(String formatName) {
+    	
+    	if(formatName == null || formatName.length() == 0) {
+    		return FitsMetadataValues.DEFAULT_FORMAT;
+    	}
+    	else if(formatName.startsWith("JPEG2000") || formatName.startsWith("JP2 (JPEG 2000")) {
+    		return "JPEG 2000 JP2";
+    	}
+    	else if(formatName.startsWith("Exchangeable Image File Format (Compressed)")) {
+    		return "Exchangeable Image File Format";
+    	}    	
+    	else if(formatName.contains("PDF/A")) {
+    		return "PDF/A";
+    	}
+    	else if(formatName.contains("PDF/X")) {
+    		return "PDF/X";
+    	}
+    	else if(formatName.contains("Portable Document Format")) {
+    		return "Portable Document Format";
+    	}
+    	else if(formatName.startsWith("Microsoft Excel")) {
+    		return "Microsoft Excel";
+    	}
+    	else if(FitsMetadataValues.getInstance().normalizeFormat(formatName) != null){
+    		return FitsMetadataValues.getInstance().normalizeFormat(formatName);
+    	}
+    	else {
+    		return formatName;
+    	}
+    }
+    
+    private String mapVersion(String version) {
+    	
+    	if(version == null || version.length() == 0) {
+    		return version;
+    	}
+    	else if(version.equals("1987a")) {
+    		return "87a";
+    	}
+    	else {
+    		return version;
+    	}
     }
     
     /**

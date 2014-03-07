@@ -20,14 +20,15 @@ package edu.harvard.hul.ois.fits.tools.jhove;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.apache.log4j.Logger;
 import org.jdom.Document;
+import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
@@ -52,7 +53,7 @@ public class Jhove extends ToolBase {
     private XmlHandler xh; 
     private String jhoveConf;
     private boolean enabled = true;
-    private static Logger logger = Logger.getLogger(Jhove.class);
+    private static final Logger logger = Logger.getLogger(Jhove.class);
 
     public final static Calendar calendar = GregorianCalendar.getInstance();
     
@@ -72,7 +73,7 @@ public class Jhove extends ToolBase {
             jhove.setSignatureFlag(false);
             jhove.setShowRawFlag(false);
       	    xh = new XmlHandler();
-      	    jhoveApp = new App ("Jhove",jhove.getRelease(), JhoveBase.DATE, "","");
+      	    jhoveApp = new App ("Jhove","1.5", new int[] {2009, 12, 23}, "","");
             xh.setApp(jhoveApp);
             xh.setBase(jhove);   		
 		}
@@ -115,7 +116,7 @@ public class Jhove extends ToolBase {
 		xh.setWriter(pWriter);	
 		jhove.process(jhoveApp, mod, xh, filepath);  		
 		pWriter.close();
-		out2.close();	
+		out2.close();				
 		Document dom = saxBuilder.build(new StringReader(out.toString()));		
 		out.close();   	
 		return dom;
@@ -146,7 +147,7 @@ public class Jhove extends ToolBase {
 		String format = XmlUtils.getDomValue(dom,"format");
 		String xsltTransform = (String)transformMap.get(format.toUpperCase());
 
-		/*
+		/* debug code
 		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
 		try {
 			outputter.output(dom, System.out);
@@ -155,7 +156,7 @@ public class Jhove extends ToolBase {
 			e.printStackTrace();
 		}
 		System.out.println("-------------------------------------------------------------------------------------");
-		*/
+		 */
 		
 		Document fitsXml = null;
 		if(xsltTransform != null) {
@@ -167,15 +168,14 @@ public class Jhove extends ToolBase {
 		
 		/*
 		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
-		
 		try {
 			outputter.output(fitsXml, System.out);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		*/
+		
 		output = new ToolOutput(this,fitsXml,dom);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;

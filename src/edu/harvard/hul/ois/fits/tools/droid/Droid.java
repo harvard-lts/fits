@@ -20,14 +20,15 @@ package edu.harvard.hul.ois.fits.tools.droid;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import org.apache.log4j.Logger;
 import org.jdom.input.SAXBuilder;
 
+import uk.gov.nationalarchives.droid.command.action.VersionCommand;
 import uk.gov.nationalarchives.droid.core.SignatureParseException;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
-//import uk.gov.nationalarchives.droid.AnalysisController;
-//import uk.gov.nationalarchives.droid.IdentificationFile;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
@@ -38,12 +39,9 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
  */
 public class Droid extends ToolBase {
 
-	//private uk.gov.nationalarchives.droid.Droid droid = null;
-    //private BinarySignatureIdentifier droid = null;
-	//public final static String xslt = Fits.FITS_HOME+"xml/droid/droid_to_fits.xslt";
 	private boolean enabled = true;
 	private DroidQuery droidQuery;
-    private static Logger logger = Logger.getLogger(Droid.class);
+    private static final Logger logger = Logger.getLogger(Droid.class);
 
 	public Droid() throws FitsToolException {
         logger.debug ("Initializing Droid");
@@ -55,19 +53,15 @@ public class Droid extends ToolBase {
 		}
 		try {
 			String droid_conf = Fits.FITS_TOOLS+"droid"+File.separator;
-			//URL droidConfig = new File(droid_conf+"DROID_config.xml").toURI().toURL();
 			File sigFile = new File(droid_conf+Fits.config.getString("droid_sigfile"));
-	        File tempDir = new File(Fits.FITS_TOOLS+"droid" + File.separator + "tmpdir");
 	        try {
-	            droidQuery = new DroidQuery (sigFile, tempDir);
+	            droidQuery = new DroidQuery (sigFile);
 	        }
 	        catch (SignatureParseException e) {
 	            throw new FitsToolException("Problem with DROID signature file");
 	        }
-			//droid = new uk.gov.nationalarchives.droid.Droid(droidConfig);
-			//droid = new BinarySignatureIdentifier();
-			//droid.setSignatureFile(sigFile);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new FitsToolException("Error initilizing DROID",e);
 		}
 	}
@@ -108,8 +102,6 @@ public class Droid extends ToolBase {
 
 	/* Get the version of DROID. This is about the cleanest I can manage. */
 	private String getDroidVersion () {
-		return "";
-		/*
 	    StringWriter sw = new StringWriter ();
 	    PrintWriter pw = new PrintWriter (sw);
 	    VersionCommand vcmd = new VersionCommand (pw);
@@ -120,7 +112,6 @@ public class Droid extends ToolBase {
 	        return "(Version unknown)";
 	    }
 	    return sw.toString().trim();
-	    */
 	}
     
 }

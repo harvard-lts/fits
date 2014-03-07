@@ -3,10 +3,10 @@ package edu.harvard.hul.ois.fits.tools;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.apache.log4j.Logger;
 
 /** Output error reports from validation of FITS output */
 public class ToolErrorHandler implements ErrorHandler {

@@ -34,19 +34,6 @@ public class DocumentTypes {
         TEXT,
         VIDEO
     };
-
-    /** Map of variant MIME types to our standard ones. */
-    private final static Map<String, String> mimeNormalizationMap =
-            new HashMap<String, String> ();
-    static {
-        mimeNormalizationMap.put("application/rdf+xml","text/xml");
-        mimeNormalizationMap.put("application/xml","text/xml");
-        mimeNormalizationMap.put("audio/x-wav","audio/x-wave");
-        mimeNormalizationMap.put("audio/aiff","audio/x-aiff");
-        mimeNormalizationMap.put("audio/x-ogg","audio/ogg");
-        mimeNormalizationMap.put("audio/flac","audio/x-flac");
-        mimeNormalizationMap.put("application/photoshop","image/vnd.adobe.photoshop");
-    }
     
     /** Map of MIME types to FITS doctypes.
      *  exiftool_xslt_map.xml is a good reference to use. */
@@ -137,20 +124,6 @@ public class DocumentTypes {
             return Doctype.UNKNOWN;
         }
         else return dt;
-    }
-
-    /** Do some normalization on variant MIME types. */
-    public static String normalizeMimeType (String mime) {
-        if (mime == null) {
-            return "application/octet-stream";
-        }
-        String normMime = mimeNormalizationMap.get(mime);
-        if (normMime != null) {
-            return normMime;
-        }
-        else {
-            return mime;
-        }
     }
 
 }

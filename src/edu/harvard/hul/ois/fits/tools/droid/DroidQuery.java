@@ -27,6 +27,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.SignatureParseException;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
@@ -36,48 +37,27 @@ import uk.gov.nationalarchives.droid.core.interfaces.resource.RequestMetaData;
 
 public class DroidQuery {
 
-    private File tempDir;
-    private static BinarySignatureIdentifier sigIdentifier = null;
+    private BinarySignatureIdentifier sigIdentifier = new BinarySignatureIdentifier();;
     
     /** Create a DroidQuery object. This can be retained for any number of
      *  different queries.
      *  
      *  @param sigFile   File object for a Droid signature file
-     *  @param tempDir   A temporary directory object
      *  
      *   @throws SignatureParseException 
      */
-    public DroidQuery (File sigFile, File tempDir) 
-            throws SignatureParseException,
-                   FileNotFoundException    {
+    public DroidQuery (File sigFile)  throws SignatureParseException, FileNotFoundException    {
         if (!sigFile.exists()) {
-            throw new FileNotFoundException ("Signature file " + 
-                   sigFile.getAbsolutePath() +
-                   " not found");
+            throw new FileNotFoundException ("Signature file " + sigFile.getAbsolutePath() + " not found");
         }
-        if (!tempDir.exists()) {
-        	tempDir.mkdirs();
-        	/*
-            throw new FileNotFoundException ("Temporary directory " + 
-                   sigFile.getAbsolutePath() +
-                   " not found");
-            */
-        }
-        this.tempDir = tempDir;
-        if (sigIdentifier == null) {
-            sigIdentifier = new BinarySignatureIdentifier();
-            sigIdentifier.setSignatureFile (sigFile.getAbsolutePath());
-            sigIdentifier.init ();
-        }
+        sigIdentifier.setSignatureFile (sigFile.getAbsolutePath());
+        sigIdentifier.init ();
     }
     
     /** Query a file and get back an XML response. */
     public IdentificationResultCollection queryFile (File fil) 
             throws IOException {
-        RequestMetaData metadata = 
-                new RequestMetaData(fil.length(), 
-                        fil.lastModified(), 
-                        tempDir.getAbsolutePath());
+        RequestMetaData metadata = new RequestMetaData(fil.length(), fil.lastModified(), fil.getName());
         RequestIdentifier identifier = new RequestIdentifier (fil.toURI());
         FileInputStream in = null;
         FileSystemIdentificationRequest req = null;
@@ -90,6 +70,14 @@ public class DroidQuery {
             if (results.getResults().size() > 1) {
                 sigIdentifier.removeLowerPriorityHits(results);
             }
+            
+            if(results.getResults().size() == 0) {
+            	results = sigIdentifier.matchExtensions(req,false);
+            }
+            if (results.getResults().size() > 1) {
+                sigIdentifier.removeLowerPriorityHits(results);
+            }
+            
     //        List<IdentificationResult> resultsList = results.getResults();
                 // This gives us an unfiltered list of matching signatures
             return results;

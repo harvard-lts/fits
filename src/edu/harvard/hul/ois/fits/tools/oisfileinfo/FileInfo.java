@@ -42,8 +42,8 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 public class FileInfo extends ToolBase {
 	
     private final static String TOOL_NAME = "OIS File Information";
-    private final static String TOOL_VERSION = "0.1";
-    private final static String TOOL_DATE = null;
+    private final static String TOOL_VERSION = "0.2";
+    private final static String TOOL_DATE = "12/13/2013";
 
     private static Logger logger = Logger.getLogger(FileInfo.class);
 
@@ -83,22 +83,22 @@ public class FileInfo extends ToolBase {
 		fileInfo.addContent(filepath);
 		//filename
 		Element fileName = new Element("filename",fitsNS);
-		fileName.setText(file.getPath());
+		fileName.setText(file.getName());
 		fileInfo.addContent(fileName);
 		//size
 		Element size = new Element("size",fitsNS);
 		size.setText(String.valueOf(file.length()));
 		fileInfo.addContent(size);		
 		//Calculate the MD5 checksum
-		try {
-			String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
-			Element signature = new Element("md5checksum",fitsNS);
-			signature.setText(md5Hash);
-			fileInfo.addContent(signature);
-		} catch (IOException e) {
-		    logger.error("Could not calculate the MD5 for "+file.getPath() + 
-		            ": " + e.getClass().getName());
-			throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
+		if (Fits.config.getBoolean("output.enable-checksum")) {
+			try {
+				String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
+				Element signature = new Element("md5checksum",fitsNS);
+				signature.setText(md5Hash);
+				fileInfo.addContent(signature);
+			} catch (IOException e) {
+				throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
+			}
 		}
 		//fslastmodified
 		Element fslastmodified = new Element("fslastmodified",fitsNS);

@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.derby.tools.sysinfo;
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -59,6 +60,8 @@ public class OISConsolidator implements ToolOutputConsolidator {
 
     private static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");        
 
+    private Logger logger = Logger.getLogger(this.getClass());
+    
 	private boolean reportConflicts;
 	private boolean displayToolOutput;
 	private Document formatTree;
@@ -74,6 +77,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	
 	public OISConsolidator() throws FitsConfigurationException {
+		
 		reportConflicts = Fits.config.getBoolean("output.report-conflicts",true);
 		displayToolOutput = Fits.config.getBoolean("output.display-tool-output",false);
 		SAXBuilder saxBuilder = new SAXBuilder();
@@ -232,8 +236,6 @@ public class OISConsolidator implements ToolOutputConsolidator {
 			return fitsElements;
 		}
 		int equalityResult = testEquality(fitsElements);
-		
-		
 		if(equalityResult == ALL_AGREE) {
 			//since all tools agreed, or all conflicts could be resolved 
 			//return the element without the identifying tool name and version
@@ -355,15 +357,9 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	
 	private List<ToolIdentity> getAllIdentities(List<ToolOutput> results) {
 		List<ToolIdentity> identities = new ArrayList<ToolIdentity>();
-		
-		
 		for(ToolOutput result : results) {			
 			if(result.getTool().canIdentify()) {
 				List<ToolIdentity> identList = result.getFileIdentity();
-				
-				
-				
-				
 				Map<ToolIdentity,Integer> frequency = new Hashtable<ToolIdentity,Integer>();
 				for(ToolIdentity ident : identList) {
 				  int counter=0;
@@ -460,6 +456,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 				else {			
 					int matchCondition = checkFormatTree(ident,identitySection);
 					if(matchCondition == -1) {
+						logger.debug(ident.getFormat() + " is more specific than " + identitySection.getFormat() + " tossing out " + identitySection.getToolName());
 						//ident is more specific.  Most specific identity should always
 						// be first element in list
 						FitsIdentity newSection = new FitsIdentity(ident);
@@ -478,6 +475,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 					}
 					// existing format is more specific
 					else if(matchCondition == 1) {
+						logger.debug(identitySection.getFormat() + " is more specific than " + ident.getFormat() + " tossing out " + ident.getToolInfo().getName());
 						formatTreeMatch = true;
 						//do nothing, keep going and add to consolidated identities if no other matches
 					}
@@ -503,6 +501,12 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	 * @return
 	 */
 	private int checkFormatTree(ToolIdentity a, FitsIdentity b) {
+		
+		//if formats are equal then just return
+		if(a.getFormat().equals(b.getFormat())) {
+			return 0;
+		}
+		
 		//check if a is more specific than b
 		Attribute a_attr = new Attribute("format",a.getFormat());
 		Attribute b_attr = new Attribute("format",b.getFormat());
@@ -545,10 +549,8 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	public FitsOutput processResults(List<ToolOutput> results) {
 		//Remove any null results, or results from tools that have the capability to identify files,
 		// but couldn't identify the file.
-
 		List<ToolOutput> culledResults = cullResults(results);
-
-		
+			
 		//start building the FITS xml document
 		Document mergedDoc = new Document();
 		Element fits = new Element("fits",fitsNS);
@@ -571,12 +573,10 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		//check identities
 			//one "identity" per unique combination of format and mimetype
 		List<ToolIdentity> identities = getAllIdentities(culledResults);
-
 		List<FitsIdentity> identitySections = new ArrayList<FitsIdentity>();
 		boolean unknownStatus = false;
 		boolean partialStatus = false;
 		//If there are no known identities in the culled results
-		
 		if(identities.size() == 0) {
 			//try to find a partial identity match in the original results
 			identitySections = getFirstPartialIdentity(results);
@@ -595,9 +595,6 @@ public class OISConsolidator implements ToolOutputConsolidator {
 			identitySections = consolidateIdentities(identities);
 		}
 
-		/***
-		 * TODO
-		 */
 		for(FitsIdentity identSection : identitySections) {
 			Element identElement = new Element("identity",fitsNS);
 			Attribute identFormatAttr = new Attribute("format",identSection.getFormat());
@@ -643,19 +640,14 @@ public class OISConsolidator implements ToolOutputConsolidator {
 				}
 			}
 			
-			List<String> externalIdentifiers = new ArrayList<String>();
-			
 			for(ExternalIdentifier xId : identSection.getExternalIdentifiers()) {
-				if(!externalIdentifiers.contains(xId.getName())){
-				  externalIdentifiers.add(xId.getName());
-			  Element externalID = new Element("externalIdentifier",fitsNS);
+				Element externalID = new Element("externalIdentifier",fitsNS);
 				ToolInfo xIdInfo = xId.getToolInfo();
 				externalID.setAttribute("toolname",xIdInfo.getName());
 				externalID.setAttribute("toolversion",xIdInfo.getVersion());
 				externalID.setAttribute("type",xId.getName());
 				externalID.setText(xId.getValue());
 				identElement.addContent(externalID);
-				}
 			}
 			//set the status of the section
 			String status = "";
@@ -695,7 +687,6 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		Element s = new Element(curSecName,fitsNS);
 		fits.addContent(s);
 		Element e = null;
-		
 		while((e = findAnElement(culledResults,curSec,false)) != null) {
 			List<Element> fitsElements = mergeXmlesults(culledResults, e);
 			for(Element fitsElement : fitsElements) {
@@ -735,19 +726,10 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		
 		//Only use the output from tools that were able to identify
 		// the file and are in the first identity section
-	
-		
 		if(identitySections.size() > 0) {
 			filterToolOutput(identitySections.get(0),culledResults);
 		}
-		
-		
-		
-
-		
-		
-		
-		
+				
 		//check filestatus, do normal xml comparison
 		curSec = "/fits:fits/fits:filestatus";
 		//curSec = "/fits/filestatus";

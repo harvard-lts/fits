@@ -28,14 +28,11 @@
 
 package edu.harvard.hul.ois.fits.junit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
-//import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
+import junit.framework.TestCase;
 
 import edu.harvard.hul.ois.fits.XmlContentConverter;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
@@ -58,6 +55,12 @@ import edu.harvard.hul.ois.ots.schemas.TextMD.CharacterInfo;
 import edu.harvard.hul.ois.ots.schemas.TextMD.MarkupBasis;
 import edu.harvard.hul.ois.ots.schemas.TextMD.MarkupLanguage;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
+
+
+//import org.jdom.Attribute;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.junit.Test;
 //import org.jdom.JDOMException;
 
 

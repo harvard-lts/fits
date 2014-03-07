@@ -29,11 +29,11 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 							<xsl:value-of select="exiftool/AvgBitRate"/>
 						</bitRate>
 					</xsl:when>
-					<xsl:when test="exiftool/VideoBitrate and exiftool/AudioBitrate">
+<!-- 					<xsl:when test="exiftool/VideoBitrate and exiftool/AudioBitrate">
 						<bitRate>
 							<xsl:value-of select="exiftool/VideoBitrate + exiftool/AudioBitrate"/>
 						</bitRate>
-					</xsl:when>				
+					</xsl:when>	 -->			
 					<xsl:when test="exiftool/VideoBitrate">
 						<bitRate>
 							<xsl:value-of select="exiftool/VideoBitrate"/>
@@ -96,7 +96,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						</bitDepth>
 					</xsl:when>
 				</xsl:choose>
-				
+					
 				<xsl:choose>
 					<xsl:when test="exiftool/AudioSampleBits">
 						<audioBitsPerSample>
@@ -112,7 +112,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						</sampleRate>
 					</xsl:when>
 				</xsl:choose>
-	
+				
 				<xsl:choose>
 					<xsl:when test="exiftool/AudioSampleRate">
 						<audioSampleRate>
@@ -157,8 +157,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</imageHeight>
 				
 				<rotation>
-					<xsl:value-of select="exiftool/Rotation"/>
-				</rotation>
+	                <xsl:value-of select="exiftool/Rotation"/>
+                </rotation>
 				
 				<xsl:choose>
 			  		<xsl:when test="string(exiftool/CaptureXResolution)">

@@ -1,48 +1,24 @@
 RELEASE NOTES 
 
-
-Version 0.7.5 (4/30/13)
+Version 0.8 (1/28/14)
 ---------------------
-- (Merged from 0.6.3) Fixed documentmd conversion bug when page count is null
-- (Merged from 0.6.3) Fixed Exiftool resolution unit conversion error 
-- Miscellaneous Javadoc improvements
-- Some additional logger calls
+- Minor performance optimizations
+- Nailgun server support
+- Droid update to version 6
+- Official support for Apache Tika
+- Normalized and consolidated identification and technical metadata output differences introduced by the new and updated tools
+- Improved stability when running against directories of files
+- Fixed documentmd conversion bug when page count is null
+- Fixed Exiftool resolution unit conversion error
+- Fixed incomplete conversion from FITS output to standard metadata schema formats (MIX, TextMD, DocumentMD, AES57)
+- Fixed concurrency issues when running multiple instances of FITS in a single JVM
+	- DROID 6 signature file initialization
+	- FITS_HOME initialization 
+- Better Error reporting and logging
 
-Version 0.7.4 (4/26/13)
+Version 0.7.x (--/--/--)
 ---------------------
-- Exceptions reported by tools weren't being reported at the end. 
-  This is an old bug. Reporting is now working again.
-- Exif video stylesheet had a typo that invalidated it. Fixed.
-- Deleted obsolete fits_output_tech_elements.xsd
-- Deleted fits.out.xml, which had been added by accident
-- If a tool constructor throws an exception, the tool initialization 
-  loop now just drops the tool instead of terminating FITS.
-
-Version 0.7.3 (4/24/13)
----------------------
-- Javadoc added
-- Correction to XML output by DROID
-- Enhancement of video metadata definitions and Exiftool video metadata
-- Tool identification info moved to static definitions rather than inline
-  strings where it's hard-coded
-
-Version 0.7.2 (4/17/13)
----------------------
-- Fixes to DROID glue
-- Tools-used element supported in fits.xml
-
-Version 0.7.1 (4/12/13)
----------------------
-- Update DROID to 6.1
-- Added log4j calls and properties file
-- Some enhancement of video metadata
-
-Version 0.7.0 (4/5/13)
----------------------
-- Fork on https://github.com/gmcgath/fits-mcgath
-- Support Apache Tika
-- Update JHOVE to 1.9
-- Fix XSLT for JHOVE to use MIX 2.0 (necessary for recent versions of JHOVE)
+...skipping
 
 Version 0.6.2 (3/18/13)
 ---------------------

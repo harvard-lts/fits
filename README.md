@@ -9,4 +9,4 @@ To use the NSF Characterization Tool, the relative path to the IBM Notes install
 
 The primary version on Github is at https://github.com/harvard-lts/
 
-For official releases and documentation visit http://fits.googlecode.com
+For official releases and documentation visit http://fitstool.org

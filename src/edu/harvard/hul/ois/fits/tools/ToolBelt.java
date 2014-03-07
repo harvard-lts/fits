@@ -76,9 +76,10 @@ public class ToolBelt {
 			catch(Exception e) {
 			    // Can't use this tool, but continue anyway.
 				//throw new FitsConfigurationException("Error initializing "+tClass,e);
-			    logger.error ("Error initializing " + tClass + 
-			            ": " + e.getClass().getName() + 
-			            "  Message: " + e.getMessage());
+			    logger.error ("Thread "+Thread.currentThread().getId() +
+			    				" error initializing " + tClass +  
+			    				": " + e.getClass().getName() + 
+			    				"  Message: " + e.getMessage());
 			    continue;
 			}
 			if(t != null) {

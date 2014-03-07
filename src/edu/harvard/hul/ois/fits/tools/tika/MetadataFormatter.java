@@ -7,6 +7,7 @@ import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.Map;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
 
@@ -52,7 +53,7 @@ public final class MetadataFormatter {
 		String[] names = metadata.names();
 		for (String name : names) {
 			sb.append("<field name=\"");
-			sb.append(name);
+			sb.append(StringEscapeUtils.escapeXml(name));
 			sb.append("\">");
 			sb.append(XMLValues(metadata.getValues(name)));
 			sb.append("</field>");
@@ -100,6 +101,7 @@ public final class MetadataFormatter {
 				// It's a number. Remove leading zeros and output
 				value = value.replaceFirst("^0+(\\d)", "$1");
 			}
+			value = StringEscapeUtils.escapeXml(value);
 		}
 		return value;
 	}

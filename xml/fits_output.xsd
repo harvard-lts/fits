@@ -3,13 +3,12 @@
 	<xs:element name="fits">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="statistics" type="statisticsType" minOccurs="0"/>
 				<xs:element name="identification" type="identificationType" minOccurs="0"/>
 				<xs:element name="fileinfo" type="fileInfoType" minOccurs="0"/>
 				<xs:element name="filestatus" type="fileStatusType" minOccurs="0"/>
 				<xs:element name="metadata" type="metadataType" minOccurs="0"/>
-				<xs:element name="statistics" type="statisticsType" minOccurs="0"/>
 				<xs:element name="toolOutput" type="toolOutputType" minOccurs="0"/>
+				<xs:element name="statistics" type="statisticsType" minOccurs="0"/>
 			</xs:sequence>
 			<xs:attribute name="version" type="xs:string" use="optional"/>
 			<xs:attribute name="timestamp" type="xs:string" use="optional"/>

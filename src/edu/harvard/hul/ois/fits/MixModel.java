@@ -249,13 +249,16 @@ public class MixModel {
     }
     
     
-    protected void setBitsPerSample (int intBPS) {
-        // I assume there's only a single value provided, and that it's an integer.
-        // MIX allows for a different value for each component.
+    //bits per sample in FITS should be in the form "8 8 8", with all values
+    //  concatenated together separated by a space.
+    protected void setBitsPerSample (String stringBPS) {
         try {
             BitsPerSample bps = new BitsPerSample ();
             bps.setBitsPerSampleUnit ("integer");
-            bps.addBitsPerSampleValue(intBPS);
+            String[] bpsParts = stringBPS.split(" ");
+            for(int i=0;i<bpsParts.length; i++) {
+            	bps.addBitsPerSampleValue(Integer.parseInt(bpsParts[i]));
+            }
             ice.setBitsPerSample (bps);
         }
         catch (XmlContentException e) {

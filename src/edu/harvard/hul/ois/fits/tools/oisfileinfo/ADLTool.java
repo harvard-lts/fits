@@ -22,11 +22,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
+import org.apache.log4j.Logger;
 
 import com.therockquarry.aes31.adl.ADL;
 
@@ -45,7 +45,7 @@ public class ADLTool extends ToolBase {
 	private boolean enabled = true;
 	private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
-    private static Logger logger = Logger.getLogger(ADLTool.class);
+    private static final Logger logger = Logger.getLogger(ADLTool.class);
     
 	public ADLTool() throws FitsToolException {
 		info.setName("ADL Tool");

@@ -8,6 +8,7 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
@@ -364,7 +365,7 @@ public class TikaTool extends ToolBase {
     private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
     private Tika tika = new Tika ();
     
-    private static Logger logger = Logger.getLogger(TikaTool.class);
+    private static final Logger logger = Logger.getLogger(TikaTool.class);
     private boolean enabled = true;
 
     public TikaTool() throws FitsToolException {
@@ -412,10 +413,9 @@ public class TikaTool extends ToolBase {
 
 	/* Create the tool data from the Metadata object */
 	private Document buildToolData (Metadata metadata) throws FitsToolException {
-        String mimeType = 
-                DocumentTypes.normalizeMimeType(metadata.get (P_CONTENT_TYPE));
-
-
+        //String mimeType =  DocumentTypes.normalizeMimeType(metadata.get (P_CONTENT_TYPE));
+        String mimeType = FitsMetadataValues.getInstance().normalizeMimeType(metadata.get (P_CONTENT_TYPE));
+        
         Element fitsElem = new Element ("fits", fitsNS);
         Document toolDoc = new Document (fitsElem);
         Element idElem = new Element ("identification", fitsNS);
@@ -423,7 +423,7 @@ public class TikaTool extends ToolBase {
         Element identityElem = new Element ("identity", fitsNS);
         // Format and mime type info. 
         
-        Attribute attr = new Attribute ("format", mimeToFileType(mimeType));
+        Attribute attr = new Attribute ("format", getFormatType(mimeType));
         identityElem.setAttribute (attr);
         attr = new Attribute ("mimetype", mimeType);
         identityElem.setAttribute (attr);
@@ -442,6 +442,7 @@ public class TikaTool extends ToolBase {
 	    String xml = MetadataFormatter.toXML(metadata);
 	    xml = XmlUtils.cleanXmlNulls(xml);
 	    StringReader srdr = new StringReader (xml);
+	    
 	    try {
 	        Document rawDoc = saxBuilder.build (srdr);
 	        return rawDoc; 
@@ -475,10 +476,20 @@ public class TikaTool extends ToolBase {
             created = metadata.get(P_DC_CREATED);
         }
         String contentLength = metadata.get (P_CONTENT_LENGTH);
-        String appName = metadata.get (P_APPLICATION_NAME);
-        if (appName == null) {
-            appName = metadata.get (P_CREATOR_TOOL);
+        String producer = metadata.get (P_PRODUCER);
+        String creator = metadata.get (P_CREATOR_TOOL);
+        
+        String appName = "";
+        if(producer != null && creator != null) {
+        	appName = producer + "/" + creator;
         }
+        else if(producer != null) {
+        	appName = producer;
+        }
+        else if(creator != null) {
+        	appName = creator;
+        }
+        
 
         // Put together the fileinfo element
         Element fileInfoElem = new Element ("fileinfo", fitsNS);
@@ -503,17 +514,27 @@ public class TikaTool extends ToolBase {
 	    
 	}
 	
-	private String mimeToFileType (String mime) throws FitsToolException {
+	private String getFormatType(String mime) throws FitsToolException {
 	    String format = "";
 	    try {
 	        MimeType mimeType = mimeTypes.forName(mime);
 	        format = mimeType.getDescription();
 	        
-	        // convert to FITS standard file types if necessary
-	        String stdText = FitsMetadataValues.mimeToDescMap.get(mime);
+	        //try mapping the format to the standard form
+	        if(format != null) {
+	        	String stdFormat = FitsMetadataValues.getInstance().normalizeFormat(format);
+	        	if(stdFormat != null) {
+	        		format = stdFormat;
+	        	}
+	        }
+	        
+	        // check if we need to get the format name based on the mime type
+	        String stdText = FitsMetadataValues.getInstance().getFormatForMime(mime);
 	        if (stdText != null) {
 	            format = stdText;
 	        }
+	        
+	        
 	        return format;
 	    } catch (MimeTypeException e) {
 	        throw new FitsToolException("Tika error looking up mime type");
@@ -595,9 +616,10 @@ public class TikaTool extends ToolBase {
                addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
                break;
                
-           case DATA_BITS_PER_SAMPLE:
-               addSimpleElement (elem, FitsMetadataValues.BIT_DEPTH, value);
-               break;
+//			Tika is not outputting the correct bits per sample               
+//           case DATA_BITS_PER_SAMPLE:
+//               addSimpleElement (elem, FitsMetadataValues.BIT_DEPTH, value);
+//               break;
                
            case ENCODING:
                addSimpleElement (elem, FitsMetadataValues.AUDIO_DATA_ENCODING, value);
@@ -679,18 +701,23 @@ public class TikaTool extends ToolBase {
 	            }
                 addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
                 break;
-	        case TIFF_BITS_PER_SAMPLE:
-	        case DATA_BITS_PER_SAMPLE:
-	            // We may get the same data in more than one property
-	            if (!bpsReported) {
-	                addSimpleElement (elem, FitsMetadataValues.BITS_PER_SAMPLE, value);
-	                bpsReported = true;
-	            }
-	            break;
+                
+// Tika is not outputting the correct bits per sample                       
+//	        case TIFF_BITS_PER_SAMPLE:
+//	        case DATA_BITS_PER_SAMPLE:
+//	            // We may get the same data in more than one property
+//	            if (!bpsReported) {
+//	                addSimpleElement (elem, FitsMetadataValues.BITS_PER_SAMPLE, value);
+//	                bpsReported = true;
+//	            }
+//	            break;
 	        
 	        case TIFF_RESOLUTION_UNIT:
 	        case RESOLUTION_UNIT:
 	            if (!resUnitReported) {
+	            	if(value.equals("Inch")) {
+	            		value = "In.";
+	            	}
 	                addSimpleElement (elem, FitsMetadataValues.SAMPLING_FREQUENCY_UNIT, value);
 	                resUnitReported = true;
 	            }

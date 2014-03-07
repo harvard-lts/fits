@@ -17,13 +17,32 @@
  */
 package edu.harvard.hul.ois.fits;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
+import org.apache.log4j.Logger;
+
 
 /** This class holds standard element names for FITS metadata output, as well
  *  as some standard values. All components are static.
  */
 public class FitsMetadataValues {
+	
+	private static FitsMetadataValues instance;
+	
+	private Logger logger = Logger.getLogger(this.getClass());
+	
+	private String mimeMapProperties = Fits.FITS_XML + "mime_map.txt";
+	private String formatMapProperties = Fits.FITS_XML + "format_map.txt";
+	private String mimeToFormatMapProperties = Fits.FITS_XML + "mime_to_format_map.txt";
+	
+    private HashMap<String, String> mimeMap = new HashMap<String, String>();
+    private HashMap<String, String> formatMap = new HashMap<String, String>();
+    private HashMap<String, String> mimeToFormatMap = new HashMap<String, String>();
+    
+	public final static String DEFAULT_MIMETYPE="application/octet-stream";
+	public final static String DEFAULT_FORMAT="Unknown Binary";
 
     /** Standard document element names. */
     public final static String AUDIO = "audio";
@@ -123,7 +142,7 @@ public class FitsMetadataValues {
     public final static String VIDEO_COMPRESSOR = "videoCompressor";
     public final static String WORD_COUNT = "wordCount";
     public final static String X_SAMPLING_FREQUENCY = "xSamplingFrequency";
-    public final static String Y_SAMPLING_FREQUENCY = "YSamplingFrequency";
+    public final static String Y_SAMPLING_FREQUENCY = "ySamplingFrequency";
     public final static String YCBCR_COEFFICIENTS = "YCbCrCoefficients";
     public final static String YCBCR_POSITIONING = "YCbCrPositioning";
     public final static String YCBCR_SUBSAMPLING = "YCbCrSubSampling";
@@ -156,12 +175,78 @@ public class FitsMetadataValues {
     public final static String CMPR_SGILOG = "SGILog";
     public final static String CMPR_SGILOG24 = "SGILog24";
     
-    /** Mapping from MIME types to standard names. This is an incomplete map,
-     *  holding only cases where conversion is necessary. Expand as needed.
-     */
-    public final static Map<String, String> mimeToDescMap =
-            new HashMap<String, String>();
-    static {
-        mimeToDescMap.put ("image/jpeg", "JPEG File Interchange Format");
+    
+    private FitsMetadataValues() {
+    	
+    	mimeMap = parseFile(mimeMapProperties);
+    	formatMap = parseFile(formatMapProperties);
+    	mimeToFormatMap = parseFile(mimeToFormatMapProperties);
+    	
+    }
+    
+	public static synchronized FitsMetadataValues getInstance() {
+		if (instance == null)
+			instance = new FitsMetadataValues();
+		
+		return instance;
+	}
+
+    /** Do some normalization on variant MIME types. */
+    public String normalizeMimeType(String mime) {
+        if (mime == null || mime.length()==0) {
+            return DEFAULT_MIMETYPE;
+        }
+        String normMime = mimeMap.get(mime);
+        if (normMime != null) {
+            return normMime;
+        }
+        else {
+            return mime;
+        }
+    }
+    
+    public String normalizeFormat(String format) {
+        if (format == null || format.length()==0) {
+            return DEFAULT_FORMAT;
+        }
+        String normformat = formatMap.get(format);
+        if (normformat != null) {
+            return normformat;
+        }
+        else {
+            return format;
+        }
+    }
+    
+    public String getFormatForMime(String mime) {
+        if (mime == null || mime.length()==0) {
+            return DEFAULT_FORMAT;
+        }
+        return mimeToFormatMap.get(mime);
+    }
+    
+    private HashMap<String,String> parseFile(String inputFile) {
+    	HashMap<String,String> map = new HashMap<String,String>();
+    	BufferedReader in = null;
+		try {
+			in = new BufferedReader(new FileReader(inputFile));
+			String line;
+			while ((line = in.readLine()) != null) {
+				if(!line.startsWith("#") && !line.startsWith("\"#") ) {
+					String[] parts = line.split("=");
+					if(parts.length != 2) {
+						logger.debug("Invalid map entry: " + line);
+						continue;
+					}
+					map.put(parts[0], parts[1]);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(in != null) try {in.close(); } catch (IOException e) { }
+		}
+		return map;
     }
 }

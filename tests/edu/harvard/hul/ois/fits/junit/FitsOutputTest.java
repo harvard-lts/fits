@@ -6,11 +6,11 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import junit.framework.TestCase;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
+import junit.framework.TestCase;
 
 public class FitsOutputTest extends TestCase {
 	/*

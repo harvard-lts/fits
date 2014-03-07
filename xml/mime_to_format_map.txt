@@ -1,0 +1,6 @@
+#Currently used by Tika and DROID tool wrappers    
+#Mapping from MIME types to standard names. This is an incomplete map,
+#holding only cases where conversion is necessary. Expand as needed.
+image/jpx=JPEG 2000 JPX
+image/jp2=JPEG 2000 JP2
+application/zip=ZIP Format

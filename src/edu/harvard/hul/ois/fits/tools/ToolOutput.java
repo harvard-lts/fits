@@ -25,6 +25,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -44,6 +45,8 @@ import edu.harvard.hul.ois.fits.identity.ToolIdentity;
  *   representing the FITS output and the raw form of the output.
  */
 public class ToolOutput {	
+	
+	private Logger logger = Logger.getLogger(this.getClass());
 
     private static DocumentBuilderFactory docBuilderFactory;
     {
@@ -141,7 +144,7 @@ public class ToolOutput {
 			docBuilder.parse(new InputSource(new StringReader(xml)));
 			} 
 			catch(Exception e) {
-				e.printStackTrace();
+				logger.error("tool returned invalid XML",e);
 				return false;
 			} 
 			return true;

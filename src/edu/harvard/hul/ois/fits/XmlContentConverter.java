@@ -32,6 +32,7 @@ package edu.harvard.hul.ois.fits;
 import java.io.File;
 import java.text.ParseException;
 
+import org.apache.log4j.Logger;
 import org.jdom.Element;
 import org.jdom.Namespace;
 
@@ -49,6 +50,8 @@ import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
  *  for this to compile. */
 public class XmlContentConverter {
 	
+	Logger logger = Logger.getLogger( this.getClass() );
+	
 	private final static Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
     
     /** Converts an image element to a MIX object
@@ -57,8 +60,9 @@ public class XmlContentConverter {
      */
     public XmlContent toMix (Element fitsImage, Element fileinfo) {
         MixModel mm = new MixModel ();
-        try {
-            for (ImageElement fitsElem : ImageElement.values()) {
+        
+        for (ImageElement fitsElem : ImageElement.values()) {
+        	try {
                 String fitsName = fitsElem.getName ();
                 Element dataElement = fitsImage.getChild (fitsName,ns);
                 if (dataElement == null)
@@ -178,8 +182,8 @@ public class XmlContentConverter {
                             mm.sm.setYSamplingFrequency(ratValue);
                         break;
                     case bitsPerSample:
-                        if (intValue != null)
-                            mm.setBitsPerSample (intValue);
+                        if (dataValue != null)
+                            mm.setBitsPerSample (dataValue);
                         break;
                     case samplesPerPixel:
                         if (intValue != null)
@@ -534,6 +538,13 @@ public class XmlContentConverter {
                     }
                 }
             }
+            catch (XmlContentException e) {
+            	logger.error("Invalid MIX content: " + e.getMessage ());
+            }
+        }//end of for loop
+            
+            
+       try {
             if(fileinfo != null) {
             	Element created = fileinfo.getChild (ImageElement.created.toString(),ns);
             	if(created != null) {
@@ -550,10 +561,11 @@ public class XmlContentConverter {
             		}
             	}
             }
-        }
-        catch (XmlContentException e) {
-            System.out.println ("Invalid content: " + e.getMessage ());
-        }
+       }
+       catch (XmlContentException e) {
+    	   logger.error("Invalid MIX content: " + e.getMessage ());
+       }
+            
         return mm.mix;
     }
 
@@ -576,6 +588,7 @@ public class XmlContentConverter {
             
                 switch (fitsElem) {
                 case pageCount:
+
                  if(intValue != null)
                  dm.docMD.setPageCount (intValue);
                     break;
@@ -617,14 +630,13 @@ public class XmlContentConverter {
                 case isProtected:
                 case hasAnnotations:
                 case hasDigitalSignature:
-                 if(dataElement != null)
-                 dm.addFeature(dataElement);
-                    break;
+                 if(dataElement != null) {
+                	 dm.addFeature(dataElement);
+                 }
+                  break;
                 }
             }
-            
-            
-        return dm.docMD;  //TODO stub
+        return dm.docMD;
     }
     
     /** Converts a text element to a TextMD object 
@@ -632,8 +644,8 @@ public class XmlContentConverter {
      */
     public XmlContent toTextMD (Element fitsText) {
         TextMDModel tm = new TextMDModel ();
-        try {
-            for (TextMDElement fitsElem : TextMDElement.values()) {
+        for (TextMDElement fitsElem : TextMDElement.values()) {
+            try {
                 String fitsName = fitsElem.getName ();
                 Element dataElement = fitsText.getChild (fitsName,ns);
                 if (dataElement == null)
@@ -646,7 +658,7 @@ public class XmlContentConverter {
                     break;
                 case charset:
                     tm.attachCharacterInfo();
-                    tm.ci.setCharset(dataValue);
+                    tm.ci.setCharset(dataValue.toUpperCase());
                     break;
                 case markupBasis:
                     tm.attachMarkupBasis (); 
@@ -666,10 +678,10 @@ public class XmlContentConverter {
                     break;
                 }
             }
-        }
-        catch (XmlContentException e) {
-            System.out.println ("Invalid content: " + e.getMessage ());
-        }
+	        catch (XmlContentException e) {
+	        	logger.error("Invalid content: " + e.getMessage ());
+	        }
+        }//end for
             
         return tm.textMD;
     }
@@ -680,28 +692,38 @@ public class XmlContentConverter {
      */
     public XmlContent toAES (FitsOutput fitsOutput,Element fitsAudio) {
         AESModel aesModel = null;
-        try {
-        	aesModel = new AESModel ();
-        	
-        	String filename = fitsOutput.getMetadataElement("filename").getValue();
-        	
-        	
-        	FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
-        	String version = null;
-        	if(fitsIdent.getFormatVersions().size() > 0) {
-        		version = fitsIdent.getFormatVersions().get(0).getValue();
-        	}
-        	aesModel.setFormat(fitsIdent.getFormat(),version);
-        	
-        	aesModel.aes.getPrimaryIdentifier().setText(new File(filename).getName());
-        	
-        	int sampleRate = 0;
-        	int channelCnt = 0;
-        	long numSamples = 0;
-        	String duration = "0";
-        	String timeStampStart = "0";
-        	
-            for (AudioElement fitsElem : AudioElement.values()) {
+        
+    	try {
+			aesModel = new AESModel ();
+		} catch (XmlContentException e2) {
+			logger.error("Invalid content: " + e2.getMessage ());
+		}
+    	
+    	String filename = fitsOutput.getMetadataElement("filename").getValue();
+    	
+    	
+    	FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
+    	String version = null;
+    	if(fitsIdent.getFormatVersions().size() > 0) {
+    		version = fitsIdent.getFormatVersions().get(0).getValue();
+    	}
+    	
+    	try {
+			aesModel.setFormat(fitsIdent.getFormat(),version);
+		} catch (XmlContentException e1) {
+			logger.error("Invalid content: " + e1.getMessage ());
+		}
+    	
+    	aesModel.aes.getPrimaryIdentifier().setText(new File(filename).getName());
+    	
+    	int sampleRate = 0;
+    	int channelCnt = 0;
+    	long numSamples = 0;
+    	String duration = "0";
+    	String timeStampStart = "0";
+    	
+        for (AudioElement fitsElem : AudioElement.values()) {
+            try {
                 String fitsName = fitsElem.getName ();
                 Element dataElement = fitsAudio.getChild (fitsName,ns);
                 if (dataElement == null)
@@ -771,19 +793,23 @@ public class XmlContentConverter {
                 	aesModel.setCodecCreatorApplicationVersion(dataValue);
                 	break;
                 }
+                
             }
+            catch (XmlContentException e) {
+                logger.error("Invalid content: " + e.getMessage ());
+            }
+        }//end for
 
-        	//set other requires values
-        	aesModel.aes.setAnalogDigitalFlag("FILE_DIGITAL");
-        	aesModel.setDummyUseType();
+    	//set other requires values
+    	aesModel.aes.setAnalogDigitalFlag("FILE_DIGITAL");
+    	try {
+			aesModel.setDummyUseType();
         	aesModel.setDuration(duration,sampleRate,numSamples);
         	aesModel.setStartTime(timeStampStart,sampleRate);
-        	
-        }
-        catch (XmlContentException e) {
-            System.out.println ("Invalid content: " + e.getMessage ());
-        }
-            
+		} catch (XmlContentException e) {
+			logger.error("Invalid content: " + e.getMessage ());
+		}
+    	
         return aesModel.aes;
     }
     
