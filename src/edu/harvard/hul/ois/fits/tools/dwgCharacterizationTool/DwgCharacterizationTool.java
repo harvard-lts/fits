@@ -35,7 +35,6 @@ public class DwgCharacterizationTool extends ToolBase{
 		versionOutput = CommandLine.exec(infoCommand,null);	
 		info.setVersion(versionOutput.trim());
 	}
-	@Override
 	
 	public ToolOutput extractInfo(File file) throws FitsToolException {
 		long startTime = System.currentTimeMillis();

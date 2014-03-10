@@ -45,7 +45,6 @@ public class NsfCharacterizationTool extends ToolBase {
     info.setVersion(versionOutput.trim());
   }
 
-  @Override
   public ToolOutput extractInfo(File file) throws FitsToolException {
     long startTime = System.currentTimeMillis();
     List<String> execCommand = new ArrayList<String>();

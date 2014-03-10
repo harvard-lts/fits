@@ -66,7 +66,6 @@ public class Droid extends ToolBase {
 		}
 	}
 
-	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
         logger.debug("Droid.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();

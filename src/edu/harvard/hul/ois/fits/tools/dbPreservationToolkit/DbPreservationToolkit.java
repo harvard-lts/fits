@@ -35,9 +35,7 @@ public class DbPreservationToolkit extends ToolBase{
 		versionOutput = CommandLine.exec(infoCommand,null);	
 		*/
 		info.setVersion("1.0");
-	}
-	@Override
-	
+	}	
 	public ToolOutput extractInfo(File file)  {
 		long startTime = System.currentTimeMillis();
 		try{

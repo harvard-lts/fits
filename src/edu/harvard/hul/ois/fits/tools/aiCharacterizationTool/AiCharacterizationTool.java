@@ -13,6 +13,7 @@ import org.xml.sax.InputSource;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
+import edu.harvard.hul.ois.fits.tools.Tool;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
@@ -34,8 +35,6 @@ public class AiCharacterizationTool extends ToolBase{
 		versionOutput = CommandLine.exec(infoCommand,null);	
 		info.setVersion(versionOutput.trim());
 	}
-	@Override
-	
 	public ToolOutput extractInfo(File file) throws FitsToolException {
 		long startTime = System.currentTimeMillis();
 		List<String> execCommand = new ArrayList<String>();

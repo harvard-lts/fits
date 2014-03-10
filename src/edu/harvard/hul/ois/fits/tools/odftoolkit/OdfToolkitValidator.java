@@ -36,7 +36,6 @@ public class OdfToolkitValidator extends ToolBase{
 		versionOutput = CommandLine.exec(infoCommand,null);	
 		info.setVersion(versionOutput.trim().split(" ")[1]);
 	}
-	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
 	  try{
 		long startTime = System.currentTimeMillis();

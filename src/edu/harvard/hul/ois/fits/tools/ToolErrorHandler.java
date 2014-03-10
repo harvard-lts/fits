@@ -13,18 +13,15 @@ public class ToolErrorHandler implements ErrorHandler {
 
     private static Logger logger = Logger.getLogger(ToolErrorHandler.class);
     
-    @Override
     public void error(SAXParseException e) throws SAXException {
         reportIt (e, "SAX error: ");
     }
 
-    @Override
     public void fatalError(SAXParseException e) throws SAXException {
         reportIt (e, "Fatal SAX error: ");
 
     }
 
-    @Override
     public void warning(SAXParseException e) throws SAXException {
         reportIt (e, "SAX warning: ");
 

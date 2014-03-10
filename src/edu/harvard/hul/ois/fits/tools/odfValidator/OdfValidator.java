@@ -35,9 +35,7 @@ public class OdfValidator extends ToolBase{
 		infoCommand.add("-v");
 		versionOutput = CommandLine.exec(infoCommand,null);	
 		info.setVersion(versionOutput.trim());
-	}
-	@Override
-	
+	}	
 	public ToolOutput extractInfo(File file) {
 	  try{
 		long startTime = System.currentTimeMillis();
