@@ -4,19 +4,18 @@
 	<!-- Order of the tools determines preference -->
 	<tools>
 		<tool class="edu.harvard.hul.ois.fits.tools.fido.Fido" exclude-exts="ai,ppt"/>
-		<tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="dng"/>
 	</tools>
 		
 	<output>
 		<dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
 		<display-tool-output>false</display-tool-output>
-		<report-conflicts>true</report-conflicts>	
+		<report-conflicts>false</report-conflicts>	
 		<validate-tool-output>false</validate-tool-output>
 		<internal-output-schema>xml/fits_output.xsd</internal-output-schema>
 		<external-output-schema>http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd</external-output-schema>
 		<fits-xml-namespace>http://hul.harvard.edu/ois/xml/ns/fits/fits_output</fits-xml-namespace>
-		<enable-statistics>true</enable-statistics>
-		<enable-checksum>true</enable-checksum>
+		<enable-statistics>false</enable-statistics>
+		<enable-checksum>false</enable-checksum>
 	</output>
 	
 	<process>

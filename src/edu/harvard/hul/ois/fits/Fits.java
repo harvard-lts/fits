@@ -183,6 +183,7 @@ public class Fits {
     options.addOption( "i", true, "input file or directory" );
     options.addOption( "r", false, "process directories recursively when -i is a directory " );
     options.addOption( "o", true, "output file or directory if -i is a directory" );
+    options.addOption( "p", true, "profile to use" );
     options.addOption( "h", false, "print this message" );
     options.addOption( "v", false, "print version information" );
     OptionGroup outputOptions = new OptionGroup();
@@ -220,9 +221,16 @@ public class Fits {
               "When FITS is run in directory processing mode the output location must be a directory" );
         }
         Fits fits = new Fits();
+        if(cmd.hasOption("p")){
+          fits.setProfile(cmd.getOptionValue("p"));
+        }
         fits.doDirectory( inputFile, new File( outputDir ), cmd.hasOption( "x" ), cmd.hasOption( "xc" ) );
       } else {
         Fits fits = new Fits();
+        
+        if(cmd.hasOption("p")){
+          fits.setProfile(cmd.getOptionValue("p"));
+        }
         FitsOutput result = fits.doSingleFile( inputFile );
         fits.outputResults( result, cmd.getOptionValue( "o" ), cmd.hasOption( "x" ), cmd.hasOption( "xc" ), false );
       }
@@ -233,6 +241,60 @@ public class Fits {
     }
 
     System.exit( 0 );
+  }
+
+  public void setProfile(String profileName) throws FitsConfigurationException {
+    File profile = new File(FITS_XML+"profiles"+File.separator + profileName+".xml");
+    if(!profile.exists()){
+      throw new FitsConfigurationException("Profile does not exists");
+    }
+    
+    try {
+      config = new XMLConfiguration( FITS_XML+"profiles"+File.separator + profileName+".xml" );
+    } catch (ConfigurationException e) {
+      logger.fatal( "Error reading " + FITS_XML+"profiles"+File.separator + profileName+".xml: " + e.getClass().getName() );
+      throw new FitsConfigurationException( "Error reading " + FITS_XML + "fits.xml", e );
+    }
+    try {
+      mapper = new FitsXmlMapper();
+    } catch (Exception e) {
+      logger.fatal( "Error creating FITS XML Mapper: " + e.getClass().getName() );
+      throw new FitsConfigurationException( "Error creating FITS XML Mapper", e );
+    }
+    // required config values
+    try {
+      validateToolOutput = config.getBoolean( "output.validate-tool-output" );
+      externalOutputSchema = config.getString( "output.external-output-schema" );
+      internalOutputSchema = config.getString( "output.internal-output-schema" );
+      enableStatistics = config.getBoolean( "output.enable-statistics" );
+    } catch (NoSuchElementException e) {
+      logger.fatal( "Error in configuration file: " + e.getClass().getName() );
+      System.out.println( "Error inconfiguration file: " + e.getMessage() );
+      return;
+    }
+
+    // optional config values GDM 16-Nov-2012
+    try {
+      maxThreads = config.getShort( "process.max-threads" );
+    } catch (NoSuchElementException e) {
+    }
+    if (maxThreads < 1) {
+      // If invalid number specified, use a default.
+      maxThreads = 20;
+    }
+    logger.debug( "Maximum threads = " + maxThreads );
+
+    String consolidatorClass = config.getString( "output.dataConsolidator[@class]" );
+    try {
+      Class<?> c = Class.forName( consolidatorClass );
+      consolidator = (ToolOutputConsolidator) c.newInstance();
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new FitsConfigurationException( "Error initializing " + consolidatorClass, e );
+    }
+
+    toolbelt = new ToolBelt( FITS_XML+"profiles"+File.separator + profileName+".xml" );
+    
   }
 
   /**
@@ -412,38 +474,6 @@ public class Fits {
   private static void printHelp( Options opts ) {
     HelpFormatter formatter = new HelpFormatter();
     formatter.printHelp( "fits", opts );
-  }
-
-  
-  
-  public FitsOutput examine( File input, String profile ) throws FitsException {
-    try {
-      config = new XMLConfiguration( FITS_XML+"profiles"+File.separator+ profile+".xml" );
-      validateToolOutput = config.getBoolean( "output.validate-tool-output" );
-      externalOutputSchema = config.getString( "output.external-output-schema" );
-      internalOutputSchema = config.getString( "output.internal-output-schema" );
-      enableStatistics = config.getBoolean( "output.enable-statistics" );
-    } catch (Exception e) {
-      throw new FitsException( "Error in configuration file: " + e.getClass().getName() );
-    }
-
-    try {
-      maxThreads = config.getShort( "process.max-threads" );
-    } catch (NoSuchElementException e) {
-    }
-    if (maxThreads < 1) {
-      maxThreads = 20;
-    }
-    String consolidatorClass = config.getString( "output.dataConsolidator[@class]" );
-    try {
-      Class<?> c = Class.forName( consolidatorClass );
-      consolidator = (ToolOutputConsolidator) c.newInstance();
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw new FitsConfigurationException( "Error initializing " + consolidatorClass, e );
-    }
-    toolbelt = new ToolBelt( FITS_XML+"profiles"+File.separator+ profile+".xml" );
-    return examine(input);
   }
   
   
