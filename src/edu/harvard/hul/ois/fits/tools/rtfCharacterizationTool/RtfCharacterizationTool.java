@@ -21,29 +21,20 @@ import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
 
 public class RtfCharacterizationTool extends ToolBase{
 	public final static String xslt = Fits.FITS_HOME+"xml/rtfCharacterizationTool/rtfCharacterizationToolToFits.xslt";
-	private List<String> command = new ArrayList<String>(Arrays.asList("java","-jar",Fits.FITS_TOOLS+"rtfCharacterizationTool/rtf-characterization-tool.jar"));
 	private final static String TOOL_NAME = "RTF Characterization Tool";
 	private boolean enabled = true;
-	   private static Logger logger = Logger.getLogger(RtfCharacterizationTool.class);
-
+	private pt.keep.validator.rtf.RtfCharacterizationTool keepValidator;
 	public RtfCharacterizationTool() throws FitsToolException {
 		info = new ToolInfo();
 		info.setName(TOOL_NAME);
+		keepValidator = new pt.keep.validator.rtf.RtfCharacterizationTool();
 		String versionOutput = null;
-		List<String> infoCommand = new ArrayList<String>();
-		infoCommand.addAll(command);
-		infoCommand.add("-v");
-		versionOutput = CommandLine.exec(infoCommand,null);	
-		info.setVersion(versionOutput.trim());
+		info.setVersion(keepValidator.getVersion());
 	}
 	
 	public ToolOutput extractInfo(File file) throws FitsToolException {
 		long startTime = System.currentTimeMillis();
-		List<String> execCommand = new ArrayList<String>();
-		execCommand.addAll(command);
-		execCommand.add("-f");
-		execCommand.add(file.getPath());
-		String execOut = CommandLine.exec(execCommand,null);
+		String execOut = keepValidator.run(file);
 		try{
 			SAXBuilder sb=new SAXBuilder();
 			Document rawOut=sb.build(new InputSource(new ByteArrayInputStream(execOut.getBytes("utf-8"))));
@@ -53,7 +44,6 @@ public class RtfCharacterizationTool extends ToolBase{
 			runStatus = RunStatus.SUCCESSFUL;
 			return output;
 		}catch(Exception e){
-			logger.error(e.getMessage(),e);
 			return null;
 		}
 	}
@@ -69,4 +59,17 @@ public class RtfCharacterizationTool extends ToolBase{
 	public Boolean canIdentify() {
 		return false;
 	}
+	
+	public static void main(String args[]){
+      try{
+        
+        pt.keep.validator.rtf.RtfCharacterizationTool keepValidator = new pt.keep.validator.rtf.RtfCharacterizationTool();
+        System.out.println(keepValidator.run(new File("/home/sleroux/Development/fits-testing/corpora/largeCorpora/2.rtf")));
+
+
+        System.out.println(keepValidator.getVersion());
+      }catch(Exception e){
+        e.printStackTrace();
+      }
+    }
 }

@@ -169,6 +169,7 @@ public class Fits {
       Class<?> c = Class.forName( consolidatorClass );
       consolidator = (ToolOutputConsolidator) c.newInstance();
     } catch (Exception e) {
+      e.printStackTrace();
       throw new FitsConfigurationException( "Error initializing " + consolidatorClass, e );
     }
 
@@ -413,6 +414,39 @@ public class Fits {
     formatter.printHelp( "fits", opts );
   }
 
+  
+  
+  public FitsOutput examine( File input, String profile ) throws FitsException {
+    try {
+      config = new XMLConfiguration( FITS_XML+"profiles"+File.separator+ profile+".xml" );
+      validateToolOutput = config.getBoolean( "output.validate-tool-output" );
+      externalOutputSchema = config.getString( "output.external-output-schema" );
+      internalOutputSchema = config.getString( "output.internal-output-schema" );
+      enableStatistics = config.getBoolean( "output.enable-statistics" );
+    } catch (Exception e) {
+      throw new FitsException( "Error in configuration file: " + e.getClass().getName() );
+    }
+
+    try {
+      maxThreads = config.getShort( "process.max-threads" );
+    } catch (NoSuchElementException e) {
+    }
+    if (maxThreads < 1) {
+      maxThreads = 20;
+    }
+    String consolidatorClass = config.getString( "output.dataConsolidator[@class]" );
+    try {
+      Class<?> c = Class.forName( consolidatorClass );
+      consolidator = (ToolOutputConsolidator) c.newInstance();
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new FitsConfigurationException( "Error initializing " + consolidatorClass, e );
+    }
+    toolbelt = new ToolBelt( FITS_XML+"profiles"+File.separator+ profile+".xml" );
+    return examine(input);
+  }
+  
+  
   /*
    * ORIGINAL EXAMINE METHOD WITHOUT THREADS
    * 

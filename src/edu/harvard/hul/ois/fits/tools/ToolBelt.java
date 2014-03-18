@@ -74,6 +74,7 @@ public class ToolBelt {
 				t = (Tool)c.newInstance();
 			}
 			catch(Exception e) {
+			  e.printStackTrace();
 			    // Can't use this tool, but continue anyway.
 				//throw new FitsConfigurationException("Error initializing "+tClass,e);
 			    logger.error ("Thread "+Thread.currentThread().getId() +

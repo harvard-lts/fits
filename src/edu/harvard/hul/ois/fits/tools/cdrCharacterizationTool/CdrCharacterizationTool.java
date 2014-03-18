@@ -21,28 +21,21 @@ import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
 
 public class CdrCharacterizationTool extends ToolBase{
 	public final static String xslt = Fits.FITS_HOME+"xml/cdrCharacterizationTool/cdrCharacterizationToolToFits.xslt";
-	private List<String> command = new ArrayList<String>(Arrays.asList("java","-jar",Fits.FITS_TOOLS+"cdrCharacterizationTool/cdr-characterization-tool.jar"));
 	private final static String TOOL_NAME = "CDR Characterization Tool";
 	private boolean enabled = true;
-	private static Logger logger = Logger.getLogger(CdrCharacterizationTool.class);
+	private pt.keep.validator.cdr.CdrCharacterizationTool keepValidator;
+	
 	public CdrCharacterizationTool() throws FitsToolException {
 		info = new ToolInfo();
 		info.setName(TOOL_NAME);
-		String versionOutput = null;
-		List<String> infoCommand = new ArrayList<String>();
-		infoCommand.addAll(command);
-		infoCommand.add("-v");
-		versionOutput = CommandLine.exec(infoCommand,null);	
-		info.setVersion(versionOutput.trim());
+		keepValidator = new pt.keep.validator.cdr.CdrCharacterizationTool();
+		info.setVersion(keepValidator.getVersion());
 	}	
 	public ToolOutput extractInfo(File file) throws FitsToolException {
 		long startTime = System.currentTimeMillis();
-		List<String> execCommand = new ArrayList<String>();
-		execCommand.addAll(command);
-		execCommand.add("-f");
-		execCommand.add(file.getPath());
-		String execOut = CommandLine.exec(execCommand,null);
+		
 		try{
+		  String execOut = keepValidator.run(file);
 			SAXBuilder sb=new SAXBuilder();
 			Document rawOut=sb.build(new InputSource(new ByteArrayInputStream(execOut.getBytes("utf-8"))));
 			Document fitsXml = transform(xslt, rawOut);
@@ -51,7 +44,6 @@ public class CdrCharacterizationTool extends ToolBase{
 			runStatus = RunStatus.SUCCESSFUL;
 			return output;
 		}catch(Exception e){
-		  logger.error(e.getMessage(),e);
 			return null;
 		}
 	}
@@ -67,4 +59,15 @@ public class CdrCharacterizationTool extends ToolBase{
 	public Boolean canIdentify() {
 		return false;
 	}
+	
+	public static void main(String args[]){
+      try{
+        
+        pt.keep.validator.cdr.CdrCharacterizationTool keepValidator = new pt.keep.validator.cdr.CdrCharacterizationTool();
+        System.out.println(keepValidator.run(new File("/home/sleroux/Development/fits-testing/corpora/largeCorpora/1.cdr")));
+        System.out.println(keepValidator.getVersion());
+      }catch(Exception e){
+        e.printStackTrace();
+      }
+    }
 }
