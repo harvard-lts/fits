@@ -1,4 +1,3 @@
-
 <!-- ====================================================================== -->
 <!-- Slightly modified version of OIS Standard Build file.                  -->
 <!-- Removed .java files from JAR                                           -->
@@ -38,6 +37,7 @@
   <property name="compile.debug"       value="true"/>
   <property name="compile.deprecation" value="true"/>
   <property name="compile.optimize"    value="true"/>
+  <property name="compile.target"    value="1.6"/>
 
 <!-- ==================== Compilation Classpath =========================== -->
 
@@ -76,7 +76,8 @@
     <javac srcdir="${compile.dirs}"
            debug="${compile.debug}"
            deprecation="${compile.deprecation}"
-	   optimize="${compile.optimize}">
+	   optimize="${compile.optimize}"
+	   target="${compile.target}">
         <classpath refid="compile.classpath">
         </classpath>
     </javac>
