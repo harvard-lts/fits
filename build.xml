@@ -38,6 +38,7 @@
   <property name="compile.deprecation" value="true"/>
   <property name="compile.optimize"    value="true"/>
   <property name="compile.target"    value="1.6"/>
+  <property name="compile.source"    value="1.6"/>
 
 <!-- ==================== Compilation Classpath =========================== -->
 
@@ -77,7 +78,8 @@
            debug="${compile.debug}"
            deprecation="${compile.deprecation}"
 	   optimize="${compile.optimize}"
-	   target="${compile.target}">
+	   target="${compile.target}"
+	   source="${compile.source}">
         <classpath refid="compile.classpath">
         </classpath>
     </javac>
