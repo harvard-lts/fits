@@ -415,16 +415,24 @@ public class OISConsolidator implements ToolOutputConsolidator {
 						logger.debug(ident.getFormat() + " is more specific than " + identitySection.getFormat() + " tossing out " + identitySection.getToolName());
 						//ident is more specific.  Most specific identity should always
 						// be first element in list
-						FitsIdentity newSection = new FitsIdentity(ident);
+						// overwrite the formate with more specific format
+						identitySection.setFormat(ident.getFormat());
+						//Add external identifiers from ident to the existing item
+						mergeExternalIdentifiers(ident,identitySection);				
+						//add format versions from ident to the existing item
+						mergeFormatVersions(ident,identitySection);
+						//add reporting tools from ident to the existing item
+						identitySection.addReportingTool(ident.getToolInfo());
+						//FitsIdentity newSection = new FitsIdentity(ident);
 						//add new section
 						//backup on one position
-						iter.previous();
+						//iter.previous();
 						//add the new item
-						iter.add(newSection);
+						//iter.add(newSection);
 						//skip head to next item
-						iter.next();
+						//iter.next();
 						//delete
-						iter.remove();
+						//iter.remove();
 						//indicate we found a match
 						anyMatches = true;
 						break;

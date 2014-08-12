@@ -207,10 +207,15 @@
 					</xsl:if>	
 				</xsl:when>	
 				<xsl:when test="$mime='application/pdf'">
-					<xsl:if test="//property[name='Producer']/values/value and //property[name='Creator']/values/value">
-						<xsl:value-of select="concat(//property[name='Producer']/values/value,'/',//property[name='Creator']/values/value)"/>
-					</xsl:if>
-				</xsl:when>			
+				    <xsl:choose>
+						<xsl:when test="//property[name='Producer']/values/value and //property[name='Creator']/values/value and //property[name='Producer']/values/value != '&lt;May be encrypted&gt;'">
+							<xsl:value-of select="concat(//property[name='Producer']/values/value,'/',//property[name='Creator']/values/value)"/>
+						</xsl:when>
+						<xsl:otherwise>
+						    <xsl:text> </xsl:text>
+						</xsl:otherwise>
+				    </xsl:choose>
+				</xsl:when>				
 			</xsl:choose>
 		</creatingApplicationName>	
 		 

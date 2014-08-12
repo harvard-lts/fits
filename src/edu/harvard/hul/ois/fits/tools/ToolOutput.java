@@ -49,6 +49,7 @@ public class ToolOutput {
 	private Logger logger = Logger.getLogger(this.getClass());
 
     private static DocumentBuilderFactory docBuilderFactory;
+    static 
     {
         docBuilderFactory = DocumentBuilderFactory.newInstance();
         docBuilderFactory.setNamespaceAware(true);
