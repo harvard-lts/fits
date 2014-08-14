@@ -1,11 +1,11 @@
 RELEASE NOTES
  
-Version 0.8.1 (8/11/14)
+Version 0.8.1 (8/14/14)
 ----------------------
-- Minor performance optimizations.
-- Fix to use blank value instead of "<May be encrypted>" for Title,Author,CreationApplicationName while metadata extraction.
-- Introduced "TIFF DLF Benchmark for Faithful Digital Reproductions of Monographs and Serials: color" TIFF format in fits_format_tree.xml.
-- Updated OTS to release version 1.0.4
+- Uses a blank value instead of "<May be encrypted>" for Title,Author,CreationApplicationName for encrypted PDFs.
+- Introduced a more specific TIFF format to the fits_format_tree.xml.
+- Now includes technical metadata in the output from tools that identify a less specific, but parent format, as documented in the FITS format tree.
+
 
 Version 0.8 (1/28/14)
 ---------------------
