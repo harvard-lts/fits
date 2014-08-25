@@ -212,7 +212,9 @@
 							<xsl:value-of select="concat(//property[name='Producer']/values/value,'/',//property[name='Creator']/values/value)"/>
 						</xsl:when>
 						<xsl:otherwise>
-						    <xsl:text> </xsl:text>
+						   <xsl:if test="//property[name='Producer']/values/value = '&lt;May be encrypted&gt;'" >
+					    <xsl:text></xsl:text>
+					    </xsl:if>
 						</xsl:otherwise>
 				    </xsl:choose>
 				</xsl:when>				

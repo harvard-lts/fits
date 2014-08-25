@@ -18,7 +18,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<xsl:value-of select="//property[name='Author']/values/value"/>
 					</xsl:when>
 					<xsl:otherwise>
-					    <xsl:text> </xsl:text>
+					<xsl:if test="//property[name='Title']/values/value = '&lt;May be encrypted&gt;'" >
+					    <xsl:text></xsl:text>
+					    </xsl:if>
 					</xsl:otherwise>
 			    </xsl:choose>
 			</title>
@@ -28,7 +30,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<xsl:value-of select="//property[name='Author']/values/value"/>
 					</xsl:when>
 					<xsl:otherwise>
-					    <xsl:text> </xsl:text>
+					 <xsl:if test="//property[name='Author']/values/value = '&lt;May be encrypted&gt;'" >
+					    <xsl:text></xsl:text>
+					    </xsl:if>
 					</xsl:otherwise>
 			    </xsl:choose>
 			</author>
