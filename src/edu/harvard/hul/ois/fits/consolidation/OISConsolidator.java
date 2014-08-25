@@ -417,6 +417,8 @@ public class OISConsolidator implements ToolOutputConsolidator {
 						// be first element in list
 						// overwrite the formate with more specific format
 						identitySection.setFormat(ident.getFormat());
+						// overwrite the formate with more specific mimetype
+						identitySection.setMimetype((ident.getMime()));
 						//Add external identifiers from ident to the existing item
 						mergeExternalIdentifiers(ident,identitySection);				
 						//add format versions from ident to the existing item
