@@ -15,7 +15,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<title>
 				 <xsl:choose>
 					<xsl:when test="//property[name='Title']/values/value and //property[name='Title']/values/value != '&lt;May be encrypted&gt;'">
-						<xsl:value-of select="//property[name='Author']/values/value"/>
+						<xsl:value-of select="//property[name='Title']/values/value"/>
 					</xsl:when>
 					<xsl:otherwise>
 					<xsl:if test="//property[name='Title']/values/value = '&lt;May be encrypted&gt;'" >
