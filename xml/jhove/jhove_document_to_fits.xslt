@@ -13,10 +13,28 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<document>
 			
 			<title>
-				<xsl:value-of select="//property[name='Title']/values/value"/>
+				 <xsl:choose>
+					<xsl:when test="//property[name='Title']/values/value and //property[name='Title']/values/value != '&lt;May be encrypted&gt;'">
+						<xsl:value-of select="//property[name='Title']/values/value"/>
+					</xsl:when>
+					<xsl:otherwise>
+					<xsl:if test="//property[name='Title']/values/value = '&lt;May be encrypted&gt;'" >
+					    <xsl:text></xsl:text>
+					    </xsl:if>
+					</xsl:otherwise>
+			    </xsl:choose>
 			</title>
 			<author>
-				<xsl:value-of select="//property[name='Author']/values/value"/>
+			    <xsl:choose>
+					<xsl:when test="//property[name='Author']/values/value and //property[name='Author']/values/value != '&lt;May be encrypted&gt;'">
+						<xsl:value-of select="//property[name='Author']/values/value"/>
+					</xsl:when>
+					<xsl:otherwise>
+					 <xsl:if test="//property[name='Author']/values/value = '&lt;May be encrypted&gt;'" >
+					    <xsl:text></xsl:text>
+					    </xsl:if>
+					</xsl:otherwise>
+			    </xsl:choose>
 			</author>
 			<language>
 				<xsl:value-of select="//property[name='Language']/values/value"/>

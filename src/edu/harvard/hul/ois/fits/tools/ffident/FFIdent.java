@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom.Document;
+import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
@@ -34,15 +35,25 @@ import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
+/** The main class of the FFIdent tool, adapted for use under FITS.
+ *  Uses tools/ffident/formats.txt
+ */
 public class FFIdent extends ToolBase {
 	
+    private final static String TOOL_NAME = "ffident";
+    private final static String TOOL_VERSION = "0.2";
+    private final static String TOOL_DATE = "2005-10-21";
+            
 	private FormatIdentification identifier = null;
 	public final static String xslt =Fits.FITS_XML+"/ffident/ffident_to_fits.xslt";
 	private boolean enabled = true;
-	
+
+    private static final Logger logger = Logger.getLogger(FFIdent.class);
+
 	public FFIdent() throws FitsToolException{
 
-		info = new ToolInfo("ffident","0.2","2005-10-21");
+        logger.debug ("Initializing FFIdent");
+		info = new ToolInfo(TOOL_NAME, TOOL_VERSION, TOOL_DATE);
 		
 		try {
 			File config = new File(Fits.FITS_TOOLS+"ffident/formats.txt");
@@ -53,6 +64,7 @@ public class FFIdent extends ToolBase {
 	}
 	
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+	    logger.debug ("FFIdent.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		FormatDescription desc = identifier.identify(file);
 		//FileIdentity identity = null;
@@ -68,6 +80,7 @@ public class FFIdent extends ToolBase {
 		output = new ToolOutput(this,fitsXml,rawOut);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
+        logger.debug ("FFIdent.extractInfo finished on " + file.getName());
 		return output;
 	}
 	
@@ -127,6 +140,7 @@ public class FFIdent extends ToolBase {
         try {
 			out.close();
 		} catch (IOException e) {
+		    logger.debug ("Error closing ffident XML output stream: " + e.getClass().getName());
 			throw new FitsToolException("Error closing ffident XML output stream",e);
 		}
 		
@@ -134,6 +148,7 @@ public class FFIdent extends ToolBase {
 		try {
 			doc = saxBuilder.build(new StringReader(out.toString()));
 		} catch (Exception e) {
+		    logger.debug("Error parsing ffident XML Output: " + e.getClass().getName());
 			throw new FitsToolException("Error parsing ffident XML Output",e);
 		} 
         return doc;

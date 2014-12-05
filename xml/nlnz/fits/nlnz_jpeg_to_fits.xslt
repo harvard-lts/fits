@@ -109,13 +109,19 @@
                 <xsl:variable name="xdens" select="JPG/JFIF/XDENSITY"/>
                 <xsl:choose>
                   <xsl:when test="$units=0">
-                    <xsl:value-of select="$xdens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$xdens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:when test="$units=1">
-                    <xsl:value-of select="$xdens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$xdens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:when test="$units=2">
-                    <xsl:value-of select="$xdens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$xdens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:otherwise>
                     <xsl:value-of select="string('')"/>
@@ -126,13 +132,19 @@
                 <xsl:variable name="ydens" select="JPG/JFIF/YDENSITY"/>
                 <xsl:choose>
                   <xsl:when test="$units=0">
-                    <xsl:value-of select="$ydens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$ydens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:when test="$units=1">
-                    <xsl:value-of select="$ydens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$ydens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:when test="$units=2">
-                    <xsl:value-of select="$ydens"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="$ydens"/>
+                  	</xsl:call-template>
                   </xsl:when>
                   <xsl:otherwise>
                     <xsl:value-of select="string('')"/>
@@ -161,10 +173,14 @@
               
               
               <xSamplingFrequency>
-                <xsl:value-of select="JPG/EXIF/XRESOLUTION/VALUE"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="JPG/EXIF/XRESOLUTION/VALUE"/>
+                  	</xsl:call-template>
               </xSamplingFrequency>
               <ySamplingFrequency>
-                <xsl:value-of select="JPG/EXIF/YRESOLUTION/VALUE"/>
+                  	<xsl:call-template name="trimDecimal">
+                  		<xsl:with-param name="value" select="JPG/EXIF/YRESOLUTION/VALUE"/>
+                  	</xsl:call-template>
               </ySamplingFrequency>
             </xsl:otherwise>
           </xsl:choose>
@@ -262,9 +278,9 @@
 					<xsl:when test="$orientation=8">
 						<xsl:value-of select="string('normal, rotated cw 90°')"/>
 					</xsl:when>
-					<xsl:otherwise>
+<!-- 					<xsl:otherwise>
 						<xsl:value-of select="$orientation"/>
-					</xsl:otherwise>
+					</xsl:otherwise> -->
 				</xsl:choose>
 			</orientation>
           
@@ -467,7 +483,7 @@
 					<xsl:value-of select="string('Strobe return light detected')"/>
 				</xsl:when>
 				<xsl:when test="$flash=8">
-					<xsl:value-of select="string('Flash did not fire')"/>
+					<xsl:value-of select="string('Flash did not fire, compulsory flash mode')"/>
 				</xsl:when>
 				<xsl:when test="$flash=9">
 					<xsl:value-of select="string('Flash fired, compulsory flash mode')"/>
@@ -478,12 +494,14 @@
 				<xsl:when test="$flash=15">
 					<xsl:value-of select="string('Flash fired, compulsory flash mode, return light detected')"/>
 				</xsl:when>
+				<!-- 
 				<xsl:when test="$flash=16">
 					<xsl:value-of select="string('Flash did not fire, compulsory flash mode')"/>
 				</xsl:when>
 				<xsl:when test="$flash=20">
 					<xsl:value-of select="string('Flash did not fire')"/>
 				</xsl:when>
+				 -->
 				<xsl:when test="$flash=24">
 					<xsl:value-of select="string('Flash did not fire, auto mode')"/>
 				</xsl:when>
@@ -491,7 +509,7 @@
 					<xsl:value-of select="string('Flash fired, auto mode')"/>
 				</xsl:when>
 				<xsl:when test="$flash=29">
-					<xsl:value-of select="string('AFlash fired, auto mode, return light not detected')"/>
+					<xsl:value-of select="string('Flash fired, auto mode, return light not detected')"/>
 				</xsl:when>
 				<xsl:when test="$flash=31">
 					<xsl:value-of select="string('Flash fired, auto mode, return light detected')"/>
@@ -499,9 +517,11 @@
 				<xsl:when test="$flash=32">
 					<xsl:value-of select="string('No flash function')"/>
 				</xsl:when>
+				<!-- 
 				<xsl:when test="$flash=48">
 					<xsl:value-of select="string('Flash did not fire')"/>
 				</xsl:when>
+				 -->
 				<xsl:when test="$flash=65">
 					<xsl:value-of select="string('Flash fired, red-eye reduction mode')"/>
 				</xsl:when>
@@ -520,12 +540,14 @@
 				<xsl:when test="$flash=79">
 					<xsl:value-of select="string('Flash fired, compulsory flash mode, red-eye reduction mode, return light detected')"/>
 				</xsl:when>
+				<!-- 
 				<xsl:when test="$flash=80">
 					<xsl:value-of select="string('Flash did not fire')"/>
 				</xsl:when>
 				<xsl:when test="$flash=88">
 					<xsl:value-of select="string('Flash did not fire, auto mode')"/>
 				</xsl:when>
+				 -->
 				<xsl:when test="$flash=89">
 					<xsl:value-of select="string('Flash fired, auto mode, red-eye reduction mode')"/>
 				</xsl:when>
@@ -553,9 +575,9 @@
           <sensingMethod>
 	       	<xsl:variable name="sensingMethod" select="JPG/EXIF/SENSINGMETHOD/VALUE"/>
 	      	<xsl:choose>
-				<xsl:when test="$sensingMethod=1">
+<!-- 				<xsl:when test="$sensingMethod=1">
 					<xsl:value-of select="string('Monochrome area')"/>
-				</xsl:when>
+				</xsl:when> -->
 				<xsl:when test="$sensingMethod=2">
 					<xsl:value-of select="string('One-chip color area sensor')"/>
 				</xsl:when>
@@ -568,9 +590,9 @@
 				<xsl:when test="$sensingMethod=5">
 					<xsl:value-of select="string('Color sequential area sensor')"/>
 				</xsl:when>
-				<xsl:when test="$sensingMethod=6">
+<!-- 				<xsl:when test="$sensingMethod=6">
 					<xsl:value-of select="string('Monochrome linear ')"/>
-				</xsl:when>
+				</xsl:when> -->
 				<xsl:when test="$sensingMethod=7">
 					<xsl:value-of select="string('Trilinear sensor')"/>
 				</xsl:when>
@@ -609,6 +631,18 @@
    		<xsl:value-of select='substring($bps,1,string-length($bps) - 1)'/>
 	</xsl:when>
   </xsl:choose>
+</xsl:template>
+
+<xsl:template name="trimDecimal">
+	<xsl:param name="value"/>
+	<xsl:choose>
+		<xsl:when test="ends-with($value,'.0')">
+			<xsl:value-of select="substring-before($value,'.0')"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="$value"/>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>

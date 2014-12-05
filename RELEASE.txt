@@ -1,9 +1,40 @@
-RELEASE NOTES 
+RELEASE NOTES
 
-Version 0.6.3 (unreleased)
+Version 0.8.3 (9/29/14)
+----------------------
+- Fixed UMID parsing code issue for audio
+
+Version 0.8.2 (8/25/14)
+----------------------
+- Ignores null or empty values output by tools for Title,Author,and CreationApplicationName.
+- Prevents error of having identified format and MIME media-type from different tools while processing technical metadata. 
+ 
+Version 0.8.1 (8/14/14)
+----------------------
+- Uses a blank value instead of "<May be encrypted>" for Title,Author,CreationApplicationName for encrypted PDFs.
+- Introduced a more specific TIFF format to the fits_format_tree.xml.
+- Now includes technical metadata in the output from tools that identify a less specific, but parent format, as documented in the FITS format tree.
+
+
+Version 0.8 (1/28/14)
 ---------------------
--Fixed documentmd conversion bug when page count is null
--Fixed Exiftool resolution unit conversion error
+- Minor performance optimizations
+- Nailgun server support
+- Droid update to version 6
+- Official support for Apache Tika
+- Normalized and consolidated identification and technical metadata output differences introduced by the new and updated tools
+- Improved stability when running against directories of files
+- Fixed documentmd conversion bug when page count is null
+- Fixed Exiftool resolution unit conversion error
+- Fixed incomplete conversion from FITS output to standard metadata schema formats (MIX, TextMD, DocumentMD, AES57)
+- Fixed concurrency issues when running multiple instances of FITS in a single JVM
+	- DROID 6 signature file initialization
+	- FITS_HOME initialization 
+- Better Error reporting and logging
+
+Version 0.7.x (--/--/--)
+---------------------
+...skipping
 
 Version 0.6.2 (3/18/13)
 ---------------------

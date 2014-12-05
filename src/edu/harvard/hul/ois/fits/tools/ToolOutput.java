@@ -25,6 +25,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -39,9 +40,16 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 
+/**
+ *   The output created by a Tool. A ToolOutput object holds JDOM objects
+ *   representing the FITS output and the raw form of the output.
+ */
 public class ToolOutput {	
+	
+	private Logger logger = Logger.getLogger(this.getClass());
 
     private static DocumentBuilderFactory docBuilderFactory;
+    static 
     {
         docBuilderFactory = DocumentBuilderFactory.newInstance();
         docBuilderFactory.setNamespaceAware(true);
@@ -61,6 +69,13 @@ public class ToolOutput {
 	//Identification data about the image
 	private List<ToolIdentity> identity = new ArrayList<ToolIdentity>();
 	
+	/** Constructor
+	 * 
+	 *  @param tool       The Tool creating this output
+	 *  @param fitsXml    JDOM Document following the FITS output schema
+	 *  @param toolOutput Raw XML JDOM Document representing the original output
+	 *                    of the tool
+	 */
 	public ToolOutput(Tool tool, Document fitsXml, Document toolOutput) throws FitsToolException {
 		if(Fits.validateToolOutput && fitsXml !=null && !validateXmlOutput(fitsXml)) {
 			throw new FitsToolException(tool.getToolInfo().getName()+" "+
@@ -81,26 +96,34 @@ public class ToolOutput {
 		this(tool,fitsXml,null);	
 	}
 
+	/** Returns the Tool that created this object */
 	public Tool getTool() {
 		return tool;
 	}
 	
+	/** Returns the FITS-structured XML as a JDOM Document */
 	public Document getFitsXml() {
 		return fitsXml;
 	}
 	
+	/** Sets the FITS-structured XML as a JDOM Document */
 	public void setFitsXml(Document fitsXml) {
 		this.fitsXml = fitsXml;
 	}
 	
+	/** Returns the raw XML from the tool */
 	public Document getToolOutput() {
 		return toolOutput;
 	}
 	
+	/** Returns a List of identity information objects about the file,
+	 *  one for each reporting tool */
 	public List<ToolIdentity> getFileIdentity() {
 		return identity;
 	}
 	
+	/** Add a tool's identity information on a file to the identity list 
+	 */
 	public void addFileIdentity(ToolIdentity id) {
 		identity.add(id);
 	}
@@ -114,6 +137,7 @@ public class ToolOutput {
 //			docBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
 //			docBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", Fits.FITS_HOME+Fits.internalOutputSchema);
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+			docBuilder.setErrorHandler (new ToolErrorHandler()); 
 			
 			XMLOutputter outputter = new XMLOutputter();
 			String xml = outputter.outputString(output);
@@ -121,7 +145,7 @@ public class ToolOutput {
 			docBuilder.parse(new InputSource(new StringReader(xml)));
 			} 
 			catch(Exception e) {
-				e.printStackTrace();
+				logger.error("tool returned invalid XML",e);
 				return false;
 			} 
 			return true;
@@ -137,7 +161,7 @@ public class ToolOutput {
 		try {
 			outputter2.output(output, System.out);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			//  Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -153,12 +177,13 @@ public class ToolOutput {
 	    return true;*/
 	}
 	
-	public List<ToolIdentity> createFileIdentities(Document dom, ToolInfo info) {
+	private List<ToolIdentity> createFileIdentities(Document dom, ToolInfo info) {
 		List<ToolIdentity> identities = new ArrayList<ToolIdentity>();
 		try {
 			XPath xpath = XPath.newInstance("//fits:identity");
 			xpath.addNamespace(ns);
-			List<Element> identElements = xpath.selectNodes(dom);
+			@SuppressWarnings("unchecked")
+            List<Element> identElements = xpath.selectNodes(dom);
 			for(Element element : identElements) {
 				Attribute formatAttr = element.getAttribute("format");
 				Attribute mimetypeAttr = element.getAttribute("mimetype");

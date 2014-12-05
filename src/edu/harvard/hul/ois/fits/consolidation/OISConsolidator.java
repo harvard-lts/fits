@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -50,6 +51,8 @@ public class OISConsolidator implements ToolOutputConsolidator {
 
     private static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");        
 
+    private Logger logger = Logger.getLogger(this.getClass());
+    
 	private boolean reportConflicts;
 	private boolean displayToolOutput;
 	private Document formatTree;
@@ -65,6 +68,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	
 	public OISConsolidator() throws FitsConfigurationException {
+		
 		reportConflicts = Fits.config.getBoolean("output.report-conflicts",true);
 		displayToolOutput = Fits.config.getBoolean("output.display-tool-output",false);
 		SAXBuilder saxBuilder = new SAXBuilder();
@@ -116,7 +120,10 @@ public class OISConsolidator implements ToolOutputConsolidator {
 				//if the tool can't identify files, or if it can and all identities are good
 				if(!t.canIdentify() || (t.canIdentify() && allIdentitiesAreGood(result))) {
 					newResults.add(result);
-				}			
+				}
+				else {
+					logger.debug("tossing " + t.getName() + " identification because of invalid identification");
+				}
 			}
 		}
 		return newResults;
@@ -384,7 +391,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	private List<FitsIdentity> consolidateIdentities(List<ToolIdentity> identities) {
 		List<FitsIdentity> consolidatedIdentities = new ArrayList<FitsIdentity>();
 		for(ToolIdentity ident : identities) {
-			ListIterator iter = consolidatedIdentities.listIterator();
+			ListIterator<FitsIdentity> iter = consolidatedIdentities.listIterator();
 			boolean anyMatches = false;
 			boolean formatTreeMatch = false;
 			while ( iter.hasNext() ) {
@@ -405,24 +412,36 @@ public class OISConsolidator implements ToolOutputConsolidator {
 				else {			
 					int matchCondition = checkFormatTree(ident,identitySection);
 					if(matchCondition == -1) {
+						logger.debug(ident.getFormat() + " is more specific than " + identitySection.getFormat() + " tossing out " + identitySection.getToolName());
 						//ident is more specific.  Most specific identity should always
 						// be first element in list
-						FitsIdentity newSection = new FitsIdentity(ident);
+						// overwrite the formate with more specific format
+						identitySection.setFormat(ident.getFormat());
+						// overwrite the formate with more specific mimetype
+						identitySection.setMimetype((ident.getMime()));
+						//Add external identifiers from ident to the existing item
+						mergeExternalIdentifiers(ident,identitySection);				
+						//add format versions from ident to the existing item
+						mergeFormatVersions(ident,identitySection);
+						//add reporting tools from ident to the existing item
+						identitySection.addReportingTool(ident.getToolInfo());
+						//FitsIdentity newSection = new FitsIdentity(ident);
 						//add new section
 						//backup on one position
-						iter.previous();
+						//iter.previous();
 						//add the new item
-						iter.add(newSection);
+						//iter.add(newSection);
 						//skip head to next item
-						iter.next();
+						//iter.next();
 						//delete
-						iter.remove();
+						//iter.remove();
 						//indicate we found a match
 						anyMatches = true;
 						break;
 					}
 					// existing format is more specific
 					else if(matchCondition == 1) {
+						logger.debug(identitySection.getFormat() + " is more specific than " + ident.getFormat() + " tossing out " + ident.getToolInfo().getName());
 						formatTreeMatch = true;
 						//do nothing, keep going and add to consolidated identities if no other matches
 					}
@@ -448,6 +467,12 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	 * @return
 	 */
 	private int checkFormatTree(ToolIdentity a, FitsIdentity b) {
+		
+		//if formats are equal then just return
+		if(a.getFormat().equals(b.getFormat())) {
+			return 0;
+		}
+		
 		//check if a is more specific than b
 		Attribute a_attr = new Attribute("format",a.getFormat());
 		Attribute b_attr = new Attribute("format",b.getFormat());

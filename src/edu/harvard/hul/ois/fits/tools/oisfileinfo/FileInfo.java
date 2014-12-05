@@ -21,6 +21,7 @@ package edu.harvard.hul.ois.fits.tools.oisfileinfo;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -33,25 +34,39 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
+/** The FileInfo tool uses Java system calls to get basic information about
+ *  a file, as well as calculating an MD5 digest.
+ *  
+ *  @see <a href="http://www.twmacinta.com/myjava/fast_md5.php">Fast MD5 Implementation in Java</a>
+ */
 public class FileInfo extends ToolBase {
 	
+    private final static String TOOL_NAME = "OIS File Information";
+    private final static String TOOL_VERSION = "0.2";
+    private final static String TOOL_DATE = "12/13/2013";
+
+    private static Logger logger = Logger.getLogger(FileInfo.class);
+
     private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
     private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
     private boolean enabled = true;
 	
 	public FileInfo() throws FitsToolException{
-		info.setName("OIS File Information");
-		info.setVersion("0.1");
-		info.setDate(null);
+        logger.debug ("Initializing FileInfo");
+        info.setName(TOOL_NAME);
+		info.setVersion(TOOL_VERSION);
+		info.setDate(TOOL_DATE);
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {	
-		long startTime = System.currentTimeMillis();
+        logger.debug("FileInfo.extractInfo starting on " + file.getName());
+        long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
 		output = new ToolOutput(this,(Document)doc.clone(),doc);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
+        logger.debug("FileInfo.extractInfo finished on " + file.getName());
 		return output;
 	}
 	
@@ -68,20 +83,22 @@ public class FileInfo extends ToolBase {
 		fileInfo.addContent(filepath);
 		//filename
 		Element fileName = new Element("filename",fitsNS);
-		fileName.setText(file.getPath());
+		fileName.setText(file.getName());
 		fileInfo.addContent(fileName);
 		//size
 		Element size = new Element("size",fitsNS);
 		size.setText(String.valueOf(file.length()));
 		fileInfo.addContent(size);		
 		//Calculate the MD5 checksum
-		try {
-			String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
-			Element signature = new Element("md5checksum",fitsNS);
-			signature.setText(md5Hash);
-			fileInfo.addContent(signature);
-		} catch (IOException e) {
-			throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
+		if (Fits.config.getBoolean("output.enable-checksum")) {
+			try {
+				String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
+				Element signature = new Element("md5checksum",fitsNS);
+				signature.setText(md5Hash);
+				fileInfo.addContent(signature);
+			} catch (IOException e) {
+				throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
+			}
 		}
 		//fslastmodified
 		Element fslastmodified = new Element("fslastmodified",fitsNS);

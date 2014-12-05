@@ -507,13 +507,18 @@ xmlns:mix="http://www.loc.gov/mix/">
 			
 			<!--  fNumber -->
 			<fNumber>
-		  		<xsl:value-of select="//mix:FNumber"/>
+		  		<xsl:value-of select="//property[name='FNumber']/values/value"/>
 			</fNumber>
 
 			<!--  exposureTime -->
 			<exposureTime>
-		  		<xsl:value-of select="//mix:ExposureTime"/>
+		  		<xsl:value-of select="//property[name='ExposureTime']/values/value"/>
 			</exposureTime>
+			
+			<!--  ISO -->
+			<isoSpeedRating>
+				<xsl:value-of select="//property[name='ISOSpeedRatings']/values/value"/>
+			</isoSpeedRating>			
 			
 			<!--  brightnessValue -->
 			<brightnessValue>
@@ -522,8 +527,13 @@ xmlns:mix="http://www.loc.gov/mix/">
 
 			<!--  exposureBiasValue -->
 			<exposureBiasValue>
-		  		<xsl:value-of select="//mix:ExposureBiasValue"/>
+		  		<xsl:value-of select="//property[name='ExposureBiasValue']/values/value"/>
 			</exposureBiasValue>
+			
+			<!--  lightSource -->
+			<lightSource>
+				<xsl:value-of select="//property[name='LightSource']/values/value"/>
+			</lightSource>
 
 			<!--  subjectDistance -->
 			<subjectDistance>
@@ -532,20 +542,104 @@ xmlns:mix="http://www.loc.gov/mix/">
 
 			<!--  meteringMode -->
 			<meteringMode>
-		  		<xsl:value-of select="//mix:MeteringMode"/>
+				<xsl:variable name="meteringMode" select="//property[name='MeteringMode']/values/value"/>
+				<xsl:choose>
+					<xsl:when test="$meteringMode='average'">
+						<xsl:value-of select="string('Average')"/>
+					</xsl:when>
+					<xsl:when test="$meteringMode='center weighted average'">
+						<xsl:value-of select="string('Center weighted average')"/>
+					</xsl:when>
+					<xsl:when test="$meteringMode='centre weighted average'"> <!--  catch the typo -->
+						<xsl:value-of select="string('Center weighted average')"/>
+					</xsl:when>
+					<xsl:when test="$meteringMode='spot'">
+						<xsl:value-of select="string('Spot')"/>
+					</xsl:when>		
+					<xsl:when test="$meteringMode='multispot'">
+						<xsl:value-of select="string('Multispot')"/>
+					</xsl:when>		
+					<xsl:when test="$meteringMode='pattern'">
+						<xsl:value-of select="string('Pattern')"/>
+					</xsl:when>		
+					<xsl:when test="$meteringMode='partial'">
+						<xsl:value-of select="string('Partial')"/>
+					</xsl:when>		
+				</xsl:choose>
+		  		
 			</meteringMode>
 			
 			<!--  flash -->
 			<flash>
-				<xsl:variable name="flash" select="//mix:Flash"/>
-		  		<xsl:choose>
-		  			<xsl:when test="$flash=0">
-		  				<xsl:value-of select="string('No Flash')"/>
-		  			</xsl:when>
-		  			<xsl:when test="$flash=1">
-		  				<xsl:value-of select="string('Fired')"/>
-		  			</xsl:when>
-		  		</xsl:choose>
+				<xsl:variable name="flash" select="//property[name='Flash']/values/value"/>
+		      	<xsl:choose>
+					<xsl:when test="$flash='did not fire'">
+						<xsl:value-of select="string('Flash did not fire')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired'">
+						<xsl:value-of select="string('Flash fired')"/>
+					</xsl:when>
+					<xsl:when test="$flash='strobe return light not detected'">
+						<xsl:value-of select="string('Strobe return light not detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='strobe return light detected'">
+						<xsl:value-of select="string('Strobe return light detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='did not fire, compulsory flash mode'">
+						<xsl:value-of select="string('Flash did not fire, compulsory flash mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, compulsory flash mode'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, compulsory flash mode, return light not detected'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode, return light not detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, compulsory flash mode, return light detected'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode, return light detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='did not fire, auto mode'">
+						<xsl:value-of select="string('Flash did not fire, auto mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, auto mode'">
+						<xsl:value-of select="string('Flash fired, auto mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, auto mode, return light not detected'">
+						<xsl:value-of select="string('Flash fired, auto mode, return light not detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, auto mode, return light detected'">
+						<xsl:value-of select="string('Flash fired, auto mode, return light detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='no flash function'">
+						<xsl:value-of select="string('No flash function')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, red-eye reduction mode'">
+						<xsl:value-of select="string('Flash fired, red-eye reduction mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, red-eye reduction mode, return light not detected'">
+						<xsl:value-of select="string('Flash fired, red-eye reduction mode, return light not detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, red-eye reduction mode, return light detected'">
+						<xsl:value-of select="string('Flash fired, red-eye reduction mode, return light detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, compulsory mode'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode, red-eye reduction mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, compulsory mode, return light not detected'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, compulsory flash mode, return light detected'">
+						<xsl:value-of select="string('Flash fired, compulsory flash mode, red-eye reduction mode, return light detected')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, auto mode, red-eye reduction mode'">
+						<xsl:value-of select="string('Flash fired, auto mode, red-eye reduction mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, auto mode, red-eye reduction mode, return light not detected'">
+						<xsl:value-of select="string('Flash fired, auto mode, return light not detected, red-eye reduction mode')"/>
+					</xsl:when>
+					<xsl:when test="$flash='fired, auto mode, red-eye reduction mode, return light detected'">
+						<xsl:value-of select="string('Flash fired, auto mode, return light detected, red-eye reduction mode')"/>
+					</xsl:when>
+				</xsl:choose>
 			</flash>
 
 			<!--  focalLength -->
@@ -555,7 +649,7 @@ xmlns:mix="http://www.loc.gov/mix/">
 
 			<!--  flashEnergy -->
 			<flashEnergy>
-		  		<xsl:value-of select="//mix:FlashEnergy"/>
+		  		<xsl:value-of select="//property[name='FlashEnergy']/values/value"/>
 			</flashEnergy>
 			
 			<!--  exposureIndex -->

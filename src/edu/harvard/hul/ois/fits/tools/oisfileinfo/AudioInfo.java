@@ -27,6 +27,7 @@ import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
+import org.apache.log4j.Logger;
 
 import edu.harvard.hcl.hclaps.bwav.WAVEFile;
 import edu.harvard.hcl.hclaps.bwav.chunks.FormatChunk;
@@ -43,22 +44,30 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
  */
 public class AudioInfo extends ToolBase {
 	
+    private final static String TOOL_NAME = "OIS Audio Information";
+    private final static String TOOL_VERSION = "0.1";
+    private final static String TOOL_DATE = "2/17/11";
+    
 	private boolean enabled = true;
 	private static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
 	
+    private static Logger logger = Logger.getLogger(AudioInfo.class);
+    
 	public AudioInfo() throws FitsToolException {
-		info.setName("OIS Audio Information");
-		info.setVersion("0.1");
-		info.setDate("2/17/11");
+		info.setName(TOOL_NAME);
+		info.setVersion(TOOL_VERSION);
+		info.setDate(TOOL_DATE);
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {
+        logger.debug ("AudioInfo.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
 		output = new ToolOutput(this,(Document)doc.clone(),doc);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
+        logger.debug ("AudioInfo.extractInfo finished on " + file.getName());
 		return output;
 	}
 	

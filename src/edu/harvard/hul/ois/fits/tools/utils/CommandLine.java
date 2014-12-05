@@ -23,8 +23,11 @@ import java.util.List;
 
 import edu.harvard.hul.ois.fits.exceptions.FitsToolCLIException;
 
+/**
+ *  A static class for command line invocation.
+ */
 public abstract class CommandLine {
-	public static String exec(List cmd, String directory) throws FitsToolCLIException {
+	public static String exec(List<String> cmd, String directory) throws FitsToolCLIException {
 		String output = null;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try {

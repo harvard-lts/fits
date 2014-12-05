@@ -1,0 +1,13 @@
+#Currently used by Tika and DROID
+#Mapping from mime types to standard mimetypes. This is an incomplete map,
+#holding only cases where conversion is necessary. Expand as needed.
+image/x-ms-bmp=image/bmp
+application/rdf+xml=text/xml
+application/xml=text/xml
+audio/x-wav=audio/x-wave
+audio/aiff=audio/x-aiff
+audio/x-ogg=audio/ogg
+audio/flac=audio/x-flac
+application/photoshop=image/vnd.adobe.photoshop
+application/fits, image/fits=application/fits
+com.adobe.photoshop-image, image/vnd.adobe.photoshop=image/vnd.adobe.photoshop

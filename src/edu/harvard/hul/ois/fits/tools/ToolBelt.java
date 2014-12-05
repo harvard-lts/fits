@@ -24,11 +24,25 @@ import java.util.List;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 
 public class ToolBelt {
 	
+    private static Logger logger = Logger.getLogger(ToolBelt.class);
+    
+    /** The representation of one tools-used element in the config file */
+    public class ToolsUsedItem {
+        public List<String> extensions;
+        public List<String> toolNames;
+        
+        public ToolsUsedItem (List<String> exts, List<String> tools) {
+            extensions = exts;
+            toolNames = tools;
+        }
+    }
+    
 	private List<Tool> tools;
 	
 	public ToolBelt(String configFile) throws FitsConfigurationException {
@@ -39,6 +53,9 @@ public class ToolBelt {
 			throw new FitsConfigurationException("Error reading "+configFile,e);
 		}
 	
+		// Collect the tools-used elements
+		List<ToolsUsedItem> toolsUsedList = processToolsUsed(config);
+		
 		tools = new ArrayList<Tool>();
 		
 		// get number of tools
@@ -57,15 +74,24 @@ public class ToolBelt {
 				t = (Tool)c.newInstance();
 			}
 			catch(Exception e) {
-				throw new FitsConfigurationException("Error initializing "+tClass,e);
+			    // Can't use this tool, but continue anyway.
+				//throw new FitsConfigurationException("Error initializing "+tClass,e);
+			    logger.error ("Thread "+Thread.currentThread().getId() +
+			    				" error initializing " + tClass +  
+			    				": " + e.getClass().getName() + 
+			    				"  Message: " + e.getMessage());
+			    continue;
 			}
 			if(t != null) {
+			    t.setName(bareClassName(tClass));
 				for(String ext : excludes) {
 					t.addExcludedExtension(ext);
 				}
 				for(String ext : includes) {
 					t.addIncludedExtension(ext);
 				}
+				// Modify included and excluded extensions by tools-used
+                t.applyToolsUsed (toolsUsedList);
 				tools.add(t);
 			}
 		}
@@ -91,5 +117,27 @@ public class ToolBelt {
 			p.print(t.getToolInfo().print());
 		}
 
+	}
+	
+	/* Process the tools-used elements and return a list of
+	 * ... something */
+	private List<ToolsUsedItem> processToolsUsed (XMLConfiguration config) {
+	    int size = config.getList("tools-used[@exts]").size();
+	    List<ToolsUsedItem> results = new ArrayList<ToolsUsedItem> (size);
+	    for (int i = 0; i < size; i++) {
+            @SuppressWarnings("unchecked")
+            List<String> exts = config.getList("tools-used("+i+")[@exts]");
+            @SuppressWarnings("unchecked")
+            List<String> tools = config.getList("tools-used("+i+")[@tools]");
+            results.add (new ToolsUsedItem (exts, tools));
+	    }
+	    return results;      // TODO stub
+	}
+	
+	/* Extract the last component of the class name to use as the 
+	 * tool's name field */
+	private String bareClassName(String cname) {
+	    int n = cname.lastIndexOf(".");
+	    return cname.substring(n + 1);
 	}
 }

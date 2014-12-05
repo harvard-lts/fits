@@ -21,6 +21,9 @@
 					<xsl:when test="$mime='text/plain; charset=UTF-8'">
 						<xsl:value-of select="string('text/plain')"/>
 					</xsl:when>
+					<xsl:when test="normalize-space(upper-case(//property[name='Brand']/values/value))='JPX'">		
+						<xsl:value-of select="string('image/jpx')"/>
+					</xsl:when>
 					<xsl:otherwise>
 						<xsl:value-of select="$mime"/>
 					</xsl:otherwise>
@@ -204,10 +207,17 @@
 					</xsl:if>	
 				</xsl:when>	
 				<xsl:when test="$mime='application/pdf'">
-					<xsl:if test="//property[name='Producer']/values/value and //property[name='Creator']/values/value">
-						<xsl:value-of select="concat(//property[name='Producer']/values/value,'/',//property[name='Creator']/values/value)"/>
-					</xsl:if>
-				</xsl:when>			
+				    <xsl:choose>
+						<xsl:when test="//property[name='Producer']/values/value and //property[name='Creator']/values/value and //property[name='Producer']/values/value != '&lt;May be encrypted&gt;'">
+							<xsl:value-of select="concat(//property[name='Producer']/values/value,'/',//property[name='Creator']/values/value)"/>
+						</xsl:when>
+						<xsl:otherwise>
+						   <xsl:if test="//property[name='Producer']/values/value = '&lt;May be encrypted&gt;'" >
+					    <xsl:text></xsl:text>
+					    </xsl:if>
+						</xsl:otherwise>
+				    </xsl:choose>
+				</xsl:when>				
 			</xsl:choose>
 		</creatingApplicationName>	
 		 

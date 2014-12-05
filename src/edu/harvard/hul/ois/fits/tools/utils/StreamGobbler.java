@@ -24,10 +24,16 @@ class StreamGobbler extends Thread {
 	private InputStream is;
 	private OutputStream os;
 
+	/** Constructor with no output stream. Output from the process
+	 *  will be discarded.
+	 */
 	StreamGobbler(InputStream is) {
 		this(is, null);
 	}
 
+	/** Constructor with output stream. Output from the process will
+	 *  be sent to it on a line-by-line basis.
+	 */
 	StreamGobbler(InputStream is, OutputStream redirect) {
 		this.is = is;
 		this.os = redirect;

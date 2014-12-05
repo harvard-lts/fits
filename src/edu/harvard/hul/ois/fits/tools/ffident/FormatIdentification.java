@@ -42,7 +42,7 @@ import java.util.List;
  * @author Marco Schmidt, Modified for use by FITS by Spencer McEwen
  */
 public class FormatIdentification {
-	private static List descriptions;
+	private static List<FormatDescription> descriptions;
 	private static int minBufferSize;
 
 	public FormatIdentification(String configFile) throws FileNotFoundException {
@@ -53,7 +53,7 @@ public class FormatIdentification {
 		if (data == null || data.length < 1) {
 			return null;
 		}
-		Iterator iter = descriptions.iterator();
+		Iterator<FormatDescription> iter = descriptions.iterator();
 		while (iter.hasNext()) {
 			FormatDescription desc = (FormatDescription) iter.next();
 			if (desc.matches(data)) {
@@ -95,7 +95,7 @@ public class FormatIdentification {
 	}
 
 	private static void init(String configFile) throws FileNotFoundException {
-		descriptions = new ArrayList();
+		descriptions = new ArrayList<FormatDescription>();
 		minBufferSize = 1;
 
 		FileReader fr = new FileReader(configFile);
