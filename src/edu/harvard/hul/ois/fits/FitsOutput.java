@@ -52,6 +52,7 @@ import edu.harvard.hul.ois.fits.tools.ToolBelt;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.ots.schemas.AES.AudioObject;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoObject;
 import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
@@ -271,12 +272,13 @@ public class FitsOutput {
     }
 		
     /** Return an XmlContent object representing the data from fitsXml. */
-    public XmlContent getStandardXmlContent () {
+    public XmlContent getStandardXmlContent () {   	
+    	
         Element metadata = fitsXml.getRootElement().getChild("metadata",ns);
         
         if(metadata == null) {
         	return null;
-        }
+        }        
         
         XmlContentConverter conv = new XmlContentConverter ();
         
@@ -303,6 +305,10 @@ public class FitsOutput {
             // Process audio metadata...
         	return (AudioObject)conv.toAES (this,subElem);
         }
+        subElem = metadata.getChild ("video",ns);
+        if (subElem != null) {
+        	return (VideoObject)conv.toVideo(this,subElem);
+        }        
         return null;
     }
     

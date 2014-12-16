@@ -3,6 +3,10 @@
 	<!-- Order of the tools determines preference -->
 	<tools>
 		<!-- exclude-exts attribute is a comma delimited list of file extensions that the tool should not try to process -->
+		
+        <!-- try the mediainfo tool first -->
+        <tool class="edu.harvard.hul.ois.fits.tools.mediainfo.MediaInfo" exclude-exts="txt,wps,vsd,jar,wav"/>           		
+		
  		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.AudioInfo" include-exts="wav"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.ADLTool" include-exts="adl"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,mbox,arw,adl,eml,java"/>

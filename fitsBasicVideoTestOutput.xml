@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="12/16/14 10:16 AM">
+  <identification status="CONFLICT">
+    <identity format="mp4" mimetype="video/mp4" toolname="FITS" toolversion="0.8.3">
+      <tool toolname="MediaInfo" toolversion="0.7.71" />
+    </identity>
+    <identity format="ISO Media, Apple QuickTime movie" mimetype="video/quicktime" toolname="FITS" toolversion="0.8.3">
+      <tool toolname="file utility" toolversion="5.04" />
+    </identity>
+    <identity format="MOV" mimetype="video/quicktime" toolname="FITS" toolversion="0.8.3">
+      <tool toolname="Exiftool" toolversion="9.13" />
+    </identity>
+    <identity format="Quicktime" mimetype="video/quicktime" toolname="FITS" toolversion="0.8.3">
+      <tool toolname="Droid" toolversion="6.1.3" />
+      <externalIdentifier toolname="Droid" toolversion="6.1.3" type="puid">x-fmt/384</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <lastmodified toolname="Exiftool" toolversion="9.13" status="SINGLE_RESULT">2014:11:20 09:42:33-05:00</lastmodified>
+    <created toolname="Exiftool" toolversion="9.13" status="SINGLE_RESULT">2014:11:18 22:49:58</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dab980/git/fits/testfiles/10BV-24-48000A-PRORES422HQj 1.mov</filepath>
+    <filename toolname="MediaInfo" toolversion="0.7.71" status="CONFLICT">/Users/dab980/git/fits/testfiles/10BV-24-48000A-PRORES422HQj 1.mov</filename>
+    <filename toolname="OIS File Information" toolversion="0.2" status="CONFLICT">10BV-24-48000A-PRORES422HQj 1.mov</filename>
+    <size toolname="MediaInfo" toolversion="0.7.71" status="CONFLICT">62.3 MiB</size>
+    <size toolname="OIS File Information" toolversion="0.2" status="CONFLICT">65278787</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">c04134235b9b5170811adfbeb6c07060</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1416494553000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <video />
+  </metadata>
+  <statistics fitsExecutionTime="5047">
+    <tool toolname="MediaInfo" toolversion="0.7.71" executionTime="782" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.5" executionTime="4991" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="1354" />
+    <tool toolname="Exiftool" toolversion="9.13" executionTime="1331" />
+    <tool toolname="Droid" toolversion="6.1.3" executionTime="556" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" executionTime="726" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="1143" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="734" />
+    <tool toolname="Tika" toolversion="1.3" executionTime="736" />
+  </statistics>
+</fits>
+

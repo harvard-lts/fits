@@ -1,0 +1,103 @@
+<?xml version="1.0" ?>
+<transformMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../xslt_map.xsd">
+	<!-- This list of extensions comes from the list at http://www.sno.phy.queensu.ca/~phil/exiftool/index.html#supported and is current as of exiftool 9.05. -->
+
+
+	<!-- video -->
+	<map format="3G2" transform="exiftool_video_to_fits.xslt"/>
+	<map format="3GP2" transform="exiftool_video_to_fits.xslt"/>
+	<map format="ASF" transform="exiftool_video_to_fits.xslt"/>
+	<map format="AVI" transform="exiftool_video_to_fits.xslt"/>
+	<map format="DIVX" transform="exiftool_video_to_fits.xslt"/>
+	<map format="DV" transform="exiftool_video_to_fits.xslt"/>
+	<map format="DVB" transform="exiftool_video_to_fits.xslt"/>
+	<map format="F4A" transform="exiftool_video_to_fits.xslt"/>
+	<map format="F4B" transform="exiftool_video_to_fits.xslt"/>
+	<map format="F4P" transform="exiftool_video_to_fits.xslt"/>
+	<map format="F4V" transform="exiftool_video_to_fits.xslt"/>
+	<map format="FLA" transform="exiftool_video_to_fits.xslt"/>
+	<map format="FLV" transform="exiftool_video_to_fits.xslt"/>
+	<map format="M2T" transform="exiftool_video_to_fits.xslt"/>
+	<map format="M2TS" transform="exiftool_video_to_fits.xslt"/>
+	<map format="M2V" transform="exiftool_video_to_fits.xslt"/>
+	<map format="M4A" transform="exiftool_video_to_fits.xslt"/>
+	<map format="M4P" transform="exiftool_video_to_fits.xslt"/>
+	<map format="M4V" transform="exiftool_video_to_fits.xslt"/>
+	<map format="MKA" transform="exiftool_video_to_fits.xslt"/>
+	<map format="MKS" transform="exiftool_video_to_fits.xslt"/>
+	<map format="MKV" transform="exiftool_video_to_fits.xslt"/>
+	<map format="MOV" transform="exiftool_video_to_fits.xslt"/>
+	<map format="MP4" transform="exiftool_video_to_fits.xslt"/>
+	<map format="MPB" transform="exiftool_video_to_fits.xslt"/>
+	<map format="MPEG" transform="exiftool_video_to_fits.xslt"/>
+	<map format="MPG" transform="exiftool_video_to_fits.xslt"/>
+	<map format="MQV" transform="exiftool_video_to_fits.xslt"/>
+	<map format="MTS" transform="exiftool_video_to_fits.xslt"/>
+	<map format="OGV" transform="exiftool_video_to_fits.xslt"/>
+	<map format="QT" transform="exiftool_video_to_fits.xslt"/>
+	<map format="RAM" transform="exiftool_video_to_fits.xslt"/> <!-- could also be audio -->
+	<map format="RMVB" transform="exiftool_video_to_fits.xslt"/>
+	<map format="RPM" transform="exiftool_video_to_fits.xslt"/> <!-- could also be audio -->
+	<map format="RV" transform="exiftool_video_to_fits.xslt"/>
+	<map format="SWF" transform="exiftool_video_to_fits.xslt"/> <!-- belongs elsewhere? -->
+	<map format="TS" transform="exiftool_video_to_fits.xslt"/>
+	<map format="VOB" transform="exiftool_video_to_fits.xslt"/>
+	<map format="WEBM" transform="exiftool_video_to_fits.xslt"/>
+	<map format="WEBP" transform="exiftool_video_to_fits.xslt"/>
+	<map format="WMV" transform="exiftool_video_to_fits.xslt"/>
+	
+	<!-- text -->
+	<map format="CHM" transform="exiftool_text_to_fits.xslt"/>
+	<map format="HTM" transform="exiftool_text_to_fits.xslt"/>
+	<map format="HTML" transform="exiftool_text_to_fits.xslt"/>
+	<map format="ICC" transform="exiftool_text_to_fits.xslt"/>
+	<map format="ICM" transform="exiftool_text_to_fits.xslt"/>
+	<map format="RAM" transform="exiftool_text_to_fits.xslt"/>
+	<map format="RPM" transform="exiftool_text_to_fits.xslt"/>
+	<map format="SVG" transform="exiftool_text_to_fits.xslt"/>
+	<map format="XHTML" transform="exiftool_text_to_fits.xslt"/>
+	<map format="XML" transform="exiftool_text_to_fits.xslt"/>
+	<map format="XMP" transform="exiftool_text_to_fits.xslt"/>
+	 
+	<!-- document -->
+	<map format="DOC" transform="exiftool_document_to_fits.xslt"/>
+	<map format="DOCM" transform="exiftool_document_to_fits.xslt"/>
+	<map format="DOCX" transform="exiftool_document_to_fits.xslt"/>
+	<map format="DOT" transform="exiftool_document_to_fits.xslt"/>
+	<map format="KEY" transform="exiftool_document_to_fits.xslt"/>
+	<map format="KTH" transform="exiftool_document_to_fits.xslt"/>
+	<map format="NMBTEMPLATE" transform="exiftool_document_to_fits.xslt"/>
+	<map format="NUMBERS" transform="exiftool_document_to_fits.xslt"/>
+	<map format="ODB" transform="exiftool_document_to_fits.xslt"/>
+	<map format="ODC" transform="exiftool_document_to_fits.xslt"/>
+	<map format="ODF" transform="exiftool_document_to_fits.xslt"/>
+	<map format="ODG" transform="exiftool_document_to_fits.xslt"/>
+	<map format="ODI" transform="exiftool_document_to_fits.xslt"/>
+	<map format="ODP" transform="exiftool_document_to_fits.xslt"/>
+	<map format="ODS" transform="exiftool_document_to_fits.xslt"/>
+	<map format="ODT" transform="exiftool_document_to_fits.xslt"/>
+	<map format="PAGES" transform="exiftool_document_to_fits.xslt"/>
+	<map format="PDF" transform="exiftool_document_to_fits.xslt"/> <!--  includes AI -->
+	<map format="POT" transform="exiftool_document_to_fits.xslt"/>
+	<map format="POTM" transform="exiftool_document_to_fits.xslt"/>
+	<map format="POTX" transform="exiftool_document_to_fits.xslt"/>
+	<map format="PPS" transform="exiftool_document_to_fits.xslt"/>
+	<map format="PPSM" transform="exiftool_document_to_fits.xslt"/>
+	<map format="PPSX" transform="exiftool_document_to_fits.xslt"/>
+	<map format="PPT" transform="exiftool_document_to_fits.xslt"/>
+	<map format="PPTM" transform="exiftool_document_to_fits.xslt"/>
+	<map format="PPTX" transform="exiftool_document_to_fits.xslt"/>
+	<map format="RTF" transform="exiftool_document_to_fits.xslt"/>
+	<map format="THMX" transform="exiftool_document_to_fits.xslt"/>
+	<map format="XLS" transform="exiftool_document_to_fits.xslt"/>
+	<map format="XLSB" transform="exiftool_document_to_fits.xslt"/>
+	<map format="XLSM" transform="exiftool_document_to_fits.xslt"/>
+	<map format="XLSX" transform="exiftool_document_to_fits.xslt"/>
+	<map format="XLT" transform="exiftool_document_to_fits.xslt"/>
+	<map format="XLTM" transform="exiftool_document_to_fits.xslt"/>
+	<map format="XLTX" transform="exiftool_document_to_fits.xslt"/>
+	
+	<!-- video -->
+    <map format="MOV" transform="mediainfo_video_to_fits.xslt"/>	
+
+</transformMap>

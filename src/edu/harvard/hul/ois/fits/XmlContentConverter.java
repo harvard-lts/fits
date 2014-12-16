@@ -31,8 +31,10 @@ package edu.harvard.hul.ois.fits;
 
 import java.io.File;
 import java.text.ParseException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 
@@ -812,6 +814,263 @@ public class XmlContentConverter {
     	
         return aesModel.aes;
     }
+    
+    
+    /**
+     * Converts a audio element into a AudioObject AES object
+     * @param fitsAudio		an audio element in the FITS schema
+     */
+    public XmlContent toVideo_OLD (FitsOutput fitsOutput,Element fitsAudio) {
+    	
+       	// TODO: We need a video model
+        AESModel aesModel = null;
+        
+    	try {
+			aesModel = new AESModel ();
+		} catch (XmlContentException e2) {
+			logger.error("Invalid content: " + e2.getMessage ());
+		}
+    	
+    	String filename = fitsOutput.getMetadataElement("filename").getValue();
+    	
+    	
+    	FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
+    	String version = null;
+    	if(fitsIdent.getFormatVersions().size() > 0) {
+    		version = fitsIdent.getFormatVersions().get(0).getValue();
+    	}
+    	
+    	try {
+			aesModel.setFormat(fitsIdent.getFormat(),version);
+		} catch (XmlContentException e1) {
+			logger.error("Invalid content: " + e1.getMessage ());
+		}
+    	
+    	aesModel.aes.getPrimaryIdentifier().setText(new File(filename).getName());
+    	
+    	int sampleRate = 0;
+    	int channelCnt = 0;
+    	long numSamples = 0;
+    	String duration = "0";
+    	String timeStampStart = "0";
+    	
+        for (AudioElement fitsElem : AudioElement.values()) {
+            try {
+                String fitsName = fitsElem.getName ();
+                Element dataElement = fitsAudio.getChild (fitsName,ns);
+                if (dataElement == null)
+                    continue;
+                String dataValue = dataElement.getText().trim();                
+                switch (fitsElem) {
+                case duration:
+                	duration = dataValue;
+                    break;
+                case bitDepth:
+                	aesModel.setBitDepth(Integer.parseInt(dataValue));
+                    break;
+                case sampleRate:
+            		if(dataValue.contains(".")) {
+            			String[] sampleParts = dataValue.split("\\.");
+            			if(sampleParts[sampleParts.length-1].equals("0")) {
+            				sampleRate = Integer.parseInt(sampleParts[0]);
+            			}
+            		}
+            		else {
+            			sampleRate = Integer.parseInt(dataValue);
+            		}
+                    aesModel.genericFormatRegion.setSampleRate(Double.parseDouble(dataValue));
+                    break;
+                case channels:
+                	channelCnt = Integer.parseInt(dataValue);
+                	//add streams and channel cnt
+                	aesModel.setNumChannels(channelCnt);
+                	for(int i=0;i<channelCnt;i++) {
+                		aesModel.addStream(i,0.0,0.0);
+                	}
+                    break;
+                case offset:
+                    aesModel.aes.setFirstSampleOffset(Integer.parseInt(dataValue));
+                    break;
+                case timeStampStart:
+                    timeStampStart = dataValue;
+                    break;
+                case byteOrder:
+                    aesModel.aes.setByteOrder(dataValue);
+                    break;
+                case bitRate:
+                    aesModel.setBitRate(dataValue);
+                    break;
+                case numSamples:
+                    numSamples = Long.valueOf(dataValue);
+                    break;
+                case wordSize:
+                	aesModel.setWordSize(Integer.parseInt(dataValue));
+                	break;
+                case audioDataEncoding:
+                	aesModel.setAudioDataEncoding(dataValue);
+                	break;
+                case blockAlign:
+                	aesModel.setAudioDataBlockSize(Integer.parseInt(dataValue));
+                	break;
+                case codecName:
+                	aesModel.setCodec(dataValue);
+                	break;
+                case codecNameVersion:
+                	aesModel.setCodecVersion(dataValue);
+                	break;
+                case codecCreatorApplication:
+                	aesModel.setCodecCreatorApplication(dataValue);
+                	break;
+                case codecCreatorApplicationVersion: 
+                	aesModel.setCodecCreatorApplicationVersion(dataValue);
+                	break;
+                }
+                
+            }
+            catch (XmlContentException e) {
+                logger.error("Invalid content: " + e.getMessage ());
+            }
+        }//end for
+
+    	//set other requires values
+    	aesModel.aes.setAnalogDigitalFlag("FILE_DIGITAL");
+    	try {
+			aesModel.setDummyUseType();
+        	aesModel.setDuration(duration,sampleRate,numSamples);
+        	aesModel.setStartTime(timeStampStart,sampleRate);
+		} catch (XmlContentException e) {
+			logger.error("Invalid content: " + e.getMessage ());
+		}
+    	
+        return aesModel.aes;
+    }
+    
+    /**
+     * Converts a video element into a VideoObject ??? object
+     * @param fitsVideo		a video element in the FITS schema
+     */
+    public XmlContent toVideo (FitsOutput fitsOutput,Element fitsVideo) {
+        
+    	// TODO: We need a video model
+    	VideoModel videoModel = null;
+        
+    	try {
+			videoModel = new VideoModel ();
+		} catch (XmlContentException e2) {
+			logger.error("Invalid content: " + e2.getMessage ());
+		}
+    	
+    	// Ooops, recursive call
+    	//XmlContent xmlContent = fitsOutput.getStandardXmlContent();
+    	Document fitsDoc = fitsOutput.getFitsXml();    
+    	
+//    	   <metadata>
+//    	      <video>
+//    	         <format>YUV</format>
+//    	         <ebuCoreMetadata>
+//    	            <ebucore:coreMetadata>    	
+    	
+    	//String filename = fitsOutput.getMetadataElement("filename").getValue();
+//    	String format = fitsOutput.getMetadataElement("format").getValue(); 
+//
+//    	
+//    	List ebuMeta = fitsOutput.getMetadataElements("ebuCoreMetadata");    	
+//        Element testElement = fitsVideo.getChild ("ebuCoreMetadata",ns);
+//        List children = fitsVideo.getChildren();        	
+//    	Document fitsVideoDoc = fitsVideo.getDocument();
+    	
+    	
+// WIP >>>
+    	
+    	String filename = fitsOutput.getMetadataElement("filename").getValue();
+    	
+    	
+    	FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
+    	String version = null;
+    	// HACK TODO: Fix the version
+    	version = "1.2.3";
+    	if(fitsIdent.getFormatVersions().size() > 0) {
+    		version = fitsIdent.getFormatVersions().get(0).getValue();
+    	}
+    	
+    	try {
+			videoModel.setFormat(fitsIdent.getFormat(),version);
+		} catch (XmlContentException e1) {
+			logger.error("Invalid content: " + e1.getMessage ());
+		}
+    	
+    	//videoModel.aes.getPrimaryIdentifier().setText(new File(filename).getName());
+    	
+    	//int sampleRate = 0;
+    	//int channelCnt = 0;
+    	//long numSamples = 0;
+    	String duration = "0";
+    	//String timeStampStart = "0";    	
+// WIP <<<    	
+    	
+        for (VideoElement fitsElem : VideoElement.values()) {
+           try {    	
+
+            	
+        	
+                String fitsName = fitsElem.getName ();
+                Element dataElement = fitsVideo.getChild (fitsName,ns);
+                if (dataElement == null)
+                    continue;
+                
+                String dataValue = dataElement.getText().trim();                
+                switch (fitsElem) {
+                
+                case channels:
+                	videoModel.setFormat("Format", "version");                	
+                	break;
+                
+                case duration:
+                	duration = dataValue;
+                    break;
+                
+                }
+            	
+            }
+            catch (XmlContentException e) {
+                logger.error("Invalid content: " + e.getMessage ());
+            }
+        }//end for
+            	
+        return videoModel.video;
+    }
+    
+    /* an enumeration for mapping symbols to FITS video element names */
+    public enum VideoElement {
+    	bitsPerSample ("bitsPerSample"),
+    	duration ("duration"),
+    	bitDepth ("bitDepth"),
+    	sampleRate ("sampleRate"),
+    	channels ("channels"),
+    	dataFormatType ("dataFormatType"),
+    	offset ("offset"),
+    	timeStampStart ("timeStampStart"),
+    	byteOrder ("byteOrder"),
+    	bitRate ("bitRate"),
+    	numSamples ("numSamples"),
+    	wordSize ("wordSize"),
+    	audioDataEncoding ("audioDataEncoding"),
+    	blockAlign ("blockAlign"),
+    	codecName ("codecName"),
+        codecNameVersion ("codecNameVersion"),
+        codecCreatorApplication ("codecCreatorApplication"),
+        codecCreatorApplicationVersion ("codecCreatorApplicationVersion");
+    	
+    	private String name;
+        
+    	VideoElement(String name) {
+            this.name = name;
+        }
+        
+        public String getName () {
+            return name;
+        }
+    }    
     
     /* an enumeration for mapping symbols to FITS audio element names */
     public enum AudioElement {

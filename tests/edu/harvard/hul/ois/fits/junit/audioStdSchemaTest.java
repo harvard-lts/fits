@@ -33,13 +33,10 @@ import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
 import org.custommonkey.xmlunit.*;
 
-/*
- * BROKEN TEST
- */
 public class audioStdSchemaTest extends XMLTestCase {
 
-    
-	public void audioMD() throws Exception {	
+    @Test  
+	public void testAudioMD() throws Exception {   
     	Fits fits = new Fits();
     	File input = new File("testfiles/test.wav");
     	
