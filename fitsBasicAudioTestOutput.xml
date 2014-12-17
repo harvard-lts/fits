@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="12/16/14 10:37 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="12/16/14 4:54 PM">
   <identification>
     <identity format="Waveform Audio" mimetype="audio/x-wave" toolname="FITS" toolversion="0.8.3">
       <tool toolname="OIS Audio Information" toolversion="0.1" />
@@ -41,19 +41,19 @@
       <duration toolname="NLNZ Metadata Extractor" toolversion="3.4GA" status="CONFLICT">0:0:3:118</duration>
     </audio>
   </metadata>
-  <statistics fitsExecutionTime="1138">
+  <statistics fitsExecutionTime="1005">
     <tool toolname="MediaInfo" toolversion="0.7.71" status="did not run" />
-    <tool toolname="OIS Audio Information" toolversion="0.1" executionTime="232" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" executionTime="249" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Jhove" toolversion="1.5" executionTime="901" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="1022" />
-    <tool toolname="Exiftool" toolversion="9.13" executionTime="891" />
-    <tool toolname="Droid" toolversion="6.1.3" executionTime="480" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" executionTime="612" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="210" />
+    <tool toolname="Jhove" toolversion="1.5" executionTime="772" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="933" />
+    <tool toolname="Exiftool" toolversion="9.13" executionTime="788" />
+    <tool toolname="Droid" toolversion="6.1.3" executionTime="503" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" executionTime="561" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="235" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="613" />
-    <tool toolname="Tika" toolversion="1.3" executionTime="337" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="547" />
+    <tool toolname="Tika" toolversion="1.3" executionTime="304" />
   </statistics>
 </fits>
 

@@ -982,7 +982,13 @@ public class XmlContentConverter {
     	
 // WIP >>>
     	
-    	String filename = fitsOutput.getMetadataElement("filename").getValue();
+    	// DEBUG
+    	//String filename = fitsOutput.getMetadataElement("filename").getValue();
+    	//
+    	//FitsMetadataElement vidElement = fitsOutput.getMetadataElement("video");
+    	
+    	
+    	List videoContent = fitsVideo.getContent();
     	
     	
     	FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
@@ -1006,12 +1012,20 @@ public class XmlContentConverter {
     	//long numSamples = 0;
     	String duration = "0";
     	//String timeStampStart = "0";    	
-// WIP <<<    	
+// WIP <<<   
+    	
+    	
+//    	    [Element: <location [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
+//    		[Element: <format [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
+//    		[Element: <formatProfile [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
+//    		[Element: <duration [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
+//    		*[Element: <bitRate [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
+//    		[Element: <dateCreated [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
+//    		[Element: <dateModified [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]	
+    	
     	
         for (VideoElement fitsElem : VideoElement.values()) {
-           try {    	
-
-            	
+           try {
         	
                 String fitsName = fitsElem.getName ();
                 Element dataElement = fitsVideo.getChild (fitsName,ns);
@@ -1022,12 +1036,17 @@ public class XmlContentConverter {
                 switch (fitsElem) {
                 
                 case channels:
+                	// TODO: use real channels
                 	videoModel.setFormat("Format", "version");                	
                 	break;
                 
                 case duration:
                 	duration = dataValue;
                     break;
+                    
+                case bitRate:
+                    videoModel.setBitRate(dataValue);
+                    break;                    
                 
                 }
             	

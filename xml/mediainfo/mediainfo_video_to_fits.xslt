@@ -7,28 +7,43 @@
    xmlns:xalan="http://xml.apache.org/xalan"
    >
 
-<!-- 
-<xsl:import href="mediainfo_common_to_fits.xslt"/>  	
--->
+<xsl:import href="mediainfo_common_to_fits.xslt"/>
+
+<!-- function to get file name from full path -->	
+<xsl:function name="ebucore:getFilename">
+    <xsl:param name="str"/>
+    <!--str e.g. document-uri(.), filename and path-->
+    <xsl:param name="char"/>
+    <xsl:value-of select="subsequence(reverse(tokenize($str, $char)), 1, 1)"/>
+</xsl:function>
+
 <xsl:template match="/">
 
-<!--
 	<xsl:apply-imports/>
--->
     <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output">
     
         <xsl:for-each select="File/track">      
             <xsl:if test="@type = 'General'">
                 
+                <xsl:variable name="mime" select="./Format"/>                
 	            <identification>
                     <identity>
                     
-<!-- TODO: Really generate the below -->                   
-<!-- WIP START -->
-    	<!-- format and mime type -->
-   		<xsl:attribute name="mimetype">video/mp4</xsl:attribute>
-   		<xsl:attribute name="format">MPEG-4</xsl:attribute>		
-<!-- WIP END -->      
+                        <!-- mime type -->
+   		                <xsl:attribute name="mimetype">                   
+ 			                <xsl:choose>
+				                <xsl:when test="$mime='MPEG-4'">
+					                <xsl:value-of select="string('video/mp4')"/>
+				                </xsl:when> 
+				                <xsl:otherwise>
+					                <xsl:value-of select="$mime"/>
+				                </xsl:otherwise>
+			                </xsl:choose>
+		                </xsl:attribute>
+		                
+		                <xsl:attribute name="format">
+		                    <xsl:value-of select="./Format"/>
+		                </xsl:attribute>                          
                 
                     </identity>                
 		        </identification>
@@ -45,16 +60,27 @@
         
             <xsl:if test="@type = 'General'">
                     
-                <!-- TODO: split out the file name and location -->
-		  	    <filename>
-       		        <xsl:value-of select="./Complete_name"/>
-       			</filename>
+       			<xsl:variable name="completefilename" select="./Complete_name"/>
+       			<!-- TODO: Why does the filename element disappear ? -->
+			    <filename2>
+       				<xsl:value-of select="ebucore:getFilename($completefilename, '/')"/>
+       			</filename2>       			           
+
 			    <location>
-       				<xsl:value-of select="./Complete_name"/>
-       			</location>                    
-               	
-       			<!-- Where is this ??? -->
-       			<mimeType>
+       				<xsl:value-of select="$completefilename"/>
+       			</location>               	
+
+                <!-- mime type -->
+                <xsl:variable name="mime" select="./Format"/>
+                <mimeType>                
+ 			        <xsl:choose>
+				        <xsl:when test="$mime='MPEG-4'">
+				            <xsl:value-of select="string('video/mp4')"/>
+				        </xsl:when> 
+				        <xsl:otherwise>
+					         <xsl:value-of select="$mime"/>
+				        </xsl:otherwise>
+			        </xsl:choose>
        			</mimeType>
        			        
 			    <format>
@@ -69,6 +95,7 @@
        			    <xsl:value-of select="./Duration"/>
        			</duration>
  
+                <!-- TODO -->
        			<timecodeStart>
        			</timecodeStart>
    
@@ -122,11 +149,11 @@
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
        			
-       			    <!-- Where is this -->
+       			    <!-- TODO Where is this -->
        			    <delay>
        			    </delay>
        			    
-       			    <!-- Where is this -->
+       			    <!-- TODO Where is this -->
        			    <tracksize>
        			    </tracksize>
        			           			        	    
@@ -143,6 +170,7 @@
        			        <xsl:value-of select="./Frame_rate_mode"/>
        			    </frameRateMode>
        			    
+       			    <!-- TODO -->
        			    <frameCount>
        			    </frameCount>
        			    
@@ -200,8 +228,10 @@
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
                     
+                    <!-- TODO -->
                     <delay />
                     
+                    <!-- TODO -->
                     <trackSize />
                     
                     <soundField>
@@ -212,14 +242,17 @@
                         <xsl:value-of select="./Sampling_rate"/>                    
                     </samplingRate>
                     
+                    <!-- TODO -->
                     <numSamples />
                     
                     <channels>
                         <xsl:value-of select="./Channel_s_"/>
                     </channels>
                     
+                    <!-- TODO -->
                     <channelInfo />
                     
+                    <!-- TODO -->
                     <byteOrder />			                   
 
 	           

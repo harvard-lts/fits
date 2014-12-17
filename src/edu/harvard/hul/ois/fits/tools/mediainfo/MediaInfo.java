@@ -113,7 +113,7 @@ public class MediaInfo extends ToolBase {
 		    mi = new MediaInfoNativeWrapper();
 		    
 		} catch (java.lang.UnsatisfiedLinkError e){
-			throw new FitsToolException("Error loading naive library for " + TOOL_NAME);
+			throw new FitsToolException("Error loading native library for " + TOOL_NAME);
 		}
 		
 		transformMap = XsltTransformMap.getMap(mediaInfoFitsConfig+"mediainfo_xslt_map.xml");
@@ -153,6 +153,10 @@ public class MediaInfo extends ToolBase {
 	    // Get MediaInfoLib Output as EBUCore 1.5
 	    mi.Option("Output", "EBUCore_1.5");
 	    String ebuOut = mi.Inform();
+	    
+	    //// Get MediaInfoLib Output as PBCore
+	    //mi.Option("Output", "PBCore");
+	    //String pbOut = mi.Inform();	    
 	    
 	    mi.Close();
 

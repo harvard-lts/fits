@@ -2,7 +2,6 @@ package edu.harvard.hul.ois.fits;
 
 import java.util.UUID;
 
-import edu.harvard.hul.ois.ots.schemas.AES.Identifier;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoObject;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Format;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
@@ -23,8 +22,8 @@ public class VideoModel {
         video.setSchemaVersion("1.0.0");
         video.setID(videoObjectID);
         //video.setDisposition("");
-        Identifier ident = new Identifier("","primaryIdentifier");
-        ident.setIdentifierType("FILE_NAME");
+        //Identifier ident = new Identifier("","primaryIdentifier");
+        //ident.setIdentifierType("FILE_NAME");
         //video.setPrimaryIdentifier(ident);
     }
 	
@@ -35,6 +34,10 @@ public class VideoModel {
     		formatElem.setAttribute("specificationVersion", version);
     	}
     	video.setFormat(formatElem);
-    }	
+    }
+    
+    protected void setBitRate(String bitrate) throws XmlContentException {
+    	video.setBitrate(bitrate);
+    }          
 
 }

@@ -60,7 +60,8 @@ if(doMain) {
     			//"/Users/dab980/downloads/8BV-24-48000A-DV-NTSC-MEDCOMPESSION.mov",
     			//"/Users/dab980/downloads/Media-Convert_test2.mp4",
     			"testfiles/10BV-24-48000A-PRORES422HQj 1.mov",
-      			//"testfiles/test.wav",    			
+      			//"testfiles/test.wav",
+    			//"testfiles/006607203_00018.jp2",
     			//"-xc"
     			//"-x"    			
     			
