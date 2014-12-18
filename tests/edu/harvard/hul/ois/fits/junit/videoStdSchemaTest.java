@@ -56,11 +56,18 @@ if(doMain) {
     	String[] args = {
     			
     			"-i",
+    			//"/Users/dab980/downloads/drop.avi",
+    			//"/Users/dab980/downloads/centaur_1.mpg",
+    			//"/Users/dab980/downloads/big_buck_bunny.ogv",
+    			//"/Users/dab980/downloads/Jellyfish-3-Mbps.mkv",
+    			//"/Users/dab980/downloads/test-jpeg2000-color-wsound1.mxf",
     			//"/Users/dab980/downloads/spacetestSMALL.wmv",
     			//"/Users/dab980/downloads/8BV-24-48000A-DV-NTSC-MEDCOMPESSION.mov",
     			//"/Users/dab980/downloads/Media-Convert_test2.mp4",
+    			//
     			"testfiles/10BV-24-48000A-PRORES422HQj 1.mov",
-      			//"testfiles/test.wav",
+      			//
+    			//"testfiles/test.wav",
     			//"testfiles/006607203_00018.jp2",
     			//"-xc"
     			//"-x"    			

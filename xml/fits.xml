@@ -8,7 +8,7 @@
         <!--
         <tool class="edu.harvard.hul.ois.fits.tools.mediainfo.MediaInfo" exclude-exts="txt,wps,vsd,jar,wav"/>
         --> 
-        <tool class="edu.harvard.hul.ois.fits.tools.mediainfo.MediaInfo" include-exts="mov,mp4"/>                   		
+        <tool class="edu.harvard.hul.ois.fits.tools.mediainfo.MediaInfo" include-exts="avi,mov,mpg,mkv,mp4,mxf,ogv"/>                   		
 		
  		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.AudioInfo" include-exts="wav"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.ADLTool" include-exts="adl"/>

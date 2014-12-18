@@ -28,13 +28,35 @@
                 <xsl:variable name="mime" select="./Format"/>                
 	            <identification>
                     <identity>
+
+                    <!-- .ogv - video/ogg -->
+                    <!-- MXF JPEG2000 : video/mj2 -->
+                    <!-- MKV :  video/x-matroska -->
                     
                         <!-- mime type -->
    		                <xsl:attribute name="mimetype">                   
  			                <xsl:choose>
+ 				                <xsl:when test="$mime='AVI'">
+					                <xsl:value-of select="string('video/avi')"/>
+				                </xsl:when>	
+				                <xsl:when test="$mime='Matroska'">
+					                <xsl:value-of select="string('video/x-matroska')"/>
+				                </xsl:when>              	                
 				                <xsl:when test="$mime='MPEG-4'">
 					                <xsl:value-of select="string('video/mp4')"/>
-				                </xsl:when> 
+				                </xsl:when>
+				                <xsl:when test="$mime='MPEG Video'">
+				                    <xsl:value-of select="string('video/mpeg')"/>
+				                </xsl:when>
+				                <xsl:when test="$mime='MXF'">
+				                    <xsl:value-of select="string('video/mj2')"/>
+				                </xsl:when>
+				                <xsl:when test="$mime='OGG'">
+				                    <xsl:value-of select="string('video/ogg')"/>
+				                </xsl:when>
+				                <xsl:when test="$mime='Theora'">
+				                    <xsl:value-of select="string('video/ogg')"/>
+				                </xsl:when>				                 				                				                
 				                <xsl:otherwise>
 					                <xsl:value-of select="$mime"/>
 				                </xsl:otherwise>
@@ -51,16 +73,15 @@
             </xsl:if>
         </xsl:for-each>
 
-
         <metadata>
             <video>
 
         <!-- Some of the video data comes from the General Track data -->
         <xsl:for-each select="/File/track">
         
-            <xsl:if test="@type = 'General'">
-                    
+            <xsl:if test="@type = 'General'">                   
        			<xsl:variable name="completefilename" select="./Complete_name"/>
+       			
        			<!-- TODO: Why does the filename element disappear ? -->
 			    <filename2>
        				<xsl:value-of select="ebucore:getFilename($completefilename, '/')"/>
@@ -74,9 +95,27 @@
                 <xsl:variable name="mime" select="./Format"/>
                 <mimeType>                
  			        <xsl:choose>
+ 				        <xsl:when test="$mime='AVI'">
+					        <xsl:value-of select="string('video/avi')"/>
+				        </xsl:when>
+				        <xsl:when test="$mime='Matroska'">
+					        <xsl:value-of select="string('video/x-matroska')"/>
+				        </xsl:when>				        		        
 				        <xsl:when test="$mime='MPEG-4'">
 				            <xsl:value-of select="string('video/mp4')"/>
-				        </xsl:when> 
+				        </xsl:when>
+				        <xsl:when test="$mime='MPEG Video'">
+				            <xsl:value-of select="string('video/mpeg')"/>
+				        </xsl:when>
+				        <xsl:when test="$mime='MXF'">
+				            <xsl:value-of select="string('video/mj2')"/>
+				        </xsl:when>				        
+				        <xsl:when test="$mime='OGG'">
+				            <xsl:value-of select="string('video/ogg')"/>
+				        </xsl:when>
+				        <xsl:when test="$mime='Theora'">
+				            <xsl:value-of select="string('video/ogg')"/>
+				        </xsl:when>				        
 				        <xsl:otherwise>
 					         <xsl:value-of select="$mime"/>
 				        </xsl:otherwise>
@@ -86,31 +125,27 @@
 			    <format>
                     <xsl:value-of select="./Format"/>
                 </format>       			    
-
 		        <formatProfile>
                     <xsl:value-of select="./Format_profile"/>
-       			</formatProfile>
-       			        
+       			</formatProfile>  			        
        			<duration>
        			    <xsl:value-of select="./Duration"/>
        			</duration>
  
-                <!-- TODO -->
-       			<timecodeStart>
+                <!-- this is in the video track section -->
+       			<timecodeStart>  			
+       			    <xsl:value-of select="./Time_code_of_first_frame"/>
        			</timecodeStart>
    
        			<bitRate>
        			    <xsl:value-of select="./Overall_bit_rate"/>
-       			</bitRate>
-          			        
+       			</bitRate>		        
        			<size>
        			    <xsl:value-of select="./File_size"/>
        			</size>
-       			        
        			<dateCreated>
        			    <xsl:value-of select="./Encoded_date"/>
-       			</dateCreated>
-       			        
+       			</dateCreated> 
        			<dateModified>
        			    <xsl:value-of select="./Tagged_date"/>
        			</dateModified>                
@@ -120,7 +155,6 @@
  
  			<!-- Video Track -->           
             <xsl:if test="@type = 'Video'">
-
 			    <track>			    
              	    <xsl:attribute name="type">video</xsl:attribute>			    		
               	    <xsl:attribute name="id">
@@ -131,7 +165,6 @@
        			    <videoDataEncoding>
        				    <xsl:value-of select="./Format"/>       			    
        			    </videoDataEncoding>
-
                     <compression>
                         <xsl:value-of select="./Compression_mode"/>
                     </compression>                        
@@ -144,7 +177,6 @@
 			        <bitDepth>
        				    <xsl:value-of select="./Bit_depth"/>
 			        </bitDepth>			        
-               
                     <duration>
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
@@ -152,11 +184,13 @@
        			    <!-- TODO Where is this -->
        			    <delay>
        			    </delay>
-       			    
-       			    <!-- TODO Where is this -->
-       			    <tracksize>
-       			    </tracksize>
-       			           			        	    
+
+       			    <trackSize>
+       			        <xsl:value-of select="./Stream_size"/>
+       			    </trackSize>
+       			    <timecodeStart>  			
+       			        <xsl:value-of select="./Time_code_of_first_frame"/>
+       			    </timecodeStart>       			    
 			        <width>
        				    <xsl:value-of select="./Width"/>
 			        </width>
@@ -176,29 +210,23 @@
        			    
        			    <aspectRatio>
        			        <xsl:value-of select="./Display_aspect_ratio"/>
-       			    </aspectRatio>
-       			    
+       			    </aspectRatio>       			    
        			    <scanningFormat>
        			        <xsl:value-of select="./Scan_type"/>
-       			    </scanningFormat>
-       			    
+       			    </scanningFormat>       			    
        			    <chromaSubsampling>
        			        <xsl:value-of select="./Chroma_subsampling"/>
        			    </chromaSubsampling>
        			    <colorspace>
        			        <xsl:value-of select="./Color_space"/>
-       			    </colorspace>       			      			                              	    
-              	    
-	           </track>
-	
+       			    </colorspace>       			      			                              	                  	    
+	           </track>	
             </xsl:if>
             <!-- End Video Track -->
-            
-            
+                        
  			<!-- Audio Track -->           
             <xsl:if test="@type = 'Audio'">
-
-			    <track>			    
+			    <track>
              	    <xsl:attribute name="type">audio</xsl:attribute>			    		
               	    <xsl:attribute name="id">
            	          <xsl:value-of select="ID"/>
@@ -231,8 +259,9 @@
                     <!-- TODO -->
                     <delay />
                     
-                    <!-- TODO -->
-                    <trackSize />
+                    <trackSize>
+                        <xsl:value-of select="./Stream_size"/>
+                    </trackSize>
                     
                     <soundField>
                         <xsl:value-of select="./Channel_positions"/>
@@ -243,7 +272,10 @@
                     </samplingRate>
                     
                     <!-- TODO -->
-                    <numSamples />
+                    <!-- Samples_count doesn't seem to show in XML -->
+                    <numSamples>
+                        <xsl:value-of select="./Samples_count"/>                    
+                    </numSamples>
                     
                     <channels>
                         <xsl:value-of select="./Channel_s_"/>
@@ -251,27 +283,24 @@
                     
                     <!-- TODO -->
                     <channelInfo />
-                    
-                    <!-- TODO -->
-                    <byteOrder />			                   
 
+                    <byteOrder>
+                        <xsl:value-of select="./Format_settings__Endianness"/>
+                    </byteOrder>
 	           
 	           </track>	           
-	           	
+
             </xsl:if> 
-                          	                           
+            <!-- End Audio Track -->                           
             	  
 	    </xsl:for-each>	
-
+	    
         <!-- Standard -->
         <xsl:for-each select="/File/track">      
             <xsl:if test="@type = 'Video'">
                <standard />
             </xsl:if> 
-                          	                           
-            	  
 	    </xsl:for-each>
-
     
          </video>	    
 	</metadata>

@@ -37,7 +37,7 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
-import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
+//import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
 
 public class MediaInfo extends ToolBase {
 
@@ -45,7 +45,8 @@ public class MediaInfo extends ToolBase {
 	private boolean enabled = true;
 	
 	public final static String mediaInfoFitsConfig = Fits.FITS_XML+"mediainfo"+File.separator;
-	public final static String genericTransform = "mediainfo_generic_to_fits.xslt";
+	//public final static String genericTransform = "mediainfo_generic_to_fits.xslt";
+	public final static String xsltTransform = "mediainfo_video_to_fits.xslt";
 	public final static String xsltTransformEbu = "mediainfo_ebu_to_fits.xslt";	
 	
     private static final Logger logger = Logger.getLogger(MediaInfo.class);
@@ -104,9 +105,6 @@ public class MediaInfo extends ToolBase {
 		try {
 		    String versionOutput = MediaInfoNativeWrapper.Option_Static("Info_Version");
 		    // Strip "MediaInfoLib - v" from the version
-		    // TODO: can we include Apache StringUtils in the project?
-		    // versionOutput = versionOutput.removeStart("");
-		    // info.setVersion(versionOutput);
 		    info.setVersion(versionOutput.replace("MediaInfoLib - v",""));
 		    
 		    // Initialize the native library
@@ -116,7 +114,8 @@ public class MediaInfo extends ToolBase {
 			throw new FitsToolException("Error loading native library for " + TOOL_NAME);
 		}
 		
-		transformMap = XsltTransformMap.getMap(mediaInfoFitsConfig+"mediainfo_xslt_map.xml");
+		// TODO: Do we need a transform map for MediaInfo?
+		// transformMap = XsltTransformMap.getMap(mediaInfoFitsConfig+"mediainfo_xslt_map.xml");
 	}	
 	
 
@@ -140,10 +139,41 @@ public class MediaInfo extends ToolBase {
 	    
 	    // Set the option:	    
 	    // Complete details
-	    // mi.Option("Complete", "1");
+	    mi.Option("Complete", "1");
 	    
 	    // Complete = false, use a subset
-	    mi.Option("Complete", "");    
+	    //mi.Option("Complete", "");
+	    
+	    // --------------------------------------------------------------------
+	    // OUTPUT Options are:
+	    // 		(Frpm MediaInfo_Inform.cpp)
+	    //
+	    // "EBUCore"
+	    // "EBUCore_1.5"
+	    //    
+	    // "MPEG-7"
+	    //
+	    // "PBCore"
+	    // "PBCore_1.2"
+	    // "PBCore2"
+	    // "PBCore_2.0"
+	    //
+	    // NOTE: "reVTMD is disabled due to its non-free licensing
+	    //
+	    // XML
+	    // HTML
+	    // CSV
+	    //
+	    // Separate details on various data types/tracks
+	    //
+	    //	     "General"
+	    //	     "Video"
+	    //	     "Audio"
+	    //	     "Text"
+	    //	     "Chapters"
+	    //	     Image"
+	    //	     "Menu"
+	    // --------------------------------------------------------------------
 	    
 	    // Get MediaInfoLib Output as standard XML
 	    mi.Option("Output", "XML");
@@ -156,7 +186,34 @@ public class MediaInfo extends ToolBase {
 	    
 	    //// Get MediaInfoLib Output as PBCore
 	    //mi.Option("Output", "PBCore");
-	    //String pbOut = mi.Inform();	    
+	    //String pbOut = mi.Inform();
+	    
+	    // Samples count is returned in the Audio info
+	    //mi.Option("Output", "Audio");
+	    //String audioInfo = mi.Inform();
+	    
+        // FrameCount
+	    // TODO: How do I get this to the XML ?
+	    String framecount = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    		"FrameRate", MediaInfoNativeWrapper.InfoKind.Text, 
+	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    
+	    String audioDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, 0,
+	    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
+	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    
+	    String videoDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, 0,
+	    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
+	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    
+	    // TODO: Figure out how to get the "Samples count" to set the "numSamples" element
+	    String audioSamplesCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, 0,
+	    		"Samples_count", MediaInfoNativeWrapper.InfoKind.Text,
+	    		//"SamplesCount", MediaInfoNativeWrapper.InfoKind.Text,	    		
+	    		MediaInfoNativeWrapper.InfoKind.Name);		    
+	    
+	    int numAudioTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Audio);
+	    int numVideoTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Video);	    
 	    
 	    mi.Close();
 
@@ -166,26 +223,28 @@ public class MediaInfo extends ToolBase {
 		// ====================================================================	
 		Document rawOut = createXml(execOut); 			
 		
-		// TODO: HOW DO WE GET THE FORMAT ... or do we care for video?
-		String format = null;
+		//// TODO: HOW DO WE GET THE FORMAT ... or do we care for video?
+		//String format = null;
+		//
+		//String xsltTransform = null;
+		//if(format != null) {
+		//	xsltTransform = (String)transformMap.get(format.toUpperCase());
+		//}
+		//
+		//// Hack - set to the video transform xslt file
+		//// TODO: Read this in from the above map
+		//xsltTransform = "mediainfo_video_to_fits.xslt";
+		//	
+		//Document fitsXml = null;
+		//if(xsltTransform != null) {
+		//	fitsXml = transform(mediaInfoFitsConfig+xsltTransform,rawOut);
+		//}
+		//else {
+		//	//use generic transform
+		//	fitsXml = transform(mediaInfoFitsConfig+genericTransform,rawOut);
+		//}
 		
-		String xsltTransform = null;
-		if(format != null) {
-			xsltTransform = (String)transformMap.get(format.toUpperCase());
-		}
-		
-		// Hack - set to the video transform xslt file
-		// TODO: Read this in from the above map
-		xsltTransform = "mediainfo_video_to_fits.xslt";
-			
-		Document fitsXml = null;
-		if(xsltTransform != null) {
-			fitsXml = transform(mediaInfoFitsConfig+xsltTransform,rawOut);
-		}
-		else {
-			//use generic transform
-			fitsXml = transform(mediaInfoFitsConfig+genericTransform,rawOut);
-		}
+		Document fitsXml = transform(mediaInfoFitsConfig+xsltTransform,rawOut);
 		
 //		//
 //		// DEBUG - write xml to file

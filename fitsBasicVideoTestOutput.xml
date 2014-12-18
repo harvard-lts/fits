@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="12/16/14 4:56 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="12/18/14 9:39 AM">
   <identification status="CONFLICT">
     <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="0.8.3">
       <tool toolname="MediaInfo" toolversion="0.7.71" />
@@ -19,8 +19,7 @@
     <lastmodified toolname="Exiftool" toolversion="9.13" status="SINGLE_RESULT">2014:11:20 09:42:33-05:00</lastmodified>
     <created toolname="Exiftool" toolversion="9.13" status="SINGLE_RESULT">2014:11:18 22:49:58</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dab980/git/fits/testfiles/10BV-24-48000A-PRORES422HQj 1.mov</filepath>
-    <filename toolname="MediaInfo" toolversion="0.7.71" status="CONFLICT">/Users/dab980/git/fits/testfiles/10BV-24-48000A-PRORES422HQj 1.mov</filename>
-    <filename toolname="OIS File Information" toolversion="0.2" status="CONFLICT">10BV-24-48000A-PRORES422HQj 1.mov</filename>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">10BV-24-48000A-PRORES422HQj 1.mov</filename>
     <size toolname="MediaInfo" toolversion="0.7.71" status="CONFLICT">62.3 MiB</size>
     <size toolname="OIS File Information" toolversion="0.2" status="CONFLICT">65278787</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">c04134235b9b5170811adfbeb6c07060</md5checksum>
@@ -29,7 +28,9 @@
   <filestatus />
   <metadata>
     <video>
+      <filename2 toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">10BV-24-48000A-PRORES422HQj 1.mov</filename2>
       <location toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">/Users/dab980/git/fits/testfiles/10BV-24-48000A-PRORES422HQj 1.mov</location>
+      <mimeType toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">video/mp4</mimeType>
       <format toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">MPEG-4</format>
       <formatProfile toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">QuickTime</formatProfile>
       <duration toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">8s 534ms</duration>
@@ -38,19 +39,19 @@
       <dateModified toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">UTC 2014-11-18 22:50:07</dateModified>
     </video>
   </metadata>
-  <statistics fitsExecutionTime="5065">
-    <tool toolname="MediaInfo" toolversion="0.7.71" executionTime="768" />
+  <statistics fitsExecutionTime="4780">
+    <tool toolname="MediaInfo" toolversion="0.7.71" executionTime="760" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Jhove" toolversion="1.5" executionTime="4997" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="1329" />
-    <tool toolname="Exiftool" toolversion="9.13" executionTime="1324" />
-    <tool toolname="Droid" toolversion="6.1.3" executionTime="516" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" executionTime="697" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="1082" />
+    <tool toolname="Jhove" toolversion="1.5" executionTime="4717" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="996" />
+    <tool toolname="Exiftool" toolversion="9.13" executionTime="1085" />
+    <tool toolname="Droid" toolversion="6.1.3" executionTime="331" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" executionTime="638" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="855" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="692" />
-    <tool toolname="Tika" toolversion="1.3" executionTime="757" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="638" />
+    <tool toolname="Tika" toolversion="1.3" executionTime="886" />
   </statistics>
 </fits>
 
