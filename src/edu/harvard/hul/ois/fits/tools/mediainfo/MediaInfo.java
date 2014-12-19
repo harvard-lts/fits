@@ -20,7 +20,6 @@ package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 import java.io.File;
 import java.io.StringReader;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -304,16 +303,10 @@ public class MediaInfo extends ToolBase {
 			
 			// select the node we wish to append to current fits xml
 			List <Element>ebuElementNodes = xpathEbuNode.selectNodes(ebuXml);
-
-			//
-			// Do we really need to detach it?
-			//
 			// Detach the ebu node and its children
-			Iterator<Element> iter = ebuElementNodes.iterator();
-			while(iter.hasNext()) {
-				Element elem = iter.next();
+			for(Element elem : ebuElementNodes) {
 				elem.detach();
-			}				
+			}
 
 			// 3) Get an instance of the <standard> node from fits xml document
 			// We will append the ebucore node to this
