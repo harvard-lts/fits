@@ -72,6 +72,17 @@
 		        		        
             </xsl:if>
         </xsl:for-each>
+        
+        <xsl:for-each select="File/track">      
+            <xsl:if test="@type = 'General'">
+                <fileinfo>
+                    <creatingApplicationName>
+                        <xsl:value-of select="./Writing_library"/>
+                    </creatingApplicationName>                 
+                </fileinfo>            
+            </xsl:if>
+        </xsl:for-each>                  
+
 
         <metadata>
             <video>
@@ -82,10 +93,11 @@
             <xsl:if test="@type = 'General'">                   
        			<xsl:variable name="completefilename" select="./Complete_name"/>
        			
-       			<!-- TODO: Why does the filename element disappear ? -->
-			    <filename2>
+       			<!-- TODO: This is already reported by the fileinfo element, so --> 
+       			<!-- it will be filtered out by the consolidator -->
+			    <filename>
        				<xsl:value-of select="ebucore:getFilename($completefilename, '/')"/>
-       			</filename2>       			           
+       			</filename>       			           
 
 			    <location>
        				<xsl:value-of select="$completefilename"/>

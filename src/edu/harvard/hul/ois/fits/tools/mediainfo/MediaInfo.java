@@ -179,7 +179,6 @@ public class MediaInfo extends ToolBase {
 	    mi.Option("Output", "XML");
 	    String execOut = mi.Inform();
 	    
-	    
 	    // Get MediaInfoLib Output as EBUCore 1.5
 	    mi.Option("Output", "EBUCore_1.5");
 	    String ebuOut = mi.Inform();
@@ -342,6 +341,9 @@ public class MediaInfo extends ToolBase {
 		// ====================================================================
 		
 		output = new ToolOutput(this,fitsXml,rawOut);
+		
+		// DEBUG
+		String fitsOutputString = new XMLOutputter(Format.getPrettyFormat()).outputString(output.getFitsXml());
 		
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
