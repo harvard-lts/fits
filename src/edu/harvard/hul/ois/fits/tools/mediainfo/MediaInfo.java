@@ -139,10 +139,10 @@ public class MediaInfo extends ToolBase {
 	    
 	    // Set the option:	    
 	    // Complete details
-	    mi.Option("Complete", "1");
+	    // mi.Option("Complete", "1");
 	    
 	    // Complete = false, use a subset
-	    //mi.Option("Complete", "");
+	    mi.Option("Complete", "");
 	    
 	    // --------------------------------------------------------------------
 	    // OUTPUT Options are:
@@ -260,7 +260,25 @@ public class MediaInfo extends ToolBase {
 //			e.printStackTrace();
 //		}
 		
-		// ====================================================================			
+		// ====================================================================	
+		
+		//
+		// TODO:
+		// Update fields not available in the MediaInfo XML output.
+		// These have been retrieved above.
+		//
+		// Currently, these are:
+		//
+		//    General Section:
+		//        timecodeStart
+		//
+		//    Audio Track:
+		//        delay
+		//        FrameRate
+		//        numSamples
+		//
+		//    Video Track:
+		//        frameCount
 		
 		// ====================================================================		
 		// Insert the EBUCore node into the fitsXml doc
