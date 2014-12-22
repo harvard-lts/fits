@@ -172,29 +172,108 @@
               	    <xsl:attribute name="id">
            	          <xsl:value-of select="ID"/>
               	    </xsl:attribute>
+              	                  	    
+              	    <!-- Encoding is used to determine various element data -->              	    
+                    <xsl:variable name="codecID" select="./Codec_ID"/>                   	    
                     
-    			    <!-- Where is this -->
        			    <videoDataEncoding>
-       				    <xsl:value-of select="./Format"/>       			    
+       				    <xsl:value-of select="$codecID"/>       			    
        			    </videoDataEncoding>
-                    <compression>
-                        <xsl:value-of select="./Compression_mode"/>
-                    </compression>                        
-			        <bitRate>
-       				    <xsl:value-of select="./Bit_rate"/>
+
+                    <!-- TODO: What are other cpmpression checks when compression is missing -->
+                    <compression>      			           			    
+                    <xsl:choose> 
+                        <xsl:when test="./Compression_mode">
+                            <xsl:value-of select="./Compression_mode"/>
+                        </xsl:when>	        
+				        <xsl:otherwise>
+				            <xsl:choose>
+				                <xsl:when test="$codecID='apch'">
+				                    <xsl:text>Lossy</xsl:text>
+				                </xsl:when>	
+				                <xsl:otherwise>
+				                    <xsl:text>Unknown</xsl:text>
+				                </xsl:otherwise>
+				            </xsl:choose>				                				                			            
+                        </xsl:otherwise>                
+                    </xsl:choose>
+                    </compression>
+
+                    <!-- TODO: Add more encoding types -->
+                    <byteOrder>      			           			    
+                    <xsl:choose> 
+                        <xsl:when test="./Byte_order">
+                            <xsl:value-of select="./Byte_order"/>
+                        </xsl:when>	        
+				        <xsl:otherwise>
+				            <xsl:choose> 
+				                <xsl:when test="$codecID='2vuy'">
+				                    <xsl:text>Unknown</xsl:text>
+				                </xsl:when>
+                                <xsl:when test="$codecID='apch'">
+					                <xsl:text>Unknown</xsl:text>             				        
+				                </xsl:when>
+                                <xsl:when test="$codecID='avc'">
+					                <xsl:text>Unknown</xsl:text>             				        
+				                </xsl:when>
+                                <xsl:when test="$codecID='dv'">
+					                <xsl:text>Unknown</xsl:text>             				        
+				                </xsl:when>
+                                <xsl:when test="$codecID='dv5n'">
+					                <xsl:text>Unknown</xsl:text>             				        
+				                </xsl:when>	
+                                <xsl:when test="$codecID='JPEG 2000'">
+					                <xsl:text>Unknown</xsl:text>             				        
+				                </xsl:when>				            			            			            				            				            
+				                <xsl:otherwise>
+				                </xsl:otherwise>
+				            </xsl:choose>
+                        </xsl:otherwise>                
+                    </xsl:choose>
+                    </byteOrder>    
+           
+                    <!-- TODO: Add more encoding types -->
+ 			        <xsl:choose>          
+                        <xsl:when test="$codecID='2vuy'">
+			                <bitDepth>
+			                    <xsl:text>8</xsl:text>
+			                </bitDepth>                				        
+				        </xsl:when>
+                        <xsl:when test="$codecID='apch'">
+			                <bitDepth>
+			                    <xsl:text>10</xsl:text>
+			                </bitDepth>                				        
+				        </xsl:when>				        			        		        
+				        <xsl:otherwise>
+			                <bitDepth>
+       				            <xsl:value-of select="./Bit_depth"/>
+			                </bitDepth>		                						    
+				        </xsl:otherwise>			            
+ 		            </xsl:choose>                
+			        
+			        <!-- NOTE: Bit_Rate_max does NOT appear to be present -->
+                    <xsl:variable name="bitRateMode" select="./Bit_rate_mode"/>
+			        <bitRate>               
+ 			            <xsl:choose>
+ 				            <xsl:when test="$bitRateMode='Variable'">
+					            <xsl:value-of select="./Bit_rate_max"/>
+				            </xsl:when>			        
+				            <xsl:otherwise>
+					            <xsl:value-of select="./Bit_rate"/>
+				            </xsl:otherwise>
+				        </xsl:choose>
 			        </bitRate>
+			        
 			        <bitRateMode>
        				    <xsl:value-of select="./Bit_rate_mode"/>
 			        </bitRateMode>
-			        <bitDepth>
-       				    <xsl:value-of select="./Bit_depth"/>
-			        </bitDepth>			        
+		        
                     <duration>
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
-       			
-       			    <!-- TODO Where is this -->
+
        			    <delay>
+       			        <xsl:value-of select="./Delay"/>
        			    </delay>
 
        			    <trackSize>
@@ -209,9 +288,20 @@
 			        <height>
        				    <xsl:value-of select="./Height"/>
 			        </height>
-       			    <frameRate>
-       			        <xsl:value-of select="./Frame_rate"/>
-       			    </frameRate>
+			        
+			        <!-- NOTE: Frame_Rate_max does NOT appear to be present -->
+                    <xsl:variable name="frameRateMode" select="./Frame_rate_mode"/>
+			        <frameRate>               
+ 			            <xsl:choose>
+ 				            <xsl:when test="$frameRateMode='Variable'">
+					            <xsl:value-of select="./Frame_rate_max"/>
+				            </xsl:when>			        
+				            <xsl:otherwise>
+					            <xsl:value-of select="./Frame_rate"/>
+				            </xsl:otherwise>
+				        </xsl:choose>
+			        </frameRate>			        
+
        			    <frameRateMode>
        			        <xsl:value-of select="./Frame_rate_mode"/>
        			    </frameRateMode>
@@ -222,10 +312,44 @@
        			    
        			    <aspectRatio>
        			        <xsl:value-of select="./Display_aspect_ratio"/>
-       			    </aspectRatio>       			    
+       			    </aspectRatio>
+       			    
+       			    <!-- If Scanning Format is NOT present, use encoding to determine the value -->			    
        			    <scanningFormat>
-       			        <xsl:value-of select="./Scan_type"/>
-       			    </scanningFormat>       			    
+		                <xsl:choose>
+ 				            <xsl:when test="./Scan_type">
+                                <xsl:value-of select="./Scan_type"/>
+				            </xsl:when>			        
+				            <xsl:otherwise>
+				                <xsl:choose> 
+				                    <xsl:when test="$codecID='2vuy'">
+				                        <xsl:text>Progressive</xsl:text>
+				                    </xsl:when>
+				                    <xsl:when test="$codecID='v210'">
+				                        <xsl:text>Progressive</xsl:text>
+				                    </xsl:when>				                
+                                    <xsl:when test="$codecID='apch'">
+					                    <xsl:text>Unknown</xsl:text>             				        
+				                    </xsl:when>
+                                    <xsl:when test="$codecID='avc'">
+					                    <xsl:text>Unknown</xsl:text>             				        
+				                    </xsl:when>
+                                    <xsl:when test="$codecID='dv'">
+					                    <xsl:text>Unknown</xsl:text>             				        
+				                    </xsl:when>
+                                    <xsl:when test="$codecID='dv5n'">
+					                    <xsl:text>Unknown</xsl:text>             				        
+				                    </xsl:when>	
+                                    <xsl:when test="$codecID='JPEG 2000'">
+					                    <xsl:text>Unknown</xsl:text>             				        
+				                    </xsl:when>				            			            			            				            				            
+				                    <xsl:otherwise>
+				                    </xsl:otherwise>
+				                </xsl:choose>
+				            </xsl:otherwise>
+				        </xsl:choose>        
+       			    </scanningFormat>
+       			           			    
        			    <chromaSubsampling>
        			        <xsl:value-of select="./Chroma_subsampling"/>
        			    </chromaSubsampling>
@@ -268,8 +392,9 @@
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
                     
-                    <!-- TODO -->
-                    <delay />
+                    <delay>
+                        <xsl:value-of select="./Delay"/>
+                    </delay>
                     
                     <trackSize>
                         <xsl:value-of select="./Stream_size"/>
