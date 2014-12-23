@@ -39,7 +39,7 @@
  				                <xsl:when test="$mime='AVI'">
 					                <xsl:value-of select="string('video/avi')"/>
 				                </xsl:when>	
-				                <xsl:when test="$mime='Matroska'">
+				                <xsl:when test="contains($mime, 'Matroska')">
 					                <xsl:value-of select="string('video/x-matroska')"/>
 				                </xsl:when>              	                
 				                <xsl:when test="$mime='MPEG-4'">
@@ -110,7 +110,7 @@
  				        <xsl:when test="$mime='AVI'">
 					        <xsl:value-of select="string('video/avi')"/>
 				        </xsl:when>
-				        <xsl:when test="$mime='Matroska'">
+				        <xsl:when test="contains($mime, 'Matroska')">
 					        <xsl:value-of select="string('video/x-matroska')"/>
 				        </xsl:when>				        		        
 				        <xsl:when test="$mime='MPEG-4'">
@@ -272,6 +272,7 @@
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
 
+                    <!-- TODO: Set with data gotten in Java code -->
        			    <delay>
        			        <xsl:value-of select="./Delay"/>
        			    </delay>
@@ -392,6 +393,7 @@
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
                     
+                    <!-- TODO: Set with data gotten in Java code -->
                     <delay>
                         <xsl:value-of select="./Delay"/>
                     </delay>

@@ -20,7 +20,9 @@ package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 import java.io.File;
 import java.io.StringReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.jdom.Document;
@@ -93,8 +95,7 @@ public class MediaInfo extends ToolBase {
 				//}
 
 		    	break;
-		    case MacOS: 
-		    	//System.out.println("Mac OS");
+		    case MacOS:
 	    		System.setProperty("jna.library.path", "./tools/mediainfo/mac");
 	    		break;		    
 		    case Linux: System.out.println("LINUX OS"); break;
@@ -178,6 +179,9 @@ public class MediaInfo extends ToolBase {
 	    mi.Option("Output", "XML");
 	    String execOut = mi.Inform();
 	    
+	    //// DEBUG
+	    //System.out.println("\nMediaInfo output:\n" + execOut);
+	    
 	    // Get MediaInfoLib Output as EBUCore 1.5
 	    mi.Option("Output", "EBUCore_1.5");
 	    String ebuOut = mi.Inform();
@@ -196,22 +200,64 @@ public class MediaInfo extends ToolBase {
 	    		"FrameRate", MediaInfoNativeWrapper.InfoKind.Text, 
 	    		MediaInfoNativeWrapper.InfoKind.Name);
 	    
-	    String audioDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, 0,
-	    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
-	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    //String audioDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, 0,
+	    //		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
+	    //		MediaInfoNativeWrapper.InfoKind.Name);
 	    
-	    String videoDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, 0,
-	    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
-	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    //String videoDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, 0,
+	    //		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
+	    //		MediaInfoNativeWrapper.InfoKind.Name);
 	    
-	    // TODO: Figure out how to get the "Samples count" to set the "numSamples" element
-	    String audioSamplesCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, 0,
-	    		"Samples_count", MediaInfoNativeWrapper.InfoKind.Text,
-	    		//"SamplesCount", MediaInfoNativeWrapper.InfoKind.Text,	    		
-	    		MediaInfoNativeWrapper.InfoKind.Name);		    
+	    //// TODO: Figure out how to get the "Samples count" to set the "numSamples" element
+	    //String audioSamplesCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, 0,
+	    //		"Samples_count", MediaInfoNativeWrapper.InfoKind.Text,
+	    //		//"SamplesCount", MediaInfoNativeWrapper.InfoKind.Text,	    		
+	    //		MediaInfoNativeWrapper.InfoKind.Name);		    
 	    
-	    int numAudioTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Audio);
-	    int numVideoTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Video);	    
+	    Map <String, MediaInfoExtraData> videoTrackMap = new HashMap<String, MediaInfoExtraData>();	    
+	    Map <String, MediaInfoExtraData> audioTrackMap = new HashMap<String, MediaInfoExtraData>();
+	    
+	    int numAudioTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Audio);	    
+	    for (int ndx = 0; ndx < numAudioTracks; ndx++) {
+	    	MediaInfoExtraData data = new MediaInfoExtraData();
+	    	
+		    String id = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"ID", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);	    	
+	    	
+		    String audioDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    if (audioDelay != null && audioDelay.length() > 0 )
+		    	data.setDelay(audioDelay);
+		    
+		    String audioSamplesCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"Samples_count", MediaInfoNativeWrapper.InfoKind.Text,
+		    		//"SamplesCount", MediaInfoNativeWrapper.InfoKind.Text,	    		
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    if (audioSamplesCount != null && audioSamplesCount.length() > 0 )
+		    	data.setAudioSamplesCount(audioSamplesCount); 
+		    
+		    audioTrackMap.put(id, data);
+	    }
+	    
+	    int numVideoTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Video);    
+	    for (int ndx = 0; ndx < numVideoTracks; ndx++) {
+	    	MediaInfoExtraData data = new MediaInfoExtraData();
+	    	
+		    String id = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"ID", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);	    	
+	    	
+		    String videoDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    if (videoDelay != null && videoDelay.length() > 0 )
+		    	data.setDelay(videoDelay);
+		    		    
+		    videoTrackMap.put(id, data);
+	    }	    
+	    
 	    
 	    mi.Close();
 
@@ -325,13 +371,18 @@ public class MediaInfo extends ToolBase {
 		}
 		catch(JDOMException e) {
 			throw new FitsToolException("Error formatting ebucore xml node " + TOOL_NAME);			
-		}			
+		}		
+				
+		// ====================================================================
+		// Revise the XML to include element data that was not returned either
+		// via the MediaInfo XML or ebuCore
+		// ====================================================================		
+		
 
+		// ====================================================================		
+		
 //		// DEBUG
 		String finalXml = new XMLOutputter(Format.getPrettyFormat()).outputString(fitsXml);		
-		
-		
-		// ====================================================================
 		
 		output = new ToolOutput(this,fitsXml,rawOut);
 		

@@ -34,6 +34,12 @@ for i in "$JCPATH"/*.jar; do
 	APPCLASSPATH="$APPCLASSPATH":"$i"
 done
 
+JCPATH=${FITS_HOME}/lib/mediainfo
+# Add on extra jar files to APPCLASSPATH
+for i in "$JCPATH"/*.jar; do
+	APPCLASSPATH="$APPCLASSPATH":"$i"
+done
+
 JCPATH=${FITS_HOME}/lib/nzmetool
 # Add on extra jar files to APPCLASSPATH
 for i in "$JCPATH"/*.jar; do
