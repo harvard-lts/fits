@@ -2,7 +2,7 @@ Started the below ... but need to complete
 
 1) Need more encoder conditional checks
 
-2(
+2)
 
 -----------------
 Element Questions

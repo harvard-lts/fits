@@ -137,13 +137,6 @@ public class MediaInfo extends ToolBase {
 		    throw new FitsToolException("Error opening " + file.getName() ,e);
 	    } 
 	    
-	    // Set the option:	    
-	    // Complete details
-	    // mi.Option("Complete", "1");
-	    
-	    // Complete = false, use a subset
-	    mi.Option("Complete", "");
-	    
 	    // --------------------------------------------------------------------
 	    // OUTPUT Options are:
 	    // 		(Frpm MediaInfo_Inform.cpp)
@@ -174,8 +167,21 @@ public class MediaInfo extends ToolBase {
 	    //	     Image"
 	    //	     "Menu"
 	    // --------------------------------------------------------------------
+
+	    // Set the option:	    
+	    // Complete details
+	    // mi.Option("Complete", "1");
+	    //
+	    //// Complete = false, use a subset
+	    //mi.Option("Complete", "");		
+		
+	    // Get MediaInfoLib Output as standard RAW XML
+	    mi.Option("Complete", "1");
+	    mi.Option("Output", "XML");
+	    String execOutRaw = mi.Inform();	    
 	    
 	    // Get MediaInfoLib Output as standard XML
+	    mi.Option("Complete", "");
 	    mi.Option("Output", "XML");
 	    String execOut = mi.Inform();
 	    
@@ -194,26 +200,11 @@ public class MediaInfo extends ToolBase {
 	    //mi.Option("Output", "Audio");
 	    //String audioInfo = mi.Inform();
 	    
-        // FrameCount
-	    // TODO: How do I get this to the XML ?
-	    String framecount = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		"FrameRate", MediaInfoNativeWrapper.InfoKind.Text, 
-	    		MediaInfoNativeWrapper.InfoKind.Name);
-	    
-	    //String audioDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, 0,
-	    //		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
-	    //		MediaInfoNativeWrapper.InfoKind.Name);
-	    
-	    //String videoDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, 0,
-	    //		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
-	    //		MediaInfoNativeWrapper.InfoKind.Name);
-	    
-	    //// TODO: Figure out how to get the "Samples count" to set the "numSamples" element
-	    //String audioSamplesCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, 0,
-	    //		"Samples_count", MediaInfoNativeWrapper.InfoKind.Text,
-	    //		//"SamplesCount", MediaInfoNativeWrapper.InfoKind.Text,	    		
-	    //		MediaInfoNativeWrapper.InfoKind.Name);		    
-	    
+	    // --------------------------------------------------------------------	    
+	    // Retrieve additional information for audio/video tracks not contained
+	    // in the general XML
+	    // --------------------------------------------------------------------
+
 	    Map <String, MediaInfoExtraData> videoTrackMap = new HashMap<String, MediaInfoExtraData>();	    
 	    Map <String, MediaInfoExtraData> audioTrackMap = new HashMap<String, MediaInfoExtraData>();
 	    
@@ -254,6 +245,12 @@ public class MediaInfo extends ToolBase {
 		    		MediaInfoNativeWrapper.InfoKind.Name);
 		    if (videoDelay != null && videoDelay.length() > 0 )
 		    	data.setDelay(videoDelay);
+		    
+		    String frameCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"FrameCount", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    if(frameCount != null && frameCount.length() > 0)
+		    	data.setFrameCount(frameCount);
 		    		    
 		    videoTrackMap.put(id, data);
 	    }	    
@@ -265,30 +262,10 @@ public class MediaInfo extends ToolBase {
 	    // Create a Document out of the generated XML text
 	    // And transform via XSLT
 		// ====================================================================	
-		Document rawOut = createXml(execOut); 			
+		Document outputMetaDoc = createXml(execOut);
+		Document rawOut = createXml(execOutRaw);		
 		
-		//// TODO: HOW DO WE GET THE FORMAT ... or do we care for video?
-		//String format = null;
-		//
-		//String xsltTransform = null;
-		//if(format != null) {
-		//	xsltTransform = (String)transformMap.get(format.toUpperCase());
-		//}
-		//
-		//// Hack - set to the video transform xslt file
-		//// TODO: Read this in from the above map
-		//xsltTransform = "mediainfo_video_to_fits.xslt";
-		//	
-		//Document fitsXml = null;
-		//if(xsltTransform != null) {
-		//	fitsXml = transform(mediaInfoFitsConfig+xsltTransform,rawOut);
-		//}
-		//else {
-		//	//use generic transform
-		//	fitsXml = transform(mediaInfoFitsConfig+genericTransform,rawOut);
-		//}
-		
-		Document fitsXml = transform(mediaInfoFitsConfig+xsltTransform,rawOut);
+		Document fitsXml = transform(mediaInfoFitsConfig+xsltTransform,outputMetaDoc);
 		
 //		//
 //		// DEBUG - write xml to file
@@ -376,13 +353,69 @@ public class MediaInfo extends ToolBase {
 		// ====================================================================
 		// Revise the XML to include element data that was not returned either
 		// via the MediaInfo XML or ebuCore
-		// ====================================================================		
+		// ====================================================================
+		
+		//
+		// TODO: Clean up the below
+		//
+		
+		try {		
+		    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");			
+		
+		    // NOTE: We need to add a namespace	to xpath, because JDom XPath 
+		    // does not support default namespaces. It requires you to add a
+		    // fake namespace to the XPath instance.
+		    xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
+		    Element videoElement = (Element)xpathFits.selectSingleNode(fitsXml);
+		    
+		    List <Element>elementList = videoElement.getContent();
+		    
+		    for (Element element : elementList) {
+		    	
+		    	// We only care about the tracks
+		    	if(element.getName().equals("track")) {
+		    		String id = element.getAttributeValue("id");
+		    		
+		    		if (videoTrackMap.containsKey(id)) {
+			    		MediaInfoExtraData data = videoTrackMap.get(id);
+			    		//System.out.println("WHATTTT: " + data);
+			    		if(data != null) {
+			    			//System.out.println("Hello Dude");
+			    			
+			    		}		    			
+		    		} //  videoTrackMap.containsKey(id)
+
+		    	} // if "track"
+		    }
+		    
+		    
+		    
+		    //AudioTrackMap.
+		    for(Map.Entry<String, MediaInfoExtraData> entry : audioTrackMap.entrySet()){
+		        System.out.printf("\nAudio Key : %s and AudioSampleCount: %s", entry.getKey(), entry.getValue().getAudioSamplesCount());
+		        System.out.printf("\nAudio Key : %s and Delay: %s", entry.getKey(), entry.getValue().getDelay());
+		        System.out.printf("\nAudio Key : %s and Frame Count %s", entry.getKey(), entry.getValue().getFrameCount());
+		    }		    
+		    
+		
+		    //VideoTrackMap.
+		    for(Map.Entry<String, MediaInfoExtraData> entry : videoTrackMap.entrySet()){
+		        //System.out.printf("\nVideo Key : %s and AudioSampleCount: %s", entry.getKey(), entry.getValue().getAudioSamplesCount());
+		        System.out.printf("\nVideo Key : %s and Delay: %s", entry.getKey(), entry.getValue().getDelay());
+		        System.out.printf("\nVideo Key : %s and Frame Count %s", entry.getKey(), entry.getValue().getFrameCount());
+		    }
+		    
+		}
+		catch(JDOMException e) {
+			throw new FitsToolException("Error formatting ebucore xml node " + TOOL_NAME);			
+		}		    
 		
 
 		// ====================================================================		
 		
 //		// DEBUG
-		String finalXml = new XMLOutputter(Format.getPrettyFormat()).outputString(fitsXml);		
+		String finalXml = new XMLOutputter(Format.getPrettyFormat()).outputString(fitsXml);
+		System.out.println("\nFINAL XML:\n" + finalXml);
 		
 		output = new ToolOutput(this,fitsXml,rawOut);
 		
