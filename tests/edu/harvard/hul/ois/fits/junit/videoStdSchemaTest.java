@@ -56,6 +56,34 @@ if(doMain) {
     	String[] args = {
     			
     			"-i",
+    			//
+    			//"/Users/dab980/Documents/video/samples/10BV-16-48000A-UNCOMPRESSED.mov", 
+    			//
+    			//"/Users/dab980/Documents/video/samples/10BV-24-48000A-PRORES422HQj 1.mov",
+    			//"/Users/dab980/Documents/video/samples/10BV-24-48000A-PRORES422i.mov",
+    			//"/Users/dab980/Documents/video/samples/10BV-24-48000A-PRORES422LTj 1.mov",
+    			//"/Users/dab980/Documents/video/samples/10BV-24-48000A-PRORES4444i 1.mov",
+    			// empty
+    			// "/Users/dab980/Documents/video/samples/10BV-24-48000A-PRORES4444i.mov",
+    			//
+    			//"/Users/dab980/Documents/video/samples/10BV-24-48000A-PRORESPROXYi.mov",
+    			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-DV-NTSC 1.mov",
+    			//"/Users/dab980/Documents/video/samples/10BV-24-48000A-UNCOMPRESSED.mov",
+    			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-DV-NTSC-HIGH-COMPESSION.mov",
+    			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-DV-NTSC-MEDCOMPESSION.mov",
+    			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-DV-NTSC.mov",
+    			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-DVCPRO50-NTSC 1.mov",
+    			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-DVCPRO50-NTSC.mov",
+    			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-H264 1.mov",
+    			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-H264-HIGH -COMP.mov",
+    			"/Users/dab980/Documents/video/samples/8BV-24-48000A-PRORESi.mov",
+    			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-PRORESi_Theora.mov",
+    			//
+    			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-UNCOMPRESSED.mov",
+    			// empty
+    			// "/Users/dab980/Documents/video/samples/10BV-24-48000A-PRORES422HQj.mov",
+    			//
+    			//
     			//"/Users/dab980/downloads/drop.avi",
     			//"/Users/dab980/downloads/centaur_1.mpg",
     			//"/Users/dab980/downloads/big_buck_bunny.ogv",
@@ -65,7 +93,8 @@ if(doMain) {
     			//"/Users/dab980/downloads/8BV-24-48000A-DV-NTSC-MEDCOMPESSION.mov",
     			//"/Users/dab980/downloads/Media-Convert_test2.mp4",
     			//
-    			"testfiles/10BV-24-48000A-PRORES422HQj 1.mov",
+    			//"testfiles/10BV-24-48000A-PRORES422HQj 1.mov",
+    			//"/Users/dab980/downloads/Sintel_DivXPlus_6500kbps.mkv",
       			//
     			//"testfiles/test.wav",
     			//"testfiles/006607203_00018.jp2",
@@ -105,5 +134,6 @@ if (doFits) {
 	}
 
 } // doFits
+
 
 }
