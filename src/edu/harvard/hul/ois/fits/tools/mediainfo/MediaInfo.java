@@ -205,6 +205,31 @@ public class MediaInfo extends ToolBase {
 	    // in the general XML
 	    // --------------------------------------------------------------------
 
+	    
+	    //
+	    // WIP
+	    //
+	    String dateModified = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    		"File_Modified_Date", MediaInfoNativeWrapper.InfoKind.Text,
+	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    
+	    // Empty ???
+	    String dateCreated = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    		//"File_Created_Date", MediaInfoNativeWrapper.InfoKind.Text,
+	    		"Created_Date", MediaInfoNativeWrapper.InfoKind.Text,	    		
+	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    
+	    String dateEncoded = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    		"Encoded_Date", MediaInfoNativeWrapper.InfoKind.Text,
+	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    
+	    // Empty ???
+	    String encodedLibraryVersion = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    		//"File_Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,
+	    		"Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,	    		
+	    		MediaInfoNativeWrapper.InfoKind.Name);	    
+	    // -------
+	    
 	    Map <String, MediaInfoExtraData> videoTrackMap = new HashMap<String, MediaInfoExtraData>();	    
 	    Map <String, MediaInfoExtraData> audioTrackMap = new HashMap<String, MediaInfoExtraData>();
 	    
@@ -358,6 +383,24 @@ public class MediaInfo extends ToolBase {
 		//
 		// TODO: Clean up the below
 		//
+	
+//		// DEBUG
+//		//
+//		//
+//	    //AudioTrackMap.
+//	    for(Map.Entry<String, MediaInfoExtraData> entry : audioTrackMap.entrySet()){
+//	        System.out.printf("\nAudio Key : %s and AudioSampleCount: %s", entry.getKey(), entry.getValue().getAudioSamplesCount());
+//	        System.out.printf("\nAudio Key : %s and Delay: %s", entry.getKey(), entry.getValue().getDelay());
+//	        System.out.printf("\nAudio Key : %s and Frame Count %s", entry.getKey(), entry.getValue().getFrameCount());
+//	    }		    
+//	    
+//	
+//	    //VideoTrackMap.
+//	    for(Map.Entry<String, MediaInfoExtraData> entry : videoTrackMap.entrySet()){
+//	        //System.out.printf("\nVideo Key : %s and AudioSampleCount: %s", entry.getKey(), entry.getValue().getAudioSamplesCount());
+//	        System.out.printf("\nVideo Key : %s and Delay: %s", entry.getKey(), entry.getValue().getDelay());
+//	        System.out.printf("\nVideo Key : %s and Frame Count %s", entry.getKey(), entry.getValue().getFrameCount());
+//	    }		
 		
 		try {		
 		    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");			
@@ -366,44 +409,43 @@ public class MediaInfo extends ToolBase {
 		    // does not support default namespaces. It requires you to add a
 		    // fake namespace to the XPath instance.
 		    xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
+
 		    Element videoElement = (Element)xpathFits.selectSingleNode(fitsXml);
 		    
 		    List <Element>elementList = videoElement.getContent();
-		    
 		    for (Element element : elementList) {
 		    	
 		    	// We only care about the tracks
 		    	if(element.getName().equals("track")) {
 		    		String id = element.getAttributeValue("id");
 		    		
+		    		// video track data
 		    		if (videoTrackMap.containsKey(id)) {
-			    		MediaInfoExtraData data = videoTrackMap.get(id);
-			    		//System.out.println("WHATTTT: " + data);
+			    		MediaInfoExtraData data = (MediaInfoExtraData)videoTrackMap.get(id);
 			    		if(data != null) {
-			    			//System.out.println("Hello Dude");
+			    			// TODO: Actually set the data in the xml element
+			    			System.out.println ("GOT videoTrackMap match");
 			    			
 			    		}		    			
 		    		} //  videoTrackMap.containsKey(id)
 
+		    		// audio track data
+		    		if (audioTrackMap.containsKey(id)) {
+			    		MediaInfoExtraData data = audioTrackMap.get(id);
+			    		if(data != null) {
+			    			// TODO: Actually set the data in the xml element
+			    			System.out.println ("GOT audioTrackMap match");
+			    			
+			    		}		    			
+		    		} //  audioTrackMap.containsKey(id)
+		    		
+		    		
 		    	} // if "track"
 		    }
 		    
 		    
 		    
-		    //AudioTrackMap.
-		    for(Map.Entry<String, MediaInfoExtraData> entry : audioTrackMap.entrySet()){
-		        System.out.printf("\nAudio Key : %s and AudioSampleCount: %s", entry.getKey(), entry.getValue().getAudioSamplesCount());
-		        System.out.printf("\nAudio Key : %s and Delay: %s", entry.getKey(), entry.getValue().getDelay());
-		        System.out.printf("\nAudio Key : %s and Frame Count %s", entry.getKey(), entry.getValue().getFrameCount());
-		    }		    
-		    
-		
-		    //VideoTrackMap.
-		    for(Map.Entry<String, MediaInfoExtraData> entry : videoTrackMap.entrySet()){
-		        //System.out.printf("\nVideo Key : %s and AudioSampleCount: %s", entry.getKey(), entry.getValue().getAudioSamplesCount());
-		        System.out.printf("\nVideo Key : %s and Delay: %s", entry.getKey(), entry.getValue().getDelay());
-		        System.out.printf("\nVideo Key : %s and Frame Count %s", entry.getKey(), entry.getValue().getFrameCount());
-		    }
+
 		    
 		}
 		catch(JDOMException e) {

@@ -33,6 +33,7 @@
                     <!-- MXF JPEG2000 : video/mj2 -->
                     <!-- MKV :  video/x-matroska -->
                     
+                        <!-- TODO: finish (below also) -->
                         <!-- mime type -->
    		                <xsl:attribute name="mimetype">                   
  			                <xsl:choose>
@@ -78,7 +79,13 @@
                 <fileinfo>
                     <creatingApplicationName>
                         <xsl:value-of select="./Writing_library"/>
-                    </creatingApplicationName>                 
+                    </creatingApplicationName>
+                    
+                    <!-- TODO -->
+                    <creatingApplicationVersion>
+                        <xsl:value-of select="string('TODO: Do we need this and if so, where do we get this')"/>
+                        <!-- xsl:value-of select="./Encoded_Library_Version"/> -->
+                    </creatingApplicationVersion>                
                 </fileinfo>            
             </xsl:if>
         </xsl:for-each>                  
@@ -103,6 +110,7 @@
        				<xsl:value-of select="$completefilename"/>
        			</location>               	
 
+                <!-- TODO: finish (above also) -->
                 <!-- mime type -->
                 <xsl:variable name="mime" select="./Format"/>
                 <mimeType>                
@@ -155,11 +163,15 @@
        			<size>
        			    <xsl:value-of select="./File_size"/>
        			</size>
+       			
+       			<!-- TODO: Which dates to use. Modified Date is visible via API -->
        			<dateCreated>
+       			    <!-- <xsl:value-of select="./Creation_Date"/> -->
        			    <xsl:value-of select="./Encoded_date"/>
-       			</dateCreated> 
+       			</dateCreated>
        			<dateModified>
-       			    <xsl:value-of select="./Tagged_date"/>
+       			    <!-- <xsl:value-of select="./Tagged_date"/> -->
+       			    <xsl:value-of select="./Modified_Date"/>
        			</dateModified>                
 		        		        
             </xsl:if>        
@@ -180,7 +192,8 @@
        				    <xsl:value-of select="$codecID"/>       			    
        			    </videoDataEncoding>
 
-                    <!-- TODO: What are other cpmpression checks when compression is missing -->
+                    <!-- TODO: finish -->
+                    <!-- TODO: What are other compression checks when compression is missing -->
                     <compression>      			           			    
                     <xsl:choose> 
                         <xsl:when test="./Compression_mode">
@@ -198,7 +211,8 @@
                         </xsl:otherwise>                
                     </xsl:choose>
                     </compression>
-
+                    
+                    <!-- TODO: finish -->
                     <!-- TODO: Add more encoding types -->
                     <byteOrder>      			           			    
                     <xsl:choose> 
@@ -232,6 +246,7 @@
                     </xsl:choose>
                     </byteOrder>    
            
+                    <!-- TODO: finish -->
                     <!-- TODO: Add more encoding types -->
  			        <xsl:choose>          
                         <xsl:when test="$codecID='2vuy'">
@@ -251,6 +266,7 @@
 				        </xsl:otherwise>			            
  		            </xsl:choose>                
 			        
+			        <!-- TODO: finish -->
 			        <!-- NOTE: Bit_Rate_max does NOT appear to be present -->
                     <xsl:variable name="bitRateMode" select="./Bit_rate_mode"/>
 			        <bitRate>               
@@ -290,6 +306,7 @@
        				    <xsl:value-of select="./Height"/>
 			        </height>
 			        
+			        <!-- TODO: finish -->
 			        <!-- NOTE: Frame_Rate_max does NOT appear to be present -->
                     <xsl:variable name="frameRateMode" select="./Frame_rate_mode"/>
 			        <frameRate>               
@@ -307,14 +324,16 @@
        			        <xsl:value-of select="./Frame_rate_mode"/>
        			    </frameRateMode>
        			    
-       			    <!-- TODO -->
-       			    <frameCount>
-       			    </frameCount>
+       			    <!-- TODO: finish -->
+       			    <!-- TODO: Set with data gotten in Java code  -->
+       			    <!-- FrameCount is not returned in XML -->
+       			    <frameCount />
        			    
        			    <aspectRatio>
        			        <xsl:value-of select="./Display_aspect_ratio"/>
        			    </aspectRatio>
        			    
+       			    <!-- TODO: finish -->
        			    <!-- If Scanning Format is NOT present, use encoding to determine the value -->			    
        			    <scanningFormat>
 		                <xsl:choose>
@@ -421,6 +440,7 @@
                     </channels>
                     
                     <!-- TODO -->
+                    <!-- TODO: finish -->
                     <channelInfo />
 
                     <byteOrder>
