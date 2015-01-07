@@ -205,14 +205,14 @@ public class MediaInfo extends ToolBase {
 	    // in the general XML
 	    // --------------------------------------------------------------------
 
-	    
-	    //
-	    // WIP
-	    //
 	    String dateModified = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    		"File_Modified_Date", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    		MediaInfoNativeWrapper.InfoKind.Name);	    
 	    
+	    //
+	    // WIP >>>
+	    //
+
 	    // Empty ???
 	    String dateCreated = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    		//"File_Created_Date", MediaInfoNativeWrapper.InfoKind.Text,
@@ -227,8 +227,9 @@ public class MediaInfo extends ToolBase {
 	    String encodedLibraryVersion = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    		//"File_Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,
 	    		"Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,	    		
-	    		MediaInfoNativeWrapper.InfoKind.Name);	    
-	    // -------
+	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    
+	    // WIP END <<<
 	    
 	    Map <String, MediaInfoExtraData> videoTrackMap = new HashMap<String, MediaInfoExtraData>();	    
 	    Map <String, MediaInfoExtraData> audioTrackMap = new HashMap<String, MediaInfoExtraData>();
@@ -378,29 +379,7 @@ public class MediaInfo extends ToolBase {
 		// ====================================================================
 		// Revise the XML to include element data that was not returned either
 		// via the MediaInfo XML or ebuCore
-		// ====================================================================
-		
-		//
-		// TODO: Clean up the below
-		//
-	
-//		// DEBUG
-//		//
-//		//
-//	    //AudioTrackMap.
-//	    for(Map.Entry<String, MediaInfoExtraData> entry : audioTrackMap.entrySet()){
-//	        System.out.printf("\nAudio Key : %s and AudioSampleCount: %s", entry.getKey(), entry.getValue().getAudioSamplesCount());
-//	        System.out.printf("\nAudio Key : %s and Delay: %s", entry.getKey(), entry.getValue().getDelay());
-//	        System.out.printf("\nAudio Key : %s and Frame Count %s", entry.getKey(), entry.getValue().getFrameCount());
-//	    }		    
-//	    
-//	
-//	    //VideoTrackMap.
-//	    for(Map.Entry<String, MediaInfoExtraData> entry : videoTrackMap.entrySet()){
-//	        //System.out.printf("\nVideo Key : %s and AudioSampleCount: %s", entry.getKey(), entry.getValue().getAudioSamplesCount());
-//	        System.out.printf("\nVideo Key : %s and Delay: %s", entry.getKey(), entry.getValue().getDelay());
-//	        System.out.printf("\nVideo Key : %s and Frame Count %s", entry.getKey(), entry.getValue().getFrameCount());
-//	    }		
+		// ====================================================================		
 		
 		try {		
 		    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");			
@@ -411,11 +390,17 @@ public class MediaInfo extends ToolBase {
 		    xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
 
 		    Element videoElement = (Element)xpathFits.selectSingleNode(fitsXml);
-		    
 		    List <Element>elementList = videoElement.getContent();
 		    for (Element element : elementList) {
 		    	
-		    	// We only care about the tracks
+		    	// General Section dateModified
+		    	if(element.getName().equals("dateModified")) {				    
+					if (dateModified != null && dateModified.length() > 0) {
+						element.setText(dateModified);
+					}		    		
+		    	}
+		    	
+		    	// Tracks
 		    	if(element.getName().equals("track")) {
 		    		String id = element.getAttributeValue("id");
 		    		
@@ -423,32 +408,66 @@ public class MediaInfo extends ToolBase {
 		    		if (videoTrackMap.containsKey(id)) {
 			    		MediaInfoExtraData data = (MediaInfoExtraData)videoTrackMap.get(id);
 			    		if(data != null) {
-			    			// TODO: Actually set the data in the xml element
-			    			System.out.println ("GOT videoTrackMap match");
 			    			
-			    		}		    			
+			    			List <Element>contents = element.getContent();		    				
+			    			for (Element childElement : contents) {
+			    					
+			    				// delay
+			    				if(childElement.getName().equals("delay")) {
+						    		String delay = data.getDelay();
+						    		if(delay != null && delay.length() > 0) {
+						    			childElement.setText(delay);
+						    		}			    					
+			    				}
+			    				// frameCount
+			    				if(childElement.getName().equals("frameCount")) {
+						    		String frameCount = data.getFrameCount();
+						    		if(frameCount!= null && frameCount.length() > 0) {
+						    			childElement.setText(frameCount);
+						    		}			    					
+			    				}			    				
+
+			    			} // childElement
+			    			
+			    		}	// if(data != null)	    			
 		    		} //  videoTrackMap.containsKey(id)
 
 		    		// audio track data
 		    		if (audioTrackMap.containsKey(id)) {
 			    		MediaInfoExtraData data = audioTrackMap.get(id);
 			    		if(data != null) {
-			    			// TODO: Actually set the data in the xml element
-			    			System.out.println ("GOT audioTrackMap match");
 			    			
-			    		}		    			
+			    			List <Element>contents = element.getContent();		    				
+			    			for (Element childElement : contents) {
+			    					
+			    				// delay
+			    				if(childElement.getName().equals("delay")) {
+						    		String delay = data.getDelay();
+						    		if(delay != null && delay.length() > 0) {
+						    			childElement.setText(delay);
+						    		}			    					
+			    				}
+			    				// frameCount
+			    				if(childElement.getName().equals("numSamples")) {
+						    		String numSamples = data.getAudioSamplesCount();
+						    		if(numSamples!= null && numSamples.length() > 0) {
+						    			childElement.setText(numSamples);
+						    		}			    					
+			    				}			    				
+			    				
+
+			    			} // childElement			    			
+			    			
+			    		}	// if(data != null)	    			
 		    		} //  audioTrackMap.containsKey(id)
 		    		
 		    		
-		    	} // if "track"
-		    }
-		    
-		    
-		    
+		    	} // "track"
+		    	
+		    }  // for (Element element : elementList) {
 
 		    
-		}
-		catch(JDOMException e) {
+		} catch(JDOMException e) {
 			throw new FitsToolException("Error formatting ebucore xml node " + TOOL_NAME);			
 		}		    
 		
