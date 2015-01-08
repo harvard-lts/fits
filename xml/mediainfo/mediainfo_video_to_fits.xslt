@@ -1,4 +1,4 @@
-<xsl:stylesheet version="2.0"   
+<xsl:stylesheet version="2.0"
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 
    xmlns:dc="http://purl.org/dc/elements/1.1/" 
@@ -221,7 +221,7 @@
                         </xsl:when>	        
 				        <xsl:otherwise>
 				            <xsl:choose> 
-				                <xsl:when test="$codecID='2vuy'">
+				                <xsl:when test="$codecID='2Vuy'">
 				                    <xsl:text>Unknown</xsl:text>
 				                </xsl:when>
                                 <xsl:when test="$codecID='apch'">
@@ -240,6 +240,7 @@
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>				            			            			            				            				            
 				                <xsl:otherwise>
+				                    <xsl:text>Unknown</xsl:text>
 				                </xsl:otherwise>
 				            </xsl:choose>
                         </xsl:otherwise>                
@@ -249,7 +250,7 @@
                     <!-- TODO: finish -->
                     <!-- TODO: Add more encoding types -->
  			        <xsl:choose>          
-                        <xsl:when test="$codecID='2vuy'">
+                        <xsl:when test="$codecID='2Vuy'">
 			                <bitDepth>
 			                    <xsl:text>8</xsl:text>
 			                </bitDepth>                				        
@@ -258,10 +259,15 @@
 			                <bitDepth>
 			                    <xsl:text>10</xsl:text>
 			                </bitDepth>                				        
-				        </xsl:when>				        			        		        
+				        </xsl:when>
+                        <xsl:when test="$codecID='v210'">
+			                <bitDepth>
+			                    <xsl:text>10</xsl:text>
+			                </bitDepth>                				        
+				        </xsl:when>					        			        			        		        
 				        <xsl:otherwise>
 			                <bitDepth>
-       				            <xsl:value-of select="./Bit_depth"/>
+       				            <xsl:text>8</xsl:text>
 			                </bitDepth>		                						    
 				        </xsl:otherwise>			            
  		            </xsl:choose>                
@@ -335,7 +341,7 @@
 				            </xsl:when>			        
 				            <xsl:otherwise>
 				                <xsl:choose> 
-				                    <xsl:when test="$codecID='2vuy'">
+				                    <xsl:when test="$codecID='2Vuy'">
 				                        <xsl:text>Progressive</xsl:text>
 				                    </xsl:when>
 				                    <xsl:when test="$codecID='v210'">
@@ -354,9 +360,10 @@
 					                    <xsl:text>Unknown</xsl:text>             				        
 				                    </xsl:when>	
                                     <xsl:when test="$codecID='JPEG 2000'">
-					                    <xsl:text>Unknown</xsl:text>             				        
+					                    <xsl:text>Interlaced</xsl:text>             				        
 				                    </xsl:when>				            			            			            				            				            
 				                    <xsl:otherwise>
+				                        <xsl:text>Unknown</xsl:text>
 				                    </xsl:otherwise>
 				                </xsl:choose>
 				            </xsl:otherwise>
