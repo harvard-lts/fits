@@ -141,6 +141,8 @@ public class MediaInfo extends ToolBase {
 	    // OUTPUT Options are:
 	    // 		(Frpm MediaInfo_Inform.cpp)
 	    //
+		// NOTE: Default is Text - when no options set
+		//
 	    // "EBUCore"
 	    // "EBUCore_1.5"
 	    //    
@@ -157,23 +159,27 @@ public class MediaInfo extends ToolBase {
 	    // HTML
 	    // CSV
 	    //
-	    // Separate details on various data types/tracks
+	    // Separate details are available via the API on various data types/tracks
 	    //
 	    //	     "General"
 	    //	     "Video"
 	    //	     "Audio"
 	    //	     "Text"
 	    //	     "Chapters"
-	    //	     Image"
+	    //	     "Image"
 	    //	     "Menu"
 	    // --------------------------------------------------------------------
 
+		// No format, so output is pure text
+		//String textOutput = mi.Inform();
+		//System.out.println("\nTEXT:\n" + textOutput);
+		
 	    // Set the option:	    
 	    // Complete details
 	    // mi.Option("Complete", "1");
 	    //
 	    //// Complete = false, use a subset
-	    //mi.Option("Complete", "");		
+	    //mi.Option("Complete", "");
 		
 	    // Get MediaInfoLib Output as standard RAW XML
 	    mi.Option("Complete", "1");
@@ -216,23 +222,23 @@ public class MediaInfo extends ToolBase {
 	    // WIP >>>
 	    //
 
-	    // Empty ???
-	    String dateCreated = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		//"File_Created_Date", MediaInfoNativeWrapper.InfoKind.Text,
-	    		"Created_Date", MediaInfoNativeWrapper.InfoKind.Text,	    		
-	    		MediaInfoNativeWrapper.InfoKind.Name);
-	    
-	    String dateEncoded = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		"Encoded_Date", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name);
-	    
-	    // Empty ???
-	    String encodedLibraryVersion = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		//"File_Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,
-	    		"Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,	    		
-	    		MediaInfoNativeWrapper.InfoKind.Name);
-	    
-	    // WIP END <<<
+//	    // Empty ???
+//	    String dateCreated = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+//	    		//"File_Created_Date", MediaInfoNativeWrapper.InfoKind.Text,
+//	    		"Created_Date", MediaInfoNativeWrapper.InfoKind.Text,	    		
+//	    		MediaInfoNativeWrapper.InfoKind.Name);
+//	    
+//	    String dateEncoded = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+//	    		"Encoded_Date", MediaInfoNativeWrapper.InfoKind.Text,
+//	    		MediaInfoNativeWrapper.InfoKind.Name);
+//	    
+//	    // Empty ???
+//	    String encodedLibraryVersion = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+//	    		//"File_Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,
+//	    		"Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,	    		
+//	    		MediaInfoNativeWrapper.InfoKind.Name);
+//	    
+//	    // WIP END <<<
 	    
 	    Map <String, MediaInfoExtraData> videoTrackMap = new HashMap<String, MediaInfoExtraData>();	    
 	    Map <String, MediaInfoExtraData> audioTrackMap = new HashMap<String, MediaInfoExtraData>();
