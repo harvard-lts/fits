@@ -81,7 +81,7 @@
                         <xsl:value-of select="./Writing_library"/>
                     </creatingApplicationName>
                     
-                    <!-- TODO -->
+                    <!-- TODO: NOT IN sample output -->
                     <creatingApplicationVersion>
                         <xsl:value-of select="string('TODO: Do we need this and if so, where do we get this')"/>
                         <!-- xsl:value-of select="./Encoded_Library_Version"/> -->
@@ -152,14 +152,15 @@
        			    <xsl:value-of select="./Duration"/>
        			</duration>
  
-                <!-- this is in the video track section -->
-       			<timecodeStart>  			
-       			    <xsl:value-of select="./Time_code_of_first_frame"/>
-       			</timecodeStart>
+                <!-- Time code start is on the Track/Other section -->
+                <!-- It is visible via the MediaInfo API. Set in Java code -->
+       			<timecodeStart />
    
        			<bitRate>
        			    <xsl:value-of select="./Overall_bit_rate"/>
-       			</bitRate>		        
+       			</bitRate>
+       			
+       			<!-- TODO: The default format of size causes a conflict in fileinfo -->	        
        			<size>
        			    <xsl:value-of select="./File_size"/>
        			</size>
@@ -169,10 +170,9 @@
        			    <!-- <xsl:value-of select="./Creation_Date"/> -->
        			    <xsl:value-of select="./Encoded_date"/>
        			</dateCreated>
-       			<dateModified>
-       			    <!-- <xsl:value-of select="./Tagged_date"/> -->
-       			    <xsl:value-of select="./Modified_Date"/>
-       			</dateModified>                
+       			
+       			<!--  Modified Date is visible via the MediaInfo API. Set in Java code -->
+       			<dateModified />                
 		        		        
             </xsl:if>        
             <!-- End General track -->
@@ -288,17 +288,12 @@
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
 
-                    <!-- TODO: Set with data gotten in Java code -->
-       			    <delay>
-       			        <xsl:value-of select="./Delay"/>
-       			    </delay>
+                    <!-- delay is visible via the MediaInfo API. Set in Java code. -->
+                    <delay />
 
        			    <trackSize>
        			        <xsl:value-of select="./Stream_size"/>
-       			    </trackSize>
-       			    <timecodeStart>  			
-       			        <xsl:value-of select="./Time_code_of_first_frame"/>
-       			    </timecodeStart>       			    
+       			    </trackSize>    			    
 			        <width>
        				    <xsl:value-of select="./Width"/>
 			        </width>
@@ -323,10 +318,8 @@
        			    <frameRateMode>
        			        <xsl:value-of select="./Frame_rate_mode"/>
        			    </frameRateMode>
-       			    
-       			    <!-- TODO: finish -->
-       			    <!-- TODO: Set with data gotten in Java code  -->
-       			    <!-- FrameCount is not returned in XML -->
+
+       			    <!-- frame count is visible via the MediaInfo API. Set in Java code. -->
        			    <frameCount />
        			    
        			    <aspectRatio>
@@ -412,10 +405,8 @@
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
                     
-                    <!-- TODO: Set with data gotten in Java code -->
-                    <delay>
-                        <xsl:value-of select="./Delay"/>
-                    </delay>
+                    <!-- delay is visible via the MediaInfo API. Set in Java code. -->
+                    <delay />
                     
                     <trackSize>
                         <xsl:value-of select="./Stream_size"/>

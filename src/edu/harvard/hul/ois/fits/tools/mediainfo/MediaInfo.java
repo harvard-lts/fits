@@ -207,8 +207,11 @@ public class MediaInfo extends ToolBase {
 
 	    String dateModified = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    		"File_Modified_Date", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name);	    
+	    		MediaInfoNativeWrapper.InfoKind.Name);
 	    
+	    String timeCodeStart = mi.Get(MediaInfoNativeWrapper.StreamKind.Other, 0,
+	    		"TimeCode_FirstFrame", MediaInfoNativeWrapper.InfoKind.Text,
+	    		MediaInfoNativeWrapper.InfoKind.Name);
 	    //
 	    // WIP >>>
 	    //
@@ -399,6 +402,12 @@ public class MediaInfo extends ToolBase {
 						element.setText(dateModified);
 					}		    		
 		    	}
+		    	// General Section timecodeStart
+		    	if(element.getName().equals("timecodeStart")) {				    
+					if (timeCodeStart != null && timeCodeStart.length() > 0) {
+						element.setText(timeCodeStart);
+					}		    		
+		    	}	    	
 		    	
 		    	// Tracks
 		    	if(element.getName().equals("track")) {
