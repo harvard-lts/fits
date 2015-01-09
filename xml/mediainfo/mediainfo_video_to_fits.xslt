@@ -156,9 +156,8 @@
                 <!-- It is visible via the MediaInfo API. Set in Java code -->
        			<timecodeStart />
    
-       			<bitRate>
-       			    <xsl:value-of select="./Overall_bit_rate"/>
-       			</bitRate>
+                <!-- bit rate for general video section is only visible via the MediaInfo API. Set in Java code. -->
+       			<bitRate />
        			
        			<!-- TODO: The default format of size causes a conflict in fileinfo -->	        
        			<size>
@@ -171,7 +170,7 @@
        			    <xsl:value-of select="./Encoded_date"/>
        			</dateCreated>
        			
-       			<!--  Modified Date is visible via the MediaInfo API. Set in Java code -->
+       			<!--  Modified Date is only visible via the MediaInfo API. Set in Java code -->
        			<dateModified />                
 		        		        
             </xsl:if>        
@@ -227,10 +226,10 @@
                                 <xsl:when test="$codecID='apch'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='avc'">
+                                <xsl:when test="$codecID='avc1'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='dv'">
+                                <xsl:when test="$codecID='dvc'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
                                 <xsl:when test="$codecID='dv5n'">
@@ -255,7 +254,37 @@
 			                    <xsl:text>8</xsl:text>
 			                </bitDepth>                				        
 				        </xsl:when>
+                        <xsl:when test="$codecID='avc1'">
+			                <bitDepth>
+			                    <xsl:text>8</xsl:text>
+			                </bitDepth>                				        
+				        </xsl:when>
+                        <xsl:when test="$codecID='dvc'">
+			                <bitDepth>
+			                    <xsl:text>8</xsl:text>
+			                </bitDepth>                				        
+				        </xsl:when>				        			        
                         <xsl:when test="$codecID='apch'">
+			                <bitDepth>
+			                    <xsl:text>10</xsl:text>
+			                </bitDepth>                				        
+				        </xsl:when>
+                        <xsl:when test="$codecID='apcs'">
+			                <bitDepth>
+			                    <xsl:text>10</xsl:text>
+			                </bitDepth>                				        
+				        </xsl:when>
+                        <xsl:when test="$codecID='apcn'">
+			                <bitDepth>
+			                    <xsl:text>10</xsl:text>
+			                </bitDepth>                				        
+				        </xsl:when>
+                        <xsl:when test="$codecID='apco'">
+			                <bitDepth>
+			                    <xsl:text>10</xsl:text>
+			                </bitDepth>                				        
+				        </xsl:when>
+                        <xsl:when test="$codecID='ap4h'">
 			                <bitDepth>
 			                    <xsl:text>10</xsl:text>
 			                </bitDepth>                				        
@@ -294,7 +323,7 @@
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
 
-                    <!-- delay is visible via the MediaInfo API. Set in Java code. -->
+                    <!-- delay is only visible via the MediaInfo API. Set in Java code. -->
                     <delay />
 
        			    <trackSize>
@@ -325,7 +354,7 @@
        			        <xsl:value-of select="./Frame_rate_mode"/>
        			    </frameRateMode>
 
-       			    <!-- frame count is visible via the MediaInfo API. Set in Java code. -->
+       			    <!-- frame count is only visible via the MediaInfo API. Set in Java code. -->
        			    <frameCount />
        			    
        			    <aspectRatio>
@@ -350,10 +379,11 @@
                                     <xsl:when test="$codecID='apch'">
 					                    <xsl:text>Unknown</xsl:text>             				        
 				                    </xsl:when>
-                                    <xsl:when test="$codecID='avc'">
-					                    <xsl:text>Unknown</xsl:text>             				        
+                                    <xsl:when test="$codecID='avc1'">
+                                        <!-- is the below correct ??? -->
+					                    <xsl:text>Progressive</xsl:text>             				        
 				                    </xsl:when>
-                                    <xsl:when test="$codecID='dv'">
+                                    <xsl:when test="$codecID='dvc'">
 					                    <xsl:text>Unknown</xsl:text>             				        
 				                    </xsl:when>
                                     <xsl:when test="$codecID='dv5n'">
@@ -412,7 +442,7 @@
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
                     
-                    <!-- delay is visible via the MediaInfo API. Set in Java code. -->
+                    <!-- delay is only visible via the MediaInfo API. Set in Java code. -->
                     <delay />
                     
                     <trackSize>

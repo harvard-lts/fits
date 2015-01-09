@@ -214,10 +214,15 @@ public class MediaInfo extends ToolBase {
 	    String dateModified = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    		"File_Modified_Date", MediaInfoNativeWrapper.InfoKind.Text,
 	    		MediaInfoNativeWrapper.InfoKind.Name);
+
+	    String generalBitRate = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    		"BitRate", MediaInfoNativeWrapper.InfoKind.Text, 
+	    		MediaInfoNativeWrapper.InfoKind.Name);
 	    
 	    String timeCodeStart = mi.Get(MediaInfoNativeWrapper.StreamKind.Other, 0,
 	    		"TimeCode_FirstFrame", MediaInfoNativeWrapper.InfoKind.Text,
 	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    
 	    //
 	    // WIP >>>
 	    //
@@ -285,7 +290,7 @@ public class MediaInfo extends ToolBase {
 		    		"FrameCount", MediaInfoNativeWrapper.InfoKind.Text, 
 		    		MediaInfoNativeWrapper.InfoKind.Name);
 		    if(frameCount != null && frameCount.length() > 0)
-		    	data.setFrameCount(frameCount);
+		    	data.setFrameCount(frameCount);		    
 		    		    
 		    videoTrackMap.put(id, data);
 	    }	    
@@ -413,7 +418,13 @@ public class MediaInfo extends ToolBase {
 					if (timeCodeStart != null && timeCodeStart.length() > 0) {
 						element.setText(timeCodeStart);
 					}		    		
-		    	}	    	
+		    	}
+		    	// General Section bit rate
+		    	if(element.getName().equals("bitRate")) {				    
+					if (generalBitRate != null && generalBitRate.length() > 0) {
+						element.setText(generalBitRate);
+					}		    		
+		    	}		    	
 		    	
 		    	// Tracks
 		    	if(element.getName().equals("track")) {
