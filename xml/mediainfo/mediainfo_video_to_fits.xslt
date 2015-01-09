@@ -422,8 +422,16 @@
               	        <xsl:value-of select="./Format"/>
               	    </audioDataEncoding>
               	    
+              	    <!-- TODO: Does Compression mode for audio ever show up? -->
                     <compression>
-                        <xsl:value-of select="./Compression_mode"/>
+		                <xsl:choose>
+ 				            <xsl:when test="./Compression_mode">
+                                <xsl:value-of select="./Compression_mode"/>
+				            </xsl:when>			        
+				            <xsl:otherwise>
+				                <xsl:text>none</xsl:text>
+				            </xsl:otherwise>
+				        </xsl:choose>				            
                     </compression>
 	           
 			        <bitRate>
@@ -457,18 +465,15 @@
                         <xsl:value-of select="./Sampling_rate"/>                    
                     </samplingRate>
                     
-                    <!-- TODO -->
-                    <!-- Samples_count doesn't seem to show in XML -->
-                    <numSamples>
-                        <xsl:value-of select="./Samples_count"/>                    
-                    </numSamples>
+                    <!-- number of samples is only visible via the MediaInfo API. Set in Java code. -->
+                    <numSamples />
                     
                     <channels>
                         <xsl:value-of select="./Channel_s_"/>
                     </channels>
                     
                     <!-- TODO -->
-                    <!-- TODO: finish -->
+                    <!-- where does this come from  -->
                     <channelInfo />
 
                     <byteOrder>

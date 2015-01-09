@@ -171,8 +171,8 @@ public class MediaInfo extends ToolBase {
 	    // --------------------------------------------------------------------
 
 		// No format, so output is pure text
-		//String textOutput = mi.Inform();
-		//System.out.println("\nTEXT:\n" + textOutput);
+		// String textOutput = mi.Inform();
+		// System.out.println("\nTEXT:\n" + textOutput);
 		
 	    // Set the option:	    
 	    // Complete details
@@ -261,13 +261,12 @@ public class MediaInfo extends ToolBase {
 		    		MediaInfoNativeWrapper.InfoKind.Name);
 		    if (audioDelay != null && audioDelay.length() > 0 )
 		    	data.setDelay(audioDelay);
-		    
+
 		    String audioSamplesCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"Samples_count", MediaInfoNativeWrapper.InfoKind.Text,
-		    		//"SamplesCount", MediaInfoNativeWrapper.InfoKind.Text,	    		
+		    		"SamplingCount", MediaInfoNativeWrapper.InfoKind.Text,    		
 		    		MediaInfoNativeWrapper.InfoKind.Name);
 		    if (audioSamplesCount != null && audioSamplesCount.length() > 0 )
-		    	data.setAudioSamplesCount(audioSamplesCount); 
+		    	data.setAudioSamplesCount(audioSamplesCount);
 		    
 		    audioTrackMap.put(id, data);
 	    }
@@ -473,7 +472,7 @@ public class MediaInfo extends ToolBase {
 						    			childElement.setText(delay);
 						    		}			    					
 			    				}
-			    				// frameCount
+			    				// number of samples
 			    				if(childElement.getName().equals("numSamples")) {
 						    		String numSamples = data.getAudioSamplesCount();
 						    		if(numSamples!= null && numSamples.length() > 0) {
