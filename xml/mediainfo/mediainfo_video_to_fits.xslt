@@ -57,7 +57,10 @@
 				                </xsl:when>
 				                <xsl:when test="$mime='Theora'">
 				                    <xsl:value-of select="string('video/ogg')"/>
-				                </xsl:when>				                 				                				                
+				                </xsl:when>
+				                <xsl:when test="$mime='mjp2'">
+				                    <xsl:value-of select="string('video/mj2')"/>
+				                </xsl:when>		                 				                				                
 				                <xsl:otherwise>
 					                <xsl:value-of select="$mime"/>
 				                </xsl:otherwise>
@@ -135,7 +138,10 @@
 				        </xsl:when>
 				        <xsl:when test="$mime='Theora'">
 				            <xsl:value-of select="string('video/ogg')"/>
-				        </xsl:when>				        
+				        </xsl:when>
+				        <xsl:when test="$mime='mjp2'">
+				            <xsl:value-of select="string('video/mj2')"/>
+				        </xsl:when>				        			        
 				        <xsl:otherwise>
 					         <xsl:value-of select="$mime"/>
 				        </xsl:otherwise>
@@ -263,7 +269,12 @@
 			                <bitDepth>
 			                    <xsl:text>8</xsl:text>
 			                </bitDepth>                				        
-				        </xsl:when>				        			        
+				        </xsl:when>
+                        <xsl:when test="$codecID='mjp2'">
+			                <bitDepth>
+			                    <xsl:text>8</xsl:text>
+			                </bitDepth>                				        
+				        </xsl:when>				        				        			        
                         <xsl:when test="$codecID='apch'">
 			                <bitDepth>
 			                    <xsl:text>10</xsl:text>
