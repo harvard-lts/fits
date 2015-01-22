@@ -222,9 +222,18 @@ public class OISConsolidator implements ToolOutputConsolidator {
 				e.printStackTrace();
 			}
 		}	
+
+		// To make FITS track-aware, we simply allow elements with the name of
+		// "track" to pass through and not be removed by the call to
+		// removeUnknowns
+		//
+		// TODO: Possibly externalize this in a property file, or revise
+		// removeUnknowns() to be track-aware
+		if(!element.getName().equals("track")) {		
+			//remove any unknown values
+			fitsElements = removeUnknowns(fitsElements);
+		}
 		
-		//remove any unknown values
-		fitsElements = removeUnknowns(fitsElements);
 		//if there are no elements after removing unknowns just return null
 		if(fitsElements.size() == 0) {
 			return fitsElements;
