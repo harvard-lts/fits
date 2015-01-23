@@ -285,7 +285,12 @@ public class MediaInfo extends ToolBase {
 		    String samplingRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
 		    		"SamplingRate", MediaInfoNativeWrapper.InfoKind.Text, 		    		
 		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    addDataToMap(audioTrackValuesMap, id, "samplingRate", samplingRate);		    
+		    addDataToMap(audioTrackValuesMap, id, "samplingRate", samplingRate);
+		    
+		    String channels = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"Channels", MediaInfoNativeWrapper.InfoKind.Text, 		    		
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(audioTrackValuesMap, id, "channels", channels);		    
 	    }
 	    
 	    int numVideoTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Video);    
@@ -560,6 +565,14 @@ public class MediaInfo extends ToolBase {
 		    					String samplingRate = audioTrackValuesMap.get(id).get("samplingRate");
 		    					if(samplingRate != null && samplingRate.length() > 0) {
 		    						childElement.setText(samplingRate);
+		    					}			    					
+		    				}
+		    				
+		    				// channels - correct format
+		    				if(childElement.getName().equals("channels")) {
+		    					String channels = audioTrackValuesMap.get(id).get("channels");
+		    					if(channels != null && channels.length() > 0) {
+		    						childElement.setText(channels);
 		    					}			    					
 		    				}		    				
 
