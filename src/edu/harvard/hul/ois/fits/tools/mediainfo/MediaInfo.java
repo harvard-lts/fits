@@ -40,6 +40,8 @@ import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 //import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
 
+/**  The glue class for invoking the MediaInfo native library under FITS.
+ */
 public class MediaInfo extends ToolBase {
 
 	private final static String TOOL_NAME = "MediaInfo";
@@ -56,18 +58,7 @@ public class MediaInfo extends ToolBase {
 	public MediaInfo() throws FitsException {
 		
 		info = new ToolInfo();
-		info.setName(TOOL_NAME);
-
-//		// Set the JNA library path based upon the OS
-//		String osName = System.getProperty("os.name");		
-//		if(osName != null && osName.toLowerCase().startsWith("mac")) { // Mac OS X
-//			// TODO: Should we externalize the location and names of the native libs?
-//			System.setProperty("jna.library.path", "./tools/mediainfo/mac");			
-//		} else if(osName != null && osName.toLowerCase().startsWith("windows")) {
-//			// TODO: Handle Windows 7
-//		} else {
-//			// TODO: Handle LINUX OS
-//		}		
+		info.setName(TOOL_NAME);		
 		
 		// Set the JNA library path based upon the OS		
 		OsCheck.OSType ostype=OsCheck.getOperatingSystemType();
@@ -118,7 +109,7 @@ public class MediaInfo extends ToolBase {
 		// transformMap = XsltTransformMap.getMap(mediaInfoFitsConfig+"mediainfo_xslt_map.xml");
 	}	
 	
-
+	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
 		
 	   logger.debug("MediaInfo.extractInfo starting on " + file.getName());
@@ -138,8 +129,8 @@ public class MediaInfo extends ToolBase {
 	    } 
 	    
 	    // --------------------------------------------------------------------
-	    // OUTPUT Options are:
-	    // 		(Frpm MediaInfo_Inform.cpp)
+	    // OUTPUT Options for the Native MediaInfo Library are:
+	    // 		(From MediaInfo_Inform.cpp)
 	    //
 		// NOTE: Default is Text - when no options set
 		//
@@ -191,14 +182,14 @@ public class MediaInfo extends ToolBase {
 	    mi.Option("Output", "XML");
 	    String execOut = mi.Inform();
 	    
-	    //// DEBUG
+	    // DEBUG
 	    //System.out.println("\nMediaInfo output:\n" + execOut);
 	    
 	    // Get MediaInfoLib Output as EBUCore 1.5
 	    mi.Option("Output", "EBUCore_1.5");
 	    String ebuOut = mi.Inform();
 	    
-	    //// Get MediaInfoLib Output as PBCore
+	    // Get MediaInfoLib Output as PBCore
 	    //mi.Option("Output", "PBCore");
 	    //String pbOut = mi.Inform();
 	    
@@ -223,9 +214,9 @@ public class MediaInfo extends ToolBase {
 	    		"TimeCode_FirstFrame", MediaInfoNativeWrapper.InfoKind.Text,
 	    		MediaInfoNativeWrapper.InfoKind.Name);
 	    
-	    //
-	    // WIP >>>
-	    //
+	    String generalDuration = mi.Get(MediaInfoNativeWrapper.StreamKind.Other, 0,
+	    		"Duration", MediaInfoNativeWrapper.InfoKind.Text,
+	    		MediaInfoNativeWrapper.InfoKind.Name);
 
 //	    // Empty ???
 //	    String dateCreated = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
@@ -242,56 +233,102 @@ public class MediaInfo extends ToolBase {
 //	    		//"File_Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,
 //	    		"Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,	    		
 //	    		MediaInfoNativeWrapper.InfoKind.Name);
-//	    
-//	    // WIP END <<<
+//
 	    
-	    Map <String, MediaInfoExtraData> videoTrackMap = new HashMap<String, MediaInfoExtraData>();	    
-	    Map <String, MediaInfoExtraData> audioTrackMap = new HashMap<String, MediaInfoExtraData>();
+	    // Maps to hold data that are obtained via explicit MediaInfo API call.
+	    // These values are either not exposed in the XML returned by the Inform()
+	    // method call, or if the granularity of the value is not correct, such as
+	    // bitRate not returning the value as milliseconds, but rather as Mpbs
+	    Map<String, Map<String, String>> videoTrackValuesMap = 
+	    	    new HashMap<String, Map<String, String>>();
+	    Map<String, Map<String, String>> audioTrackValuesMap = 
+	    	    new HashMap<String, Map<String, String>>();	    
 	    
 	    int numAudioTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Audio);	    
 	    for (int ndx = 0; ndx < numAudioTracks; ndx++) {
-	    	MediaInfoExtraData data = new MediaInfoExtraData();
 	    	
 		    String id = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
 		    		"ID", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);	    	
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    
+		    if(id == null || id.length() < 1) {
+		    	// TODO: Do we need to throw an error?
+		    	logger.error("Error retrieving the ID of the audio track from MediaInfo: " + ndx);
+		    	continue;
+		    }
 	    	
 		    String audioDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
 		    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
 		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    if (audioDelay != null && audioDelay.length() > 0 )
-		    	data.setDelay(audioDelay);
+		    addDataToMap (audioTrackValuesMap, id, "delay", audioDelay);
 
 		    String audioSamplesCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
 		    		"SamplingCount", MediaInfoNativeWrapper.InfoKind.Text,    		
 		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    if (audioSamplesCount != null && audioSamplesCount.length() > 0 )
-		    	data.setAudioSamplesCount(audioSamplesCount);
+		    addDataToMap (audioTrackValuesMap, id, "numSamples", audioSamplesCount);
 		    
-		    audioTrackMap.put(id, data);
+		    String bitRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"BitRate", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(audioTrackValuesMap, id, "bitRate", bitRate);
+		    
+		    String duration = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"Duration", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap (audioTrackValuesMap, id, "duration", duration);
+		    
+		    String trackSize = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"StreamSize", MediaInfoNativeWrapper.InfoKind.Text, 		    		
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(audioTrackValuesMap, id, "trackSize", trackSize);
+		    
+		    String samplingRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"SamplingRate", MediaInfoNativeWrapper.InfoKind.Text, 		    		
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(audioTrackValuesMap, id, "samplingRate", samplingRate);		    
 	    }
 	    
 	    int numVideoTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Video);    
 	    for (int ndx = 0; ndx < numVideoTracks; ndx++) {
-	    	MediaInfoExtraData data = new MediaInfoExtraData();
-	    	
+
 		    String id = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"ID", MediaInfoNativeWrapper.InfoKind.Text, 
 		    		MediaInfoNativeWrapper.InfoKind.Name);	    	
+		    if(id == null || id.length() < 1) {
+		    	// TODO: Throw error and/or log?
+		    	logger.error("Error retrieving the ID of the video track from MediaInfo: " + ndx);
+		    	continue;
+		    }	    	
+		    
+		    String duration = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"Duration", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap (videoTrackValuesMap, id, "duration", duration);		    	
 	    	
 		    String videoDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
 		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    if (videoDelay != null && videoDelay.length() > 0 )
-		    	data.setDelay(videoDelay);
+		    addDataToMap (videoTrackValuesMap, id, "delay", videoDelay);  
 		    
 		    String frameCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"FrameCount", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);	
+		    addDataToMap (videoTrackValuesMap, id, "frameCount", frameCount);		    
+		    
+		    String bitRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"BitRate", MediaInfoNativeWrapper.InfoKind.Text, 
 		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    if(frameCount != null && frameCount.length() > 0)
-		    	data.setFrameCount(frameCount);		    
-		    		    
-		    videoTrackMap.put(id, data);
+		    addDataToMap(videoTrackValuesMap, id, "bitRate", bitRate);
+		    
+		    String trackSize = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"StreamSize", MediaInfoNativeWrapper.InfoKind.Text, 		    		
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(videoTrackValuesMap, id, "trackSize", trackSize);
+		    
+		    String frameRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"FrameRate", MediaInfoNativeWrapper.InfoKind.Text, 		    		
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(videoTrackValuesMap, id, "frameRate", frameRate);		    
 	    }	    
 	    
 	    
@@ -319,26 +356,6 @@ public class MediaInfo extends ToolBase {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		
-		// ====================================================================	
-		
-		//
-		// TODO:
-		// Update fields not available in the MediaInfo XML output.
-		// These have been retrieved above.
-		//
-		// Currently, these are:
-		//
-		//    General Section:
-		//        timecodeStart
-		//
-		//    Audio Track:
-		//        delay
-		//        FrameRate
-		//        numSamples
-		//
-		//    Video Track:
-		//        frameCount
 		
 		// ====================================================================		
 		// Insert the EBUCore node into the fitsXml doc
@@ -391,7 +408,7 @@ public class MediaInfo extends ToolBase {
 				
 		// ====================================================================
 		// Revise the XML to include element data that was not returned either
-		// via the MediaInfo XML or ebuCore
+		// via the MediaInfo XML or require revision for granularity
 		// ====================================================================		
 		
 		try {		
@@ -423,67 +440,131 @@ public class MediaInfo extends ToolBase {
 					if (generalBitRate != null && generalBitRate.length() > 0) {
 						element.setText(generalBitRate);
 					}		    		
+		    	}
+		    	
+		    	// General Section duration
+		    	if(element.getName().equals("duration")) {				    
+					if (generalDuration != null && generalDuration.length() > 0) {
+						element.setText(generalDuration);
+					}		    		
 		    	}		    	
 		    	
 		    	// Tracks
 		    	if(element.getName().equals("track")) {
 		    		String id = element.getAttributeValue("id");
-		    		
-		    		// video track data
-		    		if (videoTrackMap.containsKey(id)) {
-			    		MediaInfoExtraData data = (MediaInfoExtraData)videoTrackMap.get(id);
-			    		if(data != null) {
-			    			
-			    			List <Element>contents = element.getContent();		    				
-			    			for (Element childElement : contents) {
-			    					
-			    				// delay
-			    				if(childElement.getName().equals("delay")) {
-						    		String delay = data.getDelay();
-						    		if(delay != null && delay.length() > 0) {
-						    			childElement.setText(delay);
-						    		}			    					
-			    				}
-			    				// frameCount
-			    				if(childElement.getName().equals("frameCount")) {
-						    		String frameCount = data.getFrameCount();
-						    		if(frameCount!= null && frameCount.length() > 0) {
-						    			childElement.setText(frameCount);
-						    		}			    					
-			    				}			    				
 
-			    			} // childElement
-			    			
-			    		}	// if(data != null)	    			
+		    		// video track data
+		    		if (videoTrackValuesMap.containsKey(id)) {
+
+		    			List <Element>contents = element.getContent();		    				
+		    			for (Element childElement : contents) {
+
+		    				// delay
+		    				if(childElement.getName().equals("delay")) {
+		    					String delay = videoTrackValuesMap.get(id).get("delay");
+		    					if(delay != null && delay.length() > 0) {
+		    						childElement.setText(delay);
+		    					}			    					
+		    				}
+		    				// frameCount
+		    				if(childElement.getName().equals("frameCount")) {
+		    					String frameCount = videoTrackValuesMap.get(id).get("frameCount");
+		    					if(frameCount != null && frameCount.length() > 0) {
+		    						childElement.setText(frameCount);
+		    					}			    					
+		    				}
+
+		    				// bitRate
+		    				if(childElement.getName().equals("bitRate")) {
+		    					String bitRate = videoTrackValuesMap.get(id).get("bitRate");
+		    					if(bitRate != null && bitRate.length() > 0) {
+		    						childElement.setText(bitRate);
+		    					}			    					
+		    				}
+
+		    				// duration - correct format
+		    				if(childElement.getName().equals("duration")) {
+		    					String duration = videoTrackValuesMap.get(id).get("duration");
+		    					if(duration != null && duration.length() > 0) {
+		    						childElement.setText(duration);
+		    					}			    					
+		    				}
+
+		    				// trackSize - correct format
+		    				if(childElement.getName().equals("trackSize")) {
+		    					String trackSize = videoTrackValuesMap.get(id).get("trackSize");
+		    					if(trackSize != null && trackSize.length() > 0) {
+		    						childElement.setText(trackSize);
+		    					}			    					
+		    				}
+		    				
+		    				// frameRate - correct format
+		    				if(childElement.getName().equals("frameRate")) {
+		    					String frameRate = videoTrackValuesMap.get(id).get("frameRate");
+		    					if(frameRate != null && frameRate.length() > 0) {
+		    						childElement.setText(frameRate);
+		    					}			    					
+		    				}		    				
+
+		    			} // childElement
+
 		    		} //  videoTrackMap.containsKey(id)
 
 		    		// audio track data
-		    		if (audioTrackMap.containsKey(id)) {
-			    		MediaInfoExtraData data = audioTrackMap.get(id);
-			    		if(data != null) {
-			    			
-			    			List <Element>contents = element.getContent();		    				
-			    			for (Element childElement : contents) {
-			    					
-			    				// delay
-			    				if(childElement.getName().equals("delay")) {
-						    		String delay = data.getDelay();
-						    		if(delay != null && delay.length() > 0) {
-						    			childElement.setText(delay);
-						    		}			    					
-			    				}
-			    				// number of samples
-			    				if(childElement.getName().equals("numSamples")) {
-						    		String numSamples = data.getAudioSamplesCount();
-						    		if(numSamples!= null && numSamples.length() > 0) {
-						    			childElement.setText(numSamples);
-						    		}			    					
-			    				}			    				
-			    				
+		    		if (audioTrackValuesMap.containsKey(id)) {
 
-			    			} // childElement			    			
-			    			
-			    		}	// if(data != null)	    			
+		    			List <Element>contents = element.getContent();		    				
+		    			for (Element childElement : contents) {
+
+		    				// delay
+		    				if(childElement.getName().equals("delay")) {
+		    					String delay = audioTrackValuesMap.get(id).get("delay");
+		    					if(delay != null && delay.length() > 0) {
+		    						childElement.setText(delay);
+		    					}			    					
+		    				}
+		    				// number of samples
+		    				if(childElement.getName().equals("numSamples")) {
+		    					String numSamples = audioTrackValuesMap.get(id).get("numSamples");
+		    					if(numSamples!= null && numSamples.length() > 0) {
+		    						childElement.setText(numSamples);
+		    					}			    					
+		    				}
+
+		    				// bitRate
+		    				if(childElement.getName().equals("bitRate")) {
+		    					String bitRate = audioTrackValuesMap.get(id).get("bitRate");
+		    					if(bitRate != null && bitRate.length() > 0) {
+		    						childElement.setText(bitRate);
+		    					}			    					
+		    				}			    				
+
+		    				// duration
+		    				if(childElement.getName().equals("duration")) {
+		    					String duration = audioTrackValuesMap.get(id).get("duration");
+		    					if(duration != null && duration.length() > 0) {
+		    						childElement.setText(duration);
+		    					}			    					
+		    				}
+
+		    				// trackSize - correct format
+		    				if(childElement.getName().equals("trackSize")) {
+		    					String trackSize = audioTrackValuesMap.get(id).get("trackSize");
+		    					if(trackSize != null && trackSize.length() > 0) {
+		    						childElement.setText(trackSize);
+		    					}			    					
+		    				}
+		    				
+		    				// samplingRate - correct format
+		    				if(childElement.getName().equals("samplingRate")) {
+		    					String samplingRate = audioTrackValuesMap.get(id).get("samplingRate");
+		    					if(samplingRate != null && samplingRate.length() > 0) {
+		    						childElement.setText(samplingRate);
+		    					}			    					
+		    				}		    				
+
+		    			} // childElement			    			
+			
 		    		} //  audioTrackMap.containsKey(id)
 		    		
 		    		
@@ -499,22 +580,39 @@ public class MediaInfo extends ToolBase {
 
 		// ====================================================================		
 		
-//		// DEBUG
+		// DEBUG
 		String finalXml = new XMLOutputter(Format.getPrettyFormat()).outputString(fitsXml);
 		System.out.println("\nFINAL XML:\n" + finalXml);
 		
 		output = new ToolOutput(this,fitsXml,rawOut);
 		
 		// DEBUG
-		String fitsOutputString = new XMLOutputter(Format.getPrettyFormat()).outputString(output.getFitsXml());
+		// String fitsOutputString = new XMLOutputter(Format.getPrettyFormat()).outputString(output.getFitsXml());
 		
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
         logger.debug("MediaInfo.extractInfo finished on " + file.getName());
         
 		return output;
-	}	
-				
+	}
+	
+	/**
+	 * Helper method to add values to the map within the trackValuesMap
+	 * 
+	 * @param trackValuesMap  The map to be updated
+	 * @param id  The key to trackValuesMap
+	 * @param key The key to the map contained within trackValuesMap
+	 * @param value The value to set in the map contained within trackValuesMap
+	 */
+	private void addDataToMap(Map<String, Map<String, String>> trackValuesMap,
+			String id, String key, String value) {
+	    if (value != null && value.length() > 0 ) {
+	    	if(trackValuesMap.get(id) == null)
+	    		trackValuesMap.put(id, new HashMap<String, String>());
+		    trackValuesMap.get(id).put(key, value);		    	
+	    }		
+	}
+
 	private Document createXml(String out) throws FitsToolException {
         Document doc = null;
 		try {
@@ -525,10 +623,12 @@ public class MediaInfo extends ToolBase {
         return doc;
     }		
 
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+	@Override
 	public void setEnabled(boolean value) {
 		enabled = value;		
 	}

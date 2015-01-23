@@ -1,5 +1,4 @@
 package edu.harvard.hul.ois.fits.tools.mediainfo;
-// http://stackoverflow.com/questions/228477/how-do-i-programmatically-determine-operating-system-in-java
 
 /**
  * helper class to check the operating system this Java VM runs in
