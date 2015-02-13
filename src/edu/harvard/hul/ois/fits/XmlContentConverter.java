@@ -33,16 +33,33 @@ import java.io.File;
 import java.text.ParseException;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.jdom.Document;
+import org.jdom.Attribute;
 import org.jdom.Element;
 import org.jdom.Namespace;
 
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
-import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational;
+import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational; 
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlDateFormat;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AspectRatio;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioEncoding;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormat;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrack;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrackConfiguration;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.Codec;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.CodecIdentifier;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.DateTime;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.FrameRate;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.NormalPlayTime;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.Timecode;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoFormat;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoTrack;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.WidthIdentifier;
 import edu.harvard.hul.ois.ots.schemas.MIX.Compression;
 import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
 
@@ -815,172 +832,26 @@ public class XmlContentConverter {
         return aesModel.aes;
     }
     
-    
-    /**
-     * Converts a audio element into a AudioObject AES object
-     * @param fitsAudio		an audio element in the FITS schema
-     */
-    public XmlContent toVideo_OLD (FitsOutput fitsOutput,Element fitsAudio) {
-    	
-       	// TODO: We need a video model
-        AESModel aesModel = null;
-        
-    	try {
-			aesModel = new AESModel ();
-		} catch (XmlContentException e2) {
-			logger.error("Invalid content: " + e2.getMessage ());
-		}
-    	
-    	String filename = fitsOutput.getMetadataElement("filename").getValue();
-    	
-    	
-    	FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
-    	String version = null;
-    	if(fitsIdent.getFormatVersions().size() > 0) {
-    		version = fitsIdent.getFormatVersions().get(0).getValue();
-    	}
-    	
-    	try {
-			aesModel.setFormat(fitsIdent.getFormat(),version);
-		} catch (XmlContentException e1) {
-			logger.error("Invalid content: " + e1.getMessage ());
-		}
-    	
-    	aesModel.aes.getPrimaryIdentifier().setText(new File(filename).getName());
-    	
-    	int sampleRate = 0;
-    	int channelCnt = 0;
-    	long numSamples = 0;
-    	String duration = "0";
-    	String timeStampStart = "0";
-    	
-        for (AudioElement fitsElem : AudioElement.values()) {
-            try {
-                String fitsName = fitsElem.getName ();
-                Element dataElement = fitsAudio.getChild (fitsName,ns);
-                if (dataElement == null)
-                    continue;
-                String dataValue = dataElement.getText().trim();                
-                switch (fitsElem) {
-                case duration:
-                	duration = dataValue;
-                    break;
-                case bitDepth:
-                	aesModel.setBitDepth(Integer.parseInt(dataValue));
-                    break;
-                case sampleRate:
-            		if(dataValue.contains(".")) {
-            			String[] sampleParts = dataValue.split("\\.");
-            			if(sampleParts[sampleParts.length-1].equals("0")) {
-            				sampleRate = Integer.parseInt(sampleParts[0]);
-            			}
-            		}
-            		else {
-            			sampleRate = Integer.parseInt(dataValue);
-            		}
-                    aesModel.genericFormatRegion.setSampleRate(Double.parseDouble(dataValue));
-                    break;
-                case channels:
-                	channelCnt = Integer.parseInt(dataValue);
-                	//add streams and channel cnt
-                	aesModel.setNumChannels(channelCnt);
-                	for(int i=0;i<channelCnt;i++) {
-                		aesModel.addStream(i,0.0,0.0);
-                	}
-                    break;
-                case offset:
-                    aesModel.aes.setFirstSampleOffset(Integer.parseInt(dataValue));
-                    break;
-                case timeStampStart:
-                    timeStampStart = dataValue;
-                    break;
-                case byteOrder:
-                    aesModel.aes.setByteOrder(dataValue);
-                    break;
-                case bitRate:
-                    aesModel.setBitRate(dataValue);
-                    break;
-                case numSamples:
-                    numSamples = Long.valueOf(dataValue);
-                    break;
-                case wordSize:
-                	aesModel.setWordSize(Integer.parseInt(dataValue));
-                	break;
-                case audioDataEncoding:
-                	aesModel.setAudioDataEncoding(dataValue);
-                	break;
-                case blockAlign:
-                	aesModel.setAudioDataBlockSize(Integer.parseInt(dataValue));
-                	break;
-                case codecName:
-                	aesModel.setCodec(dataValue);
-                	break;
-                case codecNameVersion:
-                	aesModel.setCodecVersion(dataValue);
-                	break;
-                case codecCreatorApplication:
-                	aesModel.setCodecCreatorApplication(dataValue);
-                	break;
-                case codecCreatorApplicationVersion: 
-                	aesModel.setCodecCreatorApplicationVersion(dataValue);
-                	break;
-                }
-                
-            }
-            catch (XmlContentException e) {
-                logger.error("Invalid content: " + e.getMessage ());
-            }
-        }//end for
-
-    	//set other requires values
-    	aesModel.aes.setAnalogDigitalFlag("FILE_DIGITAL");
-    	try {
-			aesModel.setDummyUseType();
-        	aesModel.setDuration(duration,sampleRate,numSamples);
-        	aesModel.setStartTime(timeStampStart,sampleRate);
-		} catch (XmlContentException e) {
-			logger.error("Invalid content: " + e.getMessage ());
-		}
-    	
-        return aesModel.aes;
-    }
-    
     /**
      * Converts a video element into a VideoObject ??? object
      * @param fitsVideo		a video element in the FITS schema
      */
-    public XmlContent toVideo (FitsOutput fitsOutput,Element fitsVideo) {
+    public XmlContent toEbuCoreVideo (FitsOutput fitsOutput,Element fitsVideo) {
+    	
+    	final String UTC_TEXT = "UTC ";
         
-    	// TODO: We need a video model
-    	VideoModel videoModel = null;
-        
+    	EbuCoreModel ebucoreModel = null;        
     	try {
-			videoModel = new VideoModel ();
+			ebucoreModel = new EbuCoreModel ();
 		} catch (XmlContentException e2) {
 			logger.error("Invalid content: " + e2.getMessage ());
 		}
     	
-    	// Ooops, recursive call
-    	//XmlContent xmlContent = fitsOutput.getStandardXmlContent();
-    	Document fitsDoc = fitsOutput.getFitsXml();    
-    	
-//    	   <metadata>
-//    	      <video>
-//    	         <format>YUV</format>
-//    	         <ebuCoreMetadata>
-//    	            <ebucore:coreMetadata>    	
-    	
-    	//String filename = fitsOutput.getMetadataElement("filename").getValue();
-//    	String format = fitsOutput.getMetadataElement("format").getValue(); 
-//
-//    	
-//    	List ebuMeta = fitsOutput.getMetadataElements("ebuCoreMetadata");    	
-//        Element testElement = fitsVideo.getChild ("ebuCoreMetadata",ns);
-//        List children = fitsVideo.getChildren();        	
-//    	Document fitsVideoDoc = fitsVideo.getDocument();
-    	
-    	
-// WIP >>>
+    	//
+    	// TODO: After we are sure that the FITS XML output and Ebucore XML 
+    	// output are correct, refactor the below code to be more of an
+    	// algorithm.
+    	//
     	
     	// DEBUG
     	//String filename = fitsOutput.getMetadataElement("filename").getValue();
@@ -988,98 +859,450 @@ public class XmlContentConverter {
     	//FitsMetadataElement vidElement = fitsOutput.getMetadataElement("video");
     	
     	
-    	List videoContent = fitsVideo.getContent();
+    	//List videoContent = fitsVideo.getContent();
     	
     	
-    	FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
-    	String version = null;
-    	// HACK TODO: Fix the version
-    	version = "1.2.3";
-    	if(fitsIdent.getFormatVersions().size() > 0) {
-    		version = fitsIdent.getFormatVersions().get(0).getValue();
-    	}
+//    	FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
+//    	String version = null;
+//    	// HACK TODO: Fix the version
+//    	version = "1.2.3";
+//    	if(fitsIdent.getFormatVersions().size() > 0) {
+//    		version = fitsIdent.getFormatVersions().get(0).getValue();
+//    	}
     	
-    	try {
-			videoModel.setFormat(fitsIdent.getFormat(),version);
-		} catch (XmlContentException e1) {
-			logger.error("Invalid content: " + e1.getMessage ());
-		}
+    	int duration = 0;
     	
-    	//videoModel.aes.getPrimaryIdentifier().setText(new File(filename).getName());
-    	
-    	//int sampleRate = 0;
-    	//int channelCnt = 0;
-    	//long numSamples = 0;
-    	String duration = "0";
-    	//String timeStampStart = "0";    	
-// WIP <<<   
-    	
-    	
-//    	    [Element: <location [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
-//    		[Element: <format [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
-//    		[Element: <formatProfile [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
-//    		[Element: <duration [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
-//    		*[Element: <bitRate [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
-//    		[Element: <dateCreated [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]
-//    		[Element: <dateModified [Namespace: http://hul.harvard.edu/ois/xml/ns/fits/fits_output]/>]	
-    	
-    	
-        for (VideoElement fitsElem : VideoElement.values()) {
-           try {
-        	
-                String fitsName = fitsElem.getName ();
-                Element dataElement = fitsVideo.getChild (fitsName,ns);
-                if (dataElement == null)
-                    continue;
+        try {
+            
+            List<Element> trackList = fitsVideo.getContent();
+            
+            // Walk through all of the elements and process the tracks
+            for(Element elem : trackList) {
+            	
+                String fitsName = elem.getName ();
+
+                if (fitsName.equals("track")) {
+                	Attribute typeAttr = elem.getAttribute("type");
+                	if(typeAttr != null) {
+                		String type = typeAttr.getValue();
+                		
+                		if(type.toLowerCase().equals("video")) {
+                			
+                			VideoFormat vfmt = new VideoFormat("videoFormat");
+                			
+                			String id = elem.getAttribute("id").getValue();
+                   			VideoTrack vt = new VideoTrack();
+                   			vt.setTrackId(id);                  			
+                   			vfmt.setVideoTrack(vt);
+                   			
+                   			Element dataElement = elem.getChild ("colorspace",ns);
+                            if (dataElement != null) {
+                                String dataValue = dataElement.getText().trim();
+                       			vfmt.setVideoFormatName(dataValue);                     			
+                            }                   			
+                   			
+                   			dataElement = elem.getChild ("width",ns);
+                            if(dataElement != null) {
+                            	//String dataValue = dataElement.getText().trim().replace(" pixels", "");
+                                //WidthIdentifier width = new WidthIdentifier(dataValue,"width");
+                            	String dataValue = dataElement.getText().replace(" pixels", "");
+                                WidthIdentifier width = new WidthIdentifier(
+                                		StringUtils.deleteWhitespace(dataValue),
+                                		"width");                                
+                                width.setUnit("pixel");
+                       			vfmt.setWidthIdentifier(width);
+                            }                   			
+
+                   			dataElement = elem.getChild ("height",ns);
+                            if(dataElement != null) {
+                            	//String dataValue = dataElement.getText().trim().replace(" pixels", "");
+                                //HeightIdentifier height = new HeightIdentifier(dataValue,"height");
+                            	String dataValue = dataElement.getText().replace(" pixels", "");
+                                HeightIdentifier height = new HeightIdentifier(
+                                		StringUtils.deleteWhitespace(dataValue),
+                                		"height");                             
+                                height.setUnit("pixel");
+                       			vfmt.setHeightIdentifier(height);                      
+                            }
+                            
+                            // TODO: Where do we get the numerator and denominator
+                   			dataElement = elem.getChild ("frameRate",ns);
+                            if(dataElement != null) {
+                            	String dataValue = dataElement.getText().trim();
+                                FrameRate frameRate = new FrameRate(dataValue,"frameRate");
+                                
+                                // TODO: Where do we get the numerator and denominator
+                                frameRate.setFactorNumerator("to_do_numerator");
+                       			vfmt.setFrameRate(frameRate);                        
+                            }                            
+                            
+                            dataElement = elem.getChild ("bitRate",ns);
+                            // bitRate might be missing
+                            if(dataElement != null && dataElement.getValue() != null && dataElement.getValue().length() > 0) {
+                       			vfmt.setBitRate(Integer.parseInt(
+                                		dataElement.getValue().trim()));                              
+                            }
+                            
+                            dataElement = elem.getChild ("bitRateMode",ns);
+                            if(dataElement != null) {
+                       			vfmt.setBitRateMode(
+                                		dataElement.getValue().trim().toLowerCase());                           
+                            }
+                            
+                            dataElement = elem.getChild ("videoDataEncoding",ns);
+                            if(dataElement != null) {
+                            	String dataValue = dataElement.getText().trim();
+                            	CodecIdentifier ci = new CodecIdentifier("codecIdentifier");
+                            	ci.setIdentifier(dataValue);
+                            	Codec codec = new Codec("codec");
+                            	codec.setCodecIdentifier(ci);
+                       			vfmt.setCodec(codec);                       	
+                            } 
+                         
+                            dataElement = elem.getChild ("aspectRatio",ns);
+                            if(dataElement != null) {
+                            	String dataValue = dataElement.getText().trim();
+                            	String[] splitValues = dataValue.split(":");
+                            	// TODO: throw exception if there are not 2 pieces
+                            	if (splitValues != null && splitValues.length == 2) {
+                                	AspectRatio ar = new AspectRatio("aspectRatio");
+                                	
+                                	// Normalize the ratio
+                                	EbuCoreNormalizedRatio ratio = new EbuCoreNormalizedRatio(
+                                			splitValues[0], splitValues[1]);
+
+                                	ar.setFactorNumerator(ratio.getNormalizedNumerator());
+                                	ar.setFactorDenominator(ratio.getNormalizedDenominator());
+                                	ar.setTypeLabel("display");
+                           			vfmt.setAspectRatio(ar);
+                            	}
+ 
+                            }
+                            
+                            // NOTE: Duration is in it's own section outside of the track element
+                            // We need to determine the longest duration of all tracks
+                            dataElement = elem.getChild ("duration",ns);
+                            if(dataElement != null) {
+                            	//String dataValue = dataElement.getText().trim();
+                            	int currentDuration = new Integer(
+                            			dataElement.getText().trim()).intValue();
+                            	if(currentDuration > duration)
+                            		duration = currentDuration;
+                            }                         
+                			
+                            
+                            // Add the audio format object to the list
+                            ebucoreModel.format.addVideoFormat(vfmt);
+                            
+                		} // END video format
+                		
+                		// Audio Format
+                		else if (type.toLowerCase().equals("audio")) {
+                			
+                			AudioFormat afmt = new AudioFormat("audioFormat");
+
+                   			Element dataElement = elem.getChild ("audioDataEncoding",ns);
+                            if (dataElement != null) {
+                                String dataValue = dataElement.getText().trim();                   			
+                       			AudioEncoding ae = new AudioEncoding();
+                       			ae.setTypeLabel(dataValue);
+                       			// TODO: Can this be any other value?
+                       			ae.setTypeLink("http://www.ebu.ch/metadata/cs/ebu_AudioCompressionCodeCS.xml#11");
+                       			afmt.setAudioEncoding(ae);
+                       			
+                       			afmt.setAudioFormatName(dataValue);
+                       			
+                            }
+                            
+                   			String id = elem.getAttribute("id").getValue();                            
+                   			AudioTrack at = new AudioTrack();
+                   			at.setTrackId(id);
+                   			
+                   			// TODO:
+                   			// We need the language in the FITS XML somewhere
+                   			// Hack
+                   			at.setTrackLanguage("en");                 			
+                   			afmt.setAudioTrack(at);                  			
+                   			
+                            dataElement = elem.getChild ("soundField",ns);
+                            if (dataElement != null) {
+                                String dataValue = dataElement.getText().trim();                   			
+                       			AudioTrackConfiguration atc = new AudioTrackConfiguration();
+                       			atc.setTypeLabel(dataValue);
+                       			
+                       			afmt.setAudioTrackConfiguration(atc);
+                            }
+                            
+                            dataElement = elem.getChild ("bitRate",ns);
+                            // bitRate might be missing
+                            if(dataElement != null && dataElement.getValue() != null && dataElement.getValue().length() > 0) {
+                       			afmt.setBitRate(
+                                		Integer.parseInt(dataElement.getValue().trim()));                               
+                            }
+                            
+                            dataElement = elem.getChild ("bitRateMode",ns);
+                            if(dataElement != null) {
+                       			afmt.setBitRateMode(
+                                		dataElement.getValue().trim().toLowerCase());
+                            }                            
+                            
+                            dataElement = elem.getChild ("samplingRate",ns);
+                            if(dataElement != null) {
+                       			afmt.setSamplingRate(
+                                		Integer.parseInt(dataElement.getValue().trim()));
+                            }                            
+
+                            dataElement = elem.getChild ("sampleSize",ns);
+                            if(dataElement != null) {
+                       			afmt.setSampleSize(dataElement.getValue().trim());                         
+                            }                           
+                          
+                            dataElement = elem.getChild ("channels",ns);
+                            if(dataElement != null) {
+                       			afmt.setChannels(
+                                		Integer.parseInt(dataElement.getValue().trim()));                          
+                            }
+                            
+                            // NOTE: Duration is in it's own section outside of the track element
+                            // We need to determine the longest duration of all tracks
+                            dataElement = elem.getChild ("duration",ns);
+                            if(dataElement != null) {
+                            	//String dataValue = dataElement.getText().trim();
+                            	int currentDuration = new Integer(
+                            			dataElement.getText().trim()).intValue();
+                            	if(currentDuration > duration)
+                            		duration = currentDuration;
+                            }
+                            
+                            
+                            // Add the audio format object to the list
+                            ebucoreModel.format.addAudioFormat(afmt);
+
+                		}  // END audio
+                	} 
+                }  // track
                 
-                String dataValue = dataElement.getText().trim();                
-                switch (fitsElem) {
-                
-                case channels:
-                	// TODO: use real channels
-                	videoModel.setFormat("Format", "version");                	
-                	break;
-                
-                case duration:
-                	duration = dataValue;
-                    break;
-                    
-                case bitRate:
-                    videoModel.setBitRate(dataValue);
-                    break;                    
-                
+                //
+                // Elements directly off the root of the Format Element
+                //
+                else if (fitsName.equals("size")) {
+                	String value = elem.getText().trim();
+                	if (value != null)
+                		ebucoreModel.format.setFileSize(value);
                 }
+                else if (fitsName.equals("filename")) {
+                	String value = elem.getText().trim();
+                	if (value != null)
+                		ebucoreModel.format.setFileName(value);
+                }                
+                else if (fitsName.equals("location")) {
+                	String value = elem.getText().trim();
+                	if (value != null)
+                		ebucoreModel.format.setLocator(value);
+                }
+                else if (fitsName.equals("bitRate")) {
+                	String value = elem.getText().trim();
+                	if (value != null) {
+                		TechnicalAttributeString tas = 
+                				new TechnicalAttributeString(value, "technicalAttributeString");
+                		tas.setTypeLabel("overallBitRate");
+                		ebucoreModel.format.setTechnicalAttributeString(tas);
+                	}
+                }                
+                else if (fitsName.equals("dateCreated")) {
+                	String value = elem.getText().trim();
+                	if (value != null) {
+                		String parts[] = value.replace(UTC_TEXT, "").split(" ");
+                		DateTime dateTime = new DateTime("dateCreated");
+                		dateTime.setStartDate(parts[0]);
+                		dateTime.setStartTime(parts[1]+"Z");                		
+                		ebucoreModel.format.setDateCreated(dateTime);
+                	}
+                }
+                else if (fitsName.equals("dateModified")) {
+                	String value = elem.getText().trim();
+                	if (value != null) {
+                		String parts[] = value.replace(UTC_TEXT, "").split(" ");
+                		DateTime dateTime = new DateTime("dateModified");
+                		dateTime.setStartDate(parts[0]);
+                		dateTime.setStartTime(parts[1]+"Z");                		
+                		ebucoreModel.format.setDateModified(dateTime);
+                	}
+                }
+                else if (fitsName.equals("formatProfile")) {               	
+                   	String value = elem.getText().trim();
+                	if (value != null) {
+                    	CodecIdentifier ci = new CodecIdentifier("codecIdentifier");
+                    	ci.setIdentifier(value);
+                    	Codec codec = new Codec("codec");
+                    	codec.setCodecIdentifier(ci);
+                    	ebucoreModel.containerFormat.setCodec(codec);               		
+                	}
+                }
+                else if (fitsName.equals("format")) {
+                	String value = elem.getText().trim();
+                	if (value != null)
+                		ebucoreModel.containerFormat.setFormatLabel(value);
+                }
+                else if (fitsName.equals("timecodeStart")) {
+                	String value = elem.getText().trim();
+                	if (value != null) {
+                		Timecode timecode = new Timecode(value);
+                		ebucoreModel.start.setTimecode(timecode);
+                	}
+                }
+                
+                //
+                // TODO: Do we need the below "else"?
+                //
+                else {
+
+                    Element dataElement = elem.getChild (fitsName,ns);
+                    if (dataElement == null)
+                        continue;
+                    
+
+                    
+                    String dataValue = dataElement.getText().trim();                	
+                }
+            
+            
+            }  // for(Element elem : trackList)
+            
+            // Convert the duration milliseconds to the seconds format
+            // of PT + number_of_seconds + S            
+        	// String formattedDuration = millisecondsToDuration(duration);
+        	NormalPlayTime npt = new NormalPlayTime("normalPlayTime");
+        	npt.setText(millisecondsToDuration(duration));
+        	ebucoreModel.duration.setNormalPlayTime(npt);
+            
+			
+		} catch (XmlContentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}    	
+    	
+    	
+        
+    	
+    	
+//        for (VideoElement fitsElem : VideoElement.values()) {
+//           try {
+//        	
+//                String fitsName = fitsElem.getName ();
+//                Element dataElement = fitsVideo.getChild (fitsName,ns);
+//                if (dataElement == null)
+//                    continue;
+//                
+//                String dataValue = dataElement.getText().trim();                
+//                switch (fitsElem) {
+//                
+//                case channels:
+//                	// TODO: use real channels
+//                	//videoModel.setFormat("Format", "version");                	
+//                	break;
+//                
+//                case duration:
+//                	duration = dataValue;
+//                    break;
+//                    
+//                case bitRate:
+//                    //videoModel.setBitRate(dataValue);
+//                    break;
+//                    
+//                case track:
+//                	Attribute typeAttr = dataElement.getAttribute("type");
+//                	if(typeAttr != null) {
+//                		String type = typeAttr.getValue();
+//                		
+//                		if(type.toLowerCase().equals("video")) {
+//                			String id = dataElement.getAttribute("id").getValue();
+//                			//ebucoreModel.audioFmt.set
+//                			
+//                		}
+//                		else if (type.toLowerCase().equals("audio")) {
+//                   			String id = dataElement.getAttribute("id").getValue();
+//                   			
+//                   			AudioTrack at = new AudioTrack();
+//                   			at.setTrackId(id);
+//                   			
+//                   			// TODO:
+//                   			// We need the language in the FITS XML somewhere
+//                   			// Hack
+//                   			at.setTrackLanguage("en");
+//                   			
+//                   			
+//                   			ebucoreModel.audioFmt.addAudioTracks(at);         			
+//                		}
+//                	}
+//            	
+//                
+//                }
+//            	
+//            }
+//            catch (XmlContentException e) {
+//                logger.error("Invalid content: " + e.getMessage ());
+//            }
+//        }//end for
             	
-            }
-            catch (XmlContentException e) {
-                logger.error("Invalid content: " + e.getMessage ());
-            }
-        }//end for
-            	
-        return videoModel.video;
+//        //return videoModel.ebucoreMain;
+//        // HACK
+//        try {
+//            ebucoreModel.audioFmt.setBitRate(9876543);          
+//			
+//		} catch (XmlContentException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+        
+        
+        return ebucoreModel.ebucoreMain;
     }
+ 
+// Notes on duration format:
+// http://www.w3schools.com/schema/schema_dtypes_date.asp
+//
+//    Duration Data Type
+//
+//    The duration data type is used to specify a time interval.
+//
+//    The time interval is specified in the following form "PnYnMnDTnHnMnS" where:
+//
+//        P indicates the period (required)
+//        nY indicates the number of years
+//        nM indicates the number of months
+//        nD indicates the number of days
+//        T indicates the start of a time section (required if you are going to specify hours, minutes, or seconds)
+//        nH indicates the number of hours
+//        nM indicates the number of minutes
+//        nS indicates the number of seconds
+//    
+    private static String millisecondsToDuration(int milliseconds) {
+    	
+    	final double MILLI_IN_A_SECOND = 1000.000; // Note decimal place to keep precision
+
+    	double playTimeDuration = milliseconds / MILLI_IN_A_SECOND;
+    	return "PT" + playTimeDuration + "S";
+
+//        final int MINUTES_IN_AN_HOUR = 60;
+//        final int SECONDS_IN_A_MINUTE = 60;
+//
+//        int seconds = totalSeconds % SECONDS_IN_A_MINUTE;
+//        int totalMinutes = totalSeconds / SECONDS_IN_A_MINUTE;
+//        int minutes = totalMinutes % MINUTES_IN_AN_HOUR;
+//        int hours = totalMinutes / MINUTES_IN_AN_HOUR;
+//
+//        return hours + " hours " + minutes + " minutes " + seconds + " seconds";
+    }	
     
     /* an enumeration for mapping symbols to FITS video element names */
     public enum VideoElement {
-    	bitsPerSample ("bitsPerSample"),
-    	duration ("duration"),
-    	bitDepth ("bitDepth"),
-    	sampleRate ("sampleRate"),
-    	channels ("channels"),
-    	dataFormatType ("dataFormatType"),
-    	offset ("offset"),
-    	timeStampStart ("timeStampStart"),
-    	byteOrder ("byteOrder"),
+       	samplingRate ("samplingRate"),
+       	sampleSize ("sampleSize"),       	
     	bitRate ("bitRate"),
-    	numSamples ("numSamples"),
-    	wordSize ("wordSize"),
-    	audioDataEncoding ("audioDataEncoding"),
-    	blockAlign ("blockAlign"),
-    	codecName ("codecName"),
-        codecNameVersion ("codecNameVersion"),
-        codecCreatorApplication ("codecCreatorApplication"),
-        codecCreatorApplicationVersion ("codecCreatorApplicationVersion");
-    	
+    	bitRateMode ("bitRateMode"),    	
+    	channels ("channels");
+       	
     	private String name;
         
     	VideoElement(String name) {
@@ -1089,10 +1312,16 @@ public class XmlContentConverter {
         public String getName () {
             return name;
         }
-    }    
+    }
     
     /* an enumeration for mapping symbols to FITS audio element names */
     public enum AudioElement {
+       	//samplingRate ("samplingRate"),
+       	//sampleSize ("sampleSize"),       	
+    	//bitRate ("bitRate"),
+    	//bitRateMode ("bitRateMode"),    	
+    	//channels ("channels"); 
+       	
     	bitsPerSample ("bitsPerSample"),
     	duration ("duration"),
     	bitDepth ("bitDepth"),
@@ -1291,4 +1520,23 @@ public class XmlContentConverter {
             return name;
         }
     }
+    
+    /* an enumeration for mapping symbols to FITS audio element names */
+    public enum AudioFormatElement {
+       	samplingRate ("samplingRate"),
+       	sampleSize ("sampleSize"),       	
+    	bitRate ("bitRate"),
+    	bitRateMode ("bitRateMode"),    	
+    	channels ("channels"); 
+    	
+    	private String name;
+        
+    	AudioFormatElement(String name) {
+            this.name = name;
+        }
+        
+        public String getName () {
+            return name;
+        }
+    }    
 }

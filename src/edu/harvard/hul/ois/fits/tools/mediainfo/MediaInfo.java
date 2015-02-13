@@ -175,7 +175,8 @@ public class MediaInfo extends ToolBase {
 	    // Get MediaInfoLib Output as standard RAW XML
 	    mi.Option("Complete", "1");
 	    mi.Option("Output", "XML");
-	    String execOutRaw = mi.Inform();	    
+	    String execOutRaw = mi.Inform();
+	    // System.out.println("\nMediaInfo RAW output:\n" + execOutRaw + "\n\n");	    
 	    
 	    // Get MediaInfoLib Output as standard XML
 	    mi.Option("Complete", "");
@@ -183,7 +184,7 @@ public class MediaInfo extends ToolBase {
 	    String execOut = mi.Inform();
 	    
 	    // DEBUG
-	    //System.out.println("\nMediaInfo output:\n" + execOut);
+	    // System.out.println("\nMediaInfo output:\n" + execOut + "\n\n");
 	    
 	    // Get MediaInfoLib Output as EBUCore 1.5
 	    mi.Option("Output", "EBUCore_1.5");

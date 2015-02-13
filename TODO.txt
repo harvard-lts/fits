@@ -1,8 +1,4 @@
-Started the below ... but need to complete
-
-1) Need more encoder conditional checks
-
-2)
+DOUBLE CHECK the below:
 
 -----------------
 Element Questions
@@ -39,10 +35,13 @@ Element TODO (and special cases)
 		
 	metadata/video/track/bitRate --> Revise this
 		if bitRateMode is variable, this is replaced by bitRateMax
+		
+		PROBLEM - bitRateMax seems never to be present
 	
 	metadata/video/track/frameRate - Double Check
 		if frameRateMode is variable, this is replaced by frameRateMa
-		
+	
+	DONE?	
 	metadata/video/track/bitDepth --> Revisit
 		in cases where this is not present, it will have to be generated via lookup table of encodings
 		? what lookup table???

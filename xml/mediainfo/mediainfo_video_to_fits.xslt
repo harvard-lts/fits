@@ -330,6 +330,7 @@
        				    <xsl:value-of select="./Bit_rate_mode"/>
 			        </bitRateMode>
 		        
+		            <!-- duration format is revised in java code -->
                     <duration>
        				    <xsl:value-of select="./Duration"/>                    
                     </duration>
@@ -337,6 +338,7 @@
                     <!-- delay is only visible via the MediaInfo API. Set in Java code. -->
                     <delay />
 
+                    <!-- tracksize format is revised in java code -->
        			    <trackSize>
        			        <xsl:value-of select="./Stream_size"/>
        			    </trackSize>    			    
@@ -350,6 +352,7 @@
 			        <!-- TODO: finish -->
 			        <!-- NOTE: Frame_Rate_max does NOT appear to be present -->
                     <xsl:variable name="frameRateMode" select="./Frame_rate_mode"/>
+                    <!-- duration format is revised in java code -->
 			        <frameRate>               
  			            <xsl:choose>
  				            <xsl:when test="$frameRateMode='Variable'">
@@ -464,6 +467,7 @@
                     <!-- delay is only visible via the MediaInfo API. Set in Java code. -->
                     <delay />
                     
+                    <!-- tracksize format is revised in java code -->
                     <trackSize>
                         <xsl:value-of select="./Stream_size"/>
                     </trackSize>
@@ -472,6 +476,7 @@
                         <xsl:value-of select="./Channel_positions"/>
                     </soundField>
                     
+                    <!-- samplingRate format is revised in java code -->
                     <samplingRate>
                         <xsl:value-of select="./Sampling_rate"/>                    
                     </samplingRate>
@@ -479,6 +484,7 @@
                     <!-- number of samples is only visible via the MediaInfo API. Set in Java code. -->
                     <numSamples />
                     
+                    <!-- samplingRate format is revised in java code -->
                     <channels>
                         <xsl:value-of select="./Channel_s_"/>
                     </channels>

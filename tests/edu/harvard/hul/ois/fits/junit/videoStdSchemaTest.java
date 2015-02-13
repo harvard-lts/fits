@@ -57,6 +57,9 @@ if(doMain) {
     			
     			"-i",
     			//
+    			//"testfiles/test.wav",
+    			//
+    			//
     			//"/Users/dab980/Documents/video/samples/10BV-16-48000A-UNCOMPRESSED.mov", 
     			//
     			//"/Users/dab980/Documents/video/samples/10BV-24-48000A-PRORES422HQj 1.mov",
@@ -76,12 +79,18 @@ if(doMain) {
     			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-DVCPRO50-NTSC.mov",
     			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-H264 1.mov",
     			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-H264-HIGH -COMP.mov",
-    			"/Users/dab980/Documents/video/samples/8BV-24-48000A-PRORESi.mov",
+    			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-PRORESi.mov",
     			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-PRORESi_Theora.mov",
     			//
     			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-UNCOMPRESSED.mov",
+    			
+    			//"/Users/dab980/downloads/remade-video-files/AVPS-sample_14-aja-2vuy-8bit.mov",
+    			
+    			// Taken from http://www.divx.com/en/devices/profiles/video
+    			"/Users/dab980/downloads/Sintel_DivXPlus_6500kbps.mkv",
+    			
     			// empty
-    			// "/Users/dab980/Documents/video/samples/10BV-24-48000A-PRORES422HQj.mov",
+    		    //"/Users/dab980/Documents/video/samples/10BV-24-48000A-PRORES422HQj.mov",
     			//
     			//
     			//"/Users/dab980/downloads/drop.avi",
@@ -98,8 +107,16 @@ if(doMain) {
       			//
     			//"testfiles/test.wav",
     			//"testfiles/006607203_00018.jp2",
-    			//"-xc"
-    			//"-x"    			
+    			//
+    			// No command line arguments, FITS output ONLY
+    			//
+    			// -xc --> Outputs the FITS output plus the FITS output transformed into standard XML schemas
+    			//"-xc",
+    			//
+    			// -x --> Transforms the FITS output into standard XML schemas (EBUCore)
+    			//"-x", 
+    			//
+    			"-o fits_output.xml"
     			
     		
     	};
@@ -111,8 +128,8 @@ boolean doFits = false;
 if (doFits) {
 
     	Fits fits = new Fits();
-    	File input = new File("testfiles/10BV-24-48000A-PRORES422HQj 1.mov");
-    	//File input = new File("testfiles/test.wav");
+//    	File input = new File("testfiles/10BV-24-48000A-PRORES422HQj 1.mov");
+    	File input = new File("testfiles/test.wav");
     	
     	
     	FitsOutput fitsOut = fits.examine(input);
