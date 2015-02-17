@@ -326,6 +326,12 @@ public class MediaInfo extends ToolBase {
 		    		MediaInfoNativeWrapper.InfoKind.Name);
 		    addDataToMap(videoTrackValuesMap, id, "bitRate", bitRate);
 		    
+		    
+		    String bitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(videoTrackValuesMap, id, "bitRateMax", bitRateMax);
+		    
 		    String trackSize = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"StreamSize", MediaInfoNativeWrapper.InfoKind.Text, 		    		
 		    		MediaInfoNativeWrapper.InfoKind.Name);
@@ -487,6 +493,14 @@ public class MediaInfo extends ToolBase {
 		    						childElement.setText(bitRate);
 		    					}			    					
 		    				}
+		    				
+		    				// bitRate
+		    				if(childElement.getName().equals("bitRateMax")) {
+		    					String bitRateMax = videoTrackValuesMap.get(id).get("bitRateMax");
+		    					if(bitRateMax != null && bitRateMax.length() > 0) {
+		    						childElement.setText(bitRateMax);
+		    					}			    					
+		    				}		    				
 
 		    				// duration - correct format
 		    				if(childElement.getName().equals("duration")) {

@@ -313,7 +313,8 @@
  		            </xsl:choose>                
 			        
 			        <!-- TODO: finish -->
-			        <!-- NOTE: Bit_Rate_max does NOT appear to be present -->
+			        <!-- NOTE: Bit_Rate_Max does NOT appear to be present -->
+			        <!-- What do we do if bitRateMode not returned bu MediaInfo? -->
                     <xsl:variable name="bitRateMode" select="./Bit_rate_mode"/>
 			        <bitRate>               
  			            <xsl:choose>
@@ -326,6 +327,11 @@
 				        </xsl:choose>
 			        </bitRate>
 			        
+			        <bitRateMax>
+			            <xsl:value-of select="./BitRate_Maximum"/>
+                    </bitRateMax>			        			        
+			        
+			        <!-- TODO: How do we determine none, constant, or variable if not returned by MediaInfo ? -->
 			        <bitRateMode>
        				    <xsl:value-of select="./Bit_rate_mode"/>
 			        </bitRateMode>
@@ -374,6 +380,10 @@
        			    <aspectRatio>
        			        <xsl:value-of select="./Display_aspect_ratio"/>
        			    </aspectRatio>
+       			    
+       			    <videoEncoding>
+       			        <xsl:value-of select="./Format_profile"/>
+       			    </videoEncoding>
        			    
        			    <!-- TODO: finish -->
        			    <!-- If Scanning Format is NOT present, use encoding to determine the value -->			    
@@ -452,8 +462,20 @@
        				    <xsl:value-of select="./Bit_rate"/>
 			        </bitRate>       			
        			
+       			    <!-- TODO: How do we determine none, constant, or variable if not returned by MediaInfo ? -->
+			        <!-- Right now, I am defaulting to constant -->
 			        <bitRateMode>
-       				    <xsl:value-of select="./Bit_rate_mode"/>
+       				    <!-- <xsl:value-of select="./Bit_rate_mode"/> -->
+		                <xsl:choose>
+ 				            <xsl:when test="./Bit_rate_mode">
+                                <xsl:value-of select="./Bit_rate_mode"/>
+				            </xsl:when>			        
+				            <xsl:otherwise>
+				                <xsl:text>constant</xsl:text>
+				            </xsl:otherwise>
+				        </xsl:choose>        				    
+       				    
+       				    
 			        </bitRateMode>	
 			        
 			        <bitDepth>

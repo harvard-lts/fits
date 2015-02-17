@@ -33,10 +33,14 @@ public class EbuCoreModel {
 	
     protected EbuCoreMain ebucoreMain;
     protected Format format;
-    protected AudioFormatExtended audioFmtExt;
+    
+    // Is audioFmtExt used?
+    //protected AudioFormatExtended audioFmtExt;
     protected ContainerFormat containerFormat;
     protected Duration duration;
-    protected Start start;
+    
+    // Do we need the start element ?
+    //protected Start start;
     
     //protected final String ebucoreID = "EBUCORE_"+UUID.randomUUID().toString();
     //protected final String faceID = "FACE_"+UUID.randomUUID().toString();
@@ -56,13 +60,16 @@ public class EbuCoreModel {
         //video.setPrimaryIdentifier(ident);
 
         containerFormat = new ContainerFormat("containerFormat");
-        start = new Start("start");
+        
+        // Do we need the start element ?        
+        // start = new Start("start");
         
         duration = new Duration("duration");	
 		
 		format = new Format("format");
 		format.setContainerFormat(containerFormat);
-		format.setStart(start);
+	    // Do we need the start element ?
+		// format.setStart(start);
 		format.setDuration(duration);
 		
 		// TODO: Do we need this

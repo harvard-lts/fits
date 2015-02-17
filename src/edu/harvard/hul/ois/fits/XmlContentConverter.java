@@ -32,6 +32,7 @@ package edu.harvard.hul.ois.fits;
 import java.io.File;
 import java.text.ParseException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -926,13 +927,60 @@ public class XmlContentConverter {
                             }
                             
                             // TODO: Where do we get the numerator and denominator
+                            //
+                            //
+                            //                            
+//                            <ebucore:frameRate factorNumerator="30000" factorDenominator="1001">30</ebucore:frameRate>
+//                             
+//                            Line 139, COL A:
+//                            format/videoFormat/frameRate@factorNumerator,factorDenominator
+//                             
+//                            I can find the framerate value, but where do the attributes
+//                            format/videoFormat/frameRate@factorNumerator,factorDenominator
+//                            come from?
+//                             
+//                            Answer (DA): factorNumerator and factorDenominator are the expression of the frame rate. The value of the frameRate element should not be 30 in this case, not sure where it came from! It should be 1. As in:
+//                             
+//                            <ebucore:frameRate factorNumerator="30000" factorDenominator="1001">1</ebucore:frameRate>
+//                             
+//                            This is how you would express a 29.97002997002997 frame rate which is what is used in color NTSC video.
+//                             
+//                            Here is 25 FPS PAL:
+//                             
+//                            <ebucore:frameRate factorNumerator="1" factorDenominator="1">25</ebucore:frameRate>
+//                             
+//                            Here is 30 FPS, which is not really used anymore except in pure audio production work.
+//                             
+//                            <ebucore:frameRate factorNumerator="1" factorDenominator="1">30</ebucore:frameRate>
+//                             
+//                            You get the idea. This element is a fraction and a multiplier. Your code will have to construct it based on the nominal frame rate you see in the mediainfo output.
+//                             
+//                            (factorNumerator/ factorDenominator) * value = the frame rate.
+
                    			dataElement = elem.getChild ("frameRate",ns);
                             if(dataElement != null) {
                             	String dataValue = dataElement.getText().trim();
-                                FrameRate frameRate = new FrameRate(dataValue,"frameRate");
+                            	
+                            	//
+                            	// TODO: Correct normalization of values
+                            	//
+                            	
+                            	// FrameRate frameRate = new FrameRate(dataValue,"frameRate");
+                            	
+                            	// Normalize the ratio -- NOTE: The denominator always starts at 1
+                            	EbuCoreNormalizedRatio ratio = new EbuCoreNormalizedRatio(
+                            		dataValue, "1");
+                            	
+                            	int frameRateResult = ratio.getNormalizedNumerator() / 
+                            			ratio.getNormalizedDenominator();
+                            	
+                                FrameRate frameRate = new FrameRate(""+frameRateResult,
+                                		"frameRate");
+         
                                 
                                 // TODO: Where do we get the numerator and denominator
-                                frameRate.setFactorNumerator("to_do_numerator");
+                                frameRate.setFactorNumerator(""+ratio.getNormalizedNumerator());
+                                frameRate.setFactorDenominator(""+ratio.getNormalizedDenominator());
                        			vfmt.setFrameRate(frameRate);                        
                             }                            
                             
@@ -943,11 +991,23 @@ public class XmlContentConverter {
                                 		dataElement.getValue().trim()));                              
                             }
                             
+                            dataElement = elem.getChild ("bitRateMax",ns);
+                            if(dataElement != null && dataElement.getValue() != null && dataElement.getValue().length() > 0) {
+                       			vfmt.setBitRateMax(Integer.parseInt(
+                                		dataElement.getValue().trim()));                           
+                            }
+                            
                             dataElement = elem.getChild ("bitRateMode",ns);
                             if(dataElement != null) {
                        			vfmt.setBitRateMode(
                                 		dataElement.getValue().trim().toLowerCase());                           
                             }
+                            
+                            dataElement = elem.getChild ("scanningFormat",ns);
+                            if(dataElement != null) {
+                       			vfmt.setScanningFormat(
+                                		dataElement.getValue().trim().toLowerCase());                           
+                            }                            
                             
                             dataElement = elem.getChild ("videoDataEncoding",ns);
                             if(dataElement != null) {
@@ -957,7 +1017,13 @@ public class XmlContentConverter {
                             	Codec codec = new Codec("codec");
                             	codec.setCodecIdentifier(ci);
                        			vfmt.setCodec(codec);                       	
-                            } 
+                            }
+                            
+                            dataElement = elem.getChild ("videoEncoding",ns);
+                            if(dataElement != null) {
+                            	String dataValue = dataElement.getText().trim();
+                       			vfmt.setVideoEncoding(dataValue);                       	
+                            }                            
                          
                             dataElement = elem.getChild ("aspectRatio",ns);
                             if(dataElement != null) {
@@ -1144,13 +1210,15 @@ public class XmlContentConverter {
                 	if (value != null)
                 		ebucoreModel.containerFormat.setFormatLabel(value);
                 }
-                else if (fitsName.equals("timecodeStart")) {
-                	String value = elem.getText().trim();
-                	if (value != null) {
-                		Timecode timecode = new Timecode(value);
-                		ebucoreModel.start.setTimecode(timecode);
-                	}
-                }
+                
+                // Do we need the start element ?
+//                else if (fitsName.equals("timecodeStart")) {
+//                	String value = elem.getText().trim();
+//                	if (value != null) {
+//                		Timecode timecode = new Timecode(value);
+//                		ebucoreModel.start.setTimecode(timecode);
+//                	}
+//                }
                 
                 //
                 // TODO: Do we need the below "else"?
@@ -1277,13 +1345,39 @@ public class XmlContentConverter {
 //        nM indicates the number of minutes
 //        nS indicates the number of seconds
 //    
-    private static String millisecondsToDuration(int milliseconds) {
+    private static String millisecondsToDuration(int millis) {
     	
-    	final double MILLI_IN_A_SECOND = 1000.000; // Note decimal place to keep precision
+    	// final double MILLI_IN_A_SECOND = 1000.000; // Note decimal place to keep precision
+    	
+    	// Should we use org.apache.commons.lang.time.DurationFormatUtils
+    	
+    	long hours = TimeUnit.MILLISECONDS.toHours(millis);
+    	long minutes = TimeUnit.MILLISECONDS.toMinutes(millis) -  
+    			TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis));
+    	long seconds = TimeUnit.MILLISECONDS.toSeconds(millis) - 
+    			TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis));
+    	long mill = TimeUnit.MILLISECONDS.toMillis(millis) - 
+    			TimeUnit.SECONDS.toMillis(TimeUnit.MILLISECONDS.toSeconds(millis));			
 
-    	double playTimeDuration = milliseconds / MILLI_IN_A_SECOND;
-    	return "PT" + playTimeDuration + "S";
+    	// TODO: Is StringBuffer good enough?
+    	StringBuffer duration = new StringBuffer("PT");			
+    	if(hours>0) {
+    		duration.append(hours + "H");
+    	}
+    	if(minutes > 0) {
+    		duration.append(minutes + "M");
+    	}
+    	if(seconds>0)
+    		duration.append(seconds);
+    	if(mill>0)
+    		duration.append("." + mill );
+    	duration.append("S");
 
+    	return duration.toString();
+			
+    	//double playTimeDuration = millis / MILLI_IN_A_SECOND;
+    	//return "PT" + playTimeDuration + "S";    	
+    	
 //        final int MINUTES_IN_AN_HOUR = 60;
 //        final int SECONDS_IN_A_MINUTE = 60;
 //
