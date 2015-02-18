@@ -56,6 +56,7 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.DateTime;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.FrameRate;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.NormalPlayTime;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.Start;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Timecode;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoEncoding;
@@ -1214,28 +1215,33 @@ public class XmlContentConverter {
                 		ebucoreModel.containerFormat.setFormatLabel(value);
                 }
                 
-                // Do we need the start element ?
-//                else if (fitsName.equals("timecodeStart")) {
-//                	String value = elem.getText().trim();
-//                	if (value != null) {
-//                		Timecode timecode = new Timecode(value);
-//                		ebucoreModel.start.setTimecode(timecode);
-//                	}
-//                }
-                
-                //
-                // TODO: Do we need the below "else"?
-                //
-                else {
-
-                    Element dataElement = elem.getChild (fitsName,ns);
-                    if (dataElement == null)
-                        continue;
-                    
-
-                    
-                    String dataValue = dataElement.getText().trim();                	
+                // Set the start/timecodeStart element
+                else if (fitsName.equals("timecodeStart")) {
+                	String value = elem.getText().trim();
+                	if (value != null && value.length() > 0) {
+                		Start start = new Start("start");
+                		Timecode timecode = new Timecode(value);
+                		start.setTimecode(timecode);
+                		ebucoreModel.format.setStart(start);                		
+                	}
                 }
+
+                // End elements directly off root
+                
+                
+//                //
+//                // TODO: Do we need the below "else"?
+//                //
+//                else {
+//
+//                    Element dataElement = elem.getChild (fitsName,ns);
+//                    if (dataElement == null)
+//                        continue;
+//                    
+//
+//                    
+//                    String dataValue = dataElement.getText().trim();                	
+//                }
             
             
             }  // for(Element elem : trackList)
@@ -1372,8 +1378,10 @@ public class XmlContentConverter {
     	}
     	if(seconds>0)
     		duration.append(seconds);
-    	if(mill>0)
+    	if(mill>0) {
+    		// TODO: Preserver leading 0 as in in 0.65
     		duration.append("." + mill );
+    	}
     	duration.append("S");
 
     	return duration.toString();

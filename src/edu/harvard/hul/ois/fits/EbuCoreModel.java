@@ -20,12 +20,11 @@ package edu.harvard.hul.ois.fits;
 
 //import java.util.UUID;
 
-import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormatExtended;
+//import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormatExtended;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.ContainerFormat;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.CoreMetadata;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Duration;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Format;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.Start;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.EbuCoreMain;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
 
@@ -38,9 +37,6 @@ public class EbuCoreModel {
     //protected AudioFormatExtended audioFmtExt;
     protected ContainerFormat containerFormat;
     protected Duration duration;
-    
-    // Do we need the start element ?
-    //protected Start start;
     
     //protected final String ebucoreID = "EBUCORE_"+UUID.randomUUID().toString();
     //protected final String faceID = "FACE_"+UUID.randomUUID().toString();
@@ -61,15 +57,10 @@ public class EbuCoreModel {
 
         containerFormat = new ContainerFormat("containerFormat");
         
-        // Do we need the start element ?        
-        // start = new Start("start");
-        
         duration = new Duration("duration");	
 		
 		format = new Format("format");
 		format.setContainerFormat(containerFormat);
-	    // Do we need the start element ?
-		// format.setStart(start);
 		format.setDuration(duration);
 		
 		// TODO: Do we need this
