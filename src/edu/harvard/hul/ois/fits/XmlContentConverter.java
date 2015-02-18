@@ -58,6 +58,7 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.NormalPlayTime;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Timecode;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoEncoding;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoFormat;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoTrack;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.WidthIdentifier;
@@ -1022,7 +1023,9 @@ public class XmlContentConverter {
                             dataElement = elem.getChild ("videoEncoding",ns);
                             if(dataElement != null) {
                             	String dataValue = dataElement.getText().trim();
-                       			vfmt.setVideoEncoding(dataValue);                       	
+                       			VideoEncoding ve = new VideoEncoding();
+                       			ve.setTypeLabel(dataValue);
+                       			vfmt.setVideoEncoding(ve);                       	
                             }                            
                          
                             dataElement = elem.getChild ("aspectRatio",ns);
