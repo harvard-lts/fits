@@ -218,6 +218,8 @@ public class MediaInfo extends ToolBase {
 	    String generalDuration = mi.Get(MediaInfoNativeWrapper.StreamKind.Other, 0,
 	    		"Duration", MediaInfoNativeWrapper.InfoKind.Text,
 	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    
+	    String generalFormatProfileFromVideo = "";
 
 //	    // Empty ???
 //	    String dateCreated = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
@@ -340,7 +342,16 @@ public class MediaInfo extends ToolBase {
 		    String frameRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"FrameRate", MediaInfoNativeWrapper.InfoKind.Text, 		    		
 		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    addDataToMap(videoTrackValuesMap, id, "frameRate", frameRate);		    
+		    addDataToMap(videoTrackValuesMap, id, "frameRate", frameRate);
+		    
+		    // NOTE:
+		    // formatProfile goes in the FITS XML general section, bit
+		    // sometimes is missing from the MediaInfo general section and
+		    // present in video section.
+		    generalFormatProfileFromVideo = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"Format_Profile", MediaInfoNativeWrapper.InfoKind.Text, 		    		
+		    		MediaInfoNativeWrapper.InfoKind.Name);	    
+		    
 	    }	    
 	    
 	    
@@ -459,7 +470,20 @@ public class MediaInfo extends ToolBase {
 					if (generalDuration != null && generalDuration.length() > 0) {
 						element.setText(generalDuration);
 					}		    		
-		    	}		    	
+		    	}
+
+				// formatProfile - If missing, use value from video section, which was set above
+				if(element.getName().equals("formatProfile")) {
+					String formatProfileFromElement = element.getValue();
+					// if value for element is missing or empty, we need to update it
+					if(formatProfileFromElement == null || formatProfileFromElement.length() < 1 ) {
+    					if(generalFormatProfileFromVideo != null && generalFormatProfileFromVideo.length() > 0) {
+    						element.setText(generalFormatProfileFromVideo);
+    					}
+					}
+					
+				}		    	
+		    	
 		    	
 		    	// Tracks
 		    	if(element.getName().equals("track")) {

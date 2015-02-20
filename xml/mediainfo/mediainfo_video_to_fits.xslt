@@ -150,10 +150,16 @@
        			        
 			    <format>
                     <xsl:value-of select="./Format"/>
-                </format>       			    
+                </format>
+
+                <!-- Can be found in either MediaInfo in General section or -->
+                <!-- Video section. The Java code will add it if it is      -->
+                <!-- missing in the General section, but present in the     -->
+                <!-- Video section of MediaInfo                             --> 
 		        <formatProfile>
                     <xsl:value-of select="./Format_profile"/>
-       			</formatProfile>  			        
+       			</formatProfile>
+       			 			        
        			<duration>
        			    <xsl:value-of select="./Duration"/>
        			</duration>
@@ -194,7 +200,7 @@
                     <xsl:variable name="codecID" select="./Codec_ID"/>                   	    
                     
        			    <videoDataEncoding>
-       				    <xsl:value-of select="$codecID"/>       			    
+       				    <xsl:value-of select="$codecID"/>			    
        			    </videoDataEncoding>
 
                     <!-- TODO: finish -->
@@ -379,11 +385,7 @@
        			    
        			    <aspectRatio>
        			        <xsl:value-of select="./Display_aspect_ratio"/>
-       			    </aspectRatio>
-       			    
-       			    <videoEncoding>
-       			        <xsl:value-of select="./Format_profile"/>
-       			    </videoEncoding>
+       			    </aspectRatio>      			    
        			    
        			    <!-- TODO: finish -->
        			    <!-- If Scanning Format is NOT present, use encoding to determine the value -->			    
