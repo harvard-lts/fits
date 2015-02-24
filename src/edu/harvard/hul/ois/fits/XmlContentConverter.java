@@ -895,8 +895,8 @@ public class XmlContentConverter {
                 			
                 			String id = elem.getAttribute("id").getValue();
                    			VideoTrack vt = new VideoTrack();
-                   			vt.setTrackId(id);                  			
-                   			vfmt.setVideoTrack(vt);
+               				vt.setTrackId(id);         			
+               				vfmt.setVideoTrack(vt);          			
                    			                 			
                    			//Element dataElement = elem.getChild ("colorspace",ns);
                             //if (dataElement != null) {
@@ -959,9 +959,17 @@ public class XmlContentConverter {
                             
                             dataElement = elem.getChild ("bitRate",ns);
                             // bitRate might be missing
-                            if(dataElement != null && dataElement.getValue() != null && dataElement.getValue().length() > 0) {
+                            //if(dataElement != null && dataElement.getValue() != null && dataElement.getValue().length() > 0) {
+                            if(dataElement != null && StringUtils.isNotEmpty(dataElement.getValue())) {
+                        		//// the string might have fps, or a identifier at the end, so we need to
+                        		//// remove it
+                        		//String[] parts = dataElement.getValue().trim().
+                        		//		split(" ");
+                            	//vfmt.setBitRate(Integer.parseInt(
+                            	//		parts[0]));
+                            	
                        			vfmt.setBitRate(Integer.parseInt(
-                                		dataElement.getValue().trim()));                              
+                                		dataElement.getValue().trim()));
                             }
                             
                             dataElement = elem.getChild ("bitRateMax",ns);
@@ -1025,7 +1033,6 @@ public class XmlContentConverter {
                             // We need to determine the longest duration of all tracks
                             dataElement = elem.getChild ("duration",ns);
                             if(dataElement != null) {
-                            	//String dataValue = dataElement.getText().trim();
                             	int currentDuration = new Integer(
                             			dataElement.getText().trim()).intValue();
                             	if(currentDuration > duration)
@@ -1056,7 +1063,7 @@ public class XmlContentConverter {
                        			
                             }
                             
-                   			String id = elem.getAttribute("id").getValue();                            
+                   			String id = elem.getAttribute("id").getValue();                  			
                    			AudioTrack at = new AudioTrack();
                    			at.setTrackId(id);
                    			
