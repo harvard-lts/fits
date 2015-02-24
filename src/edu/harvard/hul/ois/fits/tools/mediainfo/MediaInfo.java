@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -38,6 +40,7 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
 //import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
 
 /**  The glue class for invoking the MediaInfo native library under FITS.
@@ -249,15 +252,24 @@ public class MediaInfo extends ToolBase {
 	    
 	    int numAudioTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Audio);	    
 	    for (int ndx = 0; ndx < numAudioTracks; ndx++) {
-	    	
+	   
 		    String id = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
 		    		"ID", MediaInfoNativeWrapper.InfoKind.Text, 
 		    		MediaInfoNativeWrapper.InfoKind.Name);
 		    
-		    if(id == null || id.length() < 1) {
-		    	// TODO: Do we need to throw an error?
-		    	logger.error("Error retrieving the ID of the audio track from MediaInfo: " + ndx);
-		    	continue;
+		    //
+		    // In some instances, the ID will include some invalid data such as
+		    
+		    if(StringUtils.isEmpty(id)) {
+		    	// If we only have one audio track, we can retrieve data with
+		    	// the index 0
+		    	if(numAudioTracks == 1)
+		    		id = "0";
+		    	else {
+			    	// TODO: Throw error and/or log?
+			    	logger.error("Error retrieving the ID of the audio track from MediaInfo: " + ndx);
+			    	continue;
+		    	}
 		    }
 	    	
 		    String audioDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
@@ -301,11 +313,18 @@ public class MediaInfo extends ToolBase {
 
 		    String id = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"ID", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);	    	
-		    if(id == null || id.length() < 1) {
-		    	// TODO: Throw error and/or log?
-		    	logger.error("Error retrieving the ID of the video track from MediaInfo: " + ndx);
-		    	continue;
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    
+		    if(StringUtils.isEmpty(id)) {
+		    	// If we only have one video track, we can retrieve data with
+		    	// the index 0
+		    	if(numVideoTracks == 1)
+		    		id = "0";
+		    	else {
+			    	// TODO: Throw error and/or log?
+			    	logger.error("Error retrieving the ID of the video track from MediaInfo: " + ndx);
+			    	continue;
+		    	}
 		    }	    	
 		    
 		    String duration = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
@@ -488,6 +507,27 @@ public class MediaInfo extends ToolBase {
 		    	// Tracks
 		    	if(element.getName().equals("track")) {
 		    		String id = element.getAttributeValue("id");
+		    		
+		    		// In some cases, the track ID returned by MediaInfo in the
+		    		// XML used for XSLT transformation is not fully numerical, 
+		    		// and does NOT match the ID returned by calling the 
+		    		// MediaInfo API, so we need to strip off the additional
+		    		// information contained in the ID that the XSLT transformation
+		    		//
+		    		// For example, if the track ID is 1666406348 (0x635357CC)
+		    		// we need to split the string into 2 pieces at the space
+		    		// and set the ID to the 1st value
+		    		if(!XmlUtils.isNumeric(id)) {
+		    			String parts[] = id.split(" ");
+		    			id = parts[0];
+		    			element.setAttribute("id", id);
+		    		}
+		    		
+			    	// HACK: In some cases a track ID is not given, in those cases, use the index
+		    		if (StringUtils.isEmpty(id)) {
+			    		id = "0";
+		    			element.setAttribute("id", id);
+		    		}
 
 		    		// video track data
 		    		if (videoTrackValuesMap.containsKey(id)) {
