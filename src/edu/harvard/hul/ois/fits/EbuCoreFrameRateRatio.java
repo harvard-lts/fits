@@ -28,10 +28,14 @@ public class EbuCoreFrameRateRatio {
 	private String denominator = "1";
 	private String value;
 	private final static String DECIMAL = ".";
+	private final static String SPACE = " ";	
 
 	public EbuCoreFrameRateRatio(String value) {
 		
-		this.value = value;
+		// the string might have fps, or a identifier at the end, so we need to
+		// remove it
+		String[] parts = value.split(SPACE);
+		this.value = parts[0];
 		
 		// If a decimal value, revise members
     	if(value.contains(DECIMAL)) {
@@ -41,7 +45,7 @@ public class EbuCoreFrameRateRatio {
         	// Round FrameRate to whole number
             Double dblValue = null;
             try {
-                dblValue = Double.parseDouble (value);
+                dblValue = Double.parseDouble (this.value);
             }
             catch (NumberFormatException e) {}
             
