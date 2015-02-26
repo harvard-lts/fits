@@ -53,6 +53,7 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrackConfiguration;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Codec;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.CodecIdentifier;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.DateTime;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.DurationInner;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.FrameRate;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.NormalPlayTime;
@@ -1223,13 +1224,14 @@ public class XmlContentConverter {
             }  // for(Element elem : trackList)
             
             
-            // Convert the duration milliseconds to the seconds format
-            // of PT + number_of_seconds + S            
-        	// String formattedDuration = millisecondsToDuration(duration);
-        	NormalPlayTime npt = new NormalPlayTime("normalPlayTime");
-        	npt.setText(millisecondsToDuration(duration));
-        	ebucoreModel.duration.setNormalPlayTime(npt);
-            
+            //// Convert the duration milliseconds to the seconds format
+            //// of PT + number_of_seconds + S            
+        	//// String formattedDuration = millisecondsToDuration(duration);
+        	//NormalPlayTime npt = new NormalPlayTime("normalPlayTime");
+        	//npt.setText(millisecondsToDuration(duration));
+        	//ebucoreModel.duration.setNormalPlayTime(npt);
+            DurationInner di = new DurationInner(duration+"");
+            ebucoreModel.duration.setDuration(di);            
 			
 		} catch (XmlContentException e) {
 			// TODO Auto-generated catch block
