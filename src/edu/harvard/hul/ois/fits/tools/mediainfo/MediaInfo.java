@@ -19,11 +19,11 @@
 package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -33,6 +33,8 @@ import org.jdom.JDOMException;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.jdom.xpath.XPath;
+
+import com.twmacinta.util.MD5;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
@@ -222,6 +224,21 @@ public class MediaInfo extends ToolBase {
 	    		"Duration", MediaInfoNativeWrapper.InfoKind.Text,
 	    		MediaInfoNativeWrapper.InfoKind.Name);
 	    
+//	    // TODO: Use MediaInfo to generate the mime type
+//	    // MIME Information:
+//	    // InternetMediaType : Internet Media Type (aka MIME Type, Content-Type)
+//	    String generalMime = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+//	    		"InternetMediaType", MediaInfoNativeWrapper.InfoKind.Text,
+//	    		MediaInfoNativeWrapper.InfoKind.Name);
+//	    
+//	    String videoMime = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, 0,
+//	    		"InternetMediaType", MediaInfoNativeWrapper.InfoKind.Text,
+//	    		MediaInfoNativeWrapper.InfoKind.Name);
+//	    
+//	    String audioMime = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, 0,
+//	    		"InternetMediaType", MediaInfoNativeWrapper.InfoKind.Text,
+//	    		MediaInfoNativeWrapper.InfoKind.Name);	    
+	    
 	    String generalFormatProfileFromVideo = "";
 
 //	    // Empty ???
@@ -305,7 +322,7 @@ public class MediaInfo extends ToolBase {
 		    String channels = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
 		    		"Channels", MediaInfoNativeWrapper.InfoKind.Text, 		    		
 		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    addDataToMap(audioTrackValuesMap, id, "channels", channels);		    
+		    addDataToMap(audioTrackValuesMap, id, "channels", channels);
 	    }
 	    
 	    int numVideoTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Video);    
@@ -364,15 +381,14 @@ public class MediaInfo extends ToolBase {
 		    addDataToMap(videoTrackValuesMap, id, "frameRate", frameRate);
 		    
 		    // NOTE:
-		    // formatProfile goes in the FITS XML general section, bit
+		    // formatProfile goes in the FITS XML general section, but
 		    // sometimes is missing from the MediaInfo general section and
 		    // present in video section.
 		    generalFormatProfileFromVideo = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"Format_Profile", MediaInfoNativeWrapper.InfoKind.Text, 		    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);	    
-		    
+		    		MediaInfoNativeWrapper.InfoKind.Name);
 	    }	    
-	    
+    
 	    
 	    mi.Close();
 
@@ -453,8 +469,8 @@ public class MediaInfo extends ToolBase {
 		// via the MediaInfo XML or require revision for granularity
 		// ====================================================================		
 		
-		try {		
-		    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");			
+		try {
+		    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");	
 		
 		    // NOTE: We need to add a namespace	to xpath, because JDom XPath 
 		    // does not support default namespaces. It requires you to add a
@@ -489,21 +505,32 @@ public class MediaInfo extends ToolBase {
 					if (generalDuration != null && generalDuration.length() > 0) {
 						element.setText(generalDuration);
 					}		    		
-		    	}
+		    	}	    	
 
-				// formatProfile - If missing, use value from video section, which was set above
+				// General Section formatProfile - If missing, use value from 
+		    	// video section, which was set above
 				if(element.getName().equals("formatProfile")) {
 					String formatProfileFromElement = element.getValue();
 					// if value for element is missing or empty, we need to update it
-					if(formatProfileFromElement == null || formatProfileFromElement.length() < 1 ) {
+					if(StringUtils.isEmpty(formatProfileFromElement)) {
     					if(generalFormatProfileFromVideo != null && generalFormatProfileFromVideo.length() > 0) {
     						element.setText(generalFormatProfileFromVideo);
     					}
 					}
 					
-				}		    	
-		    	
-		    	
+				}
+				
+				// The MD5 must be present in the MediaInfo FITS XML so that
+				// Ebucore can have access to it
+		    	if(element.getName().equals("filemd5")) {
+					try {
+						String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
+						element.setText(md5Hash);
+					} catch (IOException e) {
+						throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
+					}					
+		    	}				
+				
 		    	// Tracks
 		    	if(element.getName().equals("track")) {
 		    		String id = element.getAttributeValue("id");

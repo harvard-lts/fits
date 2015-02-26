@@ -1207,23 +1207,21 @@ public class XmlContentConverter {
 
                 // End elements directly off root
                 
-                
+//                
 //                //
 //                // TODO: Do we need the below "else"?
 //                //
 //                else {
-//
 //                    Element dataElement = elem.getChild (fitsName,ns);
 //                    if (dataElement == null)
 //                        continue;
 //                    
-//
-//                    
 //                    String dataValue = dataElement.getText().trim();                	
 //                }
-            
+
             
             }  // for(Element elem : trackList)
+            
             
             // Convert the duration milliseconds to the seconds format
             // of PT + number_of_seconds + S            

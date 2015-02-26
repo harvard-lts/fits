@@ -38,9 +38,7 @@
        			<xsl:variable name="fileExtension" select="ebucore:getFileExtension($completefilename)"/>               
 	            <identification>
                     <identity>
-                    
-                        <!-- TODO: finish (below also) -->
-                        <!-- mime type -->
+
    		                <xsl:attribute name="mimetype">                   
  			                <xsl:choose>
        			               <xsl:when test="$fileExtension = 'avi'">
@@ -56,7 +54,8 @@
        			                   <xsl:value-of select="string('video/mj2')"/>
        			               </xsl:when>
        			               <xsl:when test="$fileExtension = 'mov'">
-       			                   <xsl:value-of select="string('video/quicktime')"/>
+       			                   <!-- <xsl:value-of select="string('video/quicktime')"/> -->
+       			                   <xsl:value-of select="string('video/mp4')"/>
        			               </xsl:when>			                    			               
       			               <xsl:when test="$fileExtension = 'mp4'">
        			                   <xsl:value-of select="string('video/mp4')"/>
@@ -71,7 +70,7 @@
        			                   <xsl:value-of select="string('video/quicktime')"/>
        			               </xsl:when>       			                      			                     			             			       
 		                       <xsl:otherwise>
-				                   <xsl:text>Unknown</xsl:text>
+				                   <xsl:text>TBD</xsl:text>
 				               </xsl:otherwise>
 			                </xsl:choose>
 		                </xsl:attribute>
@@ -138,7 +137,8 @@
        			           <xsl:value-of select="string('video/mj2')"/>
        			       </xsl:when>
        			       <xsl:when test="$fileExtension = 'mov'">
-       			           <xsl:value-of select="string('video/quicktime')"/>
+       			           <!-- <xsl:value-of select="string('video/quicktime')"/> -->
+       			           <xsl:value-of select="string('video/mp4')"/>       			           
        			       </xsl:when>       			       
       			       <xsl:when test="$fileExtension = 'mp4'">
        			           <xsl:value-of select="string('video/mp4')"/>
@@ -153,7 +153,7 @@
        			           <xsl:value-of select="string('video/quicktime')"/>
        			       </xsl:when>       			              			              			             			       
 		               <xsl:otherwise>
-				           <xsl:text>Unknown</xsl:text>
+				           <xsl:text>TBD</xsl:text>
 				       </xsl:otherwise>
 				   </xsl:choose>
        			</mimeType>
@@ -193,7 +193,11 @@
        			</dateCreated>
        			
        			<!--  Modified Date is only visible via the MediaInfo API. Set in Java code -->
-       			<dateModified />                
+       			<dateModified />
+       			
+       			<!-- The MD5 must be present in the MediaInfo FITS XML so that Ebucore can get it -->
+       			<!-- MD5 is calculated in Java code, so an XML Element placeholder is created by the xslt -->
+       			<filemd5 />               
 		        		        
             </xsl:if>        
             <!-- End General track -->
