@@ -58,6 +58,7 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.FrameRate;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.NormalPlayTime;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Start;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeInteger;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Timecode;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoEncoding;
@@ -1038,9 +1039,100 @@ public class XmlContentConverter {
                             			dataElement.getText().trim()).intValue();
                             	if(currentDuration > duration)
                             		duration = currentDuration;
-                            }                         
-                			
+                            } 
                             
+                            //
+                            // TechnicalAttributeString
+                            // TODO: Use an enum to reduce code and test errors
+                            //
+                            dataElement = elem.getChild ("chromaSubsampling",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeString tas = 
+                        				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+                        		tas.setTypeLabel("chromaSubsampling");
+                        		vfmt.addTechnicalAttributeString(tas);
+                            }
+                            
+                            dataElement = elem.getChild ("colorspace",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeString tas = 
+                        				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+                        		tas.setTypeLabel("colorspace");
+                        		vfmt.addTechnicalAttributeString(tas);
+                            }
+                            
+                            dataElement = elem.getChild ("frameRateMode",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeString tas = 
+                        				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+                        		tas.setTypeLabel("frameRateMode");
+                        		vfmt.addTechnicalAttributeString(tas);
+                            }
+                            
+                            dataElement = elem.getChild ("byteOrder",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeString tas = 
+                        				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+                        		tas.setTypeLabel("byteOrder");
+                        		vfmt.addTechnicalAttributeString(tas);
+                            } 
+                            
+                            dataElement = elem.getChild ("delay",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeString tas = 
+                        				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+                        		tas.setTypeLabel("delay");
+                        		vfmt.addTechnicalAttributeString(tas);
+                            }             
+                			
+                            dataElement = elem.getChild ("compression",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeString tas = 
+                        				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+                        		tas.setTypeLabel("compression");
+                        		vfmt.addTechnicalAttributeString(tas);
+                            }
+                            
+                            //
+                            // TechnicalAttributeInteger
+                            // TODO: Use an enum to reduce code and test errors
+                            //
+                            dataElement = elem.getChild ("streamSize",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeInteger tai = 
+                        				new TechnicalAttributeInteger(new Integer(
+                        						dataElement.getValue().trim()).intValue(), 
+                        						"technicalAttributeInteger");
+                        		tai.setTypeLabel("streamSize");
+                        		vfmt.addTechnicalAttributeInteger(tai);
+                            }
+                            dataElement = elem.getChild ("frameCount",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeInteger tai = 
+                        				new TechnicalAttributeInteger(new Integer(
+                        						dataElement.getValue().trim()).intValue(), 
+                        						"technicalAttributeInteger");
+                        		tai.setTypeLabel("frameCount");
+                        		vfmt.addTechnicalAttributeInteger(tai);
+                            }
+                            dataElement = elem.getChild ("bitDepth",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeInteger tai = 
+                        				new TechnicalAttributeInteger(new Integer(
+                        						dataElement.getValue().trim()).intValue(), 
+                        						"technicalAttributeInteger");
+                        		tai.setTypeLabel("bitDepth");
+                        		vfmt.addTechnicalAttributeInteger(tai);
+                            }
+                            dataElement = elem.getChild ("duration",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeInteger tai = 
+                        				new TechnicalAttributeInteger(new Integer(
+                        						dataElement.getValue().trim()).intValue(), 
+                        						"technicalAttributeInteger");
+                        		tai.setTypeLabel("duration");
+                        		vfmt.addTechnicalAttributeInteger(tai);
+                            }
                             // Add the audio format object to the list
                             ebucoreModel.format.addVideoFormat(vfmt);
                             
@@ -1124,6 +1216,65 @@ public class XmlContentConverter {
                             		duration = currentDuration;
                             }
                             
+                            //
+                            // TechnicalAttributeString
+                            // TODO: Use an enum to reduce code and test errors
+                            //
+                            dataElement = elem.getChild ("byteOrder",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeString tas = 
+                        				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+                        		tas.setTypeLabel("byteOrder");
+                        		afmt.addTechnicalAttributeString(tas);
+                            } 
+                            
+                            dataElement = elem.getChild ("delay",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeString tas = 
+                        				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+                        		tas.setTypeLabel("delay");
+                        		afmt.addTechnicalAttributeString(tas);
+                            }             
+                			
+                            dataElement = elem.getChild ("compression",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeString tas = 
+                        				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+                        		tas.setTypeLabel("compression");
+                        		afmt.addTechnicalAttributeString(tas);
+                            }
+                            
+                            //
+                            // TechnicalAttributeInteger
+                            // TODO: Use an enum to reduce code and test errors
+                            //
+                            dataElement = elem.getChild ("trackSize",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeInteger tai = 
+                        				new TechnicalAttributeInteger(new Integer(
+                        						dataElement.getValue().trim()).intValue(), 
+                        						"technicalAttributeInteger");
+                        		tai.setTypeLabel("streamSize");
+                        		afmt.addTechnicalAttributeInteger(tai);
+                            }
+                            dataElement = elem.getChild ("numSamples",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeInteger tai = 
+                        				new TechnicalAttributeInteger(new Integer(
+                        						dataElement.getValue().trim()).intValue(), 
+                        						"technicalAttributeInteger");
+                        		tai.setTypeLabel("sampleCount");
+                        		afmt.addTechnicalAttributeInteger(tai);
+                            }
+                            dataElement = elem.getChild ("duration",ns) ;
+                            if(dataElement != null) {
+                        		TechnicalAttributeInteger tai = 
+                        				new TechnicalAttributeInteger(new Integer(
+                        						dataElement.getValue().trim()).intValue(), 
+                        						"technicalAttributeInteger");
+                        		tai.setTypeLabel("duration");
+                        		afmt.addTechnicalAttributeInteger(tai);
+                            }                            
                             
                             // Add the audio format object to the list
                             ebucoreModel.format.addAudioFormat(afmt);
