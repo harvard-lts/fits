@@ -217,8 +217,6 @@
        				    <xsl:value-of select="$codecID"/>			    
        			    </videoDataEncoding>
 
-                    <!-- TODO: finish -->
-                    <!-- TODO: What are other compression checks when compression is missing -->
                     <compression>      			           			    
                     <xsl:choose> 
                         <xsl:when test="./Compression_mode">
@@ -226,9 +224,27 @@
                         </xsl:when>	        
 				        <xsl:otherwise>
 				            <xsl:choose>
-				                <xsl:when test="$codecID='apch'">
-				                    <xsl:text>Lossy</xsl:text>
+				                <xsl:when test="$codecID='2vuy'">
+				                    <xsl:text>Lossless</xsl:text>
+				                </xsl:when>
+				                <xsl:when test="$codecID='v210'">
+				                    <xsl:text>Lossless</xsl:text>
+				                </xsl:when>	                
+                                <xsl:when test="$codecID='apch'">
+					                <xsl:text>Lossy</xsl:text>             				        
+				                </xsl:when>
+                                <xsl:when test="$codecID='avc1'">
+					                <xsl:text>Unknown</xsl:text>             				        
+				                </xsl:when>
+                                <xsl:when test="$codecID='dvc'">
+					                <xsl:text>Lossy</xsl:text>             				        
+				                </xsl:when>
+                                <xsl:when test="$codecID='dv5n'">
+					                <xsl:text>Lossy</xsl:text>             				        
 				                </xsl:when>	
+                                <xsl:when test="$codecID='JPEG 2000'">
+					                <xsl:text>Lossless</xsl:text>             				        
+				                </xsl:when>
 				                <xsl:otherwise>
 				                    <xsl:text>Unknown</xsl:text>
 				                </xsl:otherwise>
@@ -237,8 +253,6 @@
                     </xsl:choose>
                     </compression>
                     
-                    <!-- TODO: finish -->
-                    <!-- TODO: Add more encoding types -->
                     <byteOrder>      			           			    
                     <xsl:choose> 
                         <xsl:when test="./Byte_order">
@@ -249,6 +263,9 @@
 				                <xsl:when test="$codecID='2vuy'">
 				                    <xsl:text>Unknown</xsl:text>
 				                </xsl:when>
+				                <xsl:when test="$codecID='v210'">
+				                    <xsl:text>Unknown</xsl:text>
+				                </xsl:when>				                				                
                                 <xsl:when test="$codecID='apch'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
@@ -273,13 +290,18 @@
                     </byteOrder>    
            
                     <!-- TODO: finish -->
-                    <!-- TODO: Add more encoding types -->
+                    <!-- <xsl:value-of select="./bitDepth"/> -->
  			        <xsl:choose>          
                         <xsl:when test="$codecID='2vuy'">
 			                <bitDepth>
 			                    <xsl:text>8</xsl:text>
 			                </bitDepth>                				        
 				        </xsl:when>
+				        <xsl:when test="$codecID='v210'">
+			                <bitDepth>
+			                    <xsl:text>8</xsl:text>
+			                </bitDepth>                				        
+				        </xsl:when>				        
                         <xsl:when test="$codecID='avc1'">
 			                <bitDepth>
 			                    <xsl:text>8</xsl:text>
@@ -350,9 +372,7 @@
 			        <bitRateMax>
 			            <xsl:value-of select="./BitRate_Maximum"/>
                     </bitRateMax>			        			        
-			        
-			        <!-- TODO: How do we determine none, constant, or variable if not returned by MediaInfo ? -->
-			        <!-- Bit Rate Mode should be there -->
+
 			        <bitRateMode>
        				    <xsl:value-of select="./Bit_rate_mode"/>
 			        </bitRateMode>
@@ -527,7 +547,7 @@
                     </channels>
                     
                     <!-- TODO -->
-                    <!-- where does this come from  -->
+                    <!-- This is calculated in Java, based upon the soundField  -->
                     <channelInfo />
 
                     <byteOrder>
