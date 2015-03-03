@@ -246,7 +246,7 @@
                         </xsl:when>	        
 				        <xsl:otherwise>
 				            <xsl:choose> 
-				                <xsl:when test="$codecID='2Vuy'">
+				                <xsl:when test="$codecID='2vuy'">
 				                    <xsl:text>Unknown</xsl:text>
 				                </xsl:when>
                                 <xsl:when test="$codecID='apch'">
@@ -275,7 +275,7 @@
                     <!-- TODO: finish -->
                     <!-- TODO: Add more encoding types -->
  			        <xsl:choose>          
-                        <xsl:when test="$codecID='2Vuy'">
+                        <xsl:when test="$codecID='2vuy'">
 			                <bitDepth>
 			                    <xsl:text>8</xsl:text>
 			                </bitDepth>                				        
@@ -352,6 +352,7 @@
                     </bitRateMax>			        			        
 			        
 			        <!-- TODO: How do we determine none, constant, or variable if not returned by MediaInfo ? -->
+			        <!-- Bit Rate Mode should be there -->
 			        <bitRateMode>
        				    <xsl:value-of select="./Bit_rate_mode"/>
 			        </bitRateMode>
@@ -400,8 +401,7 @@
        			    <aspectRatio>
        			        <xsl:value-of select="./Display_aspect_ratio"/>
        			    </aspectRatio>      			    
-       			    
-       			    <!-- TODO: finish -->
+
        			    <!-- If Scanning Format is NOT present, use encoding to determine the value -->			    
        			    <scanningFormat>
 		                <xsl:choose>
@@ -410,24 +410,23 @@
 				            </xsl:when>			        
 				            <xsl:otherwise>
 				                <xsl:choose> 
-				                    <xsl:when test="$codecID='2Vuy'">
+				                    <xsl:when test="$codecID='2vuy'">
 				                        <xsl:text>Progressive</xsl:text>
 				                    </xsl:when>
 				                    <xsl:when test="$codecID='v210'">
 				                        <xsl:text>Progressive</xsl:text>
 				                    </xsl:when>				                
                                     <xsl:when test="$codecID='apch'">
-					                    <xsl:text>Unknown</xsl:text>             				        
+					                    <xsl:text>Interlaced</xsl:text>             				        
 				                    </xsl:when>
                                     <xsl:when test="$codecID='avc1'">
-                                        <!-- is the below correct ??? -->
 					                    <xsl:text>Progressive</xsl:text>             				        
 				                    </xsl:when>
                                     <xsl:when test="$codecID='dvc'">
-					                    <xsl:text>Unknown</xsl:text>             				        
+					                    <xsl:text>Interlaced</xsl:text>             				        
 				                    </xsl:when>
                                     <xsl:when test="$codecID='dv5n'">
-					                    <xsl:text>Unknown</xsl:text>             				        
+					                    <xsl:text>Interlaced</xsl:text>             				        
 				                    </xsl:when>	
                                     <xsl:when test="$codecID='JPEG 2000'">
 					                    <xsl:text>Interlaced</xsl:text>             				        
