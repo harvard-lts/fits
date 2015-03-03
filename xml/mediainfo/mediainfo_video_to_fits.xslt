@@ -224,7 +224,7 @@
                         </xsl:when>	        
 				        <xsl:otherwise>
 				            <xsl:choose>
-				                <xsl:when test="$codecID='2vuy'">
+				                <xsl:when test="$codecID='2Vuy'">
 				                    <xsl:text>Lossless</xsl:text>
 				                </xsl:when>
 				                <xsl:when test="$codecID='v210'">
@@ -242,7 +242,7 @@
                                 <xsl:when test="$codecID='dv5n'">
 					                <xsl:text>Lossy</xsl:text>             				        
 				                </xsl:when>	
-                                <xsl:when test="$codecID='JPEG 2000'">
+                                <xsl:when test="$codecID='mjp2'">
 					                <xsl:text>Lossless</xsl:text>             				        
 				                </xsl:when>
 				                <xsl:otherwise>
@@ -260,7 +260,7 @@
                         </xsl:when>	        
 				        <xsl:otherwise>
 				            <xsl:choose> 
-				                <xsl:when test="$codecID='2vuy'">
+				                <xsl:when test="$codecID='2Vuy'">
 				                    <xsl:text>Unknown</xsl:text>
 				                </xsl:when>
 				                <xsl:when test="$codecID='v210'">
@@ -278,7 +278,7 @@
                                 <xsl:when test="$codecID='dv5n'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>	
-                                <xsl:when test="$codecID='JPEG 2000'">
+                                <xsl:when test="$codecID='mjp2'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>				            			            			            				            				            
 				                <xsl:otherwise>
@@ -287,72 +287,43 @@
 				            </xsl:choose>
                         </xsl:otherwise>                
                     </xsl:choose>
-                    </byteOrder>    
-           
-                    <!-- TODO: finish -->
-                    <!-- <xsl:value-of select="./bitDepth"/> -->
- 			        <xsl:choose>          
-                        <xsl:when test="$codecID='2vuy'">
-			                <bitDepth>
-			                    <xsl:text>8</xsl:text>
-			                </bitDepth>                				        
-				        </xsl:when>
-				        <xsl:when test="$codecID='v210'">
-			                <bitDepth>
-			                    <xsl:text>8</xsl:text>
-			                </bitDepth>                				        
-				        </xsl:when>				        
-                        <xsl:when test="$codecID='avc1'">
-			                <bitDepth>
-			                    <xsl:text>8</xsl:text>
-			                </bitDepth>                				        
-				        </xsl:when>
-                        <xsl:when test="$codecID='dvc'">
-			                <bitDepth>
-			                    <xsl:text>8</xsl:text>
-			                </bitDepth>                				        
-				        </xsl:when>
-                        <xsl:when test="$codecID='mjp2'">
-			                <bitDepth>
-			                    <xsl:text>8</xsl:text>
-			                </bitDepth>                				        
-				        </xsl:when>				        				        			        
-                        <xsl:when test="$codecID='apch'">
-			                <bitDepth>
-			                    <xsl:text>10</xsl:text>
-			                </bitDepth>                				        
-				        </xsl:when>
-                        <xsl:when test="$codecID='apcs'">
-			                <bitDepth>
-			                    <xsl:text>10</xsl:text>
-			                </bitDepth>                				        
-				        </xsl:when>
-                        <xsl:when test="$codecID='apcn'">
-			                <bitDepth>
-			                    <xsl:text>10</xsl:text>
-			                </bitDepth>                				        
-				        </xsl:when>
-                        <xsl:when test="$codecID='apco'">
-			                <bitDepth>
-			                    <xsl:text>10</xsl:text>
-			                </bitDepth>                				        
-				        </xsl:when>
-                        <xsl:when test="$codecID='ap4h'">
-			                <bitDepth>
-			                    <xsl:text>10</xsl:text>
-			                </bitDepth>                				        
-				        </xsl:when>
-                        <xsl:when test="$codecID='v210'">
-			                <bitDepth>
-			                    <xsl:text>10</xsl:text>
-			                </bitDepth>                				        
-				        </xsl:when>					        			        			        		        
+                    </byteOrder>
+            
+                    <bitDepth>     			           			    
+                    <xsl:choose> 
+                        <xsl:when test="./Bit_depth">
+                            <xsl:value-of select="./Bit_depth"/>
+                        </xsl:when>	        
 				        <xsl:otherwise>
-			                <bitDepth>
-       				            <xsl:text>8</xsl:text>
-			                </bitDepth>		                						    
-				        </xsl:otherwise>			            
- 		            </xsl:choose>                
+				            <xsl:choose> 
+                                <xsl:when test="$codecID='2Vuy'">
+			                        <xsl:text>8 bits</xsl:text>            				        
+				                </xsl:when>
+				                <xsl:when test="$codecID='v210'">
+			                        <xsl:text>10 bits</xsl:text>             				        
+				                </xsl:when>
+                                <xsl:when test="$codecID='apch'">
+			                        <xsl:text>10 bits</xsl:text>                				        
+				                </xsl:when>				                			        
+                                <xsl:when test="$codecID='avc1'">
+			                        <xsl:text>8 bits</xsl:text>              				        
+				                </xsl:when>
+                                <xsl:when test="$codecID='dvc'">
+			                        <xsl:text>8 bits</xsl:text>             				        
+				                </xsl:when>		        				        			        
+                                 <xsl:when test="$codecID='dv5n'">
+					                <xsl:text>8 bits</xsl:text>             				        
+				                </xsl:when>
+                                <xsl:when test="$codecID='mjp2'">
+					                <xsl:text>8 bits</xsl:text>             				        
+				                </xsl:when>				                				        		        
+				                <xsl:otherwise>
+       				                <xsl:text>8 bits</xsl:text>                						    
+				                </xsl:otherwise>
+				            </xsl:choose>
+                        </xsl:otherwise>                
+                    </xsl:choose>
+                    </bitDepth>               
 			        
 			        <!-- TODO: finish -->
 			        <!-- NOTE: Bit_Rate_Max does NOT appear to be present -->
@@ -430,7 +401,7 @@
 				            </xsl:when>			        
 				            <xsl:otherwise>
 				                <xsl:choose> 
-				                    <xsl:when test="$codecID='2vuy'">
+				                    <xsl:when test="$codecID='2Vuy'">
 				                        <xsl:text>Progressive</xsl:text>
 				                    </xsl:when>
 				                    <xsl:when test="$codecID='v210'">
@@ -448,7 +419,7 @@
                                     <xsl:when test="$codecID='dv5n'">
 					                    <xsl:text>Interlaced</xsl:text>             				        
 				                    </xsl:when>	
-                                    <xsl:when test="$codecID='JPEG 2000'">
+                                    <xsl:when test="$codecID='mjp2'">
 					                    <xsl:text>Interlaced</xsl:text>             				        
 				                    </xsl:when>				            			            			            				            				            
 				                    <xsl:otherwise>
