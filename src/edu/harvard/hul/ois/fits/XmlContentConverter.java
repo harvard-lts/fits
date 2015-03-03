@@ -32,7 +32,6 @@ package edu.harvard.hul.ois.fits;
 import java.io.File;
 import java.text.ParseException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -1377,13 +1376,7 @@ public class XmlContentConverter {
             
             }  // for(Element elem : trackList)
             
-            
-            //// Convert the duration milliseconds to the seconds format
-            //// of PT + number_of_seconds + S            
-        	//// String formattedDuration = millisecondsToDuration(duration);
-        	//NormalPlayTime npt = new NormalPlayTime("normalPlayTime");
-        	//npt.setText(millisecondsToDuration(duration));
-        	//ebucoreModel.duration.setNormalPlayTime(npt);
+            // Create Duration::Duration
             DurationInner di = new DurationInner(duration+"");
             ebucoreModel.duration.setDuration(di);            
 			
@@ -1467,75 +1460,7 @@ public class XmlContentConverter {
         
         
         return ebucoreModel.ebucoreMain;
-    }
- 
-// Notes on duration format:
-// http://www.w3schools.com/schema/schema_dtypes_date.asp
-//
-//    Duration Data Type
-//
-//    The duration data type is used to specify a time interval.
-//
-//    The time interval is specified in the following form "PnYnMnDTnHnMnS" where:
-//
-//        P indicates the period (required)
-//        nY indicates the number of years
-//        nM indicates the number of months
-//        nD indicates the number of days
-//        T indicates the start of a time section (required if you are going to specify hours, minutes, or seconds)
-//        nH indicates the number of hours
-//        nM indicates the number of minutes
-//        nS indicates the number of seconds
-//    
-    private static String millisecondsToDuration(int millis) {
-    	
-    	
-    	
-    	// final double MILLI_IN_A_SECOND = 1000.000; // Note decimal place to keep precision
-    	
-    	// Should we use org.apache.commons.lang.time.DurationFormatUtils
-    	
-    	long hours = TimeUnit.MILLISECONDS.toHours(millis);
-    	long minutes = TimeUnit.MILLISECONDS.toMinutes(millis) -  
-    			TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis));
-    	long seconds = TimeUnit.MILLISECONDS.toSeconds(millis) - 
-    			TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis));
-    	long mill = TimeUnit.MILLISECONDS.toMillis(millis) - 
-    			TimeUnit.SECONDS.toMillis(TimeUnit.MILLISECONDS.toSeconds(millis));
-    	
-    	
-
-    	// TODO: Is StringBuffer good enough?
-    	StringBuffer duration = new StringBuffer("PT");			
-    	if(hours>0) {
-    		duration.append(hours + "H");
-    	}
-    	if(minutes > 0) {
-    		duration.append(minutes + "M");
-    	}
-    	if(seconds>0)
-    		duration.append(seconds);
-    	if(mill>0) {
-    		// TODO: Preserver leading 0 as in in 0.65
-    		duration.append("." + mill );
-    	}
-    	duration.append("S");
-
-    	return duration.toString();
-			
-    	//double playTimeDuration = millis / MILLI_IN_A_SECOND;
-    	//return "PT" + playTimeDuration + "S";    	
-    	
-//        final int MINUTES_IN_AN_HOUR = 60;
-//        final int SECONDS_IN_A_MINUTE = 60;
-//
-//        int seconds = totalSeconds % SECONDS_IN_A_MINUTE;
-//        int totalMinutes = totalSeconds / SECONDS_IN_A_MINUTE;
-//        int minutes = totalMinutes % MINUTES_IN_AN_HOUR;
-//        int hours = totalMinutes / MINUTES_IN_AN_HOUR;
-//
-//        return hours + " hours " + minutes + " minutes " + seconds + " seconds";
-    }	
+    } 
     
     /* an enumeration for mapping symbols to FITS video element names */
     public enum VideoElement {
