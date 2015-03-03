@@ -56,7 +56,6 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.DateTime;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.DurationInner;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.FrameRate;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.NormalPlayTime;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Start;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeInteger;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
@@ -1100,8 +1099,8 @@ public class XmlContentConverter {
                             dataElement = elem.getChild ("streamSize",ns) ;
                             if(dataElement != null) {
                         		TechnicalAttributeInteger tai = 
-                        				new TechnicalAttributeInteger(new Integer(
-                        						dataElement.getValue().trim()).intValue(), 
+                        				new TechnicalAttributeInteger(Integer.
+                        						parseInt(dataElement.getValue().trim()), 
                         						"technicalAttributeInteger");
                         		tai.setTypeLabel("streamSize");
                         		vfmt.addTechnicalAttributeInteger(tai);
@@ -1109,17 +1108,21 @@ public class XmlContentConverter {
                             dataElement = elem.getChild ("frameCount",ns) ;
                             if(dataElement != null) {
                         		TechnicalAttributeInteger tai = 
-                        				new TechnicalAttributeInteger(new Integer(
-                        						dataElement.getValue().trim()).intValue(), 
+                        				new TechnicalAttributeInteger(Integer.
+                        						parseInt(dataElement.getValue().trim()), 
                         						"technicalAttributeInteger");
                         		tai.setTypeLabel("frameCount");
                         		vfmt.addTechnicalAttributeInteger(tai);
                             }
                             dataElement = elem.getChild ("bitDepth",ns) ;
                             if(dataElement != null) {
+                        		// the string might have bits, at the end, so 
+                            	// we need to remove it
+                        		String[] parts = dataElement.getValue().trim().
+                        				split(" ");
                         		TechnicalAttributeInteger tai = 
-                        				new TechnicalAttributeInteger(new Integer(
-                        						dataElement.getValue().trim()).intValue(), 
+                        				new TechnicalAttributeInteger(Integer.
+                        						parseInt(parts[0]), 
                         						"technicalAttributeInteger");
                         		tai.setTypeLabel("bitDepth");
                         		vfmt.addTechnicalAttributeInteger(tai);
@@ -1127,8 +1130,8 @@ public class XmlContentConverter {
                             dataElement = elem.getChild ("duration",ns) ;
                             if(dataElement != null) {
                         		TechnicalAttributeInteger tai = 
-                        				new TechnicalAttributeInteger(new Integer(
-                        						dataElement.getValue().trim()).intValue(), 
+                        				new TechnicalAttributeInteger(Integer.
+                        						parseInt(dataElement.getValue().trim()), 
                         						"technicalAttributeInteger");
                         		tai.setTypeLabel("duration");
                         		vfmt.addTechnicalAttributeInteger(tai);
@@ -1251,8 +1254,8 @@ public class XmlContentConverter {
                             dataElement = elem.getChild ("trackSize",ns) ;
                             if(dataElement != null) {
                         		TechnicalAttributeInteger tai = 
-                        				new TechnicalAttributeInteger(new Integer(
-                        						dataElement.getValue().trim()).intValue(), 
+                        				new TechnicalAttributeInteger(Integer.
+                        						parseInt(dataElement.getValue().trim()), 
                         						"technicalAttributeInteger");
                         		tai.setTypeLabel("streamSize");
                         		afmt.addTechnicalAttributeInteger(tai);
@@ -1260,8 +1263,8 @@ public class XmlContentConverter {
                             dataElement = elem.getChild ("numSamples",ns) ;
                             if(dataElement != null) {
                         		TechnicalAttributeInteger tai = 
-                        				new TechnicalAttributeInteger(new Integer(
-                        						dataElement.getValue().trim()).intValue(), 
+                        				new TechnicalAttributeInteger(Integer.
+                        						parseInt(dataElement.getValue().trim()), 
                         						"technicalAttributeInteger");
                         		tai.setTypeLabel("sampleCount");
                         		afmt.addTechnicalAttributeInteger(tai);
@@ -1269,8 +1272,8 @@ public class XmlContentConverter {
                             dataElement = elem.getChild ("duration",ns) ;
                             if(dataElement != null) {
                         		TechnicalAttributeInteger tai = 
-                        				new TechnicalAttributeInteger(new Integer(
-                        						dataElement.getValue().trim()).intValue(), 
+                        				new TechnicalAttributeInteger(Integer.
+                        						parseInt(dataElement.getValue().trim()), 
                         						"technicalAttributeInteger");
                         		tai.setTypeLabel("duration");
                         		afmt.addTechnicalAttributeInteger(tai);
