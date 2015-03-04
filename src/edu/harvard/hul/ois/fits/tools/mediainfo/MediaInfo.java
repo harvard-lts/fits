@@ -224,6 +224,14 @@ public class MediaInfo extends ToolBase {
 	    		"Duration", MediaInfoNativeWrapper.InfoKind.Text,
 	    		MediaInfoNativeWrapper.InfoKind.Name);
 	    
+	    //
+	    // TODO: bitRate_Maximum never seems to appear in MediaInfo
+	    // in the general section
+	    //
+	    //String generalBitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    //		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
+	    //		MediaInfoNativeWrapper.InfoKind.Name);
+	    
 //	    // TODO: Use MediaInfo to generate the mime type
 //	    // MIME Information:
 //	    // InternetMediaType : Internet Media Type (aka MIME Type, Content-Type)
@@ -364,21 +372,55 @@ public class MediaInfo extends ToolBase {
 		    		MediaInfoNativeWrapper.InfoKind.Name);
 		    addDataToMap(videoTrackValuesMap, id, "bitRate", bitRate);
 		    
-		    
+		    //
+		    // TODO: bitRate_Maximum never seems to appear in MediaInfo
+		    // in the video section
+		    //
+		    // bitRateMax and bitRateMode, are both used to update
+		    // bitRate, when bitRateMode is variable (VBR)
+		    //
 		    String bitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
 		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    
 		    addDataToMap(videoTrackValuesMap, id, "bitRateMax", bitRateMax);
+		    
+		    String bitRateMode = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"BitRate_Mode", MediaInfoNativeWrapper.InfoKind.Text,
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(videoTrackValuesMap, id, "bitRateMode", bitRateMode);
+		    
+		    // ----------------------------------------------------------------
 		    
 		    String trackSize = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"StreamSize", MediaInfoNativeWrapper.InfoKind.Text, 		    		
 		    		MediaInfoNativeWrapper.InfoKind.Name);
 		    addDataToMap(videoTrackValuesMap, id, "trackSize", trackSize);
 		    
+		    //
+		    // TODO: frameRate_Maximum never seems to appear in MediaInfo
+		    // in the video section
+		    //
+		    // frameRateMax and frameRateMode, are both used to update
+		    // frameRate, when frameRateMode is variable (VFR)
+		    //
+		    String frameRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"FrameRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    
+		    addDataToMap(videoTrackValuesMap, id, "frameRateMax", frameRateMax);
+		    
+		    String frameRateMode = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    		"FrameRate_Mode", MediaInfoNativeWrapper.InfoKind.Text,
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(videoTrackValuesMap, id, "frameRateMode", frameRateMode);
+		    
 		    String frameRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"FrameRate", MediaInfoNativeWrapper.InfoKind.Text, 		    		
 		    		MediaInfoNativeWrapper.InfoKind.Name);
 		    addDataToMap(videoTrackValuesMap, id, "frameRate", frameRate);
+		    
+		    // ----------------------------------------------------------------			    
 		    
 		    // NOTE:
 		    // formatProfile goes in the FITS XML general section, but
@@ -578,20 +620,35 @@ public class MediaInfo extends ToolBase {
 		    				}
 
 		    				// bitRate
+		    				// 1) correct format
+		    				// 2) set to bitRateMax, if mode is variable
 		    				if(childElement.getName().equals("bitRate")) {
-		    					String bitRate = videoTrackValuesMap.get(id).get("bitRate");
-		    					if(bitRate != null && bitRate.length() > 0) {
-		    						childElement.setText(bitRate);
-		    					}			    					
-		    				}
-		    				
-		    				// bitRate
-		    				if(childElement.getName().equals("bitRateMax")) {
-		    					String bitRateMax = videoTrackValuesMap.get(id).get("bitRateMax");
-		    					if(bitRateMax != null && bitRateMax.length() > 0) {
-		    						childElement.setText(bitRateMax);
-		    					}			    					
-		    				}		    				
+			    				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+			    				// BitRateMax
+		    					String bitRateMode = videoTrackValuesMap.get(id).get("bitRateMode");
+		    					if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+			    					String bitRateMax = videoTrackValuesMap.get(id).get("bitRateMax");
+			    					if(!StringUtils.isEmpty(bitRateMax)) {
+			    						childElement.setText(bitRateMax);
+			    					}
+			    					// NOTE: Since I have never seen bitRateMax being set, we need a backup value
+			    					else {
+				    					String bitRate = videoTrackValuesMap.get(id).get("bitRate");
+				    					if(bitRate != null && bitRate.length() > 0) {
+				    						childElement.setText(bitRate);
+				    					}
+			    					}
+			    					
+		    					}
+		    					// Otherwise, just update it if we need to
+		    					else {
+			    					String bitRate = videoTrackValuesMap.get(id).get("bitRate");
+			    					if(bitRate != null && bitRate.length() > 0) {
+			    						childElement.setText(bitRate);
+			    					}		    						
+		    					}
+			    					
+		    				} // bitRate				
 
 		    				// duration - correct format
 		    				if(childElement.getName().equals("duration")) {
@@ -609,12 +666,35 @@ public class MediaInfo extends ToolBase {
 		    					}			    					
 		    				}
 		    				
-		    				// frameRate - correct format
+		    				// frameRate
+		    				// 1) correct format
+		    				// 2) set to frameRateMax, if mode is variable
 		    				if(childElement.getName().equals("frameRate")) {
-		    					String frameRate = videoTrackValuesMap.get(id).get("frameRate");
-		    					if(frameRate != null && frameRate.length() > 0) {
-		    						childElement.setText(frameRate);
-		    					}			    					
+			    				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+			    				// BitRateMax
+		    					String frameRateMode = videoTrackValuesMap.get(id).get("frameRateMode");
+		    					if(!StringUtils.isEmpty(frameRateMode) && frameRateMode.toUpperCase().equals("VFR")) {
+			    					String frameRateMax = videoTrackValuesMap.get(id).get("frameRateMax");
+			    					if(!StringUtils.isEmpty(frameRateMax)) {
+			    						childElement.setText(frameRateMax);
+			    					}
+			    					// NOTE: Since I have never seen frameRateMax being set, we need a backup value
+			    					else {
+				    					String frameRate = videoTrackValuesMap.get(id).get("frameRate");
+				    					if(frameRate != null && frameRate.length() > 0) {
+				    						childElement.setText(frameRate);
+				    					}
+			    					}
+			    					
+		    					}
+		    					// Otherwise, just update it if we need to
+		    					else {
+			    					String frameRate = videoTrackValuesMap.get(id).get("frameRate");
+			    					if(frameRate != null && frameRate.length() > 0) {
+			    						childElement.setText(frameRate);
+			    					}		    						
+		    					}
+			    					
 		    				}		    				
 
 		    			} // childElement

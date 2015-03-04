@@ -324,25 +324,13 @@
                         </xsl:otherwise>                
                     </xsl:choose>
                     </bitDepth>               
-			        
-			        <!-- TODO: finish -->
-			        <!-- NOTE: Bit_Rate_Max does NOT appear to be present -->
-			        <!-- What do we do if bitRateMode not returned bu MediaInfo? -->
-                    <xsl:variable name="bitRateMode" select="./Bit_rate_mode"/>
-			        <bitRate>               
- 			            <xsl:choose>
- 				            <xsl:when test="$bitRateMode='Variable'">
-					            <xsl:value-of select="./Bit_rate_max"/>
-				            </xsl:when>			        
-				            <xsl:otherwise>
-					            <xsl:value-of select="./Bit_rate"/>
-				            </xsl:otherwise>
-				        </xsl:choose>
-			        </bitRate>
-			        
-			        <bitRateMax>
-			            <xsl:value-of select="./BitRate_Maximum"/>
-                    </bitRateMax>			        			        
+
+			        <!-- If the bitRateMode is Variable (VBR), we need to -->
+			        <!-- set bitRate to the value for  bitRateMax. -->
+			        <!-- This is handled in Java code -->
+			        <bitRate>
+					    <xsl:value-of select="./Bit_rate"/>
+			        </bitRate>		        			        
 
 			        <bitRateMode>
        				    <xsl:value-of select="./Bit_rate_mode"/>
@@ -367,19 +355,11 @@
        				    <xsl:value-of select="./Height"/>
 			        </height>
 			        
-			        <!-- TODO: finish -->
-			        <!-- NOTE: Frame_Rate_max does NOT appear to be present -->
-                    <xsl:variable name="frameRateMode" select="./Frame_rate_mode"/>
-                    <!-- duration format is revised in java code -->
-			        <frameRate>               
- 			            <xsl:choose>
- 				            <xsl:when test="$frameRateMode='Variable'">
-					            <xsl:value-of select="./Frame_rate_max"/>
-				            </xsl:when>			        
-				            <xsl:otherwise>
-					            <xsl:value-of select="./Frame_rate"/>
-				            </xsl:otherwise>
-				        </xsl:choose>
+			        <!-- If the frameRateMode is Variable (VFR), we need to -->
+			        <!-- set frameRate to the value for  frameRateMax. -->
+			        <!-- This is handled in Java code -->
+			        <frameRate>
+					    <xsl:value-of select="./Frame_rate"/>
 			        </frameRate>			        
 
        			    <frameRateMode>
