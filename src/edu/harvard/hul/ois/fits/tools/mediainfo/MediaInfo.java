@@ -312,6 +312,26 @@ public class MediaInfo extends ToolBase {
 		    		MediaInfoNativeWrapper.InfoKind.Name);
 		    addDataToMap(audioTrackValuesMap, id, "bitRate", bitRate);
 		    
+		    //
+		    // TODO: bitRate_Maximum never seems to appear in MediaInfo
+		    // in the video section
+		    //
+		    // bitRateMax and bitRateMode, are both used to update
+		    // bitRate, when bitRateMode is variable (VBR)
+		    //
+		    String bitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    
+		    addDataToMap(audioTrackValuesMap, id, "bitRateMax", bitRateMax);
+		    
+		    String bitRateMode = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"BitRate_Mode", MediaInfoNativeWrapper.InfoKind.Text,
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(audioTrackValuesMap, id, "bitRateMode", bitRateMode);
+		    
+		    // ----------------------------------------------------------------
+		    
 		    String duration = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
 		    		"Duration", MediaInfoNativeWrapper.InfoKind.Text, 
 		    		MediaInfoNativeWrapper.InfoKind.Name);
@@ -723,12 +743,36 @@ public class MediaInfo extends ToolBase {
 		    				}
 
 		    				// bitRate
+		    				// 1) correct format
+		    				// 2) set to bitRateMax, if mode is variable
 		    				if(childElement.getName().equals("bitRate")) {
-		    					String bitRate = audioTrackValuesMap.get(id).get("bitRate");
-		    					if(bitRate != null && bitRate.length() > 0) {
-		    						childElement.setText(bitRate);
-		    					}			    					
-		    				}			    				
+			    				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+			    				// BitRateMax
+		    					String bitRateMode = audioTrackValuesMap.get(id).get("bitRateMode");
+		    					if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+			    					String bitRateMax = audioTrackValuesMap.get(id).get("bitRateMax");
+			    					if(!StringUtils.isEmpty(bitRateMax)) {
+			    						childElement.setText(bitRateMax);
+			    					}
+			    					// NOTE: Since I have never seen bitRateMax being set, we need a backup value
+			    					else {
+				    					String bitRate = audioTrackValuesMap.get(id).get("bitRate");
+				    					if(bitRate != null && bitRate.length() > 0) {
+				    						childElement.setText(bitRate);
+				    					}
+			    					}
+			    					
+		    					}
+		    					// Otherwise, just update it if we need to
+		    					else {
+			    					String bitRate = audioTrackValuesMap.get(id).get("bitRate");
+			    					if(bitRate != null && bitRate.length() > 0) {
+			    						childElement.setText(bitRate);
+			    					}		    						
+		    					}
+			    					
+		    				} // bitRate
+		    				
 
 		    				// duration
 		    				if(childElement.getName().equals("duration")) {

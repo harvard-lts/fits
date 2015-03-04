@@ -1185,7 +1185,7 @@ public class XmlContentConverter {
                             }
                             
                             dataElement = elem.getChild ("bitRateMode",ns);
-                            if(dataElement != null) {
+                            if(dataElement != null && !StringUtils.isEmpty(dataElement.getValue().trim())) {
                        			afmt.setBitRateMode(
                                 		dataElement.getValue().trim().toLowerCase());
                             }                            
@@ -1251,7 +1251,7 @@ public class XmlContentConverter {
                             // TODO: Use an enum to reduce code and test errors
                             //
                             dataElement = elem.getChild ("trackSize",ns) ;
-                            if(dataElement != null) {
+                            if(dataElement != null && !StringUtils.isEmpty(dataElement.getValue().trim())) {
                         		TechnicalAttributeInteger tai = 
                         				new TechnicalAttributeInteger(Integer.
                         						parseInt(dataElement.getValue().trim()), 

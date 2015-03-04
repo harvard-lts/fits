@@ -444,25 +444,18 @@
 				        </xsl:choose>				            
                     </compression>
 	           
+			        <!-- If the bitRateMode is Variable (VBR), we need to -->
+			        <!-- set bitRate to the value for  bitRateMax. -->
+			        <!-- This is handled in Java code -->	           
 			        <bitRate>
        				    <xsl:value-of select="./Bit_rate"/>
 			        </bitRate>       			
        			
-       			    <!-- TODO: How do we determine none, constant, or variable if not returned by MediaInfo ? -->
-			        <!-- Right now, I am defaulting to constant -->
+       			    <!-- TODO: Sometimes this is NOT returned in multi-track scenarios -->
+       			    <!-- Should it be defaulted? -->
 			        <bitRateMode>
-       				    <!-- <xsl:value-of select="./Bit_rate_mode"/> -->
-		                <xsl:choose>
- 				            <xsl:when test="./Bit_rate_mode">
-                                <xsl:value-of select="./Bit_rate_mode"/>
-				            </xsl:when>			        
-				            <xsl:otherwise>
-				                <xsl:text>constant</xsl:text>
-				            </xsl:otherwise>
-				        </xsl:choose>        				    
-       				    
-       				    
-			        </bitRateMode>	
+                        <xsl:value-of select="./Bit_rate_mode"/>
+			        </bitRateMode>
 			        
 			        <bitDepth>
 			            <xsl:value-of select="./Bit_depth"/>
