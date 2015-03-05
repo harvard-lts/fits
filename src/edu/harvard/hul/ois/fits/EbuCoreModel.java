@@ -57,7 +57,7 @@ public class EbuCoreModel {
 
         containerFormat = new ContainerFormat();
         
-        duration = new Duration("duration");	
+        duration = new Duration();	
 		
 		format = new Format("format");
 		format.setContainerFormat(containerFormat);

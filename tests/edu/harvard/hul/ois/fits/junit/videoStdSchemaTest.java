@@ -84,18 +84,37 @@ if(doMain) {
     			//
     			//"/Users/dab980/Documents/video/samples/8BV-24-48000A-UNCOMPRESSED.mov",
     			
-    			//"/Users/dab980/downloads/remade-video-files/AVPS-sample_14-aja-2vuy-8bit.mov",
+    			"/Users/dab980/downloads/remade-video-files/AVPS-sample_14-aja-2vuy-8bit.mov",
+    			//"/Users/dab980/downloads/remade-video-files/AVPS-sample_15uncomressed-8bit.mov",
+    	//		"/Users/dab980/downloads/remade-video-files/AVPS-sample_18-h264.mov",
+    			//"/Users/dab980/downloads/remade-video-files/AVPS-sample_19-dv.mov",
+    			//"/Users/dab980/downloads/remade-video-files/AVPS-sample_20-fvcpro50.mov",
+    			//"/Users/dab980/downloads/remade-video-files/AVPS-sample_21-proresHQ.mov",
+    			//"/Users/dab980/downloads/remade-video-files/AVPS-sample_8-uncompressed-10-bit.mov",
+
     			
-    			// Taken from http://www.divx.com/en/devices/profiles/video
-    			"/Users/dab980/downloads/Sintel_DivXPlus_6500kbps.mkv",
+    			//// Taken from http://www.divx.com/en/devices/profiles/video
+    			//"/Users/dab980/downloads/Sintel_DivXPlus_6500kbps.mkv",
     			
     			// empty
     		    //"/Users/dab980/Documents/video/samples/10BV-24-48000A-PRORES422HQj.mov",
     			//
     			//
     			//"/Users/dab980/downloads/drop.avi",
+    			
+    			// JPEG 2000
+    			//"/Users/dab980/downloads/Speedway.mj2",
+    			//
+    			// No track ID
     			//"/Users/dab980/downloads/centaur_1.mpg",
+    			//
+    			// Is something wrong with this file???
+    			//
     			//"/Users/dab980/downloads/big_buck_bunny.ogv",
+    			//"/Users/dab980/downloads/bbb_sunflower_1080p_30fps_normal.mp4",
+    			//
+    			//
+    			
     			//"/Users/dab980/downloads/Jellyfish-3-Mbps.mkv",
     			//"/Users/dab980/downloads/test-jpeg2000-color-wsound1.mxf",
     			//"/Users/dab980/downloads/spacetestSMALL.wmv",
