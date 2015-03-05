@@ -55,7 +55,7 @@ public class EbuCoreModel {
         //ident.setIdentifierType("FILE_NAME");
         //video.setPrimaryIdentifier(ident);
 
-        containerFormat = new ContainerFormat("containerFormat");
+        containerFormat = new ContainerFormat();
         
         duration = new Duration("duration");	
 		

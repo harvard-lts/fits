@@ -49,8 +49,7 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioEncoding;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormat;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrack;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrackConfiguration;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.Codec;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.CodecIdentifier;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.Comment;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.DateTime;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.DurationInner;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.FrameRate;
@@ -996,18 +995,7 @@ public class XmlContentConverter {
                        			VideoEncoding ve = new VideoEncoding();
                        			ve.setTypeLabel(dataValue);
                        			vfmt.setVideoEncoding(ve);                       	
-                            }                            
-                            
-                            // Codec Element NOT in AVPreserve example, so don't expose
-                            //dataElement = elem.getChild ("videoDataEncoding",ns);
-                            //if(dataElement != null) {
-                            //	String dataValue = dataElement.getText().trim();
-                            //	CodecIdentifier ci = new CodecIdentifier("codecIdentifier");
-                            //	ci.setIdentifier(dataValue);
-                            //	Codec codec = new Codec("codec");
-                            //	codec.setCodecIdentifier(ci);
-                       		//	vfmt.setCodec(codec);                       	
-                            //}
+                            }
                          
                             dataElement = elem.getChild ("aspectRatio",ns);
                             if(dataElement != null) {
@@ -1335,17 +1323,16 @@ public class XmlContentConverter {
                 else if (fitsName.equals("formatProfile")) {               	
                    	String value = elem.getText().trim();
                 	if (value != null) {
-                    	CodecIdentifier ci = new CodecIdentifier("codecIdentifier");
-                    	ci.setIdentifier(value);
-                    	Codec codec = new Codec("codec");
-                    	codec.setCodecIdentifier(ci);
-                    	ebucoreModel.containerFormat.setCodec(codec);               		
+                		Comment comment = new Comment(value);
+                		ebucoreModel.containerFormat.addComment(comment);              		
                 	}
                 }
                 else if (fitsName.equals("format")) {
                 	String value = elem.getText().trim();
-                	if (value != null)
-                		ebucoreModel.containerFormat.setFormatLabel(value);
+                	if (value != null) {
+                		Comment comment = new Comment(value);
+                		ebucoreModel.containerFormat.addComment(comment);                		//ebucoreModel.containerFormat.setFormatLabel(value);
+                	}
                 }
                 
                 // Set the start/timecodeStart element
