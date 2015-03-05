@@ -34,7 +34,7 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.jdom.xpath.XPath;
 
-import com.twmacinta.util.MD5;
+//import com.twmacinta.util.MD5;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
@@ -222,6 +222,10 @@ public class MediaInfo extends ToolBase {
 	    
 	    String generalDuration = mi.Get(MediaInfoNativeWrapper.StreamKind.Other, 0,
 	    		"Duration", MediaInfoNativeWrapper.InfoKind.Text,
+	    		MediaInfoNativeWrapper.InfoKind.Name);
+
+	    String generalFileSize = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    		"FileSize", MediaInfoNativeWrapper.InfoKind.Text,
 	    		MediaInfoNativeWrapper.InfoKind.Name);
 	    
 	    //
@@ -543,28 +547,35 @@ public class MediaInfo extends ToolBase {
 		    List <Element>elementList = videoElement.getContent();
 		    for (Element element : elementList) {
 		    	
+		    	// General size
+		    	if(element.getName().equals("size")) {				    
+					if (!StringUtils.isEmpty(generalFileSize)) {
+						element.setText(generalFileSize);
+					}
+		    	}    	
+		    	
 		    	// General Section dateModified
 		    	if(element.getName().equals("dateModified")) {				    
-					if (dateModified != null && dateModified.length() > 0) {
+					if (!StringUtils.isEmpty(dateModified)) {
 						element.setText(dateModified);
 					}		    		
 		    	}
 		    	// General Section timecodeStart
 		    	if(element.getName().equals("timecodeStart")) {				    
-					if (timeCodeStart != null && timeCodeStart.length() > 0) {
+					if (!StringUtils.isEmpty(timeCodeStart)) {
 						element.setText(timeCodeStart);
 					}		    		
 		    	}
 		    	// General Section bit rate
 		    	if(element.getName().equals("bitRate")) {				    
-					if (generalBitRate != null && generalBitRate.length() > 0) {
+					if (!StringUtils.isEmpty(generalBitRate)) {
 						element.setText(generalBitRate);
 					}		    		
 		    	}
 		    	
 		    	// General Section duration
 		    	if(element.getName().equals("duration")) {				    
-					if (generalDuration != null && generalDuration.length() > 0) {
+					if (!StringUtils.isEmpty(generalDuration)) {
 						element.setText(generalDuration);
 					}		    		
 		    	}	    	
@@ -582,16 +593,16 @@ public class MediaInfo extends ToolBase {
 					
 				}
 				
-				// The MD5 must be present in the MediaInfo FITS XML so that
-				// Ebucore can have access to it
-		    	if(element.getName().equals("filemd5")) {
-					try {
-						String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
-						element.setText(md5Hash);
-					} catch (IOException e) {
-						throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
-					}					
-		    	}				
+//				// The MD5 must be present in the MediaInfo FITS XML so that
+//				// Ebucore can have access to it
+//		    	if(element.getName().equals("filemd5")) {
+//					try {
+//						String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
+//						element.setText(md5Hash);
+//					} catch (IOException e) {
+//						throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
+//					}					
+//		    	}				
 				
 		    	// Tracks
 		    	if(element.getName().equals("track")) {

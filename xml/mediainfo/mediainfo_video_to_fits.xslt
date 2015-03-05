@@ -195,9 +195,8 @@
        			<!--  Modified Date is only visible via the MediaInfo API. Set in Java code -->
        			<dateModified />
        			
-       			<!-- The MD5 must be present in the MediaInfo FITS XML so that Ebucore can get it -->
-       			<!-- MD5 is calculated in Java code, so an XML Element placeholder is created by the xslt -->
-       			<filemd5 />               
+       			<!-- The MD5 is not returned by MediaInfo FITS XML, so how can Ebucore get it? -->
+       			<!-- <filemd5 /> -->             
 		        		        
             </xsl:if>        
             <!-- End General track -->
