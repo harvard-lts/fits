@@ -220,7 +220,7 @@ public class MediaInfo extends ToolBase {
 	    		"TimeCode_FirstFrame", MediaInfoNativeWrapper.InfoKind.Text,
 	    		MediaInfoNativeWrapper.InfoKind.Name);
 	    
-	    String generalDuration = mi.Get(MediaInfoNativeWrapper.StreamKind.Other, 0,
+	    String generalDuration = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    		"Duration", MediaInfoNativeWrapper.InfoKind.Text,
 	    		MediaInfoNativeWrapper.InfoKind.Name);
 

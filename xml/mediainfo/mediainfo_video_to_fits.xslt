@@ -180,8 +180,8 @@
    
                 <!-- bit rate for general video section is only visible via the MediaInfo API. Set in Java code. -->
        			<bitRate />
-       			
-       			<!-- TODO: The default format of size causes a conflict in fileinfo -->	        
+	        
+	            <!-- size format is revised in java code -->
        			<size>
        			    <xsl:value-of select="./File_size"/>
        			</size>

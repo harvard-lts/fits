@@ -20,12 +20,29 @@ package edu.harvard.hul.ois.fits;
 
 //import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
+import org.jdom.Element;
+import org.jdom.Namespace;
+
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AspectRatio;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioEncoding;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormat;
 //import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormatExtended;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrack;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrackConfiguration;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.ContainerFormat;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.CoreMetadata;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Duration;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Format;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.EbuCoreMain;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.FrameRate;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeInteger;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoEncoding;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoFormat;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoTrack;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.WidthIdentifier;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
 
 public class EbuCoreModel {
@@ -33,8 +50,8 @@ public class EbuCoreModel {
     protected EbuCoreMain ebucoreMain;
     protected Format format;
     
-    // Is audioFmtExt used?
-    //protected AudioFormatExtended audioFmtExt;
+    // TODO: Use audioFmtExt?
+    // protected AudioFormatExtended audioFmtExt;
     protected ContainerFormat containerFormat;
     protected Duration duration;
     
@@ -57,7 +74,8 @@ public class EbuCoreModel {
 
         containerFormat = new ContainerFormat();
         
-        duration = new Duration();	
+        duration = new Duration();
+        
 		
 		format = new Format("format");
 		format.setContainerFormat(containerFormat);
@@ -73,21 +91,347 @@ public class EbuCoreModel {
     }
 	
 	
-//    protected void setFormat(String format, String version) throws XmlContentException {
-//    	Format formatElem = new Format(format);
-//    	if(version != null && version.length() > 0) {
-//    		formatElem.setAttribute("specificationVersion", version);
-//    	}
-//    	ebucoreMain.setFormat(formatElem);
-//    }
-//    
-//    protected void setBitRate(String bitrate) throws XmlContentException {
-//    	ebucoreMain.setBitrate(bitrate);
-//    }  
+    protected void createVideoFormatElement(Element elem, Namespace ns) 
+    		throws XmlContentException {
+
+    	VideoFormat vfmt = new VideoFormat("videoFormat");
+
+    	String id = elem.getAttribute("id").getValue();
+    	VideoTrack vt = new VideoTrack();
+    	vt.setTrackId(id);         			
+    	vfmt.setVideoTrack(vt);                   			
+
+    	Element dataElement = elem.getChild ("width",ns);
+    	if(dataElement != null) {
+    		String dataValue = dataElement.getText().replace(" pixels", "");
+    		WidthIdentifier width = new WidthIdentifier(
+    				StringUtils.deleteWhitespace(dataValue),
+    				"width");                                
+    		width.setUnit("pixel");
+    		vfmt.setWidthIdentifier(width);
+    	}                   			
+
+    	dataElement = elem.getChild ("height",ns);
+    	if(dataElement != null) {
+    		String dataValue = dataElement.getText().replace(" pixels", "");
+    		HeightIdentifier height = new HeightIdentifier(
+    				StringUtils.deleteWhitespace(dataValue),
+    				"height");                             
+    		height.setUnit("pixel");
+    		vfmt.setHeightIdentifier(height);                      
+    	}
+
+    	//
+    	// Frame rate is calculated as follows:
+    	//
+    	// If FrameRate from MediaInfo is a whole number,
+    	// then the following is true:
+    	//
+    	//   frameRate = the value from MediaInfo
+    	//   numerator = 1
+    	//   denominator = 1
+    	//
+    	// Otherwise the following is true:
+    	//   frameRate = the value from MediaInfo rounded
+    	//   numerator = 1000
+    	//   denominator = 1001
+    	//
+    	dataElement = elem.getChild ("frameRate",ns);
+    	if(dataElement != null) {
+    		String dataValue = dataElement.getText().trim();
+
+    		EbuCoreFrameRateRatio frRatio = 
+    				new EbuCoreFrameRateRatio(dataValue);
+
+    		FrameRate frameRate = new FrameRate(frRatio.getValue(),
+    				"frameRate");
+    		frameRate.setFactorNumerator(frRatio.getNumerator());
+    		frameRate.setFactorDenominator(frRatio.getDenominator());
+    		vfmt.setFrameRate(frameRate);                       
+    	}                            
+
+    	dataElement = elem.getChild ("bitRate",ns);
+    	// bitRate might be missing
+    	if(dataElement != null && StringUtils.isNotEmpty(dataElement.getValue())) {
+    		vfmt.setBitRate(Integer.parseInt(
+    				dataElement.getValue().trim()));
+    	}
+
+    	dataElement = elem.getChild ("bitRateMax",ns);
+    	if(dataElement != null && dataElement.getValue() != null && dataElement.getValue().length() > 0) {
+    		vfmt.setBitRateMax(Integer.parseInt(
+    				dataElement.getValue().trim()));                           
+    	}
+
+    	dataElement = elem.getChild ("bitRateMode",ns);
+    	if(dataElement != null) {
+    		vfmt.setBitRateMode(
+    				dataElement.getValue().trim().toLowerCase());                           
+    	}
+
+    	dataElement = elem.getChild ("scanningFormat",ns);
+    	if(dataElement != null) {
+    		vfmt.setScanningFormat(
+    				dataElement.getValue().trim().toLowerCase());                           
+    	}
+
+    	dataElement = elem.getChild ("videoDataEncoding",ns);
+    	if(dataElement != null && dataElement.getValue() != null && dataElement.getValue().length() > 0) {
+    		String dataValue = dataElement.getText().trim();
+    		VideoEncoding ve = new VideoEncoding();
+    		ve.setTypeLabel(dataValue);
+    		vfmt.setVideoEncoding(ve);                       	
+    	}
+
+    	dataElement = elem.getChild ("aspectRatio",ns);
+    	if(dataElement != null) {
+    		String dataValue = dataElement.getText().trim();
+    		String[] splitValues = dataValue.split(":");
+    		// TODO: throw exception if there are not 2 pieces
+    		if (splitValues != null && splitValues.length == 2) {
+    			AspectRatio ar = new AspectRatio("aspectRatio");
+
+    			// Normalize the ratio
+    			EbuCoreNormalizedRatio ratio = new EbuCoreNormalizedRatio(
+    					splitValues[0], splitValues[1]);
+
+    			ar.setFactorNumerator(ratio.getNormalizedNumerator());
+    			ar.setFactorDenominator(ratio.getNormalizedDenominator());
+    			ar.setTypeLabel("display");
+    			vfmt.setAspectRatio(ar);
+    		}
+
+    	}
+
+    	//
+    	// TechnicalAttributeString
+    	// TODO: Use an enum to reduce code and test errors
+    	//
+    	dataElement = elem.getChild ("chromaSubsampling",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeString tas = 
+    				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+    		tas.setTypeLabel("chromaSubsampling");
+    		vfmt.addTechnicalAttributeString(tas);
+    	}
+
+    	dataElement = elem.getChild ("colorspace",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeString tas = 
+    				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+    		tas.setTypeLabel("colorspace");
+    		vfmt.addTechnicalAttributeString(tas);
+    	}
+
+    	dataElement = elem.getChild ("frameRateMode",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeString tas = 
+    				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+    		tas.setTypeLabel("frameRateMode");
+    		vfmt.addTechnicalAttributeString(tas);
+    	}
+
+    	dataElement = elem.getChild ("byteOrder",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeString tas = 
+    				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+    		tas.setTypeLabel("byteOrder");
+    		vfmt.addTechnicalAttributeString(tas);
+    	} 
+
+    	dataElement = elem.getChild ("delay",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeString tas = 
+    				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+    		tas.setTypeLabel("delay");
+    		vfmt.addTechnicalAttributeString(tas);
+    	}             
+
+    	dataElement = elem.getChild ("compression",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeString tas = 
+    				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+    		tas.setTypeLabel("compression");
+    		vfmt.addTechnicalAttributeString(tas);
+    	}
+
+    	//
+    	// TechnicalAttributeInteger
+    	// TODO: Use an enum to reduce code and test errors
+    	//
+    	dataElement = elem.getChild ("streamSize",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeInteger tai = 
+    				new TechnicalAttributeInteger(Integer.
+    						parseInt(dataElement.getValue().trim()), 
+    						"technicalAttributeInteger");
+    		tai.setTypeLabel("streamSize");
+    		vfmt.addTechnicalAttributeInteger(tai);
+    	}
+    	dataElement = elem.getChild ("frameCount",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeInteger tai = 
+    				new TechnicalAttributeInteger(Integer.
+    						parseInt(dataElement.getValue().trim()), 
+    						"technicalAttributeInteger");
+    		tai.setTypeLabel("frameCount");
+    		vfmt.addTechnicalAttributeInteger(tai);
+    	}
+    	dataElement = elem.getChild ("bitDepth",ns) ;
+    	if(dataElement != null) {
+    		// the string might have bits, at the end, so 
+    		// we need to remove it
+    		String[] parts = dataElement.getValue().trim().
+    				split(" ");
+    		TechnicalAttributeInteger tai = 
+    				new TechnicalAttributeInteger(Integer.
+    						parseInt(parts[0]), 
+    						"technicalAttributeInteger");
+    		tai.setTypeLabel("bitDepth");
+    		vfmt.addTechnicalAttributeInteger(tai);
+    	}
+    	dataElement = elem.getChild ("duration",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeInteger tai = 
+    				new TechnicalAttributeInteger(Integer.
+    						parseInt(dataElement.getValue().trim()), 
+    						"technicalAttributeInteger");
+    		tai.setTypeLabel("duration");
+    		vfmt.addTechnicalAttributeInteger(tai);
+    	}
+
+        // Add the audio format object to the list
+        this.format.addVideoFormat(vfmt);
+    }
     
-    
-//    protected void setVideoFormat(Element videoTrack) {
-//    	
-//    }
+    protected void createAudioFormatElement(Element elem, Namespace ns) 
+    		throws XmlContentException {
+
+    	AudioFormat afmt = new AudioFormat("audioFormat");
+
+    	Element dataElement = elem.getChild ("audioDataEncoding",ns);
+    	if (dataElement != null) {
+    		String dataValue = dataElement.getText().trim();                   			
+    		AudioEncoding ae = new AudioEncoding();
+    		ae.setTypeLabel(dataValue);
+    		// Type Link NOT in AVPreserve example, so don't expose
+    		// ae.setTypeLink("http://www.ebu.ch/metadata/cs/ebu_AudioCompressionCodeCS.xml#11");
+    		afmt.setAudioEncoding(ae);
+
+    		afmt.setAudioFormatName(dataValue);
+    	}
+
+    	String id = elem.getAttribute("id").getValue();                  			
+    	AudioTrack at = new AudioTrack();
+    	at.setTrackId(id);
+
+    	// TODO:
+    	// We need the language in the FITS XML somewhere
+    	// Hack
+    	at.setTrackLanguage("en");                 			
+    	afmt.setAudioTrack(at);                  			
+
+    	dataElement = elem.getChild ("soundField",ns);
+    	if (dataElement != null) {
+    		String dataValue = dataElement.getText().trim();                   			
+    		AudioTrackConfiguration atc = new AudioTrackConfiguration();
+    		atc.setTypeLabel(dataValue);
+
+    		afmt.setAudioTrackConfiguration(atc);
+    	}
+
+    	dataElement = elem.getChild ("bitRate",ns);
+    	// bitRate might be missing
+    	if(dataElement != null && dataElement.getValue() != null && dataElement.getValue().length() > 0) {
+    		afmt.setBitRate(
+    				Integer.parseInt(dataElement.getValue().trim()));                               
+    	}
+
+    	dataElement = elem.getChild ("bitRateMode",ns);
+    	if(dataElement != null && !StringUtils.isEmpty(dataElement.getValue().trim())) {
+    		afmt.setBitRateMode(
+    				dataElement.getValue().trim().toLowerCase());
+    	}                            
+
+    	dataElement = elem.getChild ("samplingRate",ns);
+    	if(dataElement != null) {
+    		afmt.setSamplingRate(
+    				Integer.parseInt(dataElement.getValue().trim()));
+    	}                            
+
+    	dataElement = elem.getChild ("sampleSize",ns);
+    	if(dataElement != null) {
+    		afmt.setSampleSize(dataElement.getValue().trim());                         
+    	}                           
+
+    	dataElement = elem.getChild ("channels",ns);
+    	if(dataElement != null) {
+    		afmt.setChannels(
+    				Integer.parseInt(dataElement.getValue().trim()));                          
+    	}
+
+    	//
+    	// TechnicalAttributeString
+    	// TODO: Use an enum to reduce code and test errors
+    	//
+    	dataElement = elem.getChild ("byteOrder",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeString tas = 
+    				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+    		tas.setTypeLabel("byteOrder");
+    		afmt.addTechnicalAttributeString(tas);
+    	} 
+
+    	dataElement = elem.getChild ("delay",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeString tas = 
+    				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+    		tas.setTypeLabel("delay");
+    		afmt.addTechnicalAttributeString(tas);
+    	}             
+
+    	dataElement = elem.getChild ("compression",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeString tas = 
+    				new TechnicalAttributeString(dataElement.getValue().trim(), "technicalAttributeString");
+    		tas.setTypeLabel("compression");
+    		afmt.addTechnicalAttributeString(tas);
+    	}
+
+    	//
+    	// TechnicalAttributeInteger
+    	// TODO: Use an enum to reduce code and test errors
+    	//
+    	dataElement = elem.getChild ("trackSize",ns) ;
+    	if(dataElement != null && !StringUtils.isEmpty(dataElement.getValue().trim())) {
+    		TechnicalAttributeInteger tai = 
+    				new TechnicalAttributeInteger(Integer.
+    						parseInt(dataElement.getValue().trim()), 
+    						"technicalAttributeInteger");
+    		tai.setTypeLabel("streamSize");
+    		afmt.addTechnicalAttributeInteger(tai);
+    	}
+    	dataElement = elem.getChild ("numSamples",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeInteger tai = 
+    				new TechnicalAttributeInteger(Integer.
+    						parseInt(dataElement.getValue().trim()), 
+    						"technicalAttributeInteger");
+    		tai.setTypeLabel("sampleCount");
+    		afmt.addTechnicalAttributeInteger(tai);
+    	}
+    	dataElement = elem.getChild ("duration",ns) ;
+    	if(dataElement != null) {
+    		TechnicalAttributeInteger tai = 
+    				new TechnicalAttributeInteger(Integer.
+    						parseInt(dataElement.getValue().trim()), 
+    						"technicalAttributeInteger");
+    		tai.setTypeLabel("duration");
+    		afmt.addTechnicalAttributeInteger(tai);
+    	}                            
+
+        // Add the audio format object to the list
+        this.format.addAudioFormat(afmt);
+    }
 
 }
