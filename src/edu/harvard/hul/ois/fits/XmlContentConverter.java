@@ -33,7 +33,6 @@ import java.io.File;
 import java.text.ParseException;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Element;
@@ -44,12 +43,6 @@ import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlDateFormat;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.Comment;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.DateTime;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.DurationInner;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.Start;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.Timecode;
 import edu.harvard.hul.ois.ots.schemas.MIX.Compression;
 import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
 
@@ -827,153 +820,79 @@ public class XmlContentConverter {
      * @param fitsVideo		a video element in the FITS schema
      */
     public XmlContent toEbuCoreVideo (FitsOutput fitsOutput,Element fitsVideo) {
-    	
-    	final String UTC_TEXT = "UTC ";
-        
-    	EbuCoreModel ebucoreModel = null;        
+
+    	EbuCoreModel ebucoreModel = null;
+
     	try {
-			ebucoreModel = new EbuCoreModel ();
-		} catch (XmlContentException e2) {
-			logger.error("Invalid content: " + e2.getMessage ());
-		}
-    		
-        try {
-            
-            List<Element> trackList = fitsVideo.getContent();
-            
-            // Walk through all of the elements and process them
-            for(Element elem : trackList) {
-                String fitsName = elem.getName ();
+    		ebucoreModel = new EbuCoreModel();
+    		List<Element> trackList = fitsVideo.getContent();
 
-                // Process the tracks
-                if (fitsName.equals("track")) {
-                	Attribute typeAttr = elem.getAttribute("type");
-                	if(typeAttr != null) {
-                		String type = typeAttr.getValue();
-                		
-                		if(type.toLowerCase().equals("video")) {
-                			//ebucoreModel.format.addVideoFormat(
-                			//		createVideoFormatElement(elem));
-                			ebucoreModel.
-                					createVideoFormatElement(elem, ns);
-                			
-                		} // END video format
-                		
-                		// Audio Format
-                		else if (type.toLowerCase().equals("audio")) {                			
-                			//ebucoreModel.format.addAudioFormat(
-                			//		createAudioFormatElement(elem));
-                   			ebucoreModel.
-                					createAudioFormatElement(elem, ns);
-                		}  // END audio
-                	} 
-                }  // track
-                
-                //
-                // TODO: Process this as an enum switch
-                //
-                
-                //
-                // Process Elements directly off the root of the Format Element
-                //
-                else if (fitsName.equals("size")) {
-                	String value = elem.getText().trim();
-                	if (!StringUtils.isEmpty(value))
-                		ebucoreModel.format.setFileSize(value);
-                }
-                else if (fitsName.equals("filename")) {
-                	String value = elem.getText().trim();
-                	if (!StringUtils.isEmpty(value))
-                		ebucoreModel.format.setFileName(value);
-                }
-                else if (fitsName.equals("mimeType")) {
-                	String value = elem.getText().trim();
-                	if (!StringUtils.isEmpty(value))
-                		ebucoreModel.format.setMimeType(value);
-                }                
-                else if (fitsName.equals("location")) {
-                	String value = elem.getText().trim();
-                	if (!StringUtils.isEmpty(value))
-                		ebucoreModel.format.setLocator(value);
-                }
-                else if (fitsName.equals("bitRate")) {
-                	String value = elem.getText().trim();
-                	if (!StringUtils.isEmpty(value)) {
-                		TechnicalAttributeString tas = 
-                				new TechnicalAttributeString(value, "technicalAttributeString");
-                		tas.setTypeLabel("overallBitRate");
-                		ebucoreModel.format.setTechnicalAttributeString(tas);
-                	}
-                }                
-                else if (fitsName.equals("dateCreated")) {
-                	String value = elem.getText().trim();
-                	if (!StringUtils.isEmpty(value)) {
-                		String parts[] = value.replace(UTC_TEXT, "").split(" ");
-                		DateTime dateTime = new DateTime("dateCreated");
-                		dateTime.setStartDate(parts[0]);
-                		dateTime.setStartTime(parts[1]+"Z");                		
-                		ebucoreModel.format.setDateCreated(dateTime);
-                	}
-                }
-                else if (fitsName.equals("dateModified")) {
-                	String value = elem.getText().trim();
-                	if (!StringUtils.isEmpty(value)) {
-                		String parts[] = value.replace(UTC_TEXT, "").split(" ");
-                		DateTime dateTime = new DateTime("dateModified");
-                		dateTime.setStartDate(parts[0]);
-                		dateTime.setStartTime(parts[1]+"Z");                		
-                		ebucoreModel.format.setDateModified(dateTime);
-                	}
-                }
-                else if (fitsName.equals("formatProfile")) {               	
-                   	String value = elem.getText().trim();
-                   	if (!StringUtils.isEmpty(value)) {
-                		Comment comment = new Comment(value);
-                		ebucoreModel.containerFormat.addComment(comment);              		
-                	}
-                }
-                else if (fitsName.equals("format")) {
-                	String value = elem.getText().trim();
-                	if (!StringUtils.isEmpty(value)) {
-                		Comment comment = new Comment(value);
-                		ebucoreModel.containerFormat.addComment(comment);
-                	}
-                }
-                
-                // Set the start/timecodeStart element
-                else if (fitsName.equals("timecodeStart")) {
-                	String value = elem.getText().trim();
-                	if (!StringUtils.isEmpty(value)) {
-                		Start start = new Start("start");
-                		Timecode timecode = new Timecode(value);
-                		start.setTimecode(timecode);
-                		ebucoreModel.format.setStart(start);                		
-                	}
-                }
-                
-                // Create Duration::Duration                
-                else if (fitsName.equals("duration")) {
-                	String value = elem.getText().trim();
-                	if (!StringUtils.isEmpty(value)) {
-                        DurationInner di = new DurationInner(value);
-                        ebucoreModel.duration.setDuration(di);
-                	}
-                }
+    		// Walk through all of the elements and process them
+    		for(Element elem : trackList) {
+    			String fitsName = elem.getName ();
 
-                // End elements directly off root
+    			// Process the tracks
+    			if (fitsName.equals("track")) {
+    				Attribute typeAttr = elem.getAttribute("type");
+    				if(typeAttr != null) {
+    					String type = typeAttr.getValue();
 
-            
-            }  // for(Element elem : trackList)          
-			
-		} catch (XmlContentException e) {
-			
-			// TODO: Should we throw an exception?
-			// What should we do here?
-			e.printStackTrace();
-		}    	
-        
-        return ebucoreModel.ebucoreMain;
+    					if(type.toLowerCase().equals("video")) {
+    						ebucoreModel.
+    						createVideoFormatElement(elem, ns);
+
+    					} // video format
+
+    					// Audio Format
+    					else if (type.toLowerCase().equals("audio")) {                			
+    						ebucoreModel.
+    						createAudioFormatElement(elem, ns);
+    					}  // audio format
+    				} 
+    			}  // track
+    			else {
+    				// Process Elements directly off the root of the Format Element
+    				ebucoreModel.
+    				createFormatElement(fitsName, elem, ns);
+    			}
+
+    		}  // for(Element elem : trackList)          
+
+    	} catch (XmlContentException e) {
+    		logger.error("Invalid content: " + e.getMessage ());
+    		// TODO: Should we throw an exception?
+    		// What should we do here?
+    		//e.printStackTrace();
+    	}
+
+    	return ebucoreModel.ebucoreMain;
     } // toEbuCoreVideo    
+    
+//    /* an enumeration for mapping symbols to FITS Ebucore Format Element */
+//    public enum EbucoreFormatElement {
+//    	
+//    	size ("size"),
+//    	filename ("filename"),
+//       	mimeType ("mimeType"),
+//       	location("location"),
+//    	bitRate ("bitRate"),
+//    	dateCreated ("dateCreated"),
+//    	dateModified ("dateModified"),
+//    	formatProfile ("formatProfile"),
+//    	format ("format"),
+//    	timecodeStart("timecodeStart"),
+//    	duration("duration");
+//       	
+//    	private String name;
+//        
+//    	EbucoreFormatElement(String name) {
+//            this.name = name;
+//        }
+//        
+//        public String getName () {
+//            return name;
+//        }
+//    }
     
     /* an enumeration for mapping symbols to FITS video element names */
     public enum VideoElement {

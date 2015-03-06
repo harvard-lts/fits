@@ -30,15 +30,20 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormat;
 //import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormatExtended;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrack;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrackConfiguration;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.Comment;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.ContainerFormat;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.CoreMetadata;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.DateTime;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Duration;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.DurationInner;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Format;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.EbuCoreMain;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.FrameRate;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.Start;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeInteger;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.Timecode;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoEncoding;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoFormat;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoTrack;
@@ -46,6 +51,8 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.WidthIdentifier;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
 
 public class EbuCoreModel {
+	
+	private final static String UTC_TEXT = "UTC ";
 	
     protected EbuCoreMain ebucoreMain;
     protected Format format;
@@ -55,10 +62,7 @@ public class EbuCoreModel {
     protected ContainerFormat containerFormat;
     protected Duration duration;
     
-    //protected final String ebucoreID = "EBUCORE_"+UUID.randomUUID().toString();
-    //protected final String faceID = "FACE_"+UUID.randomUUID().toString();
-    //protected final String regionID = "REGION_"+UUID.randomUUID().toString();
-    //protected final String formatRegionID = "FORMAT_REGION_"+UUID.randomUUID().toString();    
+    //protected final String ebucoreID = "EBUCORE_"+UUID.randomUUID().toString();   
     
     protected EbuCoreModel () throws XmlContentException {
     	
@@ -68,14 +72,13 @@ public class EbuCoreModel {
     	//ebucoreMain.setSchemaVersion("1.0.0");
     	//ebucoreMain.setID(ebucoreID);
         //ebucoreMain.setDisposition("");
+    	
         //Identifier ident = new Identifier("","primaryIdentifier");
         //ident.setIdentifierType("FILE_NAME");
         //video.setPrimaryIdentifier(ident);
 
         containerFormat = new ContainerFormat();
-        
         duration = new Duration();
-        
 		
 		format = new Format("format");
 		format.setContainerFormat(containerFormat);
@@ -89,7 +92,8 @@ public class EbuCoreModel {
 
         ebucoreMain.setFormat(cm);
     }
-	
+    
+
 	
     protected void createVideoFormatElement(Element elem, Namespace ns) 
     		throws XmlContentException {
@@ -433,5 +437,93 @@ public class EbuCoreModel {
         // Add the audio format object to the list
         this.format.addAudioFormat(afmt);
     }
+    
+    protected void createFormatElement(String fitsName, Element elem, Namespace ns) 
+    		throws XmlContentException {
+
+        if (fitsName.equals("size")) {
+        	String value = elem.getText().trim();
+        	if (!StringUtils.isEmpty(value))
+        		this.format.setFileSize(value);
+        }
+        else if (fitsName.equals("filename")) {
+        	String value = elem.getText().trim();
+        	if (!StringUtils.isEmpty(value))
+        		this.format.setFileName(value);
+        }
+        else if (fitsName.equals("mimeType")) {
+        	String value = elem.getText().trim();
+        	if (!StringUtils.isEmpty(value))
+        		this.format.setMimeType(value);
+        }                
+        else if (fitsName.equals("location")) {
+        	String value = elem.getText().trim();
+        	if (!StringUtils.isEmpty(value))
+        		this.format.setLocator(value);
+        }
+        else if (fitsName.equals("bitRate")) {
+        	String value = elem.getText().trim();
+        	if (!StringUtils.isEmpty(value)) {
+        		TechnicalAttributeString tas = 
+        				new TechnicalAttributeString(value, "technicalAttributeString");
+        		tas.setTypeLabel("overallBitRate");
+        		this.format.setTechnicalAttributeString(tas);
+        	}
+        }                
+        else if (fitsName.equals("dateCreated")) {
+        	String value = elem.getText().trim();
+        	if (!StringUtils.isEmpty(value)) {
+        		String parts[] = value.replace(UTC_TEXT, "").split(" ");
+        		DateTime dateTime = new DateTime("dateCreated");
+        		dateTime.setStartDate(parts[0]);
+        		dateTime.setStartTime(parts[1]+"Z");                		
+        		this.format.setDateCreated(dateTime);
+        	}
+        }
+        else if (fitsName.equals("dateModified")) {
+        	String value = elem.getText().trim();
+        	if (!StringUtils.isEmpty(value)) {
+        		String parts[] = value.replace(UTC_TEXT, "").split(" ");
+        		DateTime dateTime = new DateTime("dateModified");
+        		dateTime.setStartDate(parts[0]);
+        		dateTime.setStartTime(parts[1]+"Z");                		
+        		this.format.setDateModified(dateTime);
+        	}
+        }
+        else if (fitsName.equals("formatProfile")) {               	
+           	String value = elem.getText().trim();
+           	if (!StringUtils.isEmpty(value)) {
+        		Comment comment = new Comment(value);
+        		this.containerFormat.addComment(comment);              		
+        	}
+        }
+        else if (fitsName.equals("format")) {
+        	String value = elem.getText().trim();
+        	if (!StringUtils.isEmpty(value)) {
+        		Comment comment = new Comment(value);
+        		this.containerFormat.addComment(comment);
+        	}
+        }
+        
+        // Set the start/timecodeStart element
+        else if (fitsName.equals("timecodeStart")) {
+        	String value = elem.getText().trim();
+        	if (!StringUtils.isEmpty(value)) {
+        		Start start = new Start("start");
+        		Timecode timecode = new Timecode(value);
+        		start.setTimecode(timecode);
+        		this.format.setStart(start);                		
+        	}
+        }
+        
+        // Create Duration::Duration                
+        else if (fitsName.equals("duration")) {
+        	String value = elem.getText().trim();
+        	if (!StringUtils.isEmpty(value)) {
+                DurationInner di = new DurationInner(value);
+                this.duration.setDuration(di);
+        	}
+        }
+    }    
 
 }
