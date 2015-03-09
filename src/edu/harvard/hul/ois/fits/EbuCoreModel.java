@@ -323,17 +323,12 @@ public class EbuCoreModel {
     		// ae.setTypeLink("http://www.ebu.ch/metadata/cs/ebu_AudioCompressionCodeCS.xml#11");
     		afmt.setAudioEncoding(ae);
 
-    		afmt.setAudioFormatName(dataValue);
+    		//afmt.setAudioFormatName(dataValue);
     	}
 
     	String id = elem.getAttribute("id").getValue();                  			
     	AudioTrack at = new AudioTrack();
-    	at.setTrackId(id);
-
-    	// TODO:
-    	// We need the language in the FITS XML somewhere
-    	// Hack
-    	at.setTrackLanguage("en");                 			
+    	at.setTrackId(id);                			
     	afmt.setAudioTrack(at);                  			
 
     	dataElement = elem.getChild ("soundField",ns);
