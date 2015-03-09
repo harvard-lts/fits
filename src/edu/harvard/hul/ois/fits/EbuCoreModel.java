@@ -40,6 +40,7 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.Format;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.EbuCoreMain;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.FrameRate;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.MimeType;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Start;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeInteger;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
@@ -453,8 +454,11 @@ public class EbuCoreModel {
         }
         else if (fitsName.equals("mimeType")) {
         	String value = elem.getText().trim();
-        	if (!StringUtils.isEmpty(value))
-        		this.format.setMimeType(value);
+        	if (!StringUtils.isEmpty(value)) {                			
+        		MimeType mimeType  = new MimeType();
+        		mimeType.setTypeLabel(value);
+        		this.format.setMimeType(mimeType);
+        	}
         }                
         else if (fitsName.equals("location")) {
         	String value = elem.getText().trim();

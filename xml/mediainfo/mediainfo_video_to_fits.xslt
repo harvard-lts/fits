@@ -1,30 +1,12 @@
 <xsl:stylesheet version="2.0"
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-
+   xmlns:fits_XsltFunctions="edu.harvard.hul.ois.fits.tools.utils.XsltFunctions"
    xmlns:dc="http://purl.org/dc/elements/1.1/" 
    xmlns:ebucore="urn:ebu:metadata-schema:ebuCore_2014" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
    xmlns:xalan="http://xml.apache.org/xalan"
    >
-
-<!-- TODO: Should the below functions be moved into -->
-<!-- edu.harvard.hul.ois.fits.tools.utils.XsltFunctions ? -->
 <xsl:import href="mediainfo_common_to_fits.xslt"/>
-
-<!-- function to get file name from full path -->	
-<xsl:function name="ebucore:getFilename">
-    <xsl:param name="str"/>
-    <!--str e.g. document-uri(.), filename and path-->
-    <xsl:param name="char"/>
-    <xsl:value-of select="subsequence(reverse(tokenize($str, $char)), 1, 1)"/>
-</xsl:function>
-
-<xsl:function name="ebucore:getFileExtension">
-    <xsl:param name="file-path"/>
-    <xsl:if test="contains($file-path, '.')">
-        <xsl:value-of select="lower-case(tokenize($file-path, '\.')[last()])"/>
-    </xsl:if>
-</xsl:function>
 
 <xsl:template match="/">
 
@@ -35,7 +17,8 @@
             <xsl:if test="@type = 'General'">
                 
                 <xsl:variable name="completefilename" select="./Complete_name"/>
-       			<xsl:variable name="fileExtension" select="ebucore:getFileExtension($completefilename)"/>               
+       			<xsl:variable name="fileExtension" select="fits_XsltFunctions:getFileExtension($completefilename)"/>
+       			              
 	            <identification>
                     <identity>
 
@@ -111,17 +94,17 @@
             <xsl:if test="@type = 'General'">                   
        			<xsl:variable name="completefilename" select="./Complete_name"/>
        			
-       			<!-- TODO: This is already reported by the fileinfo element, so --> 
-       			<!-- it will be filtered out by the consolidator -->
+       			<!-- This is already reported by the fileinfo element, so --> 
+       			<!-- it might be filtered out by the consolidator -->
 			    <filename>
-       				<xsl:value-of select="ebucore:getFilename($completefilename, '/')"/>
+       				<xsl:value-of select="fits_XsltFunctions:getFileNameFromUrl($completefilename)"/>
        			</filename>     			      			           
 
 			    <location>
        				<xsl:value-of select="$completefilename"/>
        			</location>
        			
-       			<xsl:variable name="fileExtension" select="ebucore:getFileExtension($completefilename)"/>
+       			<xsl:variable name="fileExtension" select="fits_XsltFunctions:getFileExtension($completefilename)"/>
        			<mimeType>
        			   <xsl:choose>
        			       <xsl:when test="$fileExtension = 'avi'">
