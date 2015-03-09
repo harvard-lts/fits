@@ -29,8 +29,8 @@ import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
+//import org.jdom.output.Format;
+//import org.jdom.output.XMLOutputter;
 import org.jdom.xpath.XPath;
 
 //import com.twmacinta.util.MD5;
@@ -42,7 +42,6 @@ import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
-//import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
 
 /**  The glue class for invoking the MediaInfo native library under FITS.
  */
@@ -204,26 +203,28 @@ public class MediaInfo extends ToolBase {
 	    // Retrieve additional information for audio/video tracks not contained
 	    // in the general XML
 	    // --------------------------------------------------------------------
+	    
+	    Map<String, String> reviseDataMap = new HashMap<String, String>();
 
-	    String dateModified = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    reviseDataMap.put("dateModified", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    		"File_Modified_Date", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    		MediaInfoNativeWrapper.InfoKind.Name));
 
-	    String generalBitRate = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    reviseDataMap.put("generalBitRate", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    		"BitRate", MediaInfoNativeWrapper.InfoKind.Text, 
-	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    		MediaInfoNativeWrapper.InfoKind.Name));
 	    
-	    String timeCodeStart = mi.Get(MediaInfoNativeWrapper.StreamKind.Other, 0,
+	    reviseDataMap.put("timeCodeStart", mi.Get(MediaInfoNativeWrapper.StreamKind.Other, 0,
 	    		"TimeCode_FirstFrame", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    		MediaInfoNativeWrapper.InfoKind.Name)); 
 	    
-	    String generalDuration = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    reviseDataMap.put("generalDuration",mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    		"Duration", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    		MediaInfoNativeWrapper.InfoKind.Name));
 
-	    String generalFileSize = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    reviseDataMap.put("generalFileSize", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    		"FileSize", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name);
+	    		MediaInfoNativeWrapper.InfoKind.Name)); 	    
 	    
 	    //
 	    // TODO: bitRate_Maximum never seems to appear in MediaInfo
@@ -231,9 +232,7 @@ public class MediaInfo extends ToolBase {
 	    //
 	    //String generalBitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    //		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
-	    //		MediaInfoNativeWrapper.InfoKind.Name);    
-	    
-	    String generalFormatProfileFromVideo = "";
+	    //		MediaInfoNativeWrapper.InfoKind.Name);
 
 //	    // Empty ???
 //	    String dateCreated = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
@@ -251,94 +250,86 @@ public class MediaInfo extends ToolBase {
 //	    		"Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,	    		
 //	    		MediaInfoNativeWrapper.InfoKind.Name);
 //
+
+	    // --------------------------------------------------------------------
 	    
 	    // Maps to hold data that are obtained via explicit MediaInfo API call.
 	    // These values are either not exposed in the XML returned by the Inform()
 	    // method call, or if the granularity of the value is not correct, such as
 	    // bitRate not returning the value as milliseconds, but rather as Mpbs
 	    Map<String, Map<String, String>> videoTrackValuesMap = 
-	    	    new HashMap<String, Map<String, String>>();
+	    		loadVideoDataMap (reviseDataMap);	
 	    Map<String, Map<String, String>> audioTrackValuesMap = 
-	    	    new HashMap<String, Map<String, String>>();	    
+	    		loadAudioDataMap ();
 	    
-	    int numAudioTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Audio);	    
-	    for (int ndx = 0; ndx < numAudioTracks; ndx++) {
-	   
-		    String id = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"ID", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    
-		    //
-		    // In some instances, the ID will include some invalid data such as
-		    
-		    if(StringUtils.isEmpty(id)) {
-		    	// If we only have one audio track, we can retrieve data with
-		    	// the index 0
-		    	if(numAudioTracks == 1)
-		    		id = "0";
-		    	else {
-			    	// TODO: Throw error and/or log?
-			    	logger.error("Error retrieving the ID of the audio track from MediaInfo: " + ndx);
-			    	continue;
-		    	}
-		    }
-	    	
-		    String audioDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    addDataToMap (audioTrackValuesMap, id, "delay", audioDelay);
+	    mi.Close();
 
-		    String audioSamplesCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"SamplingCount", MediaInfoNativeWrapper.InfoKind.Text,    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    addDataToMap (audioTrackValuesMap, id, "numSamples", audioSamplesCount);
-		    
-		    String bitRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"BitRate", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    addDataToMap(audioTrackValuesMap, id, "bitRate", bitRate);
-		    
-		    //
-		    // TODO: bitRate_Maximum never seems to appear in MediaInfo
-		    // in the video section
-		    //
-		    // bitRateMax and bitRateMode, are both used to update
-		    // bitRate, when bitRateMode is variable (VBR)
-		    //
-		    String bitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    
-		    addDataToMap(audioTrackValuesMap, id, "bitRateMax", bitRateMax);
-		    
-		    String bitRateMode = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"BitRate_Mode", MediaInfoNativeWrapper.InfoKind.Text,
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    addDataToMap(audioTrackValuesMap, id, "bitRateMode", bitRateMode);
-		    
-		    // ----------------------------------------------------------------
-		    
-		    String duration = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"Duration", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    addDataToMap (audioTrackValuesMap, id, "duration", duration);
-		    
-		    String trackSize = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"StreamSize", MediaInfoNativeWrapper.InfoKind.Text, 		    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    addDataToMap(audioTrackValuesMap, id, "trackSize", trackSize);
-		    
-		    String samplingRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"SamplingRate", MediaInfoNativeWrapper.InfoKind.Text, 		    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    addDataToMap(audioTrackValuesMap, id, "samplingRate", samplingRate);
-		    
-		    String channels = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"Channels", MediaInfoNativeWrapper.InfoKind.Text, 		    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    addDataToMap(audioTrackValuesMap, id, "channels", channels);
-	    }
-	    
+		// ====================================================================		    
+	    // Create a Document out of the generated XML text
+	    // And transform via XSLT
+		// ====================================================================	
+		Document outputMetaDoc = createXml(execOut);
+		Document rawOut = createXml(execOutRaw);		
+		
+		Document fitsXml = transform(mediaInfoFitsConfig+xsltTransform,outputMetaDoc);
+		
+//		//
+//		// DEBUG - write xml to file
+//		//
+//		try {
+//			XMLOutputter xmlOutput = new XMLOutputter();
+//			 
+//			// display nice nice
+//			xmlOutput.setFormat(Format.getPrettyFormat());			
+//			xmlOutput.output(fitsXml, new FileWriter("fitsxml_so_far.xml"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}	
+				
+		// Revise the XML to include element data that was not returned either
+		// via the MediaInfo XML or require revision for granularity
+		reviseXmlData (fitsXml, videoTrackValuesMap, audioTrackValuesMap, 
+				reviseDataMap);	
+		
+		// DEBUG
+		// String finalXml = new XMLOutputter(Format.getPrettyFormat()).outputString(fitsXml);
+		// System.out.println("\nFINAL XML:\n" + finalXml);
+		
+		output = new ToolOutput(this,fitsXml,rawOut);
+		
+		// DEBUG
+		// String fitsOutputString = new XMLOutputter(Format.getPrettyFormat()).outputString(output.getFitsXml());
+		
+		duration = System.currentTimeMillis()-startTime;
+		runStatus = RunStatus.SUCCESSFUL;
+        logger.debug("MediaInfo.extractInfo finished on " + file.getName());
+        
+		return output;
+	}
+	
+	/**
+	 * Helper method to add values to the map within the trackValuesMap
+	 * 
+	 * @param trackValuesMap  The map to be updated
+	 * @param id  The key to trackValuesMap
+	 * @param key The key to the map contained within trackValuesMap
+	 * @param value The value to set in the map contained within trackValuesMap
+	 */
+	private void addDataToMap(Map<String, Map<String, String>> trackValuesMap,
+			String id, String key, String value) {
+	    if (value != null && value.length() > 0 ) {
+	    	if(trackValuesMap.get(id) == null)
+	    		trackValuesMap.put(id, new HashMap<String, String>());
+		    trackValuesMap.get(id).put(key, value);		    	
+	    }		
+	}
+	
+	private Map<String, Map<String, String>> loadVideoDataMap (Map<String, String> reviseDataMap) {
+		
+	    Map<String, Map<String, String>> videoTrackValuesMap = 
+	    	    new HashMap<String, Map<String, String>>();
+		
 	    int numVideoTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Video);    
 	    for (int ndx = 0; ndx < numVideoTracks; ndx++) {
 
@@ -432,37 +423,104 @@ public class MediaInfo extends ToolBase {
 		    // formatProfile goes in the FITS XML general section, but
 		    // sometimes is missing from the MediaInfo general section and
 		    // present in video section.
-		    generalFormatProfileFromVideo = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    reviseDataMap.put("generalFormatProfileFromVideo,", mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"Format_Profile", MediaInfoNativeWrapper.InfoKind.Text, 		    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-	    }	    
-    
-	    
-	    mi.Close();
+		    		MediaInfoNativeWrapper.InfoKind.Name));
+	    }
+		return videoTrackValuesMap;
+	}	
+	
+	
+	private Map<String, Map<String, String>> loadAudioDataMap () {
 
-		// ====================================================================		    
-	    // Create a Document out of the generated XML text
-	    // And transform via XSLT
-		// ====================================================================	
-		Document outputMetaDoc = createXml(execOut);
-		Document rawOut = createXml(execOutRaw);		
+		Map<String, Map<String, String>> audioTrackValuesMap = 
+	    	    new HashMap<String, Map<String, String>>();
 		
-		Document fitsXml = transform(mediaInfoFitsConfig+xsltTransform,outputMetaDoc);
+	    int numAudioTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Audio);	    
+	    for (int ndx = 0; ndx < numAudioTracks; ndx++) {
+	   
+		    String id = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"ID", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    
+		    //
+		    // In some instances, the ID will include some invalid data such as
+		    
+		    if(StringUtils.isEmpty(id)) {
+		    	// If we only have one audio track, we can retrieve data with
+		    	// the index 0
+		    	if(numAudioTracks == 1)
+		    		id = "0";
+		    	else {
+			    	// TODO: Throw error and/or log?
+			    	logger.error("Error retrieving the ID of the audio track from MediaInfo: " + ndx);
+			    	continue;
+		    	}
+		    }
+	    	
+		    String audioDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap (audioTrackValuesMap, id, "delay", audioDelay);
+
+		    String audioSamplesCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"SamplingCount", MediaInfoNativeWrapper.InfoKind.Text,    		
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap (audioTrackValuesMap, id, "numSamples", audioSamplesCount);
+		    
+		    String bitRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"BitRate", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(audioTrackValuesMap, id, "bitRate", bitRate);
+		    
+		    //
+		    // TODO: bitRate_Maximum never seems to appear in MediaInfo
+		    // in the video section
+		    //
+		    // bitRateMax and bitRateMode, are both used to update
+		    // bitRate, when bitRateMode is variable (VBR)
+		    //
+		    String bitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    
+		    addDataToMap(audioTrackValuesMap, id, "bitRateMax", bitRateMax);
+		    
+		    String bitRateMode = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"BitRate_Mode", MediaInfoNativeWrapper.InfoKind.Text,
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(audioTrackValuesMap, id, "bitRateMode", bitRateMode);
+		    
+		    // ----------------------------------------------------------------
+		    
+		    String duration = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"Duration", MediaInfoNativeWrapper.InfoKind.Text, 
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap (audioTrackValuesMap, id, "duration", duration);
+		    
+		    String trackSize = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"StreamSize", MediaInfoNativeWrapper.InfoKind.Text, 		    		
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(audioTrackValuesMap, id, "trackSize", trackSize);
+		    
+		    String samplingRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"SamplingRate", MediaInfoNativeWrapper.InfoKind.Text, 		    		
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(audioTrackValuesMap, id, "samplingRate", samplingRate);
+		    
+		    String channels = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
+		    		"Channels", MediaInfoNativeWrapper.InfoKind.Text, 		    		
+		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    addDataToMap(audioTrackValuesMap, id, "channels", channels);
+	    }
+	    
+	    return audioTrackValuesMap;
 		
-//		//
-//		// DEBUG - write xml to file
-//		//
-//		try {
-//			XMLOutputter xmlOutput = new XMLOutputter();
-//			 
-//			// display nice nice
-//			xmlOutput.setFormat(Format.getPrettyFormat());			
-//			xmlOutput.output(fitsXml, new FileWriter("fitsxml_so_far.xml"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}	
-				
+	}
+	
+	private void reviseXmlData (Document fitsXml, Map<String, Map<String, String>> videoTrackValuesMap,
+			Map<String, Map<String, String>> audioTrackValuesMap,  Map<String, String> reviseDataMap ) 
+					throws FitsToolException {
 		// ====================================================================
 		// Revise the XML to include element data that was not returned either
 		// via the MediaInfo XML or require revision for granularity
@@ -481,33 +539,38 @@ public class MediaInfo extends ToolBase {
 		    for (Element element : elementList) {
 		    	
 		    	// General size
-		    	if(element.getName().equals("size")) {				    
+		    	if(element.getName().equals("size")) {
+		    		String generalFileSize = reviseDataMap.get("generalFileSize");
 					if (!StringUtils.isEmpty(generalFileSize)) {
 						element.setText(generalFileSize);
 					}
 		    	}    	
 		    	
 		    	// General Section dateModified
-		    	if(element.getName().equals("dateModified")) {				    
+		    	if(element.getName().equals("dateModified")) {
+		    		String dateModified = reviseDataMap.get("dateModified");
 					if (!StringUtils.isEmpty(dateModified)) {
 						element.setText(dateModified);
 					}		    		
 		    	}
 		    	// General Section timecodeStart
-		    	if(element.getName().equals("timecodeStart")) {				    
+		    	if(element.getName().equals("timecodeStart")) {
+		    		String timeCodeStart = reviseDataMap.get("timeCodeStart");
 					if (!StringUtils.isEmpty(timeCodeStart)) {
 						element.setText(timeCodeStart);
 					}		    		
 		    	}
 		    	// General Section bit rate
-		    	if(element.getName().equals("bitRate")) {				    
+		    	if(element.getName().equals("bitRate")) {
+		    		String generalBitRate = reviseDataMap.get("generalBitRate");
 					if (!StringUtils.isEmpty(generalBitRate)) {
 						element.setText(generalBitRate);
 					}		    		
 		    	}
 		    	
 		    	// General Section duration
-		    	if(element.getName().equals("duration")) {				    
+		    	if(element.getName().equals("duration")) {
+		    		String generalDuration = reviseDataMap.get("generalDuration");
 					if (!StringUtils.isEmpty(generalDuration)) {
 						element.setText(generalDuration);
 					}		    		
@@ -519,6 +582,7 @@ public class MediaInfo extends ToolBase {
 					String formatProfileFromElement = element.getValue();
 					// if value for element is missing or empty, we need to update it
 					if(StringUtils.isEmpty(formatProfileFromElement)) {
+						String generalFormatProfileFromVideo = reviseDataMap.get("formatProfileFromElement");
     					if(generalFormatProfileFromVideo != null && generalFormatProfileFromVideo.length() > 0) {
     						element.setText(generalFormatProfileFromVideo);
     					}
@@ -763,41 +827,7 @@ public class MediaInfo extends ToolBase {
 		} catch(JDOMException e) {
 			throw new FitsToolException("Error revising xml node values " + TOOL_NAME);			
 		}		    
-		
 
-		// ====================================================================		
-		
-		// DEBUG
-		String finalXml = new XMLOutputter(Format.getPrettyFormat()).outputString(fitsXml);
-		System.out.println("\nFINAL XML:\n" + finalXml);
-		
-		output = new ToolOutput(this,fitsXml,rawOut);
-		
-		// DEBUG
-		// String fitsOutputString = new XMLOutputter(Format.getPrettyFormat()).outputString(output.getFitsXml());
-		
-		duration = System.currentTimeMillis()-startTime;
-		runStatus = RunStatus.SUCCESSFUL;
-        logger.debug("MediaInfo.extractInfo finished on " + file.getName());
-        
-		return output;
-	}
-	
-	/**
-	 * Helper method to add values to the map within the trackValuesMap
-	 * 
-	 * @param trackValuesMap  The map to be updated
-	 * @param id  The key to trackValuesMap
-	 * @param key The key to the map contained within trackValuesMap
-	 * @param value The value to set in the map contained within trackValuesMap
-	 */
-	private void addDataToMap(Map<String, Map<String, String>> trackValuesMap,
-			String id, String key, String value) {
-	    if (value != null && value.length() > 0 ) {
-	    	if(trackValuesMap.get(id) == null)
-	    		trackValuesMap.put(id, new HashMap<String, String>());
-		    trackValuesMap.get(id).put(key, value);		    	
-	    }		
 	}
 
 	private Document createXml(String out) throws FitsToolException {
