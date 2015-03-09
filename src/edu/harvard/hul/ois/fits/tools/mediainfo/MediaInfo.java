@@ -1,5 +1,5 @@
 /* 
- * Copyright 2014 Harvard University Library
+ * Copyright 2015 Harvard University Library
  * 
  * This file is part of FITS (File Information Tool Set).
  * 
@@ -19,7 +19,6 @@
 package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
@@ -53,9 +52,7 @@ public class MediaInfo extends ToolBase {
 	private boolean enabled = true;
 	
 	public final static String mediaInfoFitsConfig = Fits.FITS_XML+"mediainfo"+File.separator;
-	//public final static String genericTransform = "mediainfo_generic_to_fits.xslt";
 	public final static String xsltTransform = "mediainfo_video_to_fits.xslt";
-	public final static String xsltTransformEbu = "mediainfo_ebu_to_fits.xslt";	
 	
     private static final Logger logger = Logger.getLogger(MediaInfo.class);
     private static MediaInfoNativeWrapper mi = null;
@@ -191,9 +188,9 @@ public class MediaInfo extends ToolBase {
 	    // DEBUG
 	    // System.out.println("\nMediaInfo output:\n" + execOut + "\n\n");
 	    
-	    // Get MediaInfoLib Output as EBUCore 1.5
-	    mi.Option("Output", "EBUCore_1.5");
-	    String ebuOut = mi.Inform();
+	    //// Get MediaInfoLib Output as EBUCore 1.5
+	    //mi.Option("Output", "EBUCore_1.5");
+	    //String ebuOut = mi.Inform();
 	    
 	    // Get MediaInfoLib Output as PBCore
 	    //mi.Option("Output", "PBCore");
@@ -234,22 +231,7 @@ public class MediaInfo extends ToolBase {
 	    //
 	    //String generalBitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
 	    //		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
-	    //		MediaInfoNativeWrapper.InfoKind.Name);
-	    
-//	    // TODO: Use MediaInfo to generate the mime type
-//	    // MIME Information:
-//	    // InternetMediaType : Internet Media Type (aka MIME Type, Content-Type)
-//	    String generalMime = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-//	    		"InternetMediaType", MediaInfoNativeWrapper.InfoKind.Text,
-//	    		MediaInfoNativeWrapper.InfoKind.Name);
-//	    
-//	    String videoMime = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, 0,
-//	    		"InternetMediaType", MediaInfoNativeWrapper.InfoKind.Text,
-//	    		MediaInfoNativeWrapper.InfoKind.Name);
-//	    
-//	    String audioMime = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, 0,
-//	    		"InternetMediaType", MediaInfoNativeWrapper.InfoKind.Text,
-//	    		MediaInfoNativeWrapper.InfoKind.Name);	    
+	    //		MediaInfoNativeWrapper.InfoKind.Name);    
 	    
 	    String generalFormatProfileFromVideo = "";
 
@@ -479,56 +461,7 @@ public class MediaInfo extends ToolBase {
 //		} catch (IOException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
-//		}
-		
-		// ====================================================================		
-		// Insert the EBUCore node into the fitsXml doc
-		// ====================================================================			
-		
-//		// DEBUG
-//		String xmlSoFar_1 = new XMLOutputter(Format.getPrettyFormat()).outputString(fitsXml);
-		
-		// 1) Transform ebucore xml output from MediaInfoLib
-		// 2) Get the ebucore node we wish to append to fits xml document
-		// 3) Get an instance of the <standard> node from fits xml document
-		// 4) Add the content of the ebucore node to the fits xml document
-		
-		// 1) Transform ebucore xml output from MediaInfoLib
-		Document ebuCore = createXml(ebuOut);
-		Document ebuXml = transform(mediaInfoFitsConfig+xsltTransformEbu,ebuCore);
-		// DEBUG
-		String xmlEbuTransform = new XMLOutputter(Format.getPrettyFormat()).outputString(ebuXml);		
-		
-		try {
-			
-			// 2) Get the ebucore node we wish to append to fits xml document
-			XPath xpathEbuNode = XPath.newInstance("//wrapper/ebucore:format");
-			
-			// select the node we wish to append to current fits xml
-			List <Element>ebuElementNodes = xpathEbuNode.selectNodes(ebuXml);
-			// Detach the ebu node and its children
-			for(Element elem : ebuElementNodes) {
-				elem.detach();
-			}
-
-			// 3) Get an instance of the <standard> node from fits xml document
-			// We will append the ebucore node to this
-			XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video/x:standard");			
-			
-			// NOTE: We need to add a namespace	to xpath, because JDom XPath 
-			// does not support default namespaces. It requires you to add a
-			// fake namespace to the XPath instance.
-			xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
-			Element standardElement = (Element)xpathFits.selectSingleNode(fitsXml);
-
-			// 4) Add the content of the ebucore node to the fits xml document
-			if(standardElement != null)
-				standardElement.addContent(ebuElementNodes);
-
-		}
-		catch(JDOMException e) {
-			throw new FitsToolException("Error formatting ebucore xml node " + TOOL_NAME);			
-		}		
+//		}	
 				
 		// ====================================================================
 		// Revise the XML to include element data that was not returned either
@@ -828,7 +761,7 @@ public class MediaInfo extends ToolBase {
 
 		    
 		} catch(JDOMException e) {
-			throw new FitsToolException("Error formatting ebucore xml node " + TOOL_NAME);			
+			throw new FitsToolException("Error revising xml node values " + TOOL_NAME);			
 		}		    
 		
 

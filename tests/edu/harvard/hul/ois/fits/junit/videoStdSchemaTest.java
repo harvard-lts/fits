@@ -133,7 +133,7 @@ if(doMain) {
     			//"-xc",
     			//
     			// -x --> Transforms the FITS output into standard XML schemas (EBUCore)
-    			"-x", 
+    			//"-x", 
     			//
     			"-o fits_output.xml"
     			
