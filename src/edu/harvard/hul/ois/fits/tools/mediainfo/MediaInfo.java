@@ -581,7 +581,7 @@ public class MediaInfo extends ToolBase {
 		    		}
 		    		// audio track data
 		    		else if (audioTrackValuesMap.containsKey(id)) {
-		    			reviseAudioSection(element, id, audioTrackValuesMap);
+		    			reviseAudioSection_NEW(element, id, audioTrackValuesMap);
 		    		}	    		
 		    		
 		    	} // "track"
@@ -671,7 +671,7 @@ public class MediaInfo extends ToolBase {
     	frameCount ("frameCount"),       	
     	bitRate ("bitRate"),
     	duration ("duration"),    	
-    	tracksize ("tracksize"),
+    	trackSize ("trackSize"),
     	frameRate ("frameRate");
        	
     	private String name;
@@ -833,15 +833,15 @@ public class MediaInfo extends ToolBase {
 //
 //		} // childElement		
 //	}
-	
-	// TODO: Use this
+
     public enum AudioMethods {
     	delay ("delay"),
-    	frameCount ("frameCount"),       	
+    	numSamples ("numSamples"),       	
     	bitRate ("bitRate"),
     	duration ("duration"),    	
-    	tracksize ("tracksize"),
-    	frameRate ("frameRate");
+    	trackSize ("trackSize"),
+    	samplingRate ("samplingRate"),
+    	channels ("channels");
        	
     	private String name;
         
@@ -865,94 +865,123 @@ public class MediaInfo extends ToolBase {
         }
     }
     
-	private void reviseAudioSection(Element element, String id, 
-			Map<String, Map<String, String>> audioTrackValuesMap) {
-		
-		List <Element>contents = element.getContent();		    				
-		for (Element childElement : contents) {
+    private void reviseAudioSection_NEW(Element element, String id, 
+    		Map<String, Map<String, String>> audioTrackValuesMap) {
 
-			// delay
-			if(childElement.getName().equals("delay")) {
-				String delay = audioTrackValuesMap.get(id).get("delay");
-				if(delay != null && delay.length() > 0) {
-					childElement.setText(delay);
-				}			    					
-			}
-			// number of samples
-			else if(childElement.getName().equals("numSamples")) {
-				String numSamples = audioTrackValuesMap.get(id).get("numSamples");
-				if(numSamples!= null && numSamples.length() > 0) {
-					childElement.setText(numSamples);
-				}			    					
-			}
+    	List <Element>contents = element.getContent();		    				
+    	for (Element childElement : contents) {
+    		String name = childElement.getName();
+    		
+    		// If the "name" is not contained in the enum, continue
+    		AudioMethods audioValueEnum = AudioMethods.lookup(name);
+    		if(audioValueEnum == null) 
+    			continue;
 
-			// bitRate
-			// 1) correct format
-			// 2) set to bitRateMax, if mode is variable
-			else if(childElement.getName().equals("bitRate")) {
-				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
-				// BitRateMax
-				String bitRateMode = audioTrackValuesMap.get(id).get("bitRateMode");
-				if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
-					String bitRateMax = audioTrackValuesMap.get(id).get("bitRateMax");
-					if(!StringUtils.isEmpty(bitRateMax)) {
-						childElement.setText(bitRateMax);
-					}
-					// NOTE: Since I have never seen bitRateMax being set, we need a backup value
-					else {
-    					String bitRate = audioTrackValuesMap.get(id).get("bitRate");
-    					if(bitRate != null && bitRate.length() > 0) {
-    						childElement.setText(bitRate);
-    					}
-					}
-					
-				}
-				// Otherwise, just update it if we need to
-				else {
-					String bitRate = audioTrackValuesMap.get(id).get("bitRate");
-					if(bitRate != null && bitRate.length() > 0) {
-						childElement.setText(bitRate);
-					}		    						
-				}
-					
-			} // bitRate
-			
+    		String value = audioTrackValuesMap.get(id).get(audioValueEnum.getName());
+    		switch (audioValueEnum) {
+    		// bitRate
+    		// 1) correct format
+    		// 2) set to bitRateMax, if mode is variable
+    		case bitRate:
+    			// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+    			// BitRateMax
+    			String bitRateMode = audioTrackValuesMap.get(id).get("bitRateMode");
+    			if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+    				String bitRateMax = audioTrackValuesMap.get(id).get("bitRateMax");
+    				if(!StringUtils.isEmpty(bitRateMax)) {
+    					childElement.setText(bitRateMax);
+    					value = bitRateMax;
+    				}
+    			}
+    			break;
+    		default:
+    			break;
 
-			// duration
-			else if(childElement.getName().equals("duration")) {
-				String duration = audioTrackValuesMap.get(id).get("duration");
-				if(duration != null && duration.length() > 0) {
-					childElement.setText(duration);
-				}			    					
-			}
+    		}	// switch
 
-			// trackSize - correct format
-			else if(childElement.getName().equals("trackSize")) {
-				String trackSize = audioTrackValuesMap.get(id).get("trackSize");
-				if(trackSize != null && trackSize.length() > 0) {
-					childElement.setText(trackSize);
-				}			    					
-			}
-			
-			// samplingRate - correct format
-			else if(childElement.getName().equals("samplingRate")) {
-				String samplingRate = audioTrackValuesMap.get(id).get("samplingRate");
-				if(samplingRate != null && samplingRate.length() > 0) {
-					childElement.setText(samplingRate);
-				}			    					
-			}
-			
-			// channels - correct format
-			else if(childElement.getName().equals("channels")) {
-				String channels = audioTrackValuesMap.get(id).get("channels");
-				if(channels != null && channels.length() > 0) {
-					childElement.setText(channels);
-				}			    					
-			}		    				
+    		// If we got here, then we need to update the element's text
+    		if(!StringUtils.isEmpty(value))
+    			childElement.setText(value);
 
-		} // childElement		
-		
-	}
+    	} // childElement
+    }    
+    
+//	private void reviseAudioSection_OLD(Element element, String id, 
+//			Map<String, Map<String, String>> audioTrackValuesMap) {
+//		
+//		List <Element>contents = element.getContent();		    				
+//		for (Element childElement : contents) {
+//
+//			// delay
+//			if(childElement.getName().equals("delay")) {
+//				String delay = audioTrackValuesMap.get(id).get("delay");
+//				if(delay != null && delay.length() > 0) {
+//					childElement.setText(delay);
+//				}			    					
+//			}
+//			// number of samples
+//			else if(childElement.getName().equals("numSamples")) {
+//				String numSamples = audioTrackValuesMap.get(id).get("numSamples");
+//				if(numSamples!= null && numSamples.length() > 0) {
+//					childElement.setText(numSamples);
+//				}			    					
+//			}
+//
+//			// bitRate
+//			// 1) correct format
+//			// 2) set to bitRateMax, if mode is variable
+//			else if(childElement.getName().equals("bitRate")) {
+//				String bitRate = audioTrackValuesMap.get(id).get("bitRate");
+//				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+//				// BitRateMax
+//				String bitRateMode = audioTrackValuesMap.get(id).get("bitRateMode");
+//				if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+//					String bitRateMax = audioTrackValuesMap.get(id).get("bitRateMax");
+//					if(!StringUtils.isEmpty(bitRateMax)) {
+//						bitRate = bitRateMax;
+//					}
+//				}
+//				if(!StringUtils.isEmpty(bitRate)) {
+//					childElement.setText(bitRate);
+//				}
+//			} // bitRate
+//			
+//
+//			// duration
+//			else if(childElement.getName().equals("duration")) {
+//				String duration = audioTrackValuesMap.get(id).get("duration");
+//				if(duration != null && duration.length() > 0) {
+//					childElement.setText(duration);
+//				}			    					
+//			}
+//
+//			// trackSize - correct format
+//			else if(childElement.getName().equals("trackSize")) {
+//				String trackSize = audioTrackValuesMap.get(id).get("trackSize");
+//				if(trackSize != null && trackSize.length() > 0) {
+//					childElement.setText(trackSize);
+//				}			    					
+//			}
+//			
+//			// samplingRate - correct format
+//			else if(childElement.getName().equals("samplingRate")) {
+//				String samplingRate = audioTrackValuesMap.get(id).get("samplingRate");
+//				if(samplingRate != null && samplingRate.length() > 0) {
+//					childElement.setText(samplingRate);
+//				}			    					
+//			}
+//			
+//			// channels - correct format
+//			else if(childElement.getName().equals("channels")) {
+//				String channels = audioTrackValuesMap.get(id).get("channels");
+//				if(channels != null && channels.length() > 0) {
+//					childElement.setText(channels);
+//				}			    					
+//			}		    				
+//
+//		} // childElement		
+//		
+//	}
 
 	private Document createXml(String out) throws FitsToolException {
         Document doc = null;
