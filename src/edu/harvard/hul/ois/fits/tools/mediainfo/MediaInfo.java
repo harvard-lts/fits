@@ -204,61 +204,13 @@ public class MediaInfo extends ToolBase {
 	    // in the general XML
 	    // --------------------------------------------------------------------
 	    
-	    Map<String, String> reviseDataMap = new HashMap<String, String>();
-
-	    reviseDataMap.put("dateModified", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		"File_Modified_Date", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name));
-
-	    reviseDataMap.put("generalBitRate", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		"BitRate", MediaInfoNativeWrapper.InfoKind.Text, 
-	    		MediaInfoNativeWrapper.InfoKind.Name));
-	    
-	    reviseDataMap.put("timeCodeStart", mi.Get(MediaInfoNativeWrapper.StreamKind.Other, 0,
-	    		"TimeCode_FirstFrame", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name)); 
-	    
-	    reviseDataMap.put("generalDuration",mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		"Duration", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name));
-
-	    reviseDataMap.put("generalFileSize", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		"FileSize", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name)); 	    
-	    
-	    //
-	    // TODO: bitRate_Maximum never seems to appear in MediaInfo
-	    // in the general section
-	    //
-	    //String generalBitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    //		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
-	    //		MediaInfoNativeWrapper.InfoKind.Name);
-
-//	    // Empty ???
-//	    String dateCreated = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-//	    		//"File_Created_Date", MediaInfoNativeWrapper.InfoKind.Text,
-//	    		"Created_Date", MediaInfoNativeWrapper.InfoKind.Text,	    		
-//	    		MediaInfoNativeWrapper.InfoKind.Name);
-//	    
-//	    String dateEncoded = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-//	    		"Encoded_Date", MediaInfoNativeWrapper.InfoKind.Text,
-//	    		MediaInfoNativeWrapper.InfoKind.Name);
-//	    
-//	    // Empty ???
-//	    String encodedLibraryVersion = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-//	    		//"File_Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,
-//	    		"Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,	    		
-//	    		MediaInfoNativeWrapper.InfoKind.Name);
-//
-
-	    // --------------------------------------------------------------------
-	    
 	    // Maps to hold data that are obtained via explicit MediaInfo API call.
 	    // These values are either not exposed in the XML returned by the Inform()
 	    // method call, or if the granularity of the value is not correct, such as
 	    // bitRate not returning the value as milliseconds, but rather as Mpbs
+	    Map<String, String> generalValuesDataMap = loadGeneralDataMap();	    
 	    Map<String, Map<String, String>> videoTrackValuesMap = 
-	    		loadVideoDataMap (reviseDataMap);	
+	    		loadVideoDataMap (generalValuesDataMap);	
 	    Map<String, Map<String, String>> audioTrackValuesMap = 
 	    		loadAudioDataMap ();
 	    
@@ -290,7 +242,7 @@ public class MediaInfo extends ToolBase {
 		// Revise the XML to include element data that was not returned either
 		// via the MediaInfo XML or require revision for granularity
 		reviseXmlData (fitsXml, videoTrackValuesMap, audioTrackValuesMap, 
-				reviseDataMap);	
+				generalValuesDataMap);	
 		
 		// DEBUG
 		// String finalXml = new XMLOutputter(Format.getPrettyFormat()).outputString(fitsXml);
@@ -308,6 +260,57 @@ public class MediaInfo extends ToolBase {
 		return output;
 	}
 	
+	private  Map<String, String> loadGeneralDataMap () {
+	    Map<String, String> generalValuesDataMap = new HashMap<String, String>();
+
+	    generalValuesDataMap.put("dateModified", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    		"File_Modified_Date", MediaInfoNativeWrapper.InfoKind.Text,
+	    		MediaInfoNativeWrapper.InfoKind.Name));
+
+	    generalValuesDataMap.put("generalBitRate", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    		"BitRate", MediaInfoNativeWrapper.InfoKind.Text, 
+	    		MediaInfoNativeWrapper.InfoKind.Name));
+	    
+	    generalValuesDataMap.put("timeCodeStart", mi.Get(MediaInfoNativeWrapper.StreamKind.Other, 0,
+	    		"TimeCode_FirstFrame", MediaInfoNativeWrapper.InfoKind.Text,
+	    		MediaInfoNativeWrapper.InfoKind.Name)); 
+	    
+	    generalValuesDataMap.put("generalDuration",mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    		"Duration", MediaInfoNativeWrapper.InfoKind.Text,
+	    		MediaInfoNativeWrapper.InfoKind.Name));
+
+	    generalValuesDataMap.put("generalFileSize", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    		"FileSize", MediaInfoNativeWrapper.InfoKind.Text,
+	    		MediaInfoNativeWrapper.InfoKind.Name)); 	    
+	    
+	    //
+	    // TODO: bitRate_Maximum never seems to appear in MediaInfo
+	    // in the general section
+	    //
+	    //String generalBitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+	    //		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
+	    //		MediaInfoNativeWrapper.InfoKind.Name);
+
+//	    // Empty ???
+//	    String dateCreated = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+//	    		//"File_Created_Date", MediaInfoNativeWrapper.InfoKind.Text,
+//	    		"Created_Date", MediaInfoNativeWrapper.InfoKind.Text,	    		
+//	    		MediaInfoNativeWrapper.InfoKind.Name);
+//	    
+//	    String dateEncoded = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+//	    		"Encoded_Date", MediaInfoNativeWrapper.InfoKind.Text,
+//	    		MediaInfoNativeWrapper.InfoKind.Name);
+//	    
+//	    // Empty ???
+//	    String encodedLibraryVersion = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
+//	    		//"File_Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,
+//	    		"Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,	    		
+//	    		MediaInfoNativeWrapper.InfoKind.Name);
+//
+
+	    return generalValuesDataMap;
+	}
+		
 	/**
 	 * Helper method to add values to the map within the trackValuesMap
 	 * 
@@ -324,8 +327,8 @@ public class MediaInfo extends ToolBase {
 		    trackValuesMap.get(id).put(key, value);		    	
 	    }		
 	}
-	
-	private Map<String, Map<String, String>> loadVideoDataMap (Map<String, String> reviseDataMap) {
+
+	private Map<String, Map<String, String>> loadVideoDataMap (Map<String, String> generalValuesDataMap) {
 		
 	    Map<String, Map<String, String>> videoTrackValuesMap = 
 	    	    new HashMap<String, Map<String, String>>();
@@ -423,14 +426,13 @@ public class MediaInfo extends ToolBase {
 		    // formatProfile goes in the FITS XML general section, but
 		    // sometimes is missing from the MediaInfo general section and
 		    // present in video section.
-		    reviseDataMap.put("generalFormatProfileFromVideo,", mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
+		    generalValuesDataMap.put("generalFormatProfileFromVideo,", mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
 		    		"Format_Profile", MediaInfoNativeWrapper.InfoKind.Text, 		    		
 		    		MediaInfoNativeWrapper.InfoKind.Name));
 	    }
 		return videoTrackValuesMap;
 	}	
-	
-	
+
 	private Map<String, Map<String, String>> loadAudioDataMap () {
 
 		Map<String, Map<String, String>> audioTrackValuesMap = 
@@ -518,13 +520,20 @@ public class MediaInfo extends ToolBase {
 		
 	}
 	
+	/**
+	 * Revises the XML to include element data that was not returned either via
+	 * the MediaInfo XML or require revision for granularity using various data 
+	 * maps
+	 * 
+	 * @param fitsXml
+	 * @param videoTrackValuesMap
+	 * @param audioTrackValuesMap
+	 * @param generalValuesDataMap
+	 * @throws FitsToolException
+	 */
 	private void reviseXmlData (Document fitsXml, Map<String, Map<String, String>> videoTrackValuesMap,
-			Map<String, Map<String, String>> audioTrackValuesMap,  Map<String, String> reviseDataMap ) 
-					throws FitsToolException {
-		// ====================================================================
-		// Revise the XML to include element data that was not returned either
-		// via the MediaInfo XML or require revision for granularity
-		// ====================================================================		
+			Map<String, Map<String, String>> audioTrackValuesMap,  Map<String, String> generalValuesDataMap ) 
+					throws FitsToolException {	
 		
 		try {
 		    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");	
@@ -538,68 +547,8 @@ public class MediaInfo extends ToolBase {
 		    List <Element>elementList = videoElement.getContent();
 		    for (Element element : elementList) {
 		    	
-		    	// General size
-		    	if(element.getName().equals("size")) {
-		    		String generalFileSize = reviseDataMap.get("generalFileSize");
-					if (!StringUtils.isEmpty(generalFileSize)) {
-						element.setText(generalFileSize);
-					}
-		    	}    	
-		    	
-		    	// General Section dateModified
-		    	if(element.getName().equals("dateModified")) {
-		    		String dateModified = reviseDataMap.get("dateModified");
-					if (!StringUtils.isEmpty(dateModified)) {
-						element.setText(dateModified);
-					}		    		
-		    	}
-		    	// General Section timecodeStart
-		    	if(element.getName().equals("timecodeStart")) {
-		    		String timeCodeStart = reviseDataMap.get("timeCodeStart");
-					if (!StringUtils.isEmpty(timeCodeStart)) {
-						element.setText(timeCodeStart);
-					}		    		
-		    	}
-		    	// General Section bit rate
-		    	if(element.getName().equals("bitRate")) {
-		    		String generalBitRate = reviseDataMap.get("generalBitRate");
-					if (!StringUtils.isEmpty(generalBitRate)) {
-						element.setText(generalBitRate);
-					}		    		
-		    	}
-		    	
-		    	// General Section duration
-		    	if(element.getName().equals("duration")) {
-		    		String generalDuration = reviseDataMap.get("generalDuration");
-					if (!StringUtils.isEmpty(generalDuration)) {
-						element.setText(generalDuration);
-					}		    		
-		    	}	    	
-
-				// General Section formatProfile - If missing, use value from 
-		    	// video section, which was set above
-				if(element.getName().equals("formatProfile")) {
-					String formatProfileFromElement = element.getValue();
-					// if value for element is missing or empty, we need to update it
-					if(StringUtils.isEmpty(formatProfileFromElement)) {
-						String generalFormatProfileFromVideo = reviseDataMap.get("formatProfileFromElement");
-    					if(generalFormatProfileFromVideo != null && generalFormatProfileFromVideo.length() > 0) {
-    						element.setText(generalFormatProfileFromVideo);
-    					}
-					}
-					
-				}
-				
-//				// The MD5 must be present in the MediaInfo FITS XML so that
-//				// Ebucore can have access to it
-//		    	if(element.getName().equals("filemd5")) {
-//					try {
-//						String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
-//						element.setText(md5Hash);
-//					} catch (IOException e) {
-//						throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
-//					}					
-//		    	}				
+		    	// First revise the general data right off the video element
+		    	reviseGeneralSection(element,  generalValuesDataMap);
 				
 		    	// Tracks
 		    	if(element.getName().equals("track")) {
@@ -627,197 +576,13 @@ public class MediaInfo extends ToolBase {
 		    		}
 
 		    		// video track data
-		    		if (videoTrackValuesMap.containsKey(id)) {
-
-		    			List <Element>contents = element.getContent();		    				
-		    			for (Element childElement : contents) {
-
-		    				// delay
-		    				if(childElement.getName().equals("delay")) {
-		    					String delay = videoTrackValuesMap.get(id).get("delay");
-		    					if(delay != null && delay.length() > 0) {
-		    						childElement.setText(delay);
-		    					}			    					
-		    				}
-		    				// frameCount
-		    				if(childElement.getName().equals("frameCount")) {
-		    					String frameCount = videoTrackValuesMap.get(id).get("frameCount");
-		    					if(frameCount != null && frameCount.length() > 0) {
-		    						childElement.setText(frameCount);
-		    					}			    					
-		    				}
-
-		    				// bitRate
-		    				// 1) correct format
-		    				// 2) set to bitRateMax, if mode is variable
-		    				if(childElement.getName().equals("bitRate")) {
-			    				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
-			    				// BitRateMax
-		    					String bitRateMode = videoTrackValuesMap.get(id).get("bitRateMode");
-		    					if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
-			    					String bitRateMax = videoTrackValuesMap.get(id).get("bitRateMax");
-			    					if(!StringUtils.isEmpty(bitRateMax)) {
-			    						childElement.setText(bitRateMax);
-			    					}
-			    					// NOTE: Since I have never seen bitRateMax being set, we need a backup value
-			    					else {
-				    					String bitRate = videoTrackValuesMap.get(id).get("bitRate");
-				    					if(bitRate != null && bitRate.length() > 0) {
-				    						childElement.setText(bitRate);
-				    					}
-			    					}
-			    					
-		    					}
-		    					// Otherwise, just update it if we need to
-		    					else {
-			    					String bitRate = videoTrackValuesMap.get(id).get("bitRate");
-			    					if(bitRate != null && bitRate.length() > 0) {
-			    						childElement.setText(bitRate);
-			    					}		    						
-		    					}
-			    					
-		    				} // bitRate				
-
-		    				// duration - correct format
-		    				if(childElement.getName().equals("duration")) {
-		    					String duration = videoTrackValuesMap.get(id).get("duration");
-		    					if(duration != null && duration.length() > 0) {
-		    						childElement.setText(duration);
-		    					}			    					
-		    				}
-
-		    				// trackSize - correct format
-		    				if(childElement.getName().equals("trackSize")) {
-		    					String trackSize = videoTrackValuesMap.get(id).get("trackSize");
-		    					if(trackSize != null && trackSize.length() > 0) {
-		    						childElement.setText(trackSize);
-		    					}			    					
-		    				}
-		    				
-		    				// frameRate
-		    				// 1) correct format
-		    				// 2) set to frameRateMax, if mode is variable
-		    				if(childElement.getName().equals("frameRate")) {
-			    				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
-			    				// BitRateMax
-		    					String frameRateMode = videoTrackValuesMap.get(id).get("frameRateMode");
-		    					if(!StringUtils.isEmpty(frameRateMode) && frameRateMode.toUpperCase().equals("VFR")) {
-			    					String frameRateMax = videoTrackValuesMap.get(id).get("frameRateMax");
-			    					if(!StringUtils.isEmpty(frameRateMax)) {
-			    						childElement.setText(frameRateMax);
-			    					}
-			    					// NOTE: Since I have never seen frameRateMax being set, we need a backup value
-			    					else {
-				    					String frameRate = videoTrackValuesMap.get(id).get("frameRate");
-				    					if(frameRate != null && frameRate.length() > 0) {
-				    						childElement.setText(frameRate);
-				    					}
-			    					}
-			    					
-		    					}
-		    					// Otherwise, just update it if we need to
-		    					else {
-			    					String frameRate = videoTrackValuesMap.get(id).get("frameRate");
-			    					if(frameRate != null && frameRate.length() > 0) {
-			    						childElement.setText(frameRate);
-			    					}		    						
-		    					}
-			    					
-		    				}		    				
-
-		    			} // childElement
-
-		    		} //  videoTrackMap.containsKey(id)
-
+		    		if (videoTrackValuesMap.containsKey(id)) {		    			
+		    			reviseVideoSection(element, id, videoTrackValuesMap);
+		    		}
 		    		// audio track data
-		    		if (audioTrackValuesMap.containsKey(id)) {
-
-		    			List <Element>contents = element.getContent();		    				
-		    			for (Element childElement : contents) {
-
-		    				// delay
-		    				if(childElement.getName().equals("delay")) {
-		    					String delay = audioTrackValuesMap.get(id).get("delay");
-		    					if(delay != null && delay.length() > 0) {
-		    						childElement.setText(delay);
-		    					}			    					
-		    				}
-		    				// number of samples
-		    				if(childElement.getName().equals("numSamples")) {
-		    					String numSamples = audioTrackValuesMap.get(id).get("numSamples");
-		    					if(numSamples!= null && numSamples.length() > 0) {
-		    						childElement.setText(numSamples);
-		    					}			    					
-		    				}
-
-		    				// bitRate
-		    				// 1) correct format
-		    				// 2) set to bitRateMax, if mode is variable
-		    				if(childElement.getName().equals("bitRate")) {
-			    				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
-			    				// BitRateMax
-		    					String bitRateMode = audioTrackValuesMap.get(id).get("bitRateMode");
-		    					if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
-			    					String bitRateMax = audioTrackValuesMap.get(id).get("bitRateMax");
-			    					if(!StringUtils.isEmpty(bitRateMax)) {
-			    						childElement.setText(bitRateMax);
-			    					}
-			    					// NOTE: Since I have never seen bitRateMax being set, we need a backup value
-			    					else {
-				    					String bitRate = audioTrackValuesMap.get(id).get("bitRate");
-				    					if(bitRate != null && bitRate.length() > 0) {
-				    						childElement.setText(bitRate);
-				    					}
-			    					}
-			    					
-		    					}
-		    					// Otherwise, just update it if we need to
-		    					else {
-			    					String bitRate = audioTrackValuesMap.get(id).get("bitRate");
-			    					if(bitRate != null && bitRate.length() > 0) {
-			    						childElement.setText(bitRate);
-			    					}		    						
-		    					}
-			    					
-		    				} // bitRate
-		    				
-
-		    				// duration
-		    				if(childElement.getName().equals("duration")) {
-		    					String duration = audioTrackValuesMap.get(id).get("duration");
-		    					if(duration != null && duration.length() > 0) {
-		    						childElement.setText(duration);
-		    					}			    					
-		    				}
-
-		    				// trackSize - correct format
-		    				if(childElement.getName().equals("trackSize")) {
-		    					String trackSize = audioTrackValuesMap.get(id).get("trackSize");
-		    					if(trackSize != null && trackSize.length() > 0) {
-		    						childElement.setText(trackSize);
-		    					}			    					
-		    				}
-		    				
-		    				// samplingRate - correct format
-		    				if(childElement.getName().equals("samplingRate")) {
-		    					String samplingRate = audioTrackValuesMap.get(id).get("samplingRate");
-		    					if(samplingRate != null && samplingRate.length() > 0) {
-		    						childElement.setText(samplingRate);
-		    					}			    					
-		    				}
-		    				
-		    				// channels - correct format
-		    				if(childElement.getName().equals("channels")) {
-		    					String channels = audioTrackValuesMap.get(id).get("channels");
-		    					if(channels != null && channels.length() > 0) {
-		    						childElement.setText(channels);
-		    					}			    					
-		    				}		    				
-
-		    			} // childElement			    			
-			
-		    		} //  audioTrackMap.containsKey(id)
-		    		
+		    		else if (audioTrackValuesMap.containsKey(id)) {
+		    			reviseAudioSection(element, id, audioTrackValuesMap);
+		    		}	    		
 		    		
 		    	} // "track"
 		    	
@@ -828,6 +593,268 @@ public class MediaInfo extends ToolBase {
 			throw new FitsToolException("Error revising xml node values " + TOOL_NAME);			
 		}		    
 
+	}
+	
+	//
+	// First revise the general data right off the video element
+	//
+	private void reviseGeneralSection(Element element, 
+			Map<String, String> generalValuesDataMap) {
+		
+    	// General size
+    	if(element.getName().equals("size")) {
+    		String generalFileSize = generalValuesDataMap.get("generalFileSize");
+			if (!StringUtils.isEmpty(generalFileSize)) {
+				element.setText(generalFileSize);
+			}
+    	}    	
+    	
+    	// General Section dateModified
+    	else if(element.getName().equals("dateModified")) {
+    		String dateModified = generalValuesDataMap.get("dateModified");
+			if (!StringUtils.isEmpty(dateModified)) {
+				element.setText(dateModified);
+			}		    		
+    	}
+    	// General Section timecodeStart
+    	else if(element.getName().equals("timecodeStart")) {
+    		String timeCodeStart = generalValuesDataMap.get("timeCodeStart");
+			if (!StringUtils.isEmpty(timeCodeStart)) {
+				element.setText(timeCodeStart);
+			}		    		
+    	}
+    	// General Section bit rate
+    	else if(element.getName().equals("bitRate")) {
+    		String generalBitRate = generalValuesDataMap.get("generalBitRate");
+			if (!StringUtils.isEmpty(generalBitRate)) {
+				element.setText(generalBitRate);
+			}		    		
+    	}
+    	
+    	// General Section duration
+    	else if(element.getName().equals("duration")) {
+    		String generalDuration = generalValuesDataMap.get("generalDuration");
+			if (!StringUtils.isEmpty(generalDuration)) {
+				element.setText(generalDuration);
+			}		    		
+    	}	    	
+
+		// General Section formatProfile - If missing, use value from 
+    	// video section, which was set above
+    	else if(element.getName().equals("formatProfile")) {
+			String formatProfileFromElement = element.getValue();
+			// if value for element is missing or empty, we need to update it
+			if(StringUtils.isEmpty(formatProfileFromElement)) {
+				String generalFormatProfileFromVideo = generalValuesDataMap.get("formatProfileFromElement");
+				if(generalFormatProfileFromVideo != null && generalFormatProfileFromVideo.length() > 0) {
+					element.setText(generalFormatProfileFromVideo);
+				}
+			}
+			
+		}
+		
+//		// The MD5 must be present in the MediaInfo FITS XML so that
+//		// Ebucore can have access to it
+//    	else if(element.getName().equals("filemd5")) {
+//			try {
+//				String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
+//				element.setText(md5Hash);
+//			} catch (IOException e) {
+//				throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
+//			}					
+//    	}						
+		
+	}
+	
+	private void reviseVideoSection(Element element, String id, 
+			Map<String, Map<String, String>> videoTrackValuesMap) {
+		
+		List <Element>contents = element.getContent();		    				
+		for (Element childElement : contents) {
+
+			// delay
+			if(childElement.getName().equals("delay")) {
+				String delay = videoTrackValuesMap.get(id).get("delay");
+				if(delay != null && delay.length() > 0) {
+					childElement.setText(delay);
+				}			    					
+			}
+			// frameCount
+			else if(childElement.getName().equals("frameCount")) {
+				String frameCount = videoTrackValuesMap.get(id).get("frameCount");
+				if(frameCount != null && frameCount.length() > 0) {
+					childElement.setText(frameCount);
+				}			    					
+			}
+
+			// bitRate
+			// 1) correct format
+			// 2) set to bitRateMax, if mode is variable
+			else if(childElement.getName().equals("bitRate")) {
+				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+				// BitRateMax
+				String bitRateMode = videoTrackValuesMap.get(id).get("bitRateMode");
+				if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+					String bitRateMax = videoTrackValuesMap.get(id).get("bitRateMax");
+					if(!StringUtils.isEmpty(bitRateMax)) {
+						childElement.setText(bitRateMax);
+					}
+					// NOTE: Since I have never seen bitRateMax being set, we need a backup value
+					else {
+    					String bitRate = videoTrackValuesMap.get(id).get("bitRate");
+    					if(bitRate != null && bitRate.length() > 0) {
+    						childElement.setText(bitRate);
+    					}
+					}
+					
+				}
+				// Otherwise, just update it if we need to
+				else {
+					String bitRate = videoTrackValuesMap.get(id).get("bitRate");
+					if(bitRate != null && bitRate.length() > 0) {
+						childElement.setText(bitRate);
+					}		    						
+				}
+					
+			} // bitRate				
+
+			// duration - correct format
+			else if(childElement.getName().equals("duration")) {
+				String duration = videoTrackValuesMap.get(id).get("duration");
+				if(duration != null && duration.length() > 0) {
+					childElement.setText(duration);
+				}			    					
+			}
+
+			// trackSize - correct format
+			else if(childElement.getName().equals("trackSize")) {
+				String trackSize = videoTrackValuesMap.get(id).get("trackSize");
+				if(trackSize != null && trackSize.length() > 0) {
+					childElement.setText(trackSize);
+				}			    					
+			}
+			
+			// frameRate
+			// 1) correct format
+			// 2) set to frameRateMax, if mode is variable
+			else if(childElement.getName().equals("frameRate")) {
+				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+				// BitRateMax
+				String frameRateMode = videoTrackValuesMap.get(id).get("frameRateMode");
+				if(!StringUtils.isEmpty(frameRateMode) && frameRateMode.toUpperCase().equals("VFR")) {
+					String frameRateMax = videoTrackValuesMap.get(id).get("frameRateMax");
+					if(!StringUtils.isEmpty(frameRateMax)) {
+						childElement.setText(frameRateMax);
+					}
+					// NOTE: Since I have never seen frameRateMax being set, we need a backup value
+					else {
+    					String frameRate = videoTrackValuesMap.get(id).get("frameRate");
+    					if(frameRate != null && frameRate.length() > 0) {
+    						childElement.setText(frameRate);
+    					}
+					}
+					
+				}
+				// Otherwise, just update it if we need to
+				else {
+					String frameRate = videoTrackValuesMap.get(id).get("frameRate");
+					if(frameRate != null && frameRate.length() > 0) {
+						childElement.setText(frameRate);
+					}		    						
+				}
+					
+			}		    				
+
+		} // childElement		
+	}
+	
+	private void reviseAudioSection(Element element, String id, 
+			Map<String, Map<String, String>> audioTrackValuesMap) {
+		
+		List <Element>contents = element.getContent();		    				
+		for (Element childElement : contents) {
+
+			// delay
+			if(childElement.getName().equals("delay")) {
+				String delay = audioTrackValuesMap.get(id).get("delay");
+				if(delay != null && delay.length() > 0) {
+					childElement.setText(delay);
+				}			    					
+			}
+			// number of samples
+			else if(childElement.getName().equals("numSamples")) {
+				String numSamples = audioTrackValuesMap.get(id).get("numSamples");
+				if(numSamples!= null && numSamples.length() > 0) {
+					childElement.setText(numSamples);
+				}			    					
+			}
+
+			// bitRate
+			// 1) correct format
+			// 2) set to bitRateMax, if mode is variable
+			else if(childElement.getName().equals("bitRate")) {
+				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+				// BitRateMax
+				String bitRateMode = audioTrackValuesMap.get(id).get("bitRateMode");
+				if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+					String bitRateMax = audioTrackValuesMap.get(id).get("bitRateMax");
+					if(!StringUtils.isEmpty(bitRateMax)) {
+						childElement.setText(bitRateMax);
+					}
+					// NOTE: Since I have never seen bitRateMax being set, we need a backup value
+					else {
+    					String bitRate = audioTrackValuesMap.get(id).get("bitRate");
+    					if(bitRate != null && bitRate.length() > 0) {
+    						childElement.setText(bitRate);
+    					}
+					}
+					
+				}
+				// Otherwise, just update it if we need to
+				else {
+					String bitRate = audioTrackValuesMap.get(id).get("bitRate");
+					if(bitRate != null && bitRate.length() > 0) {
+						childElement.setText(bitRate);
+					}		    						
+				}
+					
+			} // bitRate
+			
+
+			// duration
+			else if(childElement.getName().equals("duration")) {
+				String duration = audioTrackValuesMap.get(id).get("duration");
+				if(duration != null && duration.length() > 0) {
+					childElement.setText(duration);
+				}			    					
+			}
+
+			// trackSize - correct format
+			else if(childElement.getName().equals("trackSize")) {
+				String trackSize = audioTrackValuesMap.get(id).get("trackSize");
+				if(trackSize != null && trackSize.length() > 0) {
+					childElement.setText(trackSize);
+				}			    					
+			}
+			
+			// samplingRate - correct format
+			else if(childElement.getName().equals("samplingRate")) {
+				String samplingRate = audioTrackValuesMap.get(id).get("samplingRate");
+				if(samplingRate != null && samplingRate.length() > 0) {
+					childElement.setText(samplingRate);
+				}			    					
+			}
+			
+			// channels - correct format
+			else if(childElement.getName().equals("channels")) {
+				String channels = audioTrackValuesMap.get(id).get("channels");
+				if(channels != null && channels.length() > 0) {
+					childElement.setText(channels);
+				}			    					
+			}		    				
+
+		} // childElement		
+		
 	}
 
 	private Document createXml(String out) throws FitsToolException {
