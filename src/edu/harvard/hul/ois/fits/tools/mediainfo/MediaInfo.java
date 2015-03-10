@@ -321,7 +321,7 @@ public class MediaInfo extends ToolBase {
 	 */
 	private void addDataToMap(Map<String, Map<String, String>> trackValuesMap,
 			String id, String key, String value) {
-	    if (value != null && value.length() > 0 ) {
+	    if (!StringUtils.isEmpty(value)) {
 	    	if(trackValuesMap.get(id) == null)
 	    		trackValuesMap.put(id, new HashMap<String, String>());
 		    trackValuesMap.get(id).put(key, value);		    	
@@ -666,108 +666,205 @@ public class MediaInfo extends ToolBase {
 		
 	}
 	
-	private void reviseVideoSection(Element element, String id, 
-			Map<String, Map<String, String>> videoTrackValuesMap) {
-		
-		List <Element>contents = element.getContent();		    				
-		for (Element childElement : contents) {
-
-			// delay
-			if(childElement.getName().equals("delay")) {
-				String delay = videoTrackValuesMap.get(id).get("delay");
-				if(delay != null && delay.length() > 0) {
-					childElement.setText(delay);
-				}			    					
-			}
-			// frameCount
-			else if(childElement.getName().equals("frameCount")) {
-				String frameCount = videoTrackValuesMap.get(id).get("frameCount");
-				if(frameCount != null && frameCount.length() > 0) {
-					childElement.setText(frameCount);
-				}			    					
-			}
-
-			// bitRate
-			// 1) correct format
-			// 2) set to bitRateMax, if mode is variable
-			else if(childElement.getName().equals("bitRate")) {
-				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
-				// BitRateMax
-				String bitRateMode = videoTrackValuesMap.get(id).get("bitRateMode");
-				if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
-					String bitRateMax = videoTrackValuesMap.get(id).get("bitRateMax");
-					if(!StringUtils.isEmpty(bitRateMax)) {
-						childElement.setText(bitRateMax);
-					}
-					// NOTE: Since I have never seen bitRateMax being set, we need a backup value
-					else {
-    					String bitRate = videoTrackValuesMap.get(id).get("bitRate");
-    					if(bitRate != null && bitRate.length() > 0) {
-    						childElement.setText(bitRate);
-    					}
-					}
-					
-				}
-				// Otherwise, just update it if we need to
-				else {
-					String bitRate = videoTrackValuesMap.get(id).get("bitRate");
-					if(bitRate != null && bitRate.length() > 0) {
-						childElement.setText(bitRate);
-					}		    						
-				}
-					
-			} // bitRate				
-
-			// duration - correct format
-			else if(childElement.getName().equals("duration")) {
-				String duration = videoTrackValuesMap.get(id).get("duration");
-				if(duration != null && duration.length() > 0) {
-					childElement.setText(duration);
-				}			    					
-			}
-
-			// trackSize - correct format
-			else if(childElement.getName().equals("trackSize")) {
-				String trackSize = videoTrackValuesMap.get(id).get("trackSize");
-				if(trackSize != null && trackSize.length() > 0) {
-					childElement.setText(trackSize);
-				}			    					
-			}
-			
-			// frameRate
-			// 1) correct format
-			// 2) set to frameRateMax, if mode is variable
-			else if(childElement.getName().equals("frameRate")) {
-				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
-				// BitRateMax
-				String frameRateMode = videoTrackValuesMap.get(id).get("frameRateMode");
-				if(!StringUtils.isEmpty(frameRateMode) && frameRateMode.toUpperCase().equals("VFR")) {
-					String frameRateMax = videoTrackValuesMap.get(id).get("frameRateMax");
-					if(!StringUtils.isEmpty(frameRateMax)) {
-						childElement.setText(frameRateMax);
-					}
-					// NOTE: Since I have never seen frameRateMax being set, we need a backup value
-					else {
-    					String frameRate = videoTrackValuesMap.get(id).get("frameRate");
-    					if(frameRate != null && frameRate.length() > 0) {
-    						childElement.setText(frameRate);
-    					}
-					}
-					
-				}
-				// Otherwise, just update it if we need to
-				else {
-					String frameRate = videoTrackValuesMap.get(id).get("frameRate");
-					if(frameRate != null && frameRate.length() > 0) {
-						childElement.setText(frameRate);
-					}		    						
-				}
-					
-			}		    				
-
-		} // childElement		
-	}
+    public enum VideoMethods {
+    	delay ("delay"),
+    	frameCount ("frameCount"),       	
+    	bitRate ("bitRate"),
+    	duration ("duration"),    	
+    	tracksize ("tracksize"),
+    	frameRate ("frameRate");
+       	
+    	private String name;
+        
+    	VideoMethods(String name) {
+            this.name = name;
+        }
+        
+        public String getName () {
+            return name;
+        }
+        
+        static public VideoMethods lookup(String name) {
+        	VideoMethods retMethod = null;
+        	for(VideoMethods method : VideoMethods.values()) {
+        		if (method.getName().equals(name)) {
+        			retMethod = method;
+        			break;
+        		}
+        	}
+        	return retMethod;
+        }
+    }	
 	
+    private void reviseVideoSection(Element element, String id, 
+    		Map<String, Map<String, String>> videoTrackValuesMap) {
+
+    	List <Element>contents = element.getContent();		    				
+    	for (Element childElement : contents) {
+    		String name = childElement.getName();
+    		
+    		// If the "name" is not contained in the enum, continue
+    		VideoMethods videoValueEnum = VideoMethods.lookup(name);
+    		if(videoValueEnum == null) 
+    			continue;
+
+    		String value = videoTrackValuesMap.get(id).get(videoValueEnum.getName());
+    		switch (videoValueEnum) {
+    		// bitRate
+    		// 1) correct format
+    		// 2) set to bitRateMax, if mode is variable
+    		case bitRate:
+    			// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+    			// BitRateMax
+    			String bitRateMode = videoTrackValuesMap.get(id).get("bitRateMode");
+    			if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+    				String bitRateMax = videoTrackValuesMap.get(id).get("bitRateMax");
+    				if(!StringUtils.isEmpty(bitRateMax)) {
+    					childElement.setText(bitRateMax);
+    					value = bitRateMax;
+    				}
+    			}
+    			break;
+    		case frameRate:
+    			// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+    			// BitRateMax
+    			String frameRateMode = videoTrackValuesMap.get(id).get("frameRateMode");
+    			if(!StringUtils.isEmpty(frameRateMode) && frameRateMode.toUpperCase().equals("VFR")) {
+    				String frameRateMax = videoTrackValuesMap.get(id).get("frameRateMax");
+    				if(!StringUtils.isEmpty(frameRateMax)) {
+    					childElement.setText(frameRateMax);
+    					value = frameRateMax;
+    				}
+    			}
+    			break;
+    		default:
+    			break;
+
+
+    		}	// switch
+
+    		// If we got here, then we need to update the element's text
+    		if(!StringUtils.isEmpty(value))
+    			childElement.setText(value);
+
+    	} // childElement
+    }	
+	
+//	private void reviseVideoSection_OLD(Element element, String id, 
+//			Map<String, Map<String, String>> videoTrackValuesMap) {
+//
+//		List <Element>contents = element.getContent();		    				
+//		for (Element childElement : contents) {
+//
+//			// delay
+//			if(childElement.getName().equals("delay")) {
+//				String delay = videoTrackValuesMap.get(id).get("delay");
+//				// DO StringUtils
+//				if(delay != null && delay.length() > 0) {
+//					childElement.setText(delay);
+//				}			    					
+//			}
+//			// frameCount
+//			else if(childElement.getName().equals("frameCount")) {
+//				String frameCount = videoTrackValuesMap.get(id).get("frameCount");
+//				if(!StringUtils.isEmpty(frameCount)) {
+//					childElement.setText(frameCount);
+//				}			    					
+//			}
+//
+//			// bitRate
+//			// 1) correct format
+//			// 2) set to bitRateMax, if mode is variable
+//			else if(childElement.getName().equals("bitRate")) {
+//				String bitRate = videoTrackValuesMap.get(id).get("bitRate");
+//				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+//				// BitRateMax
+//				String bitRateMode = videoTrackValuesMap.get(id).get("bitRateMode");
+//				if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+//					String bitRateMax = videoTrackValuesMap.get(id).get("bitRateMax");
+//					if(!StringUtils.isEmpty(bitRateMax)) {
+//						//childElement.setText(bitRateMax);
+//						bitRate = bitRateMax;
+//					}
+//				}
+//
+//				if(!StringUtils.isEmpty(bitRate)) {
+//					childElement.setText(bitRate);
+//				}
+//			} // bitRate				
+//
+//			// duration - correct format
+//			else if(childElement.getName().equals("duration")) {
+//				String duration = videoTrackValuesMap.get(id).get("duration");
+//				if(!StringUtils.isEmpty(duration)) {
+//					childElement.setText(duration);
+//				}			    					
+//			}
+//
+//			// trackSize - correct format
+//			else if(childElement.getName().equals("trackSize")) {
+//				String trackSize = videoTrackValuesMap.get(id).get("trackSize");
+//				if(!StringUtils.isEmpty(trackSize)) {
+//					childElement.setText(trackSize);
+//				}			    					
+//			}
+//
+//			// frameRate
+//			// 1) correct format
+//			// 2) set to frameRateMax, if mode is variable
+//			else if(childElement.getName().equals("frameRate")) {
+//				String frameRate = videoTrackValuesMap.get(id).get("frameRate");
+//				// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+//				// BitRateMax
+//				String frameRateMode = videoTrackValuesMap.get(id).get("frameRateMode");
+//				if(!StringUtils.isEmpty(frameRateMode) && frameRateMode.toUpperCase().equals("VFR")) {
+//					String frameRateMax = videoTrackValuesMap.get(id).get("frameRateMax");
+//					if(!StringUtils.isEmpty(frameRateMax)) {
+//						childElement.setText(frameRateMax);
+//						frameRate = frameRateMax;
+//					}
+//				}
+//
+//				if(!StringUtils.isEmpty(frameRate)) {
+//					childElement.setText(frameRate);
+//				}			
+//
+//			}		    				
+//
+//		} // childElement		
+//	}
+	
+	// TODO: Use this
+    public enum AudioMethods {
+    	delay ("delay"),
+    	frameCount ("frameCount"),       	
+    	bitRate ("bitRate"),
+    	duration ("duration"),    	
+    	tracksize ("tracksize"),
+    	frameRate ("frameRate");
+       	
+    	private String name;
+        
+    	AudioMethods(String name) {
+            this.name = name;
+        }
+        
+        public String getName () {
+            return name;
+        }
+        
+        static public AudioMethods lookup(String name) {
+        	AudioMethods retMethod = null;
+        	for(AudioMethods method : AudioMethods.values()) {
+        		if (method.getName().equals(name)) {
+        			retMethod = method;
+        			break;
+        		}
+        	}
+        	return retMethod;
+        }
+    }
+    
 	private void reviseAudioSection(Element element, String id, 
 			Map<String, Map<String, String>> audioTrackValuesMap) {
 		

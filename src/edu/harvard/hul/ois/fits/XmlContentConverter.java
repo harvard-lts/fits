@@ -894,24 +894,24 @@ public class XmlContentConverter {
 //        }
 //    }
     
-    /* an enumeration for mapping symbols to FITS video element names */
-    public enum VideoElement {
-       	samplingRate ("samplingRate"),
-       	sampleSize ("sampleSize"),       	
-    	bitRate ("bitRate"),
-    	bitRateMode ("bitRateMode"),    	
-    	channels ("channels");
-       	
-    	private String name;
-        
-    	VideoElement(String name) {
-            this.name = name;
-        }
-        
-        public String getName () {
-            return name;
-        }
-    }
+//    /* an enumeration for mapping symbols to FITS video element names */
+//    public enum VideoElement {
+//       	samplingRate ("samplingRate"),
+//       	sampleSize ("sampleSize"),       	
+//    	bitRate ("bitRate"),
+//    	bitRateMode ("bitRateMode"),    	
+//    	channels ("channels");
+//       	
+//    	private String name;
+//        
+//    	VideoElement(String name) {
+//            this.name = name;
+//        }
+//        
+//        public String getName () {
+//            return name;
+//        }
+//    }
     
     /* an enumeration for mapping symbols to FITS audio element names */
     public enum AudioElement {
