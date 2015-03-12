@@ -68,7 +68,7 @@ public class XsltFunctions {
 	}
 	
 	public static String getFileNameFromUrl(String url) {
-        return FilenameUtils.getBaseName(url);
+        return FilenameUtils.getName(url);        
 	}
 	
 	public static String getFileExtension(String url) {

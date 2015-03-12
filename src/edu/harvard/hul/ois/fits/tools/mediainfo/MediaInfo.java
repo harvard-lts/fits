@@ -264,27 +264,20 @@ public class MediaInfo extends ToolBase {
 	    Map<String, String> generalValuesDataMap = new HashMap<String, String>();
 
 	    generalValuesDataMap.put("dateModified", getMediaInfoString(
-	    		"File_Modified_Date",MediaInfoNativeWrapper.StreamKind.General));
-	    		//"dateModified", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		//"File_Modified_Date", MediaInfoNativeWrapper.InfoKind.Text,
-	    		//MediaInfoNativeWrapper.InfoKind.Name));
+	    		"File_Modified_Date", MediaInfoNativeWrapper.StreamKind.General));
+	    
+	    generalValuesDataMap.put("generalBitRate", getMediaInfoString(
+	    		"BitRate", MediaInfoNativeWrapper.StreamKind.General));
+	    
+	    generalValuesDataMap.put("timeCodeStart", getMediaInfoString(
+	    		"TimeCode_FirstFrame", MediaInfoNativeWrapper.StreamKind.Other));
+	    
+	    generalValuesDataMap.put("generalDuration", getMediaInfoString(
+	    		"Duration", MediaInfoNativeWrapper.StreamKind.General));
 
-	    generalValuesDataMap.put("generalBitRate", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		"BitRate", MediaInfoNativeWrapper.InfoKind.Text, 
-	    		MediaInfoNativeWrapper.InfoKind.Name));
-	    
-	    generalValuesDataMap.put("timeCodeStart", mi.Get(MediaInfoNativeWrapper.StreamKind.Other, 0,
-	    		"TimeCode_FirstFrame", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name)); 
-	    
-	    generalValuesDataMap.put("generalDuration",mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		"Duration", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name));
+	    generalValuesDataMap.put("generalFileSize", getMediaInfoString(
+	    		"FileSize", MediaInfoNativeWrapper.StreamKind.General));
 
-	    generalValuesDataMap.put("generalFileSize", mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    		"FileSize", MediaInfoNativeWrapper.InfoKind.Text,
-	    		MediaInfoNativeWrapper.InfoKind.Name)); 	    
-	    
 	    //
 	    // TODO: bitRate_Maximum never seems to appear in MediaInfo
 	    // in the general section
@@ -597,9 +590,14 @@ public class MediaInfo extends ToolBase {
 
 	}
 	
-	//
-	// First revise the general data right off the video element
-	//
+	/**
+	 * Helper method to revise text in the element passed in. If the element
+	 * is found to have an associated value in the map, the current text of 
+	 * the element is revised.
+	 * 
+	 * @param element jdom element to be revised
+	 * @param generalValuesDataMap map holding video elements to revise
+	 */
 	private void reviseGeneralSection(Element element, 
 			Map<String, String> generalValuesDataMap) {
 		
@@ -668,18 +666,45 @@ public class MediaInfo extends ToolBase {
 		
 	}
 	
+	/**
+	 * Wrapper to the MediaInfo Get method to retrieve a MediaInfo String from
+	 * stream number 0, of info type text, using a named field.
+	 * 
+	 * @param fieldName MediaInfo Field
+	 * @param streamType MediaInfoNativeWrapper.InfoKind
+	 * @return The data as a String
+	 */
 	private String getMediaInfoString(String fieldName, 
 			MediaInfoNativeWrapper.StreamKind streamType) {
 		return getMediaInfoString(0, fieldName, streamType);
 	}
 	
-	private String getMediaInfoString(int ndx, String fieldName, 
+	/**
+	 * Wrapper to the MediaInfo Get method to retrieve a MediaInfo String from
+	 * the stream number passed in, of info type text, using a named field.
+	 * 
+	 * @param streamNumber MediaInfo stream number
+	 * @param fieldName MediaInfo Field
+	 * @param streamType MediaInfoNativeWrapper.InfoKind
+	 * @return The data as a String
+	 */
+	private String getMediaInfoString(int streamNumber, String fieldName, 
 			MediaInfoNativeWrapper.StreamKind streamType) {
-		return mi.Get(streamType, ndx, fieldName, 
+		return mi.Get(streamType, streamNumber, fieldName, 
 				MediaInfoNativeWrapper.InfoKind.Text, 
 	    		MediaInfoNativeWrapper.InfoKind.Name);
 	}
 	
+	/**
+	 * Helper method to revise text in the video track element passed in. The 
+	 * id is used as a key to a map of values. If the element's name is found 
+	 * in the map, the value in the map is used to replace the current text of 
+	 * the element.
+	 * 
+	 * @param element jdom element to be revised
+	 * @param id track key to the map value
+	 * @param videoTrackValuesMap map holding video elements to revise
+	 */
     private void reviseVideoSection(Element element, String id, 
     		Map<String, Map<String, String>> videoTrackValuesMap) {
 
@@ -734,6 +759,16 @@ public class MediaInfo extends ToolBase {
     	} // childElement
     }
     
+	/**
+	 * Helper method to revise text in the audio track element passed in. The 
+	 * id is used as a key to a map of values. If the element's name is found 
+	 * in the map, the value in the map is used to replace the current text of 
+	 * the element.
+	 * 
+	 * @param element jdom element to be revised
+	 * @param id track key to the map value
+	 * @param  audioTrackValuesMap map holding audio elements to revise
+	 */
     private void reviseAudioSection(Element element, String id, 
     		Map<String, Map<String, String>> audioTrackValuesMap) {
 

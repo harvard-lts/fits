@@ -52,7 +52,7 @@ public enum VideoFormatElements {
     //static public VideoFormatElements lookup(String name) {
     //	VideoFormatElements retMethod = null;
     //	for(VideoFormatElements method : VideoFormatElements.values()) {
-    //		if (method.getName().equals(name)) {
+    //		if (method.Name().equals(name)) {
     //			retMethod = method;
     //			break;
     //		}

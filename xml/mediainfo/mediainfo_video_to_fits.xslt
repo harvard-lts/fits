@@ -76,10 +76,11 @@
                     </creatingApplicationName>
                     
                     <!-- TODO: NOT IN sample output -->
+                    <!--
                     <creatingApplicationVersion>
-                        <xsl:value-of select="string('TODO: Do we need this and if so, where do we get this')"/>
-                        <!-- xsl:value-of select="./Encoded_Library_Version"/> -->
-                    </creatingApplicationVersion>                
+                        <xsl:value-of select="./Encoded_Library_Version"/>
+                    </creatingApplicationVersion>
+                    -->               
                 </fileinfo>            
             </xsl:if>
         </xsl:for-each>                  
