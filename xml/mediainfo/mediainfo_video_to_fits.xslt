@@ -95,8 +95,8 @@
             <xsl:if test="@type = 'General'">                   
        			<xsl:variable name="completefilename" select="./Complete_name"/>
        			
-       			<!-- This is already reported by the fileinfo element, so --> 
-       			<!-- it might be filtered out by the consolidator -->
+       			<!-- NOTE: This is already reported by the fileinfo element, --> 
+       			<!-- so it might be filtered out by the consolidator -->
 			    <filename>
        				<xsl:value-of select="fits_XsltFunctions:getFileNameFromUrl($completefilename)"/>
        			</filename>     			      			           
@@ -166,6 +166,8 @@
        			<bitRate />
 	        
 	            <!-- size format is revised in java code -->
+       			<!-- NOTE: This is already reported by the fileinfo element, --> 
+       			<!-- so it might be filtered out by the consolidator -->
        			<size>
        			    <xsl:value-of select="./File_size"/>
        			</size>
