@@ -321,9 +321,11 @@ public class EbuCoreModel {
     	}
 
     	switch (formatElem) {
+    	// Note: size may be filtered off by the consolidator
     	case size:
     		this.format.setFileSize(dataValue);
     		break;
+    	// Note: filename may be filtered off by the consolidator
     	case filename:
     		this.format.setFileName(dataValue);
     		break;
