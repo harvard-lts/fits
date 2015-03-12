@@ -113,20 +113,22 @@ public class EbuCoreModel {
     		String dataValue = dataElement.getText().trim();
     		if (StringUtils.isEmpty(dataValue))
     			continue;
-    		switch (videoElem) {
+    		switch (videoElem) {	
 
     		case width:
-    			dataValue = dataElement.getText().replace(" pixels", "");
+    			dataValue = StringUtils.deleteWhitespace(
+    					dataElement.getText().replace(" pixels", ""));
     			WidthIdentifier width = new WidthIdentifier(
-    					StringUtils.deleteWhitespace(dataValue),
+    					dataValue,
     					videoElem.getName());                                
     			width.setUnit("pixel");
     			vfmt.setWidthIdentifier(width);
     			break;
     		case height:
-        		dataValue = dataElement.getText().replace(" pixels", "");
+        		dataValue = StringUtils.deleteWhitespace(
+        				dataElement.getText().replace(" pixels", ""));
         		HeightIdentifier height = new HeightIdentifier(
-        				StringUtils.deleteWhitespace(dataValue),
+        				dataValue,
         				videoElem.getName());                             
         		height.setUnit("pixel");
         		vfmt.setHeightIdentifier(height);   			
@@ -182,9 +184,8 @@ public class EbuCoreModel {
     		case byteOrder:
     		case delay:
     		case compression:
-        		TechnicalAttributeString tas = 
-					new TechnicalAttributeString(dataValue.toLowerCase(), 
-							"technicalAttributeString");
+        		TechnicalAttributeString tas =
+					new TechnicalAttributeString(dataValue.toLowerCase());        		
         		tas.setTypeLabel(videoElem.getName());
         		vfmt.addTechnicalAttributeString(tas);
     			break;
@@ -203,8 +204,7 @@ public class EbuCoreModel {
     			}
         		TechnicalAttributeInteger tai = 
         				new TechnicalAttributeInteger(Integer.
-						parseInt(dataValue), 
-						"technicalAttributeInteger");
+						parseInt(dataValue));
         		tai.setTypeLabel(videoElem.getName());
         		vfmt.addTechnicalAttributeInteger(tai);
     			break;	
@@ -455,7 +455,9 @@ public class EbuCoreModel {
 
     	for (AudioFormatElements audioElem : AudioFormatElements.values()) {
 
-    		String fitsName = audioElem.getName ();
+    		// NOTE: use the .name(), not .getName(), so we can use the correct
+    		// value to set the typeLabel
+    		String fitsName = audioElem.name();
     		Element dataElement = elem.getChild (fitsName,ns);
     		if (dataElement == null)
     			continue;
@@ -490,10 +492,9 @@ public class EbuCoreModel {
     		case byteOrder:
     		case delay:
     		case compression:
- 	    		TechnicalAttributeString tas = 
- 	    			new TechnicalAttributeString(dataValue.toLowerCase(), 
- 	    					"technicalAttributeString");
- 	    		tas.setTypeLabel(audioElem.getName());
+ 	    		TechnicalAttributeString tas =
+				new TechnicalAttributeString(dataValue.toLowerCase());
+ 	    		tas.setTypeLabel(audioElem.getEbucoreName());
  	    		afmt.addTechnicalAttributeString(tas);
  	    		break;
  	    		
@@ -503,9 +504,8 @@ public class EbuCoreModel {
     		case duration:
 	    		TechnicalAttributeInteger tai = 
 					new TechnicalAttributeInteger(Integer.
-					parseInt(dataValue), 
-					"technicalAttributeInteger");
-	    		tai.setTypeLabel(audioElem.getName());
+					parseInt(dataValue));
+	    			tai.setTypeLabel(audioElem.getEbucoreName());
 	    		afmt.addTechnicalAttributeInteger(tai);
     			break;
     			
@@ -709,8 +709,8 @@ public class EbuCoreModel {
     		this.format.setLocator(dataValue);
     		break;
     	case bitRate:
-    		TechnicalAttributeString tas = 
-    		new TechnicalAttributeString(dataValue, "technicalAttributeString");
+    		TechnicalAttributeString tas =
+    			new TechnicalAttributeString(dataValue);
     		tas.setTypeLabel("overallBitRate");
     		this.format.setTechnicalAttributeString(tas);
     		break;

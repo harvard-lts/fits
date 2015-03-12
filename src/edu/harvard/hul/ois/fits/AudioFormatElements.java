@@ -29,28 +29,32 @@ public enum AudioFormatElements {
 	byteOrder ("byteOrder"),
 	delay ("delay"),
 	compression ("compression"),
-	trackSize ("trackSize"),
-	numSamples ("numSamples"),
+
+	// NOTE the difference between the name and the ebucoreName so that .name()
+	// and .getEbucoreName() are different
+	trackSize ("streamSize"),
+	numSamples ("sampleCount"),
+	
 	duration ("duration");
    	
-	private String name;
+	private String ebucoreName;
     
-	AudioFormatElements(String name) {
-        this.name = name;
+	AudioFormatElements(String ebcoreName) {
+        this.ebucoreName = ebcoreName;
     }
     
-    public String getName () {
-        return name;
+    public String getEbucoreName () {
+        return ebucoreName;
     }
     
-    //static public AudioFormatElements lookup(String name) {
-    //	AudioFormatElements retMethod = null;
-    //	for(AudioFormatElements method : AudioFormatElements.values()) {
-    //		if (method.getName().equals(name)) {
-    //			retMethod = method;
-    //			break;
-    //		}
-    //	}
-    //	return retMethod;
-    //}
+//    static public AudioFormatElements lookup(String name) {
+//    	AudioFormatElements retMethod = null;
+//    	for(AudioFormatElements method : AudioFormatElements.values()) {
+//    		if (method.getEbucoreName().equals(name)) {
+//    			retMethod = method;
+//    			break;
+//    		}
+//    	}
+//    	return retMethod;
+//    }
 }
