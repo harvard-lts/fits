@@ -278,30 +278,25 @@ public class MediaInfo extends ToolBase {
 	    generalValuesDataMap.put("generalFileSize", getMediaInfoString(
 	    		"FileSize", MediaInfoNativeWrapper.StreamKind.General));
 
-	    //
-	    // TODO: bitRate_Maximum never seems to appear in MediaInfo
-	    // in the general section
-	    //
-	    //String generalBitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-	    //		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
-	    //		MediaInfoNativeWrapper.InfoKind.Name);
-
-//	    // Empty ???
-//	    String dateCreated = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-//	    		//"File_Created_Date", MediaInfoNativeWrapper.InfoKind.Text,
-//	    		"Created_Date", MediaInfoNativeWrapper.InfoKind.Text,	    		
-//	    		MediaInfoNativeWrapper.InfoKind.Name);
-//	    
-//	    String dateEncoded = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-//	    		"Encoded_Date", MediaInfoNativeWrapper.InfoKind.Text,
-//	    		MediaInfoNativeWrapper.InfoKind.Name);
-//	    
-//	    // Empty ???
-//	    String encodedLibraryVersion = mi.Get(MediaInfoNativeWrapper.StreamKind.General, 0,
-//	    		//"File_Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,
-//	    		"Encoded_Library_Version", MediaInfoNativeWrapper.InfoKind.Text,	    		
-//	    		MediaInfoNativeWrapper.InfoKind.Name);
+//	    //
+//	    // TODO: bitRate_Maximum never seems to appear in MediaInfo
+//	    // in the general section
+//	    //
+//	    //String generalBitRateMax = getMediaInfoString(
+//	    //		"BitRate_Maximum", MediaInfoNativeWrapper.StreamKind.General);
 //
+//	    // Empty ???
+//	    String dateCreated = getMediaInfoString(
+//	    		"File_Created_Date", MediaInfoNativeWrapper.StreamKind.General);
+//				//"Created_Date", MediaInfoNativeWrapper.StreamKind.General);
+//	    
+//	    String dateEncoded = getMediaInfoString(
+//	    		"Encoded_Date", MediaInfoNativeWrapper.StreamKind.General); 
+//	    
+//	    // Empty ???
+//	    String encodedLibraryVersion = getMediaInfoString(
+//	    		//"File_Encoded_Library_Version", MediaInfoNativeWrapper.StreamKind.General);
+//				"Encoded_Library_Version",MediaInfoNativeWrapper.StreamKind.General);
 
 	    return generalValuesDataMap;
 	}
@@ -330,10 +325,9 @@ public class MediaInfo extends ToolBase {
 		
 	    int numVideoTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Video);    
 	    for (int ndx = 0; ndx < numVideoTracks; ndx++) {
-
-		    String id = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"ID", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    
+		    String id = getMediaInfoString(ndx, "ID", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    
 		    if(StringUtils.isEmpty(id)) {
 		    	// If we only have one video track, we can retrieve data with
@@ -347,24 +341,20 @@ public class MediaInfo extends ToolBase {
 		    	}
 		    }	    	
 		    
-		    String duration = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"Duration", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String duration = getMediaInfoString(ndx, "Duration", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap (videoTrackValuesMap, id, "duration", duration);		    	
 	    	
-		    String videoDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String videoDelay = getMediaInfoString(ndx, "Delay", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap (videoTrackValuesMap, id, "delay", videoDelay);  
 		    
-		    String frameCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"FrameCount", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);	
+		    String frameCount = getMediaInfoString(ndx, "FrameCount", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap (videoTrackValuesMap, id, "frameCount", frameCount);		    
 		    
-		    String bitRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"BitRate", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String bitRate = getMediaInfoString(ndx, "BitRate", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap(videoTrackValuesMap, id, "bitRate", bitRate);
 		    
 		    //
@@ -374,22 +364,18 @@ public class MediaInfo extends ToolBase {
 		    // bitRateMax and bitRateMode, are both used to update
 		    // bitRate, when bitRateMode is variable (VBR)
 		    //
-		    String bitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    
+		    String bitRateMax = getMediaInfoString(ndx, "BitRate_Maximum", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap(videoTrackValuesMap, id, "bitRateMax", bitRateMax);
 		    
-		    String bitRateMode = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"BitRate_Mode", MediaInfoNativeWrapper.InfoKind.Text,
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String bitRateMode = getMediaInfoString(ndx, "BitRate_Mode", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap(videoTrackValuesMap, id, "bitRateMode", bitRateMode);
 		    
 		    // ----------------------------------------------------------------
 		    
-		    String trackSize = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"StreamSize", MediaInfoNativeWrapper.InfoKind.Text, 		    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String trackSize = getMediaInfoString(ndx, "StreamSize", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap(videoTrackValuesMap, id, "trackSize", trackSize);
 		    
 		    //
@@ -399,20 +385,16 @@ public class MediaInfo extends ToolBase {
 		    // frameRateMax and frameRateMode, are both used to update
 		    // frameRate, when frameRateMode is variable (VFR)
 		    //
-		    String frameRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"FrameRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    
+		    String frameRateMax = getMediaInfoString(ndx, "FrameRate_Maximum", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap(videoTrackValuesMap, id, "frameRateMax", frameRateMax);
 		    
-		    String frameRateMode = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"FrameRate_Mode", MediaInfoNativeWrapper.InfoKind.Text,
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String frameRateMode = getMediaInfoString(ndx, "FrameRate_Mode", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap(videoTrackValuesMap, id, "frameRateMode", frameRateMode);
 		    
-		    String frameRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"FrameRate", MediaInfoNativeWrapper.InfoKind.Text, 		    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String frameRate = getMediaInfoString(ndx, "FrameRate", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap(videoTrackValuesMap, id, "frameRate", frameRate);
 		    
 		    // ----------------------------------------------------------------			    
@@ -421,9 +403,9 @@ public class MediaInfo extends ToolBase {
 		    // formatProfile goes in the FITS XML general section, but
 		    // sometimes is missing from the MediaInfo general section and
 		    // present in video section.
-		    generalValuesDataMap.put("generalFormatProfileFromVideo,", mi.Get(MediaInfoNativeWrapper.StreamKind.Video, ndx,
-		    		"Format_Profile", MediaInfoNativeWrapper.InfoKind.Text, 		    		
-		    		MediaInfoNativeWrapper.InfoKind.Name));
+		    generalValuesDataMap.put("generalFormatProfileFromVideo",
+		    		getMediaInfoString(ndx, "Format_Profile", 
+		    		MediaInfoNativeWrapper.StreamKind.Video));
 	    }
 		return videoTrackValuesMap;
 	}	
@@ -436,9 +418,8 @@ public class MediaInfo extends ToolBase {
 	    int numAudioTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Audio);	    
 	    for (int ndx = 0; ndx < numAudioTracks; ndx++) {
 	   
-		    String id = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"ID", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String id = getMediaInfoString(ndx, "ID", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    
 		    //
 		    // In some instances, the ID will include some invalid data such as
@@ -455,19 +436,16 @@ public class MediaInfo extends ToolBase {
 		    	}
 		    }
 	    	
-		    String audioDelay = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"Delay", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String audioDelay = getMediaInfoString(ndx, "Delay", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    addDataToMap (audioTrackValuesMap, id, "delay", audioDelay);
 
-		    String audioSamplesCount = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"SamplingCount", MediaInfoNativeWrapper.InfoKind.Text,    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String audioSamplesCount = getMediaInfoString(ndx, "SamplingCount", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    addDataToMap (audioTrackValuesMap, id, "numSamples", audioSamplesCount);
 		    
-		    String bitRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"BitRate", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String bitRate = getMediaInfoString(ndx, "BitRate", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    addDataToMap(audioTrackValuesMap, id, "bitRate", bitRate);
 		    
 		    //
@@ -477,37 +455,30 @@ public class MediaInfo extends ToolBase {
 		    // bitRateMax and bitRateMode, are both used to update
 		    // bitRate, when bitRateMode is variable (VBR)
 		    //
-		    String bitRateMax = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"BitRate_Maximum", MediaInfoNativeWrapper.InfoKind.Text,
-		    		MediaInfoNativeWrapper.InfoKind.Name);
-		    
+		    String bitRateMax = getMediaInfoString(ndx, "BitRate_Maximum", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    addDataToMap(audioTrackValuesMap, id, "bitRateMax", bitRateMax);
 		    
-		    String bitRateMode = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"BitRate_Mode", MediaInfoNativeWrapper.InfoKind.Text,
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String bitRateMode = getMediaInfoString(ndx, "BitRate_Mode", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    addDataToMap(audioTrackValuesMap, id, "bitRateMode", bitRateMode);
 		    
 		    // ----------------------------------------------------------------
 		    
-		    String duration = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"Duration", MediaInfoNativeWrapper.InfoKind.Text, 
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String duration = getMediaInfoString(ndx, "Duration", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);;
 		    addDataToMap (audioTrackValuesMap, id, "duration", duration);
 		    
-		    String trackSize = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"StreamSize", MediaInfoNativeWrapper.InfoKind.Text, 		    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String trackSize = getMediaInfoString(ndx, "StreamSize", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    addDataToMap(audioTrackValuesMap, id, "trackSize", trackSize);
 		    
-		    String samplingRate = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"SamplingRate", MediaInfoNativeWrapper.InfoKind.Text, 		    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String samplingRate = getMediaInfoString(ndx, "SamplingRate", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    addDataToMap(audioTrackValuesMap, id, "samplingRate", samplingRate);
 		    
-		    String channels = mi.Get(MediaInfoNativeWrapper.StreamKind.Audio, ndx,
-		    		"Channels", MediaInfoNativeWrapper.InfoKind.Text, 		    		
-		    		MediaInfoNativeWrapper.InfoKind.Name);
+		    String channels = getMediaInfoString(ndx, "Channels", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    addDataToMap(audioTrackValuesMap, id, "channels", channels);
 	    }
 	    
