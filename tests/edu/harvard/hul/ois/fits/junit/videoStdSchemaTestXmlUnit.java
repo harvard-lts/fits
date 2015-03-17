@@ -18,12 +18,15 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+
 import java.util.List;
 import java.util.Scanner;
-
 //import javax.xml.stream.XMLOutputFactory;
 //import javax.xml.stream.XMLStreamWriter;
+
+import org.custommonkey.xmlunit.*;
 
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
@@ -33,16 +36,15 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 //import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
-import org.custommonkey.xmlunit.*;
 
 public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 
 	@Test  
-	public void testVideoXmlUnit() throws Exception {
+	public void testVideoXmlUnitFitsPutput() throws Exception {
 
 		Fits fits = new Fits();
 		
-		// MPEG-4
+		// First generate the FITS output
 		File input = new File("/Users/dab980/downloads/remade-video-files/AVPS-sample_14-aja-2vuy-8bit.mov");
 		FitsOutput fitsOut = fits.examine(input);
 		
@@ -67,7 +69,7 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				"testfiles/output/AVPS-sample_14-aja-2vuy-8bit_mov.xml"));
+				"testfiles/output/AVPS-sample_14-aja-2vuy-8bit_mov_Fits.xml"));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
@@ -103,5 +105,121 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 		
 		assertTrue("Differences in XML", diff.identical());
 	}
+	
+	@Test  
+	public void testVideoXmlUnitStandardOutput() throws Exception {
+		
+		// First generate the FITS output
+		File input = new File("/Users/dab980/downloads/remade-video-files/AVPS-sample_14-aja-2vuy-8bit.mov");
+		Fits fits = new Fits();	
+		FitsOutput fitsOut = fits.examine(input);
+		
+		// Output stream for FITS to write to 
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		
+		// Create standard output in the stream passed in
+		Fits.outputStandardSchemaXml(fitsOut, out);
+		
+		// Turn output stream into a String HtmlUnit can use
+		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
+		
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/AVPS-sample_14-aja-2vuy-8bit_mov_Standard.xml"));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		// Set up XMLUnit
+		XMLUnit.setIgnoreWhitespace(true); 
+		XMLUnit.setNormalizeWhitespace(true);
+		
+		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
+
+		// Initialize attributes to ignore for difference checking
+		diff.overrideDifferenceListener(new IgnoreNamedAttributesDifferenceListener(
+				"timestamp", 
+				"fitsExecutionTime",
+				"executionTime"));
+
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+
+		// Display any Differences
+		List<Difference> diffs = detailedDiff.getAllDifferences();
+		//if (!diff.similar()) {
+		if (!diff.identical()) { 
+			StringBuffer differenceDescription = new StringBuffer(); 
+			differenceDescription.append(diffs.size()).append(" differences"); 
+			//org.junit.Assert.fail(differenceDescription.toString());
+			
+			System.out.println(differenceDescription.toString());
+			for(Difference difference : diffs) {
+				System.out.println(difference.toString());
+			}
+
+		}
+		
+		assertTrue("Differences in XML", diff.identical());
+		
+	}
+	
+	
+	@Test  
+	public void testVideoXmlUnitCombinedOutput() throws Exception {
+		
+		// First generate the FITS output
+		File input = new File("/Users/dab980/downloads/remade-video-files/AVPS-sample_14-aja-2vuy-8bit.mov");
+		Fits fits = new Fits();	
+		FitsOutput fitsOut = fits.examine(input);
+		
+		// Output stream for FITS to write to 
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		
+		// Create combined output in the stream passed in
+		Fits.outputStandardCombinedFormat(fitsOut, out);
+		
+		// Turn output stream into a String HtmlUnit can use
+		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
+		
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/AVPS-sample_14-aja-2vuy-8bit_mov_Combined.xml"));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		// Set up XMLUnit
+		XMLUnit.setIgnoreWhitespace(true); 
+		XMLUnit.setNormalizeWhitespace(true);
+		
+		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
+
+		// Initialize attributes to ignore for difference checking
+		diff.overrideDifferenceListener(new IgnoreNamedAttributesDifferenceListener(
+				"timestamp", 
+				"fitsExecutionTime",
+				"executionTime"));
+
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+
+		// Display any Differences
+		List<Difference> diffs = detailedDiff.getAllDifferences();
+		//if (!diff.similar()) {
+		if (!diff.identical()) { 
+			StringBuffer differenceDescription = new StringBuffer(); 
+			differenceDescription.append(diffs.size()).append(" differences"); 
+			//org.junit.Assert.fail(differenceDescription.toString());
+			
+			System.out.println(differenceDescription.toString());
+			for(Difference difference : diffs) {
+				System.out.println(difference.toString());
+			}
+
+		}
+		
+		assertTrue("Differences in XML", diff.identical());
+		
+	}	
+	
 
 }
