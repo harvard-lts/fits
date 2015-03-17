@@ -88,10 +88,10 @@ public class EbuCoreModel {
 		// TODO: Do we need this
 		// format.setAudioFormatExtended(audioFmtExt);
 		
-        CoreMetadata cm = new CoreMetadata("coreMetadata");
+        CoreMetadata cm = new CoreMetadata();
         cm.setFormat(format);
 
-        ebucoreMain.setFormat(cm);
+        ebucoreMain.setCoreMetadata(cm);
     }
 	
     protected void createVideoFormatElement(Element elem, Namespace ns) 

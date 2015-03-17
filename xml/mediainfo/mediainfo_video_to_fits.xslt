@@ -218,9 +218,15 @@
                                 <xsl:when test="$codecID='apch'">
 					                <xsl:text>Lossy</xsl:text>             				        
 				                </xsl:when>
+                                <xsl:when test="$codecID='apch'">
+					                <xsl:text>TODO</xsl:text>             				        
+				                </xsl:when>				                
                                 <xsl:when test="$codecID='avc1'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
+                                <xsl:when test="$codecID='R10g'">
+			                        <xsl:text>TODO</xsl:text>                				        
+				                </xsl:when>					                
                                 <xsl:when test="$codecID='dvc'">
 					                <xsl:text>Lossy</xsl:text>             				        
 				                </xsl:when>
@@ -254,9 +260,15 @@
                                 <xsl:when test="$codecID='apch'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
+                                <xsl:when test="$codecID='apc'">
+					                <xsl:text>TODO</xsl:text>             				        
+				                </xsl:when>				                
                                 <xsl:when test="$codecID='avc1'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
+                                <xsl:when test="$codecID='R10g'">
+			                        <xsl:text>TODO</xsl:text>                				        
+				                </xsl:when>					                
                                 <xsl:when test="$codecID='dvc'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
@@ -289,7 +301,13 @@
 				                </xsl:when>
                                 <xsl:when test="$codecID='apch'">
 			                        <xsl:text>10 bits</xsl:text>                				        
-				                </xsl:when>				                			        
+				                </xsl:when>
+                                <xsl:when test="$codecID='R10g'">
+			                        <xsl:text>10 bits</xsl:text>                				        
+				                </xsl:when>					                
+                                <xsl:when test="$codecID='apcn'">
+			                        <xsl:text>10 bits</xsl:text>                				        
+				                </xsl:when>				                		                			        
                                 <xsl:when test="$codecID='avc1'">
 			                        <xsl:text>8 bits</xsl:text>              				        
 				                </xsl:when>
@@ -358,7 +376,8 @@
        			        <xsl:value-of select="./Display_aspect_ratio"/>
        			    </aspectRatio>      			    
 
-       			    <!-- If Scanning Format is NOT present, use encoding to determine the value -->			    
+       			    <!-- If Scanning Format is NOT present, use encoding to determine the value -->
+       			    <!-- FITS-SAMPLE-10.mov reports Interaced, spreadsheet reports Progessive -->	                     			    		    
        			    <scanningFormat>
 		                <xsl:choose>
  				            <xsl:when test="./Scan_type">
@@ -375,6 +394,12 @@
                                     <xsl:when test="$codecID='apch'">
 					                    <xsl:text>Interlaced</xsl:text>             				        
 				                    </xsl:when>
+                                    <xsl:when test="$codecID='apcn'">
+					                    <xsl:text>TODO</xsl:text>             				        
+				                    </xsl:when>				                    
+				                    <xsl:when test="$codecID='R10g'">
+					                    <xsl:text>Progressive</xsl:text>             				        
+				                    </xsl:when>				                    
                                     <xsl:when test="$codecID='avc1'">
 					                    <xsl:text>Progressive</xsl:text>             				        
 				                    </xsl:when>
