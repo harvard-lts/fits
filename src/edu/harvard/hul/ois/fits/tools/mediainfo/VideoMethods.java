@@ -24,7 +24,8 @@ public enum VideoMethods {
 	bitRate ("bitRate"),
 	duration ("duration"),    	
 	trackSize ("trackSize"),
-	frameRate ("frameRate");
+	frameRate ("frameRate"),
+	scanningOrder ("scanningOrder");
    	
 	private String name;
     

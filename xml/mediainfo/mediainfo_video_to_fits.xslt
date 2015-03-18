@@ -419,7 +419,11 @@
 				            </xsl:otherwise>
 				        </xsl:choose>        
        			    </scanningFormat>
-       			           			    
+       			           		
+       			    <scanningOrder>
+       			        <xsl:value-of select="./scanOrder"/>
+       			    </scanningOrder>
+       			          			           			    
        			    <chromaSubsampling>
        			        <xsl:value-of select="./Chroma_subsampling"/>
        			    </chromaSubsampling>
@@ -441,8 +445,7 @@
               	    <audioDataEncoding>
               	        <xsl:value-of select="./Format"/>
               	    </audioDataEncoding>
-              	    
-              	    <!-- TODO: Does Compression mode for audio ever show up? -->
+
                     <compression>
 		                <xsl:choose>
  				            <xsl:when test="./Compression_mode">

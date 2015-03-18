@@ -20,6 +20,7 @@ package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 import java.io.File;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -339,7 +340,7 @@ public class MediaInfo extends ToolBase {
 			    	logger.error("Error retrieving the ID of the video track from MediaInfo: " + ndx);
 			    	continue;
 		    	}
-		    }	    	
+		    }
 		    
 		    String duration = getMediaInfoString(ndx, "Duration", 
 		    		MediaInfoNativeWrapper.StreamKind.Video);
@@ -398,6 +399,9 @@ public class MediaInfo extends ToolBase {
 		    addDataToMap(videoTrackValuesMap, id, "frameRate", frameRate);
 		    
 		    // ----------------------------------------------------------------			    
+		    String scanningOrder = getMediaInfoString(ndx, "ScanOrder", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
+		    addDataToMap (videoTrackValuesMap, id, "scanningOrder", scanningOrder);		  
 		    
 		    // NOTE:
 		    // formatProfile goes in the FITS XML general section, but
@@ -678,6 +682,10 @@ public class MediaInfo extends ToolBase {
 	 */
     private void reviseVideoSection(Element element, String id, 
     		Map<String, Map<String, String>> videoTrackValuesMap) {
+    	
+    	// Remove any empty elements
+    	// Right now it is only scanning order
+    	List<Element> elementsToRemove = new ArrayList<Element>();
 
     	List <Element>contents = element.getContent();		    				
     	for (Element childElement : contents) {
@@ -717,9 +725,23 @@ public class MediaInfo extends ToolBase {
     				}
     			}
     			break;
+    			
+    		case scanningOrder:
+    			// TODO: Fix the below ...
+    			// It was noticed that might display BFF (Bottom Filed First),
+    			// instead of TFF (Top Field First) for interlaced videos
+    			// See:
+    			// https://mediaarea.net/en-us/MediaInfo/Support/FAQ
+    			// Section:
+    			// MediaInfo states video is Bottom Filed First when it is actually Top Field First
+        		if(!StringUtils.isEmpty(value))
+        			childElement.setText(value);
+        		else {	// Remove the child element if it is empty
+        			elementsToRemove.add(childElement);
+        		}
+    			break;
     		default:
     			break;
-
 
     		}	// switch
 
@@ -728,6 +750,11 @@ public class MediaInfo extends ToolBase {
     			childElement.setText(value);
 
     	} // childElement
+    	
+    	// Remove all elements marked as empty
+    	for (Element elementToRemove : elementsToRemove) {
+    		elementToRemove.getParent().removeContent(elementToRemove);
+    	}
     }
     
 	/**
