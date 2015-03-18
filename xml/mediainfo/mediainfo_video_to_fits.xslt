@@ -419,10 +419,9 @@
 				            </xsl:otherwise>
 				        </xsl:choose>        
        			    </scanningFormat>
-       			           		
-       			    <scanningOrder>
-       			        <xsl:value-of select="./scanOrder"/>
-       			    </scanningOrder>
+       			     
+       			     <!-- scanOrderis only visible via the MediaInfo API. Set in Java code. -->      		
+       			    <scanningOrder />
        			          			           			    
        			    <chromaSubsampling>
        			        <xsl:value-of select="./Chroma_subsampling"/>
