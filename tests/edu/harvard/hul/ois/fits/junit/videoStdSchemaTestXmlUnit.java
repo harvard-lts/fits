@@ -40,36 +40,20 @@ import edu.harvard.hul.ois.fits.FitsOutput;
 public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 
 	@Test  
-	public void testVideoXmlUnitFitsPutput() throws Exception {
+	public void testVideoXmlUnitFitsOutput_AVC() throws Exception {
 
 		Fits fits = new Fits();
 		
 		// First generate the FITS output
-		File input = new File("/Users/dab980/downloads/remade-video-files/AVPS-sample_14-aja-2vuy-8bit.mov");
+		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
 		FitsOutput fitsOut = fits.examine(input);
-		
-	//	// Write the Output to disk
-	//	fitsOut.saveToDisk("videoStdSchemaTestOutput.xml");
 
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-		
-//		System.out.println("\n\nActual XML Returned:\n" + actualXmlStr);
-//
-//		// Standard Output
-//		System.out.println("\n\n======================================");
-//		XmlContent xml = fitsOut.getStandardXmlContent();
-//		if(xml != null) {
-//			xml.setRoot(true);
-//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-//			
-//			xml.output(writer);
-//		}
 
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				"testfiles/output/AVPS-sample_14-aja-2vuy-8bit_mov_Fits.xml"));
+				"testfiles/output/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_FITS.xml"));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
@@ -80,21 +64,21 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
-		// Initialize attributes to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedAttributesDifferenceListener(
+		// Initialize attributes or elements to ignore for difference checking
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
 				"timestamp", 
 				"fitsExecutionTime",
-				"executionTime"));
+				"executionTime",
+				"filepath",
+				"location"));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 
 		// Display any Differences
 		List<Difference> diffs = detailedDiff.getAllDifferences();
-		//if (!diff.similar()) {
 		if (!diff.identical()) { 
 			StringBuffer differenceDescription = new StringBuffer(); 
 			differenceDescription.append(diffs.size()).append(" differences"); 
-			//org.junit.Assert.fail(differenceDescription.toString());
 			
 			System.out.println(differenceDescription.toString());
 			for(Difference difference : diffs) {
@@ -107,10 +91,10 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 	}
 	
 	@Test  
-	public void testVideoXmlUnitStandardOutput() throws Exception {
+	public void testVideoXmlUnitStandardOutput_AVC() throws Exception {
 		
 		// First generate the FITS output
-		File input = new File("/Users/dab980/downloads/remade-video-files/AVPS-sample_14-aja-2vuy-8bit.mov");
+		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
 		Fits fits = new Fits();	
 		FitsOutput fitsOut = fits.examine(input);
 		
@@ -125,7 +109,7 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				"testfiles/output/AVPS-sample_14-aja-2vuy-8bit_mov_Standard.xml"));
+				"testfiles/output/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_FITS_Standard.xml"));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
@@ -136,21 +120,23 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 		
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
-		// Initialize attributes to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedAttributesDifferenceListener(
+		// Initialize attributes or elements to ignore for difference checking
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
 				"timestamp", 
 				"fitsExecutionTime",
-				"executionTime"));
+				"executionTime",
+				// Not in Standard Output
+				//"filepath",
+				//"location",
+				"ebucore:locator"));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 
 		// Display any Differences
 		List<Difference> diffs = detailedDiff.getAllDifferences();
-		//if (!diff.similar()) {
 		if (!diff.identical()) { 
 			StringBuffer differenceDescription = new StringBuffer(); 
 			differenceDescription.append(diffs.size()).append(" differences"); 
-			//org.junit.Assert.fail(differenceDescription.toString());
 			
 			System.out.println(differenceDescription.toString());
 			for(Difference difference : diffs) {
@@ -165,10 +151,9 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 	
 	
 	@Test  
-	public void testVideoXmlUnitCombinedOutput() throws Exception {
+	public void testVideoXmlUnitCombinedOutput_AVC() throws Exception {
 		
-		// First generate the FITS output
-		File input = new File("/Users/dab980/downloads/remade-video-files/AVPS-sample_14-aja-2vuy-8bit.mov");
+		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
 		Fits fits = new Fits();	
 		FitsOutput fitsOut = fits.examine(input);
 		
@@ -183,7 +168,8 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				"testfiles/output/AVPS-sample_14-aja-2vuy-8bit_mov_Combined.xml"));
+				//"testfiles/output/AVPS-sample_14-aja-2vuy-8bit_mov_Combined.xml"));
+	            "testfiles/output/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_Combined.xml"));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
@@ -194,21 +180,22 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 		
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
-		// Initialize attributes to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedAttributesDifferenceListener(
+		// Initialize attributes or elements to ignore for difference checking
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
 				"timestamp", 
 				"fitsExecutionTime",
-				"executionTime"));
+				"executionTime",
+				"filepath",
+				"location",
+				"ebucore:locator"));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 
 		// Display any Differences
 		List<Difference> diffs = detailedDiff.getAllDifferences();
-		//if (!diff.similar()) {
 		if (!diff.identical()) { 
 			StringBuffer differenceDescription = new StringBuffer(); 
 			differenceDescription.append(diffs.size()).append(" differences"); 
-			//org.junit.Assert.fail(differenceDescription.toString());
 			
 			System.out.println(differenceDescription.toString());
 			for(Difference difference : diffs) {

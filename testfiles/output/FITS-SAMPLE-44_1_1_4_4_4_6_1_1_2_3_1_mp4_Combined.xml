@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="3/19/15 9:43 AM">
+  <identification status="CONFLICT">
+    <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="0.8.3">
+      <tool toolname="MediaInfo" toolversion="0.7.71" />
+    </identity>
+    <identity format="ISO Media, MPEG v4 system, version 2" mimetype="video/mp4" toolname="FITS" toolversion="0.8.3">
+      <tool toolname="file utility" toolversion="5.04" />
+    </identity>
+  </identification>
+  <fileinfo>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filepath>
+    <filename toolname="MediaInfo" toolversion="0.7.71">FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filename>
+    <size toolname="MediaInfo" toolversion="0.7.71">9093784</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">61c4efc89a4acfb9db38edcdd6c39379</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1426264984000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <video>
+      <location toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</location>
+      <mimeType toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">video/mp4</mimeType>
+      <format toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">MPEG-4</format>
+      <formatProfile toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">Base Media / Version 2</formatProfile>
+      <duration toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">4137</duration>
+      <bitRate toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">17585272</bitRate>
+      <dateCreated toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">UTC 2015-03-13 19:21:21</dateCreated>
+      <dateModified toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">UTC 2015-03-13 16:43:04</dateModified>
+      <track type="video" id="1" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
+        <videoDataEncoding>avc1</videoDataEncoding>
+        <compression>Unknown</compression>
+        <byteOrder>Unknown</byteOrder>
+        <bitDepth>8 bits</bitDepth>
+        <bitRate>17375067</bitRate>
+        <bitRateMode />
+        <duration>4137</duration>
+        <delay />
+        <trackSize>8986104</trackSize>
+        <width>1 440 pixels</width>
+        <height>1 080 pixels</height>
+        <frameRate>29.970</frameRate>
+        <frameRateMode>Constant</frameRateMode>
+        <frameCount>124</frameCount>
+        <aspectRatio>4:3</aspectRatio>
+        <scanningFormat>Interlaced</scanningFormat>
+        <scanningOrder>TFF</scanningOrder>
+        <chromaSubsampling>4:2:0</chromaSubsampling>
+        <colorspace>YUV</colorspace>
+      </track>
+      <track type="audio" id="2" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
+        <audioDataEncoding>AAC</audioDataEncoding>
+        <compression>Lossy</compression>
+        <bitRate>228374</bitRate>
+        <bitRateMode>Variable</bitRateMode>
+        <bitDepth />
+        <duration>4137</duration>
+        <delay />
+        <trackSize>97970</trackSize>
+        <soundField>Front: L R</soundField>
+        <samplingRate>48000</samplingRate>
+        <numSamples>198576</numSamples>
+        <channels>2</channels>
+        <channelInfo />
+        <byteOrder />
+      </track>
+      <standard>
+        <ebucore:ebuCoreMain xmlns:ebucore="urn:ebu:metadata-schema:ebuCore_2014">
+          <ebucore:coreMetadata>
+            <ebucore:format>
+              <ebucore:videoFormat>
+                <ebucore:width unit="pixel">1440</ebucore:width>
+                <ebucore:height unit="pixel">1080</ebucore:height>
+                <ebucore:frameRate factorDenominator="1001" factorNumerator="1000">30</ebucore:frameRate>
+                <ebucore:aspectRatio typeLabel="display">
+                  <ebucore:factorNumerator>4</ebucore:factorNumerator>
+                  <ebucore:factorDenominator>3</ebucore:factorDenominator>
+                </ebucore:aspectRatio>
+                <ebucore:videoEncoding typeLabel="avc1" />
+                <ebucore:bitRate>17375067</ebucore:bitRate>
+                <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
+                <ebucore:videoTrack trackId="1" />
+                <ebucore:technicalAttributeString typeLabel="chromaSubsampling">4:2:0</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="colorspace">yuv</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="frameRateMode">constant</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="byteOrder">unknown</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="compression">unknown</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeInteger typeLabel="frameCount">124</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="bitDepth">8</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="duration">4137</ebucore:technicalAttributeInteger>
+              </ebucore:videoFormat>
+              <ebucore:audioFormat>
+                <ebucore:audioEncoding typeLabel="AAC" />
+                <ebucore:audioTrackConfiguration typeLabel="Front: L R" />
+                <ebucore:samplingRate>48000</ebucore:samplingRate>
+                <ebucore:bitRate>228374</ebucore:bitRate>
+                <ebucore:bitRateMode>variable</ebucore:bitRateMode>
+                <ebucore:audioTrack trackId="2" />
+                <ebucore:channels>2</ebucore:channels>
+                <ebucore:technicalAttributeString typeLabel="compression">lossy</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeInteger typeLabel="streamSize">97970</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="sampleCount">198576</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="duration">4137</ebucore:technicalAttributeInteger>
+              </ebucore:audioFormat>
+              <ebucore:containerFormat>
+                <ebucore:comment>MPEG-4</ebucore:comment>
+                <ebucore:comment>Base Media / Version 2</ebucore:comment>
+              </ebucore:containerFormat>
+              <ebucore:duration>
+                <ebucore:duration>4137</ebucore:duration>
+              </ebucore:duration>
+              <ebucore:mimeType typeLabel="video/mp4" />
+              <ebucore:locator>testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</ebucore:locator>
+              <ebucore:technicalAttributeString typeLabel="overallBitRate">17585272</ebucore:technicalAttributeString>
+              <ebucore:dateModified startTime="16:43:04Z" startDate="2015-03-13" />
+            </ebucore:format>
+          </ebucore:coreMetadata>
+        </ebucore:ebuCoreMain>
+      </standard>
+    </video>
+  </metadata>
+  <statistics fitsExecutionTime="4893">
+    <tool toolname="MediaInfo" toolversion="0.7.71" executionTime="849" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.5" executionTime="4868" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="1017" />
+    <tool toolname="Exiftool" toolversion="9.13" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.3" executionTime="478" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" executionTime="679" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="610" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="690" />
+    <tool toolname="Tika" toolversion="1.3" executionTime="578" />
+  </statistics>
+</fits>
+
