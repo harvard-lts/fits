@@ -1,5 +1,5 @@
 /* 
- * Copyright 2009 Harvard University Library
+ * Copyright 2014 Harvard University Library
  * 
  * This file is part of FITS (File Information Tool Set).
  * 
@@ -19,35 +19,44 @@
 package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
+
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
+
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tools.Tool;
+import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
 import org.custommonkey.xmlunit.*;
 
+public class VideoStdSchemaTest extends XMLTestCase {
 
-public class FitsBasicVideoTest extends XMLTestCase {
-
-    
-	@Test
-	public void testFitsVideo() throws Exception {	
-    	Fits fits = new Fits("");
+    @Test  
+	public void testVideo() throws Exception {   
+    	Fits fits = new Fits();
     	File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
     	
-    	for(Tool t : fits.getToolbelt().getTools()) {
-    		if(t.getToolInfo().getName().equals("Jhove")) {
-    			//t.setEnabled(false);
-    		}
-    		if(t.getToolInfo().getName().equals("Exiftool")) {
-    			//t.setEnabled(false);
-    		}
-    	}
     	
     	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("fitsBasicVideoTestOutput.xml");
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		XmlContent xml = fitsOut.getStandardXmlContent();
+		
+		if(xml != null) {
+			xml.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			xml.output(writer);
+		}
     	
 	}
+
 
 }
