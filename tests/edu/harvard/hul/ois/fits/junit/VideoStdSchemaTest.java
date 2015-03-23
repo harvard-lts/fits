@@ -36,7 +36,7 @@ import org.custommonkey.xmlunit.*;
 public class VideoStdSchemaTest extends XMLTestCase {
 
     @Test  
-	public void testVideo() throws Exception {   
+	public void testVideo_AVC() throws Exception {   
     	Fits fits = new Fits();
     	File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
     	
@@ -57,6 +57,29 @@ public class VideoStdSchemaTest extends XMLTestCase {
 		}
     	
 	}
+    
+    @Test  
+	public void testVideo_DV() throws Exception {   
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/FITS-SAMPLE-26.mov");
+    	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		XmlContent xml = fitsOut.getStandardXmlContent();
+		
+		if(xml != null) {
+			xml.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			xml.output(writer);
+		}
+    	
+	}    
 
 
 }
