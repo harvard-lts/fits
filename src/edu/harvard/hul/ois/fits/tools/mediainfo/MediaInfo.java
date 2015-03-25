@@ -106,9 +106,7 @@ public class MediaInfo extends ToolBase {
 		} catch (java.lang.UnsatisfiedLinkError e){
 			throw new FitsToolException("Error loading native library for " + TOOL_NAME);
 		}
-		
-		// TODO: Do we need a transform map for MediaInfo?
-		// transformMap = XsltTransformMap.getMap(mediaInfoFitsConfig+"mediainfo_xslt_map.xml");
+
 	}	
 	
 	@Override
@@ -236,7 +234,6 @@ public class MediaInfo extends ToolBase {
 //			xmlOutput.setFormat(Format.getPrettyFormat());			
 //			xmlOutput.output(fitsXml, new FileWriter("fitsxml_so_far.xml"));
 //		} catch (IOException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}	
 				
@@ -401,7 +398,7 @@ public class MediaInfo extends ToolBase {
 		    // ----------------------------------------------------------------			    
 		    String scanningOrder = getMediaInfoString(ndx, "ScanOrder", 
 		    		MediaInfoNativeWrapper.StreamKind.Video);
-		    addDataToMap (videoTrackValuesMap, id, "scanningOrder", scanningOrder);		  
+		    addDataToMap (videoTrackValuesMap, id, "scanningOrder", scanningOrder);
 		    
 		    // NOTE:
 		    // formatProfile goes in the FITS XML general section, but

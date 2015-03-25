@@ -2,9 +2,6 @@ package edu.harvard.hul.ois.fits;
 
 import java.math.BigDecimal;
 
-// TODO: See if Apache Commons has some better math functions to use
-//import org.apache.commons.lang.math.NumberUtils;
-
 /** This class handles the transformation of the numerator and denominator
  * contained within a Ratio used in Ebucore XML to nomalized values.
  * For example, if the numerator is 2.22 and the denominator is 1, the 
