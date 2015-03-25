@@ -218,7 +218,7 @@
                                 <xsl:when test="$codecID='apch'">
 					                <xsl:text>Lossy</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='apch'">
+                                <xsl:when test="$codecID='apcn'">
 					                <xsl:text>TODO</xsl:text>             				        
 				                </xsl:when>				                
                                 <xsl:when test="$codecID='avc1'">
@@ -260,7 +260,7 @@
                                 <xsl:when test="$codecID='apch'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='apc'">
+                                <xsl:when test="$codecID='apcn'">
 					                <xsl:text>TODO</xsl:text>             				        
 				                </xsl:when>				                
                                 <xsl:when test="$codecID='avc1'">
