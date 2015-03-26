@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2009 by the President and Fellows of Harvard College
+ * Copyright (c) 2015 by the President and Fellows of Harvard College
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -866,52 +866,7 @@ public class XmlContentConverter {
     	}
 
     	return ebucoreModel.ebucoreMain;
-    } // toEbuCoreVideo    
-    
-//    /* an enumeration for mapping symbols to FITS Ebucore Format Element */
-//    public enum EbucoreFormatElement {
-//    	
-//    	size ("size"),
-//    	filename ("filename"),
-//       	mimeType ("mimeType"),
-//       	location("location"),
-//    	bitRate ("bitRate"),
-//    	dateCreated ("dateCreated"),
-//    	dateModified ("dateModified"),
-//    	formatProfile ("formatProfile"),
-//    	format ("format"),
-//    	timecodeStart("timecodeStart"),
-//    	duration("duration");
-//       	
-//    	private String name;
-//        
-//    	EbucoreFormatElement(String name) {
-//            this.name = name;
-//        }
-//        
-//        public String getName () {
-//            return name;
-//        }
-//    }
-    
-//    /* an enumeration for mapping symbols to FITS video element names */
-//    public enum VideoElement {
-//       	samplingRate ("samplingRate"),
-//       	sampleSize ("sampleSize"),       	
-//    	bitRate ("bitRate"),
-//    	bitRateMode ("bitRateMode"),    	
-//    	channels ("channels");
-//       	
-//    	private String name;
-//        
-//    	VideoElement(String name) {
-//            this.name = name;
-//        }
-//        
-//        public String getName () {
-//            return name;
-//        }
-//    }
+    } // toEbuCoreVideo
     
     /* an enumeration for mapping symbols to FITS audio element names */
     public enum AudioElement {

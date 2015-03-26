@@ -160,22 +160,24 @@ public class MediaInfo extends ToolBase {
 	    //	     "Image"
 	    //	     "Menu"
 	    // --------------------------------------------------------------------
-
+		//
 		// No format, so output is pure text
 		// String textOutput = mi.Inform();
 		// System.out.println("\nTEXT:\n" + textOutput);
-		
+		//
 	    // Set the option:	    
 	    // Complete details
 	    // mi.Option("Complete", "1");
 	    //
 	    //// Complete = false, use a subset
 	    //mi.Option("Complete", "");
-		
+
 	    // Get MediaInfoLib Output as standard RAW XML
 	    mi.Option("Complete", "1");
 	    mi.Option("Output", "XML");
 	    String execOutRaw = mi.Inform();
+	    
+	    // DEBUG
 	    // System.out.println("\nMediaInfo RAW output:\n" + execOutRaw + "\n\n");	    
 	    
 	    // Get MediaInfoLib Output as standard XML
@@ -185,18 +187,6 @@ public class MediaInfo extends ToolBase {
 	    
 	    // DEBUG
 	    // System.out.println("\nMediaInfo output:\n" + execOut + "\n\n");
-	    
-	    //// Get MediaInfoLib Output as EBUCore 1.5
-	    //mi.Option("Output", "EBUCore_1.5");
-	    //String ebuOut = mi.Inform();
-	    
-	    // Get MediaInfoLib Output as PBCore
-	    //mi.Option("Output", "PBCore");
-	    //String pbOut = mi.Inform();
-	    
-	    // Samples count is returned in the Audio info
-	    //mi.Option("Output", "Audio");
-	    //String audioInfo = mi.Inform();
 	    
 	    // --------------------------------------------------------------------	    
 	    // Retrieve additional information for audio/video tracks not contained
@@ -421,10 +411,7 @@ public class MediaInfo extends ToolBase {
 	   
 		    String id = getMediaInfoString(ndx, "ID", 
 		    		MediaInfoNativeWrapper.StreamKind.Audio);
-		    
-		    //
-		    // In some instances, the ID will include some invalid data such as
-		    
+
 		    if(StringUtils.isEmpty(id)) {
 		    	// If we only have one audio track, we can retrieve data with
 		    	// the index 0
