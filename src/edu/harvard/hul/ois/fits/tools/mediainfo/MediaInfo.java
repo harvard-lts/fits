@@ -67,26 +67,18 @@ public class MediaInfo extends ToolBase {
 		switch (ostype) {
 		    case Windows:
 		    	
-				// Determine if the JVM is 64 or 32 bit
+		    	// Assume we are 64-bit, so default to 64-bit DLL location
+				String dllDir = System.getProperty("user.dir") + "/tools/mediainfo/windows/64";
+				
+				// DEBUG
+				// System.out.println("Path to DLL: " + dllDir);
+		    	
+				// If 32 bit, we need to path to the 32-bit DLL
 				String jvmModel =  System.getProperty("sun.arch.data.model");
 				if (jvmModel.equals("32")) {
-			    	System.setProperty("jna.library.path", "./tools/mediainfo/windows/32");					
+					dllDir = System.getProperty("user.dir") + "/tools/mediainfo/windows/32";					
 				}
-				else {
-					System.setProperty("jna.library.path", "./tools/mediainfo/windows/64");
-				}
-		    	
-		    	// 
-		    	//boolean is64bitOS = false;
-				//if (System.getProperty("os.name").contains("Windows")) {
-				//    is64bitOS = (System.getenv("ProgramFiles(x86)") != null);
-				//} else {
-				//    is64bitOS = (System.getProperty("os.arch").indexOf("64") != -1);
-				//}
-				//if (!is64bitOS) {
-				//	
-				//}
-
+				System.setProperty("jna.library.path", dllDir);
 		    	break;
 		    case MacOS:
 	    		System.setProperty("jna.library.path", "./tools/mediainfo/mac");

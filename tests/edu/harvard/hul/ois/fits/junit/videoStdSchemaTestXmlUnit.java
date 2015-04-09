@@ -66,6 +66,11 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+				"toolversion",
+				"dateModified",
+				"fslastmodified",
+				"startDate",
+				"startTime",
 				"timestamp", 
 				"fitsExecutionTime",
 				"executionTime",
@@ -117,6 +122,11 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+				"toolversion",
+				"dateModified",
+				"fslastmodified",
+				"startDate",
+				"startTime",				
 				"timestamp", 
 				"fitsExecutionTime",
 				"executionTime",
@@ -173,6 +183,11 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+				"toolversion",
+				"dateModified",
+				"fslastmodified",
+				"startDate",
+				"startTime",
 				"timestamp", 
 				"fitsExecutionTime",
 				"executionTime",
@@ -232,6 +247,11 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+				"toolversion",
+				"dateModified",
+				"fslastmodified",
+				"startDate",
+				"startTime",
 				"timestamp", 
 				"fitsExecutionTime",
 				"executionTime",
@@ -291,6 +311,11 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+				"toolversion",
+				"dateModified",
+				"fslastmodified",
+				"startDate",
+				"startTime",
 				"timestamp", 
 				"fitsExecutionTime",
 				"executionTime",
@@ -349,6 +374,11 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+				"toolversion",
+				"dateModified",
+				"fslastmodified",
+				"startDate",
+				"startTime",
 				"timestamp", 
 				"fitsExecutionTime",
 				"executionTime",
