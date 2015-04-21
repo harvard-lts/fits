@@ -83,7 +83,9 @@ public class MediaInfo extends ToolBase {
 		    case MacOS:
 	    		System.setProperty("jna.library.path", "./tools/mediainfo/mac");
 	    		break;		    
-		    case Linux: System.out.println("LINUX OS"); break;
+		    case Linux:
+		    	System.setProperty("jna.library.path", "./tools/mediainfo/linux");
+		    	break;
 		    case Other: System.out.println("Other OS"); break;
 		}		
 
