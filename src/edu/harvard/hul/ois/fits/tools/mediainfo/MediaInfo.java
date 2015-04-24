@@ -259,6 +259,13 @@ public class MediaInfo extends ToolBase {
 
 	    generalValuesDataMap.put("generalFileSize", getMediaInfoString(
 	    		"FileSize", MediaInfoNativeWrapper.StreamKind.General));
+	    
+		//try {
+		//	String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
+		//    generalValuesDataMap.put("md5Hash", md5Hash);
+		//} catch (IOException e) {
+		//	throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
+		//}
 
 //	    //
 //	    // TODO: bitRate_Maximum never seems to appear in MediaInfo
@@ -590,8 +597,17 @@ public class MediaInfo extends ToolBase {
 			if (!StringUtils.isEmpty(generalDuration)) {
 				element.setText(generalDuration);
 			}		    		
-    	}	    	
-
+    	}
+    	
+    	// For now, the MD5 will be put in Ebucore manually AFTER FITS generates it.
+    	//// General Section  MD5
+    	//else if(element.getName().equals("filemd5")) {
+    	//	String generalMd5 = generalValuesDataMap.get("md5Hash");
+		//	if (!StringUtils.isEmpty(generalMd5)) {
+		//		element.setText(generalMd5);
+		//	}		    		
+    	//}
+ 
 		// General Section formatProfile - If missing, use value from 
     	// video section, which was set above
     	else if(element.getName().equals("formatProfile")) {
@@ -605,17 +621,6 @@ public class MediaInfo extends ToolBase {
 			}
 			
 		}
-		
-//		// The MD5 must be present in the MediaInfo FITS XML so that
-//		// Ebucore can have access to it
-//    	else if(element.getName().equals("filemd5")) {
-//			try {
-//				String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
-//				element.setText(md5Hash);
-//			} catch (IOException e) {
-//				throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
-//			}					
-//    	}						
 		
 	}
 	
