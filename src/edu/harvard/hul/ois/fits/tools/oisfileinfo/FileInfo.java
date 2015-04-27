@@ -20,7 +20,9 @@ package edu.harvard.hul.ois.fits.tools.oisfileinfo;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
@@ -91,14 +93,19 @@ public class FileInfo extends ToolBase {
 		fileInfo.addContent(size);		
 		//Calculate the MD5 checksum
 		if (Fits.config.getBoolean("output.enable-checksum")) {
-			try {
-				String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
-				Element signature = new Element("md5checksum",fitsNS);
-				signature.setText(md5Hash);
-				fileInfo.addContent(signature);
-			} catch (IOException e) {
-				throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
+			List<String> checsumExcludes = Fits.config.getList("output.checksum-exclusions[@exclude-exts]");
+			String ext = FilenameUtils.getExtension(file.getPath());
+			if(!hasExcludedExtensionForMD5(ext, checsumExcludes)) {
+				try {
+					String md5Hash = MD5.asHex(MD5.getHash(new File(file.getPath())));
+					Element signature = new Element("md5checksum",fitsNS);
+					signature.setText(md5Hash);
+					fileInfo.addContent(signature);
+				} catch (IOException e) {
+					throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
+				}				
 			}
+
 		}
 		//fslastmodified
 		Element fslastmodified = new Element("fslastmodified",fitsNS);
@@ -108,6 +115,17 @@ public class FileInfo extends ToolBase {
 		
 		return new Document(root);
     }
+	
+	// NOTE: This check is separate from the tool extension exclusions
+	public boolean hasExcludedExtensionForMD5(String ext, List<String> excludedExtensions) {
+		for(String extension : excludedExtensions) {
+			if(extension.equalsIgnoreCase(ext)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public Boolean canIdentify() {
 		return false;
 	}
