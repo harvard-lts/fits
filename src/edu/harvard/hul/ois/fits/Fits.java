@@ -127,11 +127,7 @@ public class Fits {
     //  log4j.properties file.  Leaving as is for now since overall logging works as intended.
     //  also note that any logging statements in this class probably do not work.
     System.setProperty( "log4j.configuration", FITS_TOOLS + "log4j.properties" );
-    
-    // Logging fix from "paulmer"
-    File log4jProperties = new File(FITS_TOOLS + "log4j.properties");
-    System.setProperty( "log4j.configuration", log4jProperties.toURI().toString());
-    
+
     logger = Logger.getLogger( this.getClass() );
     try {
       config = new XMLConfiguration( FITS_XML + "fits.xml" );
