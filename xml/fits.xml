@@ -27,7 +27,7 @@
 		<enable-statistics>true</enable-statistics>
 		<enable-checksum>true</enable-checksum>
 		<!--  The below controls the exclusion of the checksum for certain files, even if enable-checksum is true  -->
-		<!-- Audio Exclusions -->
+		<!--  Audio Exclusions  -->
 		<!-- <checksum-exclusions exclude-exts=" wav,aif,mp3,mp4,m4a,ra,rm"/> -->		
 	</output>
 	
