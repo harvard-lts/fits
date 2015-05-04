@@ -2,7 +2,7 @@ RELEASE NOTES
 
 Version 0.8.6 (05/04/15)
 ----------------------
-- Added initial support for video files
+- Added initial support for video files using the MediaInfo Tool
 
 Version 0.8.3 (9/29/14)
 ----------------------
