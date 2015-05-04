@@ -28,7 +28,10 @@
 		<enable-statistics>true</enable-statistics>
 		<enable-checksum>true</enable-checksum>
 		<!-- The below controls the exclusion of the checksum for certain files, even if enable-checksum is true -->
-		<checksum-exclusions exclude-exts="avi,mov,mpg,mkv,mp4,mxf,ogv,mj2,divx,dv"/>
+		<!-- Video Exclusions -->
+		<!-- <checksum-exclusions exclude-exts="avi,mov,mpg,mkv,mp4,mxf,ogv,mj2,divx,dv"/> -->
+		<!-- Audio Exclusions -->
+		<!-- <checksum-exclusions exclude-exts="wav,aif,mp3,mp4,m4a,ra,rm"/> -->
 	</output>
 	
 	<process>
