@@ -1,5 +1,9 @@
 RELEASE NOTES
 
+Version 0.8.6 (05/04/15)
+----------------------
+- Added initial support for video files
+
 Version 0.8.3 (9/29/14)
 ----------------------
 - Fixed UMID parsing code issue for audio
