@@ -2,7 +2,9 @@
 <format-tree>
 	<branch format="Tagged Image File Format">
 		<branch format="Digital Negative (DNG)"/>
-		  <branch format="TIFF DLF Benchmark for Faithful Digital Reproductions of Monographs and Serials: color" />
+		    <branch format="TIFF DLF Benchmark for Faithful Digital Reproductions of Monographs and Serials: color" />
+            <branch format="TIFF EXIF" />
+            <branch format="TIFF TIFF/IT-MP (ISO 12639:1998)" />
 	</branch>
 	<branch format="Raw JPEG Stream">
 		<branch format="jpeg">
