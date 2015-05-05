@@ -122,9 +122,11 @@ public class Fits {
     // Now using an explicit properties file, because otherwoise DROID will
     // hijack it, and it's cleaner this way anyway.
     
-    // Construct a URI to the log4j.properties file.
-    File	log4jProperties = new File(FITS_TOOLS + "log4j.properties");
-    System.setProperty( "log4j.configuration", log4jProperties.toURI().toString());
+    //(SM 1/2/14 -- Note that this statement probably isn't doing what the author intended.
+    //  If log4j.debug=true is set then it shows that this doesn't actually find the specified
+    //  log4j.properties file.  Leaving as is for now since overall logging works as intended.
+    //  also note that any logging statements in this class probably do not work.
+    System.setProperty( "log4j.configuration", FITS_TOOLS + "log4j.properties" );
 
     logger = Logger.getLogger( this.getClass() );
     try {
