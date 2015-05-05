@@ -12,6 +12,7 @@
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filepath>
     <filename toolname="MediaInfo" toolversion="0.7.71">FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filename>
     <size toolname="MediaInfo" toolversion="0.7.71">9093784</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">61c4efc89a4acfb9db38edcdd6c39379</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1426264984000</fslastmodified>
   </fileinfo>
   <filestatus />
