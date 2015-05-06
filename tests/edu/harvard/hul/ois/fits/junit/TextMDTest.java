@@ -28,6 +28,7 @@ import org.jdom.output.XMLOutputter;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsMetadataValues;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 
@@ -48,7 +49,7 @@ public class TextMDTest extends XMLTestCase {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		TextMD textmd = (TextMD)fitsOut.getStandardXmlContent();
+		TextMD textmd = (TextMD)fitsOut.getStandardXmlContents().get(FitsMetadataValues.TEXT);
 		textmd.setRoot(true);
 		
 		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();

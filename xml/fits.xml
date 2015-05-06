@@ -6,6 +6,7 @@
  		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.AudioInfo" include-exts="wav"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.ADLTool" include-exts="adl"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,mbox,arw,adl,eml,java"/>
+		<tool class="edu.harvard.hul.ois.fits.tools.ffmpeg.FFMpeg" include-exts="aa3,mpa,m2v,w64,wav,avi,pca,swf,wma,wmv,asf,mp3,m4a,mp4,mxf,ogg,flac,mj2,ogv,aif,au,mov,mpg"/>
 	 	<tool class="edu.harvard.hul.ois.fits.tools.fileutility.FileUtility" exclude-exts="dng,wps,adl,jar"/>
 	 	<tool class="edu.harvard.hul.ois.fits.tools.exiftool.Exiftool" exclude-exts="txt,wps,vsd,jar"/>
 	 	<tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="odm"/>

@@ -213,27 +213,35 @@ public class AESModel {
     	
     	double seconds = 0;
     	
-    	// hours:minutes:seconds:milliseconds
+    	// hours:minutes:seconds:milliseconds or hours:minutes:seconds.milliseconds
     	if(parts.length >= 3) {
 	    	//hours
 	    	seconds = (Long.valueOf(parts[0]) * 60 * 60);
 	    	//minutes
 	    	seconds += Long.valueOf(parts[1]) * 60;
 	    	//seconds
-	    	seconds += Long.valueOf(parts[2]);
+	    	seconds += Double.valueOf(parts[2]);
 	    	//milliseconds
 	    	if(parts.length == 4)
-	    		seconds += Long.valueOf(parts[3]) / 1000.000;
+	    		seconds += Double.valueOf("0." + parts[3]);
     	}
     	// minutes:seconds
     	else if (parts.length == 2) {
 	    	//minutes
 	    	seconds += Long.valueOf(parts[0]) * 60;
 	    	//seconds
-	    	seconds += Long.valueOf(parts[1]);
+	    	seconds += Double.valueOf(parts[1]);
+    	}
+    	// seconds
+    	else if (parts.length == 1) {
+	    	//seconds
+	    	seconds += Double.valueOf(parts[0]);
     	}
     	return seconds;
     }
+    
+    
+
     
     /**
      * sets bps

@@ -28,6 +28,7 @@ import org.jdom.output.XMLOutputter;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsMetadataValues;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
@@ -49,7 +50,7 @@ public class audioStdSchemaTest extends XMLTestCase {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		XmlContent xml = fitsOut.getStandardXmlContent();
+		XmlContent xml = fitsOut.getStandardXmlContents().get(FitsMetadataValues.AUDIO);
 		
 		if(xml != null) {
 			xml.setRoot(true);

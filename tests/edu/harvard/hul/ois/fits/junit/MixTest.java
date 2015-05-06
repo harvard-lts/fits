@@ -28,6 +28,7 @@ import org.jdom.output.XMLOutputter;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsMetadataValues;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tools.Tool;
 import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
@@ -58,7 +59,7 @@ public class MixTest extends XMLTestCase {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		Mix mix = (Mix)fitsOut.getStandardXmlContent();
+		Mix mix = (Mix)fitsOut.getStandardXmlContents().get(FitsMetadataValues.IMAGE);
 		mix.setRoot(true);
 				
 		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();

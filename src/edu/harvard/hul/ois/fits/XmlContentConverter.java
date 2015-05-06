@@ -37,6 +37,7 @@ import org.jdom.Element;
 import org.jdom.Namespace;
 
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
+import edu.harvard.hul.ois.ots.schemas.VideoMD.VideoMD;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
@@ -811,6 +812,111 @@ public class XmlContentConverter {
 		}
     	
         return aesModel.aes;
+    }
+    
+    /**
+     * Converts a video element into a VideoMD object
+     * 
+     * @param fitsVideo
+     *            a video element in the FITS schema
+     */
+    public VideoMD toVideoMd(FitsOutput fitsOutput, Element fitsVideo) {
+        VideoMDModel videoModel = null;
+        try {
+            videoModel = new VideoMDModel();
+
+            for (VideoElement fitsElem : VideoElement.values()) {
+                String fitsName = fitsElem.getName();
+                Element dataElement = fitsVideo.getChild(fitsName, ns);
+                if (dataElement == null)
+                    continue;
+                String dataValue = dataElement.getText().trim();
+                switch (fitsElem) {
+                    case duration:
+                        videoModel.setDuration(dataValue);
+                        break;
+                    case bitDepth:
+                        videoModel.setBitDepth(Integer.parseInt(dataValue));
+                        break;
+                    case bitRate:
+                        videoModel.setBitRate(Long.parseLong(dataValue));
+                        break;
+                    case frameRate:
+                        videoModel.setFrameRate(dataValue);
+                        break;
+                    case size:
+                        videoModel.setSize(Long.parseLong(dataValue));
+                        break;
+                    case imageWidth:
+                        videoModel.setFrameWidth(Integer.parseInt(dataValue));
+                        break;
+                    case imageHeight:
+                        videoModel.setFrameHeight(Integer.parseInt(dataValue));
+                        break;
+                    case numFrames:
+                        videoModel.setNumberOfFrames(dataValue);
+                        break;
+                    case codecName:
+                        videoModel.setCodecName(dataValue);
+                        break;
+                    case codecCreatorApplication:
+                        videoModel.setCodecCreatorApplication(dataValue);
+                        break;
+                    case sampleAspectRatio:
+                        videoModel.setSampleAspectRatio(dataValue);
+                        break;
+                    case displayAspectRatio:
+                        videoModel.setDisplayAspectRatio(dataValue);
+                        break;
+                    case signalFormat:
+                        videoModel.setSignalFormat(dataValue);
+                        break;
+                    case sound:
+                        videoModel.setSound(dataValue);
+                        break;
+                }
+            }
+
+        } catch (XmlContentException e) {
+        	logger.error("Invalid content: " + e.getMessage ());
+        }
+        return videoModel.videoMD;
+    }
+
+
+    /* an enumeration for mapping symbols to FITS video element names */
+    public enum VideoElement {
+        duration("duration"),
+        bitDepth("bitDepth"),
+        bitRate("bitRate"),
+        frameRate("frameRate"),
+        size("size"),
+        timeStampStart("timeStampStart"),
+        imageWidth("imageWidth"),
+        imageHeight("imageHeight"),
+        xSamplingFrequency("xSamplingFrequency"),
+        ySamplingFrequency("ySamplingFrequency"),
+        numFrames("numFrames"),
+        videoDataEncoding("videoDataEncoding"),
+        codecName("codecName"),
+        codecNameVersion("codecNameVersion"),
+        codecCreatorApplication("codecCreatorApplication"),
+        codecCreatorApplicationVersion("codecCreatorApplicationVersion"),
+        sampleAspectRatio("sampleAspectRatio"),
+        displayAspectRatio("displayAspectRatio"),
+        signalFormat("signalFormat"),
+        timeBase("timeBase"),
+        sound("sound");
+
+        private String name;
+
+        VideoElement(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
     
     /* an enumeration for mapping symbols to FITS audio element names */

@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import javax.xml.stream.XMLOutputFactory;
@@ -359,7 +360,7 @@ public class Fits {
 
   public static void outputStandardSchemaXml( FitsOutput fitsOutput, OutputStream out ) throws XMLStreamException,
       IOException {
-    XmlContent xml = fitsOutput.getStandardXmlContent();
+    Map<String, XmlContent> xmls = fitsOutput.getStandardXmlContents();
 
     // create an xml output factory
     Transformer transformer = null;
@@ -374,33 +375,34 @@ public class Fits {
       transformer = null;
     }
 
-    if (xml != null && transformer != null) {
+    if (xmls != null && xmls.size() > 0 && transformer != null) {
+      for (XmlContent xml : xmls.values()) {
+        xml.setRoot( true );
+        ByteArrayOutputStream xmlOutStream = new ByteArrayOutputStream();
+        OutputStream xsltOutStream = new ByteArrayOutputStream();
 
-      xml.setRoot( true );
-      ByteArrayOutputStream xmlOutStream = new ByteArrayOutputStream();
-      OutputStream xsltOutStream = new ByteArrayOutputStream();
+        try {
+          // send standard xml to the output stream
+          XMLStreamWriter sw = xmlOutputFactory.createXMLStreamWriter( xmlOutStream );
+          xml.output( sw );
 
-      try {
-        // send standard xml to the output stream
-        XMLStreamWriter sw = xmlOutputFactory.createXMLStreamWriter( xmlOutStream );
-        xml.output( sw );
+          // convert output stream to byte array and read back in as inputstream
+          Source source = new StreamSource( new ByteArrayInputStream( xmlOutStream.toByteArray() ) );
+          Result rstream = new StreamResult( xsltOutStream );
 
-        // convert output stream to byte array and read back in as inputstream
-        Source source = new StreamSource( new ByteArrayInputStream( xmlOutStream.toByteArray() ) );
-        Result rstream = new StreamResult( xsltOutStream );
+          // apply the xslt
+          transformer.transform( source, rstream );
 
-        // apply the xslt
-        transformer.transform( source, rstream );
+          // send to the providedOutpuStream
+          out.write( xsltOutStream.toString().getBytes( "UTF-8" ) );
+          out.flush();
 
-        // send to the providedOutpuStream
-        out.write( xsltOutStream.toString().getBytes( "UTF-8" ) );
-        out.flush();
-
-      } catch (Exception e) {
-        System.err.println( "error converting output to a standard schema format" );
-      } finally {
-        xmlOutStream.close();
-        xsltOutStream.close();
+        } catch (Exception e) {
+          System.err.println( "error converting output to a standard schema format" );
+        } finally {
+          xmlOutStream.close();
+          xsltOutStream.close();
+        }
       }
 
     } else {

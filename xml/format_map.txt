@@ -2,6 +2,7 @@
 # Mapping from format names to standard names. This is an incomplete map,
 # holding only cases where conversion is necessary. Expand as needed.
 MPEG-1 Audio Layer 3=MPEG 1/2 Audio Layer 3
+MP2/3 (MPEG audio layer 2/3)=MPEG 1/2 Audio Layer 3
 OpenDocument v1.0: Presentation document=OpenDocument Presentation
 OpenDocument v1.0: Text document=OpenDocument Text
 OpenDocument v1.0: Spreadsheet document=OpenDocument Spreadsheet
@@ -10,6 +11,7 @@ OpenDocument v1.0: Graphics document (Drawing)=OpenDocument Graphics
 OpenDocument v1.0: Global Text document=OpenDocument Master Document
 Waveform Audio (PCMWAVEFORMAT)=Waveform Audio
 Waveform Audio (WAVEFORMATEX)=Waveform Audio
+WAV / WAVE (Waveform Audio)=Waveform Audio
 Joint Photographic Experts Group=jpeg
 Gzip Compressed Archive=GZIP Format
 Windows bitmap=Windows Bitmap
@@ -22,3 +24,9 @@ Audio Video Interleave File=Audio/Video Interleaved Format
 Photoshop Image=Adobe Photoshop
 Macromedia FLV=Flash Video (FLV)
 Digital Negative Format (DNG)=Digital Negative (DNG)
+AVI (Audio Video Interleaved)=Audio/Video Interleaved Format
+SWF (ShockWave Flash)=Macromedia Flash
+Ogg=Ogg Vorbis Codec Compressed Multimedia File
+raw FLAC=Free Lossless Audio Codec
+Audio IFF=Audio Interchange File Format
+MPEG-PS (MPEG-2 Program Stream)=MPEG-2 Video Format

@@ -1,6 +1,7 @@
 package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
+import java.util.Map;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -70,11 +71,13 @@ public class FitsOutputTest extends TestCase {
 			assertNotNull(output.getMetadataElement("md5checksum").getValue());
 			*/
 			String errorText = output.getErrorMessages();
-			XmlContent xml = output.getStandardXmlContent();
-			if(xml != null) {
-				XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-				xml.output(writer);
-				writer.close();
+			Map<String, XmlContent> xmls = output.getStandardXmlContents();
+			if(xmls != null) {
+				XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out);
+				for (XmlContent xml : xmls.values()) {
+					xml.output(writer);
+				}
+				writer.close();	
 			}
 			System.out.println(errorText);
 			System.out.println("valid = "+output.checkValid());

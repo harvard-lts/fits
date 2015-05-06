@@ -26,7 +26,9 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -54,6 +56,7 @@ import edu.harvard.hul.ois.ots.schemas.AES.AudioObject;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
+import edu.harvard.hul.ois.ots.schemas.VideoMD.VideoMD;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
 
@@ -270,9 +273,11 @@ public class FitsOutput {
 		return errorMessages;	
     }
 		
-    /** Return an XmlContent object representing the data from fitsXml. */
-    public XmlContent getStandardXmlContent () {
+    /** Return a map with XmlContent objects representing the data from fitsXml. */
+    public Map<String, XmlContent> getStandardXmlContents () {
         Element metadata = fitsXml.getRootElement().getChild("metadata",ns);
+        
+        Map<String, XmlContent> contents = new HashMap<String, XmlContent>();
         
         if(metadata == null) {
         	return null;
@@ -281,63 +286,68 @@ public class FitsOutput {
         XmlContentConverter conv = new XmlContentConverter ();
         
         //Element metadata = root.getChild("metadata");
-        // This can have an image, document, text, or audio subelement.
+        // This can have an image, document, text, or audio(or/and)video subelement.
         Element subElem = metadata.getChild ("image",ns);
         if (subElem != null) {
         	Element fileinfo = fitsXml.getRootElement().getChild("fileinfo",ns);
             // Process image metadata...
-        	return (Mix) conv.toMix (subElem,fileinfo);
+        	contents.put(FitsMetadataValues.IMAGE, (Mix) conv.toMix (subElem,fileinfo));
         }
         subElem = metadata.getChild ("text",ns);
         if (subElem != null) {
         	// Process text metadata...
-        	return (TextMD) conv.toTextMD (subElem);
+        	contents.put(FitsMetadataValues.TEXT, (TextMD) conv.toTextMD (subElem));
         }
         subElem = metadata.getChild ("document",ns);
         if (subElem != null) {
             // Process document metadata...
-        	return (DocumentMD)conv.toDocumentMD (subElem);
+        	contents.put(FitsMetadataValues.DOCUMENT, (DocumentMD)conv.toDocumentMD (subElem));
+        }
+        subElem = metadata.getChild("video", ns);
+        if (subElem != null) {
+            // Process video metadata... (before audio metadata)
+        	contents.put(FitsMetadataValues.VIDEO, (VideoMD) conv.toVideoMd(this, subElem));
         }
         subElem = metadata.getChild ("audio",ns);
         if (subElem != null) {
             // Process audio metadata...
-        	return (AudioObject)conv.toAES (this,subElem);
+        	contents.put(FitsMetadataValues.AUDIO, (AudioObject)conv.toAES (this,subElem));
         }
-        return null;
+        return contents;
     }
     
     public void addStandardCombinedFormat() throws XMLStreamException, IOException, FitsException {
 		//get the normal fits xml output
 		Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 		
+		Map<String, XmlContent> xmls = getStandardXmlContents();
+		
 		Element metadata = (Element) fitsXml.getRootElement().getChild("metadata",ns); 
-		Element techmd = null;
-		if(metadata.getChildren().size() > 0) {
-			techmd = (Element) metadata.getChildren().get(0);
-		}
-
-		//if we have technical metadata convert it to the standard form
-		if(techmd != null && techmd.getChildren().size() > 0) {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			XmlContent xml = getStandardXmlContent();
-			if(xml != null) {
-				XMLStreamWriter sw = xmlOutputFactory.createXMLStreamWriter(baos);
-				xml.output(sw);
-			
-				String stdxml = baos.toString("UTF-8");
+		for (int i = 0; i < metadata.getChildren().size(); i++) {
+			Element techmd = (Element) metadata.getChildren().get(i);
+			//if we have technical metadata convert it to the standard form
+			if (techmd.getChildren().size() > 0) {
+				XmlContent xml = xmls.get(techmd.getName());				
+				if(xml != null) {
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					XMLStreamWriter sw = xmlOutputFactory.createXMLStreamWriter(baos);
+					xml.output(sw);
 				
-				//convert the std xml back to a JDOM element so we can insert it back into the fitsXml Document
-				try {
-					StringReader sReader = new StringReader(stdxml);
-					SAXBuilder saxBuilder = new SAXBuilder();
-					Document stdXmlDoc = saxBuilder.build(sReader);
-					Element stdElement = new Element("standard",ns);
-					stdElement.addContent(stdXmlDoc.getRootElement().detach());
-					techmd.addContent(stdElement);
+					String stdxml = baos.toString("UTF-8");
 					
-				}
-				catch(JDOMException e) {
-					throw new FitsException("error converting standard XML", e);
+					//convert the std xml back to a JDOM element so we can insert it back into the fitsXml Document
+					try {
+						StringReader sReader = new StringReader(stdxml);
+						SAXBuilder saxBuilder = new SAXBuilder();
+						Document stdXmlDoc = saxBuilder.build(sReader);
+						Element stdElement = new Element("standard",ns);
+						stdElement.addContent(stdXmlDoc.getRootElement().detach());
+						techmd.addContent(stdElement);
+						
+					}
+					catch(JDOMException e) {
+						throw new FitsException("error converting standard XML", e);
+					}
 				}
 			}
 		}

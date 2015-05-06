@@ -91,7 +91,14 @@ public class OISConsolidator implements ToolOutputConsolidator {
 					Element e = (Element)xpath.selectSingleNode(dom);
 					if(e != null && e.getChildren().size() > 0) {
 						if(useChildren) {
-							e = (Element)e.getChildren().get(0);
+							Element f = e;
+							for (int i = 0; i < e.getChildren().size(); i++) {
+								f = (Element)e.getChildren().get(i);
+								if (f.getChildren().size() > 0) {
+									break;
+								}
+							}
+							e = f;
 						}
 						List children = e.getChildren();
 						if(children.size()>0) {
