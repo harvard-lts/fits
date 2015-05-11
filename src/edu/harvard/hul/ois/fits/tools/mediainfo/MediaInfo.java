@@ -224,7 +224,9 @@ public class MediaInfo extends ToolBase {
 		// Revise the XML to include element data that was not returned either
 		// via the MediaInfo XML or require revision for granularity
 		reviseXmlData (fitsXml, videoTrackValuesMap, audioTrackValuesMap, 
-				generalValuesDataMap);	
+				generalValuesDataMap);
+		
+		removeEmptyElements(fitsXml);
 		
 		// DEBUG
 		// String finalXml = new XMLOutputter(Format.getPrettyFormat()).outputString(fitsXml);
@@ -391,6 +393,19 @@ public class MediaInfo extends ToolBase {
 		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap (videoTrackValuesMap, id, "scanningOrder", scanningOrder);
 		    
+		    // Additional Codec stuff:
+		    String codecId = getMediaInfoString(ndx, "CodecID", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
+		    addDataToMap (videoTrackValuesMap, id, "codecId", codecId);
+		    
+		    String codecFamily = getMediaInfoString(ndx, "Codec/Family", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
+		    addDataToMap (videoTrackValuesMap, id, "codecFamily", codecFamily);
+		    
+		    String codecInfo = getMediaInfoString(ndx, "Codec/Info", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
+		    addDataToMap (videoTrackValuesMap, id, "codecInfo", codecInfo);
+		    
 		    // NOTE:
 		    // formatProfile goes in the FITS XML general section, but
 		    // sometimes is missing from the MediaInfo general section and
@@ -469,6 +484,19 @@ public class MediaInfo extends ToolBase {
 		    String channels = getMediaInfoString(ndx, "Channels", 
 		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    addDataToMap(audioTrackValuesMap, id, "channels", channels);
+		    
+		    // Additional Codec stuff:
+		    String codecId = getMediaInfoString(ndx, "CodecID", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
+		    addDataToMap(audioTrackValuesMap, id, "codecId", codecId);
+		    
+		    String codecFamily = getMediaInfoString(ndx, "Codec/Family", 
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
+		    addDataToMap(audioTrackValuesMap, id, "codecFamily", codecFamily);
+		    
+		    //String codecInfo = getMediaInfoString(ndx, "Codec/Info", 
+		    //		MediaInfoNativeWrapper.StreamKind.Audio);
+		    //addDataToMap(audioTrackValuesMap, id, "codecInfo", codecInfo);		    
 	    }
 	    
 	    return audioTrackValuesMap;
@@ -790,6 +818,52 @@ public class MediaInfo extends ToolBase {
 
     	} // childElement
     }
+    
+	private void removeEmptyElements (Document fitsXml) throws FitsToolException {
+		
+    	// Remove any empty elements
+    	// Right now it is only scanning order
+    	List<Element> elementsToRemove = new ArrayList<Element>();
+		
+		try {
+			
+		    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");	
+			
+		    // NOTE: We need to add a namespace	to xpath, because JDom XPath 
+		    // does not support default namespaces. It requires you to add a
+		    // fake namespace to the XPath instance.
+		    xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
+
+		    Element videoElement = (Element)xpathFits.selectSingleNode(fitsXml);
+		    List <Element>elementList = videoElement.getContent();
+		    for (Element element : elementList) {	
+				
+		    	// Tracks
+		    	if(element.getName().equals("track")) {
+		    		
+		        	List <Element>contents = element.getContent();		    				
+		        	for (Element childElement : contents) {
+		        		String name = childElement.getName();
+		        		
+		        		String value = childElement.getText();
+		        		if(StringUtils.isEmpty(value)) {
+		        			elementsToRemove.add(childElement);
+		        		}
+		        	}
+		    		
+		    	}
+		    }
+		    
+		} catch(JDOMException e) {
+			throw new FitsToolException("Error revising xml node values " + TOOL_NAME);			
+		}
+		
+    	// Remove all elements marked as empty
+    	for (Element elementToRemove : elementsToRemove) {
+    		elementToRemove.getParent().removeContent(elementToRemove);
+    	}
+
+	}   
 
 	private Document createXml(String out) throws FitsToolException {
         Document doc = null;

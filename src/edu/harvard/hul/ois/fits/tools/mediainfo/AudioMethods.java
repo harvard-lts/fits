@@ -22,6 +22,8 @@ public enum AudioMethods {
 	delay ("delay"),
 	numSamples ("numSamples"),       	
 	bitRate ("bitRate"),
+	codecId ("codecId"),
+	codeFamily ("codecFamily"),	
 	duration ("duration"),    	
 	trackSize ("trackSize"),
 	samplingRate ("samplingRate"),
