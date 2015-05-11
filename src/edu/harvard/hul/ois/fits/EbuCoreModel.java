@@ -30,6 +30,8 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormat;
 //import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormatExtended;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrack;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrackConfiguration;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.Codec;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.CodecIdentifier;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Comment;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.ContainerFormat;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.CoreMetadata;
@@ -213,6 +215,32 @@ public class EbuCoreModel {
     			break;
     		}
     	}
+    	
+    	
+    	// Hack
+    	// TODO: break this out to enum code
+    	// Codec element
+   		Element dataElement = elem.getChild ("codecId",ns);
+        if(dataElement != null) {
+        	String dataValue = dataElement.getText().trim();
+        	CodecIdentifier ci = new CodecIdentifier("codecIdentifier");
+        	ci.setIdentifier(dataValue);
+        	
+        	Codec codec = new Codec("codec");
+           	codec.setCodecIdentifier(ci);
+           	
+           	Element codecElement = elem.getChild ("codecInfo",ns);
+        	if(codecElement != null) {
+        		dataValue = codecElement.getText().trim();
+        		codec.setInfo(dataValue);
+        	}           	
+        	codecElement = elem.getChild ("codecFamily",ns);
+        	if(codecElement != null) {
+        		dataValue = codecElement.getText().trim();
+        		codec.setFamily(dataValue);
+        	}
+        	vfmt.setCodec(codec);  
+        }
 
         // Add the audio format object to the list
         this.format.addVideoFormat(vfmt);
@@ -300,6 +328,31 @@ public class EbuCoreModel {
     			break;
     		}
     	}
+    	
+    	// Hack
+    	// TODO: break this out to enum code
+    	// Codec element
+   		Element dataElement = elem.getChild ("codecId",ns);
+        if(dataElement != null) {
+        	String dataValue = dataElement.getText().trim();
+        	CodecIdentifier ci = new CodecIdentifier("codecIdentifier");
+        	ci.setIdentifier(dataValue);
+        	
+        	Codec codec = new Codec("codec");
+           	codec.setCodecIdentifier(ci);
+           	
+           	Element codecElement = elem.getChild ("codecInfo",ns);
+        	if(codecElement != null) {
+        		dataValue = codecElement.getText().trim();
+        		codec.setInfo(dataValue);
+        	}           	
+        	//codecElement = elem.getChild ("codecFamily",ns);
+        	//if(codecElement != null) {
+        	//	dataValue = codecElement.getText().trim();
+        	//	codec.setFamily(dataValue);
+        	//}
+        	afmt.setCodec(codec);  
+        }    	
 
         // Add the audio format object to the list
         this.format.addAudioFormat(afmt);
