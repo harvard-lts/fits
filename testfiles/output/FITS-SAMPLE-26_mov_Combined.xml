@@ -34,6 +34,7 @@
       <dateModified toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">UTC 2015-03-16 12:58:24</dateModified>
       <track type="video" id="1" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
         <videoDataEncoding>AVdv</videoDataEncoding>
+        <codecId>AVdv</codecId>
         <compression>Lossy</compression>
         <byteOrder>Unknown</byteOrder>
         <bitDepth>8 bits</bitDepth>
@@ -55,6 +56,8 @@
       </track>
       <track type="audio" id="3" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
         <audioDataEncoding>PCM</audioDataEncoding>
+        <codecId>twos</codecId>
+        <codecFamily>PCM</codecFamily>     
         <compression>none</compression>
         <bitRate>1536000</bitRate>
         <bitRateMode>Constant</bitRateMode>
@@ -66,7 +69,6 @@
         <samplingRate>48000</samplingRate>
         <numSamples>190416</numSamples>
         <channels>2</channels>
-        <channelInfo />
         <byteOrder>Big</byteOrder>
       </track>
       <standard>
@@ -82,6 +84,11 @@
                   <ebucore:factorDenominator>3</ebucore:factorDenominator>
                 </ebucore:aspectRatio>
                 <ebucore:videoEncoding typeLabel="AVdv" />
+                <ebucore:codec>
+                  <ebucore:codecIdentifier>
+                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">AVdv</dc:identifier>
+                  </ebucore:codecIdentifier>
+                </ebucore:codec>                
                 <ebucore:bitRate>24417183</ebucore:bitRate>
                 <ebucore:bitRateMode>constant</ebucore:bitRateMode>
                 <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
@@ -98,6 +105,11 @@
               </ebucore:videoFormat>
               <ebucore:audioFormat>
                 <ebucore:audioEncoding typeLabel="PCM" />
+                <ebucore:codec>
+                  <ebucore:codecIdentifier>
+                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">twos</dc:identifier>
+                  </ebucore:codecIdentifier>
+                </ebucore:codec>          
                 <ebucore:audioTrackConfiguration typeLabel="Front: L R" />
                 <ebucore:samplingRate>48000</ebucore:samplingRate>
                 <ebucore:bitRate>1536000</ebucore:bitRate>

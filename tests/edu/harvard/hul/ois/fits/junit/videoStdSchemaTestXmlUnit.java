@@ -297,7 +297,6 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				//"testfiles/output/AVPS-sample_14-aja-2vuy-8bit_mov_Combined.xml"));
 	            "testfiles/output/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_Combined.xml"));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
@@ -360,7 +359,6 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				//"testfiles/output/AVPS-sample_14-aja-2vuy-8bit_mov_Combined.xml"));
 	            "testfiles/output/FITS-SAMPLE-26_mov_Combined.xml"));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
@@ -403,7 +401,6 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 		
 		assertTrue("Differences in XML", diff.identical());
 		
-	}	
-	
+	}
 
 }

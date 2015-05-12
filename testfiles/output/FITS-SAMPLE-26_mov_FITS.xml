@@ -34,6 +34,7 @@
       <dateModified toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">UTC 2015-03-16 12:58:24</dateModified>
       <track type="video" id="1" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
         <videoDataEncoding>AVdv</videoDataEncoding>
+        <codecId>AVdv</codecId>        
         <compression>Lossy</compression>
         <byteOrder>Unknown</byteOrder>
         <bitDepth>8 bits</bitDepth>
@@ -55,6 +56,8 @@
       </track>
       <track type="audio" id="3" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
         <audioDataEncoding>PCM</audioDataEncoding>
+        <codecId>twos</codecId>
+        <codecFamily>PCM</codecFamily>        
         <compression>none</compression>
         <bitRate>1536000</bitRate>
         <bitRateMode>Constant</bitRateMode>
@@ -66,7 +69,6 @@
         <samplingRate>48000</samplingRate>
         <numSamples>190416</numSamples>
         <channels>2</channels>
-        <channelInfo />
         <byteOrder>Big</byteOrder>
       </track>
     </video>

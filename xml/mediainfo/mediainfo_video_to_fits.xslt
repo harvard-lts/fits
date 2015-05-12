@@ -198,16 +198,16 @@
               	    <!-- Encoding is used to determine various element data -->              	    
                     <xsl:variable name="codecID" select="./Codec_ID"/>
                     
+       			    <videoDataEncoding>
+       				    <xsl:value-of select="$codecID"/>			    
+       			    </videoDataEncoding>
+                    
                     <!-- codecId is only visible via the MediaInfo API. Set in Java code. -->
                     <codecId/>                     
                     <!-- codecFamily is only visible via the MediaInfo API. Set in Java code. -->
                     <codecFamily /> 
                     <!-- codecInfo is only visible via the MediaInfo API. Set in Java code. -->
                     <codecInfo />                                    	    
-                    
-       			    <videoDataEncoding>
-       				    <xsl:value-of select="$codecID"/>			    
-       			    </videoDataEncoding>
 
                     <compression>      			           			    
                     <xsl:choose> 
@@ -450,14 +450,14 @@
               	    
               	    <audioDataEncoding>
               	        <xsl:value-of select="./Format"/>
-              	    </audioDataEncoding>
+              	    </audioDataEncoding>              	    
               	    
                     <!-- codecId is only visible via the MediaInfo API. Set in Java code. -->
                     <codecId/>                     
                     <!-- codecFamily is only visible via the MediaInfo API. Set in Java code. -->
                     <codecFamily /> 
                     <!-- codecInfo is only visible via the MediaInfo API. Set in Java code. -->
-                    <!-- <codecInfo />  -->           	    
+                    <!-- <codecInfo />  -->
 
                     <compression>
 		                <xsl:choose>

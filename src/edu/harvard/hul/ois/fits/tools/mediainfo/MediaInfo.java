@@ -853,7 +853,7 @@ public class MediaInfo extends ToolBase {
 		    		
 		    	}
 		    }
-		    
+
 		} catch(JDOMException e) {
 			throw new FitsToolException("Error revising xml node values " + TOOL_NAME);			
 		}
