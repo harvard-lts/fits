@@ -36,7 +36,7 @@ public final class OsCheck {
         detectedOS = OSType.MacOS;
       } else if (OS.indexOf("win") >= 0) {
         detectedOS = OSType.Windows;
-      } else if (OS.indexOf("nux") >= 0) {
+      } else if (OS.indexOf("linux") >= 0) {
         detectedOS = OSType.Linux;
       } else {
         detectedOS = OSType.Other;
