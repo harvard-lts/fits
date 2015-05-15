@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="5/15/15 9:31 AM">
+  <identification>
+    <identity format="Waveform Audio" mimetype="audio/x-wave" toolname="FITS" toolversion="0.8.3">
+      <tool toolname="OIS Audio Information" toolversion="0.1" />
+      <tool toolname="Jhove" toolversion="1.5" />
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="9.13" />
+      <tool toolname="Droid" toolversion="6.1.3" />
+      <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" />
+      <externalIdentifier toolname="Droid" toolversion="6.1.3" type="puid">fmt/142</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.5">898136</size>
+    <lastmodified toolname="Exiftool" toolversion="9.13" status="SINGLE_RESULT">2014:12:03 09:51:13-05:00</lastmodified>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dab980/git/fits/testfiles/test.wav</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">test.wav</filename>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1417618273000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <audio>
+      <numSamples toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">299159</numSamples>
+      <sampleRate toolname="OIS Audio Information" toolversion="0.1">96000</sampleRate>
+      <audioDataEncoding toolname="OIS Audio Information" toolversion="0.1" status="CONFLICT">PCM</audioDataEncoding>
+      <audioDataEncoding toolname="Jhove" toolversion="1.5" status="CONFLICT">PCM audio in integer format</audioDataEncoding>
+      <audioDataEncoding toolname="Exiftool" toolversion="9.13" status="CONFLICT">Microsoft PCM</audioDataEncoding>
+      <blockAlign toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">3</blockAlign>
+      <time toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">458028579</time>
+      <channels toolname="OIS Audio Information" toolversion="0.1">1</channels>
+      <bitDepth toolname="OIS Audio Information" toolversion="0.1">24</bitDepth>
+      <wordSize toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">3</wordSize>
+      <offset toolname="OIS Audio Information" toolversion="0.1">46</offset>
+      <byteOrder toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">LITTLE_ENDIAN</byteOrder>
+      <duration toolname="Exiftool" toolversion="9.13" status="CONFLICT">3.12 s</duration>
+      <duration toolname="NLNZ Metadata Extractor" toolversion="3.4GA" status="CONFLICT">0:0:3:118</duration>
+    </audio>
+  </metadata>
+  <statistics fitsExecutionTime="1014">
+    <tool toolname="MediaInfo" toolversion="0.7.71" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" executionTime="253" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.5" executionTime="926" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="922" />
+    <tool toolname="Exiftool" toolversion="9.13" executionTime="900" />
+    <tool toolname="Droid" toolversion="6.1.3" executionTime="460" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" executionTime="760" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="235" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="755" />
+    <tool toolname="Tika" toolversion="1.3" executionTime="397" />
+  </statistics>
+</fits>
+
