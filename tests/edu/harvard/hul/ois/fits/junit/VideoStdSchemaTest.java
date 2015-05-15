@@ -31,15 +31,12 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
-import org.custommonkey.xmlunit.*;
-
-public class VideoStdSchemaTest extends XMLTestCase {
+public class VideoStdSchemaTest{
 
     @Test  
 	public void testVideo_AVC() throws Exception {   
     	Fits fits = new Fits();
     	File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
-    	
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
@@ -62,7 +59,6 @@ public class VideoStdSchemaTest extends XMLTestCase {
 	public void testVideo_DV() throws Exception {   
     	Fits fits = new Fits();
     	File input = new File("testfiles/FITS-SAMPLE-26.mov");
-    	
     	
     	FitsOutput fitsOut = fits.examine(input);
     	

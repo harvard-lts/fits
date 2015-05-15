@@ -20,14 +20,16 @@ package edu.harvard.hul.ois.fits.junit;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 //import javax.xml.stream.XMLOutputFactory;
 //import javax.xml.stream.XMLStreamWriter;
 
-import org.custommonkey.xmlunit.*;
 
+
+import org.apache.commons.io.FileUtils;
+import org.custommonkey.xmlunit.*;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.junit.Test;
@@ -37,7 +39,7 @@ import edu.harvard.hul.ois.fits.FitsOutput;
 //import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
 
-public class videoStdSchemaTestXmlUnit extends XMLTestCase {
+public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 	@Test  
 	public void testVideoXmlUnitFitsOutput_AVC() throws Exception {
@@ -402,5 +404,6 @@ public class videoStdSchemaTestXmlUnit extends XMLTestCase {
 		assertTrue("Differences in XML", diff.identical());
 		
 	}
+	
 
 }
