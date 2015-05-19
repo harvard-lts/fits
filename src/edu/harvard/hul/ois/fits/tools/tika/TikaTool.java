@@ -358,7 +358,7 @@ public class TikaTool extends ToolBase {
     
     private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
     private final static String TOOL_NAME = "Tika";
-    private final static String TOOL_VERSION = "1.3";  // Hard-coded version till we can do better
+    private final static String TOOL_VERSION = "1.8";  // Hard-coded version till we can do better
     
 
 //    private final static MediaTypeRegistry typeRegistry = MediaTypeRegistry.getDefaultRegistry();
