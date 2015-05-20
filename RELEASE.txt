@@ -1,4 +1,9 @@
 RELEASE NOTES
+Version 0.8.6 (5/20/15)
+----------------------
+
+- OTS.jar update: fixed bug for invalid MIX XML mix:LumaRed error for TIFF with JPEG compression
+
 Version 0.8.5 (5/05/15)
 ----------------------
 
