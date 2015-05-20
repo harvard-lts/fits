@@ -61,6 +61,8 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	private final static int SINGLE_RESULT = 1;
 	private final static int ALL_AGREE = 2;
 	
+	private final static String TRACK_ELEM_NM = "track";
+	
 	static private final String REAL_NUMBER = "^[-+]?\\d+(\\.\\d+)?$";
 	
 	static private final List<String> repeatableElements =  new ArrayList<String>(Arrays.asList("linebreak"));  ;
@@ -229,7 +231,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		//
 		// TODO: Possibly externalize this in a property file, or revise
 		// removeUnknowns() to be track-aware
-		if(!element.getName().equals("track")) {		
+		if(!element.getName().equals(TRACK_ELEM_NM)) {		
 			//remove any unknown values
 			fitsElements = removeUnknowns(fitsElements);
 		}
