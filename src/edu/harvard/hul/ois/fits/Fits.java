@@ -74,6 +74,7 @@ public class Fits {
   public static volatile String FITS_HOME;
   public static String FITS_XML;
   public static String FITS_TOOLS;
+  public static String FITS_LOG4J_CONFIG;
   public static XMLConfiguration config;
   public static FitsXmlMapper mapper;
   public static boolean validateToolOutput;
@@ -126,9 +127,8 @@ public class Fits {
     //  If log4j.debug=true is set then it shows that this doesn't actually find the specified
     //  log4j.properties file.  Leaving as is for now since overall logging works as intended.
     //  also note that any logging statements in this class probably do not work.
-    String fitsLoggingPath = System.getenv( "FITS_LOG4J_CONFIGURATION" );
-    System.setProperty( "log4j.configuration", fitsLoggingPath == null?
-        FITS_TOOLS + "log4j.properties" : fitsLoggingPath );
+    String loggingPath = FITS_LOG4J_CONFIG == null? FITS_TOOLS + "log4j.properties" : FITS_LOG4J_CONFIG;
+    System.setProperty( "log4j.configuration", loggingPath );
 
     logger = Logger.getLogger( this.getClass() );
     try {
@@ -186,6 +186,7 @@ public class Fits {
     options.addOption( "o", true, "output file or directory if -i is a directory" );
     options.addOption( "h", false, "print this message" );
     options.addOption( "v", false, "print version information" );
+    options.addOption( "log4j_configuration", true, "path to log4j configuration file" );
     OptionGroup outputOptions = new OptionGroup();
     Option stdxml = new Option( "x", false, "convert FITS output to a standard metadata schema" );
     Option combinedStd = new Option( "xc", false, "output using a standard metadata schema and include FITS xml" );
@@ -208,6 +209,10 @@ public class Fits {
       traverseDirs = true;
     } else {
       traverseDirs = false;
+    }
+    
+    if (cmd.hasOption( "log4j_configuration" )) {
+        Fits.FITS_LOG4J_CONFIG = cmd.getOptionValue( "log4j_configuration" );
     }
 
     if (cmd.hasOption( "i" )) {
