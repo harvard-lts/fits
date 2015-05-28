@@ -126,7 +126,9 @@ public class Fits {
     //  If log4j.debug=true is set then it shows that this doesn't actually find the specified
     //  log4j.properties file.  Leaving as is for now since overall logging works as intended.
     //  also note that any logging statements in this class probably do not work.
-    System.setProperty( "log4j.configuration", FITS_TOOLS + "log4j.properties" );
+    String fitsLoggingPath = System.getenv( "FITS_LOG4J_CONFIGURATION" );
+    System.setProperty( "log4j.configuration", fitsLoggingPath == null?
+        FITS_TOOLS + "log4j.properties" : fitsLoggingPath );
 
     logger = Logger.getLogger( this.getClass() );
     try {
