@@ -60,34 +60,39 @@ public class MediaInfo extends ToolBase {
 	public MediaInfo() throws FitsException {
 		
 		info = new ToolInfo();
-		info.setName(TOOL_NAME);		
+		info.setName(TOOL_NAME);
+		
+		String fitsHome = Fits.config.getString("fits_home");
+		String nativeLibPath = "";
 		
 		// Set the JNA library path based upon the OS		
 		OsCheck.OSType ostype=OsCheck.getOperatingSystemType();
 		switch (ostype) {
 		    case Windows:
+		    	// default setting
+		    	if(fitsHome.equals("."))
+		    		fitsHome = System.getProperty("user.dir");
 		    	
 		    	// Assume we are 64-bit, so default to 64-bit DLL location
-				String dllDir = System.getProperty("user.dir") + "/tools/mediainfo/windows/64";
-				
-				// DEBUG
+		    	nativeLibPath = fitsHome + "/tools/mediainfo/windows/64";
+
 				// System.out.println("Path to DLL: " + dllDir);
 		    	
 				// If 32 bit, we need to path to the 32-bit DLL
 				String jvmModel =  System.getProperty("sun.arch.data.model");
 				if (jvmModel.equals("32")) {
-					dllDir = System.getProperty("user.dir") + "/tools/mediainfo/windows/32";					
+					nativeLibPath = fitsHome + "/tools/mediainfo/windows/32";					
 				}
-				System.setProperty("jna.library.path", dllDir);
 		    	break;
 		    case MacOS:
-	    		System.setProperty("jna.library.path", "./tools/mediainfo/mac");
+	    		nativeLibPath = fitsHome + "/tools/mediainfo/mac";
 	    		break;		    
 		    case Linux:
-		    	System.setProperty("jna.library.path", "./tools/mediainfo/linux");
+		    	nativeLibPath = fitsHome + "/tools/mediainfo/linux";
 		    	break;
 		    case Other: System.out.println("Other OS"); break;
-		}		
+		}
+		System.setProperty("jna.library.path", nativeLibPath);
 
 		try {
 		    String versionOutput = MediaInfoNativeWrapper.Option_Static("Info_Version");
@@ -98,7 +103,8 @@ public class MediaInfo extends ToolBase {
 		    mi = new MediaInfoNativeWrapper();
 		    
 		} catch (java.lang.UnsatisfiedLinkError e){
-			throw new FitsToolException("Error loading native library for " + TOOL_NAME);
+			throw new FitsToolException("Error loading native library for " + TOOL_NAME +
+					" please check that fits_home is properly set");
 		}
 
 	}	

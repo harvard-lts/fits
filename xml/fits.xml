@@ -40,5 +40,10 @@
 	
 	<!-- file name of the droid signature file to use in tools/droid/-->
 	<droid_sigfile>DROID_SignatureFile_V67.xml</droid_sigfile>
+	
+	<!-- the fits home is used by the MediaInfo tool to load the jna api libs  -->
+	<!-- in most cases you won't need to change -->
+	<!-- example for BB will be /fits -->
+	<fits_home>.</fits_home>
 		
 </fits_configuration>
