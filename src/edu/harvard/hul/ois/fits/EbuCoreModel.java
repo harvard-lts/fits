@@ -187,7 +187,7 @@ public class EbuCoreModel {
     		case delay:
     		case compression:
         		TechnicalAttributeString tas =
-					new TechnicalAttributeString(dataValue.toLowerCase());        		
+        			new TechnicalAttributeString(dataValue.toLowerCase());
         		tas.setTypeLabel(videoElem.getName());
         		vfmt.addTechnicalAttributeString(tas);
     			break;

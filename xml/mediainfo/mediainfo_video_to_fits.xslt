@@ -127,6 +127,9 @@
       			       <xsl:when test="$fileExtension = 'mp4'">
        			           <xsl:value-of select="string('video/mp4')"/>
        			       </xsl:when>
+      			       <xsl:when test="$fileExtension = 'm4v'">
+       			           <xsl:value-of select="string('video/mp4')"/>
+       			       </xsl:when>       			       
        			       <xsl:when test="$fileExtension = 'mpg'">
        			           <xsl:value-of select="string('video/mpg')"/>
        			       </xsl:when>
