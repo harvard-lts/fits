@@ -28,7 +28,7 @@
        			                   <xsl:value-of select="string('video/avi')"/>
        			               </xsl:when>
        			               <xsl:when test="$fileExtension = 'dv'">
-       			                   <xsl:value-of select="string('video/x-dvi')"/>
+       			                   <xsl:value-of select="string('video/x-dv')"/>
        			               </xsl:when>        			                    			       
        			               <xsl:when test="$fileExtension = 'mkv'">
        			                   <xsl:value-of select="string('video/x-matroska')"/>
@@ -43,6 +43,9 @@
       			               <xsl:when test="$fileExtension = 'mp4'">
        			                   <xsl:value-of select="string('video/mp4')"/>
        			               </xsl:when>
+      			               <xsl:when test="$fileExtension = 'm4v'">
+       			                   <xsl:value-of select="string('video/mp4')"/>
+       			               </xsl:when>       			               
        			               <xsl:when test="$fileExtension = 'mpg'">
        			                   <xsl:value-of select="string('video/mpg')"/>
        			               </xsl:when>
@@ -51,7 +54,10 @@
        			               </xsl:when>       			               
        			               <xsl:when test="$fileExtension = 'qt'">
        			                   <xsl:value-of select="string('video/quicktime')"/>
-       			               </xsl:when>       			                      			                     			             			       
+       			               </xsl:when>
+       			       			<xsl:when test="$fileExtension = 'mxf'">
+       			           			<xsl:value-of select="string('application/mxf')"/>
+       			       			</xsl:when>        			                   			                      			                     			             			       
 		                       <xsl:otherwise>
 				                   <xsl:text>TBD</xsl:text>
 				               </xsl:otherwise>
@@ -112,7 +118,7 @@
        			           <xsl:value-of select="string('video/avi')"/>
        			       </xsl:when> 
        			       <xsl:when test="$fileExtension = 'dv'">
-       			           <xsl:value-of select="string('video/x-dvi')"/>
+       			           <xsl:value-of select="string('video/x-dv')"/>
        			       </xsl:when>       			           			       
        			       <xsl:when test="$fileExtension = 'mkv'">
        			           <xsl:value-of select="string('video/x-matroska')"/>
@@ -138,7 +144,10 @@
        			       </xsl:when>       			       
        			       <xsl:when test="$fileExtension = 'qt'">
        			           <xsl:value-of select="string('video/quicktime')"/>
-       			       </xsl:when>       			              			              			             			       
+       			       </xsl:when>  
+       			       <xsl:when test="$fileExtension = 'mxf'">
+       			           <xsl:value-of select="string('application/mxf')"/>
+       			       </xsl:when>  			              			              			             			       
 		               <xsl:otherwise>
 				           <xsl:text>TBD</xsl:text>
 				       </xsl:otherwise>
