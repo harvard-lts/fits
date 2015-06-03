@@ -185,6 +185,10 @@ public class MediaInfo extends ToolBase {
 	    mi.Option("Output", "XML");
 	    String execOut = mi.Inform();
 	    
+	    //// Get MediaInfoLib Output as EBUCore 1.5
+	    //mi.Option("Output", "EBUCore_1.5");
+	    //String ebuOut = mi.Inform();;	    
+	    
 	    // DEBUG
 	    // System.out.println("\nMediaInfo output:\n" + execOut + "\n\n");
 	    
