@@ -1,8 +1,13 @@
 RELEASE NOTES
+Version 0.8.7 (6/8/15)
+----------------------
+
+- Added logging properties that were lost back into class.
+
 Version 0.8.6 (5/20/15)
 ----------------------
 
-- OTS.jar update: fixed bug for invalid MIX XML mix:LumaRed error for TIFF with JPEG compression 
+- OTS.jar update: fixed bug for invalid MIX XML mix:LumaRed error for TIFF with JPEG compression.
 
 Version 0.8.5 (5/05/15)
 ----------------------
