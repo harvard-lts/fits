@@ -411,7 +411,7 @@
 				                        <xsl:text>Progressive</xsl:text>
 				                    </xsl:when>				                
                                     <xsl:when test="$codecID='apch'">
-					                    <xsl:text>Interlaced</xsl:text>             				        
+					                    <xsl:text>interlaced</xsl:text>             				        
 				                    </xsl:when>
                                     <xsl:when test="$codecID='apcn'">
 					                    <xsl:text>TODO</xsl:text>             				        
@@ -423,13 +423,13 @@
 					                    <xsl:text>Progressive</xsl:text>             				        
 				                    </xsl:when>
                                     <xsl:when test="$codecID='dvc'">
-					                    <xsl:text>Interlaced</xsl:text>             				        
+					                    <xsl:text>interlaced</xsl:text>             				        
 				                    </xsl:when>
                                     <xsl:when test="$codecID='dv5n'">
-					                    <xsl:text>Interlaced</xsl:text>             				        
+					                    <xsl:text>interlaced</xsl:text>             				        
 				                    </xsl:when>	
                                     <xsl:when test="$codecID='mjp2'">
-					                    <xsl:text>Interlaced</xsl:text>             				        
+					                    <xsl:text>interlaced</xsl:text>             				        
 				                    </xsl:when>				            			            			            				            				            
 				                    <xsl:otherwise>
 				                        <xsl:text>Unknown</xsl:text>
@@ -522,8 +522,7 @@
                     
                     <!-- number of samples is only visible via the MediaInfo API. Set in Java code. -->
                     <numSamples />
-                    
-                    <!-- samplingRate format is revised in java code -->
+
                     <channels>
                         <xsl:value-of select="./Channel_s_"/>
                     </channels>

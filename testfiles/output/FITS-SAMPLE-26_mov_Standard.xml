@@ -21,7 +21,7 @@
                 <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
                 <ebucore:videoTrack trackId="1"/>
                 <ebucore:technicalAttributeString typeLabel="chromaSubsampling">4:1:1</ebucore:technicalAttributeString>
-                <ebucore:technicalAttributeString typeLabel="colorspace">yuv</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="colorspace">YUV</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="frameRateMode">constant</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="byteOrder">unknown</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="delay">7121900</ebucore:technicalAttributeString>
@@ -58,7 +58,7 @@
                 <ebucore:timecode>01:58:41:27</ebucore:timecode>
              </ebucore:start>
              <ebucore:duration>
-                <ebucore:duration>3971</ebucore:duration>
+                <ebucore:editUnitNumber factorDenominator="1" factorNumerator="1" editRate="1000">3971</ebucore:editUnitNumber>
              </ebucore:duration>
              <ebucore:mimeType typeLabel="video/mp4"/>
              <ebucore:locator>/Users/dab980/Documents/Video/FITS-VIDEO-SAMPLE-FILES/FITS-SAMPLE-26.mov</ebucore:locator>

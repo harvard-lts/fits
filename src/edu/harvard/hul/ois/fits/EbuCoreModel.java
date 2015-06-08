@@ -37,7 +37,7 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.ContainerFormat;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.CoreMetadata;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.DateTime;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Duration;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.DurationInner;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.EditUnitNumber;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Format;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.EbuCoreMain;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.FrameRate;
@@ -180,16 +180,22 @@ public class EbuCoreModel {
     			break;
     			
     		// Technical Attribute Strings
+    		case colorspace: 			
+        		TechnicalAttributeString tas =
+    				new TechnicalAttributeString(dataValue);   		
+        		tas.setTypeLabel(videoElem.getName());
+        		vfmt.addTechnicalAttributeString(tas);
+        		break;
+			
     		case chromaSubsampling:
-    		case colorspace:
     		case frameRateMode:
     		case byteOrder:
     		case delay:
     		case compression:
-        		TechnicalAttributeString tas =
-        			new TechnicalAttributeString(dataValue.toLowerCase());
-        		tas.setTypeLabel(videoElem.getName());
-        		vfmt.addTechnicalAttributeString(tas);
+        		TechnicalAttributeString tasLc =
+    				new TechnicalAttributeString(dataValue.toLowerCase());        		
+        		tasLc.setTypeLabel(videoElem.getName());
+        		vfmt.addTechnicalAttributeString(tasLc);
     			break;
     			
         	// Technical Attribute Integers	
@@ -216,8 +222,7 @@ public class EbuCoreModel {
     		}
     	}
     	
-    	
-    	// Hack
+
     	// TODO: break this out to enum code
     	// Codec element
    		Element dataElement = elem.getChild ("codecId",ns);
@@ -288,8 +293,8 @@ public class EbuCoreModel {
 	    		afmt.setAudioTrackConfiguration(atc);
     			break;	
     		case bitRate:
-    	    		afmt.setBitRate(Integer.parseInt(dataValue));
-    	    		break;
+    	    	afmt.setBitRate(Integer.parseInt(dataValue));
+    	    	break;
     		case bitRateMode:
    	    		afmt.setBitRateMode(dataValue.toLowerCase());
    	    		break;
@@ -328,8 +333,7 @@ public class EbuCoreModel {
     			break;
     		}
     	}
-    	
-    	// Hack
+
     	// TODO: break this out to enum code
     	// Codec element
    		Element dataElement = elem.getChild ("codecId",ns);
@@ -417,8 +421,12 @@ public class EbuCoreModel {
     		this.format.setStart(start);
     		break;
     	case duration:
-    		DurationInner di = new DurationInner(dataValue);
-    		this.duration.setDuration(di);
+    		Integer intValue = new Integer(dataValue);
+    		EditUnitNumber eun = new EditUnitNumber(intValue, "editUnitNumber");
+    		eun.setEditRate(1000);
+    		eun.setFactorNumerator(1);
+    		eun.setFactorDenominator(1); 
+    		this.duration.setDuration(eun);
     		break;
 
     	default:
