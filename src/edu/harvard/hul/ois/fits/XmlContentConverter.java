@@ -33,6 +33,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Element;
@@ -822,6 +823,9 @@ public class XmlContentConverter {
     public XmlContent toEbuCoreVideo (FitsOutput fitsOutput,Element fitsVideo) {
 
     	EbuCoreModel ebucoreModel = null;
+    	
+    	String framerate = "NOT_SET";
+    	String timecode = "NOT_SET";
 
     	try {
     		ebucoreModel = new EbuCoreModel();
@@ -838,6 +842,17 @@ public class XmlContentConverter {
     					String type = typeAttr.getValue();
 
     					if(type.toLowerCase().equals("video")) {
+
+    						// Set the framerate
+    				   		Element dataElement = elem.getChild ("frameRate",ns);
+    			    		if (dataElement != null) {
+    			    			String dataValue = dataElement.getText().trim();
+    		   					if (!StringUtils.isEmpty(dataValue)) {
+            			    		framerate = dataValue;
+    		   					}
+ 			    			
+    			    		}
+
     						ebucoreModel.
     						createVideoFormatElement(elem, ns);
 
@@ -851,12 +866,26 @@ public class XmlContentConverter {
     				} 
     			}  // track
     			else {
+    				
+    				// Set the timecode
+    				if(fitsName.equals("timecodeStart")) {
+    					String dataValue = elem.getText().trim();
+    					if (!StringUtils.isEmpty(dataValue)) {
+    						timecode = dataValue;
+    					}
+    				}
+    					
+   				
     				// Process Elements directly off the root of the Format Element
     				ebucoreModel.
-    				createFormatElement(fitsName, elem, ns);
+    				createFormatElement(fitsName, elem);
     			}
 
-    		}  // for(Element elem : trackList)          
+    		}  // for(Element elem : trackList)  
+    		
+			// Process Elements directly off the root of the Format Element
+			ebucoreModel.
+			createStart(timecode, framerate);    		
 
     	} catch (XmlContentException e) {
     		logger.error("Invalid content: " + e.getMessage ());

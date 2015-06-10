@@ -10,7 +10,6 @@ public enum FormatElements {
 	dateModified ("dateModified"),
 	formatProfile ("formatProfile"),
 	format ("format"),
-	timecodeStart ("timecodeStart"),
 	duration ("duration");
    	
 	private String ebucoreName;

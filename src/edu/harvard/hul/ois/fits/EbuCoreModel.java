@@ -46,7 +46,6 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.MimeType;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Start;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeInteger;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.Timecode;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoEncoding;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoFormat;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoTrack;
@@ -362,7 +361,7 @@ public class EbuCoreModel {
         this.format.addAudioFormat(afmt);
     }    
     
-    protected void createFormatElement(String fitsName, Element elem, Namespace ns) 
+    protected void createFormatElement(String fitsName, Element elem) 
     		throws XmlContentException {
 
     	String dataValue = elem.getText().trim();
@@ -400,7 +399,6 @@ public class EbuCoreModel {
     		tas.setTypeLabel("overallBitRate");
     		this.format.setTechnicalAttributeString(tas);
     		break;
-
     	case dateCreated:
     	case dateModified:
     		String parts[] = dataValue.replace(UTC_TEXT, "").split(" ");
@@ -414,12 +412,6 @@ public class EbuCoreModel {
     		Comment comment = new Comment(dataValue);
     		this.containerFormat.addComment(comment);
     		break;
-    	case timecodeStart:
-    		Start start = new Start("start");
-    		Timecode timecode = new Timecode(dataValue);
-    		start.setTimecode(timecode);
-    		this.format.setStart(start);
-    		break;
     	case duration:
     		Integer intValue = new Integer(dataValue);
     		EditUnitNumber eun = new EditUnitNumber(intValue, "editUnitNumber");
@@ -432,6 +424,46 @@ public class EbuCoreModel {
     	default:
     		break;
     	}
+    	
+    }
+
+    protected void createStart(String timecode, String framerate)
+    		throws XmlContentException {
+    	
+    	if(timecode.equals("NOT_SET") || framerate.equals("NOT_SET"))
+    		return;
+    	
+        int hours = Integer.parseInt(timecode.substring(0, 2));
+        int minutes = Integer.parseInt(timecode.substring(3, 5));
+        int seconds = Integer.parseInt(timecode.substring(6, 8));
+        int framesFromTc = Integer.parseInt(timecode.substring(9, 11 ));
+        
+        EbuCoreFrameRateRatio ratio = new EbuCoreFrameRateRatio(framerate);
+        int fps = new Integer (ratio.getValue());
+        
+        // hours
+        int frames = (int)(( double)hours * 3600 * fps);
+        
+        // minutes
+        frames += (double) minutes * 60 * fps;
+        
+        // seconds
+        double tmpFrame = (double)seconds * fps;
+        if (tmpFrame > Math.floor(tmpFrame)) tmpFrame = Math.floor(tmpFrame) + 1;
+        frames += tmpFrame;
+        
+        // frames
+        frames += framesFromTc;
+
+		EditUnitNumber eun = new EditUnitNumber(new Integer(frames), "editUnitNumber");
+		eun.setEditRate(fps);
+		eun.setFactorNumerator(new Integer(ratio.getNumerator()));
+		eun.setFactorDenominator(new Integer(ratio.getDenominator()));
+
+		Start start = new Start("start");
+		start.setTimecode(eun);
+		this.format.setStart(start);
+    
     }
 
 }

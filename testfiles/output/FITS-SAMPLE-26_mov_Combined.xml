@@ -128,7 +128,7 @@
                 <ebucore:comment>QuickTime</ebucore:comment>
               </ebucore:containerFormat>
               <ebucore:start>
-                <ebucore:timecode>01:58:41:27</ebucore:timecode>
+                <ebucore:editUnitNumber factorDenominator="1001" factorNumerator="1000" editRate="30">213657</ebucore:editUnitNumber>
               </ebucore:start>
                 <ebucore:duration>
                     <ebucore:editUnitNumber factorDenominator="1" factorNumerator="1" editRate="1000">3971</ebucore:editUnitNumber>
