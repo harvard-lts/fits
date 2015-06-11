@@ -573,7 +573,7 @@ public class MediaInfo extends ToolBase {
 		    			reviseVideoSection(element, id, videoTrackValuesMap);
 		    		}
 		    		// audio track data
-		    		else if (audioTrackValuesMap.containsKey(id)) {
+		    		if (audioTrackValuesMap.containsKey(id)) {
 		    			reviseAudioSection(element, id, audioTrackValuesMap);
 		    		}	    		
 		    		

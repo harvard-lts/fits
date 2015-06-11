@@ -449,7 +449,10 @@ public class EbuCoreModel {
         
         // seconds
         double tmpFrame = (double)seconds * fps;
-        if (tmpFrame > Math.floor(tmpFrame)) tmpFrame = Math.floor(tmpFrame) + 1;
+        // Not necessary, as normalization is already done in the
+        // EbuCoreFrameRateRatio class
+        //if (tmpFrame > Math.floor(tmpFrame)) 
+        //	tmpFrame = Math.floor(tmpFrame) + 1;
         frames += tmpFrame;
         
         // frames
@@ -465,5 +468,15 @@ public class EbuCoreModel {
 		this.format.setStart(start);
     
     }
+
+//    public static void main(String[] args) throws XmlContentException {
+//    	
+//    	String timecode = "00:00:01:00";
+//    	String framerate = "29.97";
+//    	
+//    	EbuCoreModel test = new EbuCoreModel();
+//    	
+//    	test.createStart(timecode, framerate);
+//    }
 
 }

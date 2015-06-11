@@ -11,6 +11,10 @@
 <xsl:template match="/">
 
 	<xsl:apply-imports/>
+	<!-- Used to convert case of the string -->
+    <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
+    <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+    
     <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output">
     
         <xsl:for-each select="File/track">      
@@ -18,50 +22,45 @@
                 
                 <xsl:variable name="completefilename" select="./Complete_name"/>
        			<xsl:variable name="fileExtension" select="fits_XsltFunctions:getFileExtension($completefilename)"/>
-       			              
+       			<!-- Convert Format to lowercase for comparison -->
+       			<xsl:variable name="format" select="./Format"/>
+                <xsl:variable name="formatLC" select="translate($format, $uppercase, $smallcase)" />             
 	            <identification>
                     <identity>
 
    		                <xsl:attribute name="mimetype">                   
- 			                <xsl:choose>
-       			               <xsl:when test="$fileExtension = 'avi'">
-       			                   <xsl:value-of select="string('video/avi')"/>
-       			               </xsl:when>
-       			               <xsl:when test="$fileExtension = 'dv'">
-       			                   <xsl:value-of select="string('video/x-dv')"/>
-       			               </xsl:when>        			                    			       
-       			               <xsl:when test="$fileExtension = 'mkv'">
-       			                   <xsl:value-of select="string('video/x-matroska')"/>
-       			               </xsl:when>
-      			               <xsl:when test="$fileExtension = 'mj2'">
-       			                   <xsl:value-of select="string('video/mj2')"/>
-       			               </xsl:when>
-       			               <xsl:when test="$fileExtension = 'mov'">
-       			                   <!-- <xsl:value-of select="string('video/quicktime')"/> -->
-       			                   <xsl:value-of select="string('video/mp4')"/>
-       			               </xsl:when>			                    			               
-      			               <xsl:when test="$fileExtension = 'mp4'">
+       			           <xsl:choose>
+      			               <xsl:when test="contains($formatLC, 'mpeg-4')">
        			                   <xsl:value-of select="string('video/mp4')"/>
        			               </xsl:when>
-      			               <xsl:when test="$fileExtension = 'm4v'">
-       			                   <xsl:value-of select="string('video/mp4')"/>
-       			               </xsl:when>       			               
-       			               <xsl:when test="$fileExtension = 'mpg'">
+       			               <xsl:when test="contains($formatLC, 'mpeg')">
        			                   <xsl:value-of select="string('video/mpg')"/>
        			               </xsl:when>
-       			               <xsl:when test="$fileExtension = 'ogv'">
-       			                   <xsl:value-of select="string('video/ogg')"/>
-       			               </xsl:when>       			               
-       			               <xsl:when test="$fileExtension = 'qt'">
-       			                   <xsl:value-of select="string('video/quicktime')"/>
+      			               <xsl:when test="$formatLC = 'quicktime'">
+       			                   <xsl:value-of select="string('video/mp4')"/>
+       			               </xsl:when> 
+      			               <xsl:when test="$formatLC = 'mxf'">
+       			                   <xsl:value-of select="string('application/mxf')"/>
+       			               </xsl:when>        			             			              			            			   
+      			               <xsl:when test="$formatLC = 'mjp2'">
+       			                   <xsl:value-of select="string('video/mj2')"/>
        			               </xsl:when>
-       			       			<xsl:when test="$fileExtension = 'mxf'">
-       			           			<xsl:value-of select="string('application/mxf')"/>
-       			       			</xsl:when>        			                   			                      			                     			             			       
+      			               <xsl:when test="$formatLC = 'matroska'">
+       			                   <xsl:value-of select="string('video/x-matroska')"/>
+       			               </xsl:when>
+       			               <xsl:when test="$formatLC = 'ogg'">
+       			                   <xsl:value-of select="string('video/ogg')"/>
+       			               </xsl:when>
+       			               <xsl:when test="$formatLC = 'avi'">
+       			                   <xsl:value-of select="string('video/avi')"/>
+       			               </xsl:when>       			            			             			        
+      			               <xsl:when test="$formatLC = 'dv'">
+       			                   <xsl:value-of select="string('video/x-dv')"/>
+       			               </xsl:when>           			              			             			       
 		                       <xsl:otherwise>
 				                   <xsl:text>TBD</xsl:text>
 				               </xsl:otherwise>
-			                </xsl:choose>
+				           </xsl:choose>
 		                </xsl:attribute>
 		                
 		                <xsl:attribute name="format">
@@ -111,43 +110,39 @@
        				<xsl:value-of select="$completefilename"/>
        			</location>
        			
-       			<xsl:variable name="fileExtension" select="fits_XsltFunctions:getFileExtension($completefilename)"/>
-       			<mimeType>
+       			<!-- Convert Format to lowercase for comparison -->
+       			<xsl:variable name="format" select="./Format"/>
+                <xsl:variable name="formatLC" select="translate($format, $uppercase, $smallcase)" /> 
+                
+      			<mimeType>
        			   <xsl:choose>
-       			       <xsl:when test="$fileExtension = 'avi'">
-       			           <xsl:value-of select="string('video/avi')"/>
-       			       </xsl:when> 
-       			       <xsl:when test="$fileExtension = 'dv'">
-       			           <xsl:value-of select="string('video/x-dv')"/>
-       			       </xsl:when>       			           			       
-       			       <xsl:when test="$fileExtension = 'mkv'">
-       			           <xsl:value-of select="string('video/x-matroska')"/>
-       			       </xsl:when>
-      			       <xsl:when test="$fileExtension = 'mj2'">
-       			           <xsl:value-of select="string('video/mj2')"/>
-       			       </xsl:when>
-       			       <xsl:when test="$fileExtension = 'mov'">
-       			           <!-- <xsl:value-of select="string('video/quicktime')"/> -->
-       			           <xsl:value-of select="string('video/mp4')"/>       			           
-       			       </xsl:when>       			       
-      			       <xsl:when test="$fileExtension = 'mp4'">
+      			       <xsl:when test="contains($formatLC, 'mpeg-4')">
        			           <xsl:value-of select="string('video/mp4')"/>
        			       </xsl:when>
-      			       <xsl:when test="$fileExtension = 'm4v'">
-       			           <xsl:value-of select="string('video/mp4')"/>
-       			       </xsl:when>       			       
-       			       <xsl:when test="$fileExtension = 'mpg'">
+       			       <xsl:when test="contains($formatLC, 'mpeg')">
        			           <xsl:value-of select="string('video/mpg')"/>
        			       </xsl:when>
-       			       <xsl:when test="$fileExtension = 'ogv'">
-       			           <xsl:value-of select="string('video/ogg')"/>
-       			       </xsl:when>       			       
-       			       <xsl:when test="$fileExtension = 'qt'">
-       			           <xsl:value-of select="string('video/quicktime')"/>
-       			       </xsl:when>  
-       			       <xsl:when test="$fileExtension = 'mxf'">
+      			       <xsl:when test="$formatLC = 'quicktime'">
+       			           <xsl:value-of select="string('video/mp4')"/>
+       			       </xsl:when> 
+      			       <xsl:when test="$formatLC = 'mxf'">
        			           <xsl:value-of select="string('application/mxf')"/>
-       			       </xsl:when>  			              			              			             			       
+       			       </xsl:when>        			             			              			            			   
+      			       <xsl:when test="$formatLC = 'mjp2'">
+       			           <xsl:value-of select="string('video/mj2')"/>
+       			       </xsl:when>
+      			       <xsl:when test="$formatLC = 'matroska'">
+       			           <xsl:value-of select="string('video/x-matroska')"/>
+       			       </xsl:when>
+       			       <xsl:when test="$formatLC = 'ogg'">
+       			           <xsl:value-of select="string('video/ogg')"/>
+       			       </xsl:when>
+       			       <xsl:when test="$formatLC = 'avi'">
+       			           <xsl:value-of select="string('video/avi')"/>
+       			       </xsl:when>       			            			             			        
+      			       <xsl:when test="$formatLC = 'dv'">
+       			           <xsl:value-of select="string('video/x-dv')"/>
+       			       </xsl:when>           			              			             			       
 		               <xsl:otherwise>
 				           <xsl:text>TBD</xsl:text>
 				       </xsl:otherwise>
