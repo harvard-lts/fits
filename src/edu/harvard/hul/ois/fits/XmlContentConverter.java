@@ -834,6 +834,10 @@ public class XmlContentConverter {
     		// Walk through all of the elements and process them
     		for(Element elem : trackList) {
     			String fitsName = elem.getName ();
+    			
+    	    	// Ebucore can only be generated from MediaInfo output
+    	    	if(!isMediaInfoTool(fitsName, elem))
+    	    		return null;
 
     			// Process the tracks
     			if (fitsName.equals("track")) {
@@ -853,15 +857,13 @@ public class XmlContentConverter {
  			    			
     			    		}
 
-    						ebucoreModel.
-    						createVideoFormatElement(elem, ns);
+    						ebucoreModel.createVideoFormatElement(elem, ns);
 
     					} // video format
 
     					// Audio Format
     					else if (type.toLowerCase().equals("audio")) {                			
-    						ebucoreModel.
-    						createAudioFormatElement(elem, ns);
+    						ebucoreModel.createAudioFormatElement(elem, ns);
     					}  // audio format
     				} 
     			}  // track
@@ -874,11 +876,9 @@ public class XmlContentConverter {
     						timecode = dataValue;
     					}
     				}
-    					
    				
     				// Process Elements directly off the root of the Format Element
-    				ebucoreModel.
-    				createFormatElement(fitsName, elem);
+    				ebucoreModel.createFormatElement(fitsName, elem);
     			}
 
     		}  // for(Element elem : trackList)  
@@ -896,6 +896,17 @@ public class XmlContentConverter {
 
     	return ebucoreModel.ebucoreMain;
     } // toEbuCoreVideo
+    
+    boolean isMediaInfoTool(String fitsName, Element elem) {
+    	
+    	// Ebucore can only be generated from MediaInfo output
+		Attribute toolNameAttr = elem.getAttribute("toolname");
+    	String toolName = toolNameAttr.getValue();
+    	if(!toolName.equalsIgnoreCase("mediainfo"))
+    		return false;
+    	
+    	return true;
+    }
     
     /* an enumeration for mapping symbols to FITS audio element names */
     public enum AudioElement {

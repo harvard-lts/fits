@@ -413,7 +413,10 @@ public class EbuCoreModel {
     		this.containerFormat.addComment(comment);
     		break;
     	case duration:
-    		Integer intValue = new Integer(dataValue);
+    		//Integer intValue = new Integer(dataValue);
+    		// Sometimes MediaInfo returns a value with a decimal place
+    		Double d = new Double(dataValue);
+    		Integer intValue = Integer.valueOf((int) Math.round(d));
     		EditUnitNumber eun = new EditUnitNumber(intValue, "editUnitNumber");
     		eun.setEditRate(1000);
     		eun.setFactorNumerator(1);
