@@ -204,6 +204,7 @@
               	                  	    
               	    <!-- Encoding is used to determine various element data -->              	    
                     <xsl:variable name="codecID" select="./Codec_ID"/>
+                    <xsl:variable name="codecLC" select="translate($codecID, $uppercase, $smallcase)" /> 
                     
        			    <videoDataEncoding>
        				    <xsl:value-of select="$codecID"/>			    
@@ -223,31 +224,31 @@
                         </xsl:when>	        
 				        <xsl:otherwise>
 				            <xsl:choose>
-				                <xsl:when test="$codecID='2Vuy'">
+				                <xsl:when test="$codecLC='2vuy'">
 				                    <xsl:text>Lossless</xsl:text>
 				                </xsl:when>
-				                <xsl:when test="$codecID='v210'">
+				                <xsl:when test="$codecLC='v210'">
 				                    <xsl:text>Lossless</xsl:text>
 				                </xsl:when>	                
-                                <xsl:when test="$codecID='apch'">
+                                <xsl:when test="$codecLC='apch'">
 					                <xsl:text>Lossy</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='apcn'">
+                                <xsl:when test="$codecLC='apcn'">
 					                <xsl:text>TODO</xsl:text>             				        
 				                </xsl:when>				                
-                                <xsl:when test="$codecID='avc1'">
+                                <xsl:when test="$codecLC='avc1'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='R10g'">
+                                <xsl:when test="$codecLC='r10g'">
 			                        <xsl:text>TODO</xsl:text>                				        
 				                </xsl:when>					                
-                                <xsl:when test="$codecID='dvc'">
+                                <xsl:when test="$codecLC='dvc'">
 					                <xsl:text>Lossy</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='dv5n'">
+                                <xsl:when test="$codecLC='dv5n'">
 					                <xsl:text>Lossy</xsl:text>             				        
 				                </xsl:when>	
-                                <xsl:when test="$codecID='mjp2'">
+                                <xsl:when test="$codecLC='mjp2'">
 					                <xsl:text>Lossless</xsl:text>             				        
 				                </xsl:when>
 				                <xsl:otherwise>
@@ -265,31 +266,31 @@
                         </xsl:when>	        
 				        <xsl:otherwise>
 				            <xsl:choose> 
-				                <xsl:when test="$codecID='2Vuy'">
+				                <xsl:when test="$codecLC='2vuy'">
 				                    <xsl:text>Unknown</xsl:text>
 				                </xsl:when>
-				                <xsl:when test="$codecID='v210'">
+				                <xsl:when test="$codecLC='v210'">
 				                    <xsl:text>Unknown</xsl:text>
 				                </xsl:when>				                				                
-                                <xsl:when test="$codecID='apch'">
+                                <xsl:when test="$codecLC='apch'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='apcn'">
+                                <xsl:when test="$codecLC='apcn'">
 					                <xsl:text>TODO</xsl:text>             				        
 				                </xsl:when>				                
-                                <xsl:when test="$codecID='avc1'">
+                                <xsl:when test="$codecLC='avc1'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='R10g'">
+                                <xsl:when test="$codecLC='r10g'">
 			                        <xsl:text>TODO</xsl:text>                				        
 				                </xsl:when>					                
-                                <xsl:when test="$codecID='dvc'">
+                                <xsl:when test="$codecLC='dvc'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='dv5n'">
+                                <xsl:when test="$codecLC='dv5n'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>	
-                                <xsl:when test="$codecID='mjp2'">
+                                <xsl:when test="$codecLC='mjp2'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>				            			            			            				            				            
 				                <xsl:otherwise>
@@ -307,31 +308,31 @@
                         </xsl:when>	        
 				        <xsl:otherwise>
 				            <xsl:choose> 
-                                <xsl:when test="$codecID='2Vuy'">
+                                <xsl:when test="$codecLC='2vuy'">
 			                        <xsl:text>8 bits</xsl:text>            				        
 				                </xsl:when>
-				                <xsl:when test="$codecID='v210'">
+				                <xsl:when test="$codecLC='v210'">
 			                        <xsl:text>10 bits</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='apch'">
+                                <xsl:when test="$codecLC='apch'">
 			                        <xsl:text>10 bits</xsl:text>                				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='R10g'">
+                                <xsl:when test="$codecLC='r10g'">
 			                        <xsl:text>10 bits</xsl:text>                				        
 				                </xsl:when>					                
-                                <xsl:when test="$codecID='apcn'">
+                                <xsl:when test="$codecLC='apcn'">
 			                        <xsl:text>10 bits</xsl:text>                				        
 				                </xsl:when>				                		                			        
-                                <xsl:when test="$codecID='avc1'">
+                                <xsl:when test="$codecLC='avc1'">
 			                        <xsl:text>8 bits</xsl:text>              				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='dvc'">
+                                <xsl:when test="$codecLC='dvc'">
 			                        <xsl:text>8 bits</xsl:text>             				        
 				                </xsl:when>		        				        			        
-                                 <xsl:when test="$codecID='dv5n'">
+                                 <xsl:when test="$codecLC='dv5n'">
 					                <xsl:text>8 bits</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecID='mjp2'">
+                                <xsl:when test="$codecLC='mjp2'">
 					                <xsl:text>8 bits</xsl:text>             				        
 				                </xsl:when>				                				        		        
 				                <xsl:otherwise>
@@ -399,31 +400,31 @@
 				            </xsl:when>			        
 				            <xsl:otherwise>
 				                <xsl:choose> 
-				                    <xsl:when test="$codecID='2Vuy'">
+				                    <xsl:when test="$codecLC='2vuy'">
 				                        <xsl:text>Progressive</xsl:text>
 				                    </xsl:when>
-				                    <xsl:when test="$codecID='v210'">
+				                    <xsl:when test="$codecLC='v210'">
 				                        <xsl:text>Progressive</xsl:text>
 				                    </xsl:when>				                
-                                    <xsl:when test="$codecID='apch'">
+                                    <xsl:when test="$codecLC='apch'">
 					                    <xsl:text>interlaced</xsl:text>             				        
 				                    </xsl:when>
-                                    <xsl:when test="$codecID='apcn'">
+                                    <xsl:when test="$codecLC='apcn'">
 					                    <xsl:text>TODO</xsl:text>             				        
 				                    </xsl:when>				                    
-				                    <xsl:when test="$codecID='R10g'">
+				                    <xsl:when test="$codecLC='r10g'">
 					                    <xsl:text>Progressive</xsl:text>             				        
 				                    </xsl:when>				                    
-                                    <xsl:when test="$codecID='avc1'">
+                                    <xsl:when test="$codecLC='avc1'">
 					                    <xsl:text>Progressive</xsl:text>             				        
 				                    </xsl:when>
-                                    <xsl:when test="$codecID='dvc'">
+                                    <xsl:when test="$codecLC='dvc'">
 					                    <xsl:text>interlaced</xsl:text>             				        
 				                    </xsl:when>
-                                    <xsl:when test="$codecID='dv5n'">
+                                    <xsl:when test="$codecLC='dv5n'">
 					                    <xsl:text>interlaced</xsl:text>             				        
 				                    </xsl:when>	
-                                    <xsl:when test="$codecID='mjp2'">
+                                    <xsl:when test="$codecLC='mjp2'">
 					                    <xsl:text>interlaced</xsl:text>             				        
 				                    </xsl:when>				            			            			            				            				            
 				                    <xsl:otherwise>
