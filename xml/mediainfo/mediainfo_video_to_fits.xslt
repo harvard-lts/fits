@@ -426,7 +426,10 @@
 				                    </xsl:when>	
                                     <xsl:when test="$codecLC='mjp2'">
 					                    <xsl:text>interlaced</xsl:text>             				        
-				                    </xsl:when>				            			            			            				            				            
+				                    </xsl:when>
+                                    <xsl:when test="$codecLC='xith'">
+					                    <xsl:text>Progressive</xsl:text>             				        
+				                    </xsl:when>	            			            			            				            				            
 				                    <xsl:otherwise>
 				                        <xsl:text>Unknown</xsl:text>
 				                    </xsl:otherwise>
