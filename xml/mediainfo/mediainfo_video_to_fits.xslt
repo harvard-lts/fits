@@ -234,8 +234,20 @@
 					                <xsl:text>Lossy</xsl:text>             				        
 				                </xsl:when>
                                 <xsl:when test="$codecLC='apcn'">
-					                <xsl:text>TODO</xsl:text>             				        
-				                </xsl:when>				                
+					                <xsl:text>Lossy</xsl:text>             				        
+				                </xsl:when>
+                                <xsl:when test="$codecLC='apcs'">
+					                <xsl:text>Lossy</xsl:text>             				        
+				                </xsl:when>
+                                <xsl:when test="$codecLC='apco'">
+					                <xsl:text>Lossy</xsl:text>         				        
+				                </xsl:when>				         
+                                <xsl:when test="$codecLC='ap4h'">
+					                <xsl:text>Lossy</xsl:text>             				        
+				                </xsl:when>
+                                <xsl:when test="$codecLC='ap4x'">
+					                <xsl:text>Lossy</xsl:text>             				        
+				                </xsl:when>			                				                				                		                				                
                                 <xsl:when test="$codecLC='avc1'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
@@ -314,15 +326,27 @@
 				                <xsl:when test="$codecLC='v210'">
 			                        <xsl:text>10 bits</xsl:text>             				        
 				                </xsl:when>
-                                <xsl:when test="$codecLC='apch'">
-			                        <xsl:text>10 bits</xsl:text>                				        
-				                </xsl:when>
                                 <xsl:when test="$codecLC='r10g'">
 			                        <xsl:text>10 bits</xsl:text>                				        
-				                </xsl:when>					                
+				                </xsl:when>
+                                <xsl:when test="$codecLC='apch'">
+			                        <xsl:text>10 bits</xsl:text>                				        
+				                </xsl:when>				                
                                 <xsl:when test="$codecLC='apcn'">
 			                        <xsl:text>10 bits</xsl:text>                				        
-				                </xsl:when>				                		                			        
+				                </xsl:when>				                
+                                <xsl:when test="$codecLC='apcs'">
+			                        <xsl:text>10 bits</xsl:text>                				        
+				                </xsl:when>
+                                <xsl:when test="$codecLC='apco'">
+			                        <xsl:text>10 bits</xsl:text>                				        
+				                </xsl:when>
+                               <xsl:when test="$codecLC='ap4h'">
+			                        <xsl:text>12 bits</xsl:text>                				        
+				                </xsl:when>	
+                               <xsl:when test="$codecLC='ap4x'">
+			                        <xsl:text>12 bits</xsl:text>                				        
+				                </xsl:when>			                				                				                			                		                			        
                                 <xsl:when test="$codecLC='avc1'">
 			                        <xsl:text>8 bits</xsl:text>              				        
 				                </xsl:when>
