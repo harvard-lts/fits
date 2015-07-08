@@ -56,7 +56,10 @@
        			               </xsl:when>       			            			             			        
       			               <xsl:when test="$formatLC = 'dv'">
        			                   <xsl:value-of select="string('video/x-dv')"/>
-       			               </xsl:when>           			              			             			       
+       			               </xsl:when> 
+      			               <xsl:when test="contains($formatLC, 'avc')">
+       			                   <xsl:value-of select="string('video/mp4')"/>
+       			               </xsl:when>       			                         			              			             			       
 		                       <xsl:otherwise>
 				                   <xsl:text>TBD</xsl:text>
 				               </xsl:otherwise>
@@ -142,7 +145,10 @@
        			       </xsl:when>       			            			             			        
       			       <xsl:when test="$formatLC = 'dv'">
        			           <xsl:value-of select="string('video/x-dv')"/>
-       			       </xsl:when>           			              			             			       
+       			       </xsl:when>
+      			       <xsl:when test="contains($formatLC, 'avc')">
+       			           <xsl:value-of select="string('video/mp4')"/>
+       			       </xsl:when>        			                			              			             			       
 		               <xsl:otherwise>
 				           <xsl:text>TBD</xsl:text>
 				       </xsl:otherwise>
@@ -453,10 +459,13 @@
 				                    </xsl:when>
                                     <xsl:when test="$codecLC='xith'">
 					                    <xsl:text>Progressive</xsl:text>             				        
-				                    </xsl:when>	            			            			            				            				            
+				                    </xsl:when>
+				                    <!-- Do not use a default mapping -->
+				                    <!--            			            			            				            				            
 				                    <xsl:otherwise>
 				                        <xsl:text>Unknown</xsl:text>
 				                    </xsl:otherwise>
+				                    -->
 				                </xsl:choose>
 				            </xsl:otherwise>
 				        </xsl:choose>        

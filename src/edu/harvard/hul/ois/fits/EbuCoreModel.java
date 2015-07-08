@@ -154,7 +154,10 @@ public class EbuCoreModel {
     			vfmt.setBitRateMode(dataValue.toLowerCase());
     			break;
     		case scanningFormat:
-        		vfmt.setScanningFormat(dataValue.toLowerCase());
+    			if(dataValue.equals("MBAFF"))
+    				vfmt.setScanningFormat("interlaced");
+    			else
+    				vfmt.setScanningFormat(dataValue.toLowerCase());
     			break;
     		case videoDataEncoding:
         		VideoEncoding ve = new VideoEncoding();
