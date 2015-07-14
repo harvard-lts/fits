@@ -63,6 +63,11 @@ public class MediaInfo extends ToolBase {
 		info.setName(TOOL_NAME);
 		
 		String fitsHome = Fits.config.getString("fits_home");
+		// If the user has passed in the FITS_HOME parameter, use that 
+		// instead of what is in the fits.xml
+		if(!StringUtils.isEmpty(Fits.FITS_HOME)) {
+			fitsHome = Fits.FITS_HOME;
+		}
 		String nativeLibPath = "";
 		
 		// Set the JNA library path based upon the OS		
