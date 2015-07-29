@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="jhove">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jhove/jhove-handler.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jhove/JhoveApp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jhove/jhove-module.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jhove/jhove.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

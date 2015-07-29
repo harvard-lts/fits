@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ZIP">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/tools/exiftool/perl/t/images/ZIP.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
