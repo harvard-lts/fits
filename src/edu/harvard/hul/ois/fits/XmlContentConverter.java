@@ -1,5 +1,5 @@
 /**********************************************************************
- * Copyright (c) 2009 by the President and Fellows of Harvard College
+ * Copyright (c) 2015 by the President and Fellows of Harvard College
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,13 +31,16 @@ package edu.harvard.hul.ois.fits;
 
 import java.io.File;
 import java.text.ParseException;
+import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.jdom.Attribute;
 import org.jdom.Element;
 import org.jdom.Namespace;
 
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
-import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational;
+import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational; 
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlDateFormat;
@@ -813,8 +816,106 @@ public class XmlContentConverter {
         return aesModel.aes;
     }
     
+    /**
+     * Converts a video element into a VideoObject ??? object
+     * @param fitsVideo		a video element in the FITS schema
+     */
+    public XmlContent toEbuCoreVideo (FitsOutput fitsOutput,Element fitsVideo) {
+
+    	EbuCoreModel ebucoreModel = null;
+    	
+    	String framerate = "NOT_SET";
+    	String timecode = "NOT_SET";
+
+    	try {
+    		ebucoreModel = new EbuCoreModel();
+    		List<Element> trackList = fitsVideo.getContent();
+
+    		// Walk through all of the elements and process them
+    		for(Element elem : trackList) {
+    			String fitsName = elem.getName ();
+    			
+    	    	// Ebucore can only be generated from MediaInfo output
+    	    	if(!isMediaInfoTool(fitsName, elem))
+    	    		return null;
+
+    			// Process the tracks
+    			if (fitsName.equals("track")) {
+    				Attribute typeAttr = elem.getAttribute("type");
+    				if(typeAttr != null) {
+    					String type = typeAttr.getValue();
+
+    					if(type.toLowerCase().equals("video")) {
+
+    						// Set the framerate
+    				   		Element dataElement = elem.getChild ("frameRate",ns);
+    			    		if (dataElement != null) {
+    			    			String dataValue = dataElement.getText().trim();
+    		   					if (!StringUtils.isEmpty(dataValue)) {
+            			    		framerate = dataValue;
+    		   					}
+ 			    			
+    			    		}
+
+    						ebucoreModel.createVideoFormatElement(elem, ns);
+
+    					} // video format
+
+    					// Audio Format
+    					else if (type.toLowerCase().equals("audio")) {                			
+    						ebucoreModel.createAudioFormatElement(elem, ns);
+    					}  // audio format
+    				} 
+    			}  // track
+    			else {
+    				
+    				// Set the timecode
+    				if(fitsName.equals("timecodeStart")) {
+    					String dataValue = elem.getText().trim();
+    					if (!StringUtils.isEmpty(dataValue)) {
+    						timecode = dataValue;
+    					}
+    				}
+   				
+    				// Process Elements directly off the root of the Format Element
+    				ebucoreModel.createFormatElement(fitsName, elem);
+    			}
+
+    		}  // for(Element elem : trackList)  
+    		
+			// Process Elements directly off the root of the Format Element
+			ebucoreModel.
+			createStart(timecode, framerate);    		
+
+    	} catch (XmlContentException e) {
+    		logger.error("Invalid content: " + e.getMessage ());
+    		// TODO: Should we throw an exception?
+    		// What should we do here?
+    		//e.printStackTrace();
+    	}
+
+    	return ebucoreModel.ebucoreMain;
+    } // toEbuCoreVideo
+    
+    boolean isMediaInfoTool(String fitsName, Element elem) {
+    	
+    	// Ebucore can only be generated from MediaInfo output
+		Attribute toolNameAttr = elem.getAttribute("toolname");
+    	String toolName = toolNameAttr.getValue();
+    	if(!toolName.equalsIgnoreCase("mediainfo"))
+    		return false;
+    	
+    	return true;
+    }
+    
     /* an enumeration for mapping symbols to FITS audio element names */
     public enum AudioElement {
+       	//samplingRate ("samplingRate"),
+       	//sampleSize ("sampleSize"),       	
+    	//bitRate ("bitRate"),
+    	//bitRateMode ("bitRateMode"),    	
+    	//channels ("channels"); 
+       	
     	bitsPerSample ("bitsPerSample"),
     	duration ("duration"),
     	bitDepth ("bitDepth"),
@@ -1013,4 +1114,23 @@ public class XmlContentConverter {
             return name;
         }
     }
+    
+    /* an enumeration for mapping symbols to FITS audio element names */
+    public enum AudioFormatElement {
+       	samplingRate ("samplingRate"),
+       	sampleSize ("sampleSize"),       	
+    	bitRate ("bitRate"),
+    	bitRateMode ("bitRateMode"),    	
+    	channels ("channels"); 
+    	
+    	private String name;
+        
+    	AudioFormatElement(String name) {
+            this.name = name;
+        }
+        
+        public String getName () {
+            return name;
+        }
+    }    
 }

@@ -18,6 +18,8 @@
  */
 package edu.harvard.hul.ois.fits.tools.utils;
 
+import org.apache.commons.io.FilenameUtils;
+
 public class XsltFunctions {
 	
 	public static String getMessageString(String message, String subMessage, String severity, String offset) {
@@ -63,6 +65,14 @@ public class XsltFunctions {
 		number = number % SECS;
 
 		return hrs + ":" + mins + ":" + secs + ":" + number;
+	}
+	
+	public static String getFileNameFromUrl(String url) {
+        return FilenameUtils.getName(url);        
+	}
+	
+	public static String getFileExtension(String url) {
+        return FilenameUtils.getExtension(url);		
 	}
 
 }

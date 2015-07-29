@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="3/23/15 10:15 AM">
+  <identification status="CONFLICT">
+    <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="0.8.3">
+      <tool toolname="MediaInfo" toolversion="0.7.71" />
+    </identity>
+    <identity format="ISO Media, Apple QuickTime movie" mimetype="video/quicktime" toolname="FITS" toolversion="0.8.3">
+      <tool toolname="file utility" toolversion="5.04" />
+    </identity>
+    <identity format="Quicktime" mimetype="video/quicktime" toolname="FITS" toolversion="0.8.3">
+      <tool toolname="Droid" toolversion="6.1.3" />
+      <externalIdentifier toolname="Droid" toolversion="6.1.3" type="puid">x-fmt/384</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <creatingApplicationName toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">Apple QuickTime</creatingApplicationName>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dab980/Documents/video/FITS-VIDEO-SAMPLE-FILES/FITS-SAMPLE-26.mov</filepath>
+    <filename toolname="MediaInfo" toolversion="0.7.71">FITS-SAMPLE-26.mov</filename>
+    <size toolname="MediaInfo" toolversion="0.7.71">15060707</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">9c560fd7e4e6e0834bed9280c4b52d7b</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1426510704000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <video>
+      <location toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">/Users/dab980/Documents/Video/FITS-VIDEO-SAMPLE-FILES/FITS-SAMPLE-26.mov</location>
+      <mimeType toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">video/mp4</mimeType>
+      <format toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">MPEG-4</format>
+      <formatProfile toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">QuickTime</formatProfile>
+      <duration toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">3971</duration>
+      <timecodeStart toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">01:58:41:27</timecodeStart>
+      <bitRate toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">30341389</bitRate>
+      <dateCreated toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">UTC 2015-03-13 15:36:19</dateCreated>
+      <dateModified toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">UTC 2015-03-16 12:58:24</dateModified>
+      <track type="video" id="1" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
+        <videoDataEncoding>AVdv</videoDataEncoding>
+        <codecId>AVdv</codecId>
+        <compression>Lossy</compression>
+        <byteOrder>Unknown</byteOrder>
+        <bitDepth>8 bits</bitDepth>
+        <bitRate>24417183</bitRate>
+        <bitRateMode>Constant</bitRateMode>
+        <duration>3971</duration>
+        <delay>7121900</delay>
+        <trackSize>12120079</trackSize>
+        <width>720 pixels</width>
+        <height>480 pixels</height>
+        <frameRate>29.970</frameRate>
+        <frameRateMode>Constant</frameRateMode>
+        <frameCount>119</frameCount>
+        <aspectRatio>4:3</aspectRatio>
+        <scanningFormat>Interlaced</scanningFormat>
+        <scanningOrder>BFF</scanningOrder>
+        <chromaSubsampling>4:1:1</chromaSubsampling>
+        <colorspace>YUV</colorspace>
+      </track>
+      <track type="audio" id="3" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
+        <audioDataEncoding>PCM</audioDataEncoding>
+        <codecId>twos</codecId>
+        <codecFamily>PCM</codecFamily>     
+        <compression>none</compression>
+        <bitRate>1536000</bitRate>
+        <bitRateMode>Constant</bitRateMode>
+        <bitDepth>16 bits</bitDepth>
+        <duration>3967</duration>
+        <delay>7121900</delay>
+        <trackSize>761656</trackSize>
+        <soundField>Front: L R</soundField>
+        <samplingRate>48000</samplingRate>
+        <numSamples>190416</numSamples>
+        <channels>2</channels>
+        <byteOrder>Big</byteOrder>
+      </track>
+      <standard>
+        <ebucore:ebuCoreMain xmlns:ebucore="urn:ebu:metadata-schema:ebuCore_2014">
+          <ebucore:coreMetadata>
+            <ebucore:format>
+              <ebucore:videoFormat>
+                <ebucore:width unit="pixel">720</ebucore:width>
+                <ebucore:height unit="pixel">480</ebucore:height>
+                <ebucore:frameRate factorDenominator="1001" factorNumerator="1000">30</ebucore:frameRate>
+                <ebucore:aspectRatio typeLabel="display">
+                  <ebucore:factorNumerator>4</ebucore:factorNumerator>
+                  <ebucore:factorDenominator>3</ebucore:factorDenominator>
+                </ebucore:aspectRatio>
+                <ebucore:videoEncoding typeLabel="AVdv" />
+                <ebucore:codec>
+                  <ebucore:codecIdentifier>
+                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">AVdv</dc:identifier>
+                  </ebucore:codecIdentifier>
+                </ebucore:codec>                
+                <ebucore:bitRate>24417183</ebucore:bitRate>
+                <ebucore:bitRateMode>constant</ebucore:bitRateMode>
+                <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
+                <ebucore:videoTrack trackId="1" />
+                <ebucore:technicalAttributeString typeLabel="chromaSubsampling">4:1:1</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="colorspace">YUV</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="frameRateMode">constant</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="byteOrder">unknown</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="delay">7121900</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="compression">lossy</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeInteger typeLabel="frameCount">119</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="bitDepth">8</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="duration">3971</ebucore:technicalAttributeInteger>
+              </ebucore:videoFormat>
+              <ebucore:audioFormat>
+                <ebucore:audioEncoding typeLabel="PCM" />
+                <ebucore:codec>
+                  <ebucore:codecIdentifier>
+                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">twos</dc:identifier>
+                  </ebucore:codecIdentifier>
+                </ebucore:codec>          
+                <ebucore:audioTrackConfiguration typeLabel="Front: L R" />
+                <ebucore:samplingRate>48000</ebucore:samplingRate>
+                <ebucore:bitRate>1536000</ebucore:bitRate>
+                <ebucore:bitRateMode>constant</ebucore:bitRateMode>
+                <ebucore:audioTrack trackId="3" />
+                <ebucore:channels>2</ebucore:channels>
+                <ebucore:technicalAttributeString typeLabel="byteOrder">big</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="delay">7121900</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="compression">none</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeInteger typeLabel="streamSize">761656</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="sampleCount">190416</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="duration">3967</ebucore:technicalAttributeInteger>
+              </ebucore:audioFormat>
+              <ebucore:containerFormat>
+                <ebucore:comment>MPEG-4</ebucore:comment>
+                <ebucore:comment>QuickTime</ebucore:comment>
+              </ebucore:containerFormat>
+              <ebucore:start>
+                <ebucore:editUnitNumber factorDenominator="1001" factorNumerator="1000" editRate="30">213657</ebucore:editUnitNumber>
+              </ebucore:start>
+                <ebucore:duration>
+                    <ebucore:editUnitNumber factorDenominator="1" factorNumerator="1" editRate="1000">3971</ebucore:editUnitNumber>
+                </ebucore:duration>
+              <ebucore:mimeType typeLabel="video/mp4" />
+              <ebucore:locator>/Users/dab980/Documents/Video/FITS-VIDEO-SAMPLE-FILES/FITS-SAMPLE-26.mov</ebucore:locator>
+              <ebucore:technicalAttributeString typeLabel="overallBitRate">30341389</ebucore:technicalAttributeString>
+              <ebucore:dateModified startTime="12:58:24Z" startDate="2015-03-16" />
+            </ebucore:format>
+          </ebucore:coreMetadata>
+        </ebucore:ebuCoreMain>
+      </standard>
+    </video>
+  </metadata>
+  <statistics fitsExecutionTime="8454">
+    <tool toolname="MediaInfo" toolversion="0.7.71" executionTime="1209" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.5" executionTime="8423" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="1748" />
+    <tool toolname="Exiftool" toolversion="9.13" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.3" executionTime="648" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" executionTime="814" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="1211" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="782" />
+    <tool toolname="Tika" toolversion="1.3" executionTime="686" />
+  </statistics>
+</fits>
+

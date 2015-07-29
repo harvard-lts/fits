@@ -401,6 +401,10 @@ public class Fits {
         out.flush();
 
       } catch (Exception e) {
+		// DEBUG
+    	e.printStackTrace();
+		System.out.println(e.getMessage());
+			    	  
         System.err.println( "error converting output to a standard schema format" );
       } finally {
         xmlOutStream.close();

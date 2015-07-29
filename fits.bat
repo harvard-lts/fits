@@ -15,6 +15,7 @@ cd %FITS_HOME%
 for %%i in (lib\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
 for %%i in (lib\droid\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
 for %%i in (lib\jhove\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
+for %%i in (lib\mediainfo\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
 for %%i in (lib\nzmetool\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
 for %%i in (lib\nzmetool\adapters\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
 

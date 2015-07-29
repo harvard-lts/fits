@@ -1,0 +1,9 @@
+DOUBLE CHECK the below:
+
+-----------------
+Element Questions
+-----------------
+
+    fileInfo/creatingApplicationVersion
+        - do we need this? Not in XML sample
+        - if so, where does it come from?

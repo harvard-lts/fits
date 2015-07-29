@@ -136,6 +136,14 @@
 			</element>
 		</mime>
 	</tool>
+	
+	<tool name="mediainfo" version="0.7.71">
+		<mime type="all">
+			<element name="colorSpace">
+				<map from="Greyscale" to="Grayscale"/>
+			</element>
+		</mime>
+	</tool>	
 
 
 <!-- METADATA EXTRACTION TOOLS -->
