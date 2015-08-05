@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <ebucore:ebuCoreMain xmlns:ebucore="urn:ebu:metadata-schema:ebuCore_2014" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ebu:metadata-schema:ebuCore_2014 http://www.ebu.ch/metadata/schemas/EBUCore/20140318/EBU_CORE_20140318.xsd">
+       <ebucore:coreMetadata>
+          <ebucore:format>
+             <ebucore:videoFormat>
+                <ebucore:width unit="pixel">720</ebucore:width>
+                <ebucore:height unit="pixel">480</ebucore:height>
+                <ebucore:frameRate factorDenominator="1001" factorNumerator="1000">30</ebucore:frameRate>
+                <ebucore:aspectRatio typeLabel="display">
+                   <ebucore:factorNumerator>4</ebucore:factorNumerator>
+                   <ebucore:factorDenominator>3</ebucore:factorDenominator>
+                </ebucore:aspectRatio>
+                <ebucore:videoEncoding typeLabel="AVdv"/>
+                <ebucore:codec>
+                   <ebucore:codecIdentifier>
+                      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">AVdv</dc:identifier>
+                   </ebucore:codecIdentifier>
+                </ebucore:codec>
+                <ebucore:bitRate>24417183</ebucore:bitRate>
+                <ebucore:bitRateMode>constant</ebucore:bitRateMode>
+                <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
+                <ebucore:videoTrack trackId="1"/>
+                <ebucore:technicalAttributeString typeLabel="chromaSubsampling">4:1:1</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="colorspace">YUV</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="frameRateMode">constant</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="byteOrder">unknown</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="delay">7121900</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="compression">lossy</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeInteger typeLabel="frameCount">119</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="bitDepth">8</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="duration">3971</ebucore:technicalAttributeInteger>
+             </ebucore:videoFormat>
+             <ebucore:audioFormat>
+                <ebucore:audioEncoding typeLabel="PCM"/>
+                <ebucore:codec>
+                   <ebucore:codecIdentifier>
+                      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">twos</dc:identifier>
+                   </ebucore:codecIdentifier>
+                </ebucore:codec>
+                <ebucore:audioTrackConfiguration typeLabel="Front: L R"/>
+                <ebucore:samplingRate>48000</ebucore:samplingRate>
+                <ebucore:bitRate>1536000</ebucore:bitRate>
+                <ebucore:bitRateMode>constant</ebucore:bitRateMode>
+                <ebucore:audioTrack trackId="3"/>
+                <ebucore:channels>2</ebucore:channels>
+                <ebucore:technicalAttributeString typeLabel="byteOrder">big</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="delay">7121900</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="compression">none</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeInteger typeLabel="streamSize">761656</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="sampleCount">190416</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeInteger typeLabel="duration">3967</ebucore:technicalAttributeInteger>
+             </ebucore:audioFormat>
+             <ebucore:containerFormat>
+                <ebucore:comment>MPEG-4</ebucore:comment>
+                <ebucore:comment>QuickTime</ebucore:comment>
+             </ebucore:containerFormat>
+             <ebucore:start>
+                <ebucore:editUnitNumber factorDenominator="1001" factorNumerator="1000" editRate="30">213657</ebucore:editUnitNumber>
+             </ebucore:start>
+             <ebucore:duration>
+                <ebucore:editUnitNumber factorDenominator="1" factorNumerator="1" editRate="1000">3971</ebucore:editUnitNumber>
+             </ebucore:duration>
+             <ebucore:mimeType typeLabel="video/mp4"/>
+             <ebucore:locator>/Users/dab980/Documents/Video/FITS-VIDEO-SAMPLE-FILES/FITS-SAMPLE-26.mov</ebucore:locator>
+             <ebucore:technicalAttributeString typeLabel="overallBitRate">30341389</ebucore:technicalAttributeString>
+             <ebucore:dateModified startTime="12:58:24Z" startDate="2015-03-16"/>
+          </ebucore:format>
+       </ebucore:coreMetadata>
+    </ebucore:ebuCoreMain>

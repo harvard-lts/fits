@@ -143,4 +143,20 @@ public class XmlUtils {
 		return xml;
 	}
 
+	/**
+	 * Determines if a String contains all numeric values.
+	 * Returns true if it does, otherwise return false.
+	 * @param str
+	 * @return boolean
+	 */
+	public static boolean isNumeric(String str)
+	{
+	    for (char c : str.toCharArray())
+	    {
+	        if (!Character.isDigit(c)) return false;
+	    }
+	    return true;
+	}
+
+
 }

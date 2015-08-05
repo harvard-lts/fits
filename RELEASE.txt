@@ -1,4 +1,10 @@
 RELEASE NOTES
+
+Version 0.8.8 (07/29/15)
+----------------------
+- Added initial support for video files using the MediaInfo Tool
+- Tika 1.8 update
+
 Version 0.8.7 (6/8/15)
 ----------------------
 

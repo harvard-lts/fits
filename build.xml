@@ -58,6 +58,7 @@
       <include name="lib/*.jar"/>
 	  <include name="lib/droid/*.jar"/>
       <include name="lib/jhove/*.jar"/>
+      <include name="lib/mediainfo/*.jar"/>
       <include name="lib/nzmetool/*.jar"/>
     </fileset>
   </path>

@@ -103,6 +103,11 @@ public class DocumentTypes {
         doctypeMap.put ("text/xml", Doctype.TEXT);
         
         doctypeMap.put ("application/mp4", Doctype.VIDEO);
+        doctypeMap.put ("video/mp4", Doctype.VIDEO);
+        doctypeMap.put ("video/avi", Doctype.VIDEO); 
+        doctypeMap.put ("video/x-dvi", Doctype.VIDEO);
+        doctypeMap.put ("video/x-matroska", Doctype.VIDEO);
+        doctypeMap.put ("video/video/ogg", Doctype.VIDEO); 
         doctypeMap.put ("video/mj2", Doctype.VIDEO);
         doctypeMap.put ("video/mpeg", Doctype.VIDEO);
         doctypeMap.put ("video/quicktime", Doctype.VIDEO);
