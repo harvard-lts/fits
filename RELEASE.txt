@@ -1,5 +1,12 @@
 RELEASE NOTES
 
+Version 0.8.9 (08/12/15)
+----------------------
+Removed old version of TIKA jar file
+Updated SLF4J jar filed for DROID
+Revised to use versioned OTS jar file
+Minor Unit Test cleanup
+
 Version 0.8.8 (07/29/15)
 ----------------------
 - Added initial support for video files using the MediaInfo Tool
