@@ -92,6 +92,7 @@ public class VideoStdSchemaTestXmlUnit_NoMD5 {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+				"version",
 				"toolversion",
 				"dateModified",
 				"fslastmodified",
