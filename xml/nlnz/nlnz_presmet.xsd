@@ -1,0 +1,305 @@
+<?xml version="1.0"?>
+<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by Sytec Resources -->
+<!--
+	Version: 1.2
+
+	v1.1
+	2003-06-12
+	Added elements GroupIdentifier and IsPartOfGroup to Object.
+	Added element Process to Process.
+
+	v1.2
+	2003-07-24
+	Removed elements GroupIdentifier, IsPartOfGroup, and DataAuthentication from Object.  Element definitions below.
+	Added element OriginalIdentifier to Object.
+
+	<xsd:element name="GroupIdentifier" type="xsd:nonNegativeInteger">
+	</xsd:element>
+
+	<xsd:element name="IsPartOfGroup" type="YesNo">
+	</xsd:element>
+
+	<xsd:element name="DataAuthentication" type="xsd:string" minOccurs="0">
+	</xsd:element>
+
+-->
+<?xmlspysps C:\Program Files\Altova\XML Spy Suite\Examples\Datasheet.sps?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="nlnz_types.xsd"/>
+	<xsd:include schemaLocation="nlnz_file.xsd"/>
+	<xsd:annotation>
+		<xsd:documentation>(C) 2003 National Library of New Zealand This file is the XML Schema for the preservation metadata data dictionary. Controller: Dave Thompson, NLNZ Controller: Brian Cleaver, NLNZ Author: Nic Evans, Sytec Resources Ltd</xsd:documentation>
+		<xsd:documentation>This data dictionary defines the preservation metadata fields from a design or implementation perspective.  The dictionary is based on the logical preservation metadata model (Version 2) and maintains the overall structure and data relationships contained there.  Individual fields however have been adjusted to facilitate their population with readily available structured data that conforms to recognized standards.  In some instances this has resulted in the logically defined fields being split into subfields to enable multiple dimensions or sub elements to be recorded.</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="Object">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">Entity 1: the object is the highest level element of the schema, everything is related in some way to the object.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ID" type="xsd:nonNegativeInteger">
+					<xsd:annotation>
+						<xsd:documentation xml:lang="en">An internal identifier assigned to digital objects within NLNZ.  This is a non-intelligent numeric number allocated sequentially to digital objects.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Name" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation xml:lang="en">Plain text name given to material by the creator/curator/selector and used to identify the object for users.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ReferenceNumber" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation xml:lang="en">Reference number or identification number used as the object identifier by the Library’s core bibliographic/description or collection management applications.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="GroupIdentifier" type="xsd:nonNegativeInteger">
+					<xsd:annotation>
+						<xsd:documentation xml:lang="en"></xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+
+				<xsd:element name="OriginalIdentifier" type="YesNo">
+					<xsd:annotation>
+						<xsd:documentation xml:lang="en">An indicator showing whether a digital original exists for this object.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PersistentIdentifier" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>A published international identifier for digital objects.  For identifiers assigned by NLNZ, this incorporates the Object Identifier.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="MasterCreationDate" type="DateTime">
+					<xsd:annotation>
+						<xsd:documentation>The date when the first Preservation Master for this object was created.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ObjectComposition">
+					<xsd:annotation>
+						<xsd:documentation>A classification of the object based on the relationships between the files that make it up.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="simple"/>
+							<xsd:enumeration value="complex"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="StructuralType" type="FileName">
+					<xsd:annotation>
+						<xsd:documentation>The name of a file, which for complex objects and object groups contains details of the individual files that comprise the object, including the overall directory structure and the hierarchical position of each file.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="HardwareEnvironment" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>A description of the hardware environment required to access or use the Preservation Master.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="SoftwareEnvironment" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>A description of the software environment required to access or use the Preservation Master.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="InstallationRequirements" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Details of any specialised requirements needed to install or initiate access to the object.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="AccessInhibitors" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Details of any method used to restrict access to the object that may impact on preservation activities.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="AccessFacilitators" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Any systems or methods used to enhance access to the object and needed to be maintained or considered in preservation activities.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Quirks" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Any characteristic of the original that may appear as a loss in functionality or change in the look and feel of a Preservation Master.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="MetadataRecordCreator" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The name(s) of the individual, business unit and/or agency responsible for the creation of this preservation metadata information.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="MetadataCreationDate" type="DateTime">
+					<xsd:annotation>
+						<xsd:documentation>Date that preservation metadata was first collected for this object.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Comments" type="xsd:string" minOccurs="0"/>
+				<xsd:sequence>
+					<xsd:annotation>
+						<xsd:documentation>An object will contain a combination of the following items.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:element name="Files" minOccurs="0">
+						<xsd:complexType>
+							<xsd:choice maxOccurs="unbounded">
+								<xsd:element ref="File" maxOccurs="unbounded"/>
+								<xsd:element ref="Folder"/>
+							</xsd:choice>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="Processes" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element ref="Process" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="Modifications" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element ref="Modification" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Process">
+		<xsd:annotation>
+			<xsd:documentation>Entity 2: Process describes a process by which the object was created</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Type" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>A classification of a preservation processes.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="Creation of first Preservation Master"/>
+							<xsd:enumeration value="Creation of subsequent Preservation Master"/>
+							<xsd:enumeration value="Creation of new Object from file(s) within this Object"/>
+							<xsd:enumeration value="Creation of dissemination copy"/>
+							<xsd:enumeration value="Data validation"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Process" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>Description of the process carried out.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Purpose" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>The reason why this Process has been undertaken.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ProcessCreator" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The individual(s), business unit and / or agency that carried out the process.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Permission" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The individual(s), business unit and / or agency who approved the process.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PermissionDate" type="DateTime">
+					<xsd:annotation>
+						<xsd:documentation>The date when permission was given to perform the process.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="HardwareUsed" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>A description of any noteworthy hardware used in performing the process.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="SoftwareUsed" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>A description of any noteworthy software used in performing the process.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Steps" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>A description of the actions performed to initiate and complete the process.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Step" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>A description of an individual action performed to  complete a step in the process.</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:attribute name="number" type="xsd:positiveInteger">
+										<xsd:annotation>
+											<xsd:documentation>The Sequence number for the step - to maintain order</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Result" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>The outcomes of the process where these are worth being recorded.  Can include confirmation of intended changes or highlighting of unexpected outcomes.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Guidelines" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Any standards or procedures used when performing the process.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="CompletionDate" type="DateTime">
+					<xsd:annotation>
+						<xsd:documentation>The date and time the process was completed.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Comments" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Any other matter of relevance to preservation involved in the process.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<!-- v1.1 -->
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Modification">
+		<xsd:annotation>
+			<xsd:documentation>Entity 4: Any modification made to the object is documented here</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Modifier" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The name of the person who made this modification to the preservation metadata record. It is anticipated that this information will be obtained from the logon Id of the individual initiating the change.  This logon Id will be expanded to the persons name before being stored in this data field.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="DateTime" type="DateTime">
+					<xsd:annotation>
+						<xsd:documentation>The date and time that this change to the preservation metadata information was completed.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="FieldModified" type="xsd:decimal">
+					<xsd:annotation>
+						<xsd:documentation>Identification of the field the modification was made to.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Data" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>A record of the preservation metadata content prior to being modified. If a free text field is modified, the entire text, prior to modification will be recorded.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Folder">
+		<xsd:annotation>
+			<xsd:documentation>Entity 3 may also be a colection (or tree) of nested files and folders - like a file system.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ID" type="xsd:nonNegativeInteger"/>
+				<xsd:element name="Path" type="xsd:string"/>
+				<xsd:element ref="File" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="Folder" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
