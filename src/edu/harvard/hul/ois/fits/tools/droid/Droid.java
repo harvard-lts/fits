@@ -47,10 +47,6 @@ public class Droid extends ToolBase {
         logger.debug ("Initializing Droid");
 		info = new ToolInfo("Droid", getDroidVersion(), null);		
 
-		String javaVersion = System.getProperty("java.version");
-		if (javaVersion.startsWith ("1.8")) {
-		    throw new FitsToolException ("DROID cannot run under Java 8");
-		}
 		try {
 			String droid_conf = Fits.FITS_TOOLS+"droid"+File.separator;
 			File sigFile = new File(droid_conf+Fits.config.getString("droid_sigfile"));
