@@ -1,0 +1,487 @@
+<?xml version="1.0"?>
+<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by Sytec Resources -->
+<!-- 
+	Version: 1.1
+	
+	v1.1
+	2003-06-12
+	Removed minOccurs from TargetIndicator.
+	Added type to SoundIndicator.
+	
+	v1.2
+	2003-07-24
+	Split Audio Encapsulation into EncapsulationName and EncapsulationVersion.
+	Split Video Codec into CodecName and CodecVersion.
+	
+	<xsd:element name="Encapsulation" type="xsd:string">
+	</xsd:element>
+
+	<xsd:element name="Codec" type="xsd:string" minOccurs="0">
+	</xsd:element>
+-->
+<?xmlspysps C:\Program Files\Altova\XML Spy Suite\Examples\Datasheet.sps?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="nlnz_types.xsd"/>
+	<xsd:element name="File">
+		<xsd:annotation>
+			<xsd:documentation>Entity 3: A file that makes up the overall object.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="FileIdentifier" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>An internal identifier – a number assigned by NLNZ to a digital file.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Path" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>The directory path within a complex object that points to this file.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Filename" type="FileName">
+					<xsd:annotation>
+						<xsd:documentation>The name of the file as it is held in the digital archive.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="FormerFilename" type="FileName">
+					<xsd:annotation>
+						<xsd:documentation>The name (including extension) of the file as it existed in the source material.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Size" type="xsd:positiveInteger">
+					<xsd:annotation>
+						<xsd:documentation>The size of the file in bytes.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="FileDateTime" type="DateTime">
+					<xsd:annotation>
+						<xsd:documentation>Date/time that this file was created.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Mimetype" type="Mimetype">
+					<xsd:annotation>
+						<xsd:documentation>The Multipurpose Internet Mail Extensions Type for the file expressed as type/subtype. http://www.isi.edu/in-notes/iana/assignments/media-types/media-types Examples are: video/quicktime, image/jpeg</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="FileFormat">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Format" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>The format of the file taken from the name of its type or the application used to create it.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Version" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>The version of the file format identified in 3.9.Examples are: V2.0, XPAlthough file format versions may be able to be verified against a list, the proliferation of new versions may make this impractical to enforce.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="TargetIndicator" type="YesNo">
+					<xsd:annotation>
+						<xsd:documentation>An indicator to show whether this file is the entry point for accessing a complex object.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:choice>
+					<xsd:annotation>
+						<xsd:documentation>A file is subcategorized into the following account</xsd:documentation>
+					</xsd:annotation>
+					<xsd:element name="Image">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="ImageResolution">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="SamplingFrequencyUnit" minOccurs="0">
+												<xsd:annotation>
+													<xsd:documentation>The unit of measurement for X Sampling Frequency and Y Sampling Frequency. Equates to NISO field 8.1.2</xsd:documentation>
+												</xsd:annotation>
+												<xsd:simpleType>
+													<xsd:restriction base="xsd:string">
+														<xsd:enumeration value="none"/>
+														<xsd:enumeration value="inches"/>
+														<xsd:enumeration value="centimetres"/>
+													</xsd:restriction>
+												</xsd:simpleType>
+											</xsd:element>
+											<xsd:element name="XSamplingFrequency" type="xsd:positiveInteger" minOccurs="0">
+												<xsd:annotation>
+													<xsd:documentation>The number of pixels per Sampling Frequency Unit in the image width (horizontal dimension).</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+											<xsd:element name="YSamplingFrequency" type="xsd:positiveInteger" minOccurs="0">
+												<xsd:annotation>
+													<xsd:documentation>The number of pixels per Sampling Frequency Unit in the image length (vertical dimension).</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="ImageDimension" minOccurs="0">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="Width" type="xsd:positiveInteger" minOccurs="1">
+												<xsd:annotation>
+													<xsd:documentation>The width of the digital image, i.e. horizontal or X dimension, in pixels.</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+											<xsd:element name="Length" type="xsd:positiveInteger" minOccurs="1">
+												<xsd:annotation>
+													<xsd:documentation>he length of the digital image, i.e. vertical or Y dimension, in pixels.</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="BitsPerSample">
+									<xsd:annotation>
+										<xsd:documentation>The number of bits per component for each pixel. Equates to NISO field 8.2.1Note that this field allows a different number of bits per component for each component corresponding to a pixel.  For example, RGB colour data could use a different number of bits per component for each of the three colour panes.  Most RGB files will have the same number of Bits Per Sample for each component.  Even in this case, the writer must write all three values.</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:enumeration value="1">
+												<xsd:annotation>
+													<xsd:documentation>1 = 1 bit (bitonal)</xsd:documentation>
+												</xsd:annotation>
+											</xsd:enumeration>
+											<xsd:enumeration value="4">
+												<xsd:annotation>
+													<xsd:documentation>4 = 4 bit grayscale</xsd:documentation>
+												</xsd:annotation>
+											</xsd:enumeration>
+											<xsd:enumeration value="8">
+												<xsd:annotation>
+													<xsd:documentation>8 = 8 bit grayscale or palletised colour</xsd:documentation>
+												</xsd:annotation>
+											</xsd:enumeration>
+											<xsd:enumeration value="8,8,8">
+												<xsd:annotation>
+													<xsd:documentation>8,8,8 = RGB</xsd:documentation>
+												</xsd:annotation>
+											</xsd:enumeration>
+											<xsd:enumeration value="16,16,16">
+												<xsd:annotation>
+													<xsd:documentation>16,16,16   = TIFF, HDR (high dynamic range)</xsd:documentation>
+												</xsd:annotation>
+											</xsd:enumeration>
+											<xsd:enumeration value="8,8,8,8">
+												<xsd:annotation>
+													<xsd:documentation>8,8,8,8 = CMYK</xsd:documentation>
+												</xsd:annotation>
+											</xsd:enumeration>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="PhotometricInterpretation">
+									<xsd:annotation>
+										<xsd:documentation>See comments for attributes</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="ColourSpace">
+												<xsd:annotation>
+													<xsd:documentation>Designates the colour space of the decompressed image data. Equates to NISO field 6.1.4.1</xsd:documentation>
+												</xsd:annotation>
+												<xsd:simpleType>
+													<xsd:restriction base="xsd:nonNegativeInteger">
+														<xsd:enumeration value="0">
+															<xsd:annotation>
+																<xsd:documentation>0 = WhiteIsZeroFor bilevel and grayscale images: 0 is imaged as white. 2**BitsPerSample-1 is imaged as black. This is the normal value for Compression=2.</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="1">
+															<xsd:annotation>
+																<xsd:documentation>1 =    BlackIsZeroFor bilevel and grayscale images: 0 is imaged as black. 2**BitsPerSample-1 is imaged as white. If this value is specified for Compression=2, the image should display and print reversed.</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="2">
+															<xsd:annotation>
+																<xsd:documentation>2 =    RGBIn the RGB model, a colour is described as a combination of the three primary colours of light (red, green, and blue) in particular concentrations. For each of the three components, 0 represents minimum intensity, and 2**BitsPerSample-1 represents maximum intensity. Thus an RGB value of (0,0,0) represents black, and (255,255,255) represents white, assuming 8-bit components. For Planar Configuration = 1, the components are stored in the indicated order: first Red, then Green, then Blue. For Planar Configuration = 2, the Strip Offsets for the component planes are stored in the indicated order: first the Red component plane Strip Offsets, then the Green plane Strip Offsets, then the Blue plane Strip Offsets.</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="3">
+															<xsd:annotation>
+																<xsd:documentation>3 =    Palette colourIn this model, a colour is described with a single component. The value of the component is used as an index into the red, green, and blue curves in the Colour Map field to retrieve an RGB triplet that defines the colour. When Photometric Interpretation = 3 is used, Colour Map must be present and Samples Per Pixel must be 1.</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="4">
+															<xsd:annotation>
+																<xsd:documentation>4 =    Transparency MaskThis means that the image is used to define an irregularly shaped region of another image in the same TIFF file. Samples Per Pixel and Bits Per Sample must be 1. PackBits compression is recommended. The 1-bits define the interior of the region; the 0-bits define the exterior of the region.</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="5">
+															<xsd:annotation>
+																<xsd:documentation>5 = CMYK</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="6">
+															<xsd:annotation>
+																<xsd:documentation>6 = YCbCr</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="8">
+															<xsd:annotation>
+																<xsd:documentation>8 = CIELab</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+													</xsd:restriction>
+												</xsd:simpleType>
+											</xsd:element>
+											<xsd:element name="ICCProfileName">
+												<xsd:annotation>
+													<xsd:documentation>The name of the International Color Consortium (ICC) profile used.</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="ColorMap" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>The location of the file containing the colour map.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="Orientation">
+									<xsd:annotation>
+										<xsd:documentation>Orientation of the image saved on disk e.g. normal, normal rotated 180-.Normal is defined as follows: when opened, the top (0th) row of pixels corresponds to the visual top of the image and the first (0th) column of pixels on left corresponds to the visual left-hand side of the image.Consult TIFF for additional values referring to mirrored images. (Note that TIFF/EP supports only five values, which are proposed above as the finite list of enumerated type values.)This field is to be used to record only the orientation of the image, not the orientation of the source to the device (e.g., camera) used to capture the image.Equates to NISO field 6.2.4</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:positiveInteger">
+											<xsd:enumeration value="1">
+												<xsd:annotation>
+													<xsd:documentation>1 = normal*</xsd:documentation>
+												</xsd:annotation>
+											</xsd:enumeration>
+											<xsd:enumeration value="3">
+												<xsd:annotation>
+													<xsd:documentation>3 = normal rotated 180deg</xsd:documentation>
+												</xsd:annotation>
+											</xsd:enumeration>
+											<xsd:enumeration value="6">
+												<xsd:annotation>
+													<xsd:documentation>6 = normal rotated cw 90deg</xsd:documentation>
+												</xsd:annotation>
+											</xsd:enumeration>
+											<xsd:enumeration value="8">
+												<xsd:annotation>
+													<xsd:documentation>8 = normal rotated ccw 90deg</xsd:documentation>
+												</xsd:annotation>
+											</xsd:enumeration>
+											<xsd:enumeration value="9">
+												<xsd:annotation>
+													<xsd:documentation>9 = unknown</xsd:documentation>
+												</xsd:annotation>
+											</xsd:enumeration>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="Compression">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="Scheme">
+												<xsd:annotation>
+													<xsd:documentation>The compression scheme used to store the image data. Values above are drawn from TIFF (p. 117) though institutions are encouraged to devise a local enumerated list to allow for the addition of new values as technology changes. This data element allows for the designation of sub-elements in order to record the level of compression applied (see 3.12.8.2 Compression Level).Equates to NISO field 6.1.3.1</xsd:documentation>
+												</xsd:annotation>
+												<xsd:simpleType>
+													<xsd:restriction base="xsd:positiveInteger">
+														<xsd:enumeration value="1">
+															<xsd:annotation>
+																<xsd:documentation>1 = Uncompressed</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="2">
+															<xsd:annotation>
+																<xsd:documentation>2 = CCITT 1D</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="3">
+															<xsd:annotation>
+																<xsd:documentation>3 = CCITT Group 3</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="4">
+															<xsd:annotation>
+																<xsd:documentation>4 = CCITT Group 4</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="5">
+															<xsd:annotation>
+																<xsd:documentation>5 = LZW</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="6">
+															<xsd:annotation>
+																<xsd:documentation>6 = JPEG</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+														<xsd:enumeration value="32773">
+															<xsd:annotation>
+																<xsd:documentation>32773 = PackBits (simple byte-oriented run-length scheme)</xsd:documentation>
+															</xsd:annotation>
+														</xsd:enumeration>
+													</xsd:restriction>
+												</xsd:simpleType>
+											</xsd:element>
+											<xsd:element name="Level" type="xsd:positiveInteger">
+												<xsd:annotation>
+													<xsd:documentation>Designates the level of compression used in 3.12.8.1 Compression Scheme.</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="Audio">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Resolution" type="xsd:positiveInteger">
+									<xsd:annotation>
+										<xsd:documentation>The rate of sampling, in samples per second, used to create the audio file. Also known as sample rate or sample frequency.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="Duration" type="DateTime">
+									<xsd:annotation>
+										<xsd:documentation>The length of the audio recording in hours, minutes and seconds and three digits for representing decimal fractions of a second. Equates to EBU P_META Scheme Attribute A428Examples are 01:27:38:247</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="BitRate" type="xsd:positiveInteger">
+									<xsd:annotation>
+										<xsd:documentation>The word length used to encode the audio.  Consequently an indication of dynamic range.  It is the maximum number of significant bits for the value without compression. Equates to EBU P_META Scheme Attribute A175Examples are: 16, 20, 24</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="Compression" type="xsd:string" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>The name of the compression scheme, noise reduction scheme, or other non-linear processing applied to an audio signal.  Note that audio compression, or bit rate reduction is a non-reversible, "lossy" process.Equates to EBU P_META Scheme Attribute A257Examples are: MPEG 3; Dolby A; IEC pre-emphasis</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EncapsulationName" type="xsd:string">
+									<xsd:annotation>
+										<xsd:documentation>The name of the delivery format of the file.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EncapsulationVersion" type="xsd:string">
+									<xsd:annotation>
+										<xsd:documentation>The version level of the delivery format of the file.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="Channels">
+									<xsd:annotation>
+										<xsd:documentation>A classification of the sound format type identifying the number of channels and how they are related to each other.</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:enumeration value="Mono"/>
+											<xsd:enumeration value="2 channel stereo"/>
+											<xsd:enumeration value="5 channel surround"/>
+											<xsd:enumeration value="other"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="Video">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="VideoFrameDimension" minOccurs="0">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="Width" type="xsd:positiveInteger" minOccurs="1">
+												<xsd:annotation>
+													<xsd:documentation>The width of the digital image, i.e. horizontal or X dimension, in pixels.</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+											<xsd:element name="Length" type="xsd:positiveInteger" minOccurs="1">
+												<xsd:annotation>
+													<xsd:documentation>The length of the digital image, i.e. vertical or Y dimension, in pixels.</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="Duration" type="DateTime">
+									<xsd:annotation>
+										<xsd:documentation>The length of the video recording in hours, minutes and seconds and three digits representing decimal fractions of a second. Equates to EBU P_META Scheme Attribute A428 Examples are 01:27:38:247</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="Frames" type="xsd:positiveInteger">
+									<xsd:annotation>
+										<xsd:documentation>The number of frames present in the video recording.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="FrameRate" type="xsd:decimal">
+									<xsd:annotation>
+										<xsd:documentation>The rate at which the video should be shown to achieve the intended effect  expressed in frames per second (fps). Equates to EBU P_META Scheme Attribute A44Example: 25</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CodecName" type="xsd:string" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>The name of the codec method applied to the video.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CodecVersion" type="xsd:string">
+									<xsd:annotation>
+										<xsd:documentation>The version level of the codec method applied to the video.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="AspectRatio">
+									<xsd:annotation>
+										<xsd:documentation>The desired aspect ratio of the image on screen.</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:pattern value="[0-9]+:[0-9]+"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="ScanMode">
+									<xsd:annotation>
+										<xsd:documentation>An indicator showing whether the digital item is scanned in a progressive or interlaced mode.</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:enumeration value="Progressive"/>
+											<xsd:enumeration value="Interlaced"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="SoundIndicator" type="YesNo">
+									<xsd:annotation>
+										<xsd:documentation>An indicator of the presence of sound in the video file. If the value is yes, then the video file will also be associated with an instance of the Audio metadata (3.13) in addition to the Video metadata (3.14)</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="Text">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="CharacterSet" type="xsd:string">
+									<xsd:annotation>
+										<xsd:documentation>The character set used when creating the file Examples are: ASCII, Unicode, EBCDIC, UTF-8.  The character set used when creating the file Examples are: ASCII, Unicode, EBCDIC, UTF-8.  http://www.iana.org/assignments/character-sets</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="MarkupLanguage" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>The type of markup language used to mark up the document.</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:enumeration value="SGML"/>
+											<xsd:enumeration value="XML"/>
+											<xsd:enumeration value="HTML"/>
+											<xsd:enumeration value="RTF"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

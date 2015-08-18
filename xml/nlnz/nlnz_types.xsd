@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by Sytec Resources -->
+<!-- 
+	Version: 1.1
+	
+	v1.1
+	2003-06-12
+	Edited pattern tag for Mimetype.
+	
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xsd:complexType name="DateTime">
+		<xsd:annotation>
+			<xsd:documentation>The date/time that this change to the preservation metadata information was completed.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Date" minOccurs="0">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attribute name="format" type="xsd:string" use="optional"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Time" minOccurs="0">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attribute name="format" type="xsd:string" use="optional"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="locale" type="xsd:string" use="optional" default="NZST"/>
+	</xsd:complexType>
+	<xsd:simpleType name="YesNo">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="yes"/>
+			<xsd:enumeration value="no"/>
+			<xsd:enumeration value="Yes"/>
+			<xsd:enumeration value="No"/>
+			<xsd:enumeration value="YES"/>
+			<xsd:enumeration value="NO"/>
+			<xsd:enumeration value="Y"/>
+			<xsd:enumeration value="N"/>
+			<xsd:enumeration value="y"/>
+			<xsd:enumeration value="n"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- v1.1 edited pattern -->
+	<xsd:simpleType name="Mimetype">
+		<xsd:annotation>
+			<xsd:documentation>A mime type's value is governed by a pattern</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[\p{L}|\p{P}|\d]+/[\p{L}|\p{P}|\d]+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="FileName">
+		<xsd:sequence>
+			<xsd:element name="Name">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string"/>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Path" minOccurs="0">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string"/>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Extension">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string"/>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
