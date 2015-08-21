@@ -109,7 +109,7 @@
 		</mime>
 	</tool>
 
-	<tool name="NLNZ Metadata Extractor" version="3.4GA">
+	<tool name="NLNZ Metadata Extractor" version="3.6GA">
 		<mime type="all">
 			<element name="flash">
 				<map from="No Flash" to="Flash did not fire"/>

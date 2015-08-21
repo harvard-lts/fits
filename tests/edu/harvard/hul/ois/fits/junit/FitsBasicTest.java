@@ -46,7 +46,7 @@ public class FitsBasicTest extends XMLTestCase {
     	}
     	
     	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("fitsBasicTestOutput.xml");
+    	fitsOut.saveToDisk("test-generated-output/fitsBasicTestOutput.xml");
     	
 	}
 
