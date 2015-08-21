@@ -37,14 +37,22 @@
         <adapter class="nz.govt.natlib.adapter.jpg.JpgAdapter" jar="jpg_adapter_1_1.jar"  output-dtd="jpg.dtd"/>
         <adapter class="nz.govt.natlib.adapter.jID3LibMp3.ID3TagLibMP3Adapter" jar="jID3LibMp3_adapter_1_0.jar" output-dtd="mp3.dtd" />
         <adapter class="nz.govt.natlib.adapter.mp3.MP3Adapter" jar="mp3_adapter_1_0.jar"  output-dtd="mp3.dtd"/>
+<!-- 
+        The following adapter cannot be used since the MPEG4Adapter entry point class contains an import of a class
+        not provided in the 3.6GA distribution.
         <adapter class="nz.govt.natlib.adapter.mpeg4.MPEG4Adapter" jar="mpeg4_adapter_1_0.jar" output-dtd="mpeg4.dtd" />
+-->
         <adapter class="nz.govt.natlib.adapter.openoffice.OpenOfficeAdapter" jar="openoffice_adapter_1_0.jar"  output-dtd="openoffice.dtd"/>
         <adapter class="nz.govt.natlib.adapter.pdfbox.PDFBoxAdapter" jar="pdfbox_adapter_1_0.jar"  output-dtd="pdf.dtd"/>
         <adapter class="nz.govt.natlib.adapter.powerpoint.PowerPointAdapter" jar="powerpoint_adapter_1_0.jar"  output-dtd="powerpoint.dtd"/>
         <adapter class="nz.govt.natlib.adapter.tiff.TIFFAdapter" jar="tiff_adapter_1_0.jar"  output-dtd="tiff_6_0.dtd"/>
         <adapter class="nz.govt.natlib.adapter.warc.WarcAdapter" jar="warc_adapter_1_0.jar"  output-dtd="warc.dtd"/>
         <adapter class="nz.govt.natlib.adapter.wav.WaveAdapter" jar="wave_adapter_1_0.jar"  output-dtd="wav.dtd"/>
-        <adapter class="nz.govt.natlib.adapter.word.WordAdapter" jar="msword_adapter_2_0.jar"  output-dtd="word.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.word.WordAdapter" jar="msword_adapter_3_2.jar"  output-dtd="word.dtd"/>
+<!--
+      The following mistakenly in 3.6GA release even though only a new msword_adapter_3_2.jar was supplied.
+      <adapter class="nz.govt.natlib.adapter.word.WordAdapter" jar="msword_adapter_2_0.jar"  output-dtd="word.dtd"/>
+-->
         <adapter class="nz.govt.natlib.adapter.wordperfect.WPAdapter" jar="wordperfect_adapter_1_0.jar"  output-dtd="wordperfect.dtd"/>
         <adapter class="nz.govt.natlib.adapter.works.DocAdapter" jar="msworks_adapter_1_0.jar"  output-dtd="msworks.dtd"/>
         <adapter class="nz.govt.natlib.adapter.xml.XMLAdapter" jar="xml_adapter_1_0.jar"  output-dtd="xml.dtd"/>	

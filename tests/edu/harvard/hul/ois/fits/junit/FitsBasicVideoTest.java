@@ -46,7 +46,7 @@ public class FitsBasicVideoTest extends XMLTestCase {
     	}
     	
     	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("fitsBasicVideoTestOutput.xml");
+    	fitsOut.saveToDisk("test-generated-output/fitsBasicVideoTestOutput.xml");
     	
 	}
 	
@@ -65,7 +65,7 @@ public class FitsBasicVideoTest extends XMLTestCase {
     	}
     	
     	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("fitsBasicVideoTestOutput.xml");
+    	fitsOut.saveToDisk("test-generated-output/fitsBasicVideoTestOutput.xml");
     	
 	}
 

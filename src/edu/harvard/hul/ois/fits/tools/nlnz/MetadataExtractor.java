@@ -46,8 +46,8 @@ import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
 public class MetadataExtractor extends ToolBase {
 	
     private final static String TOOL_NAME = "NLNZ Metadata Extractor";
-    private final static String TOOL_VERSION = "3.4GA";
-    private final static String TOOL_DATE = "12/21/2007";
+    private final static String TOOL_VERSION = "3.6GA";
+    private final static String TOOL_DATE = "06/05/2014";
     
 	public final static String nlnzFitsConfig = Fits.FITS_XML+"nlnz"+File.separator+"fits"+File.separator;
 	private boolean enabled = true;

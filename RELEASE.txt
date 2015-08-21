@@ -239,3 +239,240 @@ Version 0.2.0
 - Added classes for testing
 - Updated Jhove to latest version in CVS
 - Added all Exiftool supported formats
+RELEASE NOTES
+
+Version 0.8.10 (08/21/15)
+----------------------
+Updated DROID to v.6.1.5
+Updated NLNZ tool to v.3.6GA
+Create directory for any test output
+
+Version 0.8.9 (08/12/15)
+----------------------
+Removed old version of TIKA jar file
+Updated SLF4J jar filed for DROID
+Revised to use versioned OTS jar file
+Minor Unit Test cleanup
+
+Version 0.8.8 (07/29/15)
+----------------------
+- Added initial support for video files using the MediaInfo Tool
+- Tika 1.8 update
+
+Version 0.8.7 (6/8/15)
+----------------------
+
+- Added logging properties that were lost back into class.
+
+Version 0.8.6 (5/20/15)
+----------------------
+
+- OTS.jar update: fixed bug for invalid MIX XML mix:LumaRed error for TIFF with JPEG compression.
+
+Version 0.8.5 (5/05/15)
+----------------------
+
+- Introduce ability to suppress MD5 calculation by file type.
+
+Version 0.8.4 (1/26/15)
+----------------------
+- Updated OTS.jar for MODS 3.5 issues.
+
+Version 0.8.3 (9/29/14)
+----------------------
+- Fixed UMID parsing code issue for audio
+
+Version 0.8.2 (8/25/14)
+----------------------
+- Ignores null or empty values output by tools for Title,Author,and CreationApplicationName.
+- Prevents error of having identified format and MIME media-type from different tools while processing technical metadata. 
+ 
+Version 0.8.1 (8/14/14)
+----------------------
+- Uses a blank value instead of "<May be encrypted>" for Title,Author,CreationApplicationName for encrypted PDFs.
+- Introduced a more specific TIFF format to the fits_format_tree.xml.
+- Now includes technical metadata in the output from tools that identify a less specific, but parent format, as documented in the FITS format tree.
+
+
+Version 0.8 (1/28/14)
+---------------------
+- Minor performance optimizations
+- Nailgun server support
+- Droid update to version 6
+- Official support for Apache Tika
+- Normalized and consolidated identification and technical metadata output differences introduced by the new and updated tools
+- Improved stability when running against directories of files
+- Fixed documentmd conversion bug when page count is null
+- Fixed Exiftool resolution unit conversion error
+- Fixed incomplete conversion from FITS output to standard metadata schema formats (MIX, TextMD, DocumentMD, AES57)
+- Fixed concurrency issues when running multiple instances of FITS in a single JVM
+	- DROID 6 signature file initialization
+	- FITS_HOME initialization 
+- Better Error reporting and logging
+
+Version 0.7.x (--/--/--)
+---------------------
+...skipping
+
+Version 0.6.2 (3/18/13)
+---------------------
+-Initial merge and commit from openfits
+-Updated Exiftool to 9.06
+-Improved video support with Exiftool
+-Fixed ordering of File utility command line options
+-New configuration option to limit the max number of threads
+-Fixed bug in how the include-ext and exclude-ext lists were being processed
+-Added a new option to enable output of statistics
+-Initial experimental support for Apache Tika - disabled by default.
+
+Version 0.6.1 (04/25/12)
+----------------------
+- Fixed issue 27: Fits with -r overwrites output files with same filename but different path
+  http://code.google.com/p/fits/issues/detail?id=27
+- Added new output option -xc.  This will output converted standard output format (MIX, TextMD, DocumentMD, AES57) 
+  within the FITS XML <fits>/<metadata>/<xxxx>/<standard> element, where <xxxx> is either <image>, <text>, <document>, <audio>, or <video>. 
+- Added eml to the Jhove exclude-ext list
+- Improved FitsOutput API
+
+Version 0.6.0 (10/25/11)
+----------------------
+- Performance enhancement to make all tools run in parallel in individual threads
+- Added the ADL tool for the identification of Audio Decision List files
+- Added options to process directories of files.  When -i is set to a directory -o must also be set to a directory.
+  The new -r option will process directories recursively when -i is a directory. 
+- added <filepath> element to FileInfo tool, updated fits_output.xsd
+- Fixed bug in normalizing Exiftool format output for TIFFs. "TIFF EXIF" is not output as "Tagged Image File Format"
+- Fix to use <fileinfo>/<created> value for <mix:GeneralCaptureInformation>/<mix:dateTimeCreated>  when using -x switch
+
+
+Version 0.5.0 (2/24/11)
+----------------------
+- Improved support for audio formats
+- Ability to convert audio metadata to the AES audioObject schema using the -x option
+- Now ising NLNZ VERSION element instead of VERSION-NAME for MP3 files 
+- Fixed incorrect JP2 version reported by Exiftool
+- Better identification of JP2 and JPX images (OIS bug 2876)
+- Updated File Utility XSLT to improve format output (OIS bug 2897)
+- Fixed DROID format output for SVG files (OIS bug 2968)
+- Added ability to extract DTD references to the XmlMetadata tool from XML DOCTYPE declaration (OIS bug 2967)
+- Changed file utility call to use --mime instead of -i.  File 5.03 on OS X uses -I rather than -i to print 
+  the mime type and mime encoding.  --mime works on Linux and OS X.  
+- Tweaked Jhove XSLT conversion of image height and width elements for files containing multiple images.  
+  When multiple height or width values are found only the first one is used.
+- Improved identification of EXIF and JFIF JPEGs. 
+
+Version 0.4.3 (10/29/10)
+----------------------
+- Added -e cdf parameter to Unix File Utility call
+- Removed Saxon transformer factory system property in ToolBase.java
+- Fixed namespace of <toolOutput> elements
+- Fixed namespace issues with FileInfo and XmlMetadata tools
+
+Version 0.4.2 (7/6/10)
+----------------------
+- Fixed an issue with the <identification> element status attribute. If multiple tools agree
+  with the identified format and there are no other identity conflicts then the attribute 
+  is omitted.  The SINGLE_RESULT status attribute is used only if a single tool successfully
+  identifies the file. Thanks to Swithun Crowe for the patch.
+- Added -e cdf parameter to the Windows File Utility call to prevent crashes when processing 
+  files that produce a large amount of output.
+
+Version 0.4.1 (06/30/10)
+----------------------
+- Improved handling of File Utility output for text files
+- Added 'Postscript' as a more specific format of 'Plain text' to fits_format_tree.xml
+- Added 'JPEG File Interchange Format' as a more specific format of 'Raw JPEG Stream' to fits_format_tree.xml
+
+Version 0.4 (06/28/10)
+----------------------
+- Fixed Jhove colorspace output, mapping "Greyscale" to "Grayscale"
+- Updated DROID signature file to V35, made configurable in xml/fits.xml
+- Updated OTS-Schemas.jar fixing several issues with MIX output conversion
+- Fixed Exiftool primary chromaticities output
+- Fixed Exiftool and Jhove orientation output.
+- Updated File Utility to support version 5.03
+- Changed format tree <branch format="text"> to <branch format="Plain text">
+- Added Hypertext Markup Language as a child branch of Plain Text in the format tree
+- Standard XML output (-x) is now pretty printed
+
+Version 0.3.2 (02/18/10)
+----------------------
+- Fixed identification of PDF/A and PDF/X formats
+- Added Ant build files to release (issue #8)
+- Added patch from beerchr1 to tweak video output and support flash video (issue #9)
+
+Version 0.3.1 (02/01/10)
+----------------------
+- Fixed error when trying to convert FITS output to a standard metadata schema for
+  a file that does not have sufficient output that can be converted
+- Fixed bugs in FitsOutput
+- Added patch from beerchr1 to add basic video support (issue #7)
+
+Version 0.3 (01/14/10)
+----------------------
+- Added API support for converting output to MIX, TextMD and DocumentMD
+- Added command line support (-x) for outputting MIX, TextMD or DocumentMD
+- Updated NLNZ, Jhove, and Exiftool output values to be compatible with MIX
+- Added API feature (issue #4) to disable individual tools
+- Updated Jhove to version 1.5
+- Using byteoffset=true option for Jhove TIFF module
+- Fixed issue #3: using relative path instead of $FITS_HOME/path in xml/nlnz/config.xml & in XSLT when for xml/fits_output.xsd	
+- Fixed issue #5: FITS 0.2.6 output file showing FITS version as 0.2.5
+- Fixed usage of Exiftool scanner/digital camera make and model output
+- Adjusted image metadata values to be compatible with MIX
+
+Version 0.2.6 (8/6/09)
+--------------------
+- Fixed bug that prevented external identifiers from being output in <identity> sections
+
+Version 0.2.5 (7/28/09)
+---------------------
+- Fixed GZIP identification output
+- Fixed display-tool-output option so that all tool output is displayed
+  instead of just the tools that reported a successful identification
+- Exiftool mime of "application/unknown" is handled as an unknown identification (ICC files)
+- All tools default unknown identification output is now normalized to 'Uknown Binary' and 
+  'application/octet-stream'.
+- Added a partial identification status when a tool finds only a mimetype or a format name.
+  If no valid identities (mimetype and format) are returned by any tools, then tool output is 
+  scanned according to the order defined in fits.xml for a partial identity (only a valid mimetype or format).
+  If a partial identity is not found then the unknown identity returned by the first tool defined
+  in fits.xml is used.
+
+Version 0.2.4 (6/5/09)
+--------------------
+- Updated Jhove to release version 1.3
+
+Version 0.2.3 (5/1/09)
+--------------------
+- Fixed exception handling when a tool throws an error while examining a file
+  All caught exceptions are collected and passed back with the FitsOutput
+- Changed when tools and consolidator are initialized to improve performance 
+  when using the FITS API and processing multiple files.
+- Fixed occasional JPEG Jhove bug by setting home and log locations in jhove.conf
+- Adding additional output value mappings to NLNZ JPEG XSLT.
+
+Version 0.2.2 (4/29/09)
+--------------------
+- Fixed output of empty <version> elements
+- Fixed NPE in OIS XmlMetadata tool
+- Fixed File Utility XSLT JPEG regex
+- Fixed bug in tool output consolidator when no valid 
+  identities are reported
+
+Version 0.2.1
+--------------------
+- Improved FitsOutput API. It now includes access to well-formed and valid fields.
+- Updated Exiftool to verison 7.74
+- Fixed successful identification tests for Jhove, File Utility and NLNZ ME
+- Fixed schema so mimetype and format identity attributes are optional
+- Tweaked File utility wrapper
+ 
+Version 0.2.0 
+--------------------
+- Modified and recompiled NLNZ metadata.jar to disable log messages sent to the console
+- Various tweaks to the OISConsolidator
+- Tweaks to all XSLT to resolve conflicts
+- Added classes for testing
+- Updated Jhove to latest version in CVS
+- Added all Exiftool supported formats

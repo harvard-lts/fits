@@ -46,7 +46,7 @@ public class FitsBasicAudioTest extends XMLTestCase {
     	}
     	
     	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("fitsBasicAudioTestOutput.xml");
+    	fitsOut.saveToDisk("test-generated-output/fitsBasicAudioTestOutput.xml");
     	
 	}
 
