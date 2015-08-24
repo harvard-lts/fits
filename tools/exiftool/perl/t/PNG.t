@@ -1,7 +1,7 @@
 # Before "make install", this script should be runnable with "make test".
 # After "make install" it should work as "perl t/PNG.t".
 
-BEGIN { $| = 1; print "1..4\n"; $Image::ExifTool::noConfig = 1; }
+BEGIN { $| = 1; print "1..5\n"; $Image::ExifTool::noConfig = 1; }
 END {print "not ok 1\n" unless $loaded;}
 
 # test 1: Load the module(s)
@@ -31,6 +31,7 @@ my $testnum = 1;
     $exifTool->SetNewValuesFromFile('t/images/IPTC.jpg');
     $exifTool->SetNewValuesFromFile('t/images/XMP.jpg');
     $exifTool->SetNewValue('PNG:Comment');  # and delete a tag
+    $exifTool->SetNewValue('PixelsPerUnitX', 1234);
     my $image;  
     my $rtnVal = $exifTool->WriteInfo('t/images/PNG.png', \$image);
     # must ignore FileSize because size is variable (depends on Zlib availability)
@@ -66,6 +67,36 @@ my $testnum = 1;
     my $info = $exifTool->ImageInfo($testfile, 'PNG:*', 'XMP:*');
     if (check($exifTool, $info, $testname, $testnum)) {
         unlink $testfile;   # erase results of any bad test
+    } else {
+        print 'not ';
+    }
+    print "ok $testnum\n";
+}
+
+# test 5: Try moving XMP from after IDAT to before
+{
+    ++$testnum;
+    my $exifTool = new Image::ExifTool;
+    # start with a clean image
+    $exifTool->SetNewValue('all');
+    my $image;  
+    $exifTool->WriteInfo('t/images/PNG.png', \$image);
+    # add new XMP (should go after IDAT)
+    $exifTool->SetNewValue();
+    $exifTool->SetNewValue('XMP:Subject' => 'test');
+    $exifTool->WriteInfo(\$image);
+    # delete all XMP then copy back again (should move to before IDAT)
+    $exifTool->SetNewValue();
+    my $txtfile = "t/${testname}_${testnum}.failed";
+    open PNG_TEST_5, ">$txtfile" or warn "Error opening $txtfile\n";
+    $exifTool->Options(Verbose => 2);
+    $exifTool->Options(TextOut => \*PNG_TEST_5);
+    $exifTool->SetNewValue('xmp:all');
+    $exifTool->SetNewValuesFromFile(\$image, 'all:all<xmp:all');
+    my $rtnVal = $exifTool->WriteInfo(\$image);
+    close PNG_TEST_5;
+    if (testCompare('t/PNG_5.out', $txtfile, $testnum)) {
+        unlink $txtfile;
     } else {
         print 'not ';
     }

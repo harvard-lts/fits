@@ -43,6 +43,7 @@ Contrast: +1
 ControlMode: Camera Local Control
 CreateDate: 2003:12:04 06:46:52
 CustomRendered: Normal
+DOF: inf (4.31 m - inf)
 DateTimeOriginal: 2003:12:04 06:46:52
 DigitalZoom: Unknown (-1)
 Directory: t
@@ -52,7 +53,7 @@ EncodingProcess: Baseline DCT, Huffman coding
 ExifByteOrder: Little-endian (Intel, II)
 ExifImageHeight: 120
 ExifImageWidth: 160
-ExifToolVersion: 9.07
+ExifToolVersion: 9.93
 ExifVersion: 0221
 ExposureCompensation: 0
 ExposureCompensation (1): 0
@@ -61,16 +62,17 @@ ExposureTime: 4
 ExposureTime (1): 128
 FNumber: 14.0
 FNumber (1): 14
-FOV: 37.7 deg
-FileAccessDate: 2012:11:20 07:49:51-05:00
-FileInodeChangeDate: 2012:11:20 07:49:51-05:00
-FileModifyDate: 2012:11:20 07:49:51-05:00
+FOV: 36.9 deg
+FileAccessDate: 2015:04:18 07:17:51-04:00
+FileInodeChangeDate: 2015:04:18 07:17:51-04:00
+FileModifyDate: 2015:04:18 07:17:51-04:00
 FileName: Writer_2_failed.jpg
 FileNumber: 118-1861
 FilePermissions: rw-r--r--
 FileSize: 2.7 kB
 FileSource: Digital Camera
 FileType: JPEG
+FileTypeExtension: jpg
 Flash: No Flash
 FlashActivity: 0
 FlashBits: (none)
@@ -79,7 +81,7 @@ FlashGuideNumber: 0
 FlashpixVersion: 0100
 FocalLength: 34.0 mm
 FocalLength (1): 34 mm
-FocalLength35efl: 34.0 mm (35 mm equivalent: 52.7 mm)
+FocalLength35efl: 34.0 mm (35 mm equivalent: 54.0 mm)
 FocalPlaneResolutionUnit: inches
 FocalPlaneXResolution: 3443.946188
 FocalPlaneXSize: 23.22 mm
@@ -90,7 +92,7 @@ FocusDistanceLower: 5.46 m
 FocusDistanceUpper: inf
 FocusMode: Manual Focus (3)
 FocusRange: Not Known
-HyperfocalDistance: 4.26 m
+HyperfocalDistance: 4.37 m
 ISO: 100
 ISO (1): 100
 ImageHeight: 8
@@ -99,9 +101,9 @@ ImageWidth: 8
 InteropIndex: THM - DCF thumbnail file
 InteropVersion: 0100
 Lens: 18.0 - 55.0 mm
-Lens35efl: 18.0 - 55.0 mm (35 mm equivalent: 27.9 - 85.3 mm)
+Lens35efl: 18.0 - 55.0 mm (35 mm equivalent: 28.6 - 87.4 mm)
 LensID: Unknown 18-55mm
-LensType: Unknown (-1)
+LensType: n/a
 LightValue: 5.6
 MIMEType: image/jpeg
 MacroMode: Unknown (0)
@@ -113,6 +115,7 @@ MaxFocalLength: 55 mm
 MeasuredEV: -1.25
 MeasuredEV2: -1.25
 MeasuredRGGB: 998 1022 1026 808
+Megapixels: 0.000064
 MeteringMode: Center-weighted average
 MeteringMode (1): Average
 MinAperture: 27
@@ -148,6 +151,7 @@ TargetAperture: 14
 ThumbnailImageValidArea: 0 159 7 112
 UserComment: 
 ValidAFPoints: 7
+WB_RGGBBlackLevels: 124 123 124 123
 WB_RGGBLevels: 1719 832 831 990
 WB_RGGBLevelsAuto: 1719 832 831 990
 WB_RGGBLevelsCloudy: 1878 832 831 903

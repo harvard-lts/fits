@@ -112,7 +112,7 @@ sub testCompare($$$;$)
     
     # erase .failed file if test was successful
     $success and not $keep and unlink $testfile;
-    
+
     return $success
 }
 

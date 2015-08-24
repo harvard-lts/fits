@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
 [File, System, Image] FileName - File Name: Nikon_4_failed.jpg
 [File, System, Image] Directory - Directory: t
-[File, System, Image] FileSize - File Size: 6.7 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:45-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:45-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:45-05:00
+[File, System, Image] FileSize - File Size: 6.8 kB
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:04:18 07:17:45-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:18 07:17:45-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:18 07:17:45-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: JPEG
+[File, File, Image] FileTypeExtension - File Type Extension: jpg
 [File, File, Image] MIMEType - MIME Type: image/jpeg
 [File, File, Image] ExifByteOrder - Exif Byte Order: Big-endian (Motorola, MM)
 [File, File, Image] ImageWidth - Image Width: 8
@@ -136,7 +137,7 @@
 [MakerNotes, Nikon, Camera] 169 - Image Optimization: Custom
 [MakerNotes, Nikon, Camera] 170 - Saturation: Enhanced
 [MakerNotes, Nikon, Camera] 171 - Vari Program: 
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.07
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.93
 [XMP, XMP-aux, Camera] FlashCompensation - Flash Compensation: 0
 [XMP, XMP-aux, Camera] Lens - Lens: 18-70mm f/3.5-4.5
 [XMP, XMP-exif, Image] ComponentsConfiguration - Components Configuration: Y, Cb, Cr, -
@@ -146,6 +147,7 @@
 [XMP, XMP-exif, Camera] FlashMode - Flash Mode: Auto
 [XMP, XMP-exif, Camera] FlashRedEyeMode - Flash Red Eye Mode: False
 [XMP, XMP-exif, Camera] FlashReturn - Flash Return: Return detected
+[XMP, XMP-exifEX, Image] InteroperabilityIndex - Interoperability Index: R03 - DCF option file (Adobe RGB)
 [XMP, XMP-tiff, Image] BitsPerSample - Bits Per Sample: 8
 [XMP, XMP-tiff, Image] Compression - Compression: JPEG (old-style)
 [XMP, XMP-tiff, Image] ImageLength - Image Height: 47
@@ -155,7 +157,7 @@
 [XMP, XMP-tiff, Image] YCbCrSubSampling - Y Cb Cr Sub Sampling: YCbCr4:2:0 (2 2)
 [Composite, Composite, Image] Aperture - Aperture: 5.0
 [Composite, Composite, Other] Flash - Flash: Auto, Fired, Return detected
-[Composite, Composite, Camera] LensID_2 - Lens ID: AF-S DX Zoom-Nikkor 18-70mm f/3.5-4.5G IF-ED
+[Composite, Composite, Camera] LensID - Lens ID: AF-S DX Zoom-Nikkor 18-70mm f/3.5-4.5G IF-ED
 [Composite, Composite, Camera] LensSpec - Lens: 18-70mm f/3.5-4.5 G
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 1/60
 [Composite, Composite, Time] SubSecCreateDate - Create Date: 2005:01:14 08:57:59.20
@@ -164,10 +166,11 @@
 [Composite, Composite, Camera] BlueBalance - Blue Balance: 1.410156
 [Composite, Composite, Image] ImageSize - Image Size: 8x8
 [Composite, Composite, Image] LightValue - Light Value: 9.6
+[Composite, Composite, Image] Megapixels - Megapixels: 0.000064
 [Composite, Composite, Camera] RedBalance - Red Balance: 2.332031
 [Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 1.5
 [Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.020 mm
-[Composite, Composite, Image] DOF - Depth Of Field: 0.02 m (0.62 - 0.64)
+[Composite, Composite, Image] DOF - Depth Of Field: 0.02 m (0.62 - 0.64 m)
 [Composite, Composite, Image] FOV - Field Of View: 22.1 deg (0.25 m)
 [Composite, Composite, Camera] FocalLength35efl - Focal Length: 56.0 mm (35 mm equivalent: 84.0 mm)
 [Composite, Composite, Camera] HyperfocalDistance - Hyperfocal Distance: 31.31 m

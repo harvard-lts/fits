@@ -1,6 +1,6 @@
 Summary: perl module for image data extraction
 Name: perl-Image-ExifTool
-Version: 9.13
+Version: 10.00
 Release: 1
 License: Artistic/GPL
 Group: Development/Libraries/Perl
@@ -9,49 +9,54 @@ Source0: Image-ExifTool-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
-ExifTool is a customizable set of Perl modules plus an application script
-for reading and writing meta information in image, audio and video files,
-including the maker note information of many digital cameras by various
-manufacturers such as Canon, Casio, FujiFilm, GE, HP, JVC/Victor, Kodak,
-Leaf, Minolta/Konica-Minolta, Nikon, Olympus/Epson, Panasonic/Leica,
-Pentax/Asahi, Reconyx, Ricoh, Samsung, Sanyo, Sigma/Foveon and Sony.
+ExifTool is a customizable set of Perl modules plus a full-featured
+application for reading and writing meta information in a wide variety of
+files, including the maker note information of many digital cameras by
+various manufacturers such as Canon, Casio, FLIR, FujiFilm, GE, HP,
+JVC/Victor, Kodak, Leaf, Minolta/Konica-Minolta, Nikon, Olympus/Epson,
+Panasonic/Leica, Pentax/Asahi, Phase One, Reconyx, Ricoh, Samsung, Sanyo,
+Sigma/Foveon and Sony.
 
 Below is a list of file types and meta information formats currently
 supported by ExifTool (r = read, w = write, c = create):
 
   File Types
   ------------+-------------+-------------+-------------+------------
-  3FR   r     | EIP   r     | LNK   r     | PAC   r     | RWL   r/w
-  3G2   r     | EPS   r/w   | M2TS  r     | PAGES r     | RWZ   r
-  3GP   r     | ERF   r/w   | M4A/V r     | PBM   r/w   | RM    r
-  ACR   r     | EXE   r     | MEF   r/w   | PCD   r     | SO    r
-  AFM   r     | EXIF  r/w/c | MIE   r/w/c | PDF   r/w   | SR2   r/w
-  AI    r/w   | EXR   r     | MIFF  r     | PEF   r/w   | SRF   r
-  AIFF  r     | F4A/V r     | MKA   r     | PFA   r     | SRW   r/w
-  APE   r     | FFF   r/w   | MKS   r     | PFB   r     | SVG   r
-  ARW   r/w   | FLA   r     | MKV   r     | PFM   r     | SWF   r
-  ASF   r     | FLAC  r     | MNG   r/w   | PGF   r     | THM   r/w
-  AVI   r     | FLV   r     | MOS   r/w   | PGM   r/w   | TIFF  r/w
-  BMP   r     | FPX   r     | MOV   r     | PICT  r     | TTC   r
-  BTF   r     | GIF   r/w   | MP3   r     | PMP   r     | TTF   r
-  CHM   r     | GZ    r     | MP4   r     | PNG   r/w   | VRD   r/w/c
-  COS   r     | HDP   r/w   | MPC   r     | PPM   r/w   | VSD   r
-  CR2   r/w   | HDR   r     | MPG   r     | PPT   r     | WAV   r
-  CRW   r/w   | HTML  r     | MPO   r/w   | PPTX  r     | WDP   r/w
-  CS1   r/w   | ICC   r/w/c | MQV   r     | PS    r/w   | WEBP  r
-  DCM   r     | IDML  r     | MRW   r/w   | PSB   r/w   | WEBM  r
-  DCP   r/w   | IIQ   r/w   | MXF   r     | PSD   r/w   | WMA   r
-  DCR   r     | IND   r/w   | NEF   r/w   | PSP   r     | WMV   r
-  DFONT r     | INX   r     | NRW   r/w   | QTIF  r     | WV    r
-  DIVX  r     | ITC   r     | NUMBERS r   | RA    r     | X3F   r/w
-  DJVU  r     | J2C   r     | ODP   r     | RAF   r/w   | XCF   r
-  DLL   r     | JNG   r/w   | ODS   r     | RAM   r     | XLS   r
-  DNG   r/w   | JP2   r/w   | ODT   r     | RAR   r     | XLSX  r
-  DOC   r     | JPEG  r/w   | OFR   r     | RAW   r/w   | XMP   r/w/c
-  DOCX  r     | K25   r     | OGG   r     | RIFF  r     | ZIP   r
-  DV    r     | KDC   r     | OGV   r     | RSRC  r     |
-  DVB   r     | KEY   r     | ORF   r/w   | RTF   r     |
-  DYLIB r     | LA    r     | OTF   r     | RW2   r/w   |
+  3FR   r     | DVB   r/w   | KEY   r     | ORF   r/w   | RWL   r/w
+  3G2   r/w   | DYLIB r     | LA    r     | OTF   r     | RWZ   r
+  3GP   r/w   | EIP   r     | LFP   r     | PAC   r     | RM    r
+  AA    r     | EPS   r/w   | LNK   r     | PAGES r     | SEQ   r
+  AAX   r/w   | EPUB  r     | M2TS  r     | PBM   r/w   | SO    r
+  ACR   r     | ERF   r/w   | M4A/V r/w   | PCD   r     | SR2   r/w
+  AFM   r     | EXE   r     | MEF   r/w   | PDB   r     | SRF   r
+  AI    r/w   | EXIF  r/w/c | MIE   r/w/c | PDF   r/w   | SRW   r/w
+  AIFF  r     | EXR   r     | MIFF  r     | PEF   r/w   | SVG   r
+  APE   r     | EXV   r/w/c | MKA   r     | PFA   r     | SWF   r
+  ARW   r/w   | F4A/V r/w   | MKS   r     | PFB   r     | THM   r/w
+  ASF   r     | FFF   r/w   | MKV   r     | PFM   r     | TIFF  r/w
+  AVI   r     | FLA   r     | MNG   r/w   | PGF   r     | TORRENT r
+  AZW   r     | FLAC  r     | MOBI  r     | PGM   r/w   | TTC   r
+  BMP   r     | FLV   r     | MODD  r     | PLIST r     | TTF   r
+  BTF   r     | FPF   r     | MOI   r     | PICT  r     | VCF   r
+  CHM   r     | FPX   r     | MOS   r/w   | PMP   r     | VRD   r/w/c
+  COS   r     | GIF   r/w   | MOV   r/w   | PNG   r/w   | VSD   r
+  CR2   r/w   | GZ    r     | MP3   r     | PPM   r/w   | WAV   r
+  CRW   r/w   | HDP   r/w   | MP4   r/w   | PPT   r     | WDP   r/w
+  CS1   r/w   | HDR   r     | MPC   r     | PPTX  r     | WEBP  r
+  DCM   r     | HTML  r     | MPG   r     | PS    r/w   | WEBM  r
+  DCP   r/w   | ICC   r/w/c | MPO   r/w   | PSB   r/w   | WMA   r
+  DCR   r     | ICS   r     | MQV   r/w   | PSD   r/w   | WMV   r
+  DFONT r     | IDML  r     | MRW   r/w   | PSP   r     | WV    r
+  DIVX  r     | IIQ   r/w   | MXF   r     | QTIF  r/w   | X3F   r/w
+  DJVU  r     | IND   r/w   | NEF   r/w   | RA    r     | XCF   r
+  DLL   r     | INX   r     | NRW   r/w   | RAF   r/w   | XLS   r
+  DNG   r/w   | ITC   r     | NUMBERS r   | RAM   r     | XLSX  r
+  DOC   r     | J2C   r     | ODP   r     | RAR   r     | XMP   r/w/c
+  DOCX  r     | JNG   r/w   | ODS   r     | RAW   r/w   | ZIP   r
+  DPX   r     | JP2   r/w   | ODT   r     | RIFF  r     |
+  DR4   r/w/c | JPEG  r/w   | OFR   r     | RSRC  r     |
+  DSS   r     | K25   r     | OGG   r     | RTF   r     |
+  DV    r     | KDC   r     | OGV   r     | RW2   r/w   |
 
   Meta Information
   ----------------------+----------------------+---------------------
@@ -60,15 +65,16 @@ supported by ExifTool (r = read, w = write, c = create):
   IPTC           r/w/c  |  Kodak Meta     r/w  |  Adobe APP14    r
   XMP            r/w/c  |  FotoStation    r/w  |  MPF            r
   MakerNotes     r/w/c  |  PhotoMechanic  r/w  |  Stim           r
-  Photoshop IRB  r/w/c  |  JPEG 2000      r    |  APE            r
-  ICC Profile    r/w/c  |  DICOM          r    |  Vorbis         r
-  MIE            r/w/c  |  Flash          r    |  SPIFF          r
-  JFIF           r/w/c  |  FlashPix       r    |  DjVu           r
-  Ducky APP12    r/w/c  |  QuickTime      r    |  M2TS           r
-  PDF            r/w/c  |  Matroska       r    |  PE/COFF        r
-  PNG            r/w/c  |  GeoTIFF        r    |  AVCHD          r
-  Canon VRD      r/w/c  |  PrintIM        r    |  ZIP            r
-  Nikon Capture  r/w/c  |  ID3            r    |  (and more)
+  Photoshop IRB  r/w/c  |  JPEG 2000      r    |  DPX            r
+  ICC Profile    r/w/c  |  DICOM          r    |  APE            r
+  MIE            r/w/c  |  Flash          r    |  Vorbis         r
+  JFIF           r/w/c  |  FlashPix       r    |  SPIFF          r
+  Ducky APP12    r/w/c  |  QuickTime      r    |  DjVu           r
+  PDF            r/w/c  |  Matroska       r    |  M2TS           r
+  PNG            r/w/c  |  MXF            r    |  PE/COFF        r
+  Canon VRD      r/w/c  |  PrintIM        r    |  AVCHD          r
+  Nikon Capture  r/w/c  |  FLAC           r    |  ZIP            r
+  GeoTIFF        r/w/c  |  ID3            r    |  (and more)
 
 See html/index.html for more details about ExifTool features.
 
@@ -89,11 +95,14 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc Changes html
-/usr/lib/perl5/*
+%{_libdir}/perl5/*
+/usr/share/*/*
 %{_mandir}/*/*
 %{_bindir}/*
 
 %changelog
+* Tue May 06 2014 - Norbert de Rooy <nsrderooy@gmail.com>
+- Spec file fixed for Redhat 6
 * Tue May 09 2006 - Niels Kristian Bech Jensen <nkbj@mail.tele.dk>
 - Spec file fixed for Mandriva Linux 2006.
 * Mon May 08 2006 - Volker Kuhlmann <VolkerKuhlmann@gmx.de>

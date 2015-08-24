@@ -19,7 +19,20 @@
 #               http://www.adobe.com/products/xmp/pdfs/xmpspec.pdf
 #               http://www.metadataworkinggroup.org/specs/
 #
-# Notes:        Also updates Photoshop:IPTCDigest as per MWG recommendation.
+# Notes:     1) Also updates Photoshop:IPTCDigest as per MWG recommendation.
+#
+#            2) For special characters in the XMP to be preserved, the IPTC
+#               encoding must be UTF-8:  Either IPTC:CodedCharacterSet must
+#               already be "UTF8", or it must be set to "UTF8" when copying the
+#               XMP.  This is not done automatically by this argfile because it
+#               could invalidate the encoding of existing IPTC if there were
+#               any values containing special characters.  See FAQ number 10
+#               for more information about converting the IPTC encoding:
+#               http://owl.phy.queensu.ca/~phil/exiftool/faq.html#Q10
+#
+#            3) These arguments will not delete IPTC tags which are missing
+#               from the XMP.  The IPTC tags should be deleted beforehand if
+#               required.
 #------------------------------------------------------------------------------
 -IPTC:By-line < XMP-dc:Creator
 -IPTC:Caption-Abstract < XMP-dc:Description

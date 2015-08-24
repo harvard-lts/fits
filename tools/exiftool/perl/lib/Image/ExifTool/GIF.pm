@@ -19,7 +19,7 @@ use strict;
 use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 
-$VERSION = '1.09';
+$VERSION = '1.11';
 
 # road map of directory locations in GIF images
 my %gifMap = (
@@ -112,13 +112,13 @@ my %gifMap = (
 #          an output file was specified and a write error occurred
 sub ProcessGIF($$)
 {
-    my ($exifTool, $dirInfo) = @_;
+    my ($et, $dirInfo) = @_;
     my $outfile = $$dirInfo{OutFile};
     my $raf = $$dirInfo{RAF};
-    my $verbose = $exifTool->Options('Verbose');
-    my $out = $exifTool->Options('TextOut');
-    my ($a, $s, $ch, $length, $buff, $comment);
-    my ($err, $newComment, $setComment);
+    my $verbose = $et->Options('Verbose');
+    my $out = $et->Options('TextOut');
+    my ($a, $s, $ch, $length, $buff);
+    my ($err, $newComment, $setComment, $nvComment);
     my ($addDirs, %doneDir);
     my ($frameCount, $delayTime) = (0, 0);
 
@@ -133,27 +133,19 @@ sub ProcessGIF($$)
     SetByteOrder('II');
 
     if ($outfile) {
-        $exifTool->InitWriteDirs(\%gifMap, 'XMP'); # make XMP the preferred group for GIF
-        $addDirs = $exifTool->{ADD_DIRS};
+        $et->InitWriteDirs(\%gifMap, 'XMP'); # make XMP the preferred group for GIF
+        $addDirs = $$et{ADD_DIRS};
         # determine if we are editing the File:Comment tag
-        my $delGroup = $exifTool->{DEL_GROUP};
-        if ($$delGroup{File}) {
-            $setComment = 1;
-            if ($$delGroup{File} == 2) {
-                $newComment = $exifTool->GetNewValues('Comment');
-            }
-        } else {
-            my $nvHash;
-            $newComment = $exifTool->GetNewValues('Comment', \$nvHash);
-            $setComment = 1 if $nvHash;
-        }
+        my $delGroup = $$et{DEL_GROUP};
+        $newComment = $et->GetNewValues('Comment', \$nvComment);
+        $setComment = 1 if $nvComment or $$delGroup{File};
         # change to GIF 89a if adding comment, XMP or ICC_Profile
         $buff = 'GIF89a' if $$addDirs{XMP} or $$addDirs{ICC_Profile} or defined $newComment;
         Write($outfile, $buff, $s) or $err = 1;
     } else {
-        $exifTool->SetFileType();   # set file type
-        $exifTool->HandleTag($tagTablePtr, 'GIFVersion', $ver);
-        $exifTool->HandleTag($tagTablePtr, 'ScreenDescriptor', $s);
+        $et->SetFileType();   # set file type
+        $et->HandleTag($tagTablePtr, 'GIFVersion', $ver);
+        $et->HandleTag($tagTablePtr, 'ScreenDescriptor', $s);
     }
     my $flags = Get8u(\$s, 4);
     if ($flags & 0x80) { # does this image contain a color table?
@@ -162,32 +154,34 @@ sub ProcessGIF($$)
         $raf->Read($buff, $length) == $length or return 0; # skip color table
         Write($outfile, $buff) or $err = 1 if $outfile;
     }
-    # write the comment first if necessary
-    if ($outfile and defined $newComment) {
-        # write comment marker
-        Write($outfile, "\x21\xfe") or $err = 1;
-        $verbose and print $out "  + Comment = $newComment\n";
-        my $len = length($newComment);
-        # write out the comment in 255-byte chunks, each
-        # chunk beginning with a length byte
-        my $n;
-        for ($n=0; $n<$len; $n+=255) {
-            my $size = $len - $n;
-            $size > 255 and $size = 255;
-            my $str = substr($newComment,$n,$size);
-            Write($outfile, pack('C',$size), $str) or $err = 1;
-        }
-        Write($outfile, "\0") or $err = 1;  # empty chunk as terminator
-        undef $newComment;
-        ++$exifTool->{CHANGED};     # increment file changed flag
-    }
 #
 # loop through GIF blocks
 #
 Block:
     for (;;) {
         last unless $raf->Read($ch, 1);
+        # write out any new metadata now if this isn't an extension block
         if ($outfile and ord($ch) != 0x21) {
+            # write the comment first if necessary
+            if (defined $newComment and $$nvComment{IsCreating}) {
+                # write comment marker
+                Write($outfile, "\x21\xfe") or $err = 1;
+                $verbose and print $out "  + Comment = $newComment\n";
+                my $len = length($newComment);
+                # write out the comment in 255-byte chunks, each
+                # chunk beginning with a length byte
+                my $n;
+                for ($n=0; $n<$len; $n+=255) {
+                    my $size = $len - $n;
+                    $size > 255 and $size = 255;
+                    my $str = substr($newComment,$n,$size);
+                    Write($outfile, pack('C',$size), $str) or $err = 1;
+                }
+                Write($outfile, "\0") or $err = 1;  # empty chunk as terminator
+                undef $newComment;
+                undef $nvComment;   # delete any other extraneous comments
+                ++$$et{CHANGED};     # increment file changed flag
+            }
             # add application extension containing XMP block if necessary
             # (this will place XMP before the first non-extension block)
             if (exists $$addDirs{XMP} and not defined $doneDir{XMP}) {
@@ -196,7 +190,7 @@ Block:
                 my $xmpTable = GetTagTable('Image::ExifTool::XMP::Main');
                 my %dirInfo = ( Parent => 'GIF' );
                 $verbose and print $out "Creating XMP application extension block:\n";
-                $buff = $exifTool->WriteDirectory(\%dirInfo, $xmpTable);
+                $buff = $et->WriteDirectory(\%dirInfo, $xmpTable);
                 if (defined $buff and length $buff) {
                     my $lz = pack('C*',1,reverse(0..255),0);
                     Write($outfile, "\x21\xff\x0bXMP DataXMP", $buff, $lz) or $err = 1;
@@ -212,7 +206,7 @@ Block:
                 my $iccTable = GetTagTable('Image::ExifTool::ICC_Profile::Main');
                 my %dirInfo = ( Parent => 'GIF' );
                 $verbose and print $out "Creating ICC_Profile application extension block:\n";
-                $buff = $exifTool->WriteDirectory(\%dirInfo, $iccTable);
+                $buff = $et->WriteDirectory(\%dirInfo, $iccTable);
                 if (defined $buff and length $buff) {
                     my $pos = 0;
                     Write($outfile, "\x21\xff\x0bICCRGBG1012") or $err = 1;
@@ -278,36 +272,61 @@ Block:
 
         if ($a == 0xfe) {                           # comment extension
 
-            if ($setComment) {
-                ++$exifTool->{CHANGED}; # increment the changed flag
-            } else {
-                Write($outfile, $ch, $s) or $err = 1 if $outfile;
-            }
+            my $comment = '';
             while ($length) {
                 last unless $raf->Read($buff, $length) == $length;
                 if ($verbose > 2 and not $outfile) {
-                    Image::ExifTool::HexDump(\$buff, undef, Out => $out);
+                    HexDump(\$buff, undef, Out => $out);
                 }
                 # add buffer to comment string
-                $comment = defined $comment ? $comment . $buff : $buff;
+                $comment .= $buff;
                 last unless $raf->Read($ch, 1);  # read next block header
                 $length = ord($ch);  # get next block size
-
-                # write or delete comment
-                next unless $outfile;
-                if ($setComment) {
-                    $verbose and print $out "  - Comment = $buff\n";
-                } else {
-                    Write($outfile, $buff, $ch) or $err = 1;
-                }
             }
             last if $length;    # was a read error if length isn't zero
-            unless ($outfile) {
+            if ($outfile) {
+                my $isOverwriting;
+                if ($setComment) {
+                    if ($nvComment) {
+                        $isOverwriting = $et->IsOverwriting($nvComment,$comment);
+                        # get new comment again (may have been shifted)
+                        $newComment = $et->GetNewValues($nvComment) if defined $newComment;
+                    } else {
+                        # group delete, or deleting additional comments after writing one
+                        $isOverwriting = 1;
+                    }
+                }
+                if ($isOverwriting) {
+                    ++$$et{CHANGED};     # increment file changed flag
+                    $et->VerboseValue('- Comment', $comment);
+                    $comment = $newComment;
+                    $et->VerboseValue('+ Comment', $comment) if defined $comment;
+                    undef $nvComment;   # just delete remaining comments
+                } else {
+                    undef $setComment;  # leave remaining comments alone
+                }
+                if (defined $comment) {
+                    # write comment marker
+                    Write($outfile, "\x21\xfe") or $err = 1;
+                    my $len = length($comment);
+                    # write out the comment in 255-byte chunks, each
+                    # chunk beginning with a length byte
+                    my $n;
+                    for ($n=0; $n<$len; $n+=255) {
+                        my $size = $len - $n;
+                        $size > 255 and $size = 255;
+                        my $str = substr($comment,$n,$size);
+                        Write($outfile, pack('C',$size), $str) or $err = 1;
+                    }
+                    Write($outfile, "\0") or $err = 1;  # empty chunk as terminator
+                }
+                undef $newComment;  # don't write the new comment again
+            } else {
                 $rtnVal = 1;
-                $exifTool->FoundTag('Comment', $comment) if $comment;
+                $et->FoundTag('Comment', $comment) if $comment;
                 undef $comment;
                 # assume no more than one comment in FastScan mode
-                last if $exifTool->Options('FastScan');
+                last if $et->Options('FastScan');
             }
             next;
 
@@ -347,16 +366,16 @@ Block:
                 my $xmpTable = GetTagTable('Image::ExifTool::XMP::Main');
                 if ($outfile) {
                     if ($doneDir{XMP} and $doneDir{XMP} > 1) {
-                        $exifTool->Warn('Duplicate XMP block created');
+                        $et->Warn('Duplicate XMP block created');
                     }
-                    $buff = $exifTool->WriteDirectory(\%dirInfo, $xmpTable);
+                    $buff = $et->WriteDirectory(\%dirInfo, $xmpTable);
                     if (not defined $buff) {
                         # rewrite original XMP with landing zone (adding back null terminator)
                         Write($outfile, $hdr, $xmp, "\0") or $err = 1;
                         $doneDir{XMP} = 1;
                     } elsif (length $buff) {
                         if ($buff =~ /\0/) { # (check just to be safe)
-                            $exifTool->Error('XMP contained NULL character');
+                            $et->Error('XMP contained NULL character');
                         } else {
                             # write new XMP and landing zone
                             my $lz = pack('C*',1,reverse(0..255),0);
@@ -365,7 +384,7 @@ Block:
                         $doneDir{XMP} = 1;
                     } # else we are deleting the XMP
                 } else {
-                    $exifTool->ProcessDirectory(\%dirInfo, $xmpTable);
+                    $et->ProcessDirectory(\%dirInfo, $xmpTable);
                 }
                 next;
 
@@ -389,9 +408,9 @@ Block:
                 my $iccTable = GetTagTable('Image::ExifTool::ICC_Profile::Main');
                 if ($outfile) {
                     if ($doneDir{ICC_Profile} and $doneDir{ICC_Profile} > 1) {
-                        $exifTool->Warn('Duplicate ICC_Profile block created');
+                        $et->Warn('Duplicate ICC_Profile block created');
                     }
-                    $buff = $exifTool->WriteDirectory(\%dirInfo, $iccTable);
+                    $buff = $et->WriteDirectory(\%dirInfo, $iccTable);
                     # rewrite original ICC_Profile if nothing changed 
                     $buff = $icc_profile unless defined $buff;
                     if (length $buff) {
@@ -409,7 +428,7 @@ Block:
                         $doneDir{ICC_Profile} = 1;
                     } # else we are deleting the ICC profile
                 } else {
-                    $exifTool->ProcessDirectory(\%dirInfo, $iccTable);
+                    $et->ProcessDirectory(\%dirInfo, $iccTable);
                 }
                 next;
 
@@ -418,7 +437,7 @@ Block:
                 $raf->Read($buff, 5) == 5 or last;
                 # make sure this contains the expected data
                 if ($buff =~ /^\x03\x01(..)\0$/s) {
-                    $exifTool->HandleTag($tagTablePtr, 'ExtensionAnimation', $buff);
+                    $et->HandleTag($tagTablePtr, 'ExtensionAnimation', $buff);
                 }
                 $raf->Seek(-$length-5, 1) or last;  # seek back to start of block
 
@@ -454,7 +473,7 @@ Block:
                 $text .= $buff;
             }
             Write($outfile, "\0") or $err = 1 if $outfile;  # write terminator block
-            $exifTool->HandleTag($tagTablePtr, 'Text', $text);
+            $et->HandleTag($tagTablePtr, 'Text', $text);
             next;
         }
         Write($outfile, $ch, $s) or $err = 1 if $outfile;
@@ -468,10 +487,8 @@ Block:
         }
     }
     unless ($outfile) {
-        $exifTool->HandleTag($tagTablePtr, 'FrameCount', $frameCount) if $frameCount > 1;
-        $exifTool->HandleTag($tagTablePtr, 'Duration', $delayTime/100) if $delayTime;
-        # for historical reasons, the GIF Comment tag is in the Extra table
-        $exifTool->FoundTag('Comment', $comment) if $comment;
+        $et->HandleTag($tagTablePtr, 'FrameCount', $frameCount) if $frameCount > 1;
+        $et->HandleTag($tagTablePtr, 'Duration', $delayTime/100) if $delayTime;
     }
 
     # set return value to -1 if we only had a write error
@@ -499,7 +516,7 @@ write GIF meta information.
 
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

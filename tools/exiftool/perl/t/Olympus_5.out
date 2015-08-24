@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.94
 [File, System, Image] FileName - File Name: Olympus_5_failed.jpg
 [File, System, Image] Directory - Directory: t
 [File, System, Image] FileSize - File Size: 7.2 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:46-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:46-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:46-05:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:04:30 07:42:49-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:30 07:42:49-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:30 07:42:49-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: JPEG
+[File, File, Image] FileTypeExtension - File Type Extension: jpg
 [File, File, Image] MIMEType - MIME Type: image/jpeg
 [File, File, Image] ExifByteOrder - Exif Byte Order: Little-endian (Intel, II)
 [File, File, Image] ImageWidth - Image Width: 8
@@ -61,7 +62,7 @@
 [EXIF, IFD1, Image] 282 - X Resolution: 72
 [EXIF, IFD1, Image] 283 - Y Resolution: 72
 [EXIF, IFD1, Image] 296 - Resolution Unit: inches
-[EXIF, IFD1, Image] 513 - Thumbnail Offset: 7084
+[EXIF, IFD1, Image] 513 - Thumbnail Offset: 7096
 [EXIF, IFD1, Image] 514 - Thumbnail Length: 28
 [MakerNotes, Olympus, Camera] 512 - Special Mode: Fast, Sequence: 2, Panorama: (none)
 [MakerNotes, Olympus, Camera] 513 - Quality: SHQ (Fine)
@@ -107,7 +108,7 @@
 [MakerNotes, Olympus, Camera] 4099 - Flash Serial Number: 
 [MakerNotes, Olympus, Camera] 0 - Camera Settings Version: 010
 [MakerNotes, Olympus, Camera] 256 - Preview Image Valid: Yes
-[MakerNotes, Olympus, Camera] 257 - Preview Image Start: 7112
+[MakerNotes, Olympus, Camera] 257 - Preview Image Start: 7124
 [MakerNotes, Olympus, Camera] 258 - Preview Image Length: 26
 [MakerNotes, Olympus, Camera] 512 - Exposure Mode: Program
 [MakerNotes, Olympus, Camera] 513 - AE Lock: Off
@@ -224,7 +225,7 @@
 [MakerNotes, Olympus, Camera] 4614 - Olympus Focus Info 0x1206: 0
 [MakerNotes, Olympus, Camera] 4615 - Olympus Focus Info 0x1207: 0
 [MakerNotes, Olympus, Camera] 4616 - Internal Flash: Off
-[MakerNotes, Olympus, Camera] 5376 - Sensor Temperature: 20
+[MakerNotes, Olympus, Camera] 5376 - Sensor Temperature: 20 C
 [PrintIM, PrintIM, Printing] PrintIMVersion - PrintIM Version: 0250
 [PrintIM, PrintIM, Printing] 1 - Print IM 0x0001: 0x00140014
 [PrintIM, PrintIM, Printing] 2 - Print IM 0x0002: 0x00000001
@@ -250,15 +251,16 @@
 [Composite, Composite, Camera] ExtenderStatus - Extender Status: Not attached
 [Composite, Composite, Image] ImageSize - Image Size: 8x8
 [Composite, Composite, Camera] LensID - Lens ID: Olympus Zuiko Digital 14-54mm F2.8-3.5
-[Composite, Composite, Image] PreviewImage - Preview Image: (Binary data 26 bytes)
+[Composite, Composite, Image] Megapixels - Megapixels: 0.000064
+[Composite, Composite, Preview] PreviewImage - Preview Image: (Binary data 26 bytes)
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 1/100
-[Composite, Composite, Image] ThumbnailImage - Thumbnail Image: (Binary data 28 bytes)
+[Composite, Composite, Preview] ThumbnailImage - Thumbnail Image: (Binary data 28 bytes)
 [Composite, Composite, Camera] BlueBalance - Blue Balance: 1.132813
 [Composite, Composite, Image] LightValue - Light Value: 9.0
 [Composite, Composite, Camera] RedBalance - Red Balance: 1.609375
 [Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 2.0
 [Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.015 mm
-[Composite, Composite, Image] DOF - Depth Of Field: 0.17 m (0.63 - 0.80)
+[Composite, Composite, Image] DOF - Depth Of Field: 0.17 m (0.63 - 0.80 m)
 [Composite, Composite, Image] FOV - Field Of View: 47.2 deg (0.62 m)
 [Composite, Composite, Camera] FocalLength35efl - Focal Length: 20.0 mm (35 mm equivalent: 40.1 mm)
 [Composite, Composite, Camera] HyperfocalDistance - Hyperfocal Distance: 5.93 m

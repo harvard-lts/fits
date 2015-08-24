@@ -14,7 +14,7 @@ use strict;
 use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 
-$VERSION = '1.04';
+$VERSION = '1.07';
 
 my %noYes = ( 0 => 'No', 1 => 'Yes' );
 
@@ -23,6 +23,7 @@ my %noYes = ( 0 => 'No', 1 => 'Yes' );
 #       (the upper bits), which is not included in the tag ID's below
 %Image::ExifTool::Matroska::Main = (
     GROUPS => { 2 => 'Video' },
+    VARS => { NO_LOOKUP => 1 }, # omit tags from lookup
     NOTES => q{
         The following tags are extracted from Matroska multimedia container files. 
         This container format is used by file types such as MKA, MKV, MKS and WEBM. 
@@ -150,7 +151,7 @@ my %noYes = ( 0 => 'No', 1 => 'Yes' );
         SubDirectory => { TagTable => 'Image::ExifTool::Matroska::Main' },
     },
     0x67 => {
-        Name => 'Timecode',
+        Name => 'TimeCode',
         Format => 'unsigned',
         Unknown => 1,
         ValueConv => '$$self{TimecodeScale} ? $val * $$self{TimecodeScale} / 1e9 : $val',
@@ -672,7 +673,7 @@ sub GetVInt($$)
 # Returns: 1 on success, 0 if this wasn't a valid Matroska file
 sub ProcessMKV($$)
 {
-    my ($exifTool, $dirInfo) = @_;
+    my ($et, $dirInfo) = @_;
     my $raf = $$dirInfo{RAF};
     my ($buff, $buf2, @dirEnd, $trackIndent, %trackTypes);
 
@@ -687,16 +688,16 @@ sub ProcessMKV($$)
     # verify header length
     my $hlen = GetVInt($buff, $pos);
     return 0 unless $hlen and $hlen > 0;
-    $pos + $hlen > $dataLen and $exifTool->Warn('Truncated Matroska header'), return 1;
-    $exifTool->SetFileType();
+    $pos + $hlen > $dataLen and $et->Warn('Truncated Matroska header'), return 1;
+    $et->SetFileType();
     SetByteOrder('MM');
     my $tagTablePtr = GetTagTable('Image::ExifTool::Matroska::Main');
 
     # set flag to process entire file (otherwise we stop at the first Cluster)
-    my $verbose = $exifTool->Options('Verbose');
-    my $processAll = ($verbose or $exifTool->Options('Unknown') > 1);
-    $$exifTool{TrackTypes} = \%trackTypes;  # store Track types reference
-    my $oldIndent = $$exifTool{INDENT};
+    my $verbose = $et->Options('Verbose');
+    my $processAll = ($verbose or $et->Options('Unknown') > 1);
+    $$et{TrackTypes} = \%trackTypes;  # store Track types reference
+    my $oldIndent = $$et{INDENT};
     my $chapterNum = 0;
 
     # loop over all Matroska elements
@@ -704,8 +705,8 @@ sub ProcessMKV($$)
         while (@dirEnd and $pos + $dataPos >= $dirEnd[-1][0]) {
             pop @dirEnd;
             # use INDENT to decide whether or not we are done this Track element
-            delete $$exifTool{SET_GROUP1} if $trackIndent and $trackIndent eq $$exifTool{INDENT};
-            $$exifTool{INDENT} = substr($$exifTool{INDENT}, 0, -2);
+            delete $$et{SET_GROUP1} if $trackIndent and $trackIndent eq $$et{INDENT};
+            $$et{INDENT} = substr($$et{INDENT}, 0, -2);
         }
         # read more if we are getting close to the end of our buffer
         # (24 more bytes should be enough to read this element header)
@@ -723,7 +724,7 @@ sub ProcessMKV($$)
         my $unknownSize;
         $size < 0 and $unknownSize = 1, $size = 1e20;
         if (@dirEnd and $pos + $dataPos + $size > $dirEnd[-1][0]) {
-            $exifTool->Warn("Invalid or corrupted $dirEnd[-1][1] master element");
+            $et->Warn("Invalid or corrupted $dirEnd[-1][1] master element");
             $pos = $dirEnd[-1][0] - $dataPos;
             if ($pos < 0 or $pos > $dataLen) {
                 $buff = '';
@@ -734,17 +735,17 @@ sub ProcessMKV($$)
             }
             next;
         }
-        my $tagInfo = $exifTool->GetTagInfo($tagTablePtr, $tag);
+        my $tagInfo = $et->GetTagInfo($tagTablePtr, $tag);
         # just fall through into the contained EBML elements
         if ($tagInfo and $$tagInfo{SubDirectory}) {
             # stop processing at first cluster unless we are in verbose mode
             last if $$tagInfo{Name} eq 'Cluster' and not $processAll;
-            $$exifTool{INDENT} .= '| ';
-            $exifTool->VerboseDir($$tagTablePtr{$tag}{Name}, undef, $size);
+            $$et{INDENT} .= '| ';
+            $et->VerboseDir($$tagTablePtr{$tag}{Name}, undef, $size);
             push @dirEnd, [ $pos + $dataPos + $size, $$tagInfo{Name} ];
             if ($$tagInfo{Name} eq 'ChapterAtom') {
-                $$exifTool{SET_GROUP1} = 'Chapter' . (++$chapterNum);
-                $trackIndent = $$exifTool{INDENT};
+                $$et{SET_GROUP1} = 'Chapter' . (++$chapterNum);
+                $trackIndent = $$et{INDENT};
             }
             next;
         }
@@ -755,7 +756,7 @@ sub ProcessMKV($$)
             # just skip unknown and large data blocks
             if (not $tagInfo or $more > 10000000) {
                 # don't try to skip very large blocks unless LargeFileSupport is enabled
-                last if $more > 0x80000000 and not $exifTool->Options('LargeFileSupport');
+                last if $more > 0x80000000 and not $et->Options('LargeFileSupport');
                 $raf->Seek($more, 1) or last;
                 $buff = '';
                 $dataPos += $dataLen + $more;
@@ -785,14 +786,14 @@ sub ProcessMKV($$)
             my $fmt = $$tagInfo{Format};
             if ($fmt eq 'string' or $fmt eq 'utf8') {
                 ($val = substr($buff, $pos, $size)) =~ s/\0.*//s;
-                $val = $exifTool->Decode($val, 'UTF8') if $fmt eq 'utf8';
+                $val = $et->Decode($val, 'UTF8') if $fmt eq 'utf8';
             } elsif ($fmt eq 'float') {
                 if ($size == 4) {
                     $val = GetFloat(\$buff, $pos);
                 } elsif ($size == 8) {
                     $val = GetDouble(\$buff, $pos);
                 } else {
-                    $exifTool->Warn("Illegal float size ($size)");
+                    $et->Warn("Illegal float size ($size)");
                 }
             } else {
                 my @vals = unpack("x${pos}C$size", $buff);
@@ -820,8 +821,8 @@ sub ProcessMKV($$)
             }
             # set group1 to Track/Chapter number
             if ($$tagInfo{Name} eq 'TrackNumber') {
-                $$exifTool{SET_GROUP1} = 'Track' . $val;
-                $trackIndent = $$exifTool{INDENT};
+                $$et{SET_GROUP1} = 'Track' . $val;
+                $trackIndent = $$et{INDENT};
             }
         }
         my %parms = (
@@ -831,20 +832,20 @@ sub ProcessMKV($$)
             Size    => $size,
         );
         if ($$tagInfo{NoSave}) {
-            $exifTool->VerboseInfo($tag, $tagInfo, Value => $val, %parms) if $verbose;
+            $et->VerboseInfo($tag, $tagInfo, Value => $val, %parms) if $verbose;
         } else {
-            $exifTool->HandleTag($tagTablePtr, $tag, $val, %parms);
+            $et->HandleTag($tagTablePtr, $tag, $val, %parms);
         }
         $pos += $size;  # step to next element
     }
-    $$exifTool{INDENT} = $oldIndent;
-    delete $$exifTool{SET_GROUP1};
+    $$et{INDENT} = $oldIndent;
+    delete $$et{SET_GROUP1};
     # override file type if necessary based on existing track types
     unless ($trackTypes{0x01} or $trackTypes{0x03}) {   # video or complex?
         if ($trackTypes{0x02}) {                        # audio?
-            $exifTool->OverrideFileType('MKA');
+            $et->OverrideFileType('MKA');
         } elsif ($trackTypes{0x11}) {                   # subtitle?
-            $exifTool->OverrideFileType('MKS');
+            $et->OverrideFileType('MKS');
         }
     }
     return 1;
@@ -869,7 +870,7 @@ information from Matroska multimedia files (MKA, MKV, MKS and WEBM).
 
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

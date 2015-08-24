@@ -1,12 +1,13 @@
-  ExifToolVersion = 9.09
+  ExifToolVersion = 9.94
   FileName = Canon.jpg
   Directory = t/images
   FileSize = 2697
   FileModifyDate = 1159902631
-  FileAccessDate = 1355791141
-  FileInodeChangeDate = 1355575268
+  FileAccessDate = 1430317245
+  FileInodeChangeDate = 1429973820
   FilePermissions = 33188
   FileType = JPEG
+  FileTypeExtension = JPG
   MIMEType = image/jpeg
 JPEG APP1 (2442 bytes):
     0006: 45 78 69 66 00 00 49 49 2a 00 08 00 00 00 09 00 [Exif..II*.......]
@@ -421,34 +422,37 @@ JPEG APP1 (2442 bytes):
   | | |         07ae: 65 05 8d 07 40 03 3f 03 7f 03 ba 06 40 03 3f 03 [e...@.?.....@.?.]
   | | |         07be: dd 03 ba 06 40 03 3f 03 dc 03 7c 00 7b 00 7c 00 [....@.?...|.{.|.]
   | | |         07ce: 7b 00                                           [{.]
-  | | | + [BinaryData directory, 80 bytes]
+  | | | + [BinaryData directory, 82 bytes]
   | | | | WB_RGGBLevelsAuto = 1719 832 831 990
-  | | | | - Tag 0x0000 (8 bytes, int16s[4]):
+  | | | | - Tag 0x0001 (8 bytes, int16s[4]):
   | | | |     0780: b7 06 40 03 3f 03 de 03                         [..@.?...]
   | | | | WB_RGGBLevelsDaylight = 1722 832 831 989
-  | | | | - Tag 0x0004 (8 bytes, int16s[4]):
+  | | | | - Tag 0x0005 (8 bytes, int16s[4]):
   | | | |     0788: ba 06 40 03 3f 03 dd 03                         [..@.?...]
   | | | | WB_RGGBLevelsShade = 2035 832 831 839
-  | | | | - Tag 0x0008 (8 bytes, int16s[4]):
+  | | | | - Tag 0x0009 (8 bytes, int16s[4]):
   | | | |     0790: f3 07 40 03 3f 03 47 03                         [..@.?.G.]
   | | | | WB_RGGBLevelsCloudy = 1878 832 831 903
-  | | | | - Tag 0x000c (8 bytes, int16s[4]):
+  | | | | - Tag 0x000d (8 bytes, int16s[4]):
   | | | |     0798: 56 07 40 03 3f 03 87 03                         [V.@.?...]
   | | | | WB_RGGBLevelsTungsten = 1228 913 912 1668
-  | | | | - Tag 0x0010 (8 bytes, int16s[4]):
+  | | | | - Tag 0x0011 (8 bytes, int16s[4]):
   | | | |     07a0: cc 04 91 03 90 03 84 06                         [........]
   | | | | WB_RGGBLevelsFluorescent = 1506 842 841 1381
-  | | | | - Tag 0x0014 (8 bytes, int16s[4]):
+  | | | | - Tag 0x0015 (8 bytes, int16s[4]):
   | | | |     07a8: e2 05 4a 03 49 03 65 05                         [..J.I.e.]
   | | | | WB_RGGBLevelsFlash = 1933 832 831 895
-  | | | | - Tag 0x0018 (8 bytes, int16s[4]):
+  | | | | - Tag 0x0019 (8 bytes, int16s[4]):
   | | | |     07b0: 8d 07 40 03 3f 03 7f 03                         [..@.?...]
   | | | | WB_RGGBLevelsCustom = 1722 832 831 989
-  | | | | - Tag 0x001c (8 bytes, int16s[4]):
+  | | | | - Tag 0x001d (8 bytes, int16s[4]):
   | | | |     07b8: ba 06 40 03 3f 03 dd 03                         [..@.?...]
   | | | | WB_RGGBLevelsKelvin = 1722 832 831 988
-  | | | | - Tag 0x0020 (8 bytes, int16s[4]):
+  | | | | - Tag 0x0021 (8 bytes, int16s[4]):
   | | | |     07c0: ba 06 40 03 3f 03 dc 03                         [..@.?...]
+  | | | | WB_RGGBBlackLevels = 124 123 124 123
+  | | | | - Tag 0x0025 (8 bytes, int16s[4]):
+  | | | |     07c8: 7c 00 7b 00 7c 00 7b 00                         [|.{.|.{.]
   | | | 20) ColorTemperature = 5200
   | | |     - Tag 0x00ae (2 bytes, int16u[1]):
   | | |         03a4: 50 14                                           [P.]
@@ -579,6 +583,11 @@ JPEG DQT (130 bytes):
     [snip 18 bytes]
 JPEG SOF0 (15 bytes):
     0a1a: 08 00 08 00 08 03 01 22 00 02 11 01 03 11 01    [.......".......]
+  ImageWidth = 8
+  ImageHeight = 8
+  EncodingProcess = 0
+  BitsPerSample = 8
+  ColorComponents = 3
 JPEG DHT (73 bytes):
     0a2d: 00 01 01 00 00 00 00 00 00 00 00 00 00 00 00 00 [................]
     0a3d: 00 00 06 01 01 00 00 00 00 00 00 00 00 00 00 00 [................]

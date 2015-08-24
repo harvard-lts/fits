@@ -14,15 +14,46 @@ information is embedded in two types of RIFF <code>LIST</code> chunks: <code>INF
 chunk.  As well as this information, some video information and proprietary
 manufacturer-specific information is also extracted.</p>
 
-<p>Large AVI videos may be a concatenation of two or more RIFF chunks.
-For these files, information is extracted from subsequent RIFF
-chunks as sub-documents, but the Duration is calculated for the full
-video.</p>
+<p>Large AVI videos may be a concatenation of two or more RIFF chunks.  For
+these files, information is extracted from subsequent RIFF chunks as
+sub-documents, but the Duration is calculated for the full video.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class=inner cellspacing=1>
 <tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
 <th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>'ALPH'</td>
+<td>ALPH</td>
+<td class=c>-</td>
+<td>--&gt; <a href='RIFF.html#ALPH'>RIFF ALPH Tags</a></td></tr>
+<tr class=b>
+<td>'ANIM'</td>
+<td>ANIM</td>
+<td class=c>-</td>
+<td>--&gt; <a href='RIFF.html#ANIM'>RIFF ANIM Tags</a></td></tr>
+<tr>
+<td>'ANMF'</td>
+<td>ANMF</td>
+<td class=c>-</td>
+<td>--&gt; <a href='RIFF.html#ANMF'>RIFF ANMF Tags</a></td></tr>
+<tr class=b>
+<td>'EXIF'</td>
+<td>EXIF</td>
+<td class=c>-</td>
+<td>--&gt; <a href='EXIF.html'>EXIF Tags</a>
+  <br><span class='n s'>(WebP files)</span></td></tr>
+<tr>
+<td>'ICCP'</td>
+<td>ICC_Profile</td>
+<td class=c>-</td>
+<td>--&gt; <a href='ICC_Profile.html'>ICC_Profile Tags</a>
+  <br><span class='n s'>(WebP files)</span></td></tr>
+<tr class=b>
+<td>'IDIT'</td>
+<td>DateTimeOriginal</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
 <tr>
 <td>'JUNK'</td>
 <td>OlympusJunk
@@ -78,15 +109,47 @@ video.</p>
 <td class=c>-</td>
 <td>--&gt; <a href='RIFF.html#VP8'>RIFF VP8 Tags</a></td></tr>
 <tr class=b>
+<td>'VP8L'</td>
+<td>VP8L</td>
+<td class=c>-</td>
+<td>--&gt; <a href='RIFF.html#VP8L'>RIFF VP8L Tags</a></td></tr>
+<tr>
+<td>'VP8X'</td>
+<td>VP8X</td>
+<td class=c>-</td>
+<td>--&gt; <a href='RIFF.html#VP8X'>RIFF VP8X Tags</a></td></tr>
+<tr class=b>
+<td>'XMP '</td>
+<td>XMP</td>
+<td class=c>-</td>
+<td>--&gt; <a href='XMP.html'>XMP Tags</a>
+  <br><span class='n s'>(WebP files)</span></td></tr>
+<tr>
 <td>'_PMX'</td>
 <td>XMP</td>
 <td class=c>-</td>
-<td>--&gt; <a href='XMP.html'>XMP Tags</a></td></tr>
+<td>--&gt; <a href='XMP.html'>XMP Tags</a>
+  <br><span class='n s'>(AVI and WAV files)</span></td></tr>
+<tr class=b>
+<td>'afsp'</td>
+<td>Afsp</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
 <tr>
 <td>'bext'</td>
 <td>BroadcastExtension</td>
 <td class=c>-</td>
 <td>--&gt; <a href='RIFF.html#BroadcastExt'>RIFF BroadcastExt Tags</a></td></tr>
+<tr class=b>
+<td>'cue '</td>
+<td>CuePoints</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>'fact'</td>
+<td>NumberOfSamples</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
 <tr class=b>
 <td>'fmt '</td>
 <td>AudioFormat</td>
@@ -97,6 +160,71 @@ video.</p>
 <td>Olym</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Olympus.html#WAV'>Olympus WAV Tags</a></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='ALPH'>RIFF ALPH Tags</a></h2>
+<p>WebP alpha chunk.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index1</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>AlphaPreprocessing</td>
+<td class=c>N</td>
+<td><span class=s>[Mask 0x03]
+  <br>0x0 = none
+  <br>0x1 = Level Reduction</span></td></tr>
+<tr class=b>
+<td class=r title='0 = 0x0'>0.1</td>
+<td>AlphaFiltering</td>
+<td class=c>N</td>
+<td><span class=s>[Mask 0x03]
+  <br>0x0 = none
+  <br>0x1 = Horizontal
+  <br>0x2 = Vertical
+  <br>0x3 = Gradient</span></td></tr>
+<tr>
+<td class=r title='0 = 0x0'>0.2</td>
+<td>AlphaCompression</td>
+<td class=c>N</td>
+<td><span class=s>[Mask 0x03]
+  <br>0x0 = none
+  <br>0x1 = Lossless</span></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='ANIM'>RIFF ANIM Tags</a></h2>
+<p>WebP animation chunk.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index1</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>BackgroundColor</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='4 = 0x4'>4</td>
+<td>AnimationLoopCount</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='ANMF'>RIFF ANMF Tags</a></h2>
+<p>WebP animation frame chunk.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index1</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='12 = 0xc'>12</td>
+<td>Duration</td>
+<td class=c>N</td>
+<td><span class=s><span class=n>(extracted as the sum of durations of all animation frames)</span></span></td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='Info'>RIFF Info Tags</a></h2>
@@ -260,143 +388,153 @@ by some software.</p>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr>
+<td>'IDIT'</td>
+<td>DateTimeOriginal</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td>'IDPI'</td>
 <td><u>DotsPerInch</u></td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'IDST'</td>
 <td>DistributedBy</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'IEDT'</td>
 <td>EditedBy</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'IENC'</td>
 <td>EncodedBy</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'IENG'</td>
 <td><u>Engineer</u></td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'IGNR'</td>
 <td><u>Genre</u></td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'IKEY'</td>
 <td><u>Keywords</u></td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'ILGT'</td>
 <td><u>Lightness</u></td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'ILGU'</td>
 <td>LogoURL</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'ILIU'</td>
 <td>LogoIconURL</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'ILNG'</td>
 <td>Language</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'IMBI'</td>
 <td>MoreInfoBannerImage</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'IMBU'</td>
 <td>MoreInfoBannerURL</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'IMED'</td>
 <td><u>Medium</u></td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'IMIT'</td>
 <td>MoreInfoText</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'IMIU'</td>
 <td>MoreInfoURL</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'IMUS'</td>
 <td>MusicBy</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'INAM'</td>
 <td><u>Title</u></td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'IPDS'</td>
 <td>ProductionDesigner</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'IPLT'</td>
 <td><u>NumColors</u></td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'IPRD'</td>
 <td><u>Product</u></td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'IPRO'</td>
 <td>ProducedBy</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'IRIP'</td>
 <td>RippedBy</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'IRTD'</td>
 <td>Rating</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'ISBJ'</td>
 <td><u>Subject</u></td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'ISFT'</td>
 <td><u>Software</u></td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'ISGN'</td>
 <td>SecondaryGenre</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'ISHP'</td>
 <td><u>Sharpness</u></td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>'ISMP'</td>
+<td>TimeCode</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr>
@@ -599,7 +737,7 @@ by some software.</p>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td>'ISMP'</td>
-<td>Timecode</td>
+<td>TimeCode</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr>
@@ -1000,6 +1138,7 @@ cameras.  The first 4 characters of the data are used as the Tag ID below.</p>
 <td>StreamType</td>
 <td class=c>N</td>
 <td><span class=s>&#39;auds&#39; = Audio
+  <br>&#39;iavs&#39; = Interleaved Audio+Video
   <br>&#39;mids&#39; = MIDI
   <br>&#39;txts&#39; = Text
   <br>&#39;vids&#39; = Video</span></td></tr>
@@ -1075,6 +1214,9 @@ cameras.  The first 4 characters of the data are used as the Tag ID below.</p>
 </table></td></tr></table></blockquote>
 
 <h2><a name='VP8'>RIFF VP8 Tags</a></h2>
+<p>This chunk is found in simple-format (lossy) WebP files. See
+<a href="https://developers.google.com/speed/webp/docs/riff_container">https://developers.google.com/speed/webp/docs/riff_container</a> for the WebP
+container specification.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class=inner cellspacing=1>
@@ -1109,6 +1251,44 @@ cameras.  The first 4 characters of the data are used as the Tag ID below.</p>
 <td>VerticalScale</td>
 <td class=c>N</td>
 <td><span class=s>[Mask 0xc000]</span></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='VP8L'>RIFF VP8L Tags</a></h2>
+<p>This chunk is found in lossless WebP files.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index1</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='1 = 0x1'>1</td>
+<td>ImageWidth</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='2 = 0x2'>2</td>
+<td>ImageHeight</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='VP8X'>RIFF VP8X Tags</a></h2>
+<p>This chunk is found in extended WebP files.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index1</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='4 = 0x4'>4</td>
+<td>ImageWidth</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='6 = 0x6'>6</td>
+<td>ImageHeight</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='BroadcastExt'>RIFF BroadcastExt Tags</a></h2>
@@ -1158,7 +1338,7 @@ cameras.  The first 4 characters of the data are used as the Tag ID below.</p>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Aug 25, 2012</i>
+<br><i>Last revised Jul 31, 2015</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

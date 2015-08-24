@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
 [File, System, Image] FileName - File Name: Writer_14_failed.jpg
 [File, System, Image] Directory - Directory: t
 [File, System, Image] FileSize - File Size: 1253 bytes
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:52-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:52-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:52-05:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:04:18 07:17:52-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:18 07:17:52-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:18 07:17:52-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: JPEG
+[File, File, Image] FileTypeExtension - File Type Extension: jpg
 [File, File, Image] MIMEType - MIME Type: image/jpeg
 [File, File, Image] ExifByteOrder - Exif Byte Order: Little-endian (Intel, II)
 [File, File, Image] ImageWidth - Image Width: 8
@@ -60,8 +61,9 @@
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 4
 [Composite, Composite, Image] ImageSize - Image Size: 8x8
 [Composite, Composite, Image] LightValue - Light Value: 5.6
-[Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 29.3
-[Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.001 mm
-[Composite, Composite, Image] FOV - Field Of View: 2.1 deg
-[Composite, Composite, Camera] FocalLength35efl - Focal Length: 34.0 mm (35 mm equivalent: 997.1 mm)
-[Composite, Composite, Camera] HyperfocalDistance - Hyperfocal Distance: 80.59 m
+[Composite, Composite, Image] Megapixels - Megapixels: 0.000064
+[Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 1.6
+[Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.019 mm
+[Composite, Composite, Image] FOV - Field Of View: 36.9 deg
+[Composite, Composite, Camera] FocalLength35efl - Focal Length: 34.0 mm (35 mm equivalent: 54.0 mm)
+[Composite, Composite, Camera] HyperfocalDistance - Hyperfocal Distance: 4.37 m

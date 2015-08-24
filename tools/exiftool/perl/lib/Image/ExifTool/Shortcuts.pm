@@ -3,11 +3,15 @@
 #
 # Description:  ExifTool shortcut tags
 #
-# Revisions:    02/07/2004 - P. Harvey Moved out of Exif.pm
-#               09/15/2004 - P. Harvey Added D70Boring from Greg Troxel
-#               01/11/2005 - P. Harvey Added Canon20D from Christian Koller
-#               03/03/2005 - P. Harvey Added user defined shortcuts
-#               03/26/2005 - P. Harvey Added Nikon from Tom Christiansen
+# Revisions:    02/07/2004 - PH Moved out of Exif.pm
+#               09/15/2004 - PH Added D70Boring from Greg Troxel
+#               01/11/2005 - PH Added Canon20D from Christian Koller
+#               03/03/2005 - PH Added user defined shortcuts
+#               03/26/2005 - PH Added Nikon from Tom Christiansen
+#               02/28/2007 - PH Removed model-dependent shortcuts
+#                            --> this is what UserDefined::Shortcuts is for
+#               02/25/2009 - PH Added Unsafe
+#               07/03/2010 - PH Added CommonIFD0
 #------------------------------------------------------------------------------
 
 package Image::ExifTool::Shortcuts;
@@ -15,9 +19,10 @@ package Image::ExifTool::Shortcuts;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.43';
+$VERSION = '1.55';
 
 # this is a special table used to define command-line shortcuts
+# (documentation Notes may be added for these via %shortcutNotes in BuildTagLookup.pm)
 %Image::ExifTool::Shortcuts::Main = (
     # this shortcut allows the three common date/time tags to be shifted at once
     AllDates => [
@@ -108,9 +113,11 @@ $VERSION = '1.43';
     # copy the maker notes as a block or prevent it from being copied
     MakerNotes => [
         'MakerNotes',   # (for RIFF MakerNotes)
+        'MakerNoteApple',
         'MakerNoteCanon',
         'MakerNoteCasio',
         'MakerNoteCasio2',
+        'MakerNoteFLIR',
         'MakerNoteFujiFilm',
         'MakerNoteGE',
         'MakerNoteGE2',
@@ -133,8 +140,10 @@ $VERSION = '1.43';
         'MakerNoteKodak7',
         'MakerNoteKodak8a',
         'MakerNoteKodak8b',
+        'MakerNoteKodak8c',
         'MakerNoteKodak9',
         'MakerNoteKodak10',
+        'MakerNoteKodak11',
         'MakerNoteKodakUnknown',
         'MakerNoteKyocera',
         'MakerNoteMinolta',
@@ -143,6 +152,7 @@ $VERSION = '1.43';
         'MakerNoteNikon',
         'MakerNoteNikon2',
         'MakerNoteNikon3',
+        'MakerNoteNintendo',
         'MakerNoteOlympus',
         'MakerNoteOlympus2',
         'MakerNoteLeica',
@@ -151,6 +161,8 @@ $VERSION = '1.43';
         'MakerNoteLeica4',
         'MakerNoteLeica5',
         'MakerNoteLeica6',
+        'MakerNoteLeica7',
+        'MakerNoteLeica8',
         'MakerNotePanasonic',
         'MakerNotePanasonic2',
         'MakerNotePentax',
@@ -162,6 +174,7 @@ $VERSION = '1.43';
         'MakerNotePhaseOne',
         'MakerNoteReconyx',
         'MakerNoteRicoh',
+        'MakerNoteRicoh2',
         'MakerNoteRicohText',
         'MakerNoteSamsung1a',
         'MakerNoteSamsung1b',
@@ -174,9 +187,11 @@ $VERSION = '1.43';
         'MakerNoteSony2',
         'MakerNoteSony3',
         'MakerNoteSony4',
+        'MakerNoteSony5',
         'MakerNoteSonyEricsson',
         'MakerNoteSonySRF',
         'MakerNoteUnknownText',
+        'MakerNoteUnknownBinary',
         'MakerNoteUnknown',
     ],
     # "unsafe" tags we normally don't copy in JPEG images, defined
@@ -191,6 +206,14 @@ $VERSION = '1.43';
         'InteropIFD:InteropVersion',
         'InteropIFD:RelatedImageWidth',
         'InteropIFD:RelatedImageHeight',
+    ],
+    # standard tags used to define the color space of an image
+    # (useful to preserve color space when deleting all meta information)
+    ColorSpaceTags => [
+        'ExifIFD:ColorSpace',
+        'ExifIFD:Gamma',
+        'InteropIFD:InteropIndex',
+        'ICC_Profile',
     ],
     # common metadata tags found in IFD0 of TIFF images
     CommonIFD0 => [
@@ -213,6 +236,25 @@ $VERSION = '1.43';
         'IFD0:XPAuthor',
         'IFD0:XPKeywords',
         'IFD0:XPSubject',
+    ],
+    # large binary data tags which won't be loaded if excluded when extracting
+    LargeTags => [
+        'CanonVRD',
+        'DLOData',
+        'EXIF',
+        'ICC_Profile',
+        'IDCPreviewImage',
+        'ImageData',
+        'IPTC',
+        'JpgFromRaw',
+        'OriginalRawImage',
+        'OtherImage',
+        'PreviewImage',
+        'ThumbnailImage',
+        'TIFFPreview',
+        'XML',
+        'XMP',
+        'ZoomedPreviewImage',
     ],
 );
 
@@ -275,9 +317,13 @@ In this example, MyShortcut is a shortcut for the CreateDate,
 EXIF:ExposureTime and Aperture tags, and MyAlias is a shortcut for
 FocalLengthIn35mmFormat.
 
+The target tag names may contain an optional group name prefix.  A group
+name applied to the shortcut will be ignored for any target tag with a group
+name prefix.
+
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

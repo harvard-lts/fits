@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.94
 [File, System, Image] FileName - File Name: DNG.dng
 [File, System, Image] Directory - Directory: t/images
 [File, System, Image] FileSize - File Size: 13 kB
 [File, System, Time] FileModifyDate - File Modification Date/Time: 2006:02:26 09:30:53-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:19 15:30:55-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:17 09:18:25-05:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:29 20:10:23-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:25 10:57:00-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: DNG
+[File, File, Image] FileTypeExtension - File Type Extension: dng
 [File, File, Image] MIMEType - MIME Type: image/x-adobe-dng
 [File, File, Image] ExifByteOrder - Exif Byte Order: Big-endian (Motorola, MM)
 [EXIF, IFD0, Image] 254 - Subfile Type: Reduced-resolution image
@@ -170,7 +171,7 @@
 [MakerNotes, Canon, Camera] 5 - Continuous Drive: Single
 [MakerNotes, Canon, Camera] 7 - Focus Mode: One-shot AF
 [MakerNotes, Canon, Camera] 9 - Record Mode: CR2
-[MakerNotes, Canon, Camera] 10 - Canon Image Size: Unknown (-1)
+[MakerNotes, Canon, Camera] 10 - Canon Image Size: n/a
 [MakerNotes, Canon, Camera] 11 - Easy Mode: Manual
 [MakerNotes, Canon, Camera] 12 - Digital Zoom: None
 [MakerNotes, Canon, Camera] 13 - Contrast: Normal
@@ -179,7 +180,7 @@
 [MakerNotes, Canon, Camera] 17 - Metering Mode: Center-weighted average
 [MakerNotes, Canon, Camera] 18 - Focus Range: Not Known
 [MakerNotes, Canon, Camera] 20 - Canon Exposure Mode: Aperture-priority AE
-[MakerNotes, Canon, Camera] 22 - Lens Type: Unknown (-1)
+[MakerNotes, Canon, Camera] 22 - Lens Type: n/a
 [MakerNotes, Canon, Camera] 23 - Max Focal Length: 55 mm
 [MakerNotes, Canon, Camera] 24 - Min Focal Length: 18 mm
 [MakerNotes, Canon, Camera] 25 - Focal Units: 1/mm
@@ -308,19 +309,20 @@
 [Composite, Composite, Other] Flash - Flash: Off, Did not fire
 [Composite, Composite, Camera] ISO - ISO: 400
 [Composite, Composite, Image] ImageSize - Image Size: 3516x2328
-[Composite, Composite, Image] JpgFromRaw - Jpg From Raw: (Binary data 29 bytes)
+[Composite, Composite, Preview] JpgFromRaw - Jpg From Raw: (Binary data 29 bytes)
 [Composite, Composite, Camera] Lens - Lens: 18.0 - 55.0 mm
 [Composite, Composite, Camera] LensID - Lens ID: Unknown 18-55mm
-[Composite, Composite, Image] PreviewImage - Preview Image: (Binary data 26 bytes)
+[Composite, Composite, Image] Megapixels - Megapixels: 8.2
+[Composite, Composite, Preview] PreviewImage - Preview Image: (Binary data 26 bytes)
 [Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 1.6
 [Composite, Composite, Camera] ShootingMode - Shooting Mode: Aperture-priority AE
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 1/15
 [Composite, Composite, Camera] WB_RGGBLevels - WB RGGB Levels: 2002 1185 1187 2364
 [Composite, Composite, Camera] BlueBalance - Blue Balance: 1.993255
 [Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.019 mm
-[Composite, Composite, Image] FOV - Field Of View: 23.7 deg
-[Composite, Composite, Camera] FocalLength35efl - Focal Length: 55.0 mm (35 mm equivalent: 85.9 mm)
-[Composite, Composite, Camera] HyperfocalDistance - Hyperfocal Distance: 19.66 m
-[Composite, Composite, Camera] Lens35efl - Lens: 18.0 - 55.0 mm (35 mm equivalent: 28.1 - 85.9 mm)
+[Composite, Composite, Image] FOV - Field Of View: 22.8 deg
+[Composite, Composite, Camera] FocalLength35efl - Focal Length: 55.0 mm (35 mm equivalent: 89.2 mm)
+[Composite, Composite, Camera] HyperfocalDistance - Hyperfocal Distance: 20.42 m
+[Composite, Composite, Camera] Lens35efl - Lens: 18.0 - 55.0 mm (35 mm equivalent: 29.2 - 89.2 mm)
 [Composite, Composite, Image] LightValue - Light Value: 7.9
 [Composite, Composite, Camera] RedBalance - Red Balance: 1.688027

@@ -1,12 +1,13 @@
-  ExifToolVersion = 9.07
+  ExifToolVersion = 9.94
   FileName = CanonRaw.crw
   Directory = t/images
   FileSize = 6816
   FileModifyDate = 1327257119
-  FileAccessDate = 1353415777
-  FileInodeChangeDate = 1353161905
+  FileAccessDate = 1430317237
+  FileInodeChangeDate = 1429973820
   FilePermissions = 33188
   FileType = CRW
+  FileTypeExtension = CRW
   MIMEType = image/x-canon-crw
   + [CIFF directory with 3 entries]
   | 0)  RawData = <Dummy raw image data>
@@ -182,7 +183,7 @@
   | | | 16) ColorTemperature = 5200
   | | | 17) CanonRaw_0x10af = 1024
   | | | 18) ColorBalance (SubDirectory) -->
-  | | | + [BinaryData directory, 80 bytes]
+  | | | + [BinaryData directory, 82 bytes]
   | | | | WB_RGGBLevelsAuto = 1740 832 831 931
   | | | | WB_RGGBLevelsDaylight = 1722 832 831 989
   | | | | WB_RGGBLevelsShade = 2035 832 831 839
@@ -192,6 +193,7 @@
   | | | | WB_RGGBLevelsFlash = 1964 832 831 877
   | | | | WB_RGGBLevelsCustom = 1722 832 831 989
   | | | | WB_RGGBLevelsKelvin = 1722 832 831 988
+  | | | | WB_RGGBBlackLevels = 125 124 125 124
   | | | 19) ColorSpace = 1
   | | | 20) RawJpgInfo (SubDirectory) -->
   | | | + [BinaryData directory, 10 bytes]

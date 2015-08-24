@@ -11,7 +11,7 @@ package Image::ExifTool::Lang::cs;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.06';
+$VERSION = '1.07';
 
 %Image::ExifTool::Lang::cs::Translate = (
    'AEMeteringMode' => {
@@ -851,6 +851,11 @@ $VERSION = '1.06';
    'InteropOffset' => 'Značka součinnosti',
    'InteropVersion' => 'Verze kompatibility',
    'JFIFVersion' => 'JFIF verze',
+   'JPEGQuality' => {
+      PrintConv => {
+        'Standard' => 'Normální',
+      },
+    },
    'Keyword' => 'Klíčová slova',
    'Keywords' => 'Klíčová slova',
    'LeafData' => 'Leaf data',
@@ -1469,7 +1474,9 @@ $VERSION = '1.06';
     },
    'WBAdjLighting' => {
       PrintConv => {
-        'Daylight' => 'Denní světlo',
+        'Daylight (direct sunlight)' => 'Denní světlo (0)',
+        'Daylight (shade)' => 'Denní světlo (1)',
+        'Daylight (cloudy)' => 'Denní světlo (2)',
         'Flash' => 'Blesk',
         'None' => 'Žádná',
       },
@@ -1563,7 +1570,7 @@ and values.
 
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

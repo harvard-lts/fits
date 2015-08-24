@@ -1,5 +1,6 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 8.60
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
 [File, File, Image] FileType - File Type: PNG
+[File, File, Image] FileTypeExtension - File Type Extension: png
 [File, File, Image] MIMEType - MIME Type: image/png
 [File, File, Image] ExifByteOrder - Exif Byte Order: Little-endian (Intel, II)
 [PNG, PNG, Image] 0 - Image Width: 16
@@ -10,6 +11,9 @@
 [PNG, PNG, Image] 11 - Filter: Adaptive
 [PNG, PNG, Image] 12 - Interlace: Noninterlaced
 [PNG, PNG, Image] bKGD - Background Color: 0
+[PNG, PNG-pHYs, Image] 0 - Pixels Per Unit X: 1234
+[PNG, PNG-pHYs, Image] 4 - Pixels Per Unit Y: 2834
+[PNG, PNG-pHYs, Image] 8 - Pixel Units: meters
 [PNG, PNG, Author] Artist - Artist: Phil Harvey
 [PNG, PNG, Author] Copyright - Copyright: Copyright 2004 Phil Harvey
 [PNG, PNG, Image] Description - Description: UTF-16 (big-endian) encoded XMP
@@ -21,7 +25,7 @@
 [PNG, PNG, Image] URL - URL: http://owl.phy.queensu.ca/~phil/exiftool/
 [PNG, PNG, Time] create-date - Create Date: 2001:05:19 18:36:41
 [PNG, PNG, Time] tIME - Modify Date: 2004:02:26 09:36:46
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 8.60
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.93
 [XMP, XMP-dc, Author] creator - Creator: Phil Harvey
 [XMP, XMP-dc, Image] description - Description: UTF-16 (big-endian) encoded XMP
 [XMP, XMP-dc, Author] rights - Rights: Copyright 2004 Phil Harvey
@@ -115,4 +119,5 @@
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 1/64
 [Composite, Composite, Image] ImageSize - Image Size: 16x16
 [Composite, Composite, Image] LightValue - Light Value: 9.6
+[Composite, Composite, Image] Megapixels - Megapixels: 0.000256
 [Composite, Composite, Camera] FocalLength35efl - Focal Length: 6.0 mm

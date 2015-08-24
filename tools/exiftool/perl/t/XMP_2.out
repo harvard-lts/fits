@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
 [File, System, Image] FileName - File Name: XMP.jpg
 [File, System, Image] Directory - Directory: t/images
 [File, System, Image] FileSize - File Size: 10 kB
 [File, System, Time] FileModifyDate - File Modification Date/Time: 2011:01:03 13:24:04-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:52-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:17 09:18:25-05:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:18 07:17:52-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:03:07 15:31:55-05:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: JPEG
+[File, File, Image] FileTypeExtension - File Type Extension: jpg
 [File, File, Image] MIMEType - MIME Type: image/jpeg
 [File, File, Image] ExifByteOrder - Exif Byte Order: Little-endian (Intel, II)
 [File, File, Image] ImageWidth - Image Width: 8
@@ -120,7 +121,7 @@
 [ICC_Profile, ICC_Profile, Image] lumi - Luminance: 76.03647 80 87.12462
 [ICC_Profile, ICC-meas, Image] 8 - Measurement Observer: CIE 1931
 [ICC_Profile, ICC-meas, Image] 12 - Measurement Backing: 0 0 0
-[ICC_Profile, ICC-meas, Image] 24 - Measurement Geometry: Unknown (0)
+[ICC_Profile, ICC-meas, Image] 24 - Measurement Geometry: Unknown
 [ICC_Profile, ICC-meas, Image] 28 - Measurement Flare: 0.999%
 [ICC_Profile, ICC-meas, Image] 32 - Measurement Illuminant: D65
 [ICC_Profile, ICC_Profile, Image] tech - Technology: Cathode Ray Tube Display
@@ -133,6 +134,7 @@
 [APP14, Adobe, Image] 3 - Color Transform: YCbCr
 [Composite, Composite, Image] Aperture - Aperture: 3.5
 [Composite, Composite, Image] ImageSize - Image Size: 8x8
+[Composite, Composite, Image] Megapixels - Megapixels: 0.000064
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 1/64
 [Composite, Composite, Camera] FocalLength35efl - Focal Length: 6.0 mm
 [Composite, Composite, Image] LightValue - Light Value: 9.6

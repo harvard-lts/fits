@@ -35,13 +35,13 @@ $VERSION = '1.04';
         'Flash' => 'Flaş',
         'Fluorescent' => 'Floresan',
         'ISO Studio Tungsten' => 'ISO stüdyo tungsten',
-        'Other' => 'diğer ışık kaynağı',
+        'Other' => 'Diğer ışık kaynağı',
         'Shade' => 'Gölge',
         'Standard Light A' => 'Standard Işık A',
         'Standard Light B' => 'Standard Işık B',
         'Standard Light C' => 'Standard Işık C',
         'Tungsten (Incandescent)' => 'Tungsten',
-        'Unknown' => 'bilinmeyen',
+        'Unknown' => 'Bilinmeyen',
         'White Fluorescent' => 'Beyaz floresan (WW 3250 - 3800K)',
       },
     },
@@ -56,13 +56,13 @@ $VERSION = '1.04';
         'Flash' => 'Flaş',
         'Fluorescent' => 'Floresan',
         'ISO Studio Tungsten' => 'ISO stüdyo tungsten',
-        'Other' => 'diğer ışık kaynağı',
+        'Other' => 'Diğer ışık kaynağı',
         'Shade' => 'Gölge',
         'Standard Light A' => 'Standard Işık A',
         'Standard Light B' => 'Standard Işık B',
         'Standard Light C' => 'Standard Işık C',
         'Tungsten (Incandescent)' => 'Tungsten',
-        'Unknown' => 'bilinmeyen',
+        'Unknown' => 'Bilinmeyen',
         'White Fluorescent' => 'Beyaz floresan (WW 3250 - 3800K)',
       },
     },
@@ -86,7 +86,7 @@ $VERSION = '1.04';
       Description => 'Sıkıştırma planı',
       PrintConv => {
         'JPEG' => 'JPEG Sıkıştırma',
-        'Uncompressed' => 'sıkıştırılmamış',
+        'Uncompressed' => 'Sıkıştırılmamış',
       },
     },
    'Contrast' => {
@@ -308,6 +308,11 @@ $VERSION = '1.04';
    'InteropIndex' => 'Interoperabilite Tanımı',
    'InteropOffset' => 'Interoperabilite etiketi',
    'InteropVersion' => 'Interoperabilite Sürümü',
+   'JPEGQuality' => {
+      PrintConv => {
+        'Standard' => 'Standart Kalite',
+      },
+    },
    'Keywords' => 'Anahtar sözcükler',
    'Lens' => 'Objektif',
    'LensInfo' => 'Lens Bilgisi',
@@ -323,13 +328,13 @@ $VERSION = '1.04';
         'Flash' => 'Flaş',
         'Fluorescent' => 'Floresan',
         'ISO Studio Tungsten' => 'ISO stüdyo tungsten',
-        'Other' => 'diğer ışık kaynağı',
+        'Other' => 'Diğer ışık kaynağı',
         'Shade' => 'Gölge',
         'Standard Light A' => 'Standard Işık A',
         'Standard Light B' => 'Standard Işık B',
         'Standard Light C' => 'Standard Işık C',
         'Tungsten (Incandescent)' => 'Tungsten',
-        'Unknown' => 'bilinmeyen',
+        'Unknown' => 'Bilinmeyen',
         'White Fluorescent' => 'Beyaz floresan (WW 3250 - 3800K)',
       },
     },
@@ -345,9 +350,9 @@ $VERSION = '1.04';
         'Center-weighted average' => 'CenterWeightedAverage',
         'Multi-segment' => 'Desen',
         'Multi-spot' => 'Multispot',
-        'Other' => 'diğer',
+        'Other' => 'Diğer',
         'Partial' => 'Kısmen',
-        'Unknown' => 'bilinmeyen',
+        'Unknown' => 'Bilinmeyen',
       },
     },
    'Model' => 'Kamera',
@@ -498,8 +503,8 @@ $VERSION = '1.04';
    'YCbCrPositioning' => {
       Description => 'Y ve C konumlama',
       PrintConv => {
-        'Centered' => 'ortalanmış',
-        'Co-sited' => 'birlikte-konumlanmış',
+        'Centered' => 'Ortalanmış',
+        'Co-sited' => 'Birlikte-konumlanmış',
       },
     },
    'YCbCrSubSampling' => 'Y den C\'ye alt örnekleme oranı',
@@ -521,7 +526,7 @@ and values.
 
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

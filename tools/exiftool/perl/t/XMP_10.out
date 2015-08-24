@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
 [File, System, Image] FileName - File Name: XMP3.xmp
 [File, System, Image] Directory - Directory: t/images
-[File, System, Image] FileSize - File Size: 1639 bytes
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2011:04:10 09:49:54-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:19 15:31:09-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:17 09:18:25-05:00
+[File, System, Image] FileSize - File Size: 2.2 kB
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2014:08:21 09:16:26-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:18 07:17:24-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:03:07 15:31:55-05:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: XMP
+[File, File, Image] FileTypeExtension - File Type Extension: xmp
 [File, File, Image] MIMEType - MIME Type: application/rdf+xml
 [XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 6.32
 [XMP, XMP-rdf, Document] about - About: http://www.w3.org/TR/rdf-syntax-grammar
@@ -16,6 +17,9 @@
 [XMP, XMP-iptcCore, Other] Scene - Scene: scene1
 [XMP, XMP-pdfx, Document] Customↂ0020Propertyↂ00201 - Custom 0020 Property 00201: a custom property value
 [XMP, XMP-pdfx, Document] Customↂ0020Propertyↂ00202 - Custom 0020 Property 00202: some other value
+[XMP, XMP-xmpMM, Other] ManifestLinkForm - Manifest Link Form: EmbedByReference
+[XMP, XMP-xmpMM, Other] ManifestReferenceFilePath - Manifest Reference File Path: C:\some path\file.ext
+[XMP, XMP-cc, Author] attributionName - Attribution Name: some attr
 [XMP, XMP-ph, Unknown] ph:programmerExclamation - Programmer Exclamation: doh!
 [XMP, XMP-ph, Unknown] ph:programmerFood - Programmer Food: cookies
 [XMP, XMP-ph, Unknown] ph:programmerFullName - Programmer Full Name: Phil Harvey
