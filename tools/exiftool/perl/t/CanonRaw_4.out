@@ -1,15 +1,16 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.94
 [File, System, Image] FileName - File Name: CanonRaw_4_failed.crw
 [File, System, Image] Directory - Directory: t
 [File, System, Image] FileSize - File Size: 12 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:37-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:37-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:37-05:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:04:30 07:42:35-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:30 07:42:35-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:30 07:42:35-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: CRW
+[File, File, Image] FileTypeExtension - File Type Extension: crw
 [File, File, Image] MIMEType - MIME Type: image/x-canon-crw
 [MakerNotes, CanonRaw, Camera] 8197 - Raw Data: (Binary data 22 bytes)
-[MakerNotes, CanonRaw, Camera] 8199 - Jpg From Raw: (Binary data 16 bytes)
+[MakerNotes, CanonRaw, Preview] 8199 - Jpg From Raw: (Binary data 16 bytes)
 [MakerNotes, CanonRaw, Image] 0 - File Format: CRW
 [MakerNotes, CanonRaw, Image] 1 - Target Compression Ratio: 10
 [MakerNotes, CanonRaw, Image] 0 - Image Width: 3072
@@ -87,7 +88,7 @@
 [MakerNotes, Canon, Camera] 18 - Focus Range: Not Known
 [MakerNotes, Canon, Camera] 19 - AF Point: Manual AF point selection
 [MakerNotes, Canon, Camera] 20 - Canon Exposure Mode: Manual
-[MakerNotes, Canon, Camera] 22 - Lens Type: Unknown (-1)
+[MakerNotes, Canon, Camera] 22 - Lens Type: n/a
 [MakerNotes, Canon, Camera] 23 - Max Focal Length: 55 mm
 [MakerNotes, Canon, Camera] 24 - Min Focal Length: 18 mm
 [MakerNotes, Canon, Camera] 25 - Focal Units: 1/mm
@@ -125,25 +126,24 @@
 [MakerNotes, Canon, Camera] 9 - AF Area Y Positions: 0 0 -506 0 506 0 0
 [MakerNotes, Canon, Camera] 10 - AF Points In Focus: 3
 [MakerNotes, CanonRaw, Camera] 4270 - Color Temperature: 5200
-[MakerNotes, Canon, Camera] 0 - WB RGGB Levels Auto: 1719 832 831 990
-[MakerNotes, Canon, Camera] 4 - WB RGGB Levels Daylight: 1722 832 831 989
-[MakerNotes, Canon, Camera] 8 - WB RGGB Levels Shade: 2035 832 831 839
-[MakerNotes, Canon, Camera] 12 - WB RGGB Levels Cloudy: 1878 832 831 903
-[MakerNotes, Canon, Camera] 16 - WB RGGB Levels Tungsten: 1228 913 912 1668
-[MakerNotes, Canon, Camera] 20 - WB RGGB Levels Fluorescent: 1506 842 841 1381
-[MakerNotes, Canon, Camera] 24 - WB RGGB Levels Flash: 1933 832 831 895
-[MakerNotes, Canon, Camera] 28 - WB RGGB Levels Custom: 1722 832 831 989
-[MakerNotes, Canon, Camera] 32 - WB RGGB Levels Kelvin: 1722 832 831 988
+[MakerNotes, Canon, Camera] 1 - WB RGGB Levels Auto: 1719 832 831 990
+[MakerNotes, Canon, Camera] 5 - WB RGGB Levels Daylight: 1722 832 831 989
+[MakerNotes, Canon, Camera] 9 - WB RGGB Levels Shade: 2035 832 831 839
+[MakerNotes, Canon, Camera] 13 - WB RGGB Levels Cloudy: 1878 832 831 903
+[MakerNotes, Canon, Camera] 17 - WB RGGB Levels Tungsten: 1228 913 912 1668
+[MakerNotes, Canon, Camera] 21 - WB RGGB Levels Fluorescent: 1506 842 841 1381
+[MakerNotes, Canon, Camera] 25 - WB RGGB Levels Flash: 1933 832 831 895
+[MakerNotes, Canon, Camera] 29 - WB RGGB Levels Custom: 1722 832 831 989
+[MakerNotes, Canon, Camera] 33 - WB RGGB Levels Kelvin: 1722 832 831 988
+[MakerNotes, Canon, Camera] 37 - WB RGGB Black Levels: 124 123 124 123
 [MakerNotes, CanonRaw, Camera] 4276 - Color Space: sRGB
 [MakerNotes, CanonRaw, Image] 1 - Raw Jpg Quality: Fine
 [MakerNotes, CanonRaw, Image] 2 - Raw Jpg Size: Medium
 [MakerNotes, CanonRaw, Image] 3 - Raw Jpg Width: 2048
 [MakerNotes, CanonRaw, Image] 4 - Raw Jpg Height: 1360
 [MakerNotes, CanonRaw, Camera] 6203 - Serial Number Format: Format 1
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.07
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.94
 [XMP, XMP-aux, Camera] Lens - Lens: 18.0 - 55.0 mm
-[XMP, XMP-aux, Camera] OwnerName - Owner Name: Phil Harvey
-[XMP, XMP-aux, Camera] SerialNumber - Serial Number: 1234
 [XMP, XMP-dc, Image] description - Description: CRW with embedded XMP
 [XMP, XMP-exif, Image] ApertureValue - Aperture Value: 14.0
 [XMP, XMP-exif, Image] ColorSpace - Color Space: sRGB
@@ -180,6 +180,10 @@
 [XMP, XMP-exif, Image] ShutterSpeedValue - Shutter Speed Value: 1
 [XMP, XMP-exif, Image] UserComment - User Comment: 
 [XMP, XMP-exif, Camera] WhiteBalance - White Balance: Auto
+[XMP, XMP-exifEX, Image] BodySerialNumber - Serial Number: 1234
+[XMP, XMP-exifEX, Image] CameraOwnerName - Owner Name: Phil Harvey
+[XMP, XMP-exifEX, Image] InteroperabilityIndex - Interoperability Index: THM - DCF thumbnail file
+[XMP, XMP-pmi, Image] sequenceNumber - Sequence Number: 0
 [XMP, XMP-tiff, Image] BitsPerSample - Bits Per Sample: 8
 [XMP, XMP-tiff, Image] ImageLength - Image Height: 8
 [XMP, XMP-tiff, Image] ImageWidth - Image Width: 8
@@ -205,9 +209,11 @@
 [Composite, Composite, Image] ImageSize - Image Size: 3072x2048
 [Composite, Composite, Camera] LensID - Lens ID: Unknown 18-55mm
 [Composite, Composite, Image] LightValue - Light Value: 5.7
+[Composite, Composite, Image] Megapixels - Megapixels: 6.3
 [Composite, Composite, Camera] RedBalance - Red Balance: 2.067348
 [Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 1.0
 [Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.029 mm
+[Composite, Composite, Image] DOF - Depth Of Field: inf (2.73 m - inf)
 [Composite, Composite, Image] FOV - Field Of View: 54.9 deg
 [Composite, Composite, Camera] FocalLength35efl - Focal Length: 34.0 mm (35 mm equivalent: 34.7 mm)
 [Composite, Composite, Camera] HyperfocalDistance - Hyperfocal Distance: 2.75 m

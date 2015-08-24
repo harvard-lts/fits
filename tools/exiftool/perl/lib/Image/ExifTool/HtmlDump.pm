@@ -13,7 +13,7 @@ use vars qw($VERSION);
 use Image::ExifTool;    # only for FinishTiffDump()
 use Image::ExifTool::HTML qw(EscapeHTML);
 
-$VERSION = '1.30';
+$VERSION = '1.32';
 
 sub DumpTable($$$;$$$$$);
 sub Open($$$;@);
@@ -60,10 +60,12 @@ my $htmlHeader2 = <<_END_PART_2_;
     visibility: hidden;
     position: absolute;
     background: #ffffdd;
-    opacity: 0.8;
+    zoom: 1;
     -moz-opacity: 0.8;
-    filter: alpha(opacity=80);
+    -khtml-opacity: 0.8;
     -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=80)';
+    filter: alpha(opacity=80);
+    opacity: 0.8;
     z-index: 2;
 }
 /* table styles */
@@ -312,13 +314,20 @@ sub Print($$;$$$$$)
     my (@names, $wasUnused, @starts);
     # only do dump if we didn't have a serious error
     @starts = sort { $a <=> $b } keys %$block unless $$self{Error};
-    for ($i=0; $i<@starts; ++$i) {
+    for ($i=0; $i<=@starts; ++$i) {
         my $start = $starts[$i];
-        my $parmList = $$block{$start};
+        my $parmList;
+        if (defined $start) {
+            $parmList = $$block{$start};
+        } elsif ($bkgEnd and $pos < $bkgEnd and not defined $wasUnused) {
+            $start = $bkgEnd;   # finish last bkg block
+        } else {
+            last;
+        }
         my $len = $start - $pos;
         if ($len > 0 and not $wasUnused) {
-            # we have an unused bytes before this data block
-            --$i;           # dump the data block next time around
+            # we have a unused bytes before this data block
+            --$i;   # dump the data block next time around
             # split unused data into 2 blocks if it spans end of a bkg block
             my ($nextBkgEnd, $bkg);
             if (not defined $wasUnused and $bkgEnd) {
@@ -712,7 +721,7 @@ sub DumpTable($$$;$$$$$)
 #  is only compiled when needed)
 sub FinishTiffDump($$$)
 {
-    my ($self, $exifTool, $size) = @_;
+    my ($self, $et, $size) = @_;
     my ($tag, $key, $start, $blockInfo, $i);
 
     # list of all indirectly referenced TIFF data tags
@@ -732,17 +741,17 @@ sub FinishTiffDump($$$)
 
     # add TIFF data to html dump
     foreach $tag (keys %offsetPair) {
-        my $info = $exifTool->GetInfo($tag);
+        my $info = $et->GetInfo($tag);
         next unless %$info;
         # Panasonic hack: StripOffsets is not valid for Panasonic RW2 files,
         # and StripRowBytes is not valid for some RAW images
-        if ($tag eq 'StripOffsets' and $exifTool->{TAG_INFO}{$tag}{PanasonicHack}) {
+        if ($tag eq 'StripOffsets' and $$et{TAG_INFO}{$tag}{PanasonicHack}) {
             # use RawDataOffset instead if available since it is valid in RW2
-            my $info2 = $exifTool->GetInfo('RawDataOffset');
+            my $info2 = $et->GetInfo('RawDataOffset');
             $info2 = $info unless %$info2;
             my @keys = keys %$info2;
             my $offset = $$info2{$keys[0]};
-            my $raf = $$exifTool{RAF};
+            my $raf = $$et{RAF};
             # ignore StripByteCounts and assume raw data runs to the end of file
             if (@keys == 1 and $offset =~ /^\d+$/ and $raf) {
                 my $pos = $raf->Tell();
@@ -758,8 +767,8 @@ sub FinishTiffDump($$$)
         # loop through all offsets tags
         foreach $key (keys %$info) {
             my $name = Image::ExifTool::GetTagName($key);
-            my $grp1 = $exifTool->GetGroup($key, 1);
-            my $info2 = $exifTool->GetInfo($offsetPair{$tag}, { Group1 => $grp1 });
+            my $grp1 = $et->GetGroup($key, 1);
+            my $info2 = $et->GetInfo($offsetPair{$tag}, { Group1 => $grp1 });
             my $key2 = $offsetPair{$tag};
             $key2 .= $1 if $key =~ /( .*)/; # use same instance number as $tag
             next unless $$info2{$key2};
@@ -790,7 +799,7 @@ sub FinishTiffDump($$$)
                         next;
                     }
                 }
-                my $msg = $exifTool->GetGroup($key, 1) . ':' . $tag;
+                my $msg = $et->GetGroup($key, 1) . ':' . $tag;
                 $msg =~ s/(Offsets?|Start)$/ /;
                 if ($num > 1) {
                     $msg .= "$li-" if $li != $i;
@@ -814,7 +823,7 @@ sub FinishTiffDump($$$)
         }
     }
     my $diff = $size - $last;
-    if ($diff > 0 and ($last or $exifTool->Options('Unknown'))) {
+    if ($diff > 0 and ($last or $et->Options('Unknown'))) {
         if ($diff > 1 or $size & 0x01) {
             $self->Add($last, $diff, "[unknown data]", "Size: $diff bytes", 0x08);
         } else {
@@ -873,7 +882,7 @@ page.
 
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

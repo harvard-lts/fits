@@ -13,7 +13,8 @@ that of an old DOS disk with fixed-sized &quot;sectors&quot; (usually 512 bytes)
 &quot;file allocation table&quot; (FAT).  No wonder this image format never became
 popular.  However, some of the structures used in FlashPix streams are part
 of the EXIF specification, and are still being used in the APP2 FPXR segment
-of JPEG images by some Kodak and Hewlett-Packard digital cameras.</p>
+of JPEG images by some digital cameras from manufacturers such as FujiFilm,
+Hewlett-Packard, Kodak and Sanyo.</p>
 
 <p>ExifTool extracts FlashPix information from both FPX images and the APP2
 FPXR segment of JPEG images.  As well, FlashPix information is extracted
@@ -109,6 +110,16 @@ specification.</p>
 <td>ICC_Profile</td>
 <td class=c>-</td>
 <td>--&gt; <a href='ICC_Profile.html'>ICC_Profile Tags</a></td></tr>
+<tr>
+<td>'Preview'</td>
+<td>PreviewImage</td>
+<td class=c>N</td>
+<td><span class=s><span class=n>(written by some FujiFilm models)</span></span></td></tr>
+<tr class=b>
+<td>'Property'</td>
+<td>PreviewInfo</td>
+<td class=c>-</td>
+<td>--&gt; <a href='FlashPix.html#PreviewInfo'>FlashPix PreviewInfo Tags</a></td></tr>
 <tr>
 <td>'Subimage 0000 Header'</td>
 <td>SubimageHdr</td>
@@ -530,7 +541,7 @@ UserDefined properties.</p>
   <br>&#39;04 0002&#39; = YCbCr with Opacity
   <br>&#39;04 0003&#39; = RGB with Opacity
   <br>&#39;04 8002&#39; = YCbCr with Opacity (uncalibrated)
-  <br>&#39;04 8003&#39; = RGB with Opacity (uncalibrated)</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>&#39;04 8003&#39; = RGB with Opacity (uncalibrated)</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x2000003 = 33554435'>0x2000003</td>
@@ -646,7 +657,7 @@ UserDefined properties.</p>
   <td>5 = Inch Scale
   <br>6 = Centimeter Scale
   <br>7 = Millimeter Scale
-  <br>8 = Micrometer Scale</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>8 = Micrometer Scale</td></tr></table>
 </td></tr>
 <tr>
 <td title='0x23000002 = 587202562'>0x23000002</td>
@@ -732,7 +743,7 @@ UserDefined properties.</p>
   <br>6 = Action (High speed)
   <br>7 = Portrait
   <br>8 = Landscape
-  <br>9 = Bulb</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>9 = Bulb</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x25000004 = 620756996'>0x25000004</td>
@@ -761,7 +772,7 @@ UserDefined properties.</p>
   <br>4 = Multi-spot
   <br>5 = Multi-segment
   <br>6 = Partial
-  <br>255 = Other</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>255 = Other</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x25000008 = 620757000'>0x25000008</td>
@@ -789,7 +800,7 @@ UserDefined properties.</p>
   <br>22 = D75
   <br>23 = D50
   <br>24 = ISO Studio Tungsten
-  <br>255 = Other</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>255 = Other</td></tr></table>
 </td></tr>
 <tr>
 <td title='0x25000009 = 620757001'>0x25000009</td>
@@ -846,7 +857,7 @@ UserDefined properties.</p>
   <br>4 = Multi-image</td><td>&nbsp;&nbsp;</td>
   <td>5 = Polarizing
   <br>6 = Split-field
-  <br>7 = Star</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>7 = Star</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x25000012 = 620757010'>0x25000012</td>
@@ -865,7 +876,7 @@ UserDefined properties.</p>
   <br>5 = Color sequential area
   <br>6 = Monochrome linear
   <br>7 = Trilinear
-  <br>8 = Color sequential linear</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>8 = Color sequential linear</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x26000001 = 637534209'>0x26000001</td>
@@ -1389,6 +1400,25 @@ property tables, even though they are only listed in the SummaryInfo table.</p>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
+<h2><a name='PreviewInfo'>FlashPix PreviewInfo Tags</a></h2>
+<p>Preview information written by some FujiFilm models.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index1</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='13 = 0xd'>13</td>
+<td>PreviewImageWidth</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='23 = 0x17'>23</td>
+<td>PreviewImageHeight</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
 <h2><a name='SubimageHdr'>FlashPix SubimageHdr Tags</a></h2>
 <blockquote>
 <table class=frame><tr><td>
@@ -1429,7 +1459,7 @@ property tables, even though they are only listed in the SummaryInfo table.</p>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Mar 18, 2011</i>
+<br><i>Last revised Jul 31, 2014</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

@@ -10,9 +10,10 @@
 <p>
 The values of the composite tags are <b>Derived From</b> the values of other
 tags.  These are convenience tags which are calculated after all other
-information is extracted.  User-defined Composite tags, useful for
-custom-formatting of tag values, may created in the ExifTool configuration
-file.
+information is extracted.  Only a few of these tags are writable directly,
+the others are changed by writing the corresponding <b>Derived From</b> tags.
+User-defined Composite tags, also useful for custom-formatting of tag
+values, may created via the <a href="../config.html">ExifTool configuration file</a>.
 </p>
 <blockquote>
 <table class=frame><tr><td>
@@ -22,7 +23,8 @@ file.
 <tr>
 <td>AdvancedSceneMode</td>
 <td class=c>N</td>
-<td class=n>SceneMode
+<td class=n>Model
+  <br>SceneMode
   <br>AdvancedSceneType</td>
 <td>--&gt; <a href='Panasonic.html#AdvancedSceneMode'>Panasonic AdvancedSceneMode Values</a></td></tr>
 <tr class=b>
@@ -68,6 +70,16 @@ file.
   <br>WBGreenLevel</td>
 <td>&nbsp;</td></tr>
 <tr>
+<td>CDDBDiscPlayTime</td>
+<td class=c>N</td>
+<td class=n>CDDB1Info</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>CDDBDiscTracks</td>
+<td class=c>N</td>
+<td class=n>CDDB1Info</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td>CFAPattern</td>
 <td class=c>N</td>
 <td class=n>CFARepeatPatternDim
@@ -93,7 +105,10 @@ may be incorrect if the image has been resized)</span></span></td></tr>
   <br>CircleOfConfusion
   <br>FocusDistance
   <br>SubjectDistance
-  <br>ObjectDistance</td>
+  <br>ObjectDistance
+  <br>ApproximateFocusDistance 
+  <br>FocusDistanceLower
+  <br>FocusDistanceUpper</td>
 <td><span class=s><span class=n>(this value may be incorrect if the image has been resized)</span></span></td></tr>
 <tr>
 <td>DateCreated</td>
@@ -183,6 +198,12 @@ may be incorrect if the image has been resized)</span></span></td></tr>
   <br>VideoFrameCount</td>
 <td>&nbsp;</td></tr>
 <tr>
+<td>Duration</td>
+<td class=c>N</td>
+<td class=n>AIFF:SampleRate
+  <br>AIFF:NumSampleFrames</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td>ExtenderStatus</td>
 <td class=c>N</td>
 <td class=n>Olympus:Extender
@@ -194,7 +215,7 @@ an attempt to represent the actual status of the extender.)</span>
   <br>0 = Not attached
   <br>1 = Attached
   <br>2 = Removed</span></td></tr>
-<tr class=b>
+<tr>
 <td>FOV</td>
 <td class=c>N</td>
 <td class=n>FocalLength
@@ -202,13 +223,13 @@ an attempt to represent the actual status of the extender.)</span>
   <br>FocusDistance</td>
 <td><span class=s><span class=n>(calculated for the long image dimension.  This value may be incorrect for
 fisheye lenses, or if the image has been resized)</span></span></td></tr>
-<tr>
+<tr class=b>
 <td>FileNumber</td>
 <td class=c>Y</td>
 <td class=n>DirectoryIndex
   <br>FileIndex</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>Flash</td>
 <td class=c>Y</td>
 <td class=n>XMP:FlashFired
@@ -219,7 +240,7 @@ fisheye lenses, or if the image has been resized)</span></span></td></tr>
   <br>XMP:Flash</td>
 <td>--&gt; <a href='EXIF.html#Flash'>EXIF Flash Values</a>
   <br><span class='n s'>(facilitates copying camera flash information between XMP and EXIF)</span></td></tr>
-<tr>
+<tr class=b>
 <td>FlashType</td>
 <td class=c>N</td>
 <td class=n>FlashBits</td>
@@ -227,29 +248,34 @@ fisheye lenses, or if the image has been resized)</span></span></td></tr>
 manual mode)</span>
   <br>0 = Built-In Flash
   <br>1 = External</span></td></tr>
-<tr class=b>
+<tr>
 <td>FocalLength35efl</td>
 <td class=c>N</td>
 <td class=n>FocalLength
   <br>ScaleFactor35efl</td>
 <td><span class=s><span class=n>(this value may be incorrect if the image has been resized)</span></span></td></tr>
-<tr>
+<tr class=b>
 <td>FocusDistance</td>
 <td class=c>N</td>
 <td class=n>Sony:FocusPosition
   <br>FocalLength</td>
 <td><span class=s><span class=n>(distance in metres = FocusPosition * FocalLength / 1000)</span></span></td></tr>
+<tr>
+<td>FocusDistance2</td>
+<td class=c>N</td>
+<td class=n>Sony:FocusPosition2
+  <br>FocalLengthIn35mmFormat</td>
+<td>&nbsp;</td></tr>
 <tr class=b>
 <td>GPSAltitude</td>
 <td class=c>N</td>
 <td class=n>QuickTime:GPSCoordinates</td>
 <td>&nbsp;</td></tr>
 <tr>
-<td>GPSAltitudeRef</td>
+<td>GPSAltitude</td>
 <td class=c>N</td>
-<td class=n>QuickTime:GPSCoordinates</td>
-<td><span class=s>0 = Above Sea Level
-  <br>1 = Below Sea Level</span></td></tr>
+<td class=n>QuickTime:LocationInformation</td>
+<td>&nbsp;</td></tr>
 <tr class=b>
 <td>GPSAltitude</td>
 <td class=c>N</td>
@@ -258,6 +284,18 @@ manual mode)</span>
   <br>XMP:GPSAltitude
   <br>XMP:GPSAltitudeRef</td>
 <td>&nbsp;</td></tr>
+<tr>
+<td>GPSAltitudeRef</td>
+<td class=c>N</td>
+<td class=n>QuickTime:GPSCoordinates</td>
+<td><span class=s>0 = Above Sea Level
+  <br>1 = Below Sea Level</span></td></tr>
+<tr class=b>
+<td>GPSAltitudeRef</td>
+<td class=c>N</td>
+<td class=n>QuickTime:LocationInformation</td>
+<td><span class=s>0 = Above Sea Level
+  <br>1 = Below Sea Level</span></td></tr>
 <tr>
 <td>GPSDateTime</td>
 <td class=c>N</td>
@@ -270,11 +308,10 @@ manual mode)</span>
 <td class=n>QuickTime:GPSCoordinates</td>
 <td>&nbsp;</td></tr>
 <tr>
-<td>GPSLatitudeRef</td>
+<td>GPSLatitude</td>
 <td class=c>N</td>
-<td class=n>XMP:GPSLatitude</td>
-<td><span class=s>&#39;N&#39; = North
-  <br>&#39;S&#39; = South</span></td></tr>
+<td class=n>QuickTime:LocationInformation</td>
+<td>&nbsp;</td></tr>
 <tr class=b>
 <td>GPSLatitude</td>
 <td class=c>N</td>
@@ -282,22 +319,33 @@ manual mode)</span>
   <br>GPS:GPSLatitudeRef</td>
 <td>&nbsp;</td></tr>
 <tr>
+<td>GPSLatitudeRef</td>
+<td class=c>N</td>
+<td class=n>XMP:GPSLatitude</td>
+<td><span class=s>&#39;N&#39; = North
+  <br>&#39;S&#39; = South</span></td></tr>
+<tr class=b>
 <td>GPSLongitude</td>
 <td class=c>N</td>
 <td class=n>QuickTime:GPSCoordinates</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
-<td>GPSLongitudeRef</td>
-<td class=c>N</td>
-<td class=n>XMP:GPSLongitude</td>
-<td><span class=s>&#39;E&#39; = East
-  <br>&#39;W&#39; = West</span></td></tr>
 <tr>
+<td>GPSLongitude</td>
+<td class=c>N</td>
+<td class=n>QuickTime:LocationInformation</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td>GPSLongitude</td>
 <td class=c>N</td>
 <td class=n>GPS:GPSLongitude
   <br>GPS:GPSLongitudeRef</td>
 <td>&nbsp;</td></tr>
+<tr>
+<td>GPSLongitudeRef</td>
+<td class=c>N</td>
+<td class=n>XMP:GPSLongitude</td>
+<td><span class=s>&#39;E&#39; = East
+  <br>&#39;W&#39; = West</span></td></tr>
 <tr class=b>
 <td>GPSPosition</td>
 <td class=c>N</td>
@@ -387,7 +435,8 @@ manual mode)</span>
   <br>MaxFocalLength
   <br>LensModel
   <br>LensFocalRange
-  <br>LensSpec</td>
+  <br>LensSpec
+  <br>LensType2</td>
 <td><span class=s><span class=n>(attempt to identify the actual lens from all lenses with a given LensType.
 Applies only to LensType values with a lookup table.  May be configured
 by adding user-defined lenses)</span></span></td></tr>
@@ -398,7 +447,8 @@ by adding user-defined lenses)</span></span></td></tr>
   <br>Make
   <br>LensInfo
   <br>FocalLength
-  <br>LensModel</td>
+  <br>LensModel
+  <br>MaxApertureValue</td>
 <td><span class=s><span class=n>(attempt to convert numerical XMP-aux:LensID stored by Adobe applications)</span></span></td></tr>
 <tr class=b>
 <td>LensID</td>
@@ -440,15 +490,25 @@ by adding user-defined lenses)</span></span></td></tr>
 of the embedded MPF images are extracted as MPImage#.  The ExtractEmbedded
 option may be used to extract information from these embedded images.)</span></span></td></tr>
 <tr>
+<td>Megapixels</td>
+<td class=c>N</td>
+<td class=n>ImageSize</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td>OriginalDecisionData</td>
 <td class=c title=' ! = Unsafe'>Y!</td>
 <td class=n>OriginalDecisionDataOffset</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>OtherImage</td>
 <td class=c>Y</td>
 <td class=n>OtherImageStart
   <br>OtherImageLength</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>PeakSpectralSensitivity</td>
+<td class=c>N</td>
+<td class=n>FLIR:PlanckB</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td>PreviewImage</td>
@@ -460,15 +520,15 @@ option may be used to extract information from these embedded images.)</span></s
   <br>PreviewImageLength (1)</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td>PreviewImage</td>
+<td class=c>N</td>
+<td class=n>ScreenNail</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td>PreviewImageSize</td>
 <td class=c>N</td>
 <td class=n>PreviewImageWidth
   <br>PreviewImageHeight</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td>PreviewImage</td>
-<td class=c>N</td>
-<td class=n>ScreenNail</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td>RedBalance</td>
@@ -493,12 +553,28 @@ option may be used to extract information from these embedded images.)</span></s
 <td><span class=s>0 = Off
   <br>1 = On</span></td></tr>
 <tr class=b>
+<td>RicohPitch</td>
+<td class=c>N</td>
+<td class=n>Ricoh:Accelerometer</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>RicohRoll</td>
+<td class=c>N</td>
+<td class=n>Ricoh:Accelerometer</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td>Rotation</td>
 <td class=c>N</td>
 <td class=n>QuickTime:MatrixStructure
   <br>QuickTime:HandlerType</td>
 <td>&nbsp;</td></tr>
 <tr>
+<td>RunTimeSincePowerUp</td>
+<td class=c>N</td>
+<td class=n>Apple:RunTimeValue
+  <br>Apple:RunTimeScale</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td>ScaleFactor35efl</td>
 <td class=c>N</td>
 <td class=n>FocalLength
@@ -519,52 +595,52 @@ option may be used to extract information from these embedded images.)</span></s
   <br>ImageHeight</td>
 <td><span class=s><span class=n>(this value and any derived values may be incorrect if the image has been
 resized)</span></span></td></tr>
-<tr class=b>
+<tr>
 <td>ShootingMode</td>
 <td class=c>N</td>
 <td class=n>CanonExposureMode
   <br>EasyMode
   <br>BulbDuration</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>ShutterCurtainHack</td>
 <td class=c>N</td>
 <td class=n>FlashBits
   <br>ShutterCurtainSync</td>
 <td><span class=s>0 = 1st-curtain sync
   <br>1 = 2nd-curtain sync</span></td></tr>
-<tr class=b>
+<tr>
 <td>ShutterSpeed</td>
 <td class=c>N</td>
 <td class=n>ExposureTime
   <br>ShutterSpeedValue
   <br>BulbDuration</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>SubSecCreateDate</td>
 <td class=c>N</td>
 <td class=n>EXIF:CreateDate
   <br>SubSecTimeDigitized</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>SubSecDateTimeOriginal</td>
 <td class=c>N</td>
 <td class=n>EXIF:DateTimeOriginal
   <br>SubSecTimeOriginal</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>SubSecModifyDate</td>
 <td class=c>N</td>
 <td class=n>EXIF:ModifyDate
   <br>SubSecTime</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>ThumbnailImage</td>
 <td class=c>Y</td>
 <td class=n>ThumbnailOffset
   <br>ThumbnailLength</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>WB_RGBLevels</td>
 <td class=c>N</td>
 <td class=n>KDC_IFD:WhiteBalance
@@ -576,7 +652,7 @@ resized)</span></span></td></tr>
   <br>WB_RGBLevels5
   <br>WB_RGBLevelsShade</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>WB_RGBLevels</td>
 <td class=c>N</td>
 <td class=n>KodakIFD:WhiteBalance
@@ -591,7 +667,7 @@ resized)</span></span></td></tr>
   <br>KodakIFD:ColorTemperature
   <br>Kodak:WB_RGBLevels</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>WB_RGGBLevels</td>
 <td class=c>N</td>
 <td class=n>Canon:WhiteBalance
@@ -606,13 +682,13 @@ resized)</span></span></td></tr>
   <br>WB_RGGBLevelsShade
   <br>WB_RGGBLevelsKelvin</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>WB_RGGBLevels</td>
 <td class=c>N</td>
 <td class=n>WB_RGGBLevelsUncorrected
   <br>WB_RGGBLevelsBlack</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>ZoomedPreviewImage</td>
 <td class=c>N</td>
 <td class=n>ZoomedPreviewStart
@@ -622,7 +698,7 @@ resized)</span></span></td></tr>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Dec 16, 2012</i>
+<br><i>Last revised Apr 13, 2015</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

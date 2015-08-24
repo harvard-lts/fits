@@ -10,6 +10,10 @@
 # Revisions:    2011/01/23 - P. Harvey Created
 #
 # References:   http://www.adobe.com/devnet/xmp/
+#
+# Notes:        These arguments will not delete PDF tags which are missing
+#               from the XMP.  The PDF tags should be deleted beforehand if
+#               required.
 #------------------------------------------------------------------------------
 -PDF:Title < XMP-dc:Title
 -PDF:Author < XMP-dc:Creator

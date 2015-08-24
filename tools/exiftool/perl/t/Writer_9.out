@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.94
 [File, System, Image] FileName - File Name: Writer_9_failed.jpg
 [File, System, Image] Directory - Directory: t
-[File, System, Image] FileSize - File Size: 9.5 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:51-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:51-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:51-05:00
+[File, System, Image] FileSize - File Size: 9.8 kB
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:04:30 07:42:58-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:30 07:42:58-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:30 07:42:58-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: JPEG
+[File, File, Image] FileTypeExtension - File Type Extension: jpg
 [File, File, Image] MIMEType - MIME Type: image/jpeg
 [File, File, Image] ExifByteOrder - Exif Byte Order: Little-endian (Intel, II)
 [File, File, Image] ImageWidth - Image Width: 8
@@ -87,7 +88,7 @@
 [MakerNotes, Canon, Camera] 17 - Metering Mode: Center-weighted average
 [MakerNotes, Canon, Camera] 18 - Focus Range: Not Known
 [MakerNotes, Canon, Camera] 20 - Canon Exposure Mode: Manual
-[MakerNotes, Canon, Camera] 22 - Lens Type: Unknown (-1)
+[MakerNotes, Canon, Camera] 22 - Lens Type: n/a
 [MakerNotes, Canon, Camera] 23 - Max Focal Length: 55 mm
 [MakerNotes, Canon, Camera] 24 - Min Focal Length: 18 mm
 [MakerNotes, Canon, Camera] 25 - Focal Units: 1/mm
@@ -138,15 +139,16 @@
 [MakerNotes, Canon, Camera] 16 - Canon Model ID: EOS Digital Rebel / 300D / Kiss Digital
 [MakerNotes, Canon, Image] 14 - Canon File Length: 4480822
 [MakerNotes, Canon, Camera] 1 - Measured RGGB: 998 1022 1026 808
-[MakerNotes, Canon, Camera] 0 - WB RGGB Levels Auto: 1719 832 831 990
-[MakerNotes, Canon, Camera] 4 - WB RGGB Levels Daylight: 1722 832 831 989
-[MakerNotes, Canon, Camera] 8 - WB RGGB Levels Shade: 2035 832 831 839
-[MakerNotes, Canon, Camera] 12 - WB RGGB Levels Cloudy: 1878 832 831 903
-[MakerNotes, Canon, Camera] 16 - WB RGGB Levels Tungsten: 1228 913 912 1668
-[MakerNotes, Canon, Camera] 20 - WB RGGB Levels Fluorescent: 1506 842 841 1381
-[MakerNotes, Canon, Camera] 24 - WB RGGB Levels Flash: 1933 832 831 895
-[MakerNotes, Canon, Camera] 28 - WB RGGB Levels Custom: 1722 832 831 989
-[MakerNotes, Canon, Camera] 32 - WB RGGB Levels Kelvin: 1722 832 831 988
+[MakerNotes, Canon, Camera] 1 - WB RGGB Levels Auto: 1719 832 831 990
+[MakerNotes, Canon, Camera] 5 - WB RGGB Levels Daylight: 1722 832 831 989
+[MakerNotes, Canon, Camera] 9 - WB RGGB Levels Shade: 2035 832 831 839
+[MakerNotes, Canon, Camera] 13 - WB RGGB Levels Cloudy: 1878 832 831 903
+[MakerNotes, Canon, Camera] 17 - WB RGGB Levels Tungsten: 1228 913 912 1668
+[MakerNotes, Canon, Camera] 21 - WB RGGB Levels Fluorescent: 1506 842 841 1381
+[MakerNotes, Canon, Camera] 25 - WB RGGB Levels Flash: 1933 832 831 895
+[MakerNotes, Canon, Camera] 29 - WB RGGB Levels Custom: 1722 832 831 989
+[MakerNotes, Canon, Camera] 33 - WB RGGB Levels Kelvin: 1722 832 831 988
+[MakerNotes, Canon, Camera] 37 - WB RGGB Black Levels: 124 123 124 123
 [MakerNotes, Canon, Camera] 174 - Color Temperature: 5200
 [MakerNotes, Canon, Camera] 180 - Color Space: sRGB
 [MakerNotes, Canon, Camera] 0 - Num AF Points: 7
@@ -161,7 +163,7 @@
 [MakerNotes, Canon, Camera] 9 - AF Area Y Positions: 0 0 -506 0 506 0 0
 [MakerNotes, Canon, Camera] 10 - AF Points In Focus: (none)
 [MakerNotes, Canon, Camera] 19 - Thumbnail Image Valid Area: 0 159 7 112
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.07
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.94
 [XMP, XMP-aux, Camera] Lens - Lens: 18.0 - 55.0 mm
 [XMP, XMP-exif, Image] ComponentsConfiguration - Components Configuration: Y, Cb, Cr, -
 [XMP, XMP-exif, Image] CompressedBitsPerPixel - Compressed Bits Per Pixel: 9
@@ -170,6 +172,8 @@
 [XMP, XMP-exif, Camera] FlashMode - Flash Mode: Unknown
 [XMP, XMP-exif, Camera] FlashRedEyeMode - Flash Red Eye Mode: False
 [XMP, XMP-exif, Camera] FlashReturn - Flash Return: No return detection
+[XMP, XMP-exifEX, Image] InteroperabilityIndex - Interoperability Index: THM - DCF thumbnail file
+[XMP, XMP-pmi, Image] sequenceNumber - Sequence Number: 0
 [XMP, XMP-tiff, Image] BitsPerSample - Bits Per Sample: 8
 [XMP, XMP-tiff, Image] ImageLength - Image Height: 8
 [XMP, XMP-tiff, Image] ImageWidth - Image Width: 8
@@ -207,7 +211,7 @@
 [ICC_Profile, ICC_Profile, Image] lumi - Luminance: 76.03647 80 87.12462
 [ICC_Profile, ICC-meas, Image] 8 - Measurement Observer: CIE 1931
 [ICC_Profile, ICC-meas, Image] 12 - Measurement Backing: 0 0 0
-[ICC_Profile, ICC-meas, Image] 24 - Measurement Geometry: Unknown (0)
+[ICC_Profile, ICC-meas, Image] 24 - Measurement Geometry: Unknown
 [ICC_Profile, ICC-meas, Image] 28 - Measurement Flare: 0.999%
 [ICC_Profile, ICC-meas, Image] 32 - Measurement Illuminant: D65
 [ICC_Profile, ICC_Profile, Image] tech - Technology: Cathode Ray Tube Display
@@ -222,10 +226,11 @@
 [Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 1.6
 [Composite, Composite, Camera] ShootingMode - Shooting Mode: Bulb
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 4
-[Composite, Composite, Image] ThumbnailImage - Thumbnail Image: (Binary data 28 bytes)
+[Composite, Composite, Preview] ThumbnailImage - Thumbnail Image: (Binary data 28 bytes)
 [Composite, Composite, Camera] WB_RGGBLevels - WB RGGB Levels: 1719 832 831 990
 [Composite, Composite, Camera] BlueBalance - Blue Balance: 1.190619
 [Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.019 mm
+[Composite, Composite, Image] DOF - Depth Of Field: inf (4.21 m - inf)
 [Composite, Composite, Image] FOV - Field Of View: 37.7 deg
 [Composite, Composite, Camera] FocalLength35efl - Focal Length: 34.0 mm (35 mm equivalent: 52.7 mm)
 [Composite, Composite, Camera] HyperfocalDistance - Hyperfocal Distance: 4.26 m
@@ -233,4 +238,5 @@
 [Composite, Composite, Camera] Lens35efl - Lens: 18.0 - 55.0 mm (35 mm equivalent: 27.9 - 85.3 mm)
 [Composite, Composite, Camera] LensID - Lens ID: Unknown 18-55mm
 [Composite, Composite, Image] LightValue - Light Value: 5.6
+[Composite, Composite, Image] Megapixels - Megapixels: 0.000064
 [Composite, Composite, Camera] RedBalance - Red Balance: 2.067348

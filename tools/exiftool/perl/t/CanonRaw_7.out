@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
 [File, System, Image] FileName - File Name: CanonRaw_7_failed.jpg
 [File, System, Image] Directory - Directory: t
-[File, System, Image] FileSize - File Size: 6.9 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:37-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:37-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:37-05:00
+[File, System, Image] FileSize - File Size: 7.2 kB
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:04:18 07:17:37-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:18 07:17:37-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:18 07:17:37-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: JPEG
+[File, File, Image] FileTypeExtension - File Type Extension: jpg
 [File, File, Image] MIMEType - MIME Type: image/jpeg
 [File, File, Image] ExifByteOrder - Exif Byte Order: Little-endian (Intel, II)
 [File, File, Image] ImageWidth - Image Width: 8
@@ -60,7 +61,7 @@
 [MakerNotes, Canon, Camera] 5 - Continuous Drive: Single
 [MakerNotes, Canon, Camera] 7 - Focus Mode: One-shot AF
 [MakerNotes, Canon, Camera] 9 - Record Mode: CR2
-[MakerNotes, Canon, Camera] 10 - Canon Image Size: Unknown (-1)
+[MakerNotes, Canon, Camera] 10 - Canon Image Size: n/a
 [MakerNotes, Canon, Camera] 11 - Easy Mode: Manual
 [MakerNotes, Canon, Camera] 12 - Digital Zoom: None
 [MakerNotes, Canon, Camera] 13 - Contrast: Normal
@@ -69,7 +70,7 @@
 [MakerNotes, Canon, Camera] 17 - Metering Mode: Center-weighted average
 [MakerNotes, Canon, Camera] 18 - Focus Range: Not Known
 [MakerNotes, Canon, Camera] 20 - Canon Exposure Mode: Aperture-priority AE
-[MakerNotes, Canon, Camera] 22 - Lens Type: Unknown (-1)
+[MakerNotes, Canon, Camera] 22 - Lens Type: n/a
 [MakerNotes, Canon, Camera] 23 - Max Focal Length: 55 mm
 [MakerNotes, Canon, Camera] 24 - Min Focal Length: 18 mm
 [MakerNotes, Canon, Camera] 25 - Focal Units: 1/mm
@@ -209,7 +210,7 @@
 [MakerNotes, Canon, Camera] 52 - Camera Color Calibration 14:  770  382  248 (2871K)
 [MakerNotes, Canon, Camera] 56 - Camera Color Calibration 15:  949  307  397 (2413K)
 [MakerNotes, Canon, Camera] 2 - Color Tone: Normal
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.07
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.93
 [XMP, XMP-aux, Camera] Lens - Lens: 18.0 - 55.0 mm
 [XMP, XMP-exif, Image] ComponentsConfiguration - Components Configuration: -, -, -, -
 [XMP, XMP-exif, Camera] FlashFired - Flash Fired: False
@@ -217,6 +218,8 @@
 [XMP, XMP-exif, Camera] FlashMode - Flash Mode: Off
 [XMP, XMP-exif, Camera] FlashRedEyeMode - Flash Red Eye Mode: False
 [XMP, XMP-exif, Camera] FlashReturn - Flash Return: No return detection
+[XMP, XMP-exifEX, Image] InteroperabilityIndex - Interoperability Index: R98 - DCF basic file (sRGB)
+[XMP, XMP-pmi, Image] sequenceNumber - Sequence Number: 0
 [XMP, XMP-tiff, Image] BitsPerSample - Bits Per Sample: 8, 8, 8
 [XMP, XMP-tiff, Image] Compression - Compression: JPEG (old-style)
 [XMP, XMP-tiff, Image] ImageLength - Image Height: 1024
@@ -237,6 +240,7 @@
 [Composite, Composite, Image] ImageSize - Image Size: 8x8
 [Composite, Composite, Camera] LensID - Lens ID: Unknown 18-55mm
 [Composite, Composite, Image] LightValue - Light Value: 7.9
+[Composite, Composite, Image] Megapixels - Megapixels: 0.000064
 [Composite, Composite, Camera] RedBalance - Red Balance: 1.688027
 [Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 1.6
 [Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.019 mm

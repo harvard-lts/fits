@@ -5,6 +5,8 @@
 #
 # Usage:        exiftool -p gpx.fmt -d %Y-%m-%dT%H:%M:%SZ FILE [...] > out.gpx
 #
+# Requires:     ExifTool version 8.10 or later
+#
 # Revisions:    2010/02/05 - P. Harvey created
 #
 # Notes:     1) All input files must contain GPSLatitude and GPSLongitude.

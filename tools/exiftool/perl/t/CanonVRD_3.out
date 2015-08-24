@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.96
 [File, System, Image] FileName - File Name: CanonVRD_3_failed.vrd
 [File, System, Image] Directory - Directory: t
 [File, System, Image] FileSize - File Size: 1768 bytes
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:38-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:38-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:38-05:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:05:19 10:17:08-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:05:19 10:17:08-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:05:19 10:17:08-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: VRD
+[File, File, Image] FileTypeExtension - File Type Extension: vrd
 [File, File, Image] MIMEType - MIME Type: application/unknown
 [CanonVRD, CanonVRD, Image] 2 - VRD Version: 2.0.0
 [CanonVRD, CanonVRD, Image] 6 - WB Adj RGGB Levels: 0 0 0 0
@@ -107,6 +108,8 @@
 [CanonVRD, CanonVRD, Image] 64 - Monochrome Raw Shadow Point: 0
 [CanonVRD, CanonVRD, Image] 65 - Monochrome Output Highlight Point: 4095
 [CanonVRD, CanonVRD, Image] 66 - Monochrome Output Shadow Point: 0
+[CanonVRD, CanonVRD, Image] 76 - Custom Color Tone: 4
+[CanonVRD, CanonVRD, Image] 77 - Custom Saturation: 2
 [CanonVRD, CanonVRD, Image] 78 - Custom Contrast: 0
 [CanonVRD, CanonVRD, Image] 79 - Custom Linear: No
 [CanonVRD, CanonVRD, Image] 80 - Custom Sharpness: 7

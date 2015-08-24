@@ -18,6 +18,7 @@
 #              11) Andreas Winter (SCLive) private communication
 #              12) http://abcavi.kibi.ru/infotags.htm
 #              13) http://tech.ebu.ch/docs/tech/tech3285.pdf
+#              14) https://developers.google.com/speed/webp/docs/riff_container
 #------------------------------------------------------------------------------
 
 package Image::ExifTool::RIFF;
@@ -26,7 +27,7 @@ use strict;
 use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 
-$VERSION = '1.34';
+$VERSION = '1.41';
 
 sub ConvertTimecode($);
 
@@ -306,10 +307,9 @@ my %riffMimeType = (
         chunk.  As well as this information, some video information and proprietary
         manufacturer-specific information is also extracted.
         
-        Large AVI videos may be a concatenation of two or more RIFF chunks.
-        For these files, information is extracted from subsequent RIFF
-        chunks as sub-documents, but the Duration is calculated for the full
-        video.
+        Large AVI videos may be a concatenation of two or more RIFF chunks.  For
+        these files, information is extracted from subsequent RIFF chunks as
+        sub-documents, but the Duration is calculated for the full video.
     },
     # (not 100% sure that the concatination technique mentioned above is valid - PH)
    'fmt ' => {
@@ -351,6 +351,7 @@ my %riffMimeType = (
             ProcessProc => \&Image::ExifTool::RIFF::ProcessChunks,
         },
     },
+    # seen LIST_JUNK
     JUNK => [
         {
             Name => 'OlympusJunk',
@@ -396,6 +397,7 @@ my %riffMimeType = (
     ],
     _PMX => { #PH (Adobe CS3 Bridge)
         Name => 'XMP',
+        Notes => 'AVI and WAV files',
         SubDirectory => { TagTable => 'Image::ExifTool::XMP::Main' },
     },
     JUNQ => { #PH (Adobe CS3 Bridge)
@@ -407,10 +409,68 @@ my %riffMimeType = (
         Name => 'Olym',
         SubDirectory => { TagTable => 'Image::ExifTool::Olympus::WAV' },
     },
-    'VP8 ' => { # (WEBP images)
+    fact => {
+        Name => 'NumberOfSamples',
+        RawConv => 'Get32u(\$val, 0)',
+    },
+   'cue ' => {
+        Name => 'CuePoints',
+        Binary => 1,
+    },
+    afsp => { },
+    IDIT => {
+        Name => 'DateTimeOriginal',
+        Description => 'Date/Time Original',
+        Groups => { 2 => 'Time' },
+        ValueConv => 'Image::ExifTool::RIFF::ConvertRIFFDate($val)',
+        PrintConv => '$self->ConvertDateTime($val)',
+    },
+#
+# WebP-specific tags
+#
+    EXIF => { # (WebP)
+        Name => 'EXIF',
+        Notes => 'WebP files',
+        SubDirectory => {
+            TagTable => 'Image::ExifTool::Exif::Main',
+            ProcessProc => \&Image::ExifTool::ProcessTIFF,
+        },
+    },
+   'XMP ' => { #14 (WebP)
+        Name => 'XMP',
+        Notes => 'WebP files',
+        SubDirectory => { TagTable => 'Image::ExifTool::XMP::Main' },
+    },
+    ICCP => { #14 (WebP)
+        Name => 'ICC_Profile',
+        Notes => 'WebP files',
+        SubDirectory => { TagTable => 'Image::ExifTool::ICC_Profile::Main' },
+    },
+   'VP8 ' => { # (WebP lossy)
         Name => 'VP8Bitstream',
         Condition => '$$valPt =~ /^...\x9d\x01\x2a/s',
         SubDirectory => { TagTable => 'Image::ExifTool::RIFF::VP8' },
+    },
+    VP8L => { #14 (WebP lossless)
+        Name => 'VP8L',
+        Condition => '$$valPt =~ /^\x2f/',
+        SubDirectory => { TagTable => 'Image::ExifTool::RIFF::VP8L' },
+    },
+    VP8X => { #14 (WebP extended)
+        Name => 'VP8X',
+        SubDirectory => { TagTable => 'Image::ExifTool::RIFF::VP8X' },
+    },
+    ANIM => { #14 (WebP animation)
+        Name => 'ANIM',
+        SubDirectory => { TagTable => 'Image::ExifTool::RIFF::ANIM' },
+    },
+    ANMF => { #14 (WebP animation frame)
+        Name => 'ANMF',
+        SubDirectory => { TagTable => 'Image::ExifTool::RIFF::ANMF' },
+    },
+    ALPH => { #14 (WebP alpha)
+        Name => 'ALPH',
+        SubDirectory => { TagTable => 'Image::ExifTool::RIFF::ALPH' },
     },
 );
 
@@ -655,6 +715,15 @@ my %riffMimeType = (
         },
         PrintConv => '$self->ConvertDateTime($val)',
     },
+    # not observed, but apparently part of the standard:
+    IDIT => {
+        Name => 'DateTimeOriginal',
+        Description => 'Date/Time Original',
+        Groups => { 2 => 'Time' },
+        ValueConv => 'Image::ExifTool::RIFF::ConvertRIFFDate($val)',
+        PrintConv => '$self->ConvertDateTime($val)',
+    },
+    ISMP => 'TimeCode',
 );
 
 # Sub chunks of EXIF LIST chunk
@@ -670,7 +739,7 @@ my %riffMimeType = (
     emnt => { Name => 'MakerNotes',  Binary => 1 },
     eucm => {
         Name => 'UserComment',
-        PrintConv => 'Image::ExifTool::Exif::ConvertExifText($self,$val)',
+        PrintConv => 'Image::ExifTool::Exif::ConvertExifText($self,$val,"RIFF:UserComment")',
     },
 );
 
@@ -689,7 +758,7 @@ my %riffMimeType = (
         ValueConv => 'Image::ExifTool::RIFF::ConvertRIFFDate($val)',
         PrintConv => '$self->ConvertDateTime($val)',
     },
-    ISMP => 'Timecode',
+    ISMP => 'TimeCode',
     LIST_strl => {
         Name => 'Stream',
         SubDirectory => { TagTable => 'Image::ExifTool::RIFF::Stream' },
@@ -791,6 +860,7 @@ my %riffMimeType = (
             mids => 'MIDI',
             txts => 'Text',
             vids => 'Video',
+            iavs => 'Interleaved Audio+Video',
         },
     },
     1 => [
@@ -894,6 +964,11 @@ my %riffMimeType = (
 %Image::ExifTool::RIFF::VP8 = (
     PROCESS_PROC => \&Image::ExifTool::ProcessBinaryData,
     GROUPS => { 2 => 'Image' },
+    NOTES => q{
+        This chunk is found in simple-format (lossy) WebP files. See
+        L<https://developers.google.com/speed/webp/docs/riff_container> for the WebP
+        container specification.
+    },
     0 => {
         Name => 'VP8Version',
         Mask => 0x0e,
@@ -929,6 +1004,110 @@ my %riffMimeType = (
     },
 );
 
+# WebP lossless info (ref 14)
+%Image::ExifTool::RIFF::VP8L = (
+    PROCESS_PROC => \&Image::ExifTool::ProcessBinaryData,
+    NOTES => 'This chunk is found in lossless WebP files.',
+    GROUPS => { 2 => 'Image' },
+    1 => {
+        Name => 'ImageWidth',
+        Format => 'int16u',
+        ValueConv => '($val & 0x3fff) + 1',
+    },
+    2 => {
+        Name => 'ImageHeight',
+        Format => 'int32u',
+        ValueConv => '(($val >> 6) & 0x3fff) + 1',
+    },
+);
+
+# WebP extended info (ref 14)
+%Image::ExifTool::RIFF::VP8X = (
+    PROCESS_PROC => \&Image::ExifTool::ProcessBinaryData,
+    GROUPS => { 2 => 'Image' },
+    NOTES => 'This chunk is found in extended WebP files.',
+    # 0 - bitmask: 2=ICC, 3=alpha, 4=EXIF, 5=XMP, 6=animation
+    4 => {
+        Name => 'ImageWidth',
+        Format => 'int32u',
+        ValueConv => '($val & 0xffffff) + 1',
+    },
+    6 => {
+        Name => 'ImageHeight',
+        Format => 'int32u',
+        ValueConv => '($val >> 8) + 1',
+    },
+);
+
+# WebP animation info (ref 14)
+%Image::ExifTool::RIFF::ANIM = (
+    PROCESS_PROC => \&Image::ExifTool::ProcessBinaryData,
+    GROUPS => { 2 => 'Image' },
+    NOTES => 'WebP animation chunk.',
+    0 => {
+        Name => 'BackgroundColor',
+        Format => 'int8u[4]',
+    },
+    4 => {
+        Name => 'AnimationLoopCount',
+        PrintConv => '$val || "inf"',
+    },
+);
+
+# WebP animation frame info (ref 14)
+%Image::ExifTool::RIFF::ANMF = (
+    PROCESS_PROC => \&Image::ExifTool::ProcessBinaryData,
+    GROUPS => { 2 => 'Image' },
+    NOTES => 'WebP animation frame chunk.',
+    12 => {
+        Name => 'Duration',
+        Format => 'int32u',
+        Notes => 'extracted as the sum of durations of all animation frames',
+        RawConv => q{
+            if (defined $$self{VALUE}{Duration}) {
+                $$self{VALUE}{Duration} += $val & 0x0fff;
+                return undef;
+            }
+            return $val & 0x0fff;
+        },
+        ValueConv => '$val / 1000',
+        PrintConv => 'ConvertDuration($val)',
+    },
+);
+
+# WebP alpha info (ref 14)
+%Image::ExifTool::RIFF::ALPH = (
+    PROCESS_PROC => \&Image::ExifTool::ProcessBinaryData,
+    GROUPS => { 2 => 'Image' },
+    NOTES => 'WebP alpha chunk.',
+    0 => {
+        Name => 'AlphaPreprocessing',
+        Mask => 0x03,
+        PrintConv => {
+            0 => 'none',
+            1 => 'Level Reduction',
+        },
+    },
+    0.1 => {
+        Name => 'AlphaFiltering',
+        Mask => 0x03,
+        PrintConv => {
+            0 => 'none',
+            1 => 'Horizontal',
+            2 => 'Vertical',
+            3 => 'Gradient',
+        },
+    },
+    0.2 => {
+        Name => 'AlphaCompression',
+        Mask => 0x03,
+        PrintConv => {
+            0 => 'none',
+            1 => 'Lossless',
+        },
+    },
+);
+
 # RIFF composite tags
 %Image::ExifTool::RIFF::Composite = (
     Duration => {
@@ -951,7 +1130,7 @@ my %riffMimeType = (
         },
         Desire => {
             # check FrameCount because this calculation only applies
-            # to audio-only files (ie. WAV)
+            # to audio-only files (eg. WAV)
             2 => 'FrameCount',
             3 => 'VideoFrameCount',
         },
@@ -980,13 +1159,16 @@ sub ConvertRIFFDate($)
     my @part = split ' ', $val;
     my $mon;
     if (@part >= 5 and $mon = $monthNum{ucfirst(lc($part[1]))}) {
-        # the standard AVI date format (ie. "Mon Mar 10 15:04:43 2003")
+        # the standard AVI date format (eg. "Mon Mar 10 15:04:43 2003")
         $val = sprintf("%.4d:%.2d:%.2d %s", $part[4],
                        $mon, $part[2], $part[3]);
     } elsif ($val =~ m{(\d{4})/\s*(\d+)/\s*(\d+)/?\s+(\d+):\s*(\d+)\s*(P?)}) {
         # but the Casio QV-3EX writes dates like "2001/ 1/27  1:42PM",
         # and the Casio EX-Z30 writes "2005/11/28/ 09:19"... doh!
         $val = sprintf("%.4d:%.2d:%.2d %.2d:%.2d:00",$1,$2,$3,$4+($6?12:0),$5);
+    } elsif ($val =~ m{(\d{4})[-/](\d+)[-/](\d+)\s+(\d+:\d+:\d+)}) {
+        # the Konica KD500Z writes "2002-12-16  15:35:01\0\0"
+        $val = "$1:$2:$3 $4";
     }
     return $val;
 }
@@ -1012,15 +1194,15 @@ sub ConvertTimecode($)
 # Notes: Sums duration of all sub-documents (concatenated AVI files)
 sub CalcDuration($@)
 {
-    my ($exifTool, @val) = @_;
+    my ($et, @val) = @_;
     my $totalDuration = 0;
     my $subDoc = 0;
     my @keyList;
     for (;;) {
         # this is annoying.  Apparently (although I couldn't verify this), FrameCount
-        # in the RIFF header includes multiple video tracks if they exist (ie. with the
+        # in the RIFF header includes multiple video tracks if they exist (eg. with the
         # FujiFilm REAL 3D AVI's), but the video stream information isn't reliable for
-        # some cameras (ie. Olympus FE models), so use the video stream information
+        # some cameras (eg. Olympus FE models), so use the video stream information
         # only if the RIFF header duration is 2 to 3 times longer
         my $dur1 = $val[1] / $val[0] if $val[0];
         if ($val[2] and $val[3]) {
@@ -1029,10 +1211,10 @@ sub CalcDuration($@)
             $dur1 = $dur2 if $rat > 1.9 and $rat < 3.1;
         }
         $totalDuration += $dur1 if defined $dur1;
-        last unless $subDoc++ < $$exifTool{DOC_COUNT};
+        last unless $subDoc++ < $$et{DOC_COUNT};
         # get tag values for next sub-document
         my @tags = qw(FrameRate FrameCount VideoFrameRate VideoFrameCount);
-        my $rawValue = $$exifTool{VALUE};
+        my $rawValue = $$et{VALUE};
         my ($i, $j, $key, $keys);
         for ($i=0; $i<@tags; ++$i) {
             if ($subDoc == 1) {
@@ -1050,7 +1232,7 @@ sub CalcDuration($@)
             # find key for tag in this sub-document
             my $grp = "Doc$subDoc";
             $grp .= ":RIFF" if $i < 2; # (tags 0 and 1 also in RIFF group)
-            $key = $exifTool->GroupMatches($grp, $keys);
+            $key = $et->GroupMatches($grp, $keys);
             $val[$i] = $key ? $$rawValue{$key} : undef;
         }
         last unless defined $val[0] and defined $val[1]; # (Require'd tags)
@@ -1064,18 +1246,18 @@ sub CalcDuration($@)
 # Returns: 1 on success
 sub ProcessStreamData($$$)
 {
-    my ($exifTool, $dirInfo, $tagTablePtr) = @_;
+    my ($et, $dirInfo, $tagTablePtr) = @_;
     my $dataPt = $$dirInfo{DataPt};
     my $start = $$dirInfo{DirStart};
     my $size = $$dirInfo{DirLen};
     return 0 if $size < 4;
-    if ($exifTool->Options('Verbose')) {
-        $exifTool->VerboseDir($$dirInfo{DirName}, 0, $size);
+    if ($et->Options('Verbose')) {
+        $et->VerboseDir($$dirInfo{DirName}, 0, $size);
     }
     my $tag = substr($$dataPt, $start, 4);
-    my $tagInfo = $exifTool->GetTagInfo($tagTablePtr, $tag);
+    my $tagInfo = $et->GetTagInfo($tagTablePtr, $tag);
     unless ($tagInfo) {
-        $tagInfo = $exifTool->GetTagInfo($tagTablePtr, 'unknown');
+        $tagInfo = $et->GetTagInfo($tagTablePtr, 'unknown');
         return 1 unless $tagInfo;
     }
     my $subdir = $$tagInfo{SubDirectory};
@@ -1095,14 +1277,14 @@ sub ProcessStreamData($$$)
         unless ($offset) {
             # allow processing of 2nd directory at the same address
             my $addr = $subdirInfo{DirStart} + $subdirInfo{DataPos} + $subdirInfo{Base};
-            delete $exifTool->{PROCESSED}->{$addr}
+            delete $$et{PROCESSED}{$addr}
         }
         # (we could set FIRST_EXIF_POS to $subdirInfo{Base} here to make
         #  htmlDump offsets relative to EXIF base if we wanted...)
         my $subTable = GetTagTable($$subdir{TagTable});
-        $exifTool->ProcessDirectory(\%subdirInfo, $subTable);
+        $et->ProcessDirectory(\%subdirInfo, $subTable);
     } else {
-        $exifTool->HandleTag($tagTablePtr, $tag, undef,
+        $et->HandleTag($tagTablePtr, $tag, undef,
             DataPt  => $dataPt,
             DataPos => $$dirInfo{DataPos},
             Start   => $start,
@@ -1114,28 +1296,47 @@ sub ProcessStreamData($$$)
 }
 
 #------------------------------------------------------------------------------
+# Make tag information hash for unknown tag
+# Inputs: 0) Tag table ref, 1) tag ID
+sub MakeTagInfo($$)
+{
+    my ($tagTablePtr, $tag) = @_;
+    my $name = $tag;
+    my $n = ($name =~ s/([\x00-\x1f\x7f-\xff])/'x'.unpack('H*',$1)/eg);
+    # print in hex if tag is numerical
+    $name = sprintf('0x%.4x',unpack('N',$tag)) if $n > 2;
+    AddTagToTable($tagTablePtr, $tag, {
+        Name => "Unknown_$name",
+        Description => "Unknown $name",
+        Unknown => 1,
+        Binary => 1,
+    });
+}
+
+#------------------------------------------------------------------------------
 # Process RIFF chunks
 # Inputs: 0) ExifTool object reference, 1) directory information reference
 #         2) tag table reference
 # Returns: 1 on success
 sub ProcessChunks($$$)
 {
-    my ($exifTool, $dirInfo, $tagTablePtr) = @_;
+    my ($et, $dirInfo, $tagTablePtr) = @_;
     my $dataPt = $$dirInfo{DataPt};
     my $start = $$dirInfo{DirStart};
     my $size = $$dirInfo{DirLen};
     my $end = $start + $size;
     my $base = $$dirInfo{Base};
+    my $verbose = $et->Options('Verbose');
+    my $unknown = $et->Options('Unknown');
 
-    if ($exifTool->Options('Verbose')) {
-        $exifTool->VerboseDir($$dirInfo{DirName}, 0, $size);
-    }
+    $et->VerboseDir($$dirInfo{DirName}, 0, $size) if $verbose;
+
     while ($start + 8 < $end) {
         my $tag = substr($$dataPt, $start, 4);
         my $len = Get32u($dataPt, $start + 4);
         $start += 8;
         if ($start + $len > $end) {
-            $exifTool->Warn("Bad $tag chunk");
+            $et->Warn("Bad $tag chunk");
             return 0;
         }
         if ($tag eq 'LIST' and $len >= 4) {
@@ -1143,7 +1344,7 @@ sub ProcessChunks($$$)
             $len -= 4;
             $start += 4;
         }
-        my $tagInfo = $exifTool->GetTagInfo($tagTablePtr, $tag);
+        my $tagInfo = $et->GetTagInfo($tagTablePtr, $tag);
         my $baseShift = 0;
         my $val;
         if ($tagInfo) {
@@ -1163,13 +1364,16 @@ sub ProcessChunks($$$)
                 $val = substr($$dataPt, $start, $len);
                 $val =~ s/\0+$//;   # remove trailing nulls from strings
             }
+        } elsif ($verbose or $unknown) {
+            MakeTagInfo($tagTablePtr, $tag);
         }
-        $exifTool->HandleTag($tagTablePtr, $tag, $val,
+        $et->HandleTag($tagTablePtr, $tag, $val,
             DataPt  => $dataPt,
             DataPos => $$dirInfo{DataPos} - $baseShift,
             Start   => $start,
             Size    => $len,
             Base    => $base + $baseShift,
+            Addr    => $base + $baseShift + $start,
         );
         ++$len if $len & 0x01;  # must account for padding if odd number of bytes
         $start += $len;
@@ -1183,10 +1387,11 @@ sub ProcessChunks($$$)
 # Returns: 1 on success, 0 if this wasn't a valid RIFF file
 sub ProcessRIFF($$)
 {
-    my ($exifTool, $dirInfo) = @_;
+    my ($et, $dirInfo) = @_;
     my $raf = $$dirInfo{RAF};
     my ($buff, $buf2, $type, $mime, $err);
-    my $verbose = $exifTool->Options('Verbose');
+    my $verbose = $et->Options('Verbose');
+    my $unknown = $et->Options('Unknown');
 
     # verify this is a valid RIFF file
     return 0 unless $raf->Read($buff, 12) == 12;
@@ -1200,8 +1405,8 @@ sub ProcessRIFF($$)
         return 0 unless $buff =~ /WAVE(.{4})?fmt /sg and $raf->Seek(pos($buff) - 4, 0);
     }
     $mime = $riffMimeType{$type} if $type;
-    $exifTool->SetFileType($type, $mime);
-    $$exifTool{RIFFStreamType} = '';    # initialize stream type
+    $et->SetFileType($type, $mime);
+    $$et{RIFFStreamType} = '';    # initialize stream type
     SetByteOrder('II');
     my $tagTablePtr = GetTagTable('Image::ExifTool::RIFF::Main');
     my $pos = 12;
@@ -1223,13 +1428,13 @@ sub ProcessRIFF($$)
             $tag .= "_$buff";
             $len -= 4;  # already read 4 bytes (the LIST type)
         }
-        $exifTool->VPrint(0, "RIFF '$tag' chunk ($len bytes of data):\n");
+        $et->VPrint(0, "RIFF '$tag' chunk ($len bytes of data):\n");
         if ($len <= 0) {
             if ($len < 0) {
-                $exifTool->Warn('Invalid chunk length');
+                $et->Warn('Invalid chunk length');
             } elsif ($tag eq "\0\0\0\0") {
                 # avoid reading through corupted files filled with nulls because it takes forever
-                $exifTool->Warn('Encountered empty null chunk. Processing aborted');
+                $et->Warn('Encountered empty null chunk. Processing aborted');
             } else {
                 next;
             }
@@ -1239,16 +1444,17 @@ sub ProcessRIFF($$)
         # --> no more because Adobe Bridge stores XMP after this!!
         # (so now we only do this on the FastScan option)
         if (($tag eq 'data' or $tag eq 'idx1' or $tag eq 'LIST_movi') and
-            $exifTool->Options('FastScan'))
+            $et->Options('FastScan'))
         {
-            $exifTool->VPrint(0, "(end of parsing)\n");
+            $et->VPrint(0, "(end of parsing)\n");
             last;
         }
         # RIFF chunks are padded to an even number of bytes
         my $len2 = $len + ($len & 0x01);
-        if ($$tagTablePtr{$tag} or ($verbose and $tag !~ /^(data|idx1|LIST_movi|RIFF)$/)) {
+        if ($$tagTablePtr{$tag} or (($verbose or $unknown) and $tag !~ /^(data|idx1|LIST_movi|RIFF)$/)) {
             $raf->Read($buff, $len2) == $len2 or $err=1, last;
-            $exifTool->HandleTag($tagTablePtr, $tag, $buff,
+            MakeTagInfo($tagTablePtr, $tag) if not $$tagTablePtr{$tag} and ($verbose or $unknown);
+            $et->HandleTag($tagTablePtr, $tag, $buff,
                 DataPt  => \$buff,
                 DataPos => 0,   # (relative to Base)
                 Start   => 0,
@@ -1256,17 +1462,17 @@ sub ProcessRIFF($$)
                 Base    => $pos,
             );
         } elsif ($tag eq 'RIFF') {
-            # don't read into RIFF chunk (ie. concatenated video file)
+            # don't read into RIFF chunk (eg. concatenated video file)
             $raf->Read($buff, 4) == 4 or $err=1, last;
             # extract information from remaining file as an embedded file
-            $$exifTool{DOC_NUM} = ++$$exifTool{DOC_COUNT}
+            $$et{DOC_NUM} = ++$$et{DOC_COUNT}
         } else {
             $raf->Seek($len2, 1) or $err=1, last;
         }
         $pos += $len2;
     }
-    delete $$exifTool{DOC_NUM};
-    $err and $exifTool->Warn('Error reading RIFF file (corrupted?)');
+    delete $$et{DOC_NUM};
+    $err and $et->Warn('Error reading RIFF file (corrupted?)');
     return 1;
 }
 
@@ -1286,11 +1492,11 @@ This module is used by Image::ExifTool
 
 This module contains routines required by Image::ExifTool to extract
 information from RIFF-based (Resource Interchange File Format) files,
-including Windows WAV audio and AVI video files.
+including AVI videos, WAV audio files and WEBP images.
 
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
@@ -1310,6 +1516,8 @@ under the same terms as Perl itself.
 =item L<http://msdn.microsoft.com/archive/en-us/directx9_c/directx/htm/avirifffilereference.asp>
 
 =item L<http://wiki.multimedia.cx/index.php?title=TwoCC>
+
+=item L<https://developers.google.com/speed/webp/docs/riff_container>
 
 =back
 

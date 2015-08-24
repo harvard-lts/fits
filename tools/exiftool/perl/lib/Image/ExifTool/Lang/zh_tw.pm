@@ -453,6 +453,14 @@ $VERSION = '1.06';
    'InteropIndex' => '互通性鑑定',
    'InteropOffset' => '互用標記',
    'InteropVersion' => '互通性版本',
+   'JPEGQuality' => {
+      Description => '影像品質',
+      PrintConv => {
+        'Extra Fine' => '超精細',
+        'Fine' => '精細',
+        'Standard' => '標準品質',
+      },
+    },
    'Keyword' => '關鍵字',
    'Keywords' => '關鍵字',
    'Lens' => '鏡頭',
@@ -628,7 +636,6 @@ $VERSION = '1.06';
         'Night View/Portrait' => '夜景/肖像',
         'Portrait' => '肖像',
         'Sports' => '運動場面',
-        'Standard' => '',
         'Sunset' => '夕陽',
         'Sweep Panorama' => '全景攝影',
       },
@@ -777,7 +784,7 @@ and values.
 
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.94
 [File, System, Image] FileName - File Name: QuickTime.m4a
 [File, System, Image] Directory - Directory: t/images
 [File, System, Image] FileSize - File Size: 5.1 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2006:09:23 16:45:18-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:19 15:31:35-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:17 09:18:25-05:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2013:11:05 10:27:28-05:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:29 20:10:39-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:25 10:57:00-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: M4A
+[File, File, Image] FileTypeExtension - File Type Extension: m4a
 [File, File, Image] MIMEType - MIME Type: audio/mp4
 [QuickTime, QuickTime, Video] 0 - Major Brand: Apple iTunes AAC-LC (.M4A) Audio
 [QuickTime, QuickTime, Video] 1 - Minor Version: 0.0.0
@@ -42,27 +43,31 @@
 [QuickTime, Track1, Video] 5 - Media Language Code: und
 [QuickTime, Track1, Video] 8 - Handler Type: Audio Track
 [QuickTime, Track1, Audio] 2 - Balance: 0
-[QuickTime, Track1, Audio] 2 - Audio Format: mp4a
-[QuickTime, Track1, Audio] 12 - Audio Channels: 2
-[QuickTime, Track1, Audio] 13 - Audio Bits Per Sample: 16
-[QuickTime, Track1, Audio] 16 - Audio Sample Rate: 44100
+[QuickTime, Track1, Audio] 4 - Audio Format: mp4a
+[QuickTime, Track1, Audio] 24 - Audio Channels: 2
+[QuickTime, Track1, Audio] 26 - Audio Bits Per Sample: 16
+[QuickTime, Track1, Audio] 32 - Audio Sample Rate: 44100
 [QuickTime, QuickTime, Video] 8 - Handler Type: Metadata
 [QuickTime, QuickTime, Video] 12 - Handler Vendor ID: Apple
 [QuickTime, QuickTime, Audio] ©nam - Title: Sample
 [QuickTime, QuickTime, Audio] cpil - Compilation: No
 [QuickTime, QuickTime, Audio] tmpo - Beats Per Minute: 120
 [QuickTime, QuickTime, Audio] ©too - Encoder: iTunes v4.9, QuickTime 7.0.1
+[QuickTime, QuickTime, Audio] iTunNORM - Volume Normalization: 80 0 610 0 289C 0 0 0 0 0
 [QuickTime, QuickTime, Audio] ©lyr - Lyrics: these are lyrics
 [QuickTime, QuickTime, Audio] ©ART - Artist: Phil Harvey
-[QuickTime, QuickTime, Audio] aART - Album Artist: album artist
+[QuickTime, QuickTime, Author] aART - Album Artist: album artist
 [QuickTime, QuickTime, Audio] ©wrt - Composer: Composer
 [QuickTime, QuickTime, Audio] ©alb - Album: album
 [QuickTime, QuickTime, Audio] ©grp - Grouping: grouping
 [QuickTime, QuickTime, Audio] ©gen - Genre: Childrenâ€™s Music
 [QuickTime, QuickTime, Audio] trkn - Track Number: 1 of 2
 [QuickTime, QuickTime, Audio] disk - Disk Number: 1 of 3
-[QuickTime, QuickTime, Time] ©day - Year: 2006
+[QuickTime, QuickTime, Time] ©day - Content Create Date: 2006
 [QuickTime, QuickTime, Audio] ©cmt - Comment: comments
 [QuickTime, QuickTime, Audio] pgap - Play Gap: No Gap
-[QuickTime, QuickTime, Audio] covr - Cover Art: (Binary data 19 bytes)
-[QuickTime, QuickTime, Audio] covr - Cover Art: (Binary data 19 bytes)
+[QuickTime, QuickTime, Preview] covr - Cover Art: (Binary data 19 bytes)
+[QuickTime, QuickTime, Preview] covr - Cover Art: (Binary data 19 bytes)
+[QuickTime, QuickTime, Video] mdat-size - Movie Data Size: 0
+[QuickTime, QuickTime, Video] mdat-offset - Movie Data Offset: 5237
+[Composite, Composite, Video] AvgBitrate - Avg Bitrate: 0 bps

@@ -1348,6 +1348,14 @@ $VERSION = '1.06';
    'InteropIndex' => '상호운용성 증명',
    'InteropOffset' => '상호 운용성 태그',
    'InteropVersion' => '상호 운용성 버전',
+   'JPEGQuality' => {
+      Description => '화질',
+      PrintConv => {
+        'Extra Fine' => '엑스트라 파인',
+        'Fine' => '파인',
+        'Standard' => '표준화질',
+      },
+    },
    'Keyword' => '키워드',
    'Keywords' => '키워드',
    'LCDIllumination' => {
@@ -1931,7 +1939,6 @@ $VERSION = '1.06';
         'Off' => '꺼짐',
         'Portrait' => '인물',
         'Sports' => '스포츠 액션',
-        'Standard' => '',
         'Sunset' => '석양촬영',
         'Sweep Panorama' => '스위프 파노라마',
       },
@@ -2107,7 +2114,6 @@ $VERSION = '1.06';
         'White Balance' => '화이트 밸런스',
       },
     },
-   'Timezone' => '표준 시간대',
    'Title' => '제목',
    'ToneComp' => '계조 보정',
    'ToneCurve' => {
@@ -2307,7 +2313,7 @@ and values.
 
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

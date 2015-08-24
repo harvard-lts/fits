@@ -53,13 +53,15 @@ must be <a href="#Orient">user-defined</a>.</i></blockquote>
 <li>Garmin XML and TCX</li>
 <li>Magellan eXplorist PMGNTRK</li>
 <li>Honeywell PTNTHPR (see <a href="#Orient">Orientation</a>)</li>
+<li>Bramor gEO log</li>
 <li>Winplus Beacon .TXT</li>
 </ul>
 
 <a name="Implementation"></a>
 <h3>Implementation</h3>
 
-<p>Geotagging is accomplished in ExifTool through the use of three special tags:
+<p>Geotagging is accomplished in ExifTool through the use of three special
+<a href="TagNames/Extra.html">Extra tags</a>:
 <code>Geotag</code>, <code>Geosync</code> and <code>Geotime</code>.</p>
 
 <blockquote class=lt><i>Note: When writing these tags, order is important. If
@@ -69,9 +71,9 @@ and <code>Geosync</code>.</i></blockquote>
 <a name="geotag"></a>
 <h4>Geotag</h4>
 
-<p>The <code>Geotag</code> tag is used to define the GPS track log data. Setting
-the value of this tag via the exiftool application activates the geotagging
-feature.  As an example, the following command line adds GPS tags to all images
+<p>The <code>Geotag</code> tag is used to define the GPS track log data. The
+geotagging feature is activated by assigning the name of a track log file to
+this tag.  As an example, the following command line adds GPS tags to all images
 in the "/Users/Phil/Pictures" directory based on GPS positions stored in the
 track log file "track.log" in the current directory:</p>
 
@@ -86,13 +88,16 @@ above:</p>
 </pre>
 
 <p>Multiple GPS log files may be loaded simultaneously by using more than one
-<code>-geotag</code> option (or by using wildcards in the filename argument
-for the <code>-geotag</code> option,  but note that here the filename may need
-to be quoted -- see the <a href="#Examples">examples</a> below).  This allows
-batch processing of images spanning different tracks with a single command.</p>
+<code>-geotag</code> option or <code>-geotag=</code> assignment in the same
+command.  This allows batch processing of images spanning different tracks with
+a single command.  Wildcards may be used in the argument of the
+<code>-geotag</code> option, but note that the argument may then need to be
+quoted on some systems to prevent shell globbing, and that wildcards are not
+supported with the <code>-geotag=</code> syntax.  See the
+<a href="#Examples">examples</a> below.</p>
 
-<p>Deleting the <code>Geotag</code> tag causes the associated GPS tags to be
-deleted from an image.</p>
+<p>Deleting the <code>Geotag</code> tag (with <code>-geotag=</code>) causes the
+GPS tags written by the <code>-geotag</code> feature to be deleted.</p>
 
 <blockquote class=lt><i>Programmers:  You may write either a GPS log file name
 or the GPS log data as the value for <code>Geotag</code>.  If the value contains
@@ -111,7 +116,7 @@ position in the track log.  This time difference may be of the form "SS",
 "MM:SS", "HH:MM:SS" or "DD HH:MM:SS" (where SS=seconds, MM=minutes, HH=hours and
 DD=days), and a leading "+" or "-" may be added for positive or negative
 differences (negative if the camera clock was ahead of GPS time).  Fractional
-seconds are allowed (ie. "SS.ss").</p>
+seconds are allowed (eg. "SS.ss").</p>
 
 <p>For example, "<code>-geosync=-1:20</code>" specifies that synchronization
 with GPS time is achieved by subtracting 1 minute and 20 seconds from the
@@ -141,12 +146,12 @@ more than one synchronization point is provided.  For this, the value written to
 <tr><th>Format</th><th>Notes</th></tr>
 <tr><td><i>FILE</i></td>
 <td>Both GPS and image timestamps are extracted from the
-specified file. ie) <code>-geosync=image.jpg</code></td></tr>
+specified file. eg) <code>-geosync=image.jpg</code></td></tr>
 <tr><td><i>GPSTIME</i>@<i>FILE</i></td><td>GPS time is taken from the
 <code>Geosync</code> value and the image timestamp is extracted from the
-specified file. ie) <code>-geosync="12:58:05@image.jpg"</code></td></tr>
+specified file. eg) <code>-geosync="12:58:05@image.jpg"</code></td></tr>
 <tr><td><i>GPSTIME</i>@<i>IMGTIME</i></td><td>Both GPS and image timestamps are
-taken from the <code>Geosync</code> value.  ie)
+taken from the <code>Geosync</code> value.  eg)
 <code>-geosync="12:58:05@2010:01:02 12:25:26"</code></td></tr>
 </table></blockquote>
 
@@ -188,9 +193,9 @@ groups.  If a value for <code>Geotime</code> is not given, it is taken from
 may be copied from any other date/time tag or set directly from a date/time
 string.</p>
 
-<p>If the date/time tag does not include a timezone then one may be added (ie.
+<p>If the date/time tag does not include a timezone then one may be added (eg.
 <code>"-Geotime&lt;${CreateDate}-05:00"</code>), otherwise the local system time
-is assumed.</p>
+is assumed.  Decimal seconds are supported in the time value.</p>
 
 <p>By default, GPS tags are created in EXIF and the corresponding
 XMP tags are updated only if they already exist.  However, an EXIF or XMP group
@@ -293,10 +298,11 @@ time synchronization from three already-geotagged images:</p>
 <h3>Options</h3>
 
 <p>Geotagging may be configured via the following ExifTool options.  These
-options have no command-line equivalents, but may be set using either the
-Options() function of the API or the %Image::ExifTool::UserDefined::Options hash
-of the config file.  (See the <a href="config.html">sample config file</a>
-for details about how to use the config file.)</p>
+options may be set using either the <code>-api</code> option of the command-line
+application, the Options() function of the API, or the
+%Image::ExifTool::UserDefined::Options hash of the config file.  (See the
+<a href="config.html">sample config file</a> for details about how to use the
+config file.)</p>
 
 <blockquote>
 <table class='norm'>
@@ -509,6 +515,8 @@ one or more geotagged images:</p>
 #
 # Usage:        exiftool -p gpx.fmt -d %Y-%m-%dT%H:%M:%SZ FILE [...] > out.gpx
 #
+# Requires:     ExifTool version 8.10 or later
+#
 # Revisions:    2010/02/05 - P. Harvey created
 #
 # Notes:     1) All input files must contain GPSLatitude and GPSLongitude.
@@ -568,8 +576,9 @@ sub-directories:</p>
 <p>Note:  In Windows, double quotes (<code>"</code>) must be used instead of
 single quotes (<code>'</code>) around the <code>-if</code> argument above.</p>
 
-<p>The full exiftool distribution contains this sample format file ("gpx.fmt")
-as well as a sample which creates GPX waypoints with pictures ("gpx_wpt.fmt").</p>
+<p>The "fmt_files" directory of the full exiftool distribution contains this
+sample format file ("gpx.fmt") as well as a sample which creates GPX waypoints
+with pictures ("gpx_wpt.fmt").</p>
 
 <a name="KML"></a>
 <h4>Creating a Google Earth KML file</h4>
@@ -585,10 +594,19 @@ file from a collection of geotagged images:</p>
 #
 # Usage:        exiftool -p kml.fmt FILE [...] > out.kml
 #
+# Requires:     ExifTool version 8.10 or later
+#
 # Revisions:    2010/02/05 - P. Harvey created
+#               2013/02/05 - PH Fixed camera icon to work with new Google Earth
 #
 # Notes:     1) All input files must contain GPSLatitude and GPSLongitude.
-#            2) The -fileOrder option may be used to control the order of the
+#            2) For Google Earth to be able to find the images, the input
+#               images must be specified using relative paths, and "out.kml"
+#               must stay in the same directory as where the command was run.
+#            3) Google Earth is picky about the case of the image file extension,
+#               and may not be able to display the image if an upper-case
+#               extension is used.
+#            4) The -fileOrder option may be used to control the order of the
 #               generated placemarks.
 #------------------------------------------------------------------------------
 #[HEAD]&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -597,27 +615,10 @@ file from a collection of geotagged images:</p>
 #[HEAD]    &lt;name&gt;My Photos&lt;/name&gt;
 #[HEAD]    &lt;open&gt;1&lt;/open&gt;
 #[HEAD]    &lt;Style id="Photo"&gt;
-#[HEAD]      &lt;geomScale&gt;.75&lt;/geomScale&gt;
 #[HEAD]      &lt;IconStyle&gt;
-#[HEAD]        &lt;color&gt;ffffffff&lt;/color&gt;
 #[HEAD]        &lt;Icon&gt;
-#[HEAD]          &lt;href&gt;root://icons/palette-4.png&lt;/href&gt;
-#[HEAD]          &lt;x&gt;192&lt;/x&gt;
-#[HEAD]          &lt;y&gt;96&lt;/y&gt;
-#[HEAD]          &lt;w&gt;32&lt;/w&gt;
-#[HEAD]          &lt;h&gt;32&lt;/h&gt;
-#[HEAD]        &lt;/Icon&gt;
-#[HEAD]      &lt;/IconStyle&gt;
-#[HEAD]    &lt;/Style&gt;
-#[HEAD]    &lt;Style id="View"&gt;
-#[HEAD]      &lt;IconStyle&gt;
-#[HEAD]        &lt;color&gt;ffffffff&lt;/color&gt;
-#[HEAD]        &lt;Icon&gt;
-#[HEAD]          &lt;href&gt;root://icons/palette-3.png&lt;/href&gt;
-#[HEAD]          &lt;x&gt;160&lt;/x&gt;
-#[HEAD]          &lt;y&gt;128&lt;/y&gt;
-#[HEAD]          &lt;w&gt;32&lt;/w&gt;
-#[HEAD]          &lt;h&gt;32&lt;/h&gt;
+#[HEAD]          &lt;href&gt;http://maps.google.com/mapfiles/kml/pal4/icon38.png&lt;/href&gt;
+#[HEAD]          &lt;scale&gt;1.0&lt;/scale&gt;
 #[HEAD]        &lt;/Icon&gt;
 #[HEAD]      &lt;/IconStyle&gt;
 #[HEAD]    &lt;/Style&gt;
@@ -642,11 +643,12 @@ file from a collection of geotagged images:</p>
 #[TAIL]&lt;/kml&gt;
 </pre>
 
-<p>This example print format file is included in the full ExifTool distribution.</p>
+<p>This example print format file is included in the "fmt_files" directory of
+the full ExifTool distribution.</p>
 
 <hr>
 <i>Created Apr. 2, 2009</i><br>
-<i>Last revised Nov. 4, 2012</i>
+<i>Last revised Mar. 5, 2015</i>
 <p class='lf'><a href="index.html">&lt;-- Back to ExifTool home page</a></p>
 </body>
 </html>

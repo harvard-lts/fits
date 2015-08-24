@@ -6,10 +6,19 @@
 #
 # Usage:        exiftool -p kml.fmt FILE [...] > out.kml
 #
+# Requires:     ExifTool version 8.10 or later
+#
 # Revisions:    2010/02/05 - P. Harvey created
+#               2013/02/05 - PH Fixed camera icon to work with new Google Earth
 #
 # Notes:     1) All input files must contain GPSLatitude and GPSLongitude.
-#            2) The -fileOrder option may be used to control the order of the
+#            2) For Google Earth to be able to find the images, the input
+#               images must be specified using relative paths, and "out.kml"
+#               must stay in the same directory as where the command was run.
+#            3) Google Earth is picky about the case of the image file extension,
+#               and may not be able to display the image if an upper-case
+#               extension is used.
+#            4) The -fileOrder option may be used to control the order of the
 #               generated placemarks.
 #------------------------------------------------------------------------------
 #[HEAD]<?xml version="1.0" encoding="UTF-8"?>
@@ -18,27 +27,10 @@
 #[HEAD]    <name>My Photos</name>
 #[HEAD]    <open>1</open>
 #[HEAD]    <Style id="Photo">
-#[HEAD]      <geomScale>.75</geomScale>
 #[HEAD]      <IconStyle>
-#[HEAD]        <color>ffffffff</color>
 #[HEAD]        <Icon>
-#[HEAD]          <href>root://icons/palette-4.png</href>
-#[HEAD]          <x>192</x>
-#[HEAD]          <y>96</y>
-#[HEAD]          <w>32</w>
-#[HEAD]          <h>32</h>
-#[HEAD]        </Icon>
-#[HEAD]      </IconStyle>
-#[HEAD]    </Style>
-#[HEAD]    <Style id="View">
-#[HEAD]      <IconStyle>
-#[HEAD]        <color>ffffffff</color>
-#[HEAD]        <Icon>
-#[HEAD]          <href>root://icons/palette-3.png</href>
-#[HEAD]          <x>160</x>
-#[HEAD]          <y>128</y>
-#[HEAD]          <w>32</w>
-#[HEAD]          <h>32</h>
+#[HEAD]          <href>http://maps.google.com/mapfiles/kml/pal4/icon38.png</href>
+#[HEAD]          <scale>1.0</scale>
 #[HEAD]        </Icon>
 #[HEAD]      </IconStyle>
 #[HEAD]    </Style>

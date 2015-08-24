@@ -13,6 +13,7 @@
 #               6) http://www.optimasc.com/products/fileid/xmp-extensions.pdf
 #               9) http://www.w3.org/TR/SVG11/
 #               11) http://www.extensis.com/en/support/kb_article.jsp?articleNumber=6102211
+#               12) XMPSpecificationPart3_May2013, page 58
 #------------------------------------------------------------------------------
 
 package Image::ExifTool::XMP;
@@ -21,7 +22,7 @@ use strict;
 use Image::ExifTool qw(:Utils);
 use Image::ExifTool::XMP;
 
-# structure definitions
+# xmpDM structure definitions
 my %sCuePointParam = (
     STRUCT_NAME => 'CuePointParam',
     NAMESPACE   => 'xmpDM',
@@ -139,6 +140,7 @@ my %sTimecode = (
     copyright       => { Avoid => 1, Groups => { 2 => 'Author' } }, # (deprecated)
     director        => { },
     directorPhotography => { },
+    discNumber      => { }, #12
     duration        => { Struct => \%sTime },
     engineer        => { },
     fileDataRate    => { Writable => 'rational' },
@@ -156,10 +158,12 @@ my %sTimecode = (
     },
     logComment      => { },
     loop            => { Writable => 'boolean' },
+    lyrics          => { }, #12
     numberOfBeats   => { Writable => 'real' },
     markers         => { Struct => \%sMarker, List => 'Seq' },
     metadataModDate => { Groups => { 2 => 'Time' }, %dateTimeInfo },
     outCue          => { Struct => \%sTime },
+    partOfCompilation=>{ Writable => 'boolean' }, #12
     projectName     => { },
     projectRef => {
         Struct => {
@@ -213,6 +217,8 @@ my %sTimecode = (
     shotSize        => { },
     speakerPlacement=> { },
     startTimecode   => { Struct => \%sTimecode },
+    startTimeSampleSize => { Writable => 'integer' }, #PH
+    startTimeScale  => { }, #PH (real?)
     stretchMode     => {
         PrintConv => {
             'Fixed length' => 'Fixed length',
@@ -278,7 +284,7 @@ my %sTimecode = (
             Progressive => 'Progressive',
         },
     },
-    videoFrameRate      => { },
+    videoFrameRate      => { Writable => 'real' },
     videoFrameSize      => { Struct => \%sDimensions },
     videoModDate        => { Groups => { 2 => 'Time' }, %dateTimeInfo },
     videoPixelAspectRatio => { Writable => 'rational' },
@@ -295,33 +301,38 @@ my %sTimecode = (
 );
 
 #------------------------------------------------------------------------------
+# PLUS (Picture Licensing Universal System)
+
 # PLUS vocabulary conversions
 my %plusVocab = (
     ValueConv => '$val =~ s{http://ns.useplus.org/ldf/vocab/}{}; $val',
     ValueConvInv => '"http://ns.useplus.org/ldf/vocab/$val"',
 );
 
-# PLUS License Data Format 1.2.0 structures
+# PLUS License Data Format 1.2.1 structures
 # (this seems crazy to me -- why did they define different ID/Name structures
 #  for each field rather than just re-using the same structure?)
 my %plusLicensee = (
     STRUCT_NAME => 'Licensee',
     NAMESPACE => 'plus',
-    TYPE => 'plus:LicenseeDetail',
+    # all "rdf:type" properties removed in version 1.2.1
+    # (idiots.  Why did they put them there in the first place? -- it required
+    # a special patch for ExifTool to support these, and now they are gone!)
+  # TYPE => 'plus:LicenseeDetail', (removed in 1.2.1)
     LicenseeID  => { },
     LicenseeName=> { },
 );
 my %plusEndUser = (
     STRUCT_NAME => 'EndUser',
     NAMESPACE   => 'plus',
-    TYPE => 'plus:EndUserDetail',
+  # TYPE => 'plus:EndUserDetail', (removed in 1.2.1)
     EndUserID   => { },
     EndUserName => { },
 );
 my %plusLicensor = (
     STRUCT_NAME => 'Licensor',
     NAMESPACE   => 'plus',
-    TYPE => 'plus:LicensorDetail',
+  # TYPE => 'plus:LicensorDetail', (removed in 1.2.1)
     LicensorID              => { },
     LicensorName            => { },
     LicensorStreetAddress   => { },
@@ -358,21 +369,21 @@ my %plusLicensor = (
 my %plusCopyrightOwner = (
     STRUCT_NAME => 'CopyrightOwner',
     NAMESPACE   => 'plus',
-    TYPE        => 'plus:CopyrightOwnerDetail',
+  # TYPE        => 'plus:CopyrightOwnerDetail', (removed in 1.2.1)
     CopyrightOwnerID    => { },
     CopyrightOwnerName  => { },
 );
 my %plusImageCreator = (
     STRUCT_NAME => 'ImageCreator',
     NAMESPACE   => 'plus',
-    TYPE        => 'plus:ImageCreatorDetail',
+  # TYPE        => 'plus:ImageCreatorDetail', (removed in 1.2.1)
     ImageCreatorID      => { },
     ImageCreatorName    => { },
 );
 my %plusImageSupplier = (
     STRUCT_NAME => 'ImageSupplier',
     NAMESPACE   => 'plus',
-    TYPE        => 'plus:ImageSupplierDetail',
+  # TYPE        => 'plus:ImageSupplierDetail', (removed in 1.2.1)
     ImageSupplierID     => { },
     ImageSupplierName   => { },
 );
@@ -383,7 +394,7 @@ my %plusImageSupplier = (
     GROUPS => { 0 => 'XMP', 1 => 'XMP-plus', 2 => 'Author' },
     NAMESPACE => 'plus',
     NOTES => q{
-        PLUS License Data Format 1.2.0 namespace tags.  Note that all
+        PLUS License Data Format 1.2.1 namespace tags.  Note that all
         controlled-vocabulary tags in this table (ie. tags with a fixed set of
         values) have raw values which begin with "http://ns.useplus.org/ldf/vocab/",
         but to reduce clutter this prefix has been removed from the values shown
@@ -391,35 +402,20 @@ my %plusImageSupplier = (
     },
     Version  => { Name => 'PLUSVersion' },
     Licensee => {
+        FlatName => '',
         Struct => \%plusLicensee,
         List => 'Seq',
     },
-    LicenseeLicenseeID   => { Flat => 1, Name => 'LicenseeID' },
-    LicenseeLicenseeName => { Flat => 1, Name => 'LicenseeName' },
     EndUser => {
+        FlatName => '',
         Struct => \%plusEndUser,
         List => 'Seq',
     },
-    EndUserEndUserID    => { Flat => 1, Name => 'EndUserID' },
-    EndUserEndUserName  => { Flat => 1, Name => 'EndUserName' },
     Licensor => {
+        FlatName => '',
         Struct => \%plusLicensor,
         List => 'Seq',
     },
-    LicensorLicensorID              => { Flat => 1, Name => 'LicensorID' },
-    LicensorLicensorName            => { Flat => 1, Name => 'LicensorName' },
-    LicensorLicensorStreetAddress   => { Flat => 1, Name => 'LicensorStreetAddress' },
-    LicensorLicensorExtendedAddress => { Flat => 1, Name => 'LicensorExtendedAddress' },
-    LicensorLicensorCity            => { Flat => 1, Name => 'LicensorCity' },
-    LicensorLicensorRegion          => { Flat => 1, Name => 'LicensorRegion' },
-    LicensorLicensorPostalCode      => { Flat => 1, Name => 'LicensorPostalCode' },
-    LicensorLicensorCountry         => { Flat => 1, Name => 'LicensorCountry' },
-    LicensorLicensorTelephoneType1  => { Flat => 1, Name => 'LicensorTelephoneType1' },
-    LicensorLicensorTelephone1      => { Flat => 1, Name => 'LicensorTelephone1' },
-    LicensorLicensorTelephoneType2  => { Flat => 1, Name => 'LicensorTelephoneType2' },
-    LicensorLicensorTelephone2      => { Flat => 1, Name => 'LicensorTelephone2' },
-    LicensorLicensorEmail           => { Flat => 1, Name => 'LicensorEmail' },
-    LicensorLicensorURL             => { Flat => 1, Name => 'LicensorURL' },
     LicensorNotes               => { Writable => 'lang-alt' },
     MediaSummaryCode            => { },
     LicenseStartDate            => { %dateTimeInfo, Groups => { 2 => 'Time'} },
@@ -566,23 +562,23 @@ my %plusImageSupplier = (
     },
     CopyrightRegistrationNumber => { },
     FirstPublicationDate        => { %dateTimeInfo, Groups => { 2 => 'Time'} },
-    CopyrightOwner              => { Struct => \%plusCopyrightOwner, List => 'Seq' },
-    CopyrightOwnerCopyrightOwnerID   => { Flat => 1, Name => 'CopyrightOwnerID' },
-    CopyrightOwnerCopyrightOwnerName => { Flat => 1, Name => 'CopyrightOwnerName' },
-    CopyrightOwnerImageID            => { },
+    CopyrightOwner => {
+        FlatName => '',
+        Struct => \%plusCopyrightOwner,
+        List => 'Seq',
+    },
+    CopyrightOwnerImageID   => { },
     ImageCreator => {
+        FlatName => '',
         Struct => \%plusImageCreator,
         List => 'Seq',
     },
-    ImageCreatorImageCreatorID   => { Flat => 1, Name => 'ImageCreatorID' },
-    ImageCreatorImageCreatorName => { Flat => 1, Name => 'ImageCreatorName' },
-    ImageCreatorImageID          => { },
+    ImageCreatorImageID     => { },
     ImageSupplier => {
+        FlatName => '',
         Struct => \%plusImageSupplier,
         List => 'Seq',
     },
-    ImageSupplierImageSupplierID   => { Flat => 1, Name => 'ImageSupplierID' },
-    ImageSupplierImageSupplierName => { Flat => 1, Name => 'ImageSupplierName' },
     ImageSupplierImageID    => { },
     LicenseeImageID         => { },
     LicenseeImageNotes      => { Writable => 'lang-alt' },
@@ -631,52 +627,137 @@ my %plusImageSupplier = (
 #     }
 # );
 
-# Publishing Requirements for Industry Standard Metadata 2.1 (prism) (ref 2)
+# PRISM structure definitions
+my %prismPublicationDate = (
+    STRUCT_NAME => 'prismPublicationDate',
+    NAMESPACE   => 'prism',
+    date        => { %dateTimeInfo, Groups => { 2 => 'Time'} },
+    'a-platform'=> { },
+);
+
+# Publishing Requirements for Industry Standard Metadata (prism) (ref 2)
 %Image::ExifTool::XMP::prism = (
     %xmpTableDefaults,
     GROUPS => { 0 => 'XMP', 1 => 'XMP-prism', 2 => 'Document' },
     NAMESPACE => 'prism',
     NOTES => q{
-        Publishing Requirements for Industry Standard Metadata 2.1 namespace
+        Publishing Requirements for Industry Standard Metadata 3.0 namespace
         tags.  (see L<http://www.prismstandard.org/>)
     },
+    acedemicField   => { }, # (3.0)
+    aggregateIssueNumber => { Writable => 'integer' }, # (3.0)
     aggregationType => { List => 'Bag' },
-    alternateTitle  => { List => 'Bag' },
+    alternateTitle  => {
+        List => 'Bag',
+        Struct => { # (becomes a structure in 3.0)
+            STRUCT_NAME => 'prismAlternateTitle',
+            NAMESPACE   => 'prism',
+            text        => { },
+            'a-platform'=> { },
+            'a-lang'    => { },
+        },
+    },
+    blogTitle       => { }, # (3.0)
+    blogURL         => { }, # (3.0)
+    bookEdition     => { }, # (3.0)
     byteCount       => { Writable => 'integer' },
-    channel         => { List => 'Bag' },
+    channel         => {
+        List => 'Bag',
+        Struct => { # (becomes a structure in 3.0)
+            STRUCT_NAME => 'prismChannel',
+            NAMESPACE   => 'prism',
+            channel     => { },
+            subchannel1 => { },
+            subchannel2 => { },
+            subchannel3 => { },
+            subchannel4 => { },
+            'a-lang'    => { },
+        },
+    },
     complianceProfile=>{ PrintConv => { three => 'Three' } },
-    copyright       => { Groups => { 2 => 'Author' } },
+    contentType     => { }, # (3.0)
+    copyrightYear   => { }, # (3.0)
+    # copyright       => { Groups => { 2 => 'Author' } }, # (deprecated in 3.0)
     corporateEntity => { List => 'Bag' },
     coverDate       => { %dateTimeInfo, Groups => { 2 => 'Time'} },
     coverDisplayDate=> { },
     creationDate    => { %dateTimeInfo, Groups => { 2 => 'Time'} },
     dateRecieved    => { %dateTimeInfo, Groups => { 2 => 'Time'} },
+    device          => { }, # (3.0)
     distributor     => { },
     doi             => { Name => 'DOI', Description => 'Digital Object Identifier' },
     edition         => { },
     eIssn           => { },
-    embargoDate     => { List => 'Bag', %dateTimeInfo, Groups => { 2 => 'Time'} },
+    #embargoDate     => { List => 'Bag', %dateTimeInfo, Groups => { 2 => 'Time'} }, # (deprecated in 3.0)
     endingPage      => { },
     event           => { List => 'Bag' },
-    expirationDate  => { List => 'Bag', %dateTimeInfo, Groups => { 2 => 'Time'} },
+    #expirationDate  => { List => 'Bag', %dateTimeInfo, Groups => { 2 => 'Time'} }, # (deprecated in 3.0)
     genre           => { List => 'Bag' },
     hasAlternative  => { List => 'Bag' },
-    hasCorrection   => { },
-    hasPreviousVersion => { },
+    hasCorrection   => {
+        Struct => { # (becomes a structure in 3.0)
+            STRUCT_NAME => 'prismHasCorrection',
+            NAMESPACE   => 'prism',
+            text        => { },
+            'a-platform'=> { },
+            'a-lang'    => { },
+        },
+    },
+    # hasPreviousVersion => { }, # (not in 3.0)
     hasTranslation  => { List => 'Bag' },
     industry        => { List => 'Bag' },
+    isAlternativeOf => { List => 'Bag' }, # (3.0)
+    isbn            => { Name => 'ISBN', List => 'Bag' }, # 2.1 (becomes a list in 3.0)
     isCorrectionOf  => { List => 'Bag' },
     issn            => { Name => 'ISSN' },
     issueIdentifier => { },
     issueName       => { },
+    issueTeaser     => { }, # (3.0)
+    issueType       => { }, # (3.0)
     isTranslationOf => { },
     keyword         => { List => 'Bag' },
-    killDate        => { %dateTimeInfo, Groups => { 2 => 'Time'} },
+    killDate        => {
+        Struct => { # (becomes a structure in 3.0)
+            STRUCT_NAME => 'prismKillDate',
+            NAMESPACE   => 'prism',
+            date        => { %dateTimeInfo, Groups => { 2 => 'Time'} },
+            'a-platform'=> { }, #PH (missed in spec?)
+        },
+    },
+   'link'           => { List => 'Bag' }, # (3.0)
     location        => { List => 'Bag' },
     # metadataContainer => { }, (not valid for PRISM XMP)
     modificationDate=> { %dateTimeInfo, Groups => { 2 => 'Time'} },
+    nationalCatalogNumber => { }, # (3.0)
     number          => { },
     object          => { List => 'Bag' },
+    onSaleDate => { # (3.0)
+        List => 'Bag',
+        Struct => {
+            STRUCT_NAME => 'prismOnSaleDate',
+            NAMESPACE   => 'prism',
+            date        => { %dateTimeInfo, Groups => { 2 => 'Time'} },
+            'a-platform'=> { },
+        },
+    },
+    onSaleDay => { # (3.0)
+        List => 'Bag',
+        Struct => {
+            STRUCT_NAME => 'prismOnSaleDay',
+            NAMESPACE   => 'prism',
+            day         => { }, #PH (not named in spec)
+            'a-platform'=> { },
+        },
+    },
+    offSaleDate => { # (3.0)
+        List => 'Bag',
+        Struct => {
+            STRUCT_NAME => 'prismOffSaleDate',
+            NAMESPACE   => 'prism',
+            date        => { %dateTimeInfo, Groups => { 2 => 'Time'} },
+            'a-platform'=> { },
+        },
+    },
     organization    => { List => 'Bag' },
     originPlatform  => {
         List => 'Bag',
@@ -690,26 +771,59 @@ my %plusImageSupplier = (
             other       => 'Other',
         },
     },
+    pageCount       => { Writable => 'integer' }, # (3.0)
+    pageProgressionDirection => { # (3.0)
+        PrintConv => { LTR => 'Left to Right', RTL => 'Right to Left' },
+    },
     pageRange       => { List => 'Bag' },
     person          => { },
-    publicationDate => { List => 'Bag', %dateTimeInfo, Groups => { 2 => 'Time'} },
+    platform        => { }, # (3.0)
+    productCode     => { }, # (3.0)
+    profession      => { }, # (3.0)
+    publicationDate => {
+        List => 'Bag',
+        Struct => \%prismPublicationDate, # (becomes a structure in 3.0)
+    },
+    publicationDisplayDate => { # (3.0)
+        List => 'Bag',
+        Struct => \%prismPublicationDate,
+    },
     publicationName => { },
-    rightsAgent     => { },
+    publishingFrequency => { }, # (3.0)
+    rating          => { },
+    # rightsAgent     => { }, # (deprecated in 3.0)
+    samplePageRange => { }, # (3.0)
     section         => { },
+    sellingAgency   => { }, # (3.0)
+    seriesNumber    => { Writable => 'integer' }, # (3.0)
+    seriesTitle     => { }, # (3.0)
+    sport           => { }, # (3.0)
     startingPage    => { },
     subsection1     => { },
     subsection2     => { },
     subsection3     => { },
     subsection4     => { },
+    subtitle        => { }, # (3.0)
+    supplementDisplayID => { }, # (3.0)
+    supplementStartingPage => { }, # (3.0)
+    supplementTitle => { }, # (3.0)
     teaser          => { List => 'Bag' },
     ticker          => { List => 'Bag' },
     timePeriod      => { },
-    url             => { Name => 'URL', List => 'Bag' },
+    url             => {
+        Name => 'URL',
+        List => 'Bag',
+        Struct => { # (becomes a structure in 3.0)
+            STRUCT_NAME => 'prismUrl',
+            NAMESPACE   => 'prism',
+            url         => { },
+            'a-platform'=> { },
+        },
+    },
+    uspsNumber      => { }, # (3.0)
     versionIdentifier => { },
     volume          => { },
     wordCount       => { Writable => 'integer' },
-    # new in PRISM 2.1
-    isbn            => { Name => 'ISBN' },
 # tags that existed in version 1.3
 #    category        => { %obsolete, List => 'Bag' },
 #    hasFormat       => { %obsolete, List => 'Bag' },
@@ -738,13 +852,14 @@ my %plusImageSupplier = (
 #    releaseTime
 );
 
-# PRISM Rights Language 2.1 namespace (prl) (ref 2)
+# PRISM Rights Language namespace (prl) (ref 2)
 %Image::ExifTool::XMP::prl = (
     %xmpTableDefaults,
     GROUPS => { 0 => 'XMP', 1 => 'XMP-prl', 2 => 'Document' },
     NAMESPACE => 'prl',
     NOTES => q{
-        PRISM Rights Language 2.1 namespace tags.  (see
+        PRISM Rights Language 2.1 namespace tags.  These tags have been deprecated
+        since the release of the PRISM Usage Rights 3.0. (see
         L<http://www.prismstandard.org/>)
     },
     geography       => { List => 'Bag' },
@@ -752,18 +867,23 @@ my %plusImageSupplier = (
     usage           => { List => 'Bag' },
 );
 
-# PRISM Usage Rights 2.1 namespace (prismusagerights) (ref 2)
+# PRISM Usage Rights namespace (prismusagerights) (ref 2)
 %Image::ExifTool::XMP::pur = (
     %xmpTableDefaults,
     GROUPS => { 0 => 'XMP', 1 => 'XMP-pur', 2 => 'Document' },
     NAMESPACE => 'pur',
     NOTES => q{
-        Prism Usage Rights 2.1 namespace tags.  (see
+        PRISM Usage Rights 3.0 namespace tags.  (see
         L<http://www.prismstandard.org/>)
     },
     adultContentWarning => { List => 'Bag' },
     agreement           => { List => 'Bag' },
-    copyright           => { Writable => 'lang-alt', Groups => { 2 => 'Author' } },
+    copyright           => {
+        # (not clear in 3.0 spec, which lists only "bag Text", and called
+        #  "copyrightDate" instead of "copyright" the PRISM basic 3.0 spec)
+        Writable => 'lang-alt',
+        Groups => { 2 => 'Author' },
+    },
     creditLine          => { List => 'Bag' },
     embargoDate         => { List => 'Bag', %dateTimeInfo, Groups => { 2 => 'Time'} },
     exclusivityEndDate  => { List => 'Bag', %dateTimeInfo, Groups => { 2 => 'Time'} },
@@ -775,8 +895,106 @@ my %plusImageSupplier = (
     reuseProhibited     => { Writable => 'boolean' },
     rightsAgent         => { },
     rightsOwner         => { },
-    usageFee            => { List => 'Bag' },
+    # usageFee            => { List => 'Bag' }, # (not in 3.0)
 );
+
+# PRISM Metadata for Images namespace (pmi) (ref 2)
+%Image::ExifTool::XMP::pmi = (
+    %xmpTableDefaults,
+    GROUPS => { 0 => 'XMP', 1 => 'XMP-pmi', 2 => 'Image' },
+    NAMESPACE => 'pmi',
+    NOTES => q{
+        PRISM Metadata for Images 3.0 namespace tags.  (see
+        L<http://www.prismstandard.org/>)
+    },
+    color => {
+        PrintConv => {
+            bw => 'BW',
+            color => 'Color',
+            sepia => 'Sepia',
+            duotone => 'Duotone',
+            tritone => 'Tritone',
+            quadtone => 'Quadtone',
+        },
+    },
+    contactInfo     => { },
+    displayName     => { },
+    distributorProductID => { },
+    eventAlias      => { },
+    eventEnd        => { },
+    eventStart      => { },
+    eventSubtype    => { },
+    eventType       => { },
+    field           => { },
+    framing         => { },
+    location        => { },
+    make            => { },
+    manufacturer    => { },
+    model           => { },
+    modelYear       => { },
+    objectDescription=>{ },
+    objectSubtype   => { },
+    objectType      => { },
+    orientation => {
+        PrintConv => {
+            horizontal => 'Horizontal',
+            vertical => 'Vertical',
+        }
+    },
+    positionDescriptor => { },
+    productID       => { },
+    productIDType   => { },
+    season => {
+        PrintConv => {
+            spring => 'Spring',
+            summer => 'Summer',
+            fall => 'Fall',
+            winter => 'Winter',
+        },
+    },
+    sequenceName    => { },
+    sequenceNumber  => { },
+    sequenceTotalNumber => { },
+    setting         => { },
+    shootID         => { },
+    slideshowName   => { },
+    slideshowNumber => { Writable => 'integer' },
+    slideshowTotalNumber => { Writable => 'integer' },
+    viewpoint       => { },
+    visualTechnique => { },
+);
+
+# PRISM Recipe Metadata (prm) (ref 2)
+%Image::ExifTool::XMP::prm = (
+    %xmpTableDefaults,
+    GROUPS => { 0 => 'XMP', 1 => 'XMP-prm', 2 => 'Document' },
+    NAMESPACE => 'prm',
+    NOTES => q{
+        PRISM Recipe Metadata 3.0 namespace tags.  (see
+        L<http://www.prismstandard.org/>)
+    },
+    cookingEquipment    => { },
+    cookingMethod       => { },
+    course              => { },
+    cuisine             => { },
+    dietaryNeeds        => { },
+    dishType            => { },
+    duration            => { },
+    ingredientExclusion => { },
+    mainIngredient      => { },
+    meal                => { },
+    recipeEndingPage    => { },
+    recipePageRange     => { },
+    recipeSource        => { },
+    recipeStartingPage  => { },
+    recipeTitle         => { },
+    servingSize         => { },
+    skillLevel          => { },
+    specialOccasion     => { },
+    yield               => { },
+);
+
+#------------------------------------------------------------------------------
 
 # DICOM namespace properties (DICOM) (ref PH, written by CS3)
 %Image::ExifTool::XMP::DICOM = (
@@ -916,7 +1134,7 @@ my %sSubVersion = (
     author     => { Avoid => 1, Groups => { 2 => 'Author' } },
     caption    => { Avoid => 1 },
     categories => { Avoid => 1 },
-    datetime   => { Avoid => 1, Groups => { 2 => 'Time' }, %dateTimeInfo },
+    datetime   => { Name => 'DateTime', Avoid => 1, Groups => { 2 => 'Time' }, %dateTimeInfo },
     keywords   => { Avoid => 1, List => 'Bag' },
     notes      => { Avoid => 1 },
     rating     => { Avoid => 1, Writable => 'real' }, # integer?
@@ -1039,7 +1257,10 @@ my %sSubVersion = (
     GROUPS => { 1 => 'XMP-mediapro', 2 => 'Image' },
     NAMESPACE => 'mediapro',
     NOTES => 'iView MediaPro namespace tags.',
-    Event       => { },
+    Event       => {
+        Avoid => 1,
+        Notes => 'avoided due to conflict with XMP-iptcExt:Event',
+    },
     Location    => {
         Avoid => 1,
         Groups => { 2 => 'Location' },
@@ -1057,12 +1278,14 @@ my %sSubVersion = (
     %xmpTableDefaults,
     GROUPS => { 1 => 'XMP-expressionmedia', 2 => 'Image' },
     NAMESPACE => 'expressionmedia',
-    NOTES => 'Microsoft Expression Media namespace tags.',
-    CatalogSets => {
-        List => 'Bag',
-        Avoid => 1,
-        Notes => 'avoided due to conflict with XMP-mediapro:CatalogSets',
+    NOTES => q{
+        Microsoft Expression Media namespace tags.  These tags are avoided when
+        writing due to name conflicts with tags in other schemas.
     },
+    Event       => { Avoid => 1 },
+    Status      => { Avoid => 1 },
+    People      => { Avoid => 1, List => 'Bag' },
+    CatalogSets => { Avoid => 1, List => 'Bag' },
 );
 
 # DigiKam namespace tags (ref PH)
@@ -1072,7 +1295,7 @@ my %sSubVersion = (
     NAMESPACE => 'digiKam',
     NOTES => 'DigiKam namespace tags.',
     CaptionsAuthorNames    => { Writable => 'lang-alt' },
-    CaptionsDateTimeStamps => { Writable => 'lang-alt' },
+    CaptionsDateTimeStamps => { Writable => 'lang-alt', Groups => { 2 => 'Time' } },
     TagsList               => { List => 'Seq' },
     ColorLabel             => { },
     PickLabel              => { },
@@ -1138,156 +1361,43 @@ my %sSubVersion = (
     Highlights => { Writable => 'real', Avoid => 1 },
 );
 
-# MWG structures
-my %sExtensions = (
-    STRUCT_NAME => 'Extensions',
-    NAMESPACE   => undef, # variable namespace
-    NOTES => q{
-        This structure may contain any top-level XMP tags, but none have been
-        pre-defined in ExifTool.  Since no flattened tags have been pre-defined,
-        RegionExtensions is writable only as a structure (ie.
-        C<{xmp-dc:creator=me,rating=5}>).  Fields for this structure are identified
-        using the standard ExifTool tag name (with optional leading group name,
-        and/or trailing language code, and/or trailing C<#> symbol to disable print
-        conversion).
-    },
-);
-my %sRegionStruct = (
-    STRUCT_NAME => 'RegionStruct',
-    NAMESPACE   => 'mwg-rs',
-    Area => { Struct => \%sArea },
-    Type => {
-        PrintConv => {
-            Face => 'Face',
-            Pet => 'Pet',
-            Focus => 'Focus',
-            BarCode => 'BarCode',
-        },
-    },
-    Name        => { },
-    Description => { },
-    FocusUsage  => {
-        PrintConv => {
-            EvaluatedUsed => 'Evaluated, Used',
-            EvaluatedNotUsed => 'Evaluated, Not Used',
-            NotEvaluatedNotUsed => 'Not Evaluated, Not Used',
-        },
-    },
-    BarCodeValue=> { },
-    Extensions  => { Struct => \%sExtensions },
-    seeAlso => { Namespace => 'rdfs', Resource => 1 },
-);
-my %sKeywordStruct;
-%sKeywordStruct = (
-    STRUCT_NAME => 'KeywordStruct',
-    NAMESPACE   => 'mwg-kw',
-    Keyword   => { },
-    Applied   => { Writable => 'boolean' },
-    Children  => { Struct => \%sKeywordStruct, List => 'Bag' },
-);
-
-# MWG 2.0 region namespace tags
-%Image::ExifTool::XMP::mwg_rs = (
+# Adobe creatorAtom properties (ref PH)
+%Image::ExifTool::XMP::creatorAtom = (
     %xmpTableDefaults,
-    GROUPS => { 1 => 'XMP-mwg-rs', 2 => 'Image' },
-    NAMESPACE => 'mwg-rs',
-    NOTES => q{
-        Image region metadata defined by the MWG 2.0 specification.  See
-        L<http://www.metadataworkinggroup.org/> for the official specification.
-    },
-    Regions => {
-        Name => 'RegionInfo',
+    GROUPS => { 1 => 'XMP-creatorAtom', 2 => 'Image' },
+    NAMESPACE => 'creatorAtom',
+    NOTES => 'Adobe creatorAtom tags, written by After Effects.',
+    macAtom => {
         Struct => {
-            STRUCT_NAME => 'RegionInfo',
-            NAMESPACE   => 'mwg-rs',
-            RegionList => { Struct => \%sRegionStruct, List => 'Bag' },
-            AppliedToDimensions => { Struct => \%sDimensions },
+            STRUCT_NAME => 'MacAtom',
+            NAMESPACE   => 'creatorAtom',
+            applicationCode      => { },
+            invocationAppleEvent => { },
+            posixProjectPath     => { },
         },
     },
-    RegionsAppliedToDimensions  => { Flat => 1, Name => 'RegionAppliedToDimensions' },
-    RegionsAppliedToDimensionsW => { Flat => 1, Name => 'RegionAppliedToDimensionsW' },
-    RegionsAppliedToDimensionsH => { Flat => 1, Name => 'RegionAppliedToDimensionsH' },
-    RegionsAppliedToDimensionsUnit=>{Flat => 1, Name => 'RegionAppliedToDimensionsUnit' },
-    RegionsRegionList           => { Flat => 1, Name => 'RegionList' },
-    RegionsRegionListArea       => { Flat => 1, Name => 'RegionArea' },
-    RegionsRegionListAreaX      => { Flat => 1, Name => 'RegionAreaX' },
-    RegionsRegionListAreaY      => { Flat => 1, Name => 'RegionAreaY' },
-    RegionsRegionListAreaW      => { Flat => 1, Name => 'RegionAreaW' },
-    RegionsRegionListAreaH      => { Flat => 1, Name => 'RegionAreaH' },
-    RegionsRegionListAreaD      => { Flat => 1, Name => 'RegionAreaD' },
-    RegionsRegionListAreaUnit   => { Flat => 1, Name => 'RegionAreaUnit' },
-    RegionsRegionListType       => { Flat => 1, Name => 'RegionType' },
-    RegionsRegionListName       => { Flat => 1, Name => 'RegionName' },
-    RegionsRegionListDescription=> { Flat => 1, Name => 'RegionDescription' },
-    RegionsRegionListFocusUsage => { Flat => 1, Name => 'RegionFocusUsage' },
-    RegionsRegionListBarCodeValue=>{ Flat => 1, Name => 'RegionBarCodeValue' },
-    RegionsRegionListExtensions => { Flat => 1, Name => 'RegionExtensions' },
-    RegionsRegionListSeeAlso    => { Flat => 1, Name => 'RegionSeeAlso' },
-);
-
-# MWG 2.0 hierarchical keyword namespace tags
-%Image::ExifTool::XMP::mwg_kw = (
-    %xmpTableDefaults,
-    GROUPS => { 1 => 'XMP-mwg-kw', 2 => 'Image' },
-    NAMESPACE => 'mwg-kw',
-    NOTES => q{
-        Hierarchical keywords metadata defined by the MWG 2.0 specification. 
-        ExifTool unrolls keyword structures to an arbitrary depth of 6 to allow
-        individual levels to be accessed with different tag names, and to avoid
-        infinite recursion.  See L<http://www.metadataworkinggroup.org/> for the
-        official specification.
-    },
-    # arbitrarily define only the first 6 levels of the keyword hierarchy
-    Keywords => {
-        Name => 'KeywordInfo',
+    windowsAtom => {
         Struct => {
-            STRUCT_NAME => 'KeywordInfo',
-            NAMESPACE   => 'mwg-kw',
-            Hierarchy => { Struct => \%sKeywordStruct, List => 'Bag' },
+            STRUCT_NAME => 'WindowsAtom',
+            NAMESPACE   => 'creatorAtom',
+            extension       => { },
+            invocationFlags => { },
+            uncProjectPath  => { },
         },
     },
-    KeywordsHierarchy => { Name => 'HierarchicalKeywords', Flat => 1 },
-    KeywordsHierarchyKeyword  => { Name => 'HierarchicalKeywords1', Flat => 1 },
-    KeywordsHierarchyApplied  => { Name => 'HierarchicalKeywords1Applied', Flat => 1 },
-    KeywordsHierarchyChildren => { Name => 'HierarchicalKeywords1Children', Flat => 1 },
-    KeywordsHierarchyChildrenKeyword  => { Name => 'HierarchicalKeywords2', Flat => 1 },
-    KeywordsHierarchyChildrenApplied  => { Name => 'HierarchicalKeywords2Applied', Flat => 1 },
-    KeywordsHierarchyChildrenChildren => { Name => 'HierarchicalKeywords2Children', Flat => 1 },
-    KeywordsHierarchyChildrenChildrenKeyword  => { Name => 'HierarchicalKeywords3', Flat => 1 },
-    KeywordsHierarchyChildrenChildrenApplied  => { Name => 'HierarchicalKeywords3Applied', Flat => 1 },
-    KeywordsHierarchyChildrenChildrenChildren => { Name => 'HierarchicalKeywords3Children', Flat => 1 },
-    KeywordsHierarchyChildrenChildrenChildrenKeyword  => { Name => 'HierarchicalKeywords4', Flat => 1 },
-    KeywordsHierarchyChildrenChildrenChildrenApplied  => { Name => 'HierarchicalKeywords4Applied', Flat => 1 },
-    KeywordsHierarchyChildrenChildrenChildrenChildren => { Name => 'HierarchicalKeywords4Children', Flat => 1 },
-    KeywordsHierarchyChildrenChildrenChildrenChildrenKeyword  => { Name => 'HierarchicalKeywords5', Flat => 1 },
-    KeywordsHierarchyChildrenChildrenChildrenChildrenApplied  => { Name => 'HierarchicalKeywords5Applied', Flat => 1 },
-    KeywordsHierarchyChildrenChildrenChildrenChildrenChildren => { Name => 'HierarchicalKeywords5Children', Flat => 1, NoSubStruct => 1 }, # break infinite recursion
-    KeywordsHierarchyChildrenChildrenChildrenChildrenChildrenKeyword => { Name => 'HierarchicalKeywords6', Flat => 1 },
-    KeywordsHierarchyChildrenChildrenChildrenChildrenChildrenApplied => { Name => 'HierarchicalKeywords6Applied', Flat => 1 },
-);
-
-# MWG 2.0 collections namespace tags
-%Image::ExifTool::XMP::mwg_coll = (
-    %xmpTableDefaults,
-    GROUPS => { 1 => 'XMP-mwg-coll', 2 => 'Image' },
-    NAMESPACE => 'mwg-coll',
-    NOTES => q{
-        Collections metadata defined by the MWG 2.0 specification.  See
-        L<http://www.metadataworkinggroup.org/> for the official specification.
-    },
-    Collections => {
-        List => 'Bag',
+    aeProjectLink => { # (After Effects Project Link)
         Struct => {
-            STRUCT_NAME => 'CollectionInfo',
-            NAMESPACE   => 'mwg-coll',
-            CollectionName => { },
-            CollectionURI  => { },
+            STRUCT_NAME => 'AEProjectLink',
+            NAMESPACE   => 'creatorAtom',
+            renderTimeStamp         => { Writable => 'integer' },
+            compositionID           => { },
+            renderQueueItemID       => { },
+            renderOutputModuleIndex => { },
+            fullPath                => { },
         },
     },
-    CollectionsCollectionName => { Name => 'CollectionName', Flat => 1 },
-    CollectionsCollectionURI  => { Name => 'CollectionURI',  Flat => 1 },
 );
-
+    
 # FastPictureViewer namespace properties (http://www.fastpictureviewer.com/help/#rtfcomments)
 %Image::ExifTool::XMP::fpv = (
     %xmpTableDefaults,
@@ -1316,6 +1426,7 @@ my %sKeywordStruct;
     },
     FaceID          => { Writable => 'integer' },
     AngleInfoRoll   => { Writable => 'integer' },
+    AngleInfoYaw    => { Writable => 'integer' },
     ConfidenceLevel => { Writable => 'integer' },
 );
 
@@ -1357,6 +1468,21 @@ my %sKeywordStruct;
     LargestValidInteriorRectHeight  => { Writable => 'integer' },
 );
 
+# Getty Images namespace (ref PH)
+%Image::ExifTool::XMP::GettyImages = (
+    %xmpTableDefaults,
+    GROUPS => { 1 => 'XMP-getty', 2 => 'Image' },
+    NAMESPACE => 'GettyImagesGIFT',
+    NOTES => q{
+        The actual Getty Images namespace prefix is "GettyImagesGIFT", which is the
+        prefix recorded in the file, but ExifTool shortens this for the "XMP-getty"
+        family 1 group name.
+    },
+    Personality => { },
+    OriginalFilename => { Name => 'OriginalFileName' },
+    ParentMEID => { },
+);
+
 # SVG namespace properties (ref 9)
 %Image::ExifTool::XMP::SVG = (
     GROUPS => { 0 => 'SVG', 1 => 'SVG', 2 => 'Image' },
@@ -1372,8 +1498,14 @@ my %sKeywordStruct;
     version    => 'SVGVersion',
     id         => 'ID',
     metadataId => 'MetadataID',
-    width      => 'ImageWidth',
-    height     => 'ImageHeight',
+    width      => {
+        Name => 'ImageWidth',
+        ValueConv => '$val =~ s/px$//; $val',
+    },
+    height     => {
+        Name => 'ImageHeight',
+        ValueConv => '$val =~ s/px$//; $val',
+    },
 );
 
 # table to add tags in other namespaces
@@ -1388,10 +1520,12 @@ my ($table, $key);
 foreach $table (
     \%Image::ExifTool::XMP::prism,
     \%Image::ExifTool::XMP::prl,
-    \%Image::ExifTool::XMP::pur)
+    \%Image::ExifTool::XMP::pur,
+    \%Image::ExifTool::XMP::pmi,
+    \%Image::ExifTool::XMP::prm)
 {
     foreach $key (TagTableKeys($table)) {
-        $table->{$key}->{Avoid} = 1;
+        $$table{$key}{Avoid} = 1;
     }
 }
 
@@ -1414,7 +1548,7 @@ This file contains definitions for less common XMP namespaces.
 
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
