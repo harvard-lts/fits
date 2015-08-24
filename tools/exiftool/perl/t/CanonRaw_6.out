@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.94
 [File, System, Image] FileName - File Name: CanonRaw_6_failed.cr2
 [File, System, Image] Directory - Directory: t
 [File, System, Image] FileSize - File Size: 8.6 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:37-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:37-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:37-05:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:04:30 07:42:35-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:30 07:42:35-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:30 07:42:35-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: CR2
+[File, File, Image] FileTypeExtension - File Type Extension: cr2
 [File, File, Image] MIMEType - MIME Type: image/x-canon-cr2
 [File, File, Image] ExifByteOrder - Exif Byte Order: Little-endian (Intel, II)
 [File, File, Image] CurrentIPTCDigest - Current IPTC Digest: 74386a2844191f61317ffa999148834a
@@ -16,7 +17,7 @@
 [EXIF, IFD0, Image] 259 - Compression: JPEG (old-style)
 [EXIF, IFD0, Camera] 271 - Make: Canon
 [EXIF, IFD0, Camera] 272 - Camera Model Name: Canon EOS 350D DIGITAL
-[EXIF, IFD0, Image] 273 - Preview Image Start: 8736
+[EXIF, IFD0, Image] 273 - Preview Image Start: 8738
 [EXIF, IFD0, Image] 274 - Orientation: Horizontal (normal)
 [EXIF, IFD0, Image] 279 - Preview Image Length: 26
 [EXIF, IFD0, Image] 282 - X Resolution: 72
@@ -52,20 +53,20 @@
 [EXIF, ExifIFD, Camera] 41987 - White Balance: Auto
 [EXIF, ExifIFD, Camera] 41990 - Scene Capture Type: Standard
 [EXIF, ExifIFD, Image] 42032 - Owner Name: Phil Harvey
-[EXIF, IFD1, Image] 513 - Thumbnail Offset: 8676
+[EXIF, IFD1, Image] 513 - Thumbnail Offset: 8678
 [EXIF, IFD1, Image] 514 - Thumbnail Length: 28
 [EXIF, IFD2, Image] 256 - Image Width: 384
 [EXIF, IFD2, Image] 257 - Image Height: 256
 [EXIF, IFD2, Image] 258 - Bits Per Sample: 8 8 8
 [EXIF, IFD2, Image] 259 - Compression: JPEG (old-style)
 [EXIF, IFD2, Image] 262 - Photometric Interpretation: RGB
-[EXIF, IFD2, Image] 273 - Strip Offsets: 8720
+[EXIF, IFD2, Image] 273 - Strip Offsets: 8722
 [EXIF, IFD2, Image] 277 - Samples Per Pixel: 3
 [EXIF, IFD2, Image] 278 - Rows Per Strip: 256
 [EXIF, IFD2, Image] 279 - Strip Byte Counts: 16
 [EXIF, IFD2, Image] 284 - Planar Configuration: Chunky
 [EXIF, IFD3, Image] 259 - Compression: JPEG (old-style)
-[EXIF, IFD3, Image] 273 - Strip Offsets: 8704
+[EXIF, IFD3, Image] 273 - Strip Offsets: 8706
 [EXIF, IFD3, Image] 279 - Strip Byte Counts: 16
 [EXIF, IFD3, Image] 50752 - Raw Image Segmentation: 1 1758 1758
 [IPTC, IPTC, Other] 25 - Keywords: CR2 test
@@ -77,7 +78,7 @@
 [MakerNotes, Canon, Camera] 5 - Continuous Drive: Single
 [MakerNotes, Canon, Camera] 7 - Focus Mode: One-shot AF
 [MakerNotes, Canon, Camera] 9 - Record Mode: CR2
-[MakerNotes, Canon, Camera] 10 - Canon Image Size: Unknown (-1)
+[MakerNotes, Canon, Camera] 10 - Canon Image Size: n/a
 [MakerNotes, Canon, Camera] 11 - Easy Mode: Manual
 [MakerNotes, Canon, Camera] 12 - Digital Zoom: None
 [MakerNotes, Canon, Camera] 13 - Contrast: Normal
@@ -86,7 +87,7 @@
 [MakerNotes, Canon, Camera] 17 - Metering Mode: Center-weighted average
 [MakerNotes, Canon, Camera] 18 - Focus Range: Not Known
 [MakerNotes, Canon, Camera] 20 - Canon Exposure Mode: Aperture-priority AE
-[MakerNotes, Canon, Camera] 22 - Lens Type: Unknown (-1)
+[MakerNotes, Canon, Camera] 22 - Lens Type: n/a
 [MakerNotes, Canon, Camera] 23 - Max Focal Length: 55 mm
 [MakerNotes, Canon, Camera] 24 - Min Focal Length: 18 mm
 [MakerNotes, Canon, Camera] 25 - Focal Units: 1/mm
@@ -213,15 +214,16 @@
 [Composite, Composite, Camera] DriveMode - Drive Mode: Single-frame Shooting
 [Composite, Composite, Camera] ISO - ISO: 400
 [Composite, Composite, Camera] Lens - Lens: 18.0 - 55.0 mm
-[Composite, Composite, Image] PreviewImage - Preview Image: (Binary data 26 bytes)
+[Composite, Composite, Preview] PreviewImage - Preview Image: (Binary data 26 bytes)
 [Composite, Composite, Camera] ShootingMode - Shooting Mode: Aperture-priority AE
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 1/15
-[Composite, Composite, Image] ThumbnailImage - Thumbnail Image: (Binary data 28 bytes)
+[Composite, Composite, Preview] ThumbnailImage - Thumbnail Image: (Binary data 28 bytes)
 [Composite, Composite, Camera] WB_RGGBLevels - WB RGGB Levels: 2002 1185 1187 2364
 [Composite, Composite, Camera] BlueBalance - Blue Balance: 1.993255
 [Composite, Composite, Image] ImageSize - Image Size: 3456x2304
 [Composite, Composite, Camera] LensID - Lens ID: Unknown 18-55mm
 [Composite, Composite, Image] LightValue - Light Value: 7.9
+[Composite, Composite, Image] Megapixels - Megapixels: 8.0
 [Composite, Composite, Camera] RedBalance - Red Balance: 1.688027
 [Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 1.6
 [Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.019 mm

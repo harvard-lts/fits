@@ -170,7 +170,7 @@ Z7590.</p>
   <br>0x3 = Red-Eye</td><td>&nbsp;&nbsp;</td>
   <td>0x10 = Fill Flash
   <br>0x20 = Off
-  <br>0x40 = Red-Eye?</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x40 = Red-Eye?</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='93 = 0x5d'>93</td>
@@ -212,7 +212,7 @@ Z7590.</p>
   <br>0x100 = Saturated Color
   <br>0x200 = Neutral Color
   <br>0x2000 = B&amp;W
-  <br>0x4000 = Sepia</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x4000 = Sepia</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='104 = 0x68'>104</td>
@@ -545,10 +545,10 @@ with much duplication), but relatively few tags have so far been decoded.</p>
   <br>25 = Back Light
   <br>28 = Candlelight
   <br>29 = Sunset
-  <br>31 = Panorama Left-Right
-  <br>32 = Panorama Right-Left
+  <br>31 = Panorama Left-right
+  <br>32 = Panorama Right-left
   <br>33 = Smart Scene
-  <br>34 = High ISO</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>34 = High ISO</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0xfa19 = 64025'>0xfa19</td>
@@ -681,7 +681,7 @@ with much duplication), but relatively few tags have so far been decoded.</p>
   <br>21 = Fireworks
   <br>22 = Sunset
   <br>23 = Candlelight
-  <br>28 = Panorama</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>28 = Panorama</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x6006 = 24582'>0x6006</td>
@@ -718,7 +718,7 @@ with much duplication), but relatively few tags have so far been decoded.</p>
   <br>21 = Fireworks
   <br>22 = Sunset
   <br>23 = Candlelight
-  <br>28 = Panorama</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>28 = Panorama</td></tr></table>
 </td></tr>
 <tr>
 <td title='0xf006 = 61446'>0xf006</td>
@@ -892,12 +892,12 @@ M550, as well as various cameras marketed by other manufacturers.</p>
 <tr class=b>
 <td class=r title='168 = 0xa8'>168</td>
 <td>UnknownNumber</td>
-<td class=c>string[12]</td>
+<td class=c>N</td>
 <td><span class=s><span class=n>(Kodak only)</span></span></td></tr>
 <tr>
 <td class=r title='196 = 0xc4'>196</td>
 <td>UnknownNumber</td>
-<td class=c>string[12]</td>
+<td class=c>N</td>
 <td><span class=s><span class=n>(Kodak only)</span></span></td></tr>
 </table></td></tr></table></blockquote>
 
@@ -933,6 +933,44 @@ indicator instead of a full TIFF header.  These tags are used by the Z980.</p>
 <td title='0x001d = 29'>0x001d</td>
 <td>FocalLength</td>
 <td class=c>int32u</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='Type11'>Kodak Type11 Tags</a></h2>
+<p>These tags are found in models such as the PixPro S-1.  They are not
+writable because the inconsistency of Kodak maker notes is beginning to get
+on my nerves.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td title='0x0203 = 515'>0x0203</td>
+<td>PictureEffect</td>
+<td class=c>N</td>
+<td><span class=s>0 = None
+  <br>3 = Monochrome
+  <br>9 = Kodachrome</span></td></tr>
+<tr class=b>
+<td title='0x0207 = 519'>0x0207</td>
+<td>KodakModel</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x0300 = 768'>0x0300</td>
+<td>KodakMake</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x0308 = 776'>0x0308</td>
+<td>LensSerialNumber</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x0309 = 777'>0x0309</td>
+<td>LensModel</td>
+<td class=c>N</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -1010,66 +1048,141 @@ from some older Kodak models such as the DC50, DC120, DCS760C, DCS Pro 14N,
 <td class=c>string</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td title='0x0406 = 1030'>0x0406</td>
+<td>CameraTemperature</td>
+<td class=c>rational64s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x0407 = 1031'>0x0407</td>
+<td>AdapterVoltage</td>
+<td class=c>rational64u</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x0408 = 1032'>0x0408</td>
+<td>BatteryVoltage</td>
+<td class=c>rational64u</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td title='0x0414 = 1044'>0x0414</td>
 <td>NCDFileInfo</td>
 <td class=c>string</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0x0846 = 2118'>0x0846</td>
 <td>ColorTemperature</td>
 <td class=c>int16u</td>
 <td>&nbsp;</td></tr>
+<tr>
+<td title='0x0848 = 2120'>0x0848</td>
+<td>WB_RGBLevelsDaylight</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
 <tr class=b>
+<td title='0x0849 = 2121'>0x0849</td>
+<td>WB_RGBLevelsTungsten</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x084a = 2122'>0x084a</td>
+<td>WB_RGBLevelsFluorescent</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x084b = 2123'>0x084b</td>
+<td>WB_RGBLevelsFlash</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x084c = 2124'>0x084c</td>
+<td>WB_RGBLevelsCustom</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x084d = 2125'>0x084d</td>
+<td>WB_RGBLevelsAuto</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td title='0x0852 = 2130'>0x0852</td>
 <td>WB_RGBMul0</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0x0853 = 2131'>0x0853</td>
 <td>WB_RGBMul1</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0x0854 = 2132'>0x0854</td>
 <td>WB_RGBMul2</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0x0855 = 2133'>0x0855</td>
 <td>WB_RGBMul3</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0x085c = 2140'>0x085c</td>
 <td>WB_RGBCoeffs0</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0x085d = 2141'>0x085d</td>
 <td>WB_RGBCoeffs1</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0x085e = 2142'>0x085e</td>
 <td>WB_RGBCoeffs2</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0x085f = 2143'>0x085f</td>
 <td>WB_RGBCoeffs3</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
+<tr>
+<td title='0x0903 = 2307'>0x0903</td>
+<td>BaseISO</td>
+<td class=c>rational64u</td>
+<td>&nbsp;</td></tr>
 <tr class=b>
+<td title='0x09ce = 2510'>0x09ce</td>
+<td>SensorSerialNumber</td>
+<td class=c>string</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td title='0x0ce5 = 3301'>0x0ce5</td>
 <td>FirmwareVersion</td>
 <td class=c>string</td>
 <td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x0e4c = 3660'>0x0e4c</td>
+<td>KodakLook</td>
+<td class=c>string</td>
+<td>&nbsp;</td></tr>
 <tr>
+<td title='0x1389 = 5001'>0x1389</td>
+<td>InputProfile</td>
+<td class=c>undef</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x138a = 5002'>0x138a</td>
+<td>KodakLookProfile</td>
+<td class=c>undef</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x138b = 5003'>0x138b</td>
+<td>OutputProfile</td>
+<td class=c>undef</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td title='0x1391 = 5009'>0x1391</td>
 <td>ToneCurveFileName</td>
 <td class=c>string</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0x1784 = 6020'>0x1784</td>
 <td>ISO</td>
 <td class=c>int32u</td>
@@ -1559,6 +1672,25 @@ models such as the P880 and Z1015IS.</p>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
+<h2><a name='frea'>Kodak frea Tags</a></h2>
+<p>Information stored in the &quot;frea&quot; atom of Kodak PixPro SP360 MP4 videos.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>'scra'</td>
+<td>PreviewImage</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>'thma'</td>
+<td>ThumbnailImage</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
 <h2><a name='Free'>Kodak Free Tags</a></h2>
 <p>Information stored in the &quot;free&quot; atom of Kodak MP4 videos. (VERY bad form
 for Kodak to store useful information in an atom intended for unused space!)</p>
@@ -1753,7 +1885,7 @@ such as the P880.</p>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised May 15, 2012</i>
+<br><i>Last revised Dec 23, 2014</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

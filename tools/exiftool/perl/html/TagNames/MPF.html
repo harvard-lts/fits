@@ -8,9 +8,12 @@
 <body>
 <h2 class=top>MPF Tags</h2>
 <p>These tags are part of the CIPA Multi-Picture Format specification, and are
-found in the APP2 &quot;MPF&quot; segment of JPEG images.  See
-<a href="http://www.cipa.jp/english/hyoujunka/kikaku/pdf/DC-007_E.pdf">http://www.cipa.jp/english/hyoujunka/kikaku/pdf/DC-007_E.pdf</a> for the
-official specification.</p>
+found in the APP2 &quot;MPF&quot; segment of JPEG images.  MPImage data referenced
+from this segment is stored as a JPEG trailer.  The MPF tags are not
+writable, however the MPF segment may be deleted as a group (with &quot;MPF:All&quot;)
+but then the JPEG trailer should also be deleted (with &quot;Trailer:All&quot;).  See
+<a href="http://www.cipa.jp/std/documents/e/DC-007_E.pdf">http://www.cipa.jp/std/documents/e/DC-007_E.pdf</a> for the official
+specification.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class=inner cellspacing=1>
@@ -65,7 +68,7 @@ official specification.</p>
   <br>0x10 = Clockwise
   <br>0x20 = Counter clockwise
   <br>0x30 = Zigzag (row start)
-  <br>0x40 = Zigzag (column start)</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x40 = Zigzag (column start)</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0xb202 = 45570'>0xb202</td>
@@ -164,7 +167,7 @@ embedded images.</p>
   <br>0x20001 = Multi-frame Panorama
   <br>0x20002 = Multi-frame Disparity
   <br>0x20003 = Multi-angle
-  <br>0x30000 = Baseline MP Primary Image</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x30000 = Baseline MP Primary Image</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='4 = 0x4'>4</td>
@@ -190,7 +193,7 @@ embedded images.</p>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised May 31, 2010</i>
+<br><i>Last revised Jul 9, 2015</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

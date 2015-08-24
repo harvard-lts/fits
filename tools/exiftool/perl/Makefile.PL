@@ -36,4 +36,6 @@ WriteMakefile(
         ) : ()),
     (($ExtUtils::MakeMaker::VERSION gt '6.30') ?
         (LICENSE => 'perl') : ()),    
+    (($ExtUtils::MakeMaker::VERSION ge '6.47') ?
+        (MIN_PERL_VERSION => '5.004') : ()),    
 );

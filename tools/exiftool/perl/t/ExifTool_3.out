@@ -1,10 +1,11 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
 [File, System, Image] FileSize - File Size: 4.8 kB
 [File, System, Time] FileModifyDate - File Modification Date/Time: 2005:11:23 15:49:37-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:19 15:30:55-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:17 09:18:25-05:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:20 12:47:58-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:11 08:47:16-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: TIFF
+[File, File, Image] FileTypeExtension - File Type Extension: tif
 [File, File, Image] MIMEType - MIME Type: image/tiff
 [File, File, Image] ExifByteOrder - Exif Byte Order: Big-endian (Motorola, MM)
 [File, File, Image] CurrentIPTCDigest - Current IPTC Digest: 82a5301def77e837ceb56158abd65512
@@ -77,7 +78,7 @@
 [ICC_Profile, ICC_Profile, Image] lumi - Luminance: 76.03647 80 87.12462
 [ICC_Profile, ICC-meas, Image] 8 - Measurement Observer: CIE 1931
 [ICC_Profile, ICC-meas, Image] 12 - Measurement Backing: 0 0 0
-[ICC_Profile, ICC-meas, Image] 24 - Measurement Geometry: Unknown (0)
+[ICC_Profile, ICC-meas, Image] 24 - Measurement Geometry: Unknown
 [ICC_Profile, ICC-meas, Image] 28 - Measurement Flare: 0.999%
 [ICC_Profile, ICC-meas, Image] 32 - Measurement Illuminant: D65
 [ICC_Profile, ICC_Profile, Image] tech - Technology: Cathode Ray Tube Display
@@ -85,3 +86,4 @@
 [ICC_Profile, ICC_Profile, Image] gTRC - Green Tone Reproduction Curve: (Binary data 2060 bytes)
 [ICC_Profile, ICC_Profile, Image] bTRC - Blue Tone Reproduction Curve: (Binary data 2060 bytes)
 [Composite, Composite, Image] ImageSize - Image Size: 160x120
+[Composite, Composite, Image] Megapixels - Megapixels: 0.019

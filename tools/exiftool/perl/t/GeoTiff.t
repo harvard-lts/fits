@@ -1,7 +1,7 @@
 # Before "make install", this script should be runnable with "make test".
 # After "make install" it should work as "perl t/GeoTiff.t".
 
-BEGIN { $| = 1; print "1..3\n"; $Image::ExifTool::noConfig = 1; }
+BEGIN { $| = 1; print "1..4\n"; $Image::ExifTool::noConfig = 1; }
 END {print "not ok 1\n" unless $loaded;}
 
 # test 1: Load the module(s)
@@ -29,6 +29,23 @@ my $testnum = 1;
     ++$testnum;
     my @writeInfo = (['ResolutionUnit','cm']);
     print 'not ' unless writeCheck(\@writeInfo, $testname, $testnum, 't/images/GeoTiff.tif');
+    print "ok $testnum\n";
+}
+
+# test 4: Copy GeoTiff information
+{
+    ++$testnum;
+    my $exifTool = new Image::ExifTool;
+    my $testfile = "t/${testname}_${testnum}_failed.out";
+    unlink $testfile;
+    $exifTool->SetNewValuesFromFile('t/images/GeoTiff.tif', 'GeoTiff*');
+    my $ok = writeInfo($exifTool,'t/images/ExifTool.tif',$testfile);
+    my $info = $exifTool->ImageInfo($testfile, 'GeoTiff:*');
+    if (check($exifTool, $info, $testname, $testnum) and $ok) {
+        unlink $testfile;
+    } else {
+        print 'not ';
+    }
     print "ok $testnum\n";
 }
 

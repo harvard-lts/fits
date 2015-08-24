@@ -31,6 +31,7 @@ my $testnum = 1;
         ['IPTC:Keywords' => 'test keyword'],
         ['XMP:City' => 'a city'],
         ['EXIF:ImageDescription' => 'a description'],
+        ['XML' => '<test>Yippee</test>', Protected => 1 ],
     );
     print 'not ' unless writeCheck(\@writeInfo, $testname, $testnum, 't/images/Jpeg2000.jp2');
     print "ok $testnum\n";

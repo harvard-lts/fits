@@ -55,7 +55,7 @@
 [MakerNotes, Canon, Camera] 16 - Camera ISO: n/a
 [MakerNotes, Canon, Camera] 18 - Focus Range: Not Known
 [MakerNotes, Canon, Camera] 20 - Canon Exposure Mode: Manual
-[MakerNotes, Canon, Camera] 22 - Lens Type: Unknown (-1)
+[MakerNotes, Canon, Camera] 22 - Lens Type: n/a
 [MakerNotes, Canon, Camera] 23 - Max Focal Length: 55 mm
 [MakerNotes, Canon, Camera] 24 - Min Focal Length: 18 mm
 [MakerNotes, Canon, Camera] 25 - Focal Units: 1/mm
@@ -101,15 +101,16 @@
 [MakerNotes, Canon, Camera] 16 - Canon Model ID: EOS Digital Rebel / 300D / Kiss Digital
 [MakerNotes, Canon, Image] 14 - Canon File Length: 4480822
 [MakerNotes, Canon, Camera] 1 - Measured RGGB: 998 1022 1026 808
-[MakerNotes, Canon, Camera] 0 - WB RGGB Levels Auto: 1719 832 831 990
-[MakerNotes, Canon, Camera] 4 - WB RGGB Levels Daylight: 1722 832 831 989
-[MakerNotes, Canon, Camera] 8 - WB RGGB Levels Shade: 2035 832 831 839
-[MakerNotes, Canon, Camera] 12 - WB RGGB Levels Cloudy: 1878 832 831 903
-[MakerNotes, Canon, Camera] 16 - WB RGGB Levels Tungsten: 1228 913 912 1668
-[MakerNotes, Canon, Camera] 20 - WB RGGB Levels Fluorescent: 1506 842 841 1381
-[MakerNotes, Canon, Camera] 24 - WB RGGB Levels Flash: 1933 832 831 895
-[MakerNotes, Canon, Camera] 28 - WB RGGB Levels Custom: 1722 832 831 989
-[MakerNotes, Canon, Camera] 32 - WB RGGB Levels Kelvin: 1722 832 831 988
+[MakerNotes, Canon, Camera] 1 - WB RGGB Levels Auto: 1719 832 831 990
+[MakerNotes, Canon, Camera] 5 - WB RGGB Levels Daylight: 1722 832 831 989
+[MakerNotes, Canon, Camera] 9 - WB RGGB Levels Shade: 2035 832 831 839
+[MakerNotes, Canon, Camera] 13 - WB RGGB Levels Cloudy: 1878 832 831 903
+[MakerNotes, Canon, Camera] 17 - WB RGGB Levels Tungsten: 1228 913 912 1668
+[MakerNotes, Canon, Camera] 21 - WB RGGB Levels Fluorescent: 1506 842 841 1381
+[MakerNotes, Canon, Camera] 25 - WB RGGB Levels Flash: 1933 832 831 895
+[MakerNotes, Canon, Camera] 29 - WB RGGB Levels Custom: 1722 832 831 989
+[MakerNotes, Canon, Camera] 33 - WB RGGB Levels Kelvin: 1722 832 831 988
+[MakerNotes, Canon, Camera] 37 - WB RGGB Black Levels: 124 123 124 123
 [MakerNotes, Canon, Camera] 174 - Color Temperature: 5200
 [MakerNotes, Canon, Camera] 0 - Num AF Points: 7
 [MakerNotes, Canon, Camera] 1 - Valid AF Points: 7

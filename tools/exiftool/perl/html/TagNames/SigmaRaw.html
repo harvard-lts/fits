@@ -21,22 +21,27 @@ SD10).  Currently, metadata may only be written to the embedded JpgFromRaw.</p>
 <td class=c>-</td>
 <td>--&gt; <a href='SigmaRaw.html#Header'>SigmaRaw Header Tags</a></td></tr>
 <tr class=b>
+<td>'Header4'</td>
+<td>Header4</td>
+<td class=c>-</td>
+<td>--&gt; <a href='SigmaRaw.html#Header4'>SigmaRaw Header4 Tags</a></td></tr>
+<tr>
 <td>'HeaderExt'</td>
 <td>HeaderExt</td>
 <td class=c>-</td>
 <td>--&gt; <a href='SigmaRaw.html#HeaderExt'>SigmaRaw HeaderExt Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td>'IMA2'</td>
 <td>PreviewImage
   <br>JpgFromRaw</td>
 <td class=c>N<br>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'IMAG'</td>
 <td>PreviewImage</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'PROP'</td>
 <td>Properties</td>
 <td class=c>-</td>
@@ -44,6 +49,7 @@ SD10).  Currently, metadata may only be written to the embedded JpgFromRaw.</p>
 </table></td></tr></table></blockquote>
 
 <h2><a name='Header'>SigmaRaw Header Tags</a></h2>
+<p>Information extracted from the header of an X3F file.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class=inner cellspacing=1>
@@ -87,6 +93,35 @@ SD10).  Currently, metadata may only be written to the embedded JpgFromRaw.</p>
 <tr class=b>
 <td title='0x0012 = 18'>0x0012</td>
 <td>SceneCaptureType</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='Header4'>SigmaRaw Header4 Tags</a></h2>
+<p>Header information for version 4.0 or greater X3F.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index4</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='1 = 0x1'>1</td>
+<td>FileVersion</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='10 = 0xa'>10</td>
+<td>ImageWidth</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='11 = 0xb'>11</td>
+<td>ImageHeight</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='12 = 0xc'>12</td>
+<td>Rotation</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
@@ -244,7 +279,7 @@ SD10).  Currently, metadata may only be written to the embedded JpgFromRaw.</p>
   <br>&#39;MULTI&#39; = Multi Shot</td><td>&nbsp;&nbsp;</td>
   <td>&#39;OFF&#39; = Off
   <br>&#39;SINGLE&#39; = Single Shot
-  <br>&#39;UP&#39; = Mirror Up</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>&#39;UP&#39; = Mirror Up</td></tr></table>
 </td></tr>
 <tr class=b>
 <td>'EVAL_STATE'</td>
@@ -347,22 +382,7 @@ SD10).  Currently, metadata may only be written to the embedded JpgFromRaw.</p>
 <td>'LENSMODEL'</td>
 <td>LensType</td>
 <td class=c>N</td>
-<td><span class=s><span class=n>(decimal values have been added to differentiate lenses which would otherwise
-have the same LensType, and are used by the Composite LensID tag when
-attempting to identify the specific lens model)</span></span><table class=cols><tr>
-  <td>16 = Sigma 18-50mm F3.5-5.6 DC
-  <br>129 = Sigma 14mm F2.8 EX Aspherical
-  <br>131 = Sigma 17-70mm F2.8-4.5 DC Macro
-  <br>145 = Sigma Lens (145)
-  <br>145.1 = Sigma 15-30mm F3.5-4.5 EX DG Aspherical
-  <br>145.2 = Sigma 18-50mm F2.8 EX DG
-  <br>145.3 = Sigma 20-40mm F2.8 EX DG
-  <br>165 = Sigma 70-200mm F2.8 EX
-  <br>169 = Sigma 18-50mm F2.8 EX DC
-  <br>581 = Sigma 18-50mm F2.8 EX DC Macro
-  <br>8900 = Sigma 70-300mm F4-5.6 DG OS
-  <br>&#39;A100&#39; = Sigma 24-70mm F2.8 DG Macro</td><td>&nbsp;&nbsp;</td></tr></table>
-</td></tr>
+<td>--&gt; <a href='Sigma.html#LensType'>Sigma LensType Values</a></td></tr>
 <tr class=b>
 <td>'PMODE'</td>
 <td>ExposureProgram</td>
@@ -412,7 +432,7 @@ attempting to identify the specific lens model)</span></span><table class=cols><
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Aug 25, 2012</i>
+<br><i>Last revised Jul 2, 2014</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

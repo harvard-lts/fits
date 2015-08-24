@@ -110,7 +110,7 @@ contain sub-subdirectories...).  For these subdirectories, <b>BlockSize</b> is
 given by the <b>Size</b> specified in the corresponding directory entry.  For
 the root directory, <b>BlockSize</b> is the length of the file.</p>
 
-<p>The <b>OtherData</b> normally does not exist (ie. the <b>DirEntries</b>
+<p>The <b>OtherData</b> normally does not exist (eg. the <b>DirEntries</b>
 usually end at the <b>DirStart</b> pointer), but this is not always the case:
 Canon Digital Photo Professional uses this area in the root directory block to
 store VRD data in edited CRW images.  (Note that VRD supports embedded XMP,
@@ -213,25 +213,25 @@ remain constant for all camera models.</p>
 <tr><th class='lt' colspan=6>ASCII Strings</th></tr>
 <tr align='center'><td>0x0805</td><td>-</td><td>0x2804</td><td>CanonFileDescription</td><td>32</td>
     <td align='left'>Description of the file format.
-    ie) "EOS DIGITAL REBEL CMOS RAW"</td></tr>
+    eg) "EOS DIGITAL REBEL CMOS RAW"</td></tr>
 <tr align='center'><td>0x0805</td><td>-</td><td>0x300a</td><td>UserComment</td><td>256</td>
     <td align='left'>User comment (usually blank)</td></tr>
 <tr align='center'><td>0x080a</td><td>-</td><td>0x2807</td><td>CanonRawMakeModel</td><td>32</td>
     <td align='left'>Two end-to-end null-terminated ASCII strings giving the camera make and model.
-    ie) "Canon","Canon EOS DIGITAL REBEL"</td></tr>
+    eg) "Canon","Canon EOS DIGITAL REBEL"</td></tr>
 <tr align='center'><td>0x080b</td><td>0x07</td><td>0x3004</td><td>CanonFirmwareVersion</td><td>32</td>
-    <td align='left'>Firmware version. ie) "Firmware Version 1.1.1"</td></tr>
+    <td align='left'>Firmware version. eg) "Firmware Version 1.1.1"</td></tr>
 <tr align='center'><td>0x080c</td><td>-</td><td>?</td><td>ComponentVersion</td><td>?</td><td align='left'>-</td></tr>
 <tr align='center'><td>0x080d</td><td>-</td><td>0x3004</td><td>ROMOperationMode</td><td>4</td>
-    <td align='left'>ie) The string "USA" for 300D's sold in North America</td></tr>
+    <td align='left'>eg) The string "USA" for 300D's sold in North America</td></tr>
 <tr align='center'><td>0x0810</td><td>0x09</td><td>0x2807</td><td>OwnerName</td><td>32</td>
-    <td align='left'>Owner's name. ie) "Phil Harvey"</td></tr>
+    <td align='left'>Owner's name. eg) "Phil Harvey"</td></tr>
 <tr align='center'><td>0x0815</td><td>0x06</td><td>0x2804</td><td>CanonImageType</td><td>32</td>
-    <td align='left'>Type of file. ie) "CRW:EOS DIGITAL REBEL CMOS RAW"</td></tr>
+    <td align='left'>Type of file. eg) "CRW:EOS DIGITAL REBEL CMOS RAW"</td></tr>
 <tr align='center'><td>0x0816</td><td>-</td><td>0x300a</td><td>OriginalFileName</td><td>32</td>
-    <td align='left'>Original file name. ie) "CRW_1834.CRW"</td></tr>
+    <td align='left'>Original file name. eg) "CRW_1834.CRW"</td></tr>
 <tr align='center'><td>0x0817</td><td>-</td><td>0x300a</td><td>ThumbnailFileName</td><td>32</td>
-    <td align='left'>Thumbnail file name. ie) "CRW_1834.THM"</td></tr>
+    <td align='left'>Thumbnail file name. eg) "CRW_1834.THM"</td></tr>
 <tr><th class='lt' colspan=6>2-Byte Alignment</th></tr>
 <tr align='center'><td>0x100a</td><td>-</td><td>0x300a</td><td>TargetImageType</td><td>2</td>
     <td align='left'>0=real-world subject, 1=written document</td></tr>
@@ -299,7 +299,7 @@ remain constant for all camera models.</p>
 <tr align='center'><td>0x1807</td><td>-</td><td>0x3002</td><td>TargetDistanceSetting</td><td>4</td>
     <td align='left'>32-bit float giving target distance in mm</td></tr>
 <tr align='center'><td>0x180b</td><td>0x0c</td><td>0x3004</td><td>SerialNumber</td><td>4</td>
-    <td align='left'>The camera body number for EOS models. ie) 00560012345</td></tr>
+    <td align='left'>The camera body number for EOS models. eg) 00560012345</td></tr>
 <tr align='center'><td>0x180e</td><td>-</td><td>0x300a</td><td>TimeStamp</td><td>12</td>
     <td align='left'>32-bit integer giving the time in seconds when the picture was taken,
     followed by a 32-bit timezone in seconds</td></tr>
@@ -311,7 +311,7 @@ remain constant for all camera models.</p>
 <tr align='center'><td>0x1814</td><td>-</td><td>0x3003</td><td>MeasuredEV</td><td>4</td>
     <td align='left'>32-bit float giving the measured EV</td></tr>
 <tr align='center'><td>0x1817</td><td>0x08</td><td>0x300a</td><td>FileNumber</td><td>4</td>
-    <td align='left'>32-bit integer giving the number of this file. ie) 1181834</td></tr>
+    <td align='left'>32-bit integer giving the number of this file. eg) 1181834</td></tr>
 <tr align='center'><td>0x1818</td><td>-</td><td>0x3002</td><td>ExposureInfo</td><td>12</td>
     <td align='left'>Three 32-bit floats: Exposure compensation, Tv, Av</td></tr>
 <tr align='center'><td>0x1819</td><td>-</td><td>0x300b</td><td>-</td><td>64</td><td align='left'>-</td></tr>

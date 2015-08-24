@@ -1,4 +1,4 @@
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 8.44
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.32
 [XMP, XMP-exif, Image] ApertureValue - Aperture Value: 14.0
 [XMP, XMP-exif, Image] ColorSpace - Color Space: sRGB
 [XMP, XMP-exif, Image] ComponentsConfiguration - Components Configuration: Y, Cb, Cr, -
@@ -26,6 +26,7 @@
 [XMP, XMP-exif, Image] ShutterSpeedValue - Shutter Speed Value: 1
 [XMP, XMP-exif, Image] UserComment - User Comment: 
 [XMP, XMP-exif, Camera] WhiteBalance - White Balance: Auto
+[XMP, XMP-exifEX, Image] InteroperabilityIndex - Interoperability Index: THM - DCF thumbnail file
 [XMP, XMP-tiff, Camera] Make - Make: Canon
 [XMP, XMP-tiff, Camera] Model - Camera Model Name: Canon EOS DIGITAL REBEL
 [XMP, XMP-tiff, Image] Orientation - Orientation: Horizontal (normal)

@@ -19,11 +19,11 @@ extension level 3, including support for RC4, AES-128 and AES-256
 encryption.  A Password option is provided to allow processing of
 password-protected PDF files.</p>
 
-<p>When writing PDF files, ExifTool uses an incremental update.  This has the
-advantages of being fast and reversible.  The original PDF can be easily
-recovered by deleting the <code>PDF-update</code> pseudo-group (with
-<code>-PDF-update:all=</code> on the command line).  But there are two main
-disadvantages to this technique:</p>
+<p>ExifTool may be used to write native PDF and XMP metadata to PDF files. It
+uses an incremental update technique that has the advantages of being both
+fast and reversible.  The original PDF can be easily recovered by deleting
+the <code>PDF-update</code> pseudo-group (with <code>-PDF-update:all=</code> on the command
+line).  However, there are two main disadvantages to this technique:</p>
 
 <p>1) A linearized PDF file is no longer linearized after the update, so it
 must be subsequently re-linearized if this is required.</p>
@@ -86,7 +86,7 @@ Length information from the Encrypt dictionary)</span></span></td></tr>
   <td>Bit 8 = Fill forms
   <br>Bit 9 = Extract
   <br>Bit 10 = Assemble
-  <br>Bit 11 = Print high-res</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>Bit 11 = Print high-res</td></tr></table>
 </td></tr>
 </table></td></tr></table></blockquote>
 
@@ -279,16 +279,21 @@ uses XML Forms Architecture; not a real Tag ID)</span>
 <tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
 <th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
 <tr>
+<td>'Kids'</td>
+<td>Kids</td>
+<td class=c>-</td>
+<td>--&gt; <a href='PDF.html#Kids'>PDF Kids Tags</a></td></tr>
+<tr class=b>
 <td>'Metadata'</td>
 <td>Metadata</td>
 <td class=c>-</td>
 <td>--&gt; <a href='PDF.html#Metadata'>PDF Metadata Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td>'PieceInfo'</td>
 <td>PieceInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='PDF.html#PieceInfo'>PDF PieceInfo Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td>'Resources'</td>
 <td>Resources</td>
 <td class=c>-</td>
@@ -377,23 +382,28 @@ uses XML Forms Architecture; not a real Tag ID)</span>
 <td class=c>-</td>
 <td>--&gt; <a href='PDF.html#AIMetaData'>PDF AIMetaData Tags</a></td></tr>
 <tr class=b>
+<td>'AIPDFPrivateData'</td>
+<td>AIPDFPrivateData</td>
+<td class=c>-</td>
+<td>--&gt; <a href='PostScript.html'>PostScript Tags</a></td></tr>
+<tr>
 <td>'AIPrivateData'</td>
 <td>AIPrivateData</td>
 <td class=c>-</td>
 <td>--&gt; <a href='PostScript.html'>PostScript Tags</a>
   <br><span class='n s'>(the ExtractEmbedded option enables information to be extracted from embedded
-PostScript documents in the AIPrivateData stream)</span></td></tr>
-<tr>
+PostScript documents in the AIPrivateData# and AIPDFPrivateData# streams)</span></td></tr>
+<tr class=b>
 <td>'ContainerVersion'</td>
 <td>ContainerVersion</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>'CreatorVersion'</td>
 <td>CreatorVersion</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>'RoundTripVersion'</td>
 <td>RoundTripVersion</td>
 <td class=c>N</td>
@@ -424,6 +434,16 @@ PostScript documents in the AIPrivateData stream)</span></td></tr>
 <td>ColorSpace</td>
 <td class=c>-</td>
 <td>--&gt; <a href='PDF.html#ColorSpace'>PDF ColorSpace Tags</a></td></tr>
+<tr class=b>
+<td>'Properties'</td>
+<td>Properties</td>
+<td class=c>-</td>
+<td>--&gt; <a href='PDF.html#Properties'>PDF Properties Tags</a></td></tr>
+<tr>
+<td>'XObject'</td>
+<td>XObject</td>
+<td class=c>-</td>
+<td>--&gt; <a href='PDF.html#XObject'>PDF XObject Tags</a></td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='ColorSpace'>PDF ColorSpace Tags</a></h2>
@@ -433,10 +453,28 @@ PostScript documents in the AIPrivateData stream)</span></td></tr>
 <tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
 <th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
 <tr>
+<td>'Cs1'</td>
+<td>Cs1</td>
+<td class=c>-</td>
+<td>--&gt; <a href='PDF.html#Cs1'>PDF Cs1 Tags</a></td></tr>
+<tr class=b>
 <td>'DefaultRGB'</td>
 <td>DefaultRGB</td>
 <td class=c>-</td>
 <td>--&gt; <a href='PDF.html#DefaultRGB'>PDF DefaultRGB Tags</a></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='Cs1'>PDF Cs1 Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>'_stream'</td>
+<td>_stream</td>
+<td class=c>-</td>
+<td>--&gt; <a href='ICC_Profile.html'>ICC_Profile Tags</a></td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='DefaultRGB'>PDF DefaultRGB Tags</a></h2>
@@ -463,6 +501,85 @@ PostScript documents in the AIPrivateData stream)</span></td></tr>
 <td>_stream</td>
 <td class=c>-</td>
 <td>--&gt; <a href='ICC_Profile.html'>ICC_Profile Tags</a></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='Properties'>PDF Properties Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>'MC'</td>
+<td>MC</td>
+<td class=c>-</td>
+<td>--&gt; <a href='PDF.html#MC'>PDF MC Tags</a>
+  <br><span class='n s'>(the ExtractEmbedded option enables information to be extracted from these
+embedded metadata dictionaries)</span></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='MC'>PDF MC Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>'Metadata'</td>
+<td>Metadata</td>
+<td class=c>-</td>
+<td>--&gt; <a href='PDF.html#Metadata'>PDF Metadata Tags</a></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='XObject'>PDF XObject Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>'Im'</td>
+<td>Im</td>
+<td class=c>-</td>
+<td>--&gt; <a href='PDF.html#Im'>PDF Im Tags</a>
+  <br><span class='n s'>(the ExtractEmbedded option enables information to be extracted from these
+embedded images)</span></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='Im'>PDF Im Tags</a></h2>
+<p>Information extracted from embedded images with the ExtractEmbedded option.
+The EmbeddedImage and its metadata are extracted only for JPEG and Jpeg2000
+image formats.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>'ColorSpace'</td>
+<td>EmbeddedImageColorSpace</td>
+<td class=c title=' + = List'>N+</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>'Filter'</td>
+<td>EmbeddedImageFilter</td>
+<td class=c title=' + = List'>N+</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>'Height'</td>
+<td>EmbeddedImageHeight</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>'Image_stream'</td>
+<td>EmbeddedImage</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>'Width'</td>
+<td>EmbeddedImageWidth</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='Perms'>PDF Perms Tags</a></h2>
@@ -622,7 +739,7 @@ false)</span>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Dec 1, 2011</i>
+<br><i>Last revised Oct 16, 2013</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

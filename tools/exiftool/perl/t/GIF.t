@@ -49,6 +49,7 @@ my $testnum = 1;
     $exifTool->SetNewValue();       # clear previous new values
     $exifTool->SetNewValue('all');  # delete everything...
     # add back some XMP tags
+    $exifTool->SetNewValue(Comment => 'x');
     $exifTool->SetNewValue(Subject => ['one','two','three']);
     $exifTool->SetNewValue(Country => 'Canada');
     my $image2;

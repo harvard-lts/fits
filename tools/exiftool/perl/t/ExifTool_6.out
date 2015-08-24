@@ -1,11 +1,12 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
 [File, System, Image] FileName - File Name: Canon.jpg
 [File, System, Image] Directory - Directory: t/images
 [File, System, Time] FileModifyDate - File Modification Date/Time: 2006:10:03 15:10:31-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:39-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:17 09:18:25-05:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:18 07:17:39-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:03:07 15:31:02-05:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: JPEG
+[File, File, Image] FileTypeExtension - File Type Extension: jpg
 [File, File, Image] MIMEType - MIME Type: image/jpeg
 [File, File, Image] ExifByteOrder - Exif Byte Order: Little-endian (Intel, II)
 [File, File, Image] EncodingProcess - Encoding Process: Baseline DCT, Huffman coding
@@ -54,15 +55,17 @@
 [Composite, Composite, Image] ImageSize - Image Size: 8x8
 [Composite, Composite, Camera] Lens - Lens: 18.0 - 55.0 mm
 [Composite, Composite, Camera] LensID - Lens ID: Unknown 18-55mm
+[Composite, Composite, Image] Megapixels - Megapixels: 0.000064
 [Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 1.6
 [Composite, Composite, Camera] ShootingMode - Shooting Mode: Bulb
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 4
 [Composite, Composite, Camera] WB_RGGBLevels - WB RGGB Levels: 1719 832 831 990
 [Composite, Composite, Camera] BlueBalance - Blue Balance: 1.190619
 [Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.019 mm
-[Composite, Composite, Image] FOV - Field Of View: 37.7 deg
-[Composite, Composite, Camera] FocalLength35efl - Focal Length: 34.0 mm (35 mm equivalent: 52.7 mm)
-[Composite, Composite, Camera] HyperfocalDistance - Hyperfocal Distance: 4.26 m
-[Composite, Composite, Camera] Lens35efl - Lens: 18.0 - 55.0 mm (35 mm equivalent: 27.9 - 85.3 mm)
+[Composite, Composite, Image] DOF - Depth Of Field: inf (4.31 m - inf)
+[Composite, Composite, Image] FOV - Field Of View: 36.9 deg
+[Composite, Composite, Camera] FocalLength35efl - Focal Length: 34.0 mm (35 mm equivalent: 54.0 mm)
+[Composite, Composite, Camera] HyperfocalDistance - Hyperfocal Distance: 4.37 m
+[Composite, Composite, Camera] Lens35efl - Lens: 18.0 - 55.0 mm (35 mm equivalent: 28.6 - 87.4 mm)
 [Composite, Composite, Image] LightValue - Light Value: 5.6
 [Composite, Composite, Camera] RedBalance - Red Balance: 2.067348

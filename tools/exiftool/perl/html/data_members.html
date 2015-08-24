@@ -46,10 +46,17 @@ value.</p>
 <tr><td>CUR_LANG</td><td>Hash reference for localized language lookup corresponding
     to current 'Lang' options setting.</td></tr>
 
+<tr><td>CUR_WRITE_GROUP</td><td>Current family 1 group while writing.  Currently
+    used only when writing QuickTime tracks.</td></tr>
+
 <tr><td>DEL_GROUP</td><td>Hash of groups to delete.  Value is 1 to delete group
-    completely, or 2 if tags were added back after deleting the group.</td></tr>
+    completely, or 2 if tags were added back after deleting the group.  May
+    have a leading "-" if excluded from a delete.</td></tr>
 
 <tr><td>DEL_PREVIEW</td><td>Flag to delete preview from after JPEG EOI</td></tr>
+
+<tr><td>DemoteErrors</td><td>Errors are demoted to warnings and this count is
+    incremented if non-zero to begin with</td></tr>
 
 <tr><td>DIR_COUNT</td><td>Hash reference for counters of various types of directorys (ICC, IPTC,...)</td></tr>
 
@@ -111,7 +118,7 @@ value.</p>
     Not used during when writing.</td></tr>
 
 <tr><td>LOW_PRIORITY_DIR</td><td>Lookup based on directory name for directories where
-    undefined Priority tags get set to Priority 0 (ie. PreviewIFD in all images,
+    undefined Priority tags get set to Priority 0 (eg. PreviewIFD in all images,
     and IFD1 in JPEG images).  This is equivalent to setting PRIORITY to 0 for
     the tag table only for a specific directory name.</td></tr>
 
@@ -156,6 +163,12 @@ value.</p>
     accumulate lists as usual, or 0 to accumulate lists in TAG_EXTRA "NoList" element (and
     set a TAG_EXTRA "NoListDel" flag for tags that wouldn't have been created).</td></tr>
 
+<tr><td>NO_STRUCT</td><td>Set if structures shouldn't be restored for this metadata.  Used
+    to avoid restoring structures for non-XMP (eg. XML) information.</td></tr>
+
+<tr><td>NO_STRUCT_WARN</td><td>Set if structures warnings should be ignored when rebuilding
+    structures (for questionable XML).</td></tr>
+
 <tr><td>NO_UNKNOWN</td><td>Don't generate unknown tags automatically even if Unknown option is set</td></tr>
 
 <tr><td>NUM_FOUND</td><td>Number of tags found</td></tr>
@@ -166,7 +179,7 @@ value.</p>
 
 <tr><td>OPTIONS</td><td>ExifTool options</td></tr>
 
-<tr><td>PATH</td><td>List reference to SubDirectory path.  ie)
+<tr><td>PATH</td><td>List reference to SubDirectory path.  eg)
     [qw(JPEG APP13 Photoshop IPTC)]</td></tr>
 
 <tr><td>PDF_CAPTURE</td><td>Used by PDF module to store information when writing</td></tr>
@@ -183,7 +196,7 @@ value.</p>
     <tr valign='top'><td>Data</td><td>-</td><td>data for PreviewImage to be written (may either be data
     for the old or new image, or 'LOAD_PREVIEW' to indicate that the data must be loaded from outside
     the EXIF segment)</td></tr>
-    <tr><td>Fixup</td><td>-</td><td>fixup for PreviewImage pointers when writing JPEG images</td></tr>
+    <tr><td>Fixup</td><td>-</td><td>[mandatory] fixup for PreviewImage pointers when writing JPEG images</td></tr>
     <tr valign='top'><td>IsShort</td><td>-</td><td>flag indicates PreviewImage pointers
     are 2-byte (instead of 4-byte) integers</td></tr>
     <tr valign='top'><td>IsTrailer</td><td>-</td><td>flag indicates image should always be written as a JPEG
@@ -216,6 +229,9 @@ value.</p>
 <tr><td>SAVE_NEW_VALUE</td><td>Hash of new value information which was overwritten after
     a call to SaveNewValues()</td></tr>
 
+<tr><td>SET_GROUP0</td><td>Value to use for family 0 group name when new tags
+    are found</td></tr>
+
 <tr><td>SET_GROUP1</td><td>Value to use for family 1 group name when new tags
     are found.  May start with a '+' sign to add to existing group name</td></tr>
 
@@ -223,14 +239,15 @@ value.</p>
 information may include:
     <table class='clear'>
     <tr valign='top'><td>G0</td><td>-</td><td>override for family 0 group name</td></tr>
-    <tr valign='top'><td>G1</td><td>-</td><td>dynamic family 1 group name (ie. IFD name or XMP
+    <tr valign='top'><td>G1</td><td>-</td><td>dynamic family 1 group name (eg. IFD name or XMP
         namespace), with a leading '+' to add value to the existing group 1 name</td></tr>
-    <tr valign='top'><td>G3</td><td>-</td><td>number for embedded documents (ie. 1, 2, etc)</td></tr>
+    <tr valign='top'><td>G3</td><td>-</td><td>number for embedded documents (eg. 1, 2, etc)</td></tr>
     </table></td></tr>
 
 <tr><td>TAG_INFO</td><td>Hash of tagInfo hash references, keyed by tag key</td></tr>
 
-<tr><td>TAGS_FROM_FILE</td><td>Flag used during extraction when called from SetNewValuesFromFile()</td></tr>
+<tr><td>TAGS_FROM_FILE</td><td>Flag used during extraction when called from SetNewValuesFromFile().
+    Test this flag when extracting tags that are not normally extracted.</td></tr>
 
 <tr><td>TIFF_END</td><td>Location of end of regular TIFF file set by WriteExif()</td></tr>
 
@@ -244,6 +261,8 @@ information may include:
 <tr><td>WRITE_GROUPS</td><td>List of write groups in order of priority</td></tr>
 
 <tr><td>WRITE_PRIORITY</td><td>Hash of write priority values keyed by group name</td></tr>
+
+<tr><td>WRITTEN</td><td>Hash of tags written (currently used only for filesystem date/time tags)</td></tr>
 
 <tr><td>XMP_CAPTURE</td><td>Hash of tag information (value, attribute hash) keyed by XMP
     property path, used by XMP module during writing</td></tr>

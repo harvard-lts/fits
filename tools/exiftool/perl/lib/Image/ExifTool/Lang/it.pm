@@ -11,7 +11,7 @@ package Image::ExifTool::Lang::it;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.10';
+$VERSION = '1.12';
 
 %Image::ExifTool::Lang::it::Translate = (
    'A100DataOffset' => 'Offset dati A100',
@@ -1682,8 +1682,15 @@ $VERSION = '1.10';
    'CreationDate' => 'Data di creazione',
    'CreativeStyle' => {
       PrintConv => {
+        'Autumn Leaves' => 'Foglie d\'autunno',
+        'B&W' => 'B/N',
+        'Clear' => 'Trasparente',
+        'Deep' => 'Cupa',
         'Landscape' => 'Orizzontale',
         'Light' => 'Chiara',
+        'Neutral' => 'Neutra',
+        'Night View/Portrait' => 'Rit. notturno',
+        'Portrait' => 'Verticale',
         'Sepia' => 'Seppia',
         'Sunset' => 'Tramonto',
         'Vivid' => 'Vivace',
@@ -3962,6 +3969,14 @@ $VERSION = '1.10';
       },
     },
    'JPEGQTables' => 'Tabelle JPEGQ',
+   'JPEGQuality' => {
+      Description => 'Qualità',
+      PrintConv => {
+        'Extra Fine' => 'Extra fine',
+        'Standard' => 'Normale',
+        'n/a' => 'n/d',
+      },
+    },
    'JPEGRestartInterval' => 'Intervallo riavvio JPEG',
    'JPEGTables' => 'Tabelle JPEG',
    'JobID' => 'ID processo',
@@ -4884,7 +4899,7 @@ $VERSION = '1.10';
    'OriginalAlbum' => 'Album originale',
    'OriginalAlbumTitle' => 'Titolo album originale',
    'OriginalArtist' => 'Artista originale',
-   'OriginalFilename' => 'Nome file originale',
+   'OriginalFileName' => 'Nome file originale',
    'OriginalLyricist' => 'Paroliere originale',
    'OriginalMedia' => {
       PrintConv => {
@@ -5025,7 +5040,7 @@ $VERSION = '1.10';
       },
     },
    'PictureFormat' => 'Formato immagine',
-   'PictureMimeType' => 'Mime type immagine',
+   'PictureMIMEType' => 'MIME type immagine',
    'PictureMode' => {
       PrintConv => {
         '1/2 EV steps' => 'Step 1/2 EV',
@@ -6778,7 +6793,7 @@ $VERSION = '1.10';
       },
     },
    'Shadow' => 'Ombra',
-   'ShadowCompensation' => {
+   'ShadowCorrection' => {
       PrintConv => {
         'Normal' => 'Normale',
         'Off' => 'Spento',
@@ -7088,7 +7103,7 @@ $VERSION = '1.10';
    'SubjectReference' => 'Codice Soggetto',
    'SubjectUnits' => {
       PrintConv => {
-        'Radians' => 'Radianti',
+        'radians' => 'Radianti',
       },
     },
    'Subsystem' => {
@@ -7307,7 +7322,6 @@ $VERSION = '1.10';
         'Enable' => 'Abilita',
       },
     },
-   'Timezone' => 'Fiso orario',
    'Tint' => 'Tinta',
    'Title' => 'Titolo',
    'Title2' => 'Titolo 2',
@@ -7697,7 +7711,9 @@ $VERSION = '1.10';
     },
    'WBAdjLighting' => {
       PrintConv => {
-        'Daylight' => 'Luce del giorno',
+        'Daylight (direct sunlight)' => 'Luce del giorno (0)',
+        'Daylight (shade)' => 'Luce del giorno (1)',
+        'Daylight (cloudy)' => 'Luce del giorno (2)',
         'None' => 'Nessuno',
       },
     },
@@ -7884,7 +7900,7 @@ and values.
 
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

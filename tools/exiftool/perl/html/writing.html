@@ -79,7 +79,7 @@ regular expressions.</p>
 <h3>Current Implementation</h3>
 <p>Currently, ExifTool can write most of the EXIF tags that anyone could reasonably
 want to change (but some tags are protected because they describe physical
-characteristics of the image that you can not change with ExifTool, ie.
+characteristics of the image that you can not change with ExifTool, eg.
 Compression).  Also, all of the GPS, IPTC and XMP information and most of the
 MakerNotes information can be edited.  This gives you great power, but with
 great power, comes great responsibility...</p>
@@ -174,7 +174,7 @@ will simply remove a preview like this when rewriting the file.</p>
 <p>However, as of ExifTool version 5, the preview images are handled properly
 when writing EXIF information in JPEG files.  But for reasons of efficiency, the
 EXIF segment is not edited when writing information if no EXIF tags are being
-changed (ie. if only XMP or IPTC information is being edited).  In this case,
+changed (eg. if only XMP or IPTC information is being edited).  In this case,
 the preview image pointers could be invalidated because the length of the data
 between the EXIF segment (which comes near the start of the file) and the
 preview image (at the end of the file) is likely to change.  ExifTool gets

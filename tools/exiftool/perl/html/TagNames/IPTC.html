@@ -12,8 +12,8 @@ The tags listed below are part of the International Press Telecommunications
 Council (IPTC) and the Newspaper Association of America (NAA) Information
 Interchange Model (IIM).  This is an older meta information format, slowly
 being phased out in favor of XMP -- the newer IPTCCore specification uses
-XMP format.  IPTC information may be embedded in JPG, TIFF, PNG, MIFF, PS,
-PDF, PSD, XCF and DNG images.</p>
+XMP format.  IPTC information may be found in JPG, TIFF, PNG, MIFF, PS, PDF,
+PSD, XCF and DNG images.</p>
 
 <p>IPTC information is separated into different records, each of which has its
 own set of tags.  See
@@ -26,9 +26,10 @@ the <b>Writable</b> format name.  For tags where a range of lengths is allowed,
 the minimum and maximum lengths are separated by a comma within the
 brackets.  IPTC strings are not null terminated.  When writing, ExifTool
 issues a minor warning and truncates the value if it is longer than allowed
-by the IPTC specification. Minor errors may be ignored with the
+by the IPTC specification.  Minor errors may be ignored with the
 IgnoreMinorErrors (-m) option, allowing longer values to be written, but
-beware that values like this may cause problems for some other IPTC readers.</p>
+beware that values like this may cause problems for some other IPTC readers.
+ExifTool will happily read IPTC values of any length.</p>
 
 <p>Separate IPTC date and time tags may be written with a combined date/time
 value and ExifTool automagically takes the appropriate part of the date/time
@@ -40,7 +41,14 @@ formats.</p>
 doesn&#39;t include a timezone then the current local timezone offset is used
 (unless written with a combined date/time, in which case the local timezone
 offset at the specified date/time is used, which may be different due to
-changes in daylight savings time).
+changes in daylight savings time).</p>
+
+<p>Note that it is not uncommon for IPTC to be found in non-standard locations
+in JPEG and TIFF-based images.  When reading, the family 1 group name has a
+number added for non-standard IPTC (&quot;IPTC2&quot;, &quot;IPTC3&quot;, etc), but when writing
+only &quot;IPTC&quot; may be specified as the group.  To keep the IPTC consistent,
+ExifTool updates tags in all existing IPTC locations, but will create a new
+IPTC group only in the standard location.
 </p>
 <blockquote>
 <table class=frame><tr><td>
@@ -168,7 +176,7 @@ changes in daylight savings time).
   <br>6 = 6
   <br>7 = 7
   <br>8 = 8 (least urgent)
-  <br>9 = 9 (user-defined priority)</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>9 = 9 (user-defined priority)</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='70 = 0x46'>70</td>
@@ -260,7 +268,7 @@ possibility)</span></span></td></tr>
   <br>6 = 6
   <br>7 = 7
   <br>8 = 8 (least urgent)
-  <br>9 = 9 (user-defined priority)</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>9 = 9 (user-defined priority)</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='12 = 0xc'>12</td>
@@ -508,7 +516,7 @@ won&#39;t be able to read these tags as written by ExifTool)</span></span></td><
   <br>&#39;2R&#39; = Stereo Raw Sound
   <br>&#39;2S&#39; = Stereo Scener
   <br>&#39;2V&#39; = Stereo Voicer
-  <br>&#39;2W&#39; = Stereo Wrap</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>&#39;2W&#39; = Stereo Wrap</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='151 = 0x97'>151</td>
@@ -710,7 +718,7 @@ won&#39;t be able to read these tags as written by ExifTool)</span></span></td><
   <br>5 = CMY (K) Device Dependent
   <br>6 = Lab (K) CIE
   <br>7 = YCbCr
-  <br>8 = sRGB</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>8 = sRGB</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='65 = 0x41'>65</td>
@@ -766,7 +774,7 @@ won&#39;t be able to read these tags as written by ExifTool)</span></span></td><
   <td>4 = Top-Bottom, L-R
   <br>5 = Bottom-Top, L-R
   <br>6 = Top-Bottom, R-L
-  <br>7 = Bottom-Top, R-L</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>7 = Bottom-Top, R-L</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='102 = 0x66'>102</td>
@@ -793,7 +801,7 @@ won&#39;t be able to read these tags as written by ExifTool)</span></span></td><
   <br>4 = AP Domestic Analogue
   <br>5 = Compression Method Specific
   <br>6 = Color Space Specific
-  <br>7 = Gamma Compensated</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>7 = Gamma Compensated</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='125 = 0x7d'>125</td>
@@ -889,7 +897,7 @@ won&#39;t be able to read these tags as written by ExifTool)</span></span></td><
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Aug 3, 2012</i>
+<br><i>Last revised Apr 7, 2015</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

@@ -1,12 +1,13 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.07
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 10.00
 [File, System, Image] FileName - File Name: Panasonic_5_failed.rw2
 [File, System, Image] Directory - Directory: t
 [File, System, Image] FileSize - File Size: 14 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2012:11:20 07:49:46-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2012:11:20 07:49:46-05:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2012:11:20 07:49:46-05:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:07:24 12:16:25-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2015:07:24 12:16:25-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:07:24 12:16:25-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: RW2
+[File, File, Image] FileTypeExtension - File Type Extension: rw2
 [File, File, Image] MIMEType - MIME Type: image/x-panasonic-rw2
 [File, File, Image] ExifByteOrder - Exif Byte Order: Little-endian (Intel, II)
 [File, File, Image] ExifByteOrder - Exif Byte Order: Little-endian (Intel, II)
@@ -24,26 +25,25 @@
 [EXIF, IFD0, Image] 5 - Sensor Left Border: 8
 [EXIF, IFD0, Image] 6 - Sensor Bottom Border: 2742
 [EXIF, IFD0, Image] 7 - Sensor Right Border: 3656
-[EXIF, IFD0, Image] 8 - Panasonic Raw 0x0008: 1
-[EXIF, IFD0, Image] 9 - Panasonic Raw 0x0009: 4
-[EXIF, IFD0, Image] 10 - Panasonic Raw 0x000a: 12
+[EXIF, IFD0, Image] 8 - Black Level 1: 1
+[EXIF, IFD0, Image] 9 - Black Level 2: 4
+[EXIF, IFD0, Image] 10 - Black Level 3: 12
 [EXIF, IFD0, Image] 11 - Panasonic Raw 0x000b: 34316
 [EXIF, IFD0, Image] 13 - Panasonic Raw 0x000d: 1
-[EXIF, IFD0, Image] 14 - Panasonic Raw 0x000e: 4095
-[EXIF, IFD0, Image] 15 - Panasonic Raw 0x000f: 4095
-[EXIF, IFD0, Image] 16 - Panasonic Raw 0x0010: 4095
+[EXIF, IFD0, Image] 14 - Linearity Limit Red: 4095
+[EXIF, IFD0, Image] 15 - Linearity Limit Green: 4095
+[EXIF, IFD0, Image] 16 - Linearity Limit Blue: 4095
 [EXIF, IFD0, Image] 23 - ISO: 80
-[EXIF, IFD0, Image] 24 - Panasonic Raw 0x0018: 0
-[EXIF, IFD0, Image] 25 - Panasonic Raw 0x0019: 0
-[EXIF, IFD0, Image] 26 - Panasonic Raw 0x001a: 0
+[EXIF, IFD0, Image] 24 - High ISO Multiplier Red: 0
+[EXIF, IFD0, Image] 25 - High ISO Multiplier Green: 0
+[EXIF, IFD0, Image] 26 - High ISO Multiplier Blue: 0
 [EXIF, IFD0, Image] 27 - Panasonic Raw 0x001b: .d...»...ê....
-[EXIF, IFD0, Image] 28 - Panasonic Raw 0x001c: 0
-[EXIF, IFD0, Image] 29 - Panasonic Raw 0x001d: 0
-[EXIF, IFD0, Image] 30 - Panasonic Raw 0x001e: 0
+[EXIF, IFD0, Image] 28 - Black Level Red: 0
+[EXIF, IFD0, Image] 29 - Black Level Green: 0
+[EXIF, IFD0, Image] 30 - Black Level Blue: 0
 [EXIF, IFD0, Image] 36 - WB Red Level: 570
 [EXIF, IFD0, Image] 37 - WB Green Level: 263
 [EXIF, IFD0, Image] 38 - WB Blue Level: 438
-[EXIF, IFD0, Image] 39 - Panasonic Raw 0x0027: ..=..†.;v..É..æ..c..z..P..ã..y..N..•..z..P.
 [EXIF, IFD0, Image] 45 - Panasonic Raw 0x002d: 4
 [EXIF, IFD0, Camera] 271 - Make: Panasonic
 [EXIF, IFD0, Camera] 272 - Camera Model Name: DMC-LX3
@@ -93,17 +93,17 @@
 [EXIF, IFD1, Image] 282 - X Resolution: 180
 [EXIF, IFD1, Image] 283 - Y Resolution: 180
 [EXIF, IFD1, Image] 296 - Resolution Unit: inches
-[EXIF, IFD1, Image] 513 - Thumbnail Offset: 11046
+[EXIF, IFD1, Image] 513 - Thumbnail Offset: 11042
 [EXIF, IFD1, Image] 514 - Thumbnail Length: 28
 [EXIF, IFD1, Image] 531 - Y Cb Cr Positioning: Co-sited
-[EXIF, IFD0, Image] 46 - Jpg From Raw: (Binary data 10785 bytes)
+[EXIF, IFD0, Preview] 46 - Jpg From Raw: (Binary data 10781 bytes)
 [EXIF, IFD0, Camera] 271 - Make: Panasonic
 [EXIF, IFD0, Camera] 272 - Camera Model Name: DMC-LX3
 [EXIF, IFD0, Image] 273 - Strip Offsets: 4294967295
 [EXIF, IFD0, Image] 274 - Orientation: Horizontal (normal)
 [EXIF, IFD0, Image] 278 - Rows Per Strip: 2754
 [EXIF, IFD0, Image] 279 - Strip Byte Counts: 20511792
-[EXIF, IFD0, Image] 280 - Raw Data Offset: 14556
+[EXIF, IFD0, Image] 280 - Raw Data Offset: 14554
 [EXIF, IFD0, Image] 282 - Panasonic Raw 0x011a: 1
 [EXIF, ExifIFD, Image] 33434 - Exposure Time: 1/250
 [EXIF, ExifIFD, Image] 33437 - F Number: 4.0
@@ -117,6 +117,29 @@
 [EXIF, ExifIFD, Camera] 37385 - Flash: Off, Did not fire
 [EXIF, ExifIFD, Camera] 37386 - Focal Length: 5.1 mm
 [EXIF, ExifIFD, Image] 41728 - File Source: Digital Camera
+[PanasonicRaw, PanasonicRaw, Other] 0 - Num WB Entries: 7
+[PanasonicRaw, PanasonicRaw, Other] 1 - WB Type 1: Fine Weather
+[PanasonicRaw, PanasonicRaw, Other] 2 - WB RGB Levels 1: 573 256 416
+[PanasonicRaw, PanasonicRaw, Other] 5 - WB Type 2: Cloudy
+[PanasonicRaw, PanasonicRaw, Other] 6 - WB RGB Levels 2: 630 256 387
+[PanasonicRaw, PanasonicRaw, Other] 9 - WB Type 3: Shade
+[PanasonicRaw, PanasonicRaw, Other] 10 - WB RGB Levels 3: 702 256 355
+[PanasonicRaw, PanasonicRaw, Other] 13 - WB Type 4: Tungsten (Incandescent)
+[PanasonicRaw, PanasonicRaw, Other] 14 - WB RGB Levels 4: 378 256 592
+[PanasonicRaw, PanasonicRaw, Other] 17 - WB Type 5: Flash
+[PanasonicRaw, PanasonicRaw, Other] 18 - WB RGB Levels 5: 651 256 377
+[PanasonicRaw, PanasonicRaw, Other] 21 - WB Type 6: D55
+[PanasonicRaw, PanasonicRaw, Other] 22 - WB RGB Levels 6: 590 256 421
+[PanasonicRaw, PanasonicRaw, Other] 25 - WB Type 7: ISO Studio Tungsten
+[PanasonicRaw, PanasonicRaw, Other] 26 - WB RGB Levels 7: 378 256 592
+[PanasonicRaw, PanasonicRaw, Image] 2 - Distortion Param 02: 0.010772705078125
+[PanasonicRaw, PanasonicRaw, Image] 4 - Distortion Param 04: 0.02056884765625
+[PanasonicRaw, PanasonicRaw, Image] 5 - Distortion Scale: 1
+[PanasonicRaw, PanasonicRaw, Image] 7.1 - Distortion Correction: On
+[PanasonicRaw, PanasonicRaw, Image] 8 - Distortion Param 08: 0.12359619140625
+[PanasonicRaw, PanasonicRaw, Image] 9 - Distortion Param 09: 0.00579833984375
+[PanasonicRaw, PanasonicRaw, Image] 11 - Distortion Param 11: -0.02374267578125
+[PanasonicRaw, PanasonicRaw, Image] 12 - Distortion N: 2280
 [MakerNotes, Panasonic, Camera] 1 - Image Quality: Raw
 [MakerNotes, Panasonic, Camera] 2 - Firmware Version: 0.1.0.0
 [MakerNotes, Panasonic, Camera] 3 - White Balance: Auto
@@ -163,7 +186,7 @@
 [MakerNotes, Panasonic, Camera] 68 - Color Temp Kelvin: 0
 [MakerNotes, Panasonic, Camera] 70 - WB Shift AB: 0
 [MakerNotes, Panasonic, Camera] 71 - WB Shift GM: 0
-[MakerNotes, Panasonic, Camera] 72 - Panasonic 0x0048: 0
+[MakerNotes, Panasonic, Camera] 72 - Flash Curtain: n/a
 [MakerNotes, Panasonic, Camera] 74 - Panasonic 0x004a: 0
 [MakerNotes, Panasonic, Camera] 75 - Panasonic Image Width: 3648
 [MakerNotes, Panasonic, Camera] 76 - Panasonic Image Height: 2736
@@ -199,15 +222,7 @@
 [PrintIM, PrintIM, Printing] 256 - Print IM 0x0100: 0x00000005
 [PrintIM, PrintIM, Printing] 257 - Print IM 0x0101: 0x00000001
 [PrintIM, PrintIM, Printing] 272 - Print IM 0x0110: 0x00000080
-[PanasonicRaw, PanasonicRaw, Other] 2 - Distortion Param 02: 0.010772705078125
-[PanasonicRaw, PanasonicRaw, Other] 4 - Distortion Param 04: 0.02056884765625
-[PanasonicRaw, PanasonicRaw, Other] 5 - Distortion Scale: 1
-[PanasonicRaw, PanasonicRaw, Other] 7.1 - Distortion Correction: On
-[PanasonicRaw, PanasonicRaw, Other] 8 - Distortion Param 08: 0.12359619140625
-[PanasonicRaw, PanasonicRaw, Other] 9 - Distortion Param 09: 0.00579833984375
-[PanasonicRaw, PanasonicRaw, Other] 11 - Distortion Param 11: -0.02374267578125
-[PanasonicRaw, PanasonicRaw, Other] 12 - Distortion N: 2280
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.07
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 10.00
 [XMP, XMP-dc, Image] title - Title: new title
 [IPTC, IPTC, Other] 25 - Keywords: a keyword
 [IPTC, IPTC, Other] 0 - Application Record Version: 4
@@ -219,10 +234,11 @@
 [Composite, Composite, Camera] RedBalance - Red Balance: 2.1673
 [Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 4.7
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 1/250
-[Composite, Composite, Image] ThumbnailImage - Thumbnail Image: (Binary data 28 bytes)
+[Composite, Composite, Preview] ThumbnailImage - Thumbnail Image: (Binary data 28 bytes)
 [Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.006 mm
 [Composite, Composite, Image] FOV - Field Of View: 73.7 deg
 [Composite, Composite, Camera] FocalLength35efl - Focal Length: 5.1 mm (35 mm equivalent: 24.0 mm)
 [Composite, Composite, Camera] HyperfocalDistance - Hyperfocal Distance: 1.02 m
 [Composite, Composite, Image] ImageSize - Image Size: 3648x2736
 [Composite, Composite, Image] LightValue - Light Value: 12.3
+[Composite, Composite, Image] Megapixels - Megapixels: 10.0

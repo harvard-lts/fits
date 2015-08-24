@@ -35,12 +35,13 @@ formatting which is handled at the application level.</p>
 
 <center><img src="overview.png" alt="ExifTool Overview" width="680" height="460"></center>
 
-<p>The information flow is separated into two distinct modes: 1) Reading or
-extracting information, and 2) Writing or editing.  The application runs in
-<b>read</b> mode by default, but switches to <b>write</b> mode if a new value is
-assigned to any tag (via "<code>-TAG=</code>", "<code>-tagsFromFile</code>",
-"<code>-geotag</code>", "<code>-csv=</code>" or "<code>-json=</code>" on the
-command line).</p>
+<p>The information flow is separated into two distinct modes: 1)
+<span class=blu>Reading or extracting information</span>, and 2)
+<span class=red>Writing or editing</span>.  The application runs in
+<b class=blu>read</b> mode by default, but switches to <b class=red>write</b> mode
+if a new value is assigned to any tag (via "<code>-TAG=</code>",
+"<code>-tagsFromFile</code>", "<code>-geotag</code>", "<code>-csv=</code>" or
+"<code>-json=</code>" on the command line).</p>
 
 <a name="conversions"></a>
 <h2>Value Conversions</h2>
@@ -58,7 +59,7 @@ translate numbers into words for better readability.  The <code>-lang</code>
 this formatting for GPS coordinates and date/time values.</li></ol>
 
 <ol start=2><li>The "<b>ValueConv</b>" value is a numerical value, suitable for
-use in calculations.  Typically, this value is converted to standard units (ie.
+use in calculations.  Typically, this value is converted to standard units (eg.
 degrees, meters, or seconds) to make calculations simpler.  This value is
 returned for all tags when the <code>-n</code> option is used, or for individual
 tags by suffixing the tag name with a <code>#</code> character.</li></ol>
@@ -69,11 +70,13 @@ conversion, so for these tags the "Raw" value is the same as the "ValueConv"
 value.  This value may be seen by using the <code>-v</code> option.</li></ol>
 
 <ol start=0><li>The "<b>Binary</b>" value is actual binary data stored in the
-file. This data is displayed in hexadecimal form with the <code>-v3</code>
+file.  This data is displayed in hexadecimal form with the <code>-v3</code>
 option, or by using the <code>-htmlDump</code> feature.  Note that this value is
 not related to the <code>-b</code> (<code>-binary</code>) option, which actually
 returns the "ValueConv" value and is used for tags where this value can not be
-presented in a simple text format.</li></ol>
+presented in a simple text format.  The Writable column in the
+<a href="TagNames/index.html">Tag Name documentation</a>
+gives the format of this binary data for writable tags.</li></ol>
 
 <p>Below are some examples of these different values for a few tags:</p>
 
@@ -90,6 +93,10 @@ presented in a simple text format.</li></ol>
 
 <a name="philophies"></a>
 <h2>Underlying Philosophies</h2>
+
+<p>You have the right to know about the metadata contained in your images.  A main
+goal of the Exiftool project is to make this information freely available, both to
+the general public and as a resource for other developers.</p>
 
 <p>In the design of exiftool, there have been a number of underlying philosophies
 which have helped to influence the overall development:</p>
@@ -114,7 +121,8 @@ which have helped to influence the overall development:</p>
 </ol>
 
 <hr>
-<i>Last revised June 21, 2012</i>
+<i>Created Jun. 24, 2009</i><br>
+<i>Last revised Dec. 24, 2013</i>
 <p class='lf'><a href="index.html">&lt;-- Back to ExifTool home page</a></p>
 </body>
 </html>

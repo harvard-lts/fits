@@ -161,7 +161,7 @@ formatting of this table.</p>
 <tr>
 <td>MetadataLibrary</td>
 <td class=c>-</td>
-<td>--&gt; <a href='ASF.html#Metadata'>ASF Metadata Tags</a></td></tr>
+<td>--&gt; <a href='ASF.html#ExtendedDescr'>ASF ExtendedDescr Tags</a></td></tr>
 <tr class=b>
 <td>TimecodeIndexParms</td>
 <td class=c>N</td>
@@ -189,7 +189,7 @@ formatting of this table.</p>
 <tr class=b>
 <td>Metadata</td>
 <td class=c>-</td>
-<td>--&gt; <a href='ASF.html#Metadata'>ASF Metadata Tags</a></td></tr>
+<td>--&gt; <a href='ASF.html#ExtendedDescr'>ASF ExtendedDescr Tags</a></td></tr>
 <tr>
 <td>GroupMutualExclusion</td>
 <td class=c>N</td>
@@ -201,191 +201,6 @@ formatting of this table.</p>
 <tr>
 <td>IndexParameters</td>
 <td class=c>N</td>
-<td>&nbsp;</td></tr>
-</table></td></tr></table></blockquote>
-
-<h2><a name='Metadata'>ASF Metadata Tags</a></h2>
-<blockquote>
-<table class=frame><tr><td>
-<table class=inner cellspacing=1>
-<tr class=h><th>Tag Name</th>
-<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
-<tr><td colspan=3 class=c><i>[no tags known]</i></td></tr>
-</table></td></tr></table></blockquote>
-
-<h2><a name='ContentDescr'>ASF ContentDescr Tags</a></h2>
-<blockquote>
-<table class=frame><tr><td>
-<table class=inner cellspacing=1>
-<tr class=h><th>Tag Name</th>
-<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
-<tr>
-<td>Title</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td>Author</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td>Copyright</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td>Description</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td>Rating</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-</table></td></tr></table></blockquote>
-
-<h2><a name='CodecList'>ASF CodecList Tags</a></h2>
-<blockquote>
-<table class=frame><tr><td>
-<table class=inner cellspacing=1>
-<tr class=h><th>Tag Name</th>
-<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
-<tr>
-<td>AudioCodecDescription</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td>AudioCodecName</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td>OtherCodecDescription</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td>OtherCodecName</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td>VideoCodecDescription</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td>VideoCodecName</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-</table></td></tr></table></blockquote>
-
-<h2><a name='FileProperties'>ASF FileProperties Tags</a></h2>
-<blockquote>
-<table class=frame><tr><td>
-<table class=inner cellspacing=1>
-<tr class=h><th>Index1</th><th>Tag Name</th>
-<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
-<tr>
-<td class=r title='0 = 0x0'>0</td>
-<td>FileID</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='16 = 0x10'>16</td>
-<td>FileLength</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='24 = 0x18'>24</td>
-<td>CreationDate</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='32 = 0x20'>32</td>
-<td>DataPackets</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='40 = 0x28'>40</td>
-<td>PlayDuration</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='48 = 0x30'>48</td>
-<td>SendDuration</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='56 = 0x38'>56</td>
-<td>Preroll</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='64 = 0x40'>64</td>
-<td>Flags</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='68 = 0x44'>68</td>
-<td>MinPacketSize</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='72 = 0x48'>72</td>
-<td>MaxPacketSize</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='76 = 0x4c'>76</td>
-<td>MaxBitrate</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-</table></td></tr></table></blockquote>
-
-<h2><a name='StreamProperties'>ASF StreamProperties Tags</a></h2>
-<p>Tags with index 54 and greater are conditional based on the StreamType.</p>
-<blockquote>
-<table class=frame><tr><td>
-<table class=inner cellspacing=1>
-<tr class=h><th>Index1</th><th>Tag Name</th>
-<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
-<tr>
-<td class=r title='0 = 0x0'>0</td>
-<td>StreamType</td>
-<td class=c>N</td>
-<td><span class=s>&#39;35907DE0-E415-11CF-A917-00805F5C442B&#39; = Degradable JPEG
-  <br>&#39;3AFB65E2-47EF-40F2-AC2C-70A90D71D343&#39; = Binary
-  <br>&#39;59DACFC0-59E6-11D0-A3AC-00A0C90348F6&#39; = Command
-  <br>&#39;91BD222C-F21C-497A-8B6D-5AA86BFC0185&#39; = File Transfer
-  <br>&#39;B61BE100-5B4E-11CF-A8FD-00805F5C442B&#39; = JFIF
-  <br>&#39;BC19EFC0-5B4D-11CF-A8FD-00805F5C442B&#39; = Video
-  <br>&#39;F8699E40-5B4D-11CF-A8FD-00805F5C442B&#39; = Audio</span></td></tr>
-<tr class=b>
-<td class=r title='16 = 0x10'>16</td>
-<td>ErrorCorrectionType</td>
-<td class=c>N</td>
-<td><span class=s>&#39;20FB5700-5B55-11CF-A8FD-00805F5C442B&#39; = No Error Correction
-  <br>&#39;BFC3CD50-618F-11CF-8BB2-00AA00B4E220&#39; = Audio Spread</span></td></tr>
-<tr>
-<td class=r title='32 = 0x20'>32</td>
-<td>TimeOffset</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='48 = 0x30'>48</td>
-<td>StreamNumber</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='54 = 0x36'>54</td>
-<td>AudioCodecID
-  <br>ImageWidth</td>
-<td class=c>N<br>N</td>
-<td>--&gt; <a href='RIFF.html#AudioEncoding'>RIFF AudioEncoding Values</a></td></tr>
-<tr class=b>
-<td class=r title='56 = 0x38'>56</td>
-<td>AudioChannels</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='58 = 0x3a'>58</td>
-<td>AudioSampleRate
-  <br>ImageHeight</td>
-<td class=c>N<br>N</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -808,7 +623,7 @@ formatting of this table.</p>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
-<td>OriginalFilename</td>
+<td>OriginalFileName</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr>
@@ -920,11 +735,11 @@ formatting of this table.</p>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
-<td>SubTitle</td>
+<td>Subtitle</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr>
-<td>SubTitleDescription</td>
+<td>SubtitleDescription</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
@@ -1051,10 +866,10 @@ formatting of this table.</p>
   <br>17 = Bright(ly) Colored Fish
   <br>18 = Illustration
   <br>19 = Band Logo
-  <br>20 = Publisher Logo</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>20 = Publisher Logo</td></tr></table>
 </td></tr>
 <tr class=b>
-<td>PictureMimeType</td>
+<td>PictureMIMEType</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr>
@@ -1067,9 +882,185 @@ formatting of this table.</p>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
+<h2><a name='ContentDescr'>ASF ContentDescr Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>Title</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>Author</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>Copyright</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>Description</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>Rating</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='CodecList'>ASF CodecList Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>AudioCodecDescription</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>AudioCodecName</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>OtherCodecDescription</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>OtherCodecName</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>VideoCodecDescription</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>VideoCodecName</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='FileProperties'>ASF FileProperties Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index1</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>FileID</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='16 = 0x10'>16</td>
+<td>FileLength</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='24 = 0x18'>24</td>
+<td>CreationDate</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='32 = 0x20'>32</td>
+<td>DataPackets</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='40 = 0x28'>40</td>
+<td>PlayDuration</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='48 = 0x30'>48</td>
+<td>SendDuration</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='56 = 0x38'>56</td>
+<td>Preroll</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='64 = 0x40'>64</td>
+<td>Flags</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='68 = 0x44'>68</td>
+<td>MinPacketSize</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='72 = 0x48'>72</td>
+<td>MaxPacketSize</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='76 = 0x4c'>76</td>
+<td>MaxBitrate</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='StreamProperties'>ASF StreamProperties Tags</a></h2>
+<p>Tags with index 54 and greater are conditional based on the StreamType.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index1</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>StreamType</td>
+<td class=c>N</td>
+<td><span class=s>&#39;35907DE0-E415-11CF-A917-00805F5C442B&#39; = Degradable JPEG
+  <br>&#39;3AFB65E2-47EF-40F2-AC2C-70A90D71D343&#39; = Binary
+  <br>&#39;59DACFC0-59E6-11D0-A3AC-00A0C90348F6&#39; = Command
+  <br>&#39;91BD222C-F21C-497A-8B6D-5AA86BFC0185&#39; = File Transfer
+  <br>&#39;B61BE100-5B4E-11CF-A8FD-00805F5C442B&#39; = JFIF
+  <br>&#39;BC19EFC0-5B4D-11CF-A8FD-00805F5C442B&#39; = Video
+  <br>&#39;F8699E40-5B4D-11CF-A8FD-00805F5C442B&#39; = Audio</span></td></tr>
+<tr class=b>
+<td class=r title='16 = 0x10'>16</td>
+<td>ErrorCorrectionType</td>
+<td class=c>N</td>
+<td><span class=s>&#39;20FB5700-5B55-11CF-A8FD-00805F5C442B&#39; = No Error Correction
+  <br>&#39;BFC3CD50-618F-11CF-8BB2-00AA00B4E220&#39; = Audio Spread</span></td></tr>
+<tr>
+<td class=r title='32 = 0x20'>32</td>
+<td>TimeOffset</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='48 = 0x30'>48</td>
+<td>StreamNumber</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='54 = 0x36'>54</td>
+<td>AudioCodecID
+  <br>ImageWidth</td>
+<td class=c>N<br>N</td>
+<td>--&gt; <a href='RIFF.html#AudioEncoding'>RIFF AudioEncoding Values</a></td></tr>
+<tr class=b>
+<td class=r title='56 = 0x38'>56</td>
+<td>AudioChannels</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='58 = 0x3a'>58</td>
+<td>AudioSampleRate
+  <br>ImageHeight</td>
+<td class=c>N<br>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Nov 11, 2010</i>
+<br><i>Last revised May 14, 2015</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

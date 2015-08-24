@@ -15,16 +15,13 @@ use vars qw($VERSION @ISA);
 use Image::ExifTool qw(:Utils :Vars);
 use Image::ExifTool::XMP;
 
-$VERSION = '1.19';
+$VERSION = '1.27';
 @ISA = qw(Exporter);
 
 # set this to a language code to generate Lang module with 'MISSING' entries
 my $makeMissing = '';
 
-# set this to true to override existing different descriptions/values
-my $overrideDifferent;
-
-sub LoadLangModules($);
+sub LoadLangModules($;$);
 sub WriteLangModule($$;$);
 sub NumbersFirst;
 
@@ -32,14 +29,14 @@ sub NumbersFirst;
 my %credits = (
     cs   => 'Jens Duttke and Petr MichE<aacute>lek',
     de   => 'Jens Duttke and Herbert Kauer',
-    es   => 'Jens Duttke and Santiago del BrE<iacute>o GonzE<aacute>lez',
+    es   => 'Jens Duttke, Santiago del BrE<iacute>o GonzE<aacute>lez and Emilio Sancha',
     fi   => 'Jens Duttke and Jarkko ME<auml>kineva',
-    fr   => 'Jens Duttke, Bernard Guillotin, Jean Glasser, Jean Piquemal and Harry Nizard',
+    fr   => 'Jens Duttke, Bernard Guillotin, Jean Glasser, Jean Piquemal, Harry Nizard and Alphonse Philippe',
     it   => 'Jens Duttke, Ferdinando Agovino, Emilio Dati and Michele Locati',
     ja   => 'Jens Duttke and Kazunari Nishina',
     ko   => 'Jens Duttke and Jeong Beom Kim',
-    nl   => 'Jens Duttke, Peter Moonen and Herman Beld',
-    pl   => 'Jens Duttke and Przemyslaw Sulek',
+    nl   => 'Jens Duttke, Peter Moonen, Herman Beld and Peter van der Laan',
+    pl   => 'Jens Duttke, Przemyslaw Sulek and Kacper Perschke',
     ru   => 'Jens Duttke, Sergey Shemetov, Dmitry Yerokhin and Anton Sukhinov',
     sv   => 'Jens Duttke and BjE<ouml>rn SE<ouml>derstrE<ouml>m',
    'tr'  => 'Jens Duttke, Hasan Yildirim and Cihan Ulusoy',
@@ -58,26 +55,31 @@ my %translateLang = (
     se    => 'sv',
 );
 
+my $numbersFirst = 1;   # set to -1 to sort numbers last, or 2 to put negative numbers last
 my $caseInsensitive;    # used internally by sort routine
 
 #------------------------------------------------------------------------------
 # Utility to print tag information database as an XML list
 # Inputs: 0) output file name (undef to send to console),
-#         1) group name (may be undef), 2) options hash ('Flags','NoDesc')
+#         1) group name (may be undef), 2) options hash ('Flags','NoDesc','Lang')
 # Returns: true on success
 sub Write(;$$%)
 {
     local ($_, *PTIFILE);
     my ($file, $group, %opts) = @_;
     my @groups = split ':', $group if $group;
-    my $exifTool = new Image::ExifTool;
+    my $et = new Image::ExifTool;
     my ($fp, $tableName, %langInfo, @langs, $defaultLang);
 
     Image::ExifTool::LoadAllTables();   # first load all our tables
     unless ($opts{NoDesc}) {
-        LoadLangModules(\%langInfo);    # load all existing Lang modules
-        @langs = sort keys %langInfo;
         $defaultLang = $Image::ExifTool::defaultLang;
+        LoadLangModules(\%langInfo, $opts{Lang}); # load necessary Lang modules
+        if ($opts{Lang}) {
+            @langs = grep /^$opts{Lang}$/i, keys %langInfo;
+        } else {
+            @langs = sort keys %langInfo;
+        }
     }
     if (defined $file) {
         open PTIFILE, ">$file" or return 0;
@@ -102,7 +104,10 @@ sub Write(;$$%)
         if ($$table{GROUPS} and $$table{GROUPS}{0} eq 'XMP') {
             Image::ExifTool::XMP::AddFlattenedTags($table);
         }
+        $numbersFirst = 2;
+        $numbersFirst = -1 if $$table{VARS} and $$table{VARS}{ALPHA_FIRST};
         my @keys = sort NumbersFirst TagTableKeys($table);
+        $numbersFirst = 1;
         # loop throug all tag ID's in this table
         foreach $tagID (@keys) {
             my @infoArray = GetTagInfoList($table, $tagID);
@@ -114,7 +119,7 @@ PTILoop:    for ($index=0; $index<@infoArray; ++$index) {
                 # don't list subdirectories unless they are writable
                 next unless $$tagInfo{Writable} or not $$tagInfo{SubDirectory};
                 if (@groups) {
-                    my @tg = $exifTool->GetGroup($tagInfo);
+                    my @tg = $et->GetGroup($tagInfo);
                     foreach $group (@groups) {
                         next PTILoop unless grep /^$group$/i, @tg;
                     }
@@ -166,8 +171,10 @@ PTILoop:    for ($index=0; $index<@infoArray; ++$index) {
                 my $count = '';
                 if ($format =~ s/\[.*?(\d*)\]$//) {
                     $count = " count='$1'" if length $1;
+                } elsif ($$tagInfo{Count} and $$tagInfo{Count} > 1) {
+                    $count = " count='$$tagInfo{Count}'";
                 }
-                my @groups = $exifTool->GetGroup($tagInfo);
+                my @groups = $et->GetGroup($tagInfo);
                 my $writeGroup = $$tagInfo{WriteGroup} || $$table{WRITE_GROUP};
                 if ($writeGroup and $writeGroup ne 'Comment') {
                     $groups[1] = $writeGroup;   # use common write group for group 1
@@ -216,7 +223,10 @@ PTILoop:    for ($index=0; $index<@infoArray; ++$index) {
                 }
                 # print tag descriptions
                 $desc = Image::ExifTool::XMP::EscapeXML($desc);
-                print $fp ">\n  <desc lang='$defaultLang'>$desc</desc>$altDescr\n";
+                unless ($opts{Lang} and $altDescr) {
+                    print $fp ">\n  <desc lang='$defaultLang'>$desc</desc>";
+                }
+                print $fp "$altDescr\n";
                 for (my $i=0; ; ++$i) {
                     my $conv = $$tagInfo{PrintConv};
                     my $idx = '';
@@ -237,7 +247,7 @@ PTILoop:    for ($index=0; $index<@infoArray; ++$index) {
                     if ($$conv{BITMASK}) {
                         foreach $key (keys %{$$conv{BITMASK}}) {
                             my $mask = 0x01 << $key;
-                            next if $$conv{$mask};
+                            next if not $mask or $$conv{$mask};
                             $$conv{$mask} = $$conv{BITMASK}{$key};
                         }
                     }
@@ -246,9 +256,9 @@ PTILoop:    for ($index=0; $index<@infoArray; ++$index) {
                         my $val = $$conv{$key};
                         my $xmlVal = Image::ExifTool::XMP::EscapeXML($val);
                         my $xmlKey = Image::ExifTool::XMP::FullEscapeXML($key);
-                        print $fp "   <key id='$xmlKey'>";
-                        print $fp "\n    <val lang='$defaultLang'>$xmlVal</val>\n";
+                        print $fp "   <key id='$xmlKey'>\n";
                         # add alternate language values
+                        my $altConv = '';
                         foreach (@langConv) {
                             my $lv = $langConv{$_};
                             # handle indexed PrintConv entries
@@ -257,9 +267,12 @@ PTILoop:    for ($index=0; $index<@infoArray; ++$index) {
                             # ignore values that are missing or same as default
                             next unless defined $lv and $lv ne $val;
                             $lv = Image::ExifTool::XMP::EscapeXML($lv);
-                            print $fp "    <val lang='$_'>$lv</val>\n";
+                            $altConv .= "    <val lang='$_'>$lv</val>\n";
                         }
-                        print $fp "   </key>\n";
+                        unless ($opts{Lang} and $altConv) {
+                            print $fp "    <val lang='$defaultLang'>$xmlVal</val>\n"
+                        }
+                        print $fp "$altConv   </key>\n";
                     }
                     print $fp "  </values>\n";
                 }
@@ -288,23 +301,31 @@ sub EscapePerl
 
 #------------------------------------------------------------------------------
 # Generate Lang modules from input tag info XML database
-# Inputs: 0) XML filename, 1) update flag:
-#       undef = default (update changed modules only)
-#       0 = (update changed modules only, but preserve version numbers)
-#       1 = (update all, but preserve version numbers)
-#       2 = (update all from scratch, but preserve version numbers)
+# Inputs: 0) XML filename, 1) update flags:
+#       0x01 = preserve version numbers
+#       0x02 = update all modules, even if they didn't change
+#       0x04 = update from scratch, ignoring existing definitions
+#       0x08 = override existing different descriptions and values
 # Returns: Count of updated Lang modules, or -1 on error
 # Notes: Must be run from the directory containing 'lib'
 sub BuildLangModules($;$)
 {
     local ($_, *XFILE);
-    my ($file, $forceUpdate) = @_;
+    my ($file, $updateFlag) = @_;
     my ($table, $tableName, $id, $index, $valIndex, $name, $key, $lang, $defDesc);
-    my (%langInfo, %different, %changed);
+    my (%langInfo, %different, %changed, $overrideDifferent);
 
     Image::ExifTool::LoadAllTables();   # first load all our tables
+    # generate our flattened tags
+    foreach $tableName (sort keys %allTables) {
+        my $table = GetTagTable($tableName);
+        next unless $$table{GROUPS} and $$table{GROUPS}{0} eq 'XMP';
+        Image::ExifTool::XMP::AddFlattenedTags($table);
+    }
     LoadLangModules(\%langInfo);        # load all existing Lang modules
-    %langInfo = () if $forceUpdate and $forceUpdate eq '2';
+    $updateFlag = 0 unless $updateFlag;
+    %langInfo = () if $updateFlag & 0x04;
+    $overrideDifferent = 1 if $updateFlag & 0x08;
 
     if (defined $file) {
         open XFILE, $file or return -1;
@@ -362,6 +383,7 @@ sub BuildLangModules($;$)
                 $lang = $translateLang{$lang} if $translateLang{$lang};
                 my $tval = Image::ExifTool::XMP::UnescapeXML($3);
                 my $val = ucfirst $tval;
+                $val = $tval if $tval =~ /^(cRAW|iTun)/; # special-case non-capitalized values
                 my $cap = ($tval ne $val);
                 if ($makeMissing and $lang eq 'en') {
                     $lang = $makeMissing;
@@ -444,12 +466,13 @@ sub BuildLangModules($;$)
                     unless (defined $convVal) {
                         if ($$printConv{BITMASK} and $key =~ /^\d+$/) {
                             my $i;
-                            for ($i=0; $i<32; ++$i) {
-                                next unless $key == (0x01 << $i);
+                            for ($i=0; $i<64; ++$i) {
+                                my $mask = (0x01 << $i) or last;
+                                next unless $key == $mask;
                                 $convVal = $$printConv{BITMASK}{$i};
                             }
                         }
-                        warn("Missing PrintConv entry for $key") and next unless defined $convVal;
+                        warn("Missing PrintConv entry for $tableName $$tagInfo{Name} $key\n") and next unless defined $convVal;
                     }
                     if ($cap and $convVal =~ /^[a-z]/) {
                         $val = lcfirst $val;    # change back to lower case
@@ -483,11 +506,11 @@ sub BuildLangModules($;$)
     }
     # rewrite all changed Lang modules
     my $rtnVal = 0;
-    foreach $lang ($forceUpdate ? @Image::ExifTool::langs : sort keys %changed) {
+    foreach $lang ($updateFlag & 0x02 ? @Image::ExifTool::langs : sort keys %changed) {
         next if $lang eq $Image::ExifTool::defaultLang;
         ++$rtnVal;
         # write this module (only increment version number if not forced)
-        WriteLangModule($lang, $langInfo{$lang}, not defined $forceUpdate) or $rtnVal = -1, last;
+        WriteLangModule($lang, $langInfo{$lang}, not $updateFlag & 0x01) or $rtnVal = -1, last;
     }
     return $rtnVal;
 }
@@ -606,7 +629,7 @@ and values.
 
 ~head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
@@ -631,13 +654,13 @@ FOOTER
 
 #------------------------------------------------------------------------------
 # load all lang modules into hash
-# Inputs: 0) Hash reference
-sub LoadLangModules($)
+# Inputs: 0) Hash reference, 1) specific language to load (undef for all)
+sub LoadLangModules($;$)
 {
-    my $langHash = shift;
-    my $lang;
+    my ($langHash, $lang) = @_;
     require Image::ExifTool;
-    foreach $lang (@Image::ExifTool::langs) {
+    my @langs = $lang ? ($lang) : @Image::ExifTool::langs;
+    foreach $lang (@langs) {
         next if $lang eq $Image::ExifTool::defaultLang;
         eval "require Image::ExifTool::Lang::$lang" or warn("Can't load Lang::$lang\n"), next;
         my $xlat = "Image::ExifTool::Lang::${lang}::Translate";
@@ -653,16 +676,32 @@ sub LoadLangModules($)
 sub NumbersFirst
 {
     my $rtnVal;
-    my $bNum = ($b =~ /^-?[0-9]+(\.\d*)?$/);
-    if ($a =~ /^-?[0-9]+(\.\d*)?$/) {
-        $rtnVal = ($bNum ? $a <=> $b : -1);
-    } elsif ($bNum) {
-        $rtnVal = 1;
+    my ($bNum, $bDec);
+    ($bNum, $bDec) = ($1, $3) if $b =~ /^(-?[0-9]+)(\.(\d*))?$/;
+    if ($a =~ /^(-?[0-9]+)(\.(\d*))?$/) {
+        if (defined $bNum) {
+            $bNum += 1e9 if $numbersFirst == 2 and $bNum < 0;
+            my $aInt = $1;
+            $aInt += 1e9 if $numbersFirst == 2 and $aInt < 0;
+            # compare integer part as a number
+            $rtnVal = $aInt <=> $bNum;
+            unless ($rtnVal) {
+                my $aDec = $3 || 0;
+                $bDec or $bDec = 0;
+                # compare decimal part as an integer too
+                # (so that "1.10" comes after "1.9")
+                $rtnVal = $aDec <=> $bDec;
+            }
+        } else {
+            $rtnVal = -$numbersFirst;
+        }
+    } elsif (defined $bNum) {
+        $rtnVal = $numbersFirst;
     } else {
         my ($a2, $b2) = ($a, $b);
         # expand numbers to 3 digits (with restrictions to avoid messing up ascii-hex tags)
-        $a2 =~ s/(\d+)/sprintf("%.3d",$1)/eg if $a2 =~ /^(APP)?[.0-9 ]*$/ and length($a2)<16;
-        $b2 =~ s/(\d+)/sprintf("%.3d",$1)/eg if $b2 =~ /^(APP)?[.0-9 ]*$/ and length($b2)<16;
+        $a2 =~ s/(\d+)/sprintf("%.3d",$1)/eg if $a2 =~ /^(APP|DMC-\w+ )?[.0-9 ]*$/ and length($a2)<16;
+        $b2 =~ s/(\d+)/sprintf("%.3d",$1)/eg if $b2 =~ /^(APP|DMC-\w+ )?[.0-9 ]*$/ and length($b2)<16;
         $caseInsensitive and $rtnVal = (lc($a2) cmp lc($b2));
         $rtnVal or $rtnVal = ($a2 cmp $b2);
     }
@@ -714,6 +753,7 @@ be written to any IFD.  Saves all groups if not specified.
 
     Flags   - Set to output 'flags' attribute
     NoDesc  - Set to suppress output of descriptions
+    Lang    - Select a single language for output
 
 =item Return Value:
 
@@ -758,6 +798,13 @@ Build all Image::ExifTool::Lang modules from an XML database file.
 
 0) XML file name
 
+1) Update flags:
+
+    0x01 = preserve version numbers
+    0x02 = update all modules, even if they didn't change
+    0x04 = update from scratch, ignoring existing definitions
+    0x08 = override existing different descriptions and values
+
 =item Return Value:
 
 Number of modules updated, or negative on error.
@@ -766,7 +813,7 @@ Number of modules updated, or negative on error.
 
 =head1 AUTHOR
 
-Copyright 2003-2013, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

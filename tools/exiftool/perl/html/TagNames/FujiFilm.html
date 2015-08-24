@@ -41,7 +41,7 @@ necessarily correspond to the camera body number -- this needs to be checked)</s
   <br>0x82 = Medium Soft
   <br>0x84 = Medium Hard
   <br>0x8000 = Film Simulation
-  <br>0xffff = n/a</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0xffff = n/a</td></tr></table>
 </td></tr>
 <tr>
 <td title='0x1002 = 4098'>0x1002</td>
@@ -58,12 +58,13 @@ necessarily correspond to the camera body number -- this needs to be checked)</s
   <br>0x304 = Living Room Warm White Fluorescent
   <br>0x400 = Incandescent
   <br>0x500 = Flash
+  <br>0x600 = Underwater
   <br>0xf00 = Custom
   <br>0xf01 = Custom2
   <br>0xf02 = Custom3
   <br>0xf03 = Custom4
   <br>0xf04 = Custom5
-  <br>0xff0 = Kelvin</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0xff0 = Kelvin</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x1003 = 4099'>0x1003</td>
@@ -76,11 +77,12 @@ necessarily correspond to the camera body number -- this needs to be checked)</s
   <br>0x180 = Medium Low
   <br>0x200 = Low
   <br>0x300 = None (B&amp;W)
-  <br>0x301 = B&amp;W Green Filter
+  <br>0x301 = B&amp;W Red Filter
   <br>0x302 = B&amp;W Yellow Filter
-  <br>0x303 = B&amp;W Blue Filter
+  <br>0x303 = B&amp;W Green Filter
   <br>0x310 = B&amp;W Sepia
-  <br>0x8000 = Film Simulation</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x400 = Low 2
+  <br>0x8000 = Film Simulation</td></tr></table>
 </td></tr>
 <tr>
 <td title='0x1004 = 4100'>0x1004</td>
@@ -92,7 +94,7 @@ necessarily correspond to the camera body number -- this needs to be checked)</s
   <br>0x100 = High
   <br>0x180 = Medium Low
   <br>0x200 = Low
-  <br>0x8000 = Film Simulation</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x8000 = Film Simulation</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x1005 = 4101'>0x1005</td>
@@ -124,7 +126,9 @@ necessarily correspond to the camera body number -- this needs to be checked)</s
 <td class=c>int16u</td>
 <td><span class=s>0x0 = Normal
   <br>0x100 = Strong
-  <br>0x200 = Weak</span></td></tr>
+  <br>0x180 = Medium Strong
+  <br>0x200 = Weak
+  <br>0x280 = Medium Weak</span></td></tr>
 <tr>
 <td title='0x1010 = 4112'>0x1010</td>
 <td>FujiFlashMode</td>
@@ -152,17 +156,26 @@ necessarily correspond to the camera body number -- this needs to be checked)</s
 <td><span class=s>0 = Auto
   <br>1 = Manual</span></td></tr>
 <tr>
+<td title='0x1022 = 4130'>0x1022</td>
+<td>AFMode</td>
+<td class=c>int16u</td>
+<td><span class=s><span class=n>(&quot;No&quot; for manual and some AF-multi focus modes)</span>
+  <br>0 = No
+  <br>1 = Single Point
+  <br>256 = Zone
+  <br>512 = Wide/Tracking</span></td></tr>
+<tr class=b>
 <td title='0x1023 = 4131'>0x1023</td>
 <td>FocusPixel</td>
 <td class=c>int16u[2]</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0x1030 = 4144'>0x1030</td>
 <td>SlowSync</td>
 <td class=c>int16u</td>
 <td><span class=s>0 = Off
   <br>1 = On</span></td></tr>
-<tr>
+<tr class=b>
 <td title='0x1031 = 4145'>0x1031</td>
 <td>PictureMode</td>
 <td class=c>int16u</td>
@@ -192,12 +205,19 @@ necessarily correspond to the camera body number -- this needs to be checked)</s
   <br>0x17 = Night (tripod)
   <br>0x18 = Pro Low-light
   <br>0x19 = Pro Focus
+  <br>0x1a = Portrait 2
   <br>0x1b = Dog Face Detection
   <br>0x1c = Cat Face Detection
+  <br>0x40 = Advanced Filter
   <br>0x100 = Aperture-priority AE
   <br>0x200 = Shutter speed priority AE
-  <br>0x300 = Manual</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x300 = Manual</td></tr></table>
 </td></tr>
+<tr>
+<td title='0x1032 = 4146'>0x1032</td>
+<td>ExposureCount</td>
+<td class=c>int16u</td>
+<td><span class=s><span class=n>(number of exposures used for this image)</span></span></td></tr>
 <tr class=b>
 <td title='0x1033 = 4147'>0x1033</td>
 <td>EXRAuto</td>
@@ -212,17 +232,60 @@ necessarily correspond to the camera body number -- this needs to be checked)</s
   <br>0x200 = SN (Signal to Noise priority)
   <br>0x300 = DR (Dynamic Range priority)</span></td></tr>
 <tr class=b>
+<td title='0x1040 = 4160'>0x1040</td>
+<td>ShadowTone</td>
+<td class=c>int32s</td>
+<td><span class=s>-32 = Hard
+  <br>-16 = Medium-hard
+  <br>0 = Normal
+  <br>16 = Medium-soft
+  <br>32 = Soft</span></td></tr>
+<tr>
+<td title='0x1041 = 4161'>0x1041</td>
+<td>HighlightTone</td>
+<td class=c>int32s</td>
+<td><span class=s>-32 = Hard
+  <br>-16 = Medium-hard
+  <br>0 = Normal
+  <br>16 = Medium-soft
+  <br>32 = Soft</span></td></tr>
+<tr class=b>
+<td title='0x1050 = 4176'>0x1050</td>
+<td>ShutterType</td>
+<td class=c>int16u</td>
+<td><span class=s>0 = Mechanical
+  <br>1 = Electronic</span></td></tr>
+<tr>
 <td title='0x1100 = 4352'>0x1100</td>
 <td>AutoBracketing</td>
 <td class=c>int16u</td>
 <td><span class=s>0 = Off
   <br>1 = On
   <br>2 = No flash &amp; flash</span></td></tr>
-<tr>
+<tr class=b>
 <td title='0x1101 = 4353'>0x1101</td>
 <td>SequenceNumber</td>
 <td class=c>int16u</td>
 <td>&nbsp;</td></tr>
+<tr>
+<td title='0x1201 = 4609'>0x1201</td>
+<td>AdvancedFilter</td>
+<td class=c>int32u</td>
+<td><table class=cols><tr>
+  <td>0x10000 = Pop Color
+  <br>0x20000 = Hi Key
+  <br>0x30000 = Toy Camera
+  <br>0x40000 = Miniature
+  <br>0x50000 = Dynamic Tone
+  <br>0x60001 = Partial Color Red
+  <br>0x60002 = Partial Color Yellow
+  <br>0x60003 = Partial Color Green
+  <br>0x60004 = Partial Color Blue
+  <br>0x60005 = Partial Color Orange
+  <br>0x60006 = Partial Color Purple
+  <br>0x70000 = Soft Focus
+  <br>0x90000 = Low Key</td></tr></table>
+</td></tr>
 <tr class=b>
 <td title='0x1210 = 4624'>0x1210</td>
 <td>ColorMode</td>
@@ -272,7 +335,8 @@ necessarily correspond to the camera body number -- this needs to be checked)</s
   <br>0x300 = F3/Studio Portrait Ex
   <br>0x400 = F4/Velvia
   <br>0x500 = Pro Neg. Std
-  <br>0x501 = Pro Neg. Hi</span></td></tr>
+  <br>0x501 = Pro Neg. Hi
+  <br>0x600 = Classic Chrome</span></td></tr>
 <tr>
 <td title='0x1402 = 5122'>0x1402</td>
 <td>DynamicRangeSetting</td>
@@ -283,7 +347,7 @@ necessarily correspond to the camera body number -- this needs to be checked)</s
   <br>0x100 = Standard (100%)
   <br>0x200 = Wide1 (230%)
   <br>0x201 = Wide2 (400%)
-  <br>0x8000 = Film Simulation</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x8000 = Film Simulation</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x1403 = 5123'>0x1403</td>
@@ -316,37 +380,81 @@ necessarily correspond to the camera body number -- this needs to be checked)</s
 <td class=c>int16u</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td title='0x1422 = 5154'>0x1422</td>
+<td>ImageStabilization</td>
+<td class=c>int16u[3]</td>
+<td><span class=s>[Value 0]
+  <br>0 = None
+  <br>1 = Optical
+  <br>2 = Sensor-shift
+  <br>512 = Digital
+  <br>[Value 1]
+  <br>0 = Off
+  <br>1 = On (mode 1, continuous)
+  <br>2 = On (mode 2, shooting only)</span></td></tr>
+<tr>
+<td title='0x1431 = 5169'>0x1431</td>
+<td>Rating</td>
+<td class=c>int32u</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x1436 = 5174'>0x1436</td>
+<td>ImageGeneration</td>
+<td class=c>int16u</td>
+<td><span class=s>0 = Original Image
+  <br>1 = Re-developed from RAW</span></td></tr>
+<tr>
+<td title='0x1438 = 5176'>0x1438</td>
+<td>ImageCount</td>
+<td class=c>int16u</td>
+<td><span class=s><span class=n>(may reset to 0 when new firmware is installed)</span></span></td></tr>
+<tr class=b>
+<td title='0x3820 = 14368'>0x3820</td>
+<td>FrameRate</td>
+<td class=c>int16u</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x3821 = 14369'>0x3821</td>
+<td>FrameWidth</td>
+<td class=c>int16u</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x3822 = 14370'>0x3822</td>
+<td>FrameHeight</td>
+<td class=c>int16u</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td title='0x4100 = 16640'>0x4100</td>
 <td>FacesDetected</td>
 <td class=c>int16u</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0x4103 = 16643'>0x4103</td>
 <td>FacePositions</td>
 <td class=c>int16u[n]</td>
 <td><span class=s><span class=n>(left, top, right and bottom coordinates in full-sized image for each face
 detected)</span></span></td></tr>
-<tr class=b>
+<tr>
 <td title='0x4282 = 17026'>0x4282</td>
 <td>FaceRecInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='FujiFilm.html#FaceRecInfo'>FujiFilm FaceRecInfo Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td title='0x8000 = 32768'>0x8000</td>
 <td>FileSource</td>
 <td class=c>string</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0x8002 = 32770'>0x8002</td>
 <td>OrderNumber</td>
 <td class=c>int32u</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0x8003 = 32771'>0x8003</td>
 <td>FrameNumber</td>
 <td class=c>int16u</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0xb211 = 45585'>0xb211</td>
 <td>Parallax</td>
 <td class=c>rational64s</td>
@@ -500,11 +608,66 @@ RAF-format information.</p>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td title='0x0131 = 305'>0x0131</td>
+<td>XTransLayout</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x2000 = 8192'>0x2000</td>
+<td>WB_GRGBLevelsAuto</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x2100 = 8448'>0x2100</td>
+<td>WB_GRGBLevelsDaylight</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x2200 = 8704'>0x2200</td>
+<td>WB_GRGBLevelsCloudy</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x2300 = 8960'>0x2300</td>
+<td>WB_GRGBLevelsDaylightFluor</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x2301 = 8961'>0x2301</td>
+<td>WB_GRGBLevelsDayWhiteFluor</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x2302 = 8962'>0x2302</td>
+<td>WB_GRGBLevelsWhiteFluorescent</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x2310 = 8976'>0x2310</td>
+<td>WB_GRGBLevelsWarmWhiteFluor</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x2311 = 8977'>0x2311</td>
+<td>WB_GRGBLevelsLivingRoomWarmWhiteFluor</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0x2400 = 9216'>0x2400</td>
+<td>WB_GRGBLevelsTungsten</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td title='0x2ff0 = 12272'>0x2ff0</td>
 <td>WB_GRGBLevels</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr>
+<td title='0x9650 = 38480'>0x9650</td>
+<td>RawExposureBias</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td title='0xc000 = 49152'>0xc000</td>
 <td>RAFData</td>
 <td class=c>-</td>
@@ -524,6 +687,12 @@ RAF-format information.</p>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='4 = 0x4'>4</td>
+<td>RawImageWidth
+  <br>RawImageHeight</td>
+<td class=c>N<br>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='8 = 0x8'>8</td>
 <td>RawImageHeight</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
@@ -567,6 +736,21 @@ RAF-format information.</p>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 <tr>
+<td title='0xf00a = 61450'>0xf00a</td>
+<td>BlackLevel</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0xf00c = 61452'>0xf00c</td>
+<td>WB_GRBLevelsStandard</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0xf00d = 61453'>0xf00d</td>
+<td>WB_GRBLevelsAuto</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td title='0xf00e = 61454'>0xf00e</td>
 <td>WB_GRBLevels</td>
 <td class=c>N</td>
@@ -587,9 +771,43 @@ RAF-format information.</p>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
+<h2><a name='MOV'>FujiFilm MOV Tags</a></h2>
+<p>This information is found in MOV videos from some FujiFilm cameras.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index1</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>Make</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='24 = 0x18'>24</td>
+<td>Model</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='46 = 0x2e'>46</td>
+<td>ExposureTime</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='50 = 0x32'>50</td>
+<td>FNumber</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='58 = 0x3a'>58</td>
+<td>ExposureCompensation</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Dec 14, 2012</i>
+<br><i>Last revised Jul 23, 2015</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

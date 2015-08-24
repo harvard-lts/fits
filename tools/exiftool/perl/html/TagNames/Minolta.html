@@ -106,7 +106,8 @@ image stabilization is enabled)</span></td></tr>
   <br>26 = Fireworks
   <br>27 = Food
   <br>28 = Pet
-  <br>65535 = n/a</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>33 = HDR
+  <br>65535 = n/a</td></tr></table>
 </td></tr>
 <tr>
 <td title='0x0101 = 257'>0x0101</td>
@@ -127,7 +128,7 @@ image stabilization is enabled)</span></td></tr>
   <br>16 = Evening
   <br>17 = Night Scene
   <br>18 = Night Portrait
-  <br>132 = Embed Adobe RGB</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>132 = Embed Adobe RGB</td></tr></table>
 <span class=s><span class=n>(Sony models)</span></span><table class=cols><tr>
   <td>0 = Standard
   <br>1 = Vivid
@@ -141,7 +142,7 @@ image stabilization is enabled)</span></td></tr>
   <br>13 = Clear
   <br>14 = Deep</td><td>&nbsp;&nbsp;</td>
   <td>15 = Light
-  <br>16 = Autumn
+  <br>16 = Autumn Leaves
   <br>17 = Sepia
   <br>100 = Neutral
   <br>101 = Clear
@@ -149,7 +150,7 @@ image stabilization is enabled)</span></td></tr>
   <br>103 = Light
   <br>104 = Night View
   <br>105 = Autumn Leaves
-  <br>4294967295 = n/a</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>4294967295 = n/a</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x0102 = 258'>0x0102</td>
@@ -161,7 +162,7 @@ image stabilization is enabled)</span></td></tr>
   <br>2 = Fine</td><td>&nbsp;&nbsp;</td>
   <td>3 = Standard
   <br>4 = Economy
-  <br>5 = Extra fine</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>5 = Extra fine</td></tr></table>
 </td></tr>
 <tr>
 <td title='0x0103 = 259'>0x0103</td>
@@ -174,14 +175,14 @@ image stabilization is enabled)</span></td></tr>
   <br>2 = Fine</td><td>&nbsp;&nbsp;</td>
   <td>3 = Standard
   <br>4 = Economy
-  <br>5 = Extra fine</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>5 = Extra fine</td></tr></table>
 <span class=s><span class=n>(image size for other models except A200)</span></span><table class=cols><tr>
   <td>1 = 1600x1200
   <br>2 = 1280x960
   <br>3 = 640x480</td><td>&nbsp;&nbsp;</td>
   <td>5 = 2560x1920
   <br>6 = 2272x1704
-  <br>7 = 2048x1536</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>7 = 2048x1536</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x0104 = 260'>0x0104</td>
@@ -194,12 +195,14 @@ image stabilization is enabled)</span></td></tr>
 <td class=c>int32u</td>
 <td><table class=cols><tr>
   <td>0x0 = None
+  <br>0x4 = Minolta/Sony AF 1.4x APO (D) (0x04)
+  <br>0x5 = Minolta/Sony AF 2x APO (D) (0x05)
   <br>0x48 = Minolta/Sony AF 2x APO (D)
   <br>0x50 = Minolta AF 2x APO II
   <br>0x60 = Minolta AF 2x APO
   <br>0x88 = Minolta/Sony AF 1.4x APO (D)
   <br>0x90 = Minolta AF 1.4x APO II
-  <br>0xa0 = Minolta AF 1.4x APO</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0xa0 = Minolta AF 1.4x APO</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x0107 = 263'>0x0107</td>
@@ -267,7 +270,7 @@ image stabilization is enabled)</span></td></tr>
   <br>0x40 = Tungsten
   <br>0x50 = Flash
   <br>0x60 = Fluorescent
-  <br>0x70 = Custom</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x70 = Custom</td></tr></table>
 </td></tr>
 <tr class=b>
 <td title='0x0e00 = 3584'>0x0e00</td>
@@ -285,7 +288,9 @@ image stabilization is enabled)</span></td></tr>
 <p>Decimal values have been added to differentiate lenses which would otherwise
 have the same LensType, and are used by the Composite LensID tag when
 attempting to identify the specific lens model.  &quot;New&quot; or &quot;II&quot; appear in
-brackets if the original version of the lens has the same LensType.</p>
+brackets if the original version of the lens has the same LensType.  Special
+logic is employed to identify the attached lens when a Metabones Canon EF
+adapter is used.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class='inner sep' cellspacing=1>
@@ -321,7 +326,7 @@ brackets if the original version of the lens has the same LensType.</p>
 </tr><tr><td>24.3</td><td>= Sigma 20-40mm F2.8 EX DG Aspherical IF</td>
 </tr><tr><td>24.4</td><td>= Sigma 18-200mm F3.5-6.3 DC</td>
 </tr><tr><td>24.5</td><td>= Sigma DC 18-125mm F4-5,6 D</td>
-</tr><tr><td>24.6</td><td>= Tamron SP AF 28-75mm F2.8 XR Di (IF) Macro</td>
+</tr><tr><td>24.6</td><td>= Tamron SP AF 28-75mm F2.8 XR Di LD Aspherical [IF] Macro</td>
 </tr><tr><td>25</td><td>= Minolta AF 100-300mm F4.5-5.6 APO (D) or Sigma Lens</td>
 </tr><tr><td>25.1</td><td>= Sigma 100-300mm F4 EX (APO (D) or D IF)</td>
 </tr><tr><td>25.2</td><td>= Sigma 70mm F2.8 EX DG Macro</td>
@@ -331,7 +336,7 @@ brackets if the original version of the lens has the same LensType.</p>
 </tr><tr><td>27</td><td>= Minolta AF 85mm F1.4 G (D)</td>
 </tr><tr><td>28</td><td>= Minolta/Sony AF 100mm F2.8 Macro (D) or Tamron Lens</td>
 </tr><tr><td>28.1</td><td>= Tamron SP AF 90mm F2.8 Di Macro</td>
-</tr><tr><td>28.2</td><td>= Tamron AF 180mm F3.5 SP Di LD [IF] Macro</td>
+</tr><tr><td>28.2</td><td>= Tamron SP AF 180mm F3.5 Di LD [IF] Macro</td>
 </tr><tr><td>29</td><td>= Minolta/Sony AF 75-300mm F4.5-5.6 (D)</td>
 </tr><tr><td>30</td><td>= Minolta AF 28-80mm F3.5-5.6 (D) or Sigma Lens</td>
 </tr><tr><td>30.1</td><td>= Sigma AF 10-20mm F4-5.6 EX DC</td>
@@ -355,34 +360,41 @@ brackets if the original version of the lens has the same LensType.</p>
 </tr><tr><td>45</td><td>= Carl Zeiss Planar T* 85mm F1.4 ZA (SAL85F14Z)</td>
 </tr><tr><td>46</td><td>= Carl Zeiss Vario-Sonnar T* DT 16-80mm F3.5-4.5 ZA (SAL1680Z)</td>
 </tr><tr><td>47</td><td>= Carl Zeiss Sonnar T* 135mm F1.8 ZA (SAL135F18Z)</td>
-</tr><tr><td>48</td><td>= Carl Zeiss Vario-Sonnar T* 24-70mm F2.8 ZA SSM (SAL2470Z)</td>
+</tr><tr><td>48</td><td>= Carl Zeiss Vario-Sonnar T* 24-70mm F2.8 ZA SSM (SAL2470Z) or ZA SSM II</td>
+</tr><tr><td>48.1</td><td>= Carl Zeiss Vario-Sonnar T* 24-70mm F2.8 ZA SSM II (SAL2470Z2)</td>
 </tr><tr><td>49</td><td>= Sony DT 55-200mm F4-5.6 (SAL55200)</td>
 </tr><tr><td>50</td><td>= Sony DT 18-250mm F3.5-6.3 (SAL18250)</td>
 </tr><tr><td>51</td><td>= Sony DT 16-105mm F3.5-5.6 (SAL16105)</td>
-</tr><tr><td>52</td><td>= Sony 70-300mm F4.5-5.6 G SSM (SAL70300G) or Tamron Lens</td>
-</tr><tr><td>52.1</td><td>= Tamron SP 70-300mm F4-5.6 Di VC USD</td>
+</tr><tr><td>52</td><td>= Sony 70-300mm F4.5-5.6 G SSM (SAL70300G) or G SSM II or Tamron Lens</td>
+</tr><tr><td>52.1</td><td>= Sony 70-300mm F4.5-5.6 G SSM II (SAL70300G2)</td>
+</tr><tr><td>52.2</td><td>= Tamron SP 70-300mm F4-5.6 Di USD</td>
 </tr><tr><td>53</td><td>= Sony 70-400mm F4-5.6 G SSM (SAL70400G)</td>
-</tr><tr><td>54</td><td>= Carl Zeiss Vario-Sonnar T* 16-35mm F2.8 ZA SSM (SAL1635Z)</td>
-</tr><tr><td>55</td><td>= Sony DT 18-55mm F3.5-5.6 SAM (SAL1855)</td>
+</tr><tr><td>54</td><td>= Carl Zeiss Vario-Sonnar T* 16-35mm F2.8 ZA SSM (SAL1635Z) or ZA SSM II</td>
+</tr><tr><td>54.1</td><td>= Carl Zeiss Vario-Sonnar T* 16-35mm F2.8 ZA SSM II (SAL1635Z2)</td>
+</tr><tr><td>55</td><td>= Sony DT 18-55mm F3.5-5.6 SAM (SAL1855) or SAM II</td>
+</tr><tr><td>55.1</td><td>= Sony DT 18-55mm F3.5-5.6 SAM II (SAL18552)</td>
 </tr><tr><td>56</td><td>= Sony DT 55-200mm F4-5.6 SAM (SAL55200-2)</td>
 </tr><tr><td>57</td><td>= Sony DT 50mm F1.8 SAM (SAL50F18) or Tamron Lens</td>
 </tr><tr><td>57.1</td><td>= Tamron SP AF 60mm F2 Di II LD [IF] Macro 1:1</td>
 </tr><tr><td>57.2</td><td>= Tamron 18-270mm F3.5-6.3 Di II PZD</td>
 </tr><tr><td>58</td><td>= Sony DT 30mm F2.8 Macro SAM (SAL30M28)</td>
-</tr><tr><td>59</td><td>= Sony 28-75 F2.8 SAM (SAL2875)</td>
+</tr><tr><td>59</td><td>= Sony 28-75mm F2.8 SAM (SAL2875)</td>
 </tr><tr><td>60</td><td>= Carl Zeiss Distagon T* 24mm F2 ZA SSM (SAL24F20Z)</td>
 </tr><tr><td>61</td><td>= Sony 85mm F2.8 SAM (SAL85F28)</td>
 </tr><tr><td>62</td><td>= Sony DT 35mm F1.8 SAM (SAL35F18)</td>
 </tr><tr><td>63</td><td>= Sony DT 16-50mm F2.8 SSM (SAL1650)</td>
-</tr><tr><td>64</td><td>= Sony 500mm F4.0 G SSM (SAL500F40G)</td>
-</tr><tr><td>65</td><td>= Sony DT 18-135mm F3.5-5.6 SAM (SAL-18135)</td>
-</tr><tr><td>66</td><td>= Sony 300mm F2.8 G SSM II (SAL-300F28G2)</td>
-</tr><tr><td>68</td><td>= Sony DT 55-300mm F4.5-5.6 SAM (SAL-55300)</td>
+</tr><tr><td>64</td><td>= Sony 500mm F4 G SSM (SAL500F40G)</td>
+</tr><tr><td>65</td><td>= Sony DT 18-135mm F3.5-5.6 SAM (SAL18135)</td>
+</tr><tr><td>66</td><td>= Sony 300mm F2.8 G SSM II (SAL300F28G2)</td>
+</tr><tr><td>67</td><td>= Sony 70-200mm F2.8 G SSM II (SAL70200G2)</td>
+</tr><tr><td>68</td><td>= Sony DT 55-300mm F4.5-5.6 SAM (SAL55300)</td>
+</tr><tr><td>69</td><td>= Sony 70-400mm F4-5.6 G SSM II (SAL70400G2)</td>
+</tr><tr><td>70</td><td>= Carl Zeiss Planar T* 50mm F1.4 ZA SSM (SAL50F14Z)</td>
 </tr><tr><td>128</td><td>= Tamron or Sigma Lens (128)</td>
-</tr><tr><td>128.1</td><td>= Tamron 18-200mm F3.5-6.3</td>
-</tr><tr><td>128.2</td><td>= Tamron 28-300mm F3.5-6.3</td>
+</tr><tr><td>128.1</td><td>= Tamron AF 18-200mm F3.5-6.3 XR Di II LD Aspherical [IF] Macro</td>
+</tr><tr><td>128.2</td><td>= Tamron AF 28-300mm F3.5-6.3 XR Di LD Aspherical [IF] Macro</td>
 </tr><tr><td>128.3</td><td>= Tamron 80-300mm F3.5-6.3</td>
-</tr><tr><td>128.4</td><td>= Tamron AF 28-200mm F3.8-5.6 XR Di Aspherical [IF] MACRO</td>
+</tr><tr><td>128.4</td><td>= Tamron AF 28-200mm F3.8-5.6 XR Di Aspherical [IF] Macro</td>
 </tr><tr><td>128.5</td><td>= Tamron SP AF 17-35mm F2.8-4 Di LD Aspherical IF</td>
 </tr><tr><td>128.6</td><td>= Sigma AF 50-150mm F2.8 EX DC APO HSM II</td>
 </tr><tr><td>128.7</td><td>= Sigma 10-20mm F3.5 EX DC HSM</td>
@@ -392,6 +404,13 @@ brackets if the original version of the lens has the same LensType.</p>
 </tr><tr><td>128.11</td><td>= Sigma 85mm F1.4 EX DG HSM</td>
 </tr><tr><td>128.12</td><td>= Sigma 24-70mm F2.8 IF EX DG HSM</td>
 </tr><tr><td>128.13</td><td>= Sigma 18-250mm F3.5-6.3 DC OS HSM</td>
+</tr><tr><td>128.14</td><td>= Sigma 17-50mm F2.8 EX DC HSM</td>
+</tr><tr><td>128.15</td><td>= Sigma 17-70mm F2.8-4 DC Macro HSM</td>
+</tr><tr><td>128.16</td><td>= Sigma 150mm F2.8 EX DG OS HSM APO Macro</td>
+</tr><tr><td>128.17</td><td>= Sigma 150-500mm F5-6.3 APO DG OS HSM</td>
+</tr><tr><td>128.18</td><td>= Tamron AF 28-105mm F4-5.6 [IF]</td>
+</tr><tr><td>128.19</td><td>= Sigma 35mm F1.4 DG HSM</td>
+</tr><tr><td>128.20</td><td>= Sigma 18-35mm F1.8 DC HSM</td>
 </tr><tr><td>129</td><td>= Tamron Lens (129)</td>
 </tr><tr><td>129.1</td><td>= Tamron 200-400mm F5.6 LD</td>
 </tr><tr><td>129.2</td><td>= Tamron 70-300mm F4-5.6 LD</td>
@@ -400,35 +419,46 @@ brackets if the original version of the lens has the same LensType.</p>
 </tr><tr><td>136</td><td>= Tokina EMZ M100 AF 100mm F3.5</td>
 </tr><tr><td>137</td><td>= Cosina 70-210mm F2.8-4 AF</td>
 </tr><tr><td>138</td><td>= Soligor 19-35mm F3.5-4.5</td>
+</tr><tr><td>139</td><td>= Tokina AF 28-300mm F4-6.3</td>
 </tr><tr><td>142</td><td>= Voigtlander 70-300mm F4.5-5.6</td>
 </tr><tr><td>146</td><td>= Voigtlander Macro APO-Lanthar 125mm F2.5 SL</td>
+</tr><tr><td>194</td><td>= Tamron SP AF 17-50mm F2.8 XR Di II LD Aspherical [IF]</td>
+</tr><tr><td>203</td><td>= Tamron SP 70-200mm F2.8 Di USD</td>
+</tr><tr><td>204</td><td>= Tamron SP 24-70mm F2.8 Di USD</td>
+</tr><tr><td>213</td><td>= Tamron 16-300mm F3.5-6.3 Di II PZD</td>
+</tr><tr><td>214</td><td>= Tamron SP 150-600mm F5-6.3 Di USD</td>
+</tr><tr><td>224</td><td>= Tamron SP 90mm F2.8 Di Macro 1:1 USD</td>
 </tr><tr><td>255</td><td>= Tamron Lens (255)</td>
 </tr><tr><td>255.1</td><td>= Tamron SP AF 17-50mm F2.8 XR Di II LD Aspherical</td>
 </tr><tr><td>255.2</td><td>= Tamron AF 18-250mm F3.5-6.3 XR Di II LD</td>
-</tr><tr><td>255.3</td><td>= Tamron AF 55-200mm F4-5.6 Di II</td>
-</tr><tr><td>255.4</td><td>= Tamron AF 70-300mm F4-5.6 Di LD MACRO 1:2</td>
+</tr><tr><td>255.3</td><td>= Tamron AF 55-200mm F4-5.6 Di II LD Macro</td>
+</tr><tr><td>255.4</td><td>= Tamron AF 70-300mm F4-5.6 Di LD Macro 1:2</td>
 </tr><tr><td>255.5</td><td>= Tamron SP AF 200-500mm F5.0-6.3 Di LD IF</td>
 </tr><tr><td>255.6</td><td>= Tamron SP AF 10-24mm F3.5-4.5 Di II LD Aspherical IF</td>
 </tr><tr><td>255.7</td><td>= Tamron SP AF 70-200mm F2.8 Di LD IF Macro</td>
 </tr><tr><td>255.8</td><td>= Tamron SP AF 28-75mm F2.8 XR Di LD Aspherical IF</td>
+</tr><tr><td>255.9</td><td>= Tamron AF 90-300mm F4.5-5.6 Telemacro</td>
 </tr><tr><td>25501</td><td>= Minolta AF 50mm F1.7</td>
 </tr><tr><td>25511</td><td>= Minolta AF 35-70mm F4 or Other Lens</td>
 </tr><tr><td>25511.1</td><td>= Sigma UC AF 28-70mm F3.5-4.5</td>
 </tr><tr><td>25511.2</td><td>= Sigma AF 28-70mm F2.8</td>
 </tr><tr><td>25511.3</td><td>= Sigma M-AF 70-200mm F2.8 EX Aspherical</td>
 </tr><tr><td>25511.4</td><td>= Quantaray M-AF 35-80mm F4-5.6</td>
+</tr><tr><td>25511.5</td><td>= Tokina 28-70mm F2.8-4.5 AF</td>
 </tr><tr><td>25521</td><td>= Minolta AF 28-85mm F3.5-4.5 or Other Lens</td>
 </tr><tr><td>25521.1</td><td>= Tokina 19-35mm F3.5-4.5</td>
 </tr><tr><td>25521.2</td><td>= Tokina 28-70mm F2.8 AT-X</td>
 </tr><tr><td>25521.3</td><td>= Tokina 80-400mm F4.5-5.6 AT-X AF II 840</td>
 </tr><tr><td>25521.4</td><td>= Tokina AF PRO 28-80mm F2.8 AT-X 280</td>
-</tr><tr><td>25521.5</td><td>= Tokina AT-X PRO II AF 28-70mm F2.6-2.8 270</td>
+</tr><tr><td>25521.5</td><td>= Tokina AT-X PRO [II] AF 28-70mm F2.6-2.8 270</td>
 </tr><tr><td>25521.6</td><td>= Tamron AF 19-35mm F3.5-4.5</td>
 </tr><tr><td>25521.7</td><td>= Angenieux AF 28-70mm F2.6</td>
 </tr><tr><td>25521.8</td><td>= Tokina AT-X 17 AF 17mm F3.5</td>
+</tr><tr><td>25521.9</td><td>= Tokina 20-35mm F3.5-4.5 II AF</td>
 </tr><tr><td>25531</td><td>= Minolta AF 28-135mm F4-4.5 or Sigma Lens</td>
 </tr><tr><td>25531.1</td><td>= Sigma ZOOM-alpha 35-135mm F3.5-4.5</td>
 </tr><tr><td>25531.2</td><td>= Sigma 28-105mm F2.8-4 Aspherical</td>
+</tr><tr><td>25531.3</td><td>= Sigma 28-105mm F4-5.6 UC</td>
 </tr><tr><td>25541</td><td>= Minolta AF 35-105mm F3.5-4.5</td>
 </tr><tr><td>25551</td><td>= Minolta AF 70-210mm F4 Macro or Sigma Lens</td>
 </tr><tr><td>25551.1</td><td>= Sigma 70-210mm F4-5.6 APO</td>
@@ -517,22 +547,66 @@ brackets if the original version of the lens has the same LensType.</p>
 </tr><tr><td>26671</td><td>= Minolta AF 35mm F2 New</td>
 </tr><tr><td>26681</td><td>= Minolta AF 28mm F2 New</td>
 </tr><tr><td>26721</td><td>= Minolta AF 24-105mm F3.5-4.5 (D)</td>
+</tr><tr><td>30464</td><td>= Metabones Canon EF Speed Booster</td>
 </tr><tr><td>45671</td><td>= Tokina 70-210mm F4-5.6</td>
+</tr><tr><td>45711</td><td>= Vivitar 70-210mm F4.5-5.6</td>
 </tr><tr><td>45741</td><td>= 2x Teleconverter or Tamron or Tokina Lens</td>
 </tr><tr><td>45741.1</td><td>= Tamron SP AF 90mm F2.5</td>
 </tr><tr><td>45741.2</td><td>= Tokina RF 500mm F8.0 x2</td>
 </tr><tr><td>45741.3</td><td>= Tokina 300mm F2.8 x2</td>
 </tr><tr><td>45751</td><td>= 1.4x Teleconverter</td>
 </tr><tr><td>45851</td><td>= Tamron SP AF 300mm F2.8 LD IF</td>
+</tr><tr><td>45861</td><td>= Tamron SP AF 35-105mm F2.8 LD Aspherical IF</td>
 </tr><tr><td>45871</td><td>= Tamron AF 70-210mm F2.8 SP LD</td>
+</tr><tr><td>61184</td><td>= Metabones Canon EF Adapter</td>
 </tr><tr><td>65535</td><td>= E-Mount, T-Mount, Other Lens or no lens</td>
-</tr><tr><td>65535.1</td><td>= Arax MC 35mm F2.8 Tilt+Shift</td>
-</tr><tr><td>65535.2</td><td>= Arax MC 80mm F2.8 Tilt+Shift</td>
-</tr><tr><td>65535.3</td><td>= Zenitar MF 16mm F2.8 Fisheye M42</td>
-</tr><tr><td>65535.4</td><td>= Samyang 500mm Mirror F8.0</td>
-</tr><tr><td>65535.5</td><td>= Pentacon Auto 135mm F2.8</td>
-</tr><tr><td>65535.6</td><td>= Pentacon Auto 29mm F2.8</td>
-</tr><tr><td>65535.7</td><td>= Helios 44-2 58mm F2.0</td>
+</tr><tr><td>65535.1</td><td>= Sony E 16mm F2.8</td>
+</tr><tr><td>65535.2</td><td>= Sony E 18-55mm F3.5-5.6 OSS</td>
+</tr><tr><td>65535.3</td><td>= Sony E 55-210mm F4.5-6.3 OSS</td>
+</tr><tr><td>65535.4</td><td>= Sony E 18-200mm F3.5-6.3 OSS</td>
+</tr><tr><td>65535.5</td><td>= Sony E 30mm F3.5 Macro</td>
+</tr><tr><td>65535.6</td><td>= Sony E 24mm F1.8 ZA</td>
+</tr><tr><td>65535.7</td><td>= Sony E 50mm F1.8 OSS</td>
+</tr><tr><td>65535.8</td><td>= Sony E 16-70mm F4 ZA OSS</td>
+</tr><tr><td>65535.9</td><td>= Sony E 10-18mm F4 OSS</td>
+</tr><tr><td>65535.10</td><td>= Sony E PZ 16-50mm F3.5-5.6 OSS</td>
+</tr><tr><td>65535.11</td><td>= Sony FE 35mm F2.8 ZA</td>
+</tr><tr><td>65535.12</td><td>= Sony FE 24-70mm F4 ZA OSS</td>
+</tr><tr><td>65535.13</td><td>= Sony E 18-200mm F3.5-6.3 OSS LE</td>
+</tr><tr><td>65535.14</td><td>= Sony E 20mm F2.8</td>
+</tr><tr><td>65535.15</td><td>= Sony E 35mm F1.8 OSS</td>
+</tr><tr><td>65535.16</td><td>= Sony E PZ 18-105mm F4 G OSS</td>
+</tr><tr><td>65535.17</td><td>= Sony FE 90mm F2.8 Macro G OSS</td>
+</tr><tr><td>65535.18</td><td>= Sony E 18-50mm F4-5.6</td>
+</tr><tr><td>65535.19</td><td>= Sony E PZ 18-200mm F3.5-6.3 OSS</td>
+</tr><tr><td>65535.20</td><td>= Sony FE 55mm F1.8 ZA</td>
+</tr><tr><td>65535.21</td><td>= Sony FE 70-200mm F4 G OSS</td>
+</tr><tr><td>65535.22</td><td>= Sony FE 16-35mm F4 ZA OSS</td>
+</tr><tr><td>65535.23</td><td>= Sony FE 28-70mm F3.5-5.6 OSS</td>
+</tr><tr><td>65535.24</td><td>= Sony FE 35mm F1.4 ZA</td>
+</tr><tr><td>65535.25</td><td>= Sony FE 24-240mm F3.5-6.3 OSS</td>
+</tr><tr><td>65535.26</td><td>= Sony FE 28mm F2</td>
+</tr><tr><td>65535.27</td><td>= Sony FE PZ 28-135mm F4 G OSS</td>
+</tr><tr><td>65535.28</td><td>= Sony FE 21mm F2.8 (SEL28F20 + SEL075UWC)</td>
+</tr><tr><td>65535.29</td><td>= Sony FE 16mm F3.5 Fisheye (SEL28F20 + SEL057FEC)</td>
+</tr><tr><td>65535.30</td><td>= Sigma 19mm F2.8 [EX] DN</td>
+</tr><tr><td>65535.31</td><td>= Sigma 30mm F2.8 [EX] DN</td>
+</tr><tr><td>65535.32</td><td>= Sigma 60mm F2.8 DN</td>
+</tr><tr><td>65535.33</td><td>= Tamron 18-200mm F3.5-6.3 Di III VC</td>
+</tr><tr><td>65535.34</td><td>= Zeiss Batis 25mm F2</td>
+</tr><tr><td>65535.35</td><td>= Zeiss Batis 85mm F1.8</td>
+</tr><tr><td>65535.36</td><td>= Zeiss Loxia 35mm F2</td>
+</tr><tr><td>65535.37</td><td>= Zeiss Loxia 50mm F2</td>
+</tr><tr><td>65535.38</td><td>= Zeiss Touit 12mm F2.8</td>
+</tr><tr><td>65535.39</td><td>= Zeiss Touit 32mm F1.8</td>
+</tr><tr><td>65535.40</td><td>= Zeiss Touit 50mm F2.8 Macro</td>
+</tr><tr><td>65535.41</td><td>= Arax MC 35mm F2.8 Tilt+Shift</td>
+</tr><tr><td>65535.42</td><td>= Arax MC 80mm F2.8 Tilt+Shift</td>
+</tr><tr><td>65535.43</td><td>= Zenitar MF 16mm F2.8 Fisheye M42</td>
+</tr><tr><td>65535.44</td><td>= Samyang 500mm Mirror F8.0</td>
+</tr><tr><td>65535.45</td><td>= Pentacon Auto 135mm F2.8</td>
+</tr><tr><td>65535.46</td><td>= Pentacon Auto 29mm F2.8</td>
+</tr><tr><td>65535.47</td><td>= Helios 44-2 58mm F2.0</td>
 </tr></table></td></tr></table></blockquote>
 
 <h2><a name='CameraSettings'>Minolta CameraSettings Tags</a></h2>
@@ -580,7 +654,7 @@ tags are disabled.</p>
   <br>3 = 640x480</td><td>&nbsp;&nbsp;</td>
   <td>6 = 2080x1560
   <br>7 = 2560x1920
-  <br>8 = 3264x2176</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>8 = 3264x2176</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='5 = 0x5'>5</td>
@@ -592,7 +666,7 @@ tags are disabled.</p>
   <br>2 = Fine</td><td>&nbsp;&nbsp;</td>
   <td>3 = Standard
   <br>4 = Economy
-  <br>5 = Extra Fine</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>5 = Extra Fine</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='6 = 0x6'>6</td>
@@ -605,7 +679,7 @@ tags are disabled.</p>
   <br>4 = Bracketing</td><td>&nbsp;&nbsp;</td>
   <td>5 = Interval
   <br>6 = UHS continuous
-  <br>7 = HS continuous</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>7 = HS continuous</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='7 = 0x7'>7</td>
@@ -748,7 +822,7 @@ tags are disabled.</p>
   <br>2 = Text</td><td>&nbsp;&nbsp;</td>
   <td>3 = Night portrait
   <br>4 = Sunset
-  <br>5 = Sports action</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>5 = Sports action</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='35 = 0x23'>35</td>
@@ -765,7 +839,7 @@ tags are disabled.</p>
   <br>2 = 400</td><td>&nbsp;&nbsp;</td>
   <td>3 = 800
   <br>4 = Auto
-  <br>5 = 64</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>5 = 64</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='37 = 0x25'>37</td>
@@ -779,7 +853,7 @@ tags are disabled.</p>
   <br>4 = DiMAGE 7i
   <br>5 = DiMAGE 7Hi
   <br>6 = DiMAGE A1
-  <br>7 = DiMAGE A2 or S414</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>7 = DiMAGE A2 or S414</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='38 = 0x26'>38</td>
@@ -905,7 +979,7 @@ tags are disabled.</p>
   <br>3 = Manual</td><td>&nbsp;&nbsp;</td>
   <td>4 = Auto
   <br>5 = Program-shift A
-  <br>6 = Program-shift S</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>6 = Program-shift S</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='2 = 0x2'>2</td>
@@ -935,7 +1009,7 @@ tags are disabled.</p>
   <td>4 = Tungsten
   <br>5 = Fluorescent
   <br>256 = Kelvin
-  <br>512 = Manual</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>512 = Manual</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='14 = 0xe'>14</td>
@@ -950,15 +1024,16 @@ tags are disabled.</p>
 <td>AFPoints</td>
 <td class=c>int16u</td>
 <td><table class=cols><tr>
-  <td>Bit 0 = Center
+  <td>0x0 = (none)
+  <br>Bit 0 = Center
   <br>Bit 1 = Top
-  <br>Bit 2 = Top-Right
-  <br>Bit 3 = Right
-  <br>Bit 4 = Bottom-Right</td><td>&nbsp;&nbsp;</td>
-  <td>Bit 5 = Bottom
-  <br>Bit 6 = Bottom-Left
+  <br>Bit 2 = Top-right
+  <br>Bit 3 = Right</td><td>&nbsp;&nbsp;</td>
+  <td>Bit 4 = Bottom-right
+  <br>Bit 5 = Bottom
+  <br>Bit 6 = Bottom-left
   <br>Bit 7 = Left
-  <br>Bit 8 = Top-Left</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>Bit 8 = Top-left</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='21 = 0x15'>21</td>
@@ -984,7 +1059,7 @@ tags are disabled.</p>
   <br>4 = 400</td><td>&nbsp;&nbsp;</td>
   <td>5 = 800
   <br>6 = 1600
-  <br>7 = 3200</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>7 = 3200</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='30 = 0x1e'>30</td>
@@ -1093,14 +1168,14 @@ version)</span></span></td></tr>
 <td>AFSensorActive</td>
 <td class=c>int8u</td>
 <td><table class=cols><tr>
-  <td>0 = Top-Right
-  <br>1 = Bottom-Right
+  <td>0 = Top-right
+  <br>1 = Bottom-right
   <br>2 = Bottom
   <br>3 = Middle Horizontal</td><td>&nbsp;&nbsp;</td>
   <td>4 = Center Vertical
   <br>5 = Top
-  <br>6 = Top-Left
-  <br>7 = Bottom-Left</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>6 = Top-left
+  <br>7 = Bottom-left</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='2 = 0x2'>2</td>
@@ -1109,23 +1184,23 @@ version)</span></span></td></tr>
 <td><span class=s><span class=n>(the focus status at shutter release.  May not reflect the status after
 focusing if the image is focused then recomposed)</span></span><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='4 = 0x4'>4</td>
-<td>AFStatusTop-Right</td>
+<td>AFStatusTop-right</td>
 <td class=c>int16s</td>
 <td><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='6 = 0x6'>6</td>
-<td>AFStatusBottom-Right</td>
+<td>AFStatusBottom-right</td>
 <td class=c>int16s</td>
 <td><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='8 = 0x8'>8</td>
@@ -1133,7 +1208,7 @@ focusing if the image is focused then recomposed)</span></span><table class=cols
 <td class=c>int16s</td>
 <td><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='10 = 0xa'>10</td>
@@ -1142,7 +1217,7 @@ focusing if the image is focused then recomposed)</span></span><table class=cols
 <td><span class=s><span class=n>(any of the three horizontal sensors at the middle of the focus frame: Left,
 Center or Right)</span></span><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='12 = 0xc'>12</td>
@@ -1150,7 +1225,7 @@ Center or Right)</span></span><table class=cols><tr>
 <td class=c>int16s</td>
 <td><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='14 = 0xe'>14</td>
@@ -1158,23 +1233,23 @@ Center or Right)</span></span><table class=cols><tr>
 <td class=c>int16s</td>
 <td><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='16 = 0x10'>16</td>
-<td>AFStatusTop-Left</td>
+<td>AFStatusTop-left</td>
 <td class=c>int16s</td>
 <td><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='18 = 0x12'>18</td>
-<td>AFStatusBottom-Left</td>
+<td>AFStatusBottom-left</td>
 <td class=c>int16s</td>
 <td><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='20 = 0x14'>20</td>
@@ -1192,13 +1267,13 @@ Center or Right)</span></span><table class=cols><tr>
   <td>0 = Auto
   <br>1 = Center
   <br>2 = Top
-  <br>3 = Top-Right
+  <br>3 = Top-right
   <br>4 = Right</td><td>&nbsp;&nbsp;</td>
-  <td>5 = Bottom-Right
+  <td>5 = Bottom-right
   <br>6 = Bottom
-  <br>7 = Bottom-Left
+  <br>7 = Bottom-left
   <br>8 = Left
-  <br>9 = Top-Left</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>9 = Top-left</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='22 = 0x16'>22</td>
@@ -1214,7 +1289,7 @@ Center or Right)</span></span><table class=cols><tr>
 <td class=c>int16s</td>
 <td><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='47 = 0x2f'>47</td>
@@ -1222,7 +1297,7 @@ Center or Right)</span></span><table class=cols><tr>
 <td class=c>int16s</td>
 <td><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='49 = 0x31'>49</td>
@@ -1230,7 +1305,7 @@ Center or Right)</span></span><table class=cols><tr>
 <td class=c>int16s</td>
 <td><table class=cols><tr>
   <td>-32768 = Out of Focus</td><td>&nbsp;&nbsp;</td>
-  <td>0 = In Focus</td><td>&nbsp;&nbsp;</td></tr></table>
+  <td>0 = In Focus</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='51 = 0x33'>51</td>
@@ -1275,7 +1350,7 @@ Center or Right)</span></span><table class=cols><tr>
   <br>4 = Self-Timer 2 sec
   <br>5 = Single Frame
   <br>8 = White Balance Bracketing Low
-  <br>9 = White Balance Bracketing High</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>9 = White Balance Bracketing High</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='16 = 0x10'>16</td>
@@ -1334,7 +1409,7 @@ Center or Right)</span></span><table class=cols><tr>
   <br>0x140e = Rear sync, ADI
   <br>0x148e = Fill flash, ADI
   <br>0x1580 = Wireless
-  <br>0x178e = HSS</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x178e = HSS</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='52 = 0x34'>52</td>
@@ -1353,7 +1428,7 @@ Center or Right)</span></span><table class=cols><tr>
   <br>0x1033 = Sunset
   <br>0x1043 = Night View/Portrait
   <br>0x1053 = Landscape
-  <br>0x1083 = Macro</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x1083 = Macro</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='54 = 0x36'>54</td>
@@ -1367,7 +1442,7 @@ Center or Right)</span></span><table class=cols><tr>
   <td>4 = Sunset
   <br>5 = Night View
   <br>7 = B&amp;W
-  <br>8 = Adobe RGB</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>8 = Adobe RGB</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='56 = 0x38'>56</td>
@@ -1580,57 +1655,63 @@ middle cell, which gives the spot metering)</span></span></td></tr>
 <td class=c>int8u</td>
 <td>&nbsp;</td></tr>
 <tr>
+<td class=r title='4172 = 0x104c'>4172</td>
+<td>TiffMeteringImage</td>
+<td class=c>N</td>
+<td><span class=s><span class=n>(13-bit RBGG (?) 40x30 pixels, presumably metering info, converted to a 16-bit
+TIFF image;)</span></span></td></tr>
+<tr class=b>
 <td class=r title='18872 = 0x49b8'>18872</td>
 <td>ExposureTime</td>
 <td class=c>int8u</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td class=r title='18874 = 0x49ba'>18874</td>
 <td>ISO</td>
 <td class=c>int8u</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td class=r title='18875 = 0x49bb'>18875</td>
 <td>FocusDistance</td>
 <td class=c>int8u</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td class=r title='18877 = 0x49bd'>18877</td>
 <td>LensType</td>
 <td class=c>int16uRev</td>
 <td>--&gt; <a href='Minolta.html#LensType'>Minolta LensType Values</a></td></tr>
-<tr>
+<tr class=b>
 <td class=r title='18880 = 0x49c0'>18880</td>
 <td>ExposureCompensation</td>
 <td class=c>int8s</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td class=r title='18881 = 0x49c1'>18881</td>
 <td>FlashExposureComp</td>
 <td class=c>int8s</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td class=r title='18882 = 0x49c2'>18882</td>
 <td>ImageStabilization</td>
 <td class=c>int8u</td>
 <td><span class=s>0 = Off
   <br>1 = On</span></td></tr>
-<tr class=b>
+<tr>
 <td class=r title='18883 = 0x49c3'>18883</td>
 <td>BrightnessValue</td>
 <td class=c>int8u</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td class=r title='18885 = 0x49c5'>18885</td>
 <td>MaxAperture</td>
 <td class=c>int8u</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td class=r title='18887 = 0x49c7'>18887</td>
 <td>FNumber</td>
 <td class=c>int8u</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td class=r title='18908 = 0x49dc'>18908</td>
 <td>InternalSerialNumber</td>
 <td class=c>string[12]</td>
@@ -1653,7 +1734,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <br>2 = Shutter Priority
   <br>3 = Manual
   <br>4 = Auto?
-  <br>4131 = Connected Copying?</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>4131 = Connected Copying?</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='12 = 0xc'>12</td>
@@ -1684,7 +1765,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <td>5 = Fluorescent
   <br>6 = Flash
   <br>256 = Kelvin
-  <br>512 = Manual</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>512 = Manual</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='31 = 0x1f'>31</td>
@@ -1719,7 +1800,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <br>6 = 1600
   <br>7 = 3200
   <br>8 = 200 (Zone Matching High)
-  <br>10 = 80 (Zone Matching Low)</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>10 = 80 (Zone Matching Low)</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='47 = 0x2f'>47</td>
@@ -1813,7 +1894,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <br>6 = Night Portrait
   <br>7 = Monochrome
   <br>8 = Adobe RGB
-  <br>9 = Adobe RGB (ICC)</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>9 = Adobe RGB (ICC)</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='174 = 0xae'>174</td>
@@ -1858,7 +1939,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <br>0x1033 = Sunset
   <br>0x1043 = Night View/Portrait
   <br>0x1053 = Landscape
-  <br>0x1083 = Macro</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x1083 = Macro</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='1 = 0x1'>1</td>
@@ -1905,7 +1986,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <br>0x302 = Single-frame Bracketing Low
   <br>0x303 = Continous Bracketing Low
   <br>0x702 = Single-frame Bracketing High
-  <br>0x703 = Continuous Bracketing High</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x703 = Continuous Bracketing High</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='11 = 0xb'>11</td>
@@ -1920,7 +2001,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <td>0x5 = Fluorescent
   <br>0x6 = Flash
   <br>0x100 = Kelvin
-  <br>0x200 = Manual</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x200 = Manual</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='12 = 0xc'>12</td>
@@ -1938,13 +2019,13 @@ middle cell, which gives the spot metering)</span></span></td></tr>
 <td><table class=cols><tr>
   <td>1 = Center
   <br>2 = Top
-  <br>3 = Top-Right
+  <br>3 = Top-right
   <br>4 = Right
-  <br>5 = Bottom-Right</td><td>&nbsp;&nbsp;</td>
+  <br>5 = Bottom-right</td><td>&nbsp;&nbsp;</td>
   <td>6 = Bottom
-  <br>7 = Bottom-Left
+  <br>7 = Bottom-left
   <br>8 = Left
-  <br>9 = Top-Left</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>9 = Top-left</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='14 = 0xe'>14</td>
@@ -1985,7 +2066,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <br>72 = 800
   <br>80 = 1600
   <br>174 = 80 (Zone Matching Low)
-  <br>184 = 200 (Zone Matching High)</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>184 = 200 (Zone Matching High)</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='20 = 0x14'>20</td>
@@ -2014,7 +2095,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <td>4 = Sunset
   <br>5 = Night Scene
   <br>7 = B&amp;W
-  <br>8 = Adobe RGB</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>8 = Adobe RGB</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='23 = 0x17'>23</td>
@@ -2060,7 +2141,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <br>2 = Self-timer
   <br>3 = Continuous Bracketing
   <br>4 = Single-Frame Bracketing
-  <br>5 = White Balance Bracketing</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>5 = White Balance Bracketing</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='31 = 0x1f'>31</td>
@@ -2097,7 +2178,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <br>0x3 = Color Temperature/Color Filter
   <br>0x8001 = Preset
   <br>0x8002 = Custom
-  <br>0x8003 = Color Temperature/Color Filter</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>0x8003 = Color Temperature/Color Filter</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='36 = 0x24'>36</td>
@@ -2109,7 +2190,7 @@ middle cell, which gives the spot metering)</span></span></td></tr>
   <br>3 = Shade</td><td>&nbsp;&nbsp;</td>
   <td>4 = Tungsten
   <br>5 = Fluorescent
-  <br>6 = Flash</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>6 = Flash</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='37 = 0x25'>37</td>
@@ -2525,7 +2606,7 @@ DiMAGE X and Xt.</p>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Dec 14, 2012</i>
+<br><i>Last revised May 14, 2015</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

@@ -31,12 +31,14 @@
 <td>EXIF
   <br>ExtendedXMP
   <br>XMP
-  <br>QVCI</td>
-<td class=c>-<br>-<br>-<br>-</td>
+  <br>QVCI
+  <br>FLIR</td>
+<td class=c>-<br>-<br>-<br>-<br>-</td>
 <td>--&gt; <a href='EXIF.html'>EXIF Tags</a>
   <br>--&gt; <a href='XMP.html'>XMP Tags</a>
   <br>--&gt; <a href='XMP.html'>XMP Tags</a>
-  <br>--&gt; <a href='Casio.html#QVCI'>Casio QVCI Tags</a></td></tr>
+  <br>--&gt; <a href='Casio.html#QVCI'>Casio QVCI Tags</a>
+  <br>--&gt; <a href='FLIR.html#FFF'>FLIR FFF Tags</a></td></tr>
 <tr>
 <td>'APP2'</td>
 <td>ICC_Profile
@@ -63,7 +65,7 @@
   <br>FPXR
   <br>PreviewImage</td>
 <td class=c>-<br>-<br>N</td>
-<td>--&gt; <a href='JPEG.html#Scalado'>JPEG Scalado Tags</a>
+<td>--&gt; <a href='Scalado.html'>Scalado Tags</a>
   <br>--&gt; <a href='FlashPix.html'>FlashPix Tags</a>
   <br><span class=n>(continued from APP3)</span></td></tr>
 <tr class=b>
@@ -84,19 +86,31 @@
   <br>--&gt; <a href='HP.html#TDHD'>HP TDHD Tags</a></td></tr>
 <tr class=b>
 <td>'APP7'</td>
-<td>Qualcomm</td>
-<td class=c>-</td>
-<td>--&gt; <a href='Qualcomm.html'>Qualcomm Tags</a></td></tr>
+<td>Pentax
+  <br>Qualcomm</td>
+<td class=c>-<br>-</td>
+<td>--&gt; <a href='Pentax.html'>Pentax Tags</a>
+  <br>--&gt; <a href='Qualcomm.html'>Qualcomm Tags</a></td></tr>
 <tr>
 <td>'APP8'</td>
 <td>SPIFF</td>
 <td class=c>-</td>
 <td>--&gt; <a href='JPEG.html#SPIFF'>JPEG SPIFF Tags</a></td></tr>
 <tr class=b>
+<td>'APP9'</td>
+<td>MediaJukebox</td>
+<td class=c>-</td>
+<td>--&gt; <a href='JPEG.html#MediaJukebox'>JPEG MediaJukebox Tags</a></td></tr>
+<tr>
 <td>'APP10'</td>
 <td>Comment</td>
 <td class=c>N</td>
 <td><span class=s><span class=n>(PhotoStudio Unicode comment)</span></span></td></tr>
+<tr class=b>
+<td>'APP11'</td>
+<td>JPEG-HDR</td>
+<td class=c>-</td>
+<td>--&gt; <a href='JPEG.html#HDR'>JPEG HDR Tags</a></td></tr>
 <tr>
 <td>'APP12'</td>
 <td>PictureInfo
@@ -130,7 +144,7 @@
 <td>'DQT'</td>
 <td>DefineQuantizationTable</td>
 <td class=c>N</td>
-<td><span class=s><span class=n>(used to calculate the Extra:JPEGDigest tag value)</span></span></td></tr>
+<td><span class=s><span class=n>(used to calculate the Extra JPEGDigest tag value)</span></span></td></tr>
 <tr>
 <td>'SOF'</td>
 <td>StartOfFrame</td>
@@ -143,13 +157,15 @@
   <br>FotoStation
   <br>PhotoMechanic
   <br>MIE
+  <br>Samsung
   <br>PreviewImage</td>
-<td class=c>-<br>-<br>-<br>-<br>-<br>Y</td>
+<td class=c>-<br>-<br>-<br>-<br>-<br>-<br>Y</td>
 <td>--&gt; <a href='AFCP.html'>AFCP Tags</a>
   <br>--&gt; <a href='CanonVRD.html'>CanonVRD Tags</a>
   <br>--&gt; <a href='FotoStation.html'>FotoStation Tags</a>
   <br>--&gt; <a href='PhotoMechanic.html'>PhotoMechanic Tags</a>
-  <br>--&gt; <a href='MIE.html'>MIE Tags</a></td></tr>
+  <br>--&gt; <a href='MIE.html'>MIE Tags</a>
+  <br>--&gt; <a href='Samsung.html#Trailer'>Samsung Trailer Tags</a></td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='AVI1'>JPEG AVI1 Tags</a></h2>
@@ -179,36 +195,6 @@ images).</p>
 <tr>
 <td>'Rev'</td>
 <td>OcadRevision</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-</table></td></tr></table></blockquote>
-
-<h2><a name='Scalado'>JPEG Scalado Tags</a></h2>
-<p>Tags extracted from the JPEG APP4 &quot;SCALADO&quot; segment (presumably written by
-Scalado mobile software, <a href="http://www.scalado.com/">http://www.scalado.com/</a>).</p>
-<blockquote>
-<table class=frame><tr><td>
-<table class=inner cellspacing=1>
-<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
-<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
-<tr>
-<td>'HGHT'</td>
-<td>PreviewImageHeight</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td>'QUAL'</td>
-<td>PreviewQuality</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td>'SPMO'</td>
-<td>DataLength</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td>'WDTH'</td>
-<td>PreviewImageWidth</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
@@ -357,7 +343,7 @@ SPIFF sample, version 1.2)</span></span></td></tr>
   <br>11 = CMY
   <br>12 = CMYK
   <br>13 = YCCK
-  <br>14 = CIELab</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>14 = CIELab</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='15 = 0xf'>15</td>
@@ -374,7 +360,7 @@ SPIFF sample, version 1.2)</span></span></td></tr>
   <br>2 = Modified READ
   <br>3 = Modified Modified READ
   <br>4 = JBIG
-  <br>5 = JPEG</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>5 = JPEG</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='17 = 0x11'>17</td>
@@ -391,6 +377,100 @@ SPIFF sample, version 1.2)</span></span></td></tr>
 <tr>
 <td class=r title='22 = 0x16'>22</td>
 <td>XResolution</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='MediaJukebox'>JPEG MediaJukebox Tags</a></h2>
+<p>Tags found in the XML metadata of the &quot;Media Jukebox&quot; APP9 segment.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>Album</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>Caption</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>Date</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>Keywords</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>Name</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>People</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>Places</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>Tool_Name</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>Tool_Version</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='HDR'>JPEG HDR Tags</a></h2>
+<p>Information extracted from APP11 of a JPEG-HDR image.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td>'RatioImage'</td>
+<td>RatioImage</td>
+<td class=c>N</td>
+<td><span class=s><span class=n>(the embedded JPEG-compressed ratio image)</span></span></td></tr>
+<tr class=b>
+<td>'alp'</td>
+<td>Alpha</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>'bet'</td>
+<td>Beta</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>'cor'</td>
+<td>CorrectionMethod</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>'ln0'</td>
+<td>Ln0</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>'ln1'</td>
+<td>Ln1</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>'s2n'</td>
+<td>S2n</td>
+<td class=c>N</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>'ver'</td>
+<td>JPEG-HDRVersion</td>
 <td class=c>N</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
@@ -430,12 +510,13 @@ because it may affect the appearance of the image.</p>
 <td class=r title='1 = 0x1'>1</td>
 <td>APP14Flags0</td>
 <td class=c>N</td>
-<td><span class=s>Bit 15 = Encoded with Blend=1 downsampling</span></td></tr>
+<td><span class=s>0x0 = (none)
+  <br>Bit 15 = Encoded with Blend=1 downsampling</span></td></tr>
 <tr>
 <td class=r title='2 = 0x2'>2</td>
 <td>APP14Flags1</td>
 <td class=c>N</td>
-<td>&nbsp;</td></tr>
+<td><span class=s>0x0 = (none)</span></td></tr>
 <tr class=b>
 <td class=r title='3 = 0x3'>3</td>
 <td>ColorTransform</td>
@@ -509,13 +590,13 @@ because it may affect the appearance of the image.</p>
   <br>&#39;2 2&#39; = YCbCr4:2:0 (2 2)
   <br>&#39;2 4&#39; = YCbCr4:2:1 (2 4)
   <br>&#39;4 1&#39; = YCbCr4:1:1 (4 1)
-  <br>&#39;4 2&#39; = YCbCr4:1:0 (4 2)</td><td>&nbsp;&nbsp;</td></tr></table>
+  <br>&#39;4 2&#39; = YCbCr4:1:0 (4 2)</td></tr></table>
 </td></tr>
 </table></td></tr></table></blockquote>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Feb 20, 2012</i>
+<br><i>Last revised Sep 17, 2014</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>
