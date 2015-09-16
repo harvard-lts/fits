@@ -53,7 +53,7 @@ import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
  *  for this to compile. */
 public class XmlContentConverter {
 	
-	Logger logger = Logger.getLogger( this.getClass() );
+	private static final Logger logger = Logger.getLogger( XmlContentConverter.class );
 	
 	private final static Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
     
@@ -556,8 +556,7 @@ public class XmlContentConverter {
             			date = XmlDateFormat.exifDateTimeToXml(created.getText().trim());
             		}
             		catch(ParseException e) {
-            			System.out.println ("Warning: " + e.getMessage ());
-            			//e.printStackTrace();
+            			logger.error("Warning - unable to parse date: " + e.getMessage ());
             		}
             		if(date != null) {
             			mm.icm.getGeneralCaptureInformation().setDateTimeCreated(date);

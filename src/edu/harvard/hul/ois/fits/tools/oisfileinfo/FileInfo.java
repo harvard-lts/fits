@@ -93,7 +93,8 @@ public class FileInfo extends ToolBase {
 		fileInfo.addContent(size);		
 		//Calculate the MD5 checksum
 		if (Fits.config.getBoolean("output.enable-checksum")) {
-			List<String> checsumExcludes = Fits.config.getList("output.checksum-exclusions[@exclude-exts]");
+			@SuppressWarnings("unchecked")
+			List<String> checsumExcludes = (List<String>)(List<?>)Fits.config.getList("output.checksum-exclusions[@exclude-exts]");
 			String ext = FilenameUtils.getExtension(file.getPath());
 			if(!hasExcludedExtensionForMD5(ext, checsumExcludes)) {
 				try {

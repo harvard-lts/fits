@@ -18,15 +18,22 @@
  */
 package edu.harvard.hul.ois.fits.tools;
 
-import java.io.PrintStream;
+import static edu.harvard.hul.ois.fits.Fits.FITS_LIB_DIR;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
+import edu.harvard.hul.ois.fits.tools.utils.ParentLastClassLoader;
 
 public class ToolBelt {
 	
@@ -44,6 +51,7 @@ public class ToolBelt {
     }
     
 	private List<Tool> tools;
+	private Map<Tool, ClassLoader> toolToClassloader;
 	
 	public ToolBelt(String configFile) throws FitsConfigurationException {
 		XMLConfiguration config = null;
@@ -57,6 +65,7 @@ public class ToolBelt {
 		List<ToolsUsedItem> toolsUsedList = processToolsUsed(config);
 		
 		tools = new ArrayList<Tool>();
+		toolToClassloader = new HashMap<Tool, ClassLoader>();
 		
 		// get number of tools
 		int size = config.getList("tools.tool[@class]").size();
@@ -64,35 +73,77 @@ public class ToolBelt {
 		for(int i=0;i<size;i++) {
 			String tClass = config.getString("tools.tool("+i+")[@class]");
 			@SuppressWarnings("unchecked")
-			List<String> excludes = config.getList("tools.tool("+i+")[@exclude-exts]");
+			List<String> excludes = (List<String>)(List<?>)config.getList("tools.tool("+i+")[@exclude-exts]");
 			@SuppressWarnings("unchecked")
-			List<String> includes = config.getList("tools.tool("+i+")[@include-exts]");
-			Tool t = null;
+			List<String> includes = (List<String>)(List<?>)config.getList("tools.tool("+i+")[@include-exts]");
+			@SuppressWarnings("unchecked")
+			List<String> classpathDirs = (List<String>)(List<?>)config.getList("tools.tool("+i+")[@classpath-dirs]");
+
+			// need to replace original class loader after (possibly) using a different one with current thread
+			ClassLoader savedClassLoader = null;
 			try {
-				@SuppressWarnings("rawtypes")
-				Class c = Class.forName(tClass);
-				t = (Tool)c.newInstance();
-			}
-			catch(Exception e) {
+				savedClassLoader = Thread.currentThread().getContextClassLoader();
+				
+				// If fits.xml Tool element contains values in the classpath-dirs attribute that return files,
+				// it's necessary to create and use a custom class loader.
+				ClassLoader toolClassLoader = createClassLoader(classpathDirs);
+				if (toolClassLoader != null) {
+					Thread.currentThread().setContextClassLoader(toolClassLoader);
+				} else {
+					toolClassLoader = savedClassLoader;
+				}
+
+				logger.debug("Will attempt to load class: " + tClass + " -- with ClassLoader: " + toolClassLoader);
+				Class<?> toolClass = Class.forName(tClass, true, toolClassLoader);
+				
+				// verify the tool's class loader is the custom one and that it's class loader has
+				// loaded the Tool interface from the main class loader so it can be cast here to Tool
+				if (toolClassLoader != savedClassLoader && logger.isTraceEnabled()) { // yes, we want an this type of exact equals comparison
+					ClassLoader tcl = toolClass.getClassLoader();
+					logger.trace("Specific tool: " + tClass + " -- ClassLoader: " + tcl);
+					
+					// Tool interface loaded from custom class loader
+					Class<?> toolInterfaceCustomClassLoader = Class.forName("edu.harvard.hul.ois.fits.tools.Tool", true, tcl);
+					logger.trace("Tool ClassLoader via custom class loader: " + toolInterfaceCustomClassLoader.getClassLoader());
+					
+					// Tool interface loaded from system class loader which will be used for casting immediately below.
+					Class<?> toolInterfaceClass = Tool.class.getClassLoader().loadClass(Tool.class.getName());
+					logger.trace("Tool ClassLoader " + Tool.class.getName() + " -- ClassLoader: " + Tool.class.getClassLoader());
+					
+					// verify that specific tool from custom class loader can be assigned to Tool
+					boolean isAssignable = toolInterfaceClass.isAssignableFrom(toolClass);
+					logger.trace("Tool from custom ClassLoader isAssignableFrom(toolClass): " + isAssignable);
+				}
+				
+				Tool t = (Tool)toolClass.newInstance();
+
+				if(t != null) {
+					t.setName(bareClassName(tClass));
+					for(String ext : excludes) {
+						t.addExcludedExtension(ext);
+					}
+					for(String ext : includes) {
+						t.addIncludedExtension(ext);
+					}
+					// Modify included and excluded extensions by tools-used
+					t.applyToolsUsed (toolsUsedList);
+					tools.add(t);
+				}
+			} catch (MalformedURLException e) {
+				logger.error("Bad URL", e); // FIXME
+			} catch(Exception e) {
 			    // Can't use this tool, but continue anyway.
 				//throw new FitsConfigurationException("Error initializing "+tClass,e);
 			    logger.error ("Thread "+Thread.currentThread().getId() +
 			    				" error initializing " + tClass +  
 			    				": " + e.getClass().getName() + 
-			    				"  Message: " + e.getMessage());
+			    				"  Message: " + e.getMessage(), e);
 			    continue;
-			}
-			if(t != null) {
-			    t.setName(bareClassName(tClass));
-				for(String ext : excludes) {
-					t.addExcludedExtension(ext);
+			} finally {
+				// ***** IMPORTANT: set back original ClassLoader *****
+				if (savedClassLoader != null) {
+					Thread.currentThread().setContextClassLoader(savedClassLoader);
 				}
-				for(String ext : includes) {
-					t.addIncludedExtension(ext);
-				}
-				// Modify included and excluded extensions by tools-used
-                t.applyToolsUsed (toolsUsedList);
-				tools.add(t);
 			}
 		}
 	}
@@ -101,20 +152,21 @@ public class ToolBelt {
 		return tools;
 	}
 	
-	public void printToolInfo() {
-		printToolInfo(false,System.out);
+	public ClassLoader getClassloader(Tool tool) {
+		return toolToClassloader.get(tool);
 	}
-	public void printToolInfo(boolean sysInfo, PrintStream p) {
-		if(sysInfo) {
+	
+	public void printToolInfo(boolean includeSysInfo) {
+		if(includeSysInfo) {
 			//system info
-			p.println("OS Name = "+System.getProperty("os.name"));
-			p.println("OS Arch = "+System.getProperty("os.arch"));
-			p.println("OS Version = "+System.getProperty("os.version"));
-			p.println("------------------------------------");
+			logger.info("OS Name = "+System.getProperty("os.name"));
+			logger.info("OS Arch = "+System.getProperty("os.arch"));
+			logger.info("OS Version = "+System.getProperty("os.version"));
+			logger.info("------------------------------------");
 		}
 		
 		for(Tool t : tools) {
-			p.print(t.getToolInfo().print());
+			logger.info(t.getToolInfo().print());
 		}
 
 	}
@@ -126,9 +178,9 @@ public class ToolBelt {
 	    List<ToolsUsedItem> results = new ArrayList<ToolsUsedItem> (size);
 	    for (int i = 0; i < size; i++) {
             @SuppressWarnings("unchecked")
-            List<String> exts = config.getList("tools-used("+i+")[@exts]");
+            List<String> exts = (List<String>)(List<?>)config.getList("tools-used("+i+")[@exts]");
             @SuppressWarnings("unchecked")
-            List<String> tools = config.getList("tools-used("+i+")[@tools]");
+            List<String> tools = (List<String>)(List<?>)config.getList("tools-used("+i+")[@tools]");
             results.add (new ToolsUsedItem (exts, tools));
 	    }
 	    return results;      // TODO stub
@@ -140,4 +192,91 @@ public class ToolBelt {
 	    int n = cname.lastIndexOf(".");
 	    return cname.substring(n + 1);
 	}
+	
+	/*
+	 * Create a custom class loader specifically for a set of resources as designated by a list of directories
+	 * which are specified for each tool in fits.xml. If the parameter is null or empty OR
+	 * there are no resources within any of the list of given directories then this method will return null.
+	 * 
+	 * @return custom class loader ONLY if JAR files in tool-specific lib directory.
+	 */
+	private ClassLoader createClassLoader(List<String> classpathDirs) throws MalformedURLException {
+		
+		if (classpathDirs == null || classpathDirs.isEmpty()) {
+			return null;
+		}
+		
+		// collect all files from all specified directories
+		List<URL> directoriesUrls = new ArrayList<URL>();
+		for (String dir : classpathDirs) {
+			directoriesUrls.addAll( gatherClassLoaderUrls(null, dir) );
+		}
+		
+		// If nothing returned from directories then return null.
+		if (directoriesUrls.isEmpty()) {
+			return null;
+		}
+		
+		// Create custom ClassLoader, necessarily putting fit.jar first.
+		List<URL> classLoaderUrls = new ArrayList<URL>();		
+
+		File fitsJarFile = new File(FITS_LIB_DIR + File.separator + "fits.jar");
+		String fitsJarPath = "file://" + fitsJarFile.getAbsolutePath();
+		URL fitsJarUrl = new URL(fitsJarPath);
+		classLoaderUrls.add(fitsJarUrl);
+		// add all other resources next
+		classLoaderUrls.addAll(directoriesUrls);
+		
+		logger.debug("URL's" + classLoaderUrls);
+		
+		// Don't create ClassLoader if nothing to load.
+		if (classLoaderUrls.isEmpty()) {
+			return null;
+		}
+		
+		final ParentLastClassLoader cl = new ParentLastClassLoader(classLoaderUrls);
+
+		return cl;
+	}
+	
+	/*
+	 * Recursive method to create a list of URL's of all files in a directory and all of its sub-directories.
+	 * All files that end in ".txt" will be ignored. Also, simple directory URL's will not be added.
+	 */
+	private List<URL> gatherClassLoaderUrls(List<URL> urls, String rootDir) throws MalformedURLException {
+		
+		if (urls == null) {
+			urls = new ArrayList<URL>();
+		}
+		
+		File dirFile = new File(rootDir);
+		File[] directoryListing = dirFile.listFiles();
+		if (directoryListing != null) {
+			for (File file : directoryListing) {
+				// recursive call to sub-directories
+				if (file.isDirectory()) {
+					gatherClassLoaderUrls(urls, rootDir + File.separator + file.getName());
+					continue;
+					
+				} else if (!file.exists() || !file.isFile() || !file.canRead() || file.getName().endsWith(".txt")) {
+					// ignoring any .txt files -- used as placeholder for directories
+					logger.debug("Not processing file: " + file.getName());
+					continue;
+				}
+				String filePath = "file://" + file.getAbsolutePath(); // create URL of filename
+				URL url = new URL(filePath);
+				urls.add(url);
+				// Do something with child
+			}
+		}
+		// add directory
+		
+// No need for adding directory
+//		String dirPath = "file://" + dirFile.getAbsolutePath() + "/"; // directory URL's should have trailing slash
+//		URL url = new URL(dirPath);
+//		urls.add(url);
+
+		return urls;
+	}
 }
+

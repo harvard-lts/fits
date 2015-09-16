@@ -57,14 +57,14 @@ public class Jhove extends ToolBase {
 
     public final static Calendar calendar = GregorianCalendar.getInstance();
     
-    public final static String jhoveFitsConfig = Fits.FITS_XML+"jhove"+File.separator;
+    public final static String jhoveFitsConfig = Fits.FITS_XML_DIR+"jhove"+File.separator;
 	
 	public Jhove() throws FitsException {
         logger.debug ("Initializing Jhove");
 
 		try {
             //Initialize Jhove  
-            File config = new File(Fits.FITS_XML+"jhove"+File.separator+"jhove.conf");
+            File config = new File(Fits.FITS_XML_DIR+"jhove"+File.separator+"jhove.conf");
             //= new File((this.getClass().getResource("jhove.conf")).toURI());
             jhoveConf = config.getPath();
             jhove = new JhoveBase ();

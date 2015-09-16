@@ -8,7 +8,7 @@
 
 <!-- ===================== Property Definitions =========================== -->
 
-  <property file="project.properties"/>
+  <property file="version.properties"/>
 	
 <!-- ==================== File and Directory Names ======================== -->
 
@@ -17,10 +17,12 @@
   <property name="app.package"           value="edu.harvard.hul.ois.fits"/>
   <property name="jar.name"	         	 value="${app.name}.jar"/>
   <property name="jar.home"	         	 value="lib"/>
-  <property name="compile.dirs"	         value="src"/>
+  <property name="src.dirs"	             value="src"/>
+  <property name="test.dirs"             value="tests"/>
   <property name="javadoc.home"          value="javadoc"/>
   <property name="manifest.name"         value="MANIFEST.MF"/>
   <property name="output.location" 		 value="release_temp"/>
+  <property name="junit.reports.dir"     value="test-generated-output/ant-junit-test-reports" />
 
 <!-- ===================== Compilation Control Options ==================== -->
 
@@ -54,12 +56,36 @@
 
   <path id="compile.classpath">
     <!-- Include all JAR files that will be included in lib -->
+  	<!-- Some tool subdirectories may not have any JAR files but are included for future expansion -->
     <fileset dir=".">
       <include name="lib/*.jar"/>
+      <include name="lib/adltool/*.jar"/>
+      <include name="lib/audioinfo/*.jar"/>
 	  <include name="lib/droid/*.jar"/>
+      <include name="lib/exiftool/*.jar"/>
+      <include name="lib/ffident/*.jar"/>
+      <include name="lib/fileinfo/*.jar"/>
+      <include name="lib/fileutility/*.jar"/>
       <include name="lib/jhove/*.jar"/>
       <include name="lib/mediainfo/*.jar"/>
       <include name="lib/nzmetool/*.jar"/>
+      <include name="lib/tika/*.jar"/>
+      <include name="lib/xmlmetadata/*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="junit.classpath">
+    <!-- Include all JAR files that will be included in lib -->
+    <fileset dir=".">
+      <include name="lib/*.jar" />
+      <include name="lib-ant/*.jar" />
+    	<!--
+      <include name="lib/droid/*.jar"/>
+      <include name="lib/jhove/*.jar"/>
+      <include name="lib/mediainfo/*.jar"/>
+      <include name="lib/nzmetool/*.jar"/>
+      <include name="lib/tika/*.jar"/>
+    	-->
     </fileset>
   </path>
 
@@ -74,10 +100,11 @@
 
   <target name="compile" description="Compile Java sources">
 
-    <javac srcdir="${compile.dirs}"
-           debug="${compile.debug}"
+    <javac debug="${compile.debug}"
            deprecation="${compile.deprecation}"
-	   optimize="${compile.optimize}">
+	       optimize="${compile.optimize}">
+    	<src path="${src.dirs}" />
+        <src path="${test.dirs}" />
         <classpath refid="compile.classpath">
         </classpath>
     </javac>
@@ -93,6 +120,9 @@
     <copy file="${app.name}.jar" todir="lib" />
   </target>
 
+  <target name="clean-compile-jar" if="lib.present" depends="clean, compile" description="Recompile all code and create a lib/fits.jar">
+  </target>
+
 
 <!-- ==================== Clean Target ==================================== -->
 
@@ -106,7 +136,8 @@
   <target name="clean"
    description="Delete old build and dist directories">
     <delete quiet="true">
-       <fileset  dir="src" includes="**/*.class"/>
+       <fileset  dir="${src.dirs}" includes="**/*.class"/>
+       <fileset  dir="${test.dirs}" includes="**/*.class"/>
     </delete>
   </target>
 
@@ -136,11 +167,9 @@
           description="Create the manifest for the jar file">
     
     <condition property="jar.version" 
-               value="${build.version.major}.${build.version.minor}.${build.version.micro}">
+               value="${build.version}">
       <and>
-        <isset property="build.version.major" />
-        <isset property="build.version.minor" />
-        <isset property="build.version.micro" />
+        <isset property="build.version" />
       </and>
     </condition>
 
@@ -232,7 +261,7 @@
 <!-- ========================= Release Targets ============================ -->
 	<target name="release">
 		<property name="output.location.version" 
-			value="${output.location}/${app.name}-${build.version.major}.${build.version.minor}.${build.version.micro}"/>
+			value="${output.location}/${app.name}-${build.version}"/>
 		<mkdir dir="${output.location}" />
 		<copy todir="${output.location.version}/xml">
 			<fileset dir="xml">
@@ -269,7 +298,7 @@
 		<copy file="COPYING.LESSER" todir="${output.location.version}"/>
 		<copy file="COPYING_APACHE_LICENSE_v2.txt" todir="${output.location.version}"/>
 		<copy file="build.xml" todir="${output.location.version}"/>
-		<copy file="project.properties" todir="${output.location.version}"/>
+		<copy file="version.properties" todir="${output.location.version}"/>
 		<antcall target="zip-output" />
 		<antcall target="delete-output" /> 
     </target>
@@ -277,12 +306,35 @@
 	
 	<target name="zip-output">
 		<input message="Enter output location for zip file:" addproperty="zip.output"/>
-		<zip basedir="${output.location}" destfile="${zip.output}/${app.name}-${build.version.major}.${build.version.minor}.${build.version.micro}.zip"/>
+		<zip basedir="${output.location}" destfile="${zip.output}/${app.name}-${build.version}.zip"/>
 	</target>
 	
 	<target name="delete-output">
 		<delete dir="${output.location}" quiet="true"/>
 	</target>
+	
+    <target name="unit-tests" depends="compile">
+    	<property name="halt.tests.on.failure" value="false"/> <!-- whether to terminate tests once first test failure encountered -->
+        <property name="halt.tests.on.error" value="false"/> <!-- whether to terminate tests once first test error encountered -->
+    	
+    	<!-- Assumed ant-junit4.jar are already on classpath from Ant installation -->
+    	<!-- see https://ant.apache.org/manual/Tasks/junit.html -->
+        <junit fork="true" printsummary="withOutAndErr" haltonfailure="${halt.tests.on.failure}" haltonerror="${halt.tests.on.error}">
+        	<classpath refid="junit.classpath" />
+        	<classpath path="${test.dirs}" />
+            <classpath location="./xml/nlnz" />
+            <classpath location="./xml/nlnz/fits" />
+        	<batchtest skipNonTests="true" todir="${junit.reports.dir}">
+        		<fileset dir="${test.dirs}">
+        			<!-- tests to exclude due to known errors in tests -->
+        			<exclude name="**/FitsOutputXmlTest.java"/>
+                    <exclude name="**/FitsOutputXmlTest.class"/>
+       			</fileset>
+        	</batchtest>
+        	<formatter type="plain"/>
+        </junit>
+    </target>
+
 
 
 </project>

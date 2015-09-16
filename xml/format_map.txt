@@ -10,6 +10,7 @@ OpenDocument v1.0: Graphics document (Drawing)=OpenDocument Graphics
 OpenDocument v1.0: Global Text document=OpenDocument Master Document
 Waveform Audio (PCMWAVEFORMAT)=Waveform Audio
 Waveform Audio (WAVEFORMATEX)=Waveform Audio
+Broadcast WAVE=Waveform Audio
 Joint Photographic Experts Group=jpeg
 Gzip Compressed Archive=GZIP Format
 Windows bitmap=Windows Bitmap

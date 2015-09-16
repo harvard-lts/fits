@@ -52,7 +52,7 @@ public class MediaInfo extends ToolBase {
 	private final static String TOOL_NAME = "MediaInfo";
 	private boolean enabled = true;
 	
-	public final static String mediaInfoFitsConfig = Fits.FITS_XML+"mediainfo"+File.separator;
+	public final static String mediaInfoFitsConfig = Fits.FITS_XML_DIR+"mediainfo"+File.separator;
 	public final static String xsltTransform = "mediainfo_video_to_fits.xslt";
 	
     private static final Logger logger = Logger.getLogger(MediaInfo.class);
@@ -96,7 +96,7 @@ public class MediaInfo extends ToolBase {
 		    case Linux:
 		    	nativeLibPath = fitsHome + "/tools/mediainfo/linux";
 		    	break;
-		    case Other: System.out.println("Other OS"); break;
+		    case Other: logger.info("Other OS"); break;
 		}
 		System.setProperty("jna.library.path", nativeLibPath);
 
