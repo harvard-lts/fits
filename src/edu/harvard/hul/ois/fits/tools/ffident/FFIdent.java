@@ -45,7 +45,7 @@ public class FFIdent extends ToolBase {
     private final static String TOOL_DATE = "2005-10-21";
             
 	private FormatIdentification identifier = null;
-	public final static String xslt =Fits.FITS_XML+"/ffident/ffident_to_fits.xslt";
+	public final static String xslt =Fits.FITS_XML_DIR+"/ffident/ffident_to_fits.xslt";
 	private boolean enabled = true;
 
     private static final Logger logger = Logger.getLogger(FFIdent.class);
@@ -56,10 +56,10 @@ public class FFIdent extends ToolBase {
 		info = new ToolInfo(TOOL_NAME, TOOL_VERSION, TOOL_DATE);
 		
 		try {
-			File config = new File(Fits.FITS_TOOLS+"ffident/formats.txt");
+			File config = new File(Fits.FITS_TOOLS_DIR+"ffident/formats.txt");
 			identifier = new FormatIdentification(config.getPath());
 		} catch (FileNotFoundException e) {
-			throw new FitsToolException(Fits.FITS_TOOLS+"ffident/formats.txt could not be found",e);
+			throw new FitsToolException(Fits.FITS_TOOLS_DIR+"ffident/formats.txt could not be found",e);
 		} 
 	}
 	

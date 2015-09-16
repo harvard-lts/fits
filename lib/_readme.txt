@@ -1,0 +1,3 @@
+All sub-directories of the "lib" are for tool-specific JAR files for the specific tool as listed in fits.xml within <tool> element, "classpath-dirs" attribute.
+All resources loaded from each sub-directory will be loaded in a child-first ClassLoader so as to isolate these JAR classes and resources from other tools.
+"classpath-dirs" values in fits.xml may also point to other directories containing other types of resources.

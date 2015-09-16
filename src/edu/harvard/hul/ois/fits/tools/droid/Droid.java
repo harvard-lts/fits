@@ -48,7 +48,7 @@ public class Droid extends ToolBase {
 		info = new ToolInfo("Droid", getDroidVersion(), null);		
 
 		try {
-			String droid_conf = Fits.FITS_TOOLS+"droid"+File.separator;
+			String droid_conf = Fits.FITS_TOOLS_DIR+"droid"+File.separator;
 			File sigFile = new File(droid_conf+Fits.config.getString("droid_sigfile"));
 	        try {
 	            droidQuery = new DroidQuery (sigFile);

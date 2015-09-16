@@ -42,7 +42,7 @@ public class FileUtility extends ToolBase {
 
 	private boolean osIsWindows = false;
 	private boolean osHasTool = false;
-	private List<String> WIN_COMMAND = new ArrayList<String>(Arrays.asList(Fits.FITS_TOOLS+"file_utility_windows/bin/file.exe"));
+	private List<String> WIN_COMMAND = new ArrayList<String>(Arrays.asList(Fits.FITS_TOOLS_DIR+"file_utility_windows/bin/file.exe"));
 	private List<String> UNIX_COMMAND = new ArrayList<String>(Arrays.asList("file"));
 	private List<String> FILE_TEST_COMMAND = new ArrayList<String>(Arrays.asList("which", "file"));
 	private final static String WIN_FILE_DATE = "6/7/2008";
@@ -50,7 +50,7 @@ public class FileUtility extends ToolBase {
 	
     private static final Logger logger = Logger.getLogger(FileUtility.class);
 
-	public final static String xslt = Fits.FITS_XML+"fileutility/fileutility_to_fits.xslt";
+	public final static String xslt = Fits.FITS_XML_DIR+"fileutility/fileutility_to_fits.xslt";
 
 	public FileUtility() throws FitsToolException{	
         logger.debug ("Initializing FileUtility");

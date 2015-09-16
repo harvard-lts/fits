@@ -51,9 +51,17 @@ public class FitsOutputXmlTest extends XMLTestCase {
 	
     private FitsOutput expected;
     private FitsOutput actual;
-    private XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());  	
+    private XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+    
+    public FitsOutputXmlTest() {
+    	super();
+    	// must set output values if using this constructor
+//    	this.expected = ???;
+//    	this.actual = ???;
+    }
 
     public FitsOutputXmlTest(FitsOutput expected, FitsOutput value) {
+    	super();
         this.expected = expected;
         this.actual = value;
     }

@@ -13,43 +13,16 @@ export FITS_HOME
 # concatenate args and use eval/exec to preserve spaces in paths, options and args
 args=""
 for arg in "$@" ; do
-	args="$args \"$arg\""
+    args="$args \"$arg\""
 done
 
 JCPATH=${FITS_HOME}/lib
 # Add on extra jar files to APPCLASSPATH
 for i in "$JCPATH"/*.jar; do
-	APPCLASSPATH="$APPCLASSPATH":"$i"
+    APPCLASSPATH="$APPCLASSPATH":"$i"
 done
 
-JCPATH=${FITS_HOME}/lib/droid
-# Add on extra jar files to APPCLASSPATH
-for i in "$JCPATH"/*.jar; do
-	APPCLASSPATH="$APPCLASSPATH":"$i"
-done
+# all subdirectories of ${FITS_HOME}/lib/ get loaded dynamically at runtime. DO NOT add here!
 
-JCPATH=${FITS_HOME}/lib/jhove
-# Add on extra jar files to APPCLASSPATH
-for i in "$JCPATH"/*.jar; do
-	APPCLASSPATH="$APPCLASSPATH":"$i"
-done
-
-JCPATH=${FITS_HOME}/lib/mediainfo
-# Add on extra jar files to APPCLASSPATH
-for i in "$JCPATH"/*.jar; do
-	APPCLASSPATH="$APPCLASSPATH":"$i"
-done
-
-JCPATH=${FITS_HOME}/lib/nzmetool
-# Add on extra jar files to APPCLASSPATH
-for i in "$JCPATH"/*.jar; do
-	APPCLASSPATH="$APPCLASSPATH":"$i"
-done
-
-JCPATH=${FITS_HOME}/lib/nzmetool/adapters
-# Add on extra jar files to APPCLASSPATH
-for i in "$JCPATH"/*.jar; do
-	APPCLASSPATH="$APPCLASSPATH":"$i"
-done
-
+# Need this here when running thread for MetaTool
 APPCLASSPATH="$APPCLASSPATH":"$FITS_HOME/xml/nlnz"
