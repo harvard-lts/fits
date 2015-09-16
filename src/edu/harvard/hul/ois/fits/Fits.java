@@ -21,12 +21,14 @@ package edu.harvard.hul.ois.fits;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Properties;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -72,8 +74,9 @@ public class Fits {
   private static Logger logger;
 
   public static volatile String FITS_HOME;
-  public static String FITS_XML;
-  public static String FITS_TOOLS;
+  public static String FITS_XML_DIR;
+  public static String FITS_TOOLS_DIR;
+  public static String FITS_LIB_DIR;
   public static XMLConfiguration config;
   public static FitsXmlMapper mapper;
   public static boolean validateToolOutput;
@@ -82,14 +85,30 @@ public class Fits {
   public static String internalOutputSchema;
   public static int maxThreads = 20; // GDM 16-Nov-2012
   public static final String XML_NAMESPACE = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output";
+  public static String VERSION = "<unknown>";
 
-  public static String VERSION = "0.8.10";
-
+  private static final String FITS_CONFIG_FILE_NAME = "fits.xml";
+  private static String VERSION_PROPERTIES_FILE = "version.properties";
   private ToolOutputConsolidator consolidator;
   private static XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
   private ToolBelt toolbelt;
 
   private static boolean traverseDirs;
+  
+  static {
+	// get version from properties file and set in class
+	File versionFile = new File( VERSION_PROPERTIES_FILE );
+	Properties versionProps = new Properties();
+	try {
+		versionProps.load(new FileInputStream(versionFile));
+		String version = versionProps.getProperty("build.version");
+		if (version != null && !version.isEmpty()) {
+			Fits.VERSION = version;
+		}
+	} catch (IOException e) {
+		System.err.println("Problem loading " + FITS_CONFIG_FILE_NAME + ": " + "Cannot display FITS version information.");
+	}
+  }
 
   public Fits() throws FitsException {
     this( null );
@@ -115,8 +134,9 @@ public class Fits {
       FITS_HOME = FITS_HOME + File.separator;
     }
 
-    FITS_XML = FITS_HOME + "xml" + File.separator;
-    FITS_TOOLS = FITS_HOME + "tools" + File.separator;
+    FITS_XML_DIR = FITS_HOME + "xml" + File.separator;
+    FITS_TOOLS_DIR = FITS_HOME + "tools" + File.separator;
+    FITS_LIB_DIR = FITS_HOME + "lib" + File.separator;
 
     // Set up logging.
     // Now using an explicit properties file, because otherwoise DROID will
@@ -126,18 +146,18 @@ public class Fits {
     //  If log4j.debug=true is set then it shows that this doesn't actually find the specified
     //  log4j.properties file.  Leaving as is for now since overall logging works as intended.
     //  also note that any logging statements in this class probably do not work.
-    System.setProperty( "log4j.configuration", "file:" + FITS_TOOLS + "log4j.properties" );
+    System.setProperty( "log4j.configuration", "file:" + FITS_TOOLS_DIR + "log4j.properties" );
 
     //  Logging fix from "paulmer"
-    File log4jProperties = new File(FITS_TOOLS + "log4j.properties");
+    File log4jProperties = new File(FITS_TOOLS_DIR + "log4j.properties");
     System.setProperty( "log4j.configuration", log4jProperties.toURI().toString());
  
     logger = Logger.getLogger( this.getClass() );
     try {
-      config = new XMLConfiguration( FITS_XML + "fits.xml" );
+      config = new XMLConfiguration( FITS_XML_DIR + FITS_CONFIG_FILE_NAME );
     } catch (ConfigurationException e) {
-      logger.fatal( "Error reading " + FITS_XML + "fits.xml: " + e.getClass().getName() );
-      throw new FitsConfigurationException( "Error reading " + FITS_XML + "fits.xml", e );
+      logger.fatal( "Error reading " + FITS_XML_DIR + FITS_CONFIG_FILE_NAME + ": " + e.getClass().getName() );
+      throw new FitsConfigurationException( "Error reading " + FITS_XML_DIR + FITS_CONFIG_FILE_NAME, e );
     }
     try {
       mapper = new FitsXmlMapper();
@@ -176,11 +196,11 @@ public class Fits {
       throw new FitsConfigurationException( "Error initializing " + consolidatorClass, e );
     }
 
-    toolbelt = new ToolBelt( FITS_XML + "fits.xml" );
+    toolbelt = new ToolBelt( FITS_XML_DIR + FITS_CONFIG_FILE_NAME );
 
   }
 
-  public static void main( String[] args ) throws FitsException, IOException, ParseException, XMLStreamException {    
+  public static void main( String[] args ) throws FitsException, IOException, ParseException, XMLStreamException {
 
     Options options = new Options();
     options.addOption( "i", true, "input file or directory" );
@@ -271,12 +291,12 @@ public class Fits {
 					continue;
 				}
 				FitsOutput result = doSingleFile(f);
-				String outputFile = outputDir.getPath() + File.separator + f.getName() + ".fits.xml";
+				String outputFile = outputDir.getPath() + File.separator + f.getName() + "." + FITS_CONFIG_FILE_NAME;
 				File output = new File(outputFile);
 				if (output.exists()) {
 					int cnt = 1;
 					while (true) {
-						outputFile = outputDir.getPath() + File.separator + f.getName() + "-" + cnt + ".fits.xml";
+						outputFile = outputDir.getPath() + File.separator + f.getName() + "-" + cnt + "." + FITS_CONFIG_FILE_NAME;
 						output = new File(outputFile);
 						if (!output.exists()) {
 							break;
@@ -370,7 +390,7 @@ public class Fits {
 
     // initialize transformer for pretty print xslt
     TransformerFactory tFactory = TransformerFactory.newInstance();
-    String prettyPrintXslt = FITS_XML + "prettyprint.xslt";
+    String prettyPrintXslt = FITS_XML_DIR + "prettyprint.xslt";
     try {
       Templates template = tFactory.newTemplates( new StreamSource( prettyPrintXslt ) );
       transformer = template.newTransformer();
@@ -501,6 +521,11 @@ public class Fits {
           Thread thread = new Thread( t, t.getToolInfo().getName() );
           threads.add( thread );
           logger.debug( "Starting thread " + thread.getName() );
+          ClassLoader cl = toolbelt.getClassloader(t);
+          if (cl != null) {
+        	  thread.setContextClassLoader(cl);
+              logger.debug( "Starting thread " + thread.getName() + " -- with ClassLoader: " + cl );
+          }
           thread.start();
         }
       }

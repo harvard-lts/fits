@@ -33,9 +33,9 @@ public class FitsMetadataValues {
 	
 	private Logger logger = Logger.getLogger(this.getClass());
 	
-	private String mimeMapProperties = Fits.FITS_XML + "mime_map.txt";
-	private String formatMapProperties = Fits.FITS_XML + "format_map.txt";
-	private String mimeToFormatMapProperties = Fits.FITS_XML + "mime_to_format_map.txt";
+	private String mimeMapProperties = Fits.FITS_XML_DIR + "mime_map.txt";
+	private String formatMapProperties = Fits.FITS_XML_DIR + "format_map.txt";
+	private String mimeToFormatMapProperties = Fits.FITS_XML_DIR + "mime_to_format_map.txt";
 	
     private HashMap<String, String> mimeMap = new HashMap<String, String>();
     private HashMap<String, String> formatMap = new HashMap<String, String>();

@@ -47,13 +47,13 @@ public class Exiftool extends ToolBase {
 
 	private boolean osIsWindows = false;
 	private boolean osHasPerl = false;
-	private List<String> winCommand = new ArrayList<String>(Arrays.asList(Fits.FITS_TOOLS+"exiftool/windows/exiftool.exe"));
-	private List<String> unixCommand = new ArrayList<String>(Arrays.asList("perl",Fits.FITS_TOOLS+"exiftool/perl/exiftool"));
+	private List<String> winCommand = new ArrayList<String>(Arrays.asList(Fits.FITS_TOOLS_DIR+"exiftool/windows/exiftool.exe"));
+	private List<String> unixCommand = new ArrayList<String>(Arrays.asList("perl",Fits.FITS_TOOLS_DIR+"exiftool/perl/exiftool"));
 	private List<String> perlTestCommand = Arrays.asList("which", "perl");
 	private final static String TOOL_NAME = "Exiftool";
 	private boolean enabled = true;
 	
-	public final static String exiftoolFitsConfig = Fits.FITS_XML+"exiftool"+File.separator;
+	public final static String exiftoolFitsConfig = Fits.FITS_XML_DIR+"exiftool"+File.separator;
 	public final static String genericTransform = "exiftool_generic_to_fits.xslt";
 
     private static final Logger logger = Logger.getLogger(Exiftool.class);

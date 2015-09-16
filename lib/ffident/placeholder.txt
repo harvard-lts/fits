@@ -1,0 +1,2 @@
+Placeholder file for empty directory so directory is recognized by Git.
+This file may be deleted once a JAR file is added to this directory.

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="5/15/15 9:31 AM">
   <identification>
-    <identity format="Waveform Audio" mimetype="audio/x-wave" toolname="FITS" toolversion="0.8.10">
+    <identity format="Waveform Audio" mimetype="audio/x-wave" toolname="FITS" toolversion="0.9.0">
       <tool toolname="OIS Audio Information" toolversion="0.1" />
       <tool toolname="Droid" toolversion="6.1.5" />      
       <tool toolname="Jhove" toolversion="1.5" />
       <tool toolname="file utility" toolversion="5.04" />
-      <tool toolname="Exiftool" toolversion="9.13" />
-      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
+      <tool toolname="Exiftool" toolversion="10.00" />
       <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/142</externalIdentifier>
     </identity>
   </identification>
