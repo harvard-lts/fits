@@ -93,7 +93,7 @@ public class ToolBelt {
 					toolClassLoader = savedClassLoader;
 				}
 
-				logger.debug("Will attempt to load class: " + tClass + " -- with ClassLoader: " + toolClassLoader);
+				logger.debug("Will attempt to load class: " + tClass + " -- with ClassLoader: " + toolClassLoader.getClass().getName());
 				Class<?> toolClass = Class.forName(tClass, true, toolClassLoader);
 				
 				// verify the tool's class loader is the custom one and that it's class loader has
@@ -221,9 +221,7 @@ public class ToolBelt {
 		List<URL> classLoaderUrls = new ArrayList<URL>();		
 
 		File fitsJarFile = new File(FITS_LIB_DIR + File.separator + "fits.jar");
-		String fitsJarPath = "file://" + fitsJarFile.getAbsolutePath();
-		URL fitsJarUrl = new URL(fitsJarPath);
-		classLoaderUrls.add(fitsJarUrl);
+		classLoaderUrls.add( fitsJarFile.toURI().toURL() );
 		// add all other resources next
 		classLoaderUrls.addAll(directoriesUrls);
 		
@@ -263,19 +261,10 @@ public class ToolBelt {
 					logger.debug("Not processing file: " + file.getName());
 					continue;
 				}
-				String filePath = "file://" + file.getAbsolutePath(); // create URL of filename
-				URL url = new URL(filePath);
-				urls.add(url);
-				// Do something with child
+				file.toURI().toURL();
+				urls.add( file.toURI().toURL() );
 			}
 		}
-		// add directory
-		
-// No need for adding directory
-//		String dirPath = "file://" + dirFile.getAbsolutePath() + "/"; // directory URL's should have trailing slash
-//		URL url = new URL(dirPath);
-//		urls.add(url);
-
 		return urls;
 	}
 }
