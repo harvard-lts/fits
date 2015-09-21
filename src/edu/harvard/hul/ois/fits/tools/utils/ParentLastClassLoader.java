@@ -42,6 +42,10 @@ import org.slf4j.LoggerFactory;
  * class loader. As a result the class can then be cast to the interface contained within the thread loaded
  * by the system class loader.
  * 
+ * Note: All logging statements are wrapped in a check to see if logging is enabled since this class is used
+ * intensively. Even if a logging level is not enabled the full String that *would* be logged needs to be created
+ * anyway causing unnecessary CPU load.
+ * 
  * @author David Neiman
  */
 public class ParentLastClassLoader extends ClassLoader {
@@ -78,12 +82,16 @@ public class ParentLastClassLoader extends ClassLoader {
 	protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException{
 		try	{
 			// Attempt to load class locally first
-			logger.trace("looking for class name: " + name);
+			if (logger.isTraceEnabled()) {
+				logger.trace("looking to loadClass() class name: " + name);
+			}
 			Class<?> clazz = childClassLoader.findClass(name);
 			return clazz;
 		} catch (ClassNotFoundException e) {
-			logger.trace("ClassNotFoundException -- attempting to findClass() in class loader: " +
-					super.getClass().getName());
+			if (logger.isTraceEnabled()) {
+				logger.trace("ClassNotFoundException caught -- attempting to loadClass() in class loader: " +
+						super.getClass().getSimpleName());
+			}
 			return super.loadClass(name, resolve);
 		}
 	}
@@ -92,9 +100,20 @@ public class ParentLastClassLoader extends ClassLoader {
 	 public URL getResource(String name) {
 		// Attempt to load resource locally first.
 		URL url = childClassLoader.findResource(name);
+		if (logger.isTraceEnabled()) {
+			logger.trace("looking to getResource() resource name: " + name);
+			logger.trace("found resource: " + name);
+		}
 		// If not found, try parent.
 		if(url == null) {
+			if (logger.isTraceEnabled()) {
+				logger.trace("NOT found resource -- attempting to loadClass() in class loader: " +
+						super.getClass().getSimpleName());
+			}
 			url = super.findResource(name);
+			if (logger.isTraceEnabled()) {
+				logger.trace( (url == null ? "NOT" : "") + " found resource: " + name );
+			}
 		}
 		return url;
 	} 
@@ -114,38 +133,59 @@ public class ParentLastClassLoader extends ClassLoader {
 			try	{
 				// If attempting to load one of "exclusion" classes, go directly to parent class loader.
 				if (loadByParentClassLoader.contains(name) || beginsWith(name)) {
-					logger.trace("****** SPECIAL -- going directly to parent ClassLoader for class : " + name);
+					if (logger.isTraceEnabled()) {
+						logger.trace("****** SPECIAL -- going directly to parent ClassLoader for class : " + name);
+					}
 					Class<?> clazz = realParent.loadClass(name);
-					logger.trace("***** SPECIAL --  Found in : " + realParent.getClass().getName());
+					if (logger.isTraceEnabled()) {
+						logger.trace("***** SPECIAL --  Found in : " + realParent.getClass().getSimpleName());
+					}
 					return clazz;
 				}
 				
 				// See if class has already been loaded
-				logger.trace("looking for class name: " + name);
+				if (logger.isTraceEnabled()) {
+					logger.trace(" findLoadedClass(name) to see if class already loaded: " + name);
+				}
 				Class<?> loaded = super.findLoadedClass(name);
 				if (loaded != null) {
-					logger.trace("Already loaded - found class in: " + this.getClass().getName());
+					if (logger.isTraceEnabled()) {
+						logger.trace("Already loaded - found class in: " + this.getClass().getSimpleName());
+					}
 					return loaded;
 				}
 				
 				// Not already loaded so attempt to load.
-				String superClassLoaderName = super.getClass().getName();
-				logger.trace("NOT FOUND: attemt to load from to super() name: " + superClassLoaderName);
+				String superClassLoaderName = super.getClass().getSimpleName();
+				if (logger.isTraceEnabled()) {
+					logger.trace("NOT already loaded: attemt to load from: " + superClassLoaderName);
+				}
 				Class<?> clazz = super.findClass(name);
-				if (clazz != null ) {
-					logger.trace("found class in: " + super.getClass().getName());
+				// will only reach here if class found, otherwise ClassNotFoundException will have been thrown
+				if (logger.isTraceEnabled()) {
+					logger.trace("loaded class in: " + super.getClass().getSimpleName());
 				}
 				return clazz;
 			} catch (ClassNotFoundException e){
-				String parentClassLoaderName = realParent.getParent().getClass().getName();
-				logger.trace("ClassNotFoundException from super, going to: " + parentClassLoaderName);
-				return realParent.loadClass(name);
+				String parentClassLoaderName = realParent.getParent().getClass().getSimpleName();
+				if (logger.isTraceEnabled()) {
+					logger.trace("ClassNotFoundException, attempt to load from: " + parentClassLoaderName);
+				}
+				Class<?> clazz = realParent.loadClass(name);
+				if (logger.isTraceEnabled()) {
+					logger.trace("Loaded class " + name + " from: " + parentClassLoaderName);
+				}
+				return clazz;
 			}
 		}
 		
 		@Override
 		public URL findResource(String name) {
 			URL url = super.findResource(name);
+			if (logger.isTraceEnabled()) {
+				logger.trace("looking in findResource() for: " + name + " in class loader: " + super.getClass().getSimpleName());
+				logger.trace( (url == null ? "NOT" : "") + " found resource: " + name );
+			}
 			return url;
 		}
 	}

@@ -16,6 +16,10 @@ for arg in "$@" ; do
     args="$args \"$arg\""
 done
 
+# Application classpath
+# As first entry, this directory needed in classpath when running thread for MetadataExtractor tool.
+APPCLASSPATH="$FITS_HOME/xml/nlnz"
+
 JCPATH=${FITS_HOME}/lib
 # Add on extra jar files to APPCLASSPATH
 for i in "$JCPATH"/*.jar; do
@@ -23,6 +27,3 @@ for i in "$JCPATH"/*.jar; do
 done
 
 # all subdirectories of ${FITS_HOME}/lib/ get loaded dynamically at runtime. DO NOT add here!
-
-# Need this here when running thread for MetaTool
-APPCLASSPATH="$APPCLASSPATH":"$FITS_HOME/xml/nlnz"
