@@ -27,6 +27,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -533,7 +534,9 @@ public class MediaInfo extends ToolBase {
 			Map<String, Map<String, String>> audioTrackValuesMap,  Map<String, String> generalValuesDataMap ) 
 					throws FitsToolException {	
 		
-		try {
+		try {			
+			reviseIdentification(fitsXml);
+
 		    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");	
 		
 		    // NOTE: We need to add a namespace	to xpath, because JDom XPath 
@@ -591,6 +594,73 @@ public class MediaInfo extends ToolBase {
 			throw new FitsToolException("Error revising xml node values " + TOOL_NAME);			
 		}		    
 
+	}
+	
+	/**
+	 * Helper method to revise text in the identification element.
+	 * @param fitsXml
+	 * @throws JDOMException
+	 */
+	private void reviseIdentification (Document fitsXml ) 
+					throws JDOMException {
+		
+		//
+		// Get the format and formatProfile from the video track element
+		//
+		String videoFormat = "";
+		String videoFormatProfile = "";
+	    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");	
+		
+	    // NOTE: We need to add a namespace	to xpath, because JDom XPath 
+	    // does not support default namespaces. It requires you to add a
+	    // fake namespace to the XPath instance.
+	    xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
+
+	    Element videoElement = (Element)xpathFits.selectSingleNode(fitsXml);
+	    List <Element>elementList = videoElement.getContent();
+	    for (Element element : elementList) {
+	    	if(element.getName().equals("format")) {
+	    		videoFormat = element.getText();
+	    	}
+	    	else if(element.getName().equals("formatProfile")) {
+	    		videoFormatProfile = element.getText();
+	    	}
+	    }		
+		
+		//
+		// Normalize the format and mimetype if necessary.
+		// NOTE: If the following is true, then we need to update the 
+		// "identity" element to be "quicktime" for the format attribute 
+		// and "video/quicktime" for the mimetype attribute
+		//
+	    XPath xpathFitsIdentity = XPath.newInstance("//x:fits/x:identification");
+	    
+	    // NOTE: We need to add a namespace	to xpath, because JDom XPath 
+	    // does not support default namespaces. It requires you to add a
+	    // fake namespace to the XPath instance.
+	    xpathFitsIdentity.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
+
+	    Element identityElement = (Element)xpathFitsIdentity.selectSingleNode(fitsXml);
+	    List <Element>elementIdentityList = identityElement.getContent();
+	    for (Element elementIdentity : elementIdentityList) {
+	    	
+	    	Attribute formatAttrib = elementIdentity.getAttribute("format"); 	
+	    	Attribute mimeAttrib = elementIdentity.getAttribute("mimetype");
+	    	
+	    	// Only Reset the format and mimetype if they are the format and
+	    	// formatProfile from the video section are the required types
+	    	if(formatAttrib != null && mimeAttrib != null) {
+		    	if(videoFormat.toUpperCase().contains("MPEG-4") && videoFormatProfile.toUpperCase().equals("QUICKTIME")){	    		
+		    		formatAttrib.setValue("Quicktime");
+		    		mimeAttrib.setValue("video/quicktime");
+		    	}
+	    		break;
+	    	}
+	    	
+
+	    	
+	    }		
+		
 	}
 	
 	/**

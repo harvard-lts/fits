@@ -29,7 +29,7 @@
 		<enable-checksum>true</enable-checksum>
 		<!-- The below controls the exclusion of the checksum for certain files, even if enable-checksum is true -->
 		<!-- Video Exclusions -->
-		<!-- <checksum-exclusions exclude-exts="avi,mov,mpg,mkv,mp4,mxf,ogv,mj2,divx,dv"/> -->
+		<!-- <checksum-exclusions exclude-exts="avi,mov,mpg,mkv,mp4,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv"/> -->
 		<!-- Audio Exclusions -->
 		<!-- <checksum-exclusions exclude-exts="wav,aif,mp3,mp4,m4a,ra,rm"/> -->
 	</output>

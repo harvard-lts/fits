@@ -68,7 +68,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
+				"version",
 				"toolversion",
 				"dateModified",
 				"fslastmodified",
@@ -125,7 +125,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
+				"version",
 				"toolversion",
 				"dateModified",
 				"fslastmodified",
@@ -187,7 +187,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
+				"version",
 				"toolversion",
 				"dateModified",
 				"fslastmodified",
@@ -252,7 +252,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
+				"version",
 				"toolversion",
 				"dateModified",
 				"fslastmodified",
@@ -316,7 +316,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
+				"version",
 				"toolversion",
 				"dateModified",
 				"fslastmodified",
@@ -379,7 +379,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
+				"version",
 				"toolversion",
 				"dateModified",
 				"fslastmodified",

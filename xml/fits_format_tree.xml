@@ -30,6 +30,12 @@
 		<branch format="Hypertext Markup Language"/>
 		<branch format="Postscript"/>
 	</branch>
+	<branch format="ISO Media, Apple QuickTime movie">
+		<branch format="Quicktime"/>
+	</branch>
+	<branch format="ISO Media, MPEG v4 system, version 2">
+		<branch format="MPEG-4"/>
+	</branch>	
 	<branch format="ZIP Format">
 		<branch format="OpenDocument"/>
 		<branch format="OpenDocument Text"/>

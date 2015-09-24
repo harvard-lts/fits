@@ -137,7 +137,7 @@
 		</mime>
 	</tool>
 	
-	<tool name="mediainfo" version="0.7.71">
+	<tool name="mediainfo" version="0.7.75">
 		<mime type="all">
 			<element name="colorSpace">
 				<map from="Greyscale" to="Grayscale"/>

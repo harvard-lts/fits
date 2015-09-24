@@ -48,6 +48,20 @@
                 <ebucore:technicalAttributeInteger typeLabel="sampleCount">198576</ebucore:technicalAttributeInteger>
                 <ebucore:technicalAttributeInteger typeLabel="duration">4137</ebucore:technicalAttributeInteger>
              </ebucore:audioFormat>
+              <ebucore:audioFormatExtended>
+                <ebucore:audioChannelFormat>
+                  <ebucore:audioBlockFormat>
+                    <ebucore:position coordinate="x">-100</ebucore:position>
+                    <ebucore:position coordinate="y">0</ebucore:position>
+                  </ebucore:audioBlockFormat>
+                </ebucore:audioChannelFormat>
+                <ebucore:audioChannelFormat>
+                  <ebucore:audioBlockFormat>
+                    <ebucore:position coordinate="x">100</ebucore:position>
+                    <ebucore:position coordinate="y">0</ebucore:position>
+                  </ebucore:audioBlockFormat>
+                </ebucore:audioChannelFormat>
+              </ebucore:audioFormatExtended>                             
              <ebucore:containerFormat>
                 <ebucore:comment>MPEG-4</ebucore:comment>
                 <ebucore:comment>Base Media / Version 2</ebucore:comment>

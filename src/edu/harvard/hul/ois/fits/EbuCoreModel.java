@@ -20,14 +20,20 @@ package edu.harvard.hul.ois.fits;
 
 //import java.util.UUID;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.jdom.Element;
 import org.jdom.Namespace;
 
+import edu.harvard.hul.ois.fits.tools.mediainfo.ChannelPositionParser;
+import edu.harvard.hul.ois.fits.tools.mediainfo.ChannelPositionWrapper;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AspectRatio;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioBlockFormat;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioChannelFormat;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioEncoding;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormat;
-//import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormatExtended;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioFormatExtended;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrack;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.AudioTrackConfiguration;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Codec;
@@ -43,6 +49,7 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.EbuCoreMain;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.FrameRate;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.MimeType;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.Position;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Start;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeInteger;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
@@ -59,8 +66,7 @@ public class EbuCoreModel {
     protected EbuCoreMain ebucoreMain;
     protected Format format;
     
-    // TODO: Use audioFmtExt?
-    // protected AudioFormatExtended audioFmtExt;
+    protected AudioFormatExtended audioFmtExt;
     protected ContainerFormat containerFormat;
     protected Duration duration;
     
@@ -86,8 +92,8 @@ public class EbuCoreModel {
 		format.setContainerFormat(containerFormat);
 		format.setDuration(duration);
 		
-		// TODO: Do we need this
-		// format.setAudioFormatExtended(audioFmtExt);
+		audioFmtExt = new AudioFormatExtended();
+		format.setAudioFormatExtended(audioFmtExt);
 		
         CoreMetadata cm = new CoreMetadata();
         cm.setFormat(format);
@@ -293,7 +299,31 @@ public class EbuCoreModel {
 	    		AudioTrackConfiguration atc = new AudioTrackConfiguration();
 	    		atc.setTypeLabel(dataValue);
 	    		afmt.setAudioTrackConfiguration(atc);
-    			break;	
+	    		
+	    		// Convert the text to x/y coordinates
+	    		if(dataValue != null && dataValue.length() != 0) {
+		    		ChannelPositionParser cpp = new ChannelPositionParser();
+		    		List<ChannelPositionWrapper> positions = cpp.getChannelsFromString(dataValue);
+		    		
+		    		for (ChannelPositionWrapper positionWrapper : positions) {
+		    			Position positionX = new Position(new Integer(positionWrapper.getXpos()));
+		    			positionX.setCoordinate("x");
+		    			
+		    			Position positionY = new Position(new Integer(positionWrapper.getYpos()));
+		    			positionY.setCoordinate("y");		    			
+		    			
+		    			AudioBlockFormat abf = new AudioBlockFormat();
+		    			abf.addPosition(positionX);
+		    			abf.addPosition(positionY);
+		    			
+		    			AudioChannelFormat acf = new AudioChannelFormat();
+		    			acf.setAudioBlockFormat(abf);
+
+		    			audioFmtExt.addAudioChannelFormat(acf);
+		    		}
+	    		}
+    			break;
+
     		case bitRate:
     	    	afmt.setBitRate(Integer.parseInt(dataValue));
     	    	break;
@@ -358,7 +388,20 @@ public class EbuCoreModel {
         	//	codec.setFamily(dataValue);
         	//}
         	afmt.setCodec(codec);  
-        }    	
+        }
+//        
+//        //
+//        // Channel Positions
+//        //
+//   		dataElement = elem.getChild ("soundField",ns);
+//        if(dataElement != null) {
+//        	String dataValue = dataElement.getText().trim();
+//        	
+//        	//if(StringUtilts.)
+//        	if(dataValue != null) {
+//        		
+//        	}
+//        }
 
         // Add the audio format object to the list
         this.format.addAudioFormat(afmt);

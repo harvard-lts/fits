@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="3/19/15 9:43 AM">
-  <identification status="CONFLICT">
+  <identification status="SINGLE_RESULT">
     <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="0.8.3">
-      <tool toolname="MediaInfo" toolversion="0.7.71" />
-    </identity>
-    <identity format="ISO Media, MPEG v4 system, version 2" mimetype="video/mp4" toolname="FITS" toolversion="0.8.3">
-      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="MediaInfo" toolversion="0.7.75" />
     </identity>
   </identification>
   <fileinfo>
@@ -112,6 +109,20 @@
                 <ebucore:technicalAttributeInteger typeLabel="sampleCount">198576</ebucore:technicalAttributeInteger>
                 <ebucore:technicalAttributeInteger typeLabel="duration">4137</ebucore:technicalAttributeInteger>
               </ebucore:audioFormat>
+              <ebucore:audioFormatExtended>
+                <ebucore:audioChannelFormat>
+                  <ebucore:audioBlockFormat>
+                    <ebucore:position coordinate="x">-100</ebucore:position>
+                    <ebucore:position coordinate="y">0</ebucore:position>
+                  </ebucore:audioBlockFormat>
+                </ebucore:audioChannelFormat>
+                <ebucore:audioChannelFormat>
+                  <ebucore:audioBlockFormat>
+                    <ebucore:position coordinate="x">100</ebucore:position>
+                    <ebucore:position coordinate="y">0</ebucore:position>
+                  </ebucore:audioBlockFormat>
+                </ebucore:audioChannelFormat>
+              </ebucore:audioFormatExtended>                              
               <ebucore:containerFormat>
                 <ebucore:comment>MPEG-4</ebucore:comment>
                 <ebucore:comment>Base Media / Version 2</ebucore:comment>

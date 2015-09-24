@@ -93,7 +93,7 @@ public class AudioStdSchemaTestXmlUnit_NoMD5 {
 
 		// Initialize attributes or elements to ignore for difference checking
 		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
+				"version",
 				"toolversion",
 				"dateModified",
 				"fslastmodified",

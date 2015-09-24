@@ -139,8 +139,8 @@
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/wordperfect_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/xml_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/tika-app-1.8.jar"/>
-	<classpathentry kind="lib" path="lib/ots_1.0.14.jar"/>
 	<classpathentry kind="lib" path="lib/droid/slf4j-api-1.7.12.jar"/>
 	<classpathentry kind="lib" path="lib/droid/slf4j-log4j12-1.7.12.jar"/>
+	<classpathentry kind="lib" path="lib/ots_1.0.17.jar"/>
 	<classpathentry kind="output" path="build_local"/>
 </classpath>
