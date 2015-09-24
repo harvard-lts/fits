@@ -19,6 +19,8 @@
 package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
+import java.util.List;
+import java.util.Scanner;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
@@ -57,6 +59,76 @@ public class audioStdSchemaTest extends XMLTestCase {
 		}
     	
 	}
+    
+    @Test  
+	public void testAudioChunk() throws Exception {   
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/testchunk.wav");
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/testchunk.wav.xml"));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		// Set up XMLUnit
+		XMLUnit.setIgnoreWhitespace(true); 
+		XMLUnit.setNormalizeWhitespace(true); 		
+
+		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
+
+		// Initialize attributes or elements to ignore for difference checking
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+				"version",		// fits[@version]
+				"toolversion",
+				"dateModified",
+				"fslastmodified",
+				"startDate",
+				"startTime",
+				"timestamp", 
+				"fitsExecutionTime",
+				"executionTime",
+				"filepath",
+				"location"));
+
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+
+		// Display any Differences
+		List<Difference> diffs = detailedDiff.getAllDifferences();
+		if (!diff.identical()) { 
+			StringBuffer differenceDescription = new StringBuffer(); 
+			differenceDescription.append(diffs.size()).append(" differences"); 
+			
+			System.out.println(differenceDescription.toString());
+			for(Difference difference : diffs) {
+				System.out.println(difference.toString());
+			}
+
+		}
+		
+		assertTrue("Differences in XML", diff.identical());    	
+
+
+////		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+////		serializer.output(fitsOut.getFitsXml(), System.out);
+////		
+////		XmlContent xml = fitsOut.getStandardXmlContent();
+////		
+////		if(xml != null) {
+////			xml.setRoot(true);
+////			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+////			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+////			
+////			xml.output(writer);
+////		}
+    	
+	}    
 
 }
 
