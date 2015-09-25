@@ -37,11 +37,6 @@
         <adapter class="nz.govt.natlib.adapter.jpg.JpgAdapter" jar="jpg_adapter_1_1.jar"  output-dtd="jpg.dtd"/>
         <adapter class="nz.govt.natlib.adapter.jID3LibMp3.ID3TagLibMP3Adapter" jar="jID3LibMp3_adapter_1_0.jar" output-dtd="mp3.dtd" />
         <adapter class="nz.govt.natlib.adapter.mp3.MP3Adapter" jar="mp3_adapter_1_0.jar"  output-dtd="mp3.dtd"/>
-<!-- 
-        The following adapter cannot be used since the MPEG4Adapter entry point class contains an import of a class
-        not provided in the 3.6GA distribution.
-        <adapter class="nz.govt.natlib.adapter.mpeg4.MPEG4Adapter" jar="mpeg4_adapter_1_0.jar" output-dtd="mpeg4.dtd" />
--->
         <adapter class="nz.govt.natlib.adapter.openoffice.OpenOfficeAdapter" jar="openoffice_adapter_1_0.jar"  output-dtd="openoffice.dtd"/>
         <adapter class="nz.govt.natlib.adapter.pdfbox.PDFBoxAdapter" jar="pdfbox_adapter_1_0.jar"  output-dtd="pdf.dtd"/>
         <adapter class="nz.govt.natlib.adapter.powerpoint.PowerPointAdapter" jar="powerpoint_adapter_1_0.jar"  output-dtd="powerpoint.dtd"/>

@@ -43,14 +43,6 @@ import nz.govt.natlib.AdapterFactory;
 import nz.govt.natlib.FileUtil;
 import nz.govt.natlib.adapter.DataAdapter;
 import nz.govt.natlib.fx.FXUtil;
-import nz.govt.natlib.meta.config.ConfigMapEntry;
-import nz.govt.natlib.meta.config.Configuration;
-import nz.govt.natlib.meta.config.ConfigurationException;
-import nz.govt.natlib.meta.config.Loader;
-import nz.govt.natlib.meta.config.Profile;
-import nz.govt.natlib.meta.config.ProfileListener;
-import nz.govt.natlib.meta.config.User;
-import nz.govt.natlib.meta.config.UserListener;
 import nz.govt.natlib.meta.log.LogManager;
 import nz.govt.natlib.meta.log.LogMessage;
 
@@ -710,8 +702,10 @@ public class Config {
 						adapter = (DataAdapter) Class.forName(className, true,
 								classLoader)
 								.newInstance();
-						// original classLoader was the following:
-						// ClassLoader.getSystemClassLoader())
+						// original was the following:
+//						adapter = (DataAdapter) Class.forName(className, true,
+//								ClassLoader.getSystemClassLoader())
+//								.newInstance();
 						String jarName = map.getNamedItem(JAR_TAG)
 								.getNodeValue();
 						setJarForAdapter(adapter, jarName);
