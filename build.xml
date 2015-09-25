@@ -319,7 +319,8 @@
     	
     	<!-- Assumed ant-junit4.jar are already on classpath from Ant installation -->
     	<!-- see https://ant.apache.org/manual/Tasks/junit.html -->
-        <junit fork="true" printsummary="withOutAndErr" haltonfailure="${halt.tests.on.failure}" haltonerror="${halt.tests.on.error}">
+        <junit fork="true" forkmode="once" logfailedtests="true" printsummary="withOutAndErr"
+                haltonfailure="${halt.tests.on.failure}" haltonerror="${halt.tests.on.error}">
         	<classpath refid="junit.classpath" />
         	<classpath path="${test.dirs}" />
             <classpath location="./xml/nlnz" />
