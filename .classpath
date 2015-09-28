@@ -27,7 +27,6 @@
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="src" path="tests"/>
-	<classpathentry kind="lib" path="lib/droid/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="lib/droid/antlr-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/antlr-runtime-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/aopalliance-1.0.jar"/>
@@ -106,84 +105,7 @@
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/wave_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/wordperfect_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/xml_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/arc_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/flac_adapter_1_1.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/jID3LibMp3_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/mpeg4_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/msword_adapter_3_2.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/warc_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/bcprov-jdk14-132.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/arc_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/flac_adapter_1_1.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/jID3LibMp3_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/mpeg4_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/adapters/warc_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/bcprov-jdk14-132.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/aspose-words-10.4.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/bcmail-jdk14-132.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/commons-httpclient-3.1.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/fastutil-5.0.3-heritrix-subset-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/heritrix-1.14.1.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/isoparser-142-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jflac-1.3-jdk1.4.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jflac-1.3.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jid3lib-0.5.4.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jmimemagic-0.1.2.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/junit-4.4.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jwat-arc-1.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jwat-common-1.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jwat-gzip-1.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jwat-warc-1.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/oro-2.0.8.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/poi-3.0-FINAL.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/poi-ooxml-3.7.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/serializer.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/xalan.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/xml-apis.jar"/>
-	<classpathentry kind="lib" path="lib/droid/activation-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/aspectjrt-1.7.2.jar"/>
-	<classpathentry kind="lib" path="lib/droid/aspectjweaver-1.7.2.jar"/>
-	<classpathentry kind="lib" path="lib/droid/classmate-1.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/droid/derby-10.10.2.0.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-command-line-6.1.5.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-container-6.1.5.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-core-6.1.5.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-core-interfaces-6.1.5.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-export-6.1.5.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-export-interfaces-6.1.5.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-help-6.1.5.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-report-6.1.5.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-report-interfaces-6.1.5.jar"/>
-	<classpathentry kind="lib" path="lib/droid/droid-results-6.1.5.jar"/>
-	<classpathentry kind="lib" path="lib/droid/ejb3-persistence-1.0.2.GA.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-activation_1.1_spec-1.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-annotation_1.0_spec-1.1.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-javamail_1.4_spec-1.6.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-jaxws_2.1_spec-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-stax-api_1.0_spec-1.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/geronimo-ws-metadata_2.0_spec-1.1.2.jar"/>
-	<classpathentry kind="lib" path="lib/droid/hibernate-commons-annotations-4.0.4.Final.jar"/>
-	<classpathentry kind="lib" path="lib/droid/hibernate-core-4.3.5.Final.jar"/>
-	<classpathentry kind="lib" path="lib/droid/hibernate-entitymanager-4.3.5.Final.jar"/>
-	<classpathentry kind="lib" path="lib/droid/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="lib/droid/hibernate-validator-5.1.0.Final.jar"/>
-	<classpathentry kind="lib" path="lib/droid/jandex-1.1.0.Final.jar"/>
-	<classpathentry kind="lib" path="lib/droid/javassist-3.18.1-GA.jar"/>
-	<classpathentry kind="lib" path="lib/droid/jboss-logging-3.1.3.GA.jar"/>
-	<classpathentry kind="lib" path="lib/droid/jboss-logging-annotations-1.2.0.Beta1.jar"/>
-	<classpathentry kind="lib" path="lib/droid/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="lib/droid/log4j-1.2.13.jar"/>
-	<classpathentry kind="lib" path="lib/droid/spring-aop-4.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/droid/spring-beans-4.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/droid/spring-context-4.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/droid/spring-core-4.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/droid/spring-expression-4.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/droid/spring-jdbc-4.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/droid/spring-orm-4.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/droid/spring-tx-4.0.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/droid/stax-api-1.0-2.jar"/>
-	<classpathentry kind="lib" path="lib/droid/validation-api-1.1.0.Final.jar"/>
-	<classpathentry kind="lib" path="lib/droid/xml-apis-1.3.04.jar"/>
 	<classpathentry kind="lib" path="lib/tika/tika-app-1.10.jar"/>
 	<classpathentry kind="lib" path="lib/commons-configuration-1.8.jar"/>
 	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
@@ -194,12 +116,16 @@
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.12.jar"/>
 	<classpathentry kind="lib" path="lib/jna-4.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/ots_1.0.17.jar"/>
+	<classpathentry kind="lib" path="lib/fits.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/arc_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/flac_adapter_1_1.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/jID3LibMp3_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/mpeg4_adapter_1_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/warc_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/aspose-words-10.4.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/bcmail-jdk14-132.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/bcprov-jdk14-132.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/commons-httpclient-3.1.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/commons-io-2.4.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/commons-lang-2.3.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/commons-logging-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/fastutil-5.0.3-heritrix-subset-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/heritrix-1.14.1.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/isoparser-142-SNAPSHOT.jar"/>
@@ -217,13 +143,12 @@
 	<classpathentry kind="lib" path="lib/nzmetool/poi-ooxml-3.7.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/serializer.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/xalan.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/droid/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/droid/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="lib/droid/aspectjrt-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/aspectjweaver-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/classmate-1.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/droid/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/droid/derby-10.10.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/droid/droid-command-line-6.1.5.jar"/>
 	<classpathentry kind="lib" path="lib/droid/droid-container-6.1.5.jar"/>
@@ -252,7 +177,6 @@
 	<classpathentry kind="lib" path="lib/droid/jboss-logging-3.1.3.GA.jar"/>
 	<classpathentry kind="lib" path="lib/droid/jboss-logging-annotations-1.2.0.Beta1.jar"/>
 	<classpathentry kind="lib" path="lib/droid/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="lib/droid/log4j-1.2.13.jar"/>
 	<classpathentry kind="lib" path="lib/droid/spring-aop-4.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/droid/spring-beans-4.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/droid/spring-context-4.0.3.RELEASE.jar"/>
