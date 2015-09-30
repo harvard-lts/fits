@@ -61,7 +61,7 @@ public abstract class ToolBase implements Tool {
 	
 	public ToolBase() throws FitsToolException {
 		info = new ToolInfo();
-		tFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl",null);
+		tFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl",this.getClass().getClassLoader());
 		saxBuilder = new SAXBuilder();
 		excludedExtensions = new ArrayList<String>();
 		includedExtensions = new ArrayList<String>();
