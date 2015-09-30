@@ -6,6 +6,7 @@ Implement X/Y Channel Positions based upon text returned by Media Info.
 Revise Mime Type for MPEG-4 wrapped in Quicktime.
 Added "version" to some of the XMLUnit Tests as an attribute to ignore.
 Updated hclaps.jar to address the incorrect BEXT offset calculation being reported for WAV files.
+Updated fits.xml to suppress the invocation of NLNZ for WAV files.
 
 Version 0.8.9 (08/12/15)
 ----------------------
