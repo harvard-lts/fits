@@ -137,6 +137,7 @@
 			<xs:element name="document" type="technicalMetadata" minOccurs="0"/>
 			<xs:element name="audio" type="technicalMetadata" minOccurs="0"/>
 			<xs:element name="video" type="technicalMetadata" minOccurs="0"/>
+			<xs:element name="cad" type="technicalMetadata" minOccurs="0"/>
 		</xs:choice>
 	</xs:complexType>
 	<xs:complexType name="technicalMetadata">
