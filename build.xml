@@ -67,6 +67,7 @@
       <include name="lib/fileinfo/*.jar"/>
       <include name="lib/fileutility/*.jar"/>
       <include name="lib/jhove/*.jar"/>
+      <include name="lib/cadtool/*.jar"/>
       <include name="lib/mediainfo/*.jar"/>
       <include name="lib/nzmetool/*.jar"/>
       <include name="lib/tika/*.jar"/>
