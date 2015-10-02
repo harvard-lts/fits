@@ -57,8 +57,8 @@ public class ParentLastClassLoader extends ClassLoader {
 
 	static {
 		loadByParentClassLoader = new ArrayList<String>();
-		loadByParentClassLoader.add("edu.harvard.hul.ois.fits.tools.utils.CustomClassLoader"); // This class should only be loaded by parent classloader.
 		loadByParentClassLoader.add("edu.harvard.hul.ois.fits.Fits"); // So there's access to FITS_HOME from all class loaders.
+		loadByParentClassLoader.add("edu.harvard.hul.ois.fits.exceptions.FitsToolException");
 		loadByParentClassLoader.add("edu.harvard.hul.ois.fits.tools.Tool");
 		loadByParentClassLoader.add("edu.harvard.hul.ois.fits.tools.ToolInfo");
 		loadByParentClassLoader.add("org.apache.xerces");
