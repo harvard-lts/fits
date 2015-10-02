@@ -106,7 +106,7 @@ public class Fits {
 			Fits.VERSION = version;
 		}
 	} catch (IOException e) {
-		System.err.println("Problem loading " + FITS_CONFIG_FILE_NAME + ": " + "Cannot display FITS version information.");
+		System.err.println("Problem loading [" + VERSION_PROPERTIES_FILE + "]: " + "Cannot display FITS version information.");
 	}
   }
 

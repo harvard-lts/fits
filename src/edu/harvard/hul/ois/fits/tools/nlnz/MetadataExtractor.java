@@ -40,6 +40,7 @@ import nz.govt.natlib.fx.ParserContext;
 import nz.govt.natlib.fx.ParserListener;
 import nz.govt.natlib.meta.config.Config;
 import nz.govt.natlib.meta.harvester.DTDXmlParserListener;
+import nz.govt.natlib.meta.log.LogManager;
 
 /**  The glue class for invoking the NLNZ Metadata Extractor under FITS.
  */
@@ -62,6 +63,13 @@ public class MetadataExtractor extends ToolBase {
         logger.debug ("Initializing MetadataExtractor");
 		info = new ToolInfo(TOOL_NAME,TOOL_VERSION,TOOL_DATE);
 		transformMap = XsltTransformMap.getMap(nlnzFitsConfig+"nlnz_xslt_map.xml");
+
+		// HACK: need to set custom ClassLoader in NLNZ Config class so that it can find class names on Class.forName() call.
+		ClassLoader cl = this.getClass().getClassLoader();
+		Config.setClassLoader(cl); // customized Config class; NOT the one supplied by NLNZ
+		// Use custom logger so that NLNZ code doesn't log to System.out by default
+		// (see what happens in nz.govt.natlib.meta.log.LogManager source code)
+		LogManager.getInstance().addLog(new SLF4JLogger());
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {
@@ -74,10 +82,6 @@ public class MetadataExtractor extends ToolBase {
 		//Config.getInstance();
 		
 		String baseUrl = Fits.FITS_XML_DIR+"nlnz";
-		
-		// HACK: need to set custom ClassLoader in NLNZ Config class so that it can find class names on Class.forName() call.
-		ClassLoader cl = this.getClass().getClassLoader();
-		Config.setClassLoader(cl); // customized Config class; NOT the one supplied by NLNZ
 		Config.getInstance().setXMLBaseURL(baseUrl);
 
 		// Get the appropriate adapter.
