@@ -562,11 +562,12 @@ public class MediaInfo extends ToolBase {
 		    		// information contained in the ID that the XSLT transformation
 		    		//
 		    		// For example, if the track ID is 1666406348 (0x635357CC)
-		    		// we need to split the string into 2 pieces at the space
+		    		// or even 189 (0xBD)-128 (0x80)
+		    		// we need to remove all of the text between, and including
+		    		// the parenthesis to match what is returned by MediaInfo
 		    		// and set the ID to the 1st value
 		    		if(!XmlUtils.isNumeric(id)) {
-		    			String parts[] = id.split(" ");
-		    			id = parts[0];
+		    			id = convertIdToMediaInfoFormat(id);
 		    			element.setAttribute("id", id);
 		    		}
 		    		
@@ -595,6 +596,10 @@ public class MediaInfo extends ToolBase {
 		}		    
 
 	}
+	
+	private String convertIdToMediaInfoFormat(String id) {
+		return id.replaceAll("\\s*\\([^\\)]*\\)\\s*", "");
+	}	
 	
 	/**
 	 * Helper method to revise text in the identification element.
