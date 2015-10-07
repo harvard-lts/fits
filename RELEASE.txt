@@ -8,6 +8,7 @@ Added "version" to some of the XMLUnit Tests as an attribute to ignore.
 Updated hclaps.jar to address the incorrect BEXT offset calculation being reported for WAV files.
 Updated fits.xml to suppress the invocation of NLNZ for WAV files.
 Revised internal handling of MediaInfo track IDs to manage those containing hex data.
+DROID now given preference to JHOVE
 
 Version 0.8.9 (08/12/15)
 ----------------------

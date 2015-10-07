@@ -6,10 +6,10 @@
         <tool class="edu.harvard.hul.ois.fits.tools.mediainfo.MediaInfo" include-exts="avi,mov,mpg,mpeg,mkv,mp4,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv"/>
  		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.AudioInfo" include-exts="wav"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.ADLTool" include-exts="adl"/>
+	 	<tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="odm"/>		
 		<tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,mbox,arw,adl,eml,java"/>
 	 	<tool class="edu.harvard.hul.ois.fits.tools.fileutility.FileUtility" exclude-exts="dng,wps,adl,jar"/>
  	    <tool class="edu.harvard.hul.ois.fits.tools.exiftool.Exiftool" exclude-exts="txt,wps,vsd,jar,avi,mov,mpg,mpeg,mkv,mp4,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv"/>
-	 	<tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="odm"/>
 	 	<tool class="edu.harvard.hul.ois.fits.tools.nlnz.MetadataExtractor" exclude-exts="dng,zip,odb,ott,odg,otg,odp,otp,ods,ots,odc,otc,odi,oti,odf,otf,odm,oth,tif,tiff,wav"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.FileInfo"/>
 		<tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.XmlMetadata" include-exts="xml"/>
