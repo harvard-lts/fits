@@ -66,6 +66,7 @@ public class audioStdSchemaTest extends XMLTestCase {
     	File input = new File("testfiles/testchunk.wav");
     	
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.saveToDisk("test-generated-output/testchunk_wav_Output.xml");
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
