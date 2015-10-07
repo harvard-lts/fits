@@ -95,6 +95,7 @@ public class audioStdSchemaTest extends XMLTestCase {
 				"fitsExecutionTime",
 				"executionTime",
 				"filepath",
+				"lastmodified",				
 				"location"));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
