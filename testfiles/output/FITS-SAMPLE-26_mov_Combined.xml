@@ -30,6 +30,8 @@
       <track type="video" id="1" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
         <videoDataEncoding>AVdv</videoDataEncoding>
         <codecId>AVdv</codecId>
+        <codecCC>AVdv</codecCC>
+        <codecName>DV</codecName>
         <compression>Lossy</compression>
         <byteOrder>Unknown</byteOrder>
         <bitDepth>8 bits</bitDepth>
@@ -80,10 +82,11 @@
                 </ebucore:aspectRatio>
                 <ebucore:videoEncoding typeLabel="AVdv" />
                 <ebucore:codec>
-                  <ebucore:codecIdentifier>
-                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">AVdv</dc:identifier>
-                  </ebucore:codecIdentifier>
-                </ebucore:codec>                
+                    <ebucore:codecIdentifier>
+                        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">AVdv</dc:identifier>
+                    </ebucore:codecIdentifier>
+                    <ebucore:name>DV</ebucore:name>
+                </ebucore:codec>               
                 <ebucore:bitRate>24417183</ebucore:bitRate>
                 <ebucore:bitRateMode>constant</ebucore:bitRateMode>
                 <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>

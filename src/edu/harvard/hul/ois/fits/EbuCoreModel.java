@@ -233,7 +233,7 @@ public class EbuCoreModel {
 
     	// TODO: break this out to enum code
     	// Codec element
-   		Element dataElement = elem.getChild ("codecId",ns);
+   		Element dataElement = elem.getChild ("codecCC",ns);   		
         if(dataElement != null) {
         	String dataValue = dataElement.getText().trim();
         	CodecIdentifier ci = new CodecIdentifier("codecIdentifier");
@@ -242,11 +242,21 @@ public class EbuCoreModel {
         	Codec codec = new Codec("codec");
            	codec.setCodecIdentifier(ci);
            	
-           	Element codecElement = elem.getChild ("codecInfo",ns);
+           	//Element codecElement = elem.getChild ("codecInfo",ns);
+        	//if(codecElement != null) {
+        	//	dataValue = codecElement.getText().trim();
+        	//	codec.setNameField(dataValue);
+        	//}
+        	Element codecElement = elem.getChild ("codecName",ns);
         	if(codecElement != null) {
         		dataValue = codecElement.getText().trim();
-        		codec.setInfo(dataValue);
-        	}           	
+        		codec.setNameField(dataValue);
+        	}        	
+        	codecElement = elem.getChild ("codecVersion",ns);
+        	if(codecElement != null) {
+        		dataValue = codecElement.getText().trim();
+        		codec.setVersion(dataValue);
+        	}        	
         	codecElement = elem.getChild ("codecFamily",ns);
         	if(codecElement != null) {
         		dataValue = codecElement.getText().trim();
@@ -380,7 +390,7 @@ public class EbuCoreModel {
            	Element codecElement = elem.getChild ("codecInfo",ns);
         	if(codecElement != null) {
         		dataValue = codecElement.getText().trim();
-        		codec.setInfo(dataValue);
+        		codec.setNameField(dataValue);
         	}           	
         	//codecElement = elem.getChild ("codecFamily",ns);
         	//if(codecElement != null) {

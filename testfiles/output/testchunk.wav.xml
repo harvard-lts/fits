@@ -7,7 +7,8 @@
             <tool toolname="Jhove" toolversion="1.5" />
             <tool toolname="file utility" toolversion="5.04" />
             <tool toolname="Exiftool" toolversion="9.13" />
-            <externalIdentifier toolname="Droid" toolversion="6.1.3" type="puid">fmt/6</externalIdentifier>
+            <version toolname="Droid" toolversion="6.1.5">2 PCM Encoding</version>
+            <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/705</externalIdentifier>
         </identity>
     </identification>
     <fileinfo>

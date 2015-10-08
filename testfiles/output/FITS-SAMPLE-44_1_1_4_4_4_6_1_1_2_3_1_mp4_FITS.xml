@@ -26,6 +26,9 @@
       <track type="video" id="1" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
         <videoDataEncoding>avc1</videoDataEncoding>
         <codecId>avc1</codecId>
+        <codecCC>avc1</codecCC>
+        <codecVersion>Main@L4.1</codecVersion>
+        <codecName>AVC</codecName>
         <codecFamily>AVC</codecFamily>
         <codecInfo>Advanced Video Codec</codecInfo>
         <compression>Unknown</compression>
