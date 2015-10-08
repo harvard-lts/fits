@@ -11,13 +11,14 @@
                    <ebucore:factorDenominator>3</ebucore:factorDenominator>
                 </ebucore:aspectRatio>
                 <ebucore:videoEncoding typeLabel="avc1"/>
-                <ebucore:codec>
-                   <ebucore:codecIdentifier>
-                      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">avc1</dc:identifier>
-                   </ebucore:codecIdentifier>
-                   <ebucore:name>Advanced Video Codec</ebucore:name>
-                   <ebucore:family>AVC</ebucore:family>
-                </ebucore:codec>
+                 <ebucore:codec>
+                    <ebucore:codecIdentifier>
+                        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">avc1</dc:identifier>
+                    </ebucore:codecIdentifier>
+                    <ebucore:name>AVC</ebucore:name>
+                    <ebucore:version>Main@L4.1</ebucore:version>
+                    <ebucore:family>AVC</ebucore:family>
+                </ebucore:codec> 
                 <ebucore:bitRate>17375067</ebucore:bitRate>
                 <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
                 <ebucore:videoTrack trackId="1"/>
@@ -33,9 +34,10 @@
              <ebucore:audioFormat>
                 <ebucore:audioEncoding typeLabel="AAC"/>
                 <ebucore:codec>
-                   <ebucore:codecIdentifier>
-                      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">40</dc:identifier>
-                   </ebucore:codecIdentifier>
+                    <ebucore:codecIdentifier>
+                        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+                            >40</dc:identifier>
+                    </ebucore:codecIdentifier>
                 </ebucore:codec>
                 <ebucore:audioTrackConfiguration typeLabel="Front: L R"/>              
                 <ebucore:samplingRate>48000</ebucore:samplingRate>

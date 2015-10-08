@@ -217,7 +217,13 @@
        			    </videoDataEncoding>
                     
                     <!-- codecId is only visible via the MediaInfo API. Set in Java code. -->
-                    <codecId/>                     
+                    <codecId/>
+                    <!-- codecCC is only visible via the MediaInfo API. Set in Java code. -->
+                    <codecCC/>
+                    <!-- codecVersion is only visible via the MediaInfo API. Set in Java code. -->
+                    <codecVersion/>
+                    <!-- codecName is only visible via the MediaInfo API. Set in Java code. -->
+                    <codecName/>                                                                               
                     <!-- codecFamily is only visible via the MediaInfo API. Set in Java code. -->
                     <codecFamily /> 
                     <!-- codecInfo is only visible via the MediaInfo API. Set in Java code. -->

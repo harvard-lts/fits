@@ -96,7 +96,7 @@ public class MediaInfo extends ToolBase {
 		    case Linux:
 		    	nativeLibPath = fitsHome + "/tools/mediainfo/linux";
 		    	break;
-		    case Other: logger.info("Other OS"); break;
+		    case Other: System.out.println("Other OS"); break;
 		}
 		System.setProperty("jna.library.path", nativeLibPath);
 
@@ -413,6 +413,18 @@ public class MediaInfo extends ToolBase {
 		    String codecId = getMediaInfoString(ndx, "CodecID", 
 		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap (videoTrackValuesMap, id, "codecId", codecId);
+		    
+		    String codecCC = getMediaInfoString(ndx, "Codec/CC", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
+		    addDataToMap (videoTrackValuesMap, id, "codecCC", codecCC);
+		    
+		    String codecName = getMediaInfoString(ndx, "Codec", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
+		    addDataToMap (videoTrackValuesMap, id, "codecName", codecName);	
+		    
+		    String codecVersion = getMediaInfoString(ndx, "Codec_Profile", 
+		    		MediaInfoNativeWrapper.StreamKind.Video);
+		    addDataToMap (videoTrackValuesMap, id, "codecVersion", codecVersion);
 		    
 		    String codecFamily = getMediaInfoString(ndx, "Codec/Family", 
 		    		MediaInfoNativeWrapper.StreamKind.Video);
