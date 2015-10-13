@@ -31,7 +31,7 @@
         <adapter class="nz.govt.natlib.adapter.arc.ArcAdapter" jar="arc_adapter_1_0.jar"  output-dtd="arc.dtd"/>
         <adapter class="nz.govt.natlib.adapter.bmp.BitmapAdapter" jar="bmp_adapter_1_0.jar"  output-dtd="bmp.dtd"/>
         <adapter class="nz.govt.natlib.adapter.excel.ExcelAdapter" jar="excel_adapter_1_0.jar"  output-dtd="excel.dtd"/>
-        <adapter class="nz.govt.natlib.adapter.flac.FlacAdapter" jar="flac_adapter_1_0.jar"  output-dtd="flac.dtd"/>
+        <adapter class="nz.govt.natlib.adapter.flac.FlacAdapter" jar="flac_adapter_1_1.jar"  output-dtd="flac.dtd"/>
         <adapter class="nz.govt.natlib.adapter.gif.GIFAdapter" jar="gif_adapter_1_0.jar"  output-dtd="gif.dtd"/>
         <adapter class="nz.govt.natlib.adapter.html.HTMLAdapter" jar="html_adapater_1_0.jar"  output-dtd="html.dtd"/>
         <adapter class="nz.govt.natlib.adapter.jpg.JpgAdapter" jar="jpg_adapter_1_1.jar"  output-dtd="jpg.dtd"/>
@@ -43,11 +43,11 @@
         <adapter class="nz.govt.natlib.adapter.tiff.TIFFAdapter" jar="tiff_adapter_1_0.jar"  output-dtd="tiff_6_0.dtd"/>
         <adapter class="nz.govt.natlib.adapter.warc.WarcAdapter" jar="warc_adapter_1_0.jar"  output-dtd="warc.dtd"/>
         <adapter class="nz.govt.natlib.adapter.wav.WaveAdapter" jar="wave_adapter_1_0.jar"  output-dtd="wav.dtd"/>
-        <adapter class="nz.govt.natlib.adapter.word.WordAdapter" jar="msword_adapter_3_2.jar"  output-dtd="word.dtd"/>
 <!--
-      The following mistakenly in 3.6GA release even though only a new msword_adapter_3_2.jar was supplied.
-      <adapter class="nz.govt.natlib.adapter.word.WordAdapter" jar="msword_adapter_2_0.jar"  output-dtd="word.dtd"/>
+      The following was pointing to a new msword_adapter_3_2.jar was supplied. However, this threw an exception on
+      password-protected Word documents so was rolled back to msword_adapter_2_0.jar.
 -->
+        <adapter class="nz.govt.natlib.adapter.word.WordAdapter" jar="msword_adapter_2_0.jar"  output-dtd="word.dtd"/>
         <adapter class="nz.govt.natlib.adapter.wordperfect.WPAdapter" jar="wordperfect_adapter_1_0.jar"  output-dtd="wordperfect.dtd"/>
         <adapter class="nz.govt.natlib.adapter.works.DocAdapter" jar="msworks_adapter_1_0.jar"  output-dtd="msworks.dtd"/>
         <adapter class="nz.govt.natlib.adapter.xml.XMLAdapter" jar="xml_adapter_1_0.jar"  output-dtd="xml.dtd"/>	

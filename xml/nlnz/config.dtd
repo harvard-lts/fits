@@ -4,7 +4,7 @@
 <!ELEMENT adapter (parameter?)>
 <!ATTLIST adapter
 	class (nz.govt.natlib.adapter.any.DefaultAdapter | nz.govt.natlib.adapter.bmp.BitmapAdapter | nz.govt.natlib.adapter.tiff.TIFFAdapter | nz.govt.natlib.adapter.wav.WaveAdapter | nz.govt.natlib.adapter.word.OLE.WordOLEAdapter | nz.govt.natlib.adapter.word.word2.Word2Adapter | nz.govt.natlib.adapter.xml.XMLAdapter) #REQUIRED
-	output-dtd (bmp.dtd | default.dtd | tiff_6_0.dtd | wav.dtd | word_2_0.dtd | word_ole.dtd) #REQUIRED
+	output-dtd (bmp.dtd | default.dtd | tiff_6_0.dtd | wav.dtd | word_3_2.dtd | word_ole.dtd) #REQUIRED
 >
 <!ELEMENT adapters (adapter+)>
 <!ELEMENT configuration (output-directory, output-dtd?, harvester)>
@@ -19,7 +19,7 @@
 >
 <!ELEMENT input-dtd EMPTY>
 <!ATTLIST input-dtd
-	doc-name (bmp.dtd | default.dtd | tiff_6_0.dtd | wav.dtd | word_2_0.dtd | word_ole.dtd) #REQUIRED
+    doc-name (bmp.dtd | default.dtd | tiff_6_0.dtd | wav.dtd | word_3_2.dtd | word_ole.dtd) #REQUIRED
 >
 <!ELEMENT input-files EMPTY>
 <!ATTLIST input-files
