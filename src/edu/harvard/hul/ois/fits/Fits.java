@@ -521,11 +521,6 @@ public class Fits {
           Thread thread = new Thread( t, t.getToolInfo().getName() );
           threads.add( thread );
           logger.debug( "Starting thread " + thread.getName() );
-          ClassLoader cl = toolbelt.getClassloader(t);
-          if (cl != null) {
-        	  thread.setContextClassLoader(cl);
-              logger.debug( "Starting thread " + thread.getName() + " -- with ClassLoader: " + cl );
-          }
           thread.start();
         }
       }
