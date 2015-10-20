@@ -65,7 +65,7 @@ public class MetadataExtractor extends ToolBase {
 		transformMap = XsltTransformMap.getMap(nlnzFitsConfig+"nlnz_xslt_map.xml");
 
 		// HACK: need to set custom ClassLoader in NLNZ Config class so that it can find class names on Class.forName() call.
-		ClassLoader cl = this.getClass().getClassLoader();
+		ClassLoader cl = MetadataExtractor.class.getClassLoader();
 		Config.setClassLoader(cl); // customized Config class; NOT the one supplied by NLNZ
 		// Use custom logger so that NLNZ code doesn't log to System.out by default
 		// (see what happens in nz.govt.natlib.meta.log.LogManager source code)

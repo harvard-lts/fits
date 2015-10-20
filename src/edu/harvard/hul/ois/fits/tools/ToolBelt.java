@@ -65,7 +65,7 @@ public class ToolBelt {
 		
 		// get number of tools
 		int size = config.getList("tools.tool[@class]").size();
-		ClassLoader systemClassLoader = this.getClass().getClassLoader();
+		ClassLoader systemClassLoader = ToolBelt.class.getClassLoader();
 		// for each tools get the class path and any excluded extensions
 		for(int i=0;i<size;i++) {
 			String tClass = config.getString("tools.tool("+i+")[@class]");

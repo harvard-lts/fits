@@ -186,6 +186,13 @@ public class ParentLastClassLoader extends ClassLoader {
 				logger.trace("looking in findResource() for: " + name + " in class loader: " + super.getClass().getSimpleName());
 				logger.trace( (url == null ? "NOT" : "") + " found resource: " + name );
 			}
+			if (url == null) {
+				url = realParent.getResource(name);
+				if (logger.isTraceEnabled()) {
+					logger.trace("looking in parent class loader: " + realParent.getClass().getName() +
+							" -- found: " + (url == null ? "NO" : "YES"));
+				}
+			}
 			return url;
 		}
 	}
