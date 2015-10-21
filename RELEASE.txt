@@ -1,28 +1,56 @@
 RELEASE NOTES
 
-Version 0.8.10 (09/22/15)
+Version 0.8.10 (10/21/15)
 ----------------------
-Implement X/Y Channel Positions based upon text returned by Media Info.
-Revise Mime Type for MPEG-4 wrapped in Quicktime.
-Added "version" to some of the XMLUnit Tests as an attribute to ignore.
-Updated hclaps.jar to address the incorrect BEXT offset calculation being reported for WAV files.
-Updated fits.xml to suppress the invocation of NLNZ for WAV files.
-Revised internal handling of MediaInfo track IDs to manage those containing hex data.
-DROID now given preference to JHOVE
+NOTE:
+This is the first official release of Video support using the MediaInfo tool.
 
-Version 0.8.9 (08/12/15)
+Out of the box, the FITS MediaInfo tool will ONLY be supporting the following 64-bit OSes:
+
+    Windows 7 - 64-bit
+    Mac OS X -  64-bit
+    Red Hat 6.x - 64-bit
+	
+These come preconfigured for MediaInfo release 0.7.75.
+
+For more information about the MediaInfo tool, please see:
+
+    https://mediaarea.net
+
+It is important to know that you MUST use a 64-bit JVM (JDK or JRE) to use the MediaInfo
+tool as it is distributed in FITS.
+
+The FITS MediaInfo tool will detect whether the OS is Windows/Mac OS X/LINUX and dynamically
+load the associated MediaInfo libraries for any of these OSes.
+
+If you wish to use a LINUX distribution other than Red Hat 6.x, or for more trouble-shooting details,
+please see:
+
+    http://projects.iq.harvard.edu/fits/faq
+
+Below are the revisions done for FITS Version 0.8.10:
+
+- Implement X/Y Channel Positions based upon text returned by Media Info.
+- Revise Mime Type for MPEG-4 wrapped in Quicktime.
+- Added "version" to some of the XMLUnit Tests as an attribute to ignore.
+- Updated hclaps.jar to address the incorrect BEXT offset calculation being reported for WAV files.
+- Updated fits.xml to suppress the invocation of NLNZ for WAV files.
+- Revised internal handling of MediaInfo track IDs to manage those containing hex data.
+- DROID now given preference over JHOVE
+
+Version 0.8.9 (08/12/15) - Not an Official Release
 ----------------------
 Removed old version of TIKA jar file
 Updated SLF4J jar filed for DROID
 Revised to use versioned OTS jar file
 Minor Unit Test cleanup
 
-Version 0.8.8 (07/29/15)
+Version 0.8.8 (07/29/15) - Not an Official Release
 ----------------------
 - Added initial support for video files using the MediaInfo Tool
 - Tika 1.8 update
 
-Version 0.8.7 (6/8/15)
+Version 0.8.7 (6/8/15) - Not an Official Release
 ----------------------
 
 - Added logging properties that were lost back into class.
