@@ -104,26 +104,15 @@ public class ParentLastClassLoader extends ClassLoader {
 			logger.trace("looking to getResource() resource name: " + name);
 			logger.trace("found resource: " + name);
 		}
-		// If not found, try parent.
-		if(url == null) {
-			if (logger.isTraceEnabled()) {
-				logger.trace("NOT found resource -- attempting to loadClass() in class loader: " +
-						super.getClass().getSimpleName());
-			}
-			url = super.findResource(name);
-			if (logger.isTraceEnabled()) {
-				logger.trace( (url == null ? "NOT" : "") + " found resource: " + name );
-			}
-		}
 		return url;
-	} 
+	}
 	
 	// Class that wraps URLClassLoader so as to check locally first rather than parent first.
 	private static class ChildClassLoader extends URLClassLoader {
 		
 		private DetectClass realParent;
 
-		public ChildClassLoader(URL[] urls, DetectClass realParent) {
+		private ChildClassLoader(URL[] urls, DetectClass realParent) {
 			super(urls, null);
 			this.realParent = realParent;
 		}
@@ -200,7 +189,7 @@ public class ParentLastClassLoader extends ClassLoader {
 	// Wrapper for parent class loader.
 	private static class DetectClass extends ClassLoader {
 		
-		public DetectClass(ClassLoader parent) {
+		private DetectClass(ClassLoader parent) {
 			super(parent);
 		}
 

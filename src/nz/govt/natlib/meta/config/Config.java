@@ -268,6 +268,7 @@ public class Config {
 
 	public synchronized static Config getInstance() {
 		if (classLoader == null) {
+			// If no class loader set use default -- the system class loader.
 			Config.classLoader = ClassLoader.getSystemClassLoader();
 		}
 		if (instance == null) {
@@ -276,6 +277,14 @@ public class Config {
 		return instance;
 	}
 
+	/**
+	 * Allow for the configuration of a ClassLoader other than the
+	 * default system class loader for loading the Adapter classes
+	 * registered in config.xml.
+	 * 
+	 * @param cl - An alternative, custom class loader.
+	 * @see initAdapters(Node)
+	 */
 	public synchronized static void setClassLoader(final ClassLoader cl) {
 		if (cl != null) {
 			Config.classLoader = cl;
@@ -467,7 +476,7 @@ public class Config {
 
 	public void writeNewConfig() throws IOException {
 		// find out where...
-		URL furl = ClassLoader.getSystemResource("saveconfig.xml");
+		URL furl = classLoader.getResource("saveconfig.xml");
 		// remove spaces - if any...
 		String configPath = URLDecoder.decode(furl.getPath(), "UTF-8");
 		File configFile = new File(configPath);
@@ -503,7 +512,7 @@ public class Config {
 	public void writeConfig() throws IOException {
 
 		// find out where...
-		URL furl = ClassLoader.getSystemResource("config.xml");
+		URL furl = classLoader.getResource("config.xml");
 		try {
 			writeProfiles();
 			writeAdapters();
@@ -570,7 +579,7 @@ public class Config {
 			// find the file...
 			InputStream cfgFile = null;
 			try {
-				cfgFile = ClassLoader.getSystemResourceAsStream("config.xml");
+				cfgFile = classLoader.getResourceAsStream("config.xml");
 				configDoc = builder.parse(cfgFile);
 			}
 			catch(Throwable t) { 
@@ -702,10 +711,6 @@ public class Config {
 						adapter = (DataAdapter) Class.forName(className, true,
 								classLoader)
 								.newInstance();
-						// original was the following:
-//						adapter = (DataAdapter) Class.forName(className, true,
-//								ClassLoader.getSystemClassLoader())
-//								.newInstance();
 						String jarName = map.getNamedItem(JAR_TAG)
 								.getNodeValue();
 						setJarForAdapter(adapter, jarName);

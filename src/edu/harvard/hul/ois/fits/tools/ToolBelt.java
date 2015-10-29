@@ -28,8 +28,10 @@ import java.util.List;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 import edu.harvard.hul.ois.fits.tools.utils.ParentLastClassLoader;
 
@@ -65,7 +67,7 @@ public class ToolBelt {
 		
 		// get number of tools
 		int size = config.getList("tools.tool[@class]").size();
-		ClassLoader systemClassLoader = ToolBelt.class.getClassLoader();
+		ClassLoader savedClassLoader = ToolBelt.class.getClassLoader();
 		// for each tools get the class path and any excluded extensions
 		for(int i=0;i<size;i++) {
 			String tClass = config.getString("tools.tool("+i+")[@class]");
@@ -86,7 +88,7 @@ public class ToolBelt {
 				if (toolClassLoader != null) {
 					Thread.currentThread().setContextClassLoader(toolClassLoader);
 				} else {
-					toolClassLoader = systemClassLoader;
+					toolClassLoader = savedClassLoader;
 				}
 
 				logger.debug("Will attempt to load class: " + tClass + " -- with ClassLoader: " + toolClassLoader.getClass().getName());
@@ -95,7 +97,7 @@ public class ToolBelt {
 				// Looooong debugging block if using custom class loader
 				// verify the tool's class loader is the custom one and that it's class loader has
 				// loaded the Tool interface from the main class loader so it can be cast here to Tool
-				if (toolClassLoader != systemClassLoader && logger.isTraceEnabled()) { // yes, we want an this type of exact equals comparison
+				if (toolClassLoader != savedClassLoader && logger.isTraceEnabled()) { // yes, we want an this type of exact equals comparison
 					ClassLoader tcl = toolClass.getClassLoader();
 					logger.trace("Specific tool: " + tClass + " -- ClassLoader: " + tcl);
 					
@@ -139,8 +141,8 @@ public class ToolBelt {
 			    continue;
 			} finally {
 				// ***** IMPORTANT: set back original ClassLoader if changed *****
-				if (Thread.currentThread().getContextClassLoader() != systemClassLoader) {
-					Thread.currentThread().setContextClassLoader(systemClassLoader);
+				if (Thread.currentThread().getContextClassLoader() != savedClassLoader) {
+					Thread.currentThread().setContextClassLoader(savedClassLoader);
 				}
 			}
 		}
@@ -203,7 +205,14 @@ public class ToolBelt {
 		// collect all files from all specified directories
 		List<URL> directoriesUrls = new ArrayList<URL>();
 		for (String dir : classpathDirs) {
-			directoriesUrls.addAll( gatherClassLoaderUrls(null, dir) );
+			List<URL> urls = gatherClassLoaderUrls(null, dir);
+			// special case: If a root directory contains artifacts then add that root directory
+			// so as to create a custom class loader.
+			if (urls != null & !urls.isEmpty()) {
+				File dirFile = getFileFromName(dir);
+				urls.add(  dirFile.toURI().toURL() );
+			}
+			directoriesUrls.addAll( urls );
 		}
 		
 		// If nothing returned from directories then return null.
@@ -233,7 +242,7 @@ public class ToolBelt {
 	
 	/*
 	 * Recursive method to create a list of URL's of all files in a directory and all of its sub-directories.
-	 * All files that end in ".txt" will be ignored. Also, simple directory URL's will not be added.
+	 * All files that end in ".txt" or begin with "." will be ignored. Also, simple directory URL's will not be added.
 	 */
 	private List<URL> gatherClassLoaderUrls(List<URL> urls, String rootDir) throws MalformedURLException {
 		
@@ -241,25 +250,35 @@ public class ToolBelt {
 			urls = new ArrayList<URL>();
 		}
 		
-		File dirFile = new File(rootDir);
+		File dirFile = getFileFromName(rootDir);
 		File[] directoryListing = dirFile.listFiles();
 		if (directoryListing != null) {
 			for (File file : directoryListing) {
 				// recursive call to sub-directories
 				if (file.isDirectory()) {
 					gatherClassLoaderUrls(urls, rootDir + File.separator + file.getName());
-					continue;
+					logger.debug("finished with directory: " + file.getAbsolutePath());
 					
-				} else if (!file.exists() || !file.isFile() || !file.canRead() || file.getName().endsWith(".txt")) {
-					// ignoring any .txt files -- used as placeholder for directories
+				} else if (!file.exists() || !file.isFile() || !file.canRead() ||
+						file.getName().endsWith(".txt") ||file.getName().startsWith(".", 0)) {
+					// ignoring any .txt files -- used as placeholder for directories, OSX .DS_Store, etc.
 					logger.debug("Not processing file: " + file.getName());
 					continue;
 				}
-				file.toURI().toURL();
 				urls.add( file.toURI().toURL() );
 			}
 		}
 		return urls;
+	}
+	
+	/* 
+	 * Creates and returns a File object from a full path to a directory (or file).
+	 */
+	private File getFileFromName(String dirName) throws MalformedURLException {
+		
+		String fullPathPrefix = StringUtils.isEmpty(Fits.FITS_HOME) ? "" : Fits.FITS_HOME + File.separator;
+		File dirFile = new File(fullPathPrefix + dirName);
+		return dirFile;
 	}
 }
 
