@@ -123,8 +123,8 @@ public class EbuCoreModel {
     		switch (videoElem) {	
 
     		case width:
-    			dataValue = StringUtils.deleteWhitespace(
-    					dataElement.getText().replace(" pixels", ""));
+    			dataValue =
+    					dataElement.getText().replace(" pixels", "");
     			WidthIdentifier width = new WidthIdentifier(
     					dataValue,
     					videoElem.getName());                                
@@ -132,8 +132,8 @@ public class EbuCoreModel {
     			vfmt.setWidthIdentifier(width);
     			break;
     		case height:
-        		dataValue = StringUtils.deleteWhitespace(
-        				dataElement.getText().replace(" pixels", ""));
+        		dataValue =
+        				dataElement.getText().replace(" pixels", "");
         		HeightIdentifier height = new HeightIdentifier(
         				dataValue,
         				videoElem.getName());                             

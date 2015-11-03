@@ -783,6 +783,11 @@ public class MediaInfo extends ToolBase {
 	    		MediaInfoNativeWrapper.InfoKind.Name);
 	}
 	
+	private String convertToNormalizedData(String originalString, String labelToPreserve) {
+		return StringUtils.deleteWhitespace(originalString.replace(labelToPreserve, "")) + labelToPreserve;
+
+	}	
+	
 	/**
 	 * Helper method to revise text in the video track element passed in. The 
 	 * id is used as a key to a map of values. If the element's name is found 
@@ -803,6 +808,21 @@ public class MediaInfo extends ToolBase {
     	List <Element>contents = element.getContent();		    				
     	for (Element childElement : contents) {
     		String name = childElement.getName();
+    		
+       		// If the element name is one which has to be normalized, do so.
+    		ElementsToNormalize elementToNomalize = ElementsToNormalize.lookup(name);
+    		if(elementToNomalize != null) {
+    			String value = childElement.getValue();
+    			if(!StringUtils.isEmpty(value)) {
+        			value = convertToNormalizedData(value, elementToNomalize.getUnits());    				
+    				// If we got here, then we need to update the element's text
+    				if(!StringUtils.isEmpty(value))
+    					childElement.setText(value);     				
+    			}
+    			continue;
+    		}
+    		// End normalize
+    		
     		
     		// If the "name" is not contained in the enum, continue
     		VideoMethods videoValueEnum = VideoMethods.lookup(name);
