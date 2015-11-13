@@ -81,5 +81,16 @@ public class ToolInfo {
 		}
 		return value;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("ToolInfo: [");
+		sb.append("name: ");
+		sb.append(getName());
+		sb.append(", version: ");
+		sb.append(getVersion());
+		sb.append("]");
+		return sb.toString();
+	}
 
 }
