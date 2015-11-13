@@ -179,4 +179,17 @@ public class FitsIdentity {
 		return toolVersion;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("FitsIdentity: [");
+		sb.append("mime: ");
+		sb.append(getMimetype());
+		sb.append(", format: ");
+		sb.append(getFormat());
+		sb.append(", reporting tools: ");
+		sb.append(getReportingTools());
+		sb.append("]");
+		return sb.toString();
+	}
+	
 }
