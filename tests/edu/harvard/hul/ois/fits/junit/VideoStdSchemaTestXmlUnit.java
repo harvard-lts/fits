@@ -20,32 +20,22 @@ package edu.harvard.hul.ois.fits.junit;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-//import javax.xml.stream.XMLOutputFactory;
-//import javax.xml.stream.XMLStreamWriter;
 
-
-
-import org.apache.commons.io.FileUtils;
-import org.custommonkey.xmlunit.*;
+import org.custommonkey.xmlunit.DetailedDiff;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.Difference;
+import org.custommonkey.xmlunit.XMLTestCase;
+import org.custommonkey.xmlunit.XMLUnit;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
-//import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
-
 
 public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
-	
-//	@BeforeClass
-//	public static void beforeAllTests() {
-//		
-//	}
 
 	@Test  
 	public void testVideoXmlUnitFitsOutput_AVC() throws Exception {

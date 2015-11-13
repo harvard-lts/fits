@@ -52,6 +52,12 @@ public class ToolBelt {
     
 	private List<Tool> tools;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param configFile Full path to and including name of FITS configuration file.
+	 * @throws FitsConfigurationException If there is a problem reading or parsing the configuration file.
+	 */
 	public ToolBelt(String configFile) throws FitsConfigurationException {
 		XMLConfiguration config = null;
 		try {
@@ -59,6 +65,22 @@ public class ToolBelt {
 		} catch (ConfigurationException e) {
 			throw new FitsConfigurationException("Error reading "+configFile,e);
 		}
+		init(config);
+	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param config XMLConfiguration of FITS configuration file.
+	 */
+	public ToolBelt(XMLConfiguration config) {
+		init(config);
+	}
+	
+	/*
+	 * Common initialization of all constructors.
+	 */
+	private void init(XMLConfiguration config) {
 	
 		// Collect the tools-used elements
 		List<ToolsUsedItem> toolsUsedList = processToolsUsed(config);
