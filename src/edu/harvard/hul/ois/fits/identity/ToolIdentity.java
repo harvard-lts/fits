@@ -37,15 +37,15 @@ public class ToolIdentity {
 	
 	public ToolIdentity(String mime, String format, ToolInfo toolInfo) {
 		this.mime = mime;
-		this. format = format;
+		this.format = format;
 		formatVersion = null;
 		this.toolInfo = toolInfo;
 	}
 	
 	public ToolIdentity(String mime, String format, String formatVersion, ToolInfo toolInfo) {
 		this.mime = mime;
-		this. format = format;
-		this. formatVersion = new FormatVersion(formatVersion,toolInfo);
+		this.format = format;
+		this.formatVersion = new FormatVersion(formatVersion,toolInfo);
 		this.toolInfo = toolInfo;
 	}
 	
@@ -92,5 +92,17 @@ public class ToolIdentity {
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("ToolIdentity: [");
+		sb.append(getToolInfo());
+		sb.append(", mime: ");
+		sb.append(getMime());
+		sb.append(", format: ");
+		sb.append(getFormat());
+		sb.append("]");
+		return sb.toString();
 	}
 }

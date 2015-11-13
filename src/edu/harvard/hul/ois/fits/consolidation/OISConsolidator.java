@@ -69,6 +69,13 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	
 	private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	
+	private enum STATUS_VALUE {
+		SINGLE_RESULT,
+		PARTIAL,
+		CONFLICT,
+		UNKNOWN;
+	}
+	
 	public OISConsolidator() throws FitsConfigurationException {
 		
 		reportConflicts = Fits.config.getBoolean("output.report-conflicts",true);
@@ -197,7 +204,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		return true;
 	}
 	
-	private List<Element> mergeXmlesults(List<ToolOutput> results, Element element) {
+	private List<Element> mergeXmlResults(List<ToolOutput> results, Element element) {
 		//holder for consolidated elements
 		List<Element> consolidatedElements = new ArrayList<Element>();
 		//Get the element from each ToolOutput result 
@@ -252,13 +259,13 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		}
 		else if(equalityResult == SINGLE_RESULT) {
 			Element e = fitsElements.get(0);
-			e.setAttribute("status","SINGLE_RESULT");
+			e.setAttribute("status", STATUS_VALUE.SINGLE_RESULT.name());
 			consolidatedElements.add(e);
 		}
 		//if configured to report conflicts return all values in fitsElements
 		else if(equalityResult == CONFLICT && reportConflicts && !isRepeatableElement(fitsElements)) {
 			for(Element e : fitsElements) {
-				e.setAttribute("status","CONFLICT");
+				e.setAttribute("status", STATUS_VALUE.CONFLICT.name());
 			}
 			//to flatten any matches into single results
 			consolidatedElements = consolidateFitsElements(fitsElements);
@@ -424,6 +431,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 					int matchCondition = checkFormatTree(ident,identitySection);
 					if(matchCondition == -1) {
 						logger.debug(ident.getFormat() + " is more specific than " + identitySection.getFormat() + " tossing out " + identitySection.getToolName());
+// XXX: However, NOTHING is tossed out!!!
 						//ident is more specific.  Most specific identity should always
 						// be first element in list
 						// overwrite the formate with more specific format
@@ -600,7 +608,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 			List<FormatVersion> formatVersions = identSection.getFormatVersions();
 			String formatStatus = null;
 			if(formatVersions.size() > 1) {
-				formatStatus = "CONFLICT";
+				formatStatus = STATUS_VALUE.CONFLICT.name();
 			}
 
 			//only add if there is a version number to report
@@ -629,16 +637,16 @@ public class OISConsolidator implements ToolOutputConsolidator {
 			//set the status of the section
 			String status = "";
 			if(identitySections.size() > 1 && reportConflicts) {
-				status = "CONFLICT";
+				status = STATUS_VALUE.CONFLICT.name();
 			}
 			else if((identitySections.size() == 1 && (!unknownStatus && !partialStatus && !toolsAgree)) || !reportConflicts) {
-				status="SINGLE_RESULT";
+				status = STATUS_VALUE.SINGLE_RESULT.name();
 			}
 			else if(identitySections.size() == 1 && partialStatus) {
-				status = "PARTIAL";
+				status = STATUS_VALUE.PARTIAL.name();
 			}
 			else if (!toolsAgree) {
-				status = "UNKNOWN";
+				status = STATUS_VALUE.UNKNOWN.name();
 			}
 			 
 			 if (status != "") 
@@ -665,13 +673,13 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		fits.addContent(s);
 		Element e = null;
 		while((e = findAnElement(culledResults,curSec,false)) != null) {
-			List<Element> fitsElements = mergeXmlesults(culledResults, e);
+			List<Element> fitsElements = mergeXmlResults(culledResults, e);
 			for(Element fitsElement : fitsElements) {
 				s.addContent(fitsElement);
 			}
 		}
 		
-		//Only use the output from tools that were able to identify
+		// Only use the output from tools that we're able to identify
 		// the file and are in the first identity section
 		if(identitySections.size() > 0) {
 			filterToolOutput(identitySections.get(0),culledResults);
@@ -685,7 +693,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		fits.addContent(s);
 		e = null;
 		while((e = findAnElement(culledResults,curSec,false)) != null) {
-			List<Element> fitsElements = mergeXmlesults(culledResults, e);
+			List<Element> fitsElements = mergeXmlResults(culledResults, e);
 			for(Element fitsElement : fitsElements) {
 				s.addContent(fitsElement);
 			}
@@ -711,7 +719,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 			else {
 				metadataType = s.getChild(eParent.getName(),fitsNS);
 			}
-			List<Element> fitsElements = mergeXmlesults(culledResults, e);
+			List<Element> fitsElements = mergeXmlResults(culledResults, e);
 			for(Element fitsElement : fitsElements) {
 				metadataType.addContent(fitsElement);
 			}
