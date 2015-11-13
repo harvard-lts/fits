@@ -18,57 +18,30 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.commons.io.FileUtils;
-import org.custommonkey.xmlunit.*;
+import org.custommonkey.xmlunit.DetailedDiff;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.Difference;
+import org.custommonkey.xmlunit.XMLUnit;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
-
-import static org.junit.Assert.*;
-import org.junit.*;
+import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 
 public class VideoStdSchemaTestXmlUnit_NoMD5 {
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		
-		System.out.println("Moving test fits.xml in");
-		
-		// Copy fits.xml to fits_back.xml
-	    FileUtils.copyFile(		
-	      FileUtils.getFile("xml/fits.xml"), 
-	      FileUtils.getFile("xml/fits_back.xml"));
-		
-	    // Copy in test fits.xml
-		FileUtils.copyFile(
-				FileUtils.getFile("testfiles/properties/fits_no_md5_video.xml"), 
-				FileUtils.getFile("xml/fits.xml"));
-	}
-	
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-		
-		System.out.println("Resetting fits.xml");
-		
-		// Set the backup to the original fits.xml
-	    FileUtils.copyFile(		
-	  	      FileUtils.getFile("xml/fits_back.xml"), 
-	  	      FileUtils.getFile("xml/fits.xml"));
-	    
-	    // Remove the temp file
-	    FileUtils.deleteQuietly(FileUtils.getFile("xml/fits_back.xml"));
-	}
 	
 	@Test  
 	public void testVideoXmlUnitFitsOutput_AVC_NO_MD5() throws Exception {
 		
-		Fits fits = new Fits();
+		File fitsConfigFile = new File("testfiles/properties/fits_no_md5_video.xml");
+		Fits fits = new Fits(null, fitsConfigFile);
 		
 		// First generate the FITS output
 		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");

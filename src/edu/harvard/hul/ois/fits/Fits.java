@@ -95,11 +95,36 @@ public class Fits {
 
   private static boolean traverseDirs;
 
-  public Fits() throws FitsException {
+  /**
+   * Default, no-arg constructor. FITS configuration file expected in default location with
+   * FITS_HOME either default location or set by environment variable.
+   * 
+   * @throws FitsConfigurationException If there is a problem configuring FITS.
+   */
+  public Fits() throws FitsConfigurationException {
     this( null );
   }
 
+  /**
+   * Constructor with path to FITS alternate .
+   * 
+   * @param fits_home Full path to home directory of FITS installation.
+   *        NOTE: If FITS_HOME set as environment variable this argument has no effect.
+   * @throws FitsConfigurationException If there is a problem configuring FITS.
+   */
   public Fits( String fits_home ) throws FitsConfigurationException {
+	  this( fits_home, null );
+  }
+
+  /**
+   * Constructor with alternate FITS_HOME and alternate FITS configuration file.
+   * 
+   * @param fits_home Full path to home directory of FITS installation.
+   *        NOTE: If FITS_HOME set as environment variable this argument has no effect.
+   * @param fitsXmlConfig File containing FITS configuration.
+   * @throws FitsConfigurationException If there is a problem configuring FITS.
+   */
+  public Fits( String fits_home, File fitsXmlConfig ) throws FitsConfigurationException {
 
     // Set BB_HOME dir with environment variable
     FITS_HOME = System.getenv( "FITS_HOME" );
@@ -152,7 +177,11 @@ public class Fits {
  
     logger = Logger.getLogger( this.getClass() );
     try {
-      config = new XMLConfiguration( FITS_XML_DIR + FITS_CONFIG_FILE_NAME );
+      if ( fitsXmlConfig != null ) {
+          config = new XMLConfiguration( fitsXmlConfig );
+      } else {
+          config = new XMLConfiguration( FITS_XML_DIR + FITS_CONFIG_FILE_NAME );
+      }
     } catch (ConfigurationException e) {
       logger.fatal( "Error reading " + FITS_XML_DIR + FITS_CONFIG_FILE_NAME + ": " + e.getClass().getName() );
       throw new FitsConfigurationException( "Error reading " + FITS_XML_DIR + FITS_CONFIG_FILE_NAME, e );
@@ -194,7 +223,7 @@ public class Fits {
       throw new FitsConfigurationException( "Error initializing " + consolidatorClass, e );
     }
 
-    toolbelt = new ToolBelt( FITS_XML_DIR + FITS_CONFIG_FILE_NAME );
+    toolbelt = new ToolBelt( config );
 
   }
 
