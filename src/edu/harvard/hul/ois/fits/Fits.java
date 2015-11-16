@@ -94,6 +94,21 @@ public class Fits {
   private ToolBelt toolbelt;
 
   private static boolean traverseDirs;
+  
+  static {
+	// get version from properties file and set in class
+	File versionFile = new File( VERSION_PROPERTIES_FILE );
+	Properties versionProps = new Properties();
+	try {
+		versionProps.load(new FileInputStream(versionFile));
+		String version = versionProps.getProperty("build.version");
+		if (version != null && !version.isEmpty()) {
+			Fits.VERSION = version;
+		}
+	} catch (IOException e) {
+		System.err.println("Problem loading [" + VERSION_PROPERTIES_FILE + "]: " + "Cannot display FITS version information.");
+	}
+  }
 
   public Fits() throws FitsException {
     this( null );
@@ -118,19 +133,6 @@ public class Fits {
     if (FITS_HOME.length() > 0 && !FITS_HOME.endsWith( File.separator )) {
       FITS_HOME = FITS_HOME + File.separator;
     }
-
-	// get version from properties file and set in class
-	File versionFile = new File( FITS_HOME + VERSION_PROPERTIES_FILE );
-	Properties versionProps = new Properties();
-	try {
-		versionProps.load(new FileInputStream(versionFile));
-		String version = versionProps.getProperty("build.version");
-		if (version != null && !version.isEmpty()) {
-			Fits.VERSION = version;
-		}
-	} catch (IOException e) {
-		System.err.println("Problem loading [" + VERSION_PROPERTIES_FILE + "]: " + "Cannot display FITS version information.");
-	}
 
     FITS_XML_DIR = FITS_HOME + "xml" + File.separator;
     FITS_TOOLS_DIR = FITS_HOME + "tools" + File.separator;
