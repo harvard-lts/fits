@@ -6,7 +6,6 @@
 	<classpathentry kind="lib" path="lib/serializer.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove-handler.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove.jar"/>
-	<classpathentry kind="lib" path="lib/jhove/JhoveApp.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove-module.jar"/>
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/saxpath.jar"/>
