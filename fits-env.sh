@@ -17,9 +17,7 @@ for arg in "$@" ; do
 done
 
 # Application classpath
-# As first entry, this directory needed in classpath when running thread for MetadataExtractor tool.
-APPCLASSPATH="$FITS_HOME/xml/nlnz"
-
+APPCLASSPATH=""
 JCPATH=${FITS_HOME}/lib
 # Add on extra jar files to APPCLASSPATH
 for i in "$JCPATH"/*.jar; do
