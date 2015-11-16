@@ -125,5 +125,5 @@ public interface Tool extends Runnable {
 	public void setRunStatus(RunStatus runStatus);
 	
 	/** Append any reported exceptions to a master list */
-	public void addExceptions(List<Exception> exceptions);
+	public void addExceptions(List<Throwable> exceptions);
 }

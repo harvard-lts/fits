@@ -288,6 +288,7 @@
 				<exclude name="**/*.class"/>
 			</fileset>
 		</copy>
+        <copy file="log4j.properties" todir="${output.location.version}"/>
 		<copy file="cpappend.bat" todir="${output.location.version}"/>
 		<copy file="fits.bat" todir="${output.location.version}"/>
 		<copy file="fits.sh" todir="${output.location.version}"/>

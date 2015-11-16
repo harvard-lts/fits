@@ -60,7 +60,7 @@ public abstract class ToolBase implements Tool {
     private List<String> excludedExtensions;
     private List<String> includedExtensions;
     
-    private Exception caughtException;
+    private Throwable caughtThrowable;
 	
 	public ToolBase() throws FitsToolException {
 		info = new ToolInfo();
@@ -255,8 +255,8 @@ public abstract class ToolBase implements Tool {
 	}
 	
 	/** Save an exception for reporting. */
-	public void setCaughtException (Exception e) {
-	    caughtException = e;
+	public void setCaughtException (Throwable e) {
+	    caughtThrowable = e;
 	}
 	
 	/** Append any reported exceptions to a master list.
@@ -265,9 +265,9 @@ public abstract class ToolBase implements Tool {
 	 *  @param exceptions   List of Exceptions. Exceptions may be appended
 	 *         to it by this call.
 	 */
-    public void addExceptions(List<Exception> exceptions) {
-        if (caughtException != null) {
-            exceptions.add (caughtException);
+    public void addExceptions(List<Throwable> exceptions) {
+        if (caughtThrowable != null) {
+            exceptions.add (caughtThrowable);
         }
     }
 
@@ -281,6 +281,9 @@ public abstract class ToolBase implements Tool {
 		} catch (FitsToolException e) {
 		    setCaughtException (e);
 		    logger.error("Caught exception running tool: " + this.getName(), e);
+		} catch (Throwable e) {
+			setCaughtException (e);
+		    logger.error("Caught Throwable running tool: " + this.getName(), e);
 		}
 	}
 
