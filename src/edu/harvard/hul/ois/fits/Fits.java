@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 
@@ -51,6 +52,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.output.Format;
@@ -97,7 +99,15 @@ public class Fits {
   
   static {
 	// get version from properties file and set in class
-	File versionFile = new File( VERSION_PROPERTIES_FILE );
+	String fitsHome = System.getenv( "FITS_HOME" );
+	String versionPropFileFullPath = "";
+	if ( !StringUtils.isEmpty(fitsHome) ) {
+		versionPropFileFullPath = fitsHome;
+		if ( !fitsHome.endsWith( File.separator )) {
+			versionPropFileFullPath += File.separator;
+		}
+	}
+	File versionFile = new File( versionPropFileFullPath + VERSION_PROPERTIES_FILE );
 	Properties versionProps = new Properties();
 	try {
 		versionProps.load(new FileInputStream(versionFile));
