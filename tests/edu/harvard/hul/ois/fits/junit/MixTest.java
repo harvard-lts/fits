@@ -65,6 +65,8 @@ public class MixTest extends XMLTestCase {
 		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 		
 		mix.output(writer);
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+		fitsOut.saveToDisk("test-generated-output/topazscanner.xml");
 
 	}
 

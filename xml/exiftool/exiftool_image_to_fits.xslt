@@ -287,7 +287,18 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:value-of select="exiftool/FNumber"/>
 			</fNumber>
 			<exposureTime>
-				<xsl:value-of select="exiftool/ExposureTime"/>
+                <xsl:variable name="exposure" select="exiftool/ExposureTime" />
+                <xsl:choose>
+                    <!-- convert fraction to decimal -->
+	                <xsl:when test="contains($exposure, '/')">
+	                    <xsl:variable name="numerator" select="number(substring-before($exposure, '/'))"  />
+	                    <xsl:variable name="denominator" select="number(substring-after($exposure, '/'))"  />
+	                    <xsl:value-of select="format-number($numerator div $denominator, '##0.####')"/>
+	                </xsl:when>
+	                <xsl:otherwise>
+	                    <xsl:value-of select="exiftool/ExposureTime"/>
+	                </xsl:otherwise>
+                </xsl:choose>
 			</exposureTime>
 			<exposureProgram>
 				<xsl:variable name="exposureProgram" select="exiftool/ExposureProgram"/>

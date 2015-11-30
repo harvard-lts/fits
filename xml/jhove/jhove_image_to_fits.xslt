@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-xmlns:mix="http://www.loc.gov/mix/">
+xmlns:mix="http://www.loc.gov/mix/v20">
 
 <xsl:import href="jhove_common_to_fits.xslt"/>
 <xsl:template match="/">
@@ -18,8 +18,8 @@ xmlns:mix="http://www.loc.gov/mix/">
 			
 			<!-- byte order -->
 			<xsl:choose>
-		  		<xsl:when test="//mix:ByteOrder">
-		  			<xsl:for-each select="//mix:ByteOrder">
+		  		<xsl:when test="//mix:byteOrder">
+		  			<xsl:for-each select="//mix:byteOrder">
 						<byteOrder>
 					  		<xsl:value-of select="replace(.,'-',' ')"/>
 						</byteOrder>
@@ -27,7 +27,7 @@ xmlns:mix="http://www.loc.gov/mix/">
 		  		</xsl:when>
 		  		<xsl:otherwise>
 					<byteOrder>
-				  		<xsl:value-of select="//property[name='ByteOrder']/values/value"/>
+				  		<xsl:value-of select="replace(//property[name='ByteOrder']/values/value,'-',' ')"/>
 					</byteOrder>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -50,97 +50,20 @@ xmlns:mix="http://www.loc.gov/mix/">
 				</xsl:when>
 				<xsl:otherwise>
 					<!-- otherwise use mix metadata -->
-						<compressionScheme>
-							<xsl:variable name="compression" select="//mix:CompressionScheme"/>
-							<xsl:choose>
-								<xsl:when test="$compression=1">
-									<xsl:value-of select="string('Uncompressed')"/>
-								</xsl:when>							
-								<xsl:when test="$compression=2">
-									<xsl:value-of select="string('CCITT 1D')"/>
-								</xsl:when>
-								<xsl:when test="$compression=3">
-									<xsl:value-of select="string('T4/Group 3 Fax')"/>
-								</xsl:when>								
-								<xsl:when test="$compression=4">
-									<xsl:value-of select="string('T6/Group 4 Fax')"/>
-								</xsl:when>
-								<xsl:when test="$compression=5">
-									<xsl:value-of select="string('LZW')"/>
-								</xsl:when>							
-								<xsl:when test="$compression=6">
-									<xsl:value-of select="string('JPEG (old-style)')"/>
-								</xsl:when>
-								<xsl:when test="$compression=7">
-									<xsl:value-of select="string('JPEG')"/>
-								</xsl:when>		
-								<xsl:when test="$compression=8">
-									<xsl:value-of select="string('Adobe Deflate')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32661">
-									<xsl:value-of select="string('JBIG')"/>
-								</xsl:when>		
-								<xsl:when test="$compression=32771">
-									<xsl:value-of select="string('CCITTRLEW')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32773">
-									<xsl:value-of select="string('PackBits')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32766">
-									<xsl:value-of select="string('NeXT')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32809">
-									<xsl:value-of select="string('ThunderScan')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32895">
-									<xsl:value-of select="string('IT8CTPAD')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32896">
-									<xsl:value-of select="string('IT8LW')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32897">
-									<xsl:value-of select="string('IT8MP')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32898">
-									<xsl:value-of select="string('IT8BL')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32908">
-									<xsl:value-of select="string('PixarFilm')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32909">
-									<xsl:value-of select="string('PixarLog')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32946">
-									<xsl:value-of select="string('Deflate')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=32947">
-									<xsl:value-of select="string('DCS')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=34676">
-									<xsl:value-of select="string('SGILog')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=34677">
-									<xsl:value-of select="string('SGILog24')"/>
-								</xsl:when>	
-								<xsl:when test="$compression=34712">
-									<xsl:value-of select="string('JPEG 2000')"/>
-								</xsl:when>	
-								<xsl:otherwise>
-									<xsl:value-of select="$compression"/>
-								</xsl:otherwise>
-							</xsl:choose>	 
-						</compressionScheme> 				
+					<compressionScheme>
+					     <xsl:value-of select="(//mix:compressionScheme)[1]"/> <!-- Take the first width found -->
+					</compressionScheme> 				
 				</xsl:otherwise>
 			</xsl:choose>
 
 			 <!--  width -->
 			<imageWidth>
-		  		<xsl:value-of select="(//mix:ImageWidth)[1]"/> <!-- Take the first width found -->
+		  		<xsl:value-of select="(//mix:imageWidth)[1]"/> <!-- Take the first width found -->
 			</imageWidth>
 			
 			<!--  height -->
 			<imageHeight>
-		  		<xsl:value-of select="(//mix:ImageLength)[1]"/> <!-- Take the first height found -->
+		  		<xsl:value-of select="(//mix:imageLength)[1]"/> <!-- Take the first height found -->
 			</imageHeight>
 		
 			<!--  colorspace -->
@@ -159,63 +82,33 @@ xmlns:mix="http://www.loc.gov/mix/">
 				<xsl:otherwise>
 					<!-- otherwise use mix metadata -->
 					<colorSpace>
-						<xsl:variable name="colorspace" select="//mix:ColorSpace"/>
-						<xsl:choose>
-							<xsl:when test="$colorspace=0">
-								<xsl:value-of select="string('WhiteIsZero')"/>
-							</xsl:when>
-							<xsl:when test="$colorspace=1">
-								<xsl:value-of select="string('BlackIsZero')"/>
-							</xsl:when>
-							<xsl:when test="$colorspace=2">
-								<xsl:value-of select="string('RGB')"/>
-							</xsl:when>
-							<xsl:when test="$colorspace=3">
-								<xsl:value-of select="string('RGB Palette')"/>
-							</xsl:when>
-							<xsl:when test="$colorspace=4">
-								<xsl:value-of select="string('Transparency Mask')"/>
-							</xsl:when>
-							<xsl:when test="$colorspace=5">
-								<xsl:value-of select="string('CMYK')"/>
-							</xsl:when>
-							<xsl:when test="$colorspace=6">
-								<xsl:value-of select="string('YCbCr')"/>
-							</xsl:when>
-							<xsl:when test="$colorspace=8">
-								<xsl:value-of select="string('CIELab')"/>
-							</xsl:when>
-							<xsl:when test="$colorspace=9">
-								<xsl:value-of select="string('ICCLab')"/>
-							</xsl:when>	
-							<xsl:when test="$colorspace=10">
-								<xsl:value-of select="string('ITULab')"/>
-							</xsl:when>		
-							<xsl:when test="$colorspace=32803">
-								<xsl:value-of select="string('Color Filter Array')"/>
-							</xsl:when>	
-							<xsl:when test="$colorspace=32844">
-								<xsl:value-of select="string('Pixar LogL')"/>
-							</xsl:when>	
-							<xsl:when test="$colorspace=32845">
-								<xsl:value-of select="string('Pixar LogLuv')"/>							
-							</xsl:when>	
-							<xsl:when test="$colorspace=34892">
-								<xsl:value-of select="string('Linear Raw')"/>
-							</xsl:when>																																																						
-						</xsl:choose>
+					    <xsl:value-of select="(//mix:colorSpace)[1]"/> <!-- Take the first height found -->
 					</colorSpace>
 				</xsl:otherwise>
 			</xsl:choose>
 
 			<!--  ReferenceBlackWhite -->
-			<referenceBlackWhite>
-		  		<xsl:value-of select="//mix:ReferenceBlackWhite"/>
-			</referenceBlackWhite>
+			<xsl:choose>
+				<xsl:when test="//mix:ReferenceBlackWhite/mix:Component">
+					<referenceBlackWhite>
+						<xsl:for-each select="//mix:ReferenceBlackWhite/mix:Component">
+								<xsl:value-of select="./mix:footroom/mix:numerator"/>
+								<xsl:value-of select="string(' ')"/>
+								<xsl:value-of select="./mix:headroom/mix:numerator"/>
+								<xsl:value-of select="string(' ')"/>
+						</xsl:for-each>
+					</referenceBlackWhite>
+				</xsl:when>
+				<xsl:otherwise>
+					<referenceBlackWhite>
+						<xsl:value-of select="//mix:ReferenceBlackWhite"/>
+					</referenceBlackWhite>
+				</xsl:otherwise>
+			</xsl:choose>
 
 			<!--  iccProfileName -->
 			<iccProfileName>
-		  		<xsl:value-of select="//mix:ProfileName"/>
+		  		<xsl:value-of select="//mix:iccProfileName"/>
 			</iccProfileName>
 			
 			<!--  YCbCrSubSampling -->
@@ -230,7 +123,7 @@ xmlns:mix="http://www.loc.gov/mix/">
 
 			<!--  YCbCrPositioning -->
 			<YCbCrPositioning>
-				<xsl:variable name="ycbcrpositioning" select="//mix:YCbCrPositioning"/>
+				<xsl:variable name="ycbcrpositioning" select="//mix:yCbCrPositioning"/>
 				<xsl:choose>
 					<xsl:when test="$ycbcrpositioning=1">
 						<xsl:value-of select="string('Centered')"/>
@@ -266,76 +159,39 @@ xmlns:mix="http://www.loc.gov/mix/">
 
 			<!--  orientation -->
 			<orientation>
-				<xsl:variable name="orientation" select="//mix:Orientation"/>
-				<xsl:choose>
-					<xsl:when test="$orientation=1">
-						<xsl:value-of select="string('normal*')"/>
-					</xsl:when>
-					<xsl:when test="$orientation=2">
-						<xsl:value-of select="string('normal, image flipped')"/>
-					</xsl:when>
-					<xsl:when test="$orientation=3">
-						<xsl:value-of select="string('normal, rotated 180°')"/>
-					</xsl:when>
-					<xsl:when test="$orientation=4">
-						<xsl:value-of select="string('normal, image flipped, rotated 180°')"/>
-					</xsl:when>
-					<xsl:when test="$orientation=5">
-						<xsl:value-of select="string('normal, image flipped, rotated cw 90°')"/>
-					</xsl:when>
-					<xsl:when test="$orientation=6">
-						<xsl:value-of select="string('normal, rotated ccw 90°')"/>
-					</xsl:when>
-					<xsl:when test="$orientation=7">
-						<xsl:value-of select="string('normal, image flipped, rotated ccw 90°')"/>
-					</xsl:when>
-					<xsl:when test="$orientation=8">
-						<xsl:value-of select="string('normal, rotated cw 90°')"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="$orientation"/>
-					</xsl:otherwise>
-				</xsl:choose>
+				<xsl:value-of select="(//mix:orientation)[1]"/> <!-- Take the first height found -->
 			</orientation>
 			
 			<!-- samplingFrequencyUnit -->
 			<samplingFrequencyUnit>
-				<xsl:variable name="sampFreqUnit" select="//mix:SamplingFrequencyUnit"/>
-				<xsl:choose>
-					<xsl:when test="$sampFreqUnit=1">
-						<xsl:value-of select="string('no absolute unit of measurement')"/>
-					</xsl:when>
-					<xsl:when test="$sampFreqUnit=2">
-						<xsl:value-of select="string('in.')"/>
-					</xsl:when>
-					<xsl:when test="$sampFreqUnit=3">
-						<xsl:value-of select="string('cm')"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="$sampFreqUnit"/>
-					</xsl:otherwise>
-				</xsl:choose>
-		  		
+                <xsl:value-of select="//mix:samplingFrequencyUnit"/>
 			</samplingFrequencyUnit>
 			
 			<!--  xSamplingFrequency -->
 			<xSamplingFrequency>
-		  		<xsl:value-of select="//mix:XSamplingFrequency"/>
+			    <xsl:variable name="xNumerator" select="//mix:xSamplingFrequency/mix:numerator"/>
+                <xsl:variable name="xDenominator" select="//mix:xSamplingFrequency/mix:denominator"/>
+		  		<xsl:value-of select="round($xNumerator div $xDenominator)"/>
 			</xSamplingFrequency>
 			
 			<!--  ySamplingFrequency -->
 			<ySamplingFrequency>
-		  		<xsl:value-of select="//mix:YSamplingFrequency"/>
+                <xsl:variable name="yNumerator" select="//mix:ySamplingFrequency/mix:numerator"/>
+                <xsl:variable name="yDenominator" select="//mix:ySamplingFrequency/mix:denominator"/>
+		  		<xsl:value-of select="round($yNumerator div $yDenominator)"/>
 			</ySamplingFrequency>
 			
 			<!--  bitsPerSample -->
 			<xsl:choose>
-		  		<xsl:when test="//mix:BitsPerSampleValue">
-		  			<xsl:for-each select="//mix:BitsPerSampleValue">
-						<bitsPerSample>
-					  		<xsl:value-of select="translate(.,',',' ')"/>
-						</bitsPerSample>
-					</xsl:for-each>
+		  		<xsl:when test="//mix:bitsPerSampleValue">
+				    <bitsPerSample>
+						<xsl:for-each select="//mix:bitsPerSampleValue">
+						  		<xsl:value-of select="."/>
+                                <xsl:if test="not(position() = last())">
+	    					  		<xsl:value-of select="string(' ')"/>
+	   					  		</xsl:if>
+						</xsl:for-each>
+				    </bitsPerSample>
 		  		</xsl:when>
 		  		<xsl:otherwise>				
 					<xsl:for-each select="//mix:BitsPerSample">
@@ -348,29 +204,12 @@ xmlns:mix="http://www.loc.gov/mix/">
 			
 			<!--  samplesPerPixel -->
 			<samplesPerPixel>
-		  		<xsl:value-of select="//mix:SamplesPerPixel"/>
+		  		<xsl:value-of select="//mix:samplesPerPixel"/>
 			</samplesPerPixel>		
 			
 			<!--  extraSamples -->
 			<extraSamples>
-				<xsl:variable name="extrasamples" select="//mix:extraSamples"/>
-				<xsl:choose>
-					<xsl:when test="extrasamples=0">
-						<xsl:value-of select="string('unspecified')"/>
-					</xsl:when>
-					<xsl:when test="extrasamples=1">
-						<xsl:value-of select="string('associated alpha')"/>
-					</xsl:when>
-					<xsl:when test="$extrasamples=2">
-						<xsl:value-of select="string('unassociated alpha')"/>
-					</xsl:when>
-					<xsl:when test="$extrasamples=3">
-						<xsl:value-of select="string('range or depth')"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="$extrasamples"/>
-					</xsl:otherwise>
-				</xsl:choose>
+				<xsl:value-of select="//mix:extraSamples"/>
 			</extraSamples>			
 			
 			<!--  colorMap -->
@@ -396,75 +235,52 @@ xmlns:mix="http://www.loc.gov/mix/">
 			 
 			<!--  grayResponseUnit -->
 			<grayResponseUnit>
-				<xsl:variable name="grayunit" select="//mix:grayResponseUnit"/>
-				<xsl:choose>
-					<xsl:when test="grayunit=0">
-						<xsl:value-of select="string('')"/>
-					</xsl:when>
-					<xsl:when test="grayunit=1">
-						<xsl:value-of select="string('tenths of a unit')"/>
-					</xsl:when>
-					<xsl:when test="$grayunit=2">
-						<xsl:value-of select="string('hundredths of a unit')"/>
-					</xsl:when>
-					<xsl:when test="$grayunit=3">
-						<xsl:value-of select="string('thousandths of a unit')"/>
-					</xsl:when>
-					<xsl:when test="$grayunit=4">
-						<xsl:value-of select="string('ten-thousandths of a unit')"/>
-					</xsl:when>
-					<xsl:when test="$grayunit=5">
-						<xsl:value-of select="string('hundred-thousandths of a unit')"/>
-					</xsl:when>										
-					<xsl:otherwise>
-						<xsl:value-of select="$grayunit"/>
-					</xsl:otherwise>
-				</xsl:choose>			
+				<xsl:value-of select="//mix:grayResponseUnit"/>
 			</grayResponseUnit>
 			
 			<!--  whitePointXValue -->
 			<whitePointXValue>
-		  		<xsl:value-of select="//mix:WhitePoint_Xvalue"/>
+		  		<xsl:value-of select="//mix:whitePointXValue"/>
 			</whitePointXValue>
 
 			<!--  whitePointYValue -->
 			<whitePointYValue>
-		  		<xsl:value-of select="//mix:WhitePoint_Yvalue"/>
+		  		<xsl:value-of select="//mix:whitePointYValue"/>
 			</whitePointYValue>
 			
 			<!--  primaryChromaticitiesRedX -->
 			<primaryChromaticitiesRedX>
-		  		<xsl:value-of select="//mix:PrimaryChromaticities_RedX"/>
+		  		<xsl:value-of select="//mix:primaryChromaticitiesRedX"/>
 			</primaryChromaticitiesRedX>
 
 			<!--  primaryChromaticitiesRedY -->
 			<primaryChromaticitiesRedY>
-		  		<xsl:value-of select="//mix:PrimaryChromaticities_RedY"/>
+		  		<xsl:value-of select="//mix:primaryChromaticitiesRedY"/>
 			</primaryChromaticitiesRedY>
 			
 			<!--  primaryChromaticitiesGreenX -->
 			<primaryChromaticitiesGreenX>
-		  		<xsl:value-of select="//mix:PrimaryChromaticities_GreenX"/>
+		  		<xsl:value-of select="//mix:primaryChromaticitiesGreenX"/>
 			</primaryChromaticitiesGreenX>	
 
 			<!--  primaryChromaticitiesGreenY -->
 			<primaryChromaticitiesGreenY>
-		  		<xsl:value-of select="//mix:PrimaryChromaticities_GreenY"/>
+		  		<xsl:value-of select="//mix:primaryChromaticitiesGreenY"/>
 			</primaryChromaticitiesGreenY>
 			
 			<!--  primaryChromaticitiesBlueX -->
 			<primaryChromaticitiesBlueX>
-		  		<xsl:value-of select="//mix:PrimaryChromaticities_BlueX"/>
+		  		<xsl:value-of select="//mix:primaryChromaticitiesBlueX"/>
 			</primaryChromaticitiesBlueX>	
 
 			<!--  primaryChromaticitiesBlueY -->
 			<primaryChromaticitiesBlueY>
-		  		<xsl:value-of select="//mix:PrimaryChromaticities_BlueY"/>
+		  		<xsl:value-of select="//mix:primaryChromaticitiesBlueY"/>
 			</primaryChromaticitiesBlueY>
 			
 			<!--  imageProducer -->
 			<imageProducer>
-		  		<xsl:value-of select="//mix:ImageProducer"/>
+		  		<xsl:value-of select="//mix:imageProducer"/>
 			</imageProducer>				
 			
 			<!--  scannerManufacturer -->
@@ -482,27 +298,27 @@ xmlns:mix="http://www.loc.gov/mix/">
 			
 			<!--  scannerModelNumber -->
 			<scannerModelNumber>
-		  		<xsl:value-of select="//mix:ScannerModelNumber"/>
+		  		<xsl:value-of select="//mix:scannerModelNumber"/>
 			</scannerModelNumber>
 			
 			<!--  scannerModelSerialNo -->
 			<scannerModelSerialNo>
-		  		<xsl:value-of select="//mix:ScannerModelSerialNo"/>
+		  		<xsl:value-of select="//mix:scannerModelSerialNo"/>
 			</scannerModelSerialNo>
 			
 			<!--  scanningSoftwareName -->
 			<scanningSoftwareName>
-		  		<xsl:value-of select="//mix:ScanningSoftware"/>
+		  		<xsl:value-of select="//mix:scanningSoftwareName"/>
 			</scanningSoftwareName>
 			
 			<!--  scanningSoftwareVersionNo -->
 			<scanningSoftwareVersionNo>
-		  		<xsl:value-of select="//mix:ScanningSoftwareVersionNo"/>
+		  		<xsl:value-of select="//mix:scanningSoftwareVersionNo"/>
 			</scanningSoftwareVersionNo>
 
 			<!--  digitalCameraModelName -->
 			<digitalCameraModelName>
-		  		<xsl:value-of select="//mix:DigitalCameraModelName"/>
+		  		<xsl:value-of select="//mix:digitalCameraModelName"/>
 			</digitalCameraModelName>
 			
 			<!--  fNumber -->
@@ -522,7 +338,7 @@ xmlns:mix="http://www.loc.gov/mix/">
 			
 			<!--  brightnessValue -->
 			<brightnessValue>
-		  		<xsl:value-of select="//mix:BrightnessValue"/>
+		  		<xsl:value-of select="//mix:brightnessValue"/>
 			</brightnessValue>
 
 			<!--  exposureBiasValue -->
@@ -542,31 +358,7 @@ xmlns:mix="http://www.loc.gov/mix/">
 
 			<!--  meteringMode -->
 			<meteringMode>
-				<xsl:variable name="meteringMode" select="//property[name='MeteringMode']/values/value"/>
-				<xsl:choose>
-					<xsl:when test="$meteringMode='average'">
-						<xsl:value-of select="string('Average')"/>
-					</xsl:when>
-					<xsl:when test="$meteringMode='center weighted average'">
-						<xsl:value-of select="string('Center weighted average')"/>
-					</xsl:when>
-					<xsl:when test="$meteringMode='centre weighted average'"> <!--  catch the typo -->
-						<xsl:value-of select="string('Center weighted average')"/>
-					</xsl:when>
-					<xsl:when test="$meteringMode='spot'">
-						<xsl:value-of select="string('Spot')"/>
-					</xsl:when>		
-					<xsl:when test="$meteringMode='multispot'">
-						<xsl:value-of select="string('Multispot')"/>
-					</xsl:when>		
-					<xsl:when test="$meteringMode='pattern'">
-						<xsl:value-of select="string('Pattern')"/>
-					</xsl:when>		
-					<xsl:when test="$meteringMode='partial'">
-						<xsl:value-of select="string('Partial')"/>
-					</xsl:when>		
-				</xsl:choose>
-		  		
+				<xsl:value-of select="//property[name='MeteringMode']/values/value"/>
 			</meteringMode>
 			
 			<!--  flash -->
@@ -644,7 +436,7 @@ xmlns:mix="http://www.loc.gov/mix/">
 
 			<!--  focalLength -->
 			<focalLength>
-		  		<xsl:value-of select="//mix:FocalLength"/>
+		  		<xsl:value-of select="//mix:focalLength"/>
 			</focalLength>
 
 			<!--  flashEnergy -->
@@ -654,7 +446,7 @@ xmlns:mix="http://www.loc.gov/mix/">
 			
 			<!--  exposureIndex -->
 			<exposureIndex>
-		  		<xsl:value-of select="//mix:ExposureIndex"/>
+		  		<xsl:value-of select="//mix:exposureIndex"/>
 			</exposureIndex>
 
 			</image>

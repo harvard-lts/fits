@@ -542,7 +542,7 @@ public class XmlContentConverter {
                 }
             }
             catch (XmlContentException e) {
-            	logger.error("Invalid MIX content: " + e.getMessage ());
+            	logger.error("Invalid MIX content for element [" + fitsElem + "]: " + e.getMessage ());
             }
         }//end of for loop
             

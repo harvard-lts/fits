@@ -2,7 +2,7 @@
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:fits_XsltFunctions="edu.harvard.hul.ois.fits.tools.utils.XsltFunctions"
-	xmlns:mix="http://www.loc.gov/mix/"
+	xmlns:mix="http://www.loc.gov/mix/v20"
 	xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output">
 	<xsl:output method="xml" indent="yes" />
 	<xsl:strip-space elements="*"/>
