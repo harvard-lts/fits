@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 
@@ -97,28 +96,15 @@ public class Fits {
 
   private static boolean traverseDirs;
   
-  static {
-	// get version from properties file and set in class
-	String fitsHome = System.getenv( "FITS_HOME" );
-	String versionPropFileFullPath = "";
-	if ( !StringUtils.isEmpty(fitsHome) ) {
-		versionPropFileFullPath = fitsHome;
-		if ( !fitsHome.endsWith( File.separator )) {
-			versionPropFileFullPath += File.separator;
-		}
-	}
-	File versionFile = new File( versionPropFileFullPath + VERSION_PROPERTIES_FILE );
-	Properties versionProps = new Properties();
-	try {
-		versionProps.load(new FileInputStream(versionFile));
-		String version = versionProps.getProperty("build.version");
-		if (version != null && !version.isEmpty()) {
-			Fits.VERSION = version;
-		}
-	} catch (IOException e) {
-		System.err.println("Problem loading [" + VERSION_PROPERTIES_FILE + "]: " + "Cannot display FITS version information.");
-	}
-  }
+  
+    static {
+        // set FITS_HOME from environment variable if it exists
+        FITS_HOME = System.getenv( "FITS_HOME" );
+        if ( StringUtils.isEmpty(FITS_HOME) ) {
+            // if not set use the current directory
+            FITS_HOME = "";
+        }
+    }
 
   public Fits() throws FitsException {
     this( null );
@@ -126,23 +112,16 @@ public class Fits {
 
   public Fits( String fits_home ) throws FitsConfigurationException {
 
-    // Set BB_HOME dir with environment variable
-    FITS_HOME = System.getenv( "FITS_HOME" );
-    if (FITS_HOME == null) {
+	  // NOTE: a "FITS_HOME" environment variable (see initial static block of this class)
+	  // "wins" over a FITS home value passed into the constructor.
+    if ( StringUtils.isEmpty(FITS_HOME) ) {
       // if env variable not set check for fits_home passed into constructor
       if (fits_home != null) {
         FITS_HOME = fits_home;
-      } else {
-        // if fits_home is still not set use the current directory
-        FITS_HOME = "";
       }
     }
-
-    // If fits home is not an empty string and doesn't send with a file
-    // separator character, add one
-    if (FITS_HOME.length() > 0 && !FITS_HOME.endsWith( File.separator )) {
-      FITS_HOME = FITS_HOME + File.separator;
-    }
+    
+    setFitsVersionFromFile();
 
     FITS_XML_DIR = FITS_HOME + "xml" + File.separator;
     FITS_TOOLS_DIR = FITS_HOME + "tools" + File.separator;
@@ -258,6 +237,41 @@ public class Fits {
     }
 
     System.exit( 0 );
+  }
+  
+  /*
+   * Called from either main() for stand-alone application usage or constructor
+   * when used by another program, this reads the properties file containing the
+   * current version of FITS.
+   * 
+   * Precondition of this method is that the static FITS_HOME has been set via
+   * an environment variable, being passed into a constructor, or is just the current directory.
+   */
+  private static void setFitsVersionFromFile() {
+
+      // If fits home is not an empty string and doesn't end with a file
+      // separator character, add one
+      if (FITS_HOME.length() > 0 && !FITS_HOME.endsWith( File.separator )) {
+          FITS_HOME = FITS_HOME + File.separator;
+      }
+
+      // get version from properties file and set in class
+      String versionPropFileFullPath = "";
+      if ( !StringUtils.isEmpty(FITS_HOME) ) {
+          versionPropFileFullPath = FITS_HOME;
+      }
+      
+      File versionFile = new File( versionPropFileFullPath + VERSION_PROPERTIES_FILE );
+      Properties versionProps = new Properties();
+      try {
+          versionProps.load(new FileInputStream(versionFile));
+          String version = versionProps.getProperty("build.version");
+          if (version != null && !version.isEmpty()) {
+              Fits.VERSION = version;
+          }
+      } catch (IOException e) {
+          System.err.println("Problem loading [" + VERSION_PROPERTIES_FILE + "]: " + "Cannot display FITS version information.");
+      }
   }
 
   /**
