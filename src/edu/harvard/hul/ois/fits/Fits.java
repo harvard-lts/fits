@@ -183,6 +183,8 @@ public class Fits {
 
   public static void main( String[] args ) throws FitsException, IOException, ParseException, XMLStreamException {
 
+    setFitsVersionFromFile();
+
     Options options = new Options();
     options.addOption( "i", true, "input file or directory" );
     options.addOption( "r", false, "process directories recursively when -i is a directory " );
