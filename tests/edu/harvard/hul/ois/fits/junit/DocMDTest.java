@@ -32,12 +32,16 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 
-
+/**
+ * This class generates FITS and Standard output for inspection during development.
+ * It does not actually perform any JUnit test assertions.
+ * 
+ * @author dan179
+ */
 public class DocMDTest extends XMLTestCase {
-
     
 	@Test
-	public void testDocMD() throws Exception {	
+	public void testOds() throws Exception {	
     	Fits fits = new Fits();
     	File input = new File("testfiles/test.ods");
     	
@@ -47,6 +51,7 @@ public class DocMDTest extends XMLTestCase {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
+		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -56,7 +61,55 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
+    	fitsOut.saveToDisk("test-generated-output//test-ODS_Output.xml");
+	}
+    
+	@Test
+	public void testWordDocUrlEmbeddedResources() throws Exception {	
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/Word2003_has_URLs_has_embedded_resources.doc");
     	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat();
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output//Word2003_has_URLs_has_embedded_resources-DOC_Output.xml");
+	}
+    
+	@Test
+	public void testWordDocGraphics() throws Exception {	
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/Word2003_many_graphics.doc");
+    	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat();
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output//Word2003_many_graphics-DOC_Output.xml");
 	}
     
 	@Test
@@ -70,6 +123,7 @@ public class DocMDTest extends XMLTestCase {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
+		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -79,7 +133,31 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
+    	fitsOut.saveToDisk("test-generated-output//Word2003PasswordProtected-DOC_Output.xml");
+	}
+    
+	@Test
+	public void testWordDoc2011() throws Exception {	
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/Word2011_Has_Outline.doc");
     	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat();
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output//Word2011_Has_Outline-DOC_Output.xml");
 	}
     
 	@Test
@@ -93,6 +171,7 @@ public class DocMDTest extends XMLTestCase {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
+		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -102,7 +181,7 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	
+    	fitsOut.saveToDisk("test-generated-output/LibreODT-Ur-ODT_Output.xml");
 	}
     
 	@Test
@@ -125,7 +204,7 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	
+    	fitsOut.saveToDisk("test-generated-output/LibreODT_protected_ODT_Output.xml");
 	}
     
 	@Test
@@ -148,7 +227,127 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
+    	fitsOut.saveToDisk("test-generated-output/UnparseableDate_ODT_Output.xml");
+	}
+	
+	@Test
+	public void testWordDocxOutput() throws Exception {
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/Word_has_index.docx");
     	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat();
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output/Word_has_index_DOCX_Output.xml");
+	}
+	
+	@Test
+	public void testEpubOutput() throws Exception {
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/GeographyofBliss_oneChapter.epub");
+    	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat();
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output/GeographyofBliss_oneChapter_EPUB_Output.xml");
+	}
+	
+	@Test
+	public void testWPOutput() throws Exception {
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/WordPerfect5_2.wp");
+    	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat();
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output/WordPerfect5_2_Output.xml");
+	}
+	
+	@Test
+	public void testWPDOutput() throws Exception {
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/WordPerfect6-7.wpd");
+    	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat();
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output/WordPerfect6-7_Output.xml");
+	}
+	
+	@Test
+	public void testRtfOutput() throws Exception {
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/TestDoc.rtf");
+    	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat();
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output/TestDoc_RTF_Output.xml");
 	}
     
 	@Test

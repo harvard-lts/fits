@@ -144,6 +144,21 @@
 				<xsl:when test="$format='DOC'">
 					<xsl:value-of select="string('Microsoft Word Document')"/>
 				</xsl:when>
+                <xsl:when test="$format='DOCX'">
+                    <xsl:value-of select="string('OpenDocument Text')"/>
+                </xsl:when>
+                <xsl:when test="$format='EPUB'">
+                    <xsl:value-of select="string('ePub format')"/>
+                </xsl:when>
+                <xsl:when test="$format='RTF'">
+                    <xsl:value-of select="string('Rich Text Format')"/>
+                </xsl:when>
+                <xsl:when test="$format='WP'">
+                    <xsl:value-of select="string('Word Perfect')"/>
+                </xsl:when>
+                <xsl:when test="$format='WPD'">
+                    <xsl:value-of select="string('Word Perfect')"/>
+                </xsl:when>
 				<xsl:when test="$format='GZIP'">
 					<xsl:value-of select="string('GZIP Format')"/>
 				</xsl:when>		
