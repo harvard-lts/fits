@@ -12,19 +12,21 @@ Version 0.10.0
 
 Version 0.9.0
 ----------------------
+This release contains a major refactoring of how JAR files are handled by the tools that are Java-based.
+JAR files specific to each tool are loaded within their own custom class loader.
+Details for configuring a new Java-based tool are in edu.harvard.hul.ois.fits.tools.ToolBelt.java and on the [fitstool](http://fitstool.org) site.
 
 Video - Normalized height and width values in FITS default output.
 Update of the following tools used by FITS:
-DROID 6.1.5
-ExifTool 10.00
-Tika 1.10
-NLNZ Metadata Extractor 3.6GA
-JHOVE 1.11
-m2ts files now included in MediaInfo tool and excluded from Exiftool tool.
-Revised licensing details of MediaInfo 3rd party libraries.
+* DROID 6.1.5
+* ExifTool 10.00
+* Tika 1.10
+* NLNZ Metadata Extractor 3.6GA
+* JHOVE 1.11
 
-Major refactoring of how JAR files are handled by the tools that are Java-based. JAR files specific to each tool are loaded
-within their own custom class loader. Details are in edu.harvard.hul.ois.fits.tools.ToolBelt.java.
+'m2ts' files are now included in MediaInfo tool and excluded from Exiftool tool.
+Revised licensing details of MediaInfo 3rd party libraries.
+log4j.properties has been moved to the top level directory.
 
 Version 0.8.10 (10/21/15)
 ----------------------
