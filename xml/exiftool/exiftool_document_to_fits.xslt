@@ -26,6 +26,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:value-of select="exiftool/Author"/>
 			</author>
 			
+			<lineCount>
+			    <xsl:value-of select="exiftool/Lines"/>
+			</lineCount>
+            
+            <paragraphCount>
+                <xsl:value-of select="exiftool/Paragraphs"/>
+            </paragraphCount>
+			
 			<isRightsManaged>
 				<xsl:choose>
 					<xsl:when test="exiftool/Rights or exiftool/xmpRights">
@@ -37,7 +45,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</xsl:choose>
 			</isRightsManaged>
 
-			<isProtected>
+			<isEncrypted>
 				<xsl:choose>
 					<xsl:when test="exiftool/Encryption">
 						<xsl:value-of select="string('yes')"/>
@@ -46,7 +54,35 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<xsl:value-of select="string('no')"/>
 					</xsl:otherwise>
 				</xsl:choose>
+			</isEncrypted>
+			
+			<xsl:variable name="security" select="exiftool/Security"/>
+			<isProtected>
+                <xsl:choose>
+	                <xsl:when test="$security='Password protected'">
+	                    <xsl:value-of select="string('yes')"/>
+	                </xsl:when>
+	                <xsl:otherwise>
+	                    <xsl:value-of select="string('no')"/>
+	                </xsl:otherwise>
+                </xsl:choose>
 			</isProtected>
+            
+            <subject>
+                <xsl:value-of select="exiftool/Subject"/>
+            </subject>
+            
+            <category>
+                <xsl:value-of select="exiftool/Category"/>
+            </category>
+            
+            <company>
+                <xsl:value-of select="exiftool/Company"/>
+            </company>
+            
+            <hyperlinks>
+                <xsl:value-of select="exiftool/Hyperlinks"/>
+            </hyperlinks>
 			
 		</document>				
 		</metadata>

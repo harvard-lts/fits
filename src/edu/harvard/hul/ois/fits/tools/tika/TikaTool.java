@@ -37,11 +37,14 @@ public class TikaTool extends ToolBase {
     private final static String P_APPLICATION_NAME = "Application-Name";
     private final static String P_AUTHOR = "Author";
     private final static String P_BITS = "bits";
+    private final static String P_CATEGORY = "Category";
     private final static String P_CHANNELS = "channels";
+    private final static String P_CHARACTER_COUNT = "Character Count";
     private final static String P_CHRM = "cHRM";
     private final static String P_CHROMA_BLACK_IS_ZERO = "Chroma BlackIsZero";
     private final static String P_CHROMA_COLOR_SPACE_TYPE = "Chroma ColorSpaceType";
     private final static String P_CHROMA_NUM_CHANNELS = "Chroma NumChannels";
+    private final static String P_COMPANY = "Company";
     private final static String P_COMPRESSION_COMPRESSION_TYPE_NAME = "Compression CompressionTypeName";
     private final static String P_COMPRESSION_LOSSLESS = "Compression Lossless";
     private final static String P_COMPRESSION_NUM_PROGRESSIVE_SCANS = "Compression NumProgressiveScans";
@@ -141,11 +144,14 @@ public class TikaTool extends ToolBase {
         AUTHOR,
         BITS,
         //BITS_PER_SAMPLE,
+        CATEGORY,
         CHANNELS,
+        CHARACTER_COUNT,
         CHRM,
         CHROMA_BLACK_IS_ZERO,
         CHROMA_COLOR_SPACE_TYPE,
         CHROMA_NUM_CHANNELS,
+        COMPANY,
         COMPRESSION_NUM_PROGRESSIVE_SCANS,
         COMPRESSION_COMPRESSION_TYPE_NAME,
         COMPRESSION_LOSSLESS,
@@ -248,11 +254,14 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_APPLICATION_NAME, TikaProperty.APPLICATION_NAME);
         propertyNameMap.put (P_AUTHOR, TikaProperty.AUTHOR);
         propertyNameMap.put (P_BITS, TikaProperty.BITS);
+        propertyNameMap.put (P_CATEGORY, TikaProperty.CATEGORY);
         propertyNameMap.put (P_CHANNELS, TikaProperty.CHANNELS);
+        propertyNameMap.put(P_CHARACTER_COUNT, TikaProperty.CHARACTER_COUNT);
         propertyNameMap.put (P_CHRM, TikaProperty.CHRM);
         propertyNameMap.put (P_CHROMA_BLACK_IS_ZERO, TikaProperty.CHROMA_BLACK_IS_ZERO);
         propertyNameMap.put (P_CHROMA_COLOR_SPACE_TYPE, TikaProperty.CHROMA_COLOR_SPACE_TYPE);
         propertyNameMap.put (P_CHROMA_NUM_CHANNELS, TikaProperty.CHROMA_NUM_CHANNELS);
+        propertyNameMap.put (P_COMPANY, TikaProperty.COMPANY);
         propertyNameMap.put (P_COMPRESSION_NUM_PROGRESSIVE_SCANS, TikaProperty.COMPRESSION_NUM_PROGRESSIVE_SCANS);
         propertyNameMap.put (P_COMPRESSION_COMPRESSION_TYPE_NAME, TikaProperty.COMPRESSION_COMPRESSION_TYPE_NAME);
         propertyNameMap.put (P_COMPRESSION_LOSSLESS, TikaProperty.COMPRESSION_LOSSLESS);
@@ -797,6 +806,22 @@ public class TikaTool extends ToolBase {
                     pageCountReported = true;
                 }
                 break;
+                
+            case CATEGORY:
+                addSimpleElement (elem, FitsMetadataValues.CATEGORY, value);
+                break;
+                
+            case COMPANY:
+            	addSimpleElement (elem, FitsMetadataValues.COMPANY, value);
+            	break;
+            	
+            case WORD_COUNT:
+            	addSimpleElement (elem, FitsMetadataValues.WORD_COUNT, value);
+            	break;
+            	
+            case CHARACTER_COUNT:
+            	addSimpleElement (elem, FitsMetadataValues.CHARACTER_COUNT, value);
+            	break;
             }
         }
 
