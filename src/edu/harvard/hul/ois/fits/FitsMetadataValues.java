@@ -72,11 +72,14 @@ public class FitsMetadataValues {
     public final static String BLOCK_SIZE_MIN = "blockSizeMin";
     public final static String BRIGHTNESS_VALUE = "brightnessValue";
     public final static String BYTE_ORDER = "byteOrder";      // for possible future use
+    public final static String CATEGORY = "category";
     public final static String CFA_PATTERN = "cfaPattern";    // image
     public final static String CFA_PATTERN2 = "cfaPattern2";  // image
     public final static String CHANNELS = "channels";          // audio, maybe video
+    public final static String CHARACTER_COUNT = "characterCount";
     public final static String CHARSET = "charset";            // text
     public final static String COLOR_SPACE = "colorSpace";
+    public final static String COMPANY = "company";
     public final static String COMPRESSION_SCHEME = "compressionScheme";
     public final static String DATA_FORMAT_TYPE = "dataFormatType";
     public final static String DIGITAL_CAMERA_MANUFACTURER = "digitalCameraManufacturer";

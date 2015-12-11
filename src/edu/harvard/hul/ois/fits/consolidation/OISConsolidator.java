@@ -51,7 +51,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 
     private static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");        
 
-    private Logger logger = Logger.getLogger(this.getClass());
+    private static Logger logger = Logger.getLogger(OISConsolidator.class);
     
 	private boolean reportConflicts;
 	private boolean displayToolOutput;

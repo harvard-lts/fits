@@ -602,6 +602,10 @@ public class XmlContentConverter {
                  if(intValue != null)
                  dm.docMD.setCharacterCount(intValue);
                     break;
+                case paragraphCount:
+                    if(intValue != null)
+                    dm.docMD.setParagraphCount(intValue);
+                       break;
                 case lineCount:
                  if(intValue != null)
                  dm.docMD.setLineCount(intValue);
