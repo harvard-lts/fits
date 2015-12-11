@@ -214,5 +214,8 @@
 	<map format="XLT" transform="exiftool_document_to_fits.xslt"/>
 	<map format="XLTM" transform="exiftool_document_to_fits.xslt"/>
 	<map format="XLTX" transform="exiftool_document_to_fits.xslt"/>
+    <map format="WP" transform="exiftool_document_to_fits.xslt"/>
+    <map format="WPD" transform="exiftool_document_to_fits.xslt"/>
+    <map format="EPUB" transform="exiftool_document_to_fits.xslt"/>
 
 </transformMap>

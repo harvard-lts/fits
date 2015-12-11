@@ -66,7 +66,7 @@ public class ToolOutput {
 	private Document toolOutput = null;
 	//Reference to the tool the output was created with
 	private Tool tool;
-	//Identification data about the image
+	//Identification data about the input file
 	private List<ToolIdentity> identity = new ArrayList<ToolIdentity>();
 	
 	/** Constructor
