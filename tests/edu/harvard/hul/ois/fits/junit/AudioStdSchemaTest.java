@@ -35,7 +35,7 @@ import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
 import org.custommonkey.xmlunit.*;
 
-public class audioStdSchemaTest extends XMLTestCase {
+public class AudioStdSchemaTest extends XMLTestCase {
 
     @Test  
 	public void testAudioMD() throws Exception {   

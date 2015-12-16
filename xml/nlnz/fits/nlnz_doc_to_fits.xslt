@@ -46,19 +46,31 @@
 			
 			<characterCount>
 				<xsl:value-of select="//CHARACTERS"/>
-			</characterCount>	
-							
-			<title>
-				<xsl:value-of select="//TITLE"/>
-			</title>
+			</characterCount>
+			
+			<xsl:if test="//TITLE and //TITLE!='null'">
+				<title>
+					<xsl:value-of select="//TITLE"/>
+				</title>
+			</xsl:if>
+            
+            <xsl:if test="//SUBJECT and //SUBJECT!='null'">
+	            <subject>
+	                <xsl:value-of select="//SUBJECT"/>
+	            </subject>
+            </xsl:if>
 			
 			<author>
 				<xsl:value-of select="//AUTHOR"/>
-			</author>			
+			</author>
 			
 			<language>
 				<xsl:value-of select="//LANG"/>
-			</language>		
+			</language>
+            
+            <hasPictures>
+                <xsl:value-of select="//HASPICTURES"/>
+            </hasPictures>
 
 		</document>	
 		</metadata>
