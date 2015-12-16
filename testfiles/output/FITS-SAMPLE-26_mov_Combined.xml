@@ -163,7 +163,7 @@
     <tool toolname="Jhove" toolversion="1.5" executionTime="8423" />
     <tool toolname="file utility" toolversion="5.04" executionTime="1748" />
     <tool toolname="Exiftool" toolversion="9.13" status="did not run" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" executionTime="814" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" status="did not run" />
     <tool toolname="OIS File Information" toolversion="0.2" executionTime="1211" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
     <tool toolname="ffident" toolversion="0.2" executionTime="782" />
