@@ -63,4 +63,8 @@
 	<branch format="OLE2 Compound Document Format">
 	   <branch format="Microsoft Word Binary File Format" />
 	</branch>
+	
+	<branch format="OLE2 Compound Document Format">
+	   <branch format="Microsoft Word Document" />
+	</branch>
 </format-tree>
