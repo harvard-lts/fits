@@ -68,10 +68,24 @@
 				<xsl:value-of select="//LANG"/>
 			</language>
             
-            <hasPictures>
-                <xsl:value-of select="//HASPICTURES"/>
-            </hasPictures>
-
+            <xsl:if test="//HASPICTURES and //HASPICTURES='true'">
+	            <hasPictures>
+	                <xsl:value-of select="//HASPICTURES"/>
+	            </hasPictures>
+            </xsl:if>
+            
+            <xsl:if test="//ISENCRYPTED and //ISENCRYPTED='true'">
+	            <isEncrypted>
+	                <xsl:value-of select="string('yes')" />
+	            </isEncrypted>
+            </xsl:if>
+            
+            <xsl:if test="//KEYWORDS and //KEYWORDS!='null'">
+                <keywords>
+                    <xsl:value-of select="//KEYWORDS"/>
+                </keywords>
+            </xsl:if>
+            
 		</document>	
 		</metadata>
 	</fits>	
