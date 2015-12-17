@@ -161,6 +161,54 @@ public class DocMDTest extends XMLTestCase {
 	}
     
 	@Test
+	public void testWordDocHyperlinks() throws Exception {	
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/Word2003_has_table_of_contents.doc");
+    	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat();
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output//Word2003_has_table_of_contents-DOC_Output.xml");
+	}
+    
+	@Test
+	public void testWordDocPasswordAndEncrypted() throws Exception {	
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/Word_protected_encrypted.doc");
+    	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat();
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output//Word_protected_encrypted-DOC_Output.xml");
+	}
+    
+	@Test
 	public void testOpenOfficeDoc() throws Exception {	
     	Fits fits = new Fits();
     	File input = new File("testfiles/LibreODT-Ur-doc.odt");
@@ -195,6 +243,7 @@ public class DocMDTest extends XMLTestCase {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
+		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -218,6 +267,7 @@ public class DocMDTest extends XMLTestCase {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
+		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -351,6 +401,21 @@ public class DocMDTest extends XMLTestCase {
 	}
     
 	@Test
+	public void testPdf() throws Exception {
+		
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/PDF_embedded_resources.pdf");
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		// write to console
+		Fits.outputStandardCombinedFormat(fitsOut, System.out);
+		
+		// write to file
+		fitsOut.saveToDisk("test-generated-output/PDF_embedded_resources_Output.xml");
+	}
+    
+	@Test
 	public void testPdfA() throws Exception {
 		
     	Fits fits = new Fits();
@@ -363,6 +428,21 @@ public class DocMDTest extends XMLTestCase {
 		
 		// write to file
 		fitsOut.saveToDisk("test-generated-output/PDFa_equations_Output.xml");
+	}
+    
+	@Test
+	public void testPdfX() throws Exception {
+		
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/altona_technical_1v2_x3_has_annotations.pdf");
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		// write to console
+		Fits.outputStandardCombinedFormat(fitsOut, System.out);
+		
+		// write to file
+		fitsOut.saveToDisk("test-generated-output/altona_technical_1v2_x3_has_annotations_PDFX_Output.xml");
 	}
 
 }

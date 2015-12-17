@@ -8,7 +8,6 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
@@ -821,6 +820,10 @@ public class TikaTool extends ToolBase {
             	
             case CHARACTER_COUNT:
             	addSimpleElement (elem, FitsMetadataValues.CHARACTER_COUNT, value);
+            	break;
+            	
+            case LANGUAGE:
+            	addSimpleElement(elem, FitsMetadataValues.LANGUAGE, value);
             	break;
             }
         }
