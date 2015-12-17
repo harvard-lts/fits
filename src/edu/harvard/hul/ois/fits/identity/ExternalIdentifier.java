@@ -57,4 +57,17 @@ public class ExternalIdentifier {
 		this.value = value;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ExternalIdentifier [name=");
+		builder.append(name);
+		builder.append(", value=");
+		builder.append(value);
+		builder.append(", toolInfo=");
+		builder.append(toolInfo);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

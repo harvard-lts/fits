@@ -59,4 +59,8 @@
 		<branch format="OpenDocument Master Document"/>
 		<branch format="OpenDocument HTML Document Template"/>	
 	</branch>
+	
+	<branch format="OLE2 Compound Document Format">
+	   <branch format="Microsoft Word Document" />
+	</branch>
 </format-tree>
