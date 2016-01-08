@@ -4,3 +4,6 @@
 image/jpx=JPEG 2000 JPX
 image/jp2=JPEG 2000 JP2
 application/zip=ZIP Format
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=OpenDocument Text
+application/epub+zip=ePub format
+application/rtf=Rich Text Format (RTF)

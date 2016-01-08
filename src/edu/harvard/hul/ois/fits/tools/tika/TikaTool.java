@@ -97,6 +97,7 @@ public class TikaTool extends ToolBase {
     private final static String P_META_OBJECT_COUNT = "meta:object-count";
     private final static String P_META_PAGE_COUNT = "meta:page-count";
     private final static String P_META_TABLE_COUNT = "meta:table-count";
+    private final static String P_META_WORD_COUNT = "meta:word-count";
     private final static String P_MODIFIED = "modified";
     private final static String P_NBOBJECT = "nbObject";
     private final static String P_NBTAB = "nbTab";
@@ -204,6 +205,7 @@ public class TikaTool extends ToolBase {
         META_OBJECT_COUNT,
         META_PAGE_COUNT,
         META_TABLE_COUNT,
+        META_WORD_COUNT,
         MODIFIED,
         N_PAGES,
         NBOBJECT,
@@ -313,6 +315,7 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_META_OBJECT_COUNT, TikaProperty.META_OBJECT_COUNT);
         propertyNameMap.put (P_META_PAGE_COUNT, TikaProperty.META_PAGE_COUNT);
         propertyNameMap.put (P_META_TABLE_COUNT, TikaProperty.META_TABLE_COUNT);
+        propertyNameMap.put (P_META_WORD_COUNT, TikaProperty.META_WORD_COUNT);
         propertyNameMap.put (P_META_SAVE_DATE, TikaProperty.META_SAVE_DATE);
         propertyNameMap.put (P_MODIFIED, TikaProperty.MODIFIED);
         propertyNameMap.put (P_NBOBJECT, TikaProperty.NBOBJECT);
@@ -767,6 +770,7 @@ public class TikaTool extends ToolBase {
         boolean titleReported = false;
         boolean authorReported = false;
         boolean pageCountReported = false;
+        boolean wordCountReported = false;
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {
@@ -793,6 +797,7 @@ public class TikaTool extends ToolBase {
                 break;
                 
             case SUBJECT:
+            	// TODO: don't include if mime type == 'application/pdf' ??? -- see output for Tika & Exiftool
                 addSimpleElement (elem, FitsMetadataValues.SUBJECT, value);
                 break;
             
@@ -815,7 +820,11 @@ public class TikaTool extends ToolBase {
             	break;
             	
             case WORD_COUNT:
-            	addSimpleElement (elem, FitsMetadataValues.WORD_COUNT, value);
+            case META_WORD_COUNT:
+            	if (!wordCountReported) {
+            		addSimpleElement (elem, FitsMetadataValues.WORD_COUNT, value);
+            		wordCountReported = true;
+            	}
             	break;
             	
             case CHARACTER_COUNT:
