@@ -30,6 +30,9 @@
 						<xsl:when test="$mime='application/ogg' and contains($format,'audio')">
 							<xsl:value-of select="string('audio/ogg')"/>
 						</xsl:when>		
+                        <xsl:when test="$mime='text/rtf'">
+                            <xsl:value-of select="string('application/rtf')"/>
+                        </xsl:when>
 						<!-- Open Office Formats -->
 						<xsl:when test="$format='OpenDocument Text'">
 								<xsl:value-of select="string('application/vnd.oasis.opendocument.text')"/>
@@ -219,6 +222,12 @@
 							</xsl:if>
 						</xsl:attribute>				
 					</xsl:when>	
+					<!-- RTF -->
+					<xsl:when test="contains($rawoutput,'Rich Text Format')">
+					    <xsl:attribute name="format">
+	                        <xsl:value-of select="string('Rich Text Format (RTF)')"/>
+					    </xsl:attribute>
+                    </xsl:when>
 					<!--  ASCII -->
 					<xsl:when test="$format='US-ASCII'">
 						<xsl:attribute name="format">
