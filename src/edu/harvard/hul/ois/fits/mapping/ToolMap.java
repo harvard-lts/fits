@@ -22,23 +22,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jdom.Attribute;
 import org.jdom.Element;
 
 public class ToolMap {
 	
 	private String toolName;
-	private String toolVersion;
 	private List<ElementMap> elements = new ArrayList<ElementMap>();
 	
 	public ToolMap(Element element) {
 		 toolName = element.getAttribute("name").getValue();
-		 toolVersion = null;
-		 //version is optional
-		 Attribute vAttr = element.getAttribute("version");
-		 if(vAttr != null) {
-			 toolVersion = vAttr.getValue();
-		 }
 
 		 List<Element> tool_children = element.getChildren("mime");
 		 for(Element mime : tool_children) {
@@ -55,15 +47,11 @@ public class ToolMap {
 	public String getToolName() {
 		return toolName;
 	}
+
 	public void setToolName(String toolName) {
 		this.toolName = toolName;
 	}
-	public String getToolVersion() {
-		return toolVersion;
-	}
-	public void setToolVersion(String toolVersion) {
-		this.toolVersion = toolVersion;
-	}
+
 	public List<ElementMap> getElements() {
 		return elements;
 	}
