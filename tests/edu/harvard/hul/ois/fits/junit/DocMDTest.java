@@ -307,25 +307,23 @@ public class DocMDTest extends XMLTestCase {
 	@Test
 	public void testEpubOutput() throws Exception {
     	Fits fits = new Fits();
-    	File input = new File("testfiles/GeographyofBliss_oneChapter.epub");
-    	
-    	
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-		docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
-    	fitsOut.saveToDisk("test-generated-output/GeographyofBliss_oneChapter_EPUB_Output.xml");
+
+    	// process multiple files to examine different types of output
+    	String[] inputFilenames = {"Winnie-the-Pooh-protected.epub",
+    			"GeographyofBliss_oneChapter.epub",
+    			"aliceDynamic_images_metadata_tableOfContents.epub",
+    			"epub30-test-font-embedding-obfuscation.epub"};
+
+    	for (String inputFilename : inputFilenames) {
+    		
+    		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
+    		File input = new File("testfiles/" + inputFilename);
+    		FitsOutput fitsOut = fits.examine(input);
+    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+    		fitsOut.addStandardCombinedFormat();
+    		serializer.output(fitsOut.getFitsXml(), System.out);
+    		fitsOut.saveToDisk(outputFilename);
+    	}
 	}
 	
 	@Test
