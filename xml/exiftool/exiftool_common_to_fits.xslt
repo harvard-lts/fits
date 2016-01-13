@@ -37,6 +37,9 @@
 				<xsl:when test="$mime='audio/flac'">
 					<xsl:value-of select="string('audio/x-flac')"/>
 				</xsl:when>
+                <xsl:when test="$mime='text/rtf'">
+                    <xsl:value-of select="string('application/rtf')"/>
+                </xsl:when>
 				<xsl:when test="$mime='application/photoshop'">
 					<xsl:value-of select="string('image/vnd.adobe.photoshop')"/>
 				</xsl:when>		
@@ -148,7 +151,7 @@
                     <xsl:value-of select="string('OpenDocument Text')"/>
                 </xsl:when>
                 <xsl:when test="$format='RTF'">
-                    <xsl:value-of select="string('Rich Text Format')"/>
+                    <xsl:value-of select="string('Rich Text Format (RTF)')"/>
                 </xsl:when>
                 <xsl:when test="$format='WP'">
                     <xsl:value-of select="string('Word Perfect')"/>

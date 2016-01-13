@@ -381,20 +381,10 @@ public class DocMDTest extends XMLTestCase {
     	
     	
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-		docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
     	fitsOut.saveToDisk("test-generated-output/TestDoc_RTF_Output.xml");
 	}
     
