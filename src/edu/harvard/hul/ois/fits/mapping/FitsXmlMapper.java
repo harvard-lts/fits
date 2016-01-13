@@ -104,11 +104,7 @@ public class FitsXmlMapper {
 	private ToolMap getElementMapsForTool(ToolInfo tInfo) {
 		for(ToolMap map : toolMaps) {
 			String tName = map.getToolName();
-			String tVersion = map.getToolVersion();
-			if(tName.equalsIgnoreCase(tInfo.getName()) && tVersion == null) {
-				return map;
-			}
-			else if(tVersion != null && tVersion.equalsIgnoreCase(tInfo.getVersion())) {
+			if(tName.equalsIgnoreCase(tInfo.getName())) {
 				return map;
 			}
 		}
