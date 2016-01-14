@@ -85,9 +85,6 @@
 					<xsl:when test="//ENCRYPTED='true'">
 						<xsl:value-of select="string('yes')"/>
 					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="string('no')"/>
-					</xsl:otherwise>
 				</xsl:choose>				
 			</isProtected>
 		</document>	
