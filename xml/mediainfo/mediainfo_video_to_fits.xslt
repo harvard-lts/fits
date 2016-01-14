@@ -264,7 +264,7 @@
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
                                 <xsl:when test="$codecLC='r10g'">
-			                        <xsl:text>TODO</xsl:text>                				        
+			                        <xsl:text>Lossless</xsl:text>                				        
 				                </xsl:when>					                
                                 <xsl:when test="$codecLC='dvc'">
 					                <xsl:text>Lossy</xsl:text>             				        
@@ -300,13 +300,13 @@
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
                                 <xsl:when test="$codecLC='apcn'">
-					                <xsl:text>TODO</xsl:text>             				        
+					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>				                
                                 <xsl:when test="$codecLC='avc1'">
 					                <xsl:text>Unknown</xsl:text>             				        
 				                </xsl:when>
                                 <xsl:when test="$codecLC='r10g'">
-			                        <xsl:text>TODO</xsl:text>                				        
+			                        <xsl:text>Unknown</xsl:text>                				        
 				                </xsl:when>					                
                                 <xsl:when test="$codecLC='dvc'">
 					                <xsl:text>Unknown</xsl:text>             				        
@@ -445,9 +445,12 @@
                                     <xsl:when test="$codecLC='apch'">
 					                    <xsl:text>interlaced</xsl:text>             				        
 				                    </xsl:when>
+				                    <!-- If no scan type returned, then the element is not present -->
+				                    <!--
                                     <xsl:when test="$codecLC='apcn'">
-					                    <xsl:text>TODO</xsl:text>             				        
-				                    </xsl:when>				                    
+					                    <xsl:text></xsl:text>             				        
+				                    </xsl:when>
+				                    -->			                    
 				                    <xsl:when test="$codecLC='r10g'">
 					                    <xsl:text>Progressive</xsl:text>             				        
 				                    </xsl:when>				                    
@@ -564,8 +567,7 @@
                     <channels>
                         <xsl:value-of select="./Channel_s_"/>
                     </channels>
-                    
-                    <!-- TODO -->
+
                     <!-- This is calculated in Java, based upon the soundField  -->
                     <channelInfo />
 
