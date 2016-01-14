@@ -8,3 +8,4 @@ application/epub+zip=EPUB
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=OpenDocument Text
 application/rtf=Rich Text Format (RTF)
 text/rtf=Rich Text Format (RTF)
+application/vnd.wordperfect=WordPerfect Document
