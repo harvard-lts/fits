@@ -229,15 +229,22 @@ public class EbuCoreModel {
     			break;
     		}
     	}
-    	
 
-    	// TODO: break this out to enum code
     	// Codec element
-   		Element dataElement = elem.getChild ("codecCC",ns);   		
-        if(dataElement != null) {
-        	String dataValue = dataElement.getText().trim();
+    	String codecIdentifierValue = null;
+   		Element dataElement = elem.getChild ("codecCC",ns); 
+   		if(dataElement != null) {
+   			codecIdentifierValue = dataElement.getText().trim();
+   		}
+   		//
+   		// TODO: 
+   		// Sometimes the codeId will not be returned by MediaInfo
+   		// If MXF file, we need to get the codec identifier value
+   		// from ???
+   		//
+        if(codecIdentifierValue != null) {   		
         	CodecIdentifier ci = new CodecIdentifier("codecIdentifier");
-        	ci.setIdentifier(dataValue);
+        	ci.setIdentifier(codecIdentifierValue);
         	
         	Codec codec = new Codec("codec");
            	codec.setCodecIdentifier(ci);
@@ -249,17 +256,17 @@ public class EbuCoreModel {
         	//}
         	Element codecElement = elem.getChild ("codecName",ns);
         	if(codecElement != null) {
-        		dataValue = codecElement.getText().trim();
+        		String dataValue = codecElement.getText().trim();
         		codec.setNameField(dataValue);
         	}        	
         	codecElement = elem.getChild ("codecVersion",ns);
         	if(codecElement != null) {
-        		dataValue = codecElement.getText().trim();
+        		String dataValue = codecElement.getText().trim();
         		codec.setVersion(dataValue);
         	}        	
         	codecElement = elem.getChild ("codecFamily",ns);
         	if(codecElement != null) {
-        		dataValue = codecElement.getText().trim();
+        		String dataValue = codecElement.getText().trim();
         		codec.setFamily(dataValue);
         	}
         	vfmt.setCodec(codec);  
