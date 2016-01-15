@@ -46,20 +46,46 @@
 			
 			<characterCount>
 				<xsl:value-of select="//CHARACTERS"/>
-			</characterCount>	
-							
-			<title>
-				<xsl:value-of select="//TITLE"/>
-			</title>
+			</characterCount>
+			
+			<xsl:if test="//TITLE and //TITLE!='null'">
+				<title>
+					<xsl:value-of select="//TITLE"/>
+				</title>
+			</xsl:if>
+            
+            <xsl:if test="//SUBJECT and //SUBJECT!='null'">
+	            <subject>
+	                <xsl:value-of select="//SUBJECT"/>
+	            </subject>
+            </xsl:if>
 			
 			<author>
 				<xsl:value-of select="//AUTHOR"/>
-			</author>			
+			</author>
 			
 			<language>
 				<xsl:value-of select="//LANG"/>
-			</language>		
-
+			</language>
+            
+            <xsl:if test="//HASPICTURES and //HASPICTURES='true'">
+	            <hasPictures>
+	                <xsl:value-of select="//HASPICTURES"/>
+	            </hasPictures>
+            </xsl:if>
+            
+            <xsl:if test="//ISENCRYPTED and //ISENCRYPTED='true'">
+	            <isEncrypted>
+	                <xsl:value-of select="string('yes')" />
+	            </isEncrypted>
+            </xsl:if>
+            
+            <xsl:if test="//KEYWORDS and //KEYWORDS!='null'">
+                <keywords>
+                    <xsl:value-of select="//KEYWORDS"/>
+                </keywords>
+            </xsl:if>
+            
 		</document>	
 		</metadata>
 	</fits>	

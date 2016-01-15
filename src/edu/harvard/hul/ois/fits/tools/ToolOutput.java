@@ -46,7 +46,7 @@ import edu.harvard.hul.ois.fits.identity.ToolIdentity;
  */
 public class ToolOutput {	
 	
-	private Logger logger = Logger.getLogger(this.getClass());
+	private static Logger logger = Logger.getLogger(ToolOutput.class);
 
     private static DocumentBuilderFactory docBuilderFactory;
     static 
@@ -66,7 +66,7 @@ public class ToolOutput {
 	private Document toolOutput = null;
 	//Reference to the tool the output was created with
 	private Tool tool;
-	//Identification data about the image
+	//Identification data about the input file
 	private List<ToolIdentity> identity = new ArrayList<ToolIdentity>();
 	
 	/** Constructor

@@ -8,7 +8,6 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
@@ -37,11 +36,14 @@ public class TikaTool extends ToolBase {
     private final static String P_APPLICATION_NAME = "Application-Name";
     private final static String P_AUTHOR = "Author";
     private final static String P_BITS = "bits";
+    private final static String P_CATEGORY = "Category";
     private final static String P_CHANNELS = "channels";
+    private final static String P_CHARACTER_COUNT = "Character Count";
     private final static String P_CHRM = "cHRM";
     private final static String P_CHROMA_BLACK_IS_ZERO = "Chroma BlackIsZero";
     private final static String P_CHROMA_COLOR_SPACE_TYPE = "Chroma ColorSpaceType";
     private final static String P_CHROMA_NUM_CHANNELS = "Chroma NumChannels";
+    private final static String P_COMPANY = "Company";
     private final static String P_COMPRESSION_COMPRESSION_TYPE_NAME = "Compression CompressionTypeName";
     private final static String P_COMPRESSION_LOSSLESS = "Compression Lossless";
     private final static String P_COMPRESSION_NUM_PROGRESSIVE_SCANS = "Compression NumProgressiveScans";
@@ -53,6 +55,7 @@ public class TikaTool extends ToolBase {
     private final static String P_CREATED = "created";
     private final static String P_CREATION_DATE = "Creation-Date";
     private final static String P_CREATOR = "creator";
+    private final static String P_RIGHTS = "rights";
     private final static String P_CREATOR_TOOL = "xmp:CreatorTool";
     private final static String P_DATA_BITS_PER_SAMPLE = "Data BitsPerSample";
     private final static String P_DATA_PLANAR_CONFIGURATION = "Data PlanarConfiguration";
@@ -95,6 +98,7 @@ public class TikaTool extends ToolBase {
     private final static String P_META_OBJECT_COUNT = "meta:object-count";
     private final static String P_META_PAGE_COUNT = "meta:page-count";
     private final static String P_META_TABLE_COUNT = "meta:table-count";
+    private final static String P_META_WORD_COUNT = "meta:word-count";
     private final static String P_MODIFIED = "modified";
     private final static String P_NBOBJECT = "nbObject";
     private final static String P_NBTAB = "nbTab";
@@ -141,11 +145,14 @@ public class TikaTool extends ToolBase {
         AUTHOR,
         BITS,
         //BITS_PER_SAMPLE,
+        CATEGORY,
         CHANNELS,
+        CHARACTER_COUNT,
         CHRM,
         CHROMA_BLACK_IS_ZERO,
         CHROMA_COLOR_SPACE_TYPE,
         CHROMA_NUM_CHANNELS,
+        COMPANY,
         COMPRESSION_NUM_PROGRESSIVE_SCANS,
         COMPRESSION_COMPRESSION_TYPE_NAME,
         COMPRESSION_LOSSLESS,
@@ -162,6 +169,7 @@ public class TikaTool extends ToolBase {
         DATA_PLANAR_CONFIGURATION,
         DATA_SAMPLE_FORMAT,
         DATE,
+        RIGHTS,
         DC_CONTRIBUTOR,
         DC_CREATED,
         DC_CREATOR,
@@ -199,6 +207,7 @@ public class TikaTool extends ToolBase {
         META_OBJECT_COUNT,
         META_PAGE_COUNT,
         META_TABLE_COUNT,
+        META_WORD_COUNT,
         MODIFIED,
         N_PAGES,
         NBOBJECT,
@@ -248,11 +257,14 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_APPLICATION_NAME, TikaProperty.APPLICATION_NAME);
         propertyNameMap.put (P_AUTHOR, TikaProperty.AUTHOR);
         propertyNameMap.put (P_BITS, TikaProperty.BITS);
+        propertyNameMap.put (P_CATEGORY, TikaProperty.CATEGORY);
         propertyNameMap.put (P_CHANNELS, TikaProperty.CHANNELS);
+        propertyNameMap.put(P_CHARACTER_COUNT, TikaProperty.CHARACTER_COUNT);
         propertyNameMap.put (P_CHRM, TikaProperty.CHRM);
         propertyNameMap.put (P_CHROMA_BLACK_IS_ZERO, TikaProperty.CHROMA_BLACK_IS_ZERO);
         propertyNameMap.put (P_CHROMA_COLOR_SPACE_TYPE, TikaProperty.CHROMA_COLOR_SPACE_TYPE);
         propertyNameMap.put (P_CHROMA_NUM_CHANNELS, TikaProperty.CHROMA_NUM_CHANNELS);
+        propertyNameMap.put (P_COMPANY, TikaProperty.COMPANY);
         propertyNameMap.put (P_COMPRESSION_NUM_PROGRESSIVE_SCANS, TikaProperty.COMPRESSION_NUM_PROGRESSIVE_SCANS);
         propertyNameMap.put (P_COMPRESSION_COMPRESSION_TYPE_NAME, TikaProperty.COMPRESSION_COMPRESSION_TYPE_NAME);
         propertyNameMap.put (P_COMPRESSION_LOSSLESS, TikaProperty.COMPRESSION_LOSSLESS);
@@ -269,6 +281,7 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_DATA_PLANAR_CONFIGURATION, TikaProperty.DATA_PLANAR_CONFIGURATION);
         propertyNameMap.put (P_DATA_SAMPLE_FORMAT, TikaProperty.DATA_SAMPLE_FORMAT);
         propertyNameMap.put (P_DATE, TikaProperty.DATE);
+        propertyNameMap.put(P_RIGHTS, TikaProperty.RIGHTS);
         propertyNameMap.put (P_DC_CONTRIBUTOR, TikaProperty.DC_CONTRIBUTOR);
         propertyNameMap.put (P_DC_CREATED, TikaProperty.DC_CREATED);
         propertyNameMap.put (P_DC_CREATOR, TikaProperty.DC_CREATOR);
@@ -305,6 +318,7 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_META_OBJECT_COUNT, TikaProperty.META_OBJECT_COUNT);
         propertyNameMap.put (P_META_PAGE_COUNT, TikaProperty.META_PAGE_COUNT);
         propertyNameMap.put (P_META_TABLE_COUNT, TikaProperty.META_TABLE_COUNT);
+        propertyNameMap.put (P_META_WORD_COUNT, TikaProperty.META_WORD_COUNT);
         propertyNameMap.put (P_META_SAVE_DATE, TikaProperty.META_SAVE_DATE);
         propertyNameMap.put (P_MODIFIED, TikaProperty.MODIFIED);
         propertyNameMap.put (P_NBOBJECT, TikaProperty.NBOBJECT);
@@ -759,6 +773,8 @@ public class TikaTool extends ToolBase {
         boolean titleReported = false;
         boolean authorReported = false;
         boolean pageCountReported = false;
+        boolean rightsReported = false;
+        boolean wordCountReported = false;
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {
@@ -785,6 +801,7 @@ public class TikaTool extends ToolBase {
                 break;
                 
             case SUBJECT:
+            	// TODO: don't include if mime type == 'application/pdf' ??? -- see output for Tika & Exiftool
                 addSimpleElement (elem, FitsMetadataValues.SUBJECT, value);
                 break;
             
@@ -797,6 +814,39 @@ public class TikaTool extends ToolBase {
                     pageCountReported = true;
                 }
                 break;
+                
+            case CATEGORY:
+                addSimpleElement (elem, FitsMetadataValues.CATEGORY, value);
+                break;
+                
+            case COMPANY:
+            	addSimpleElement (elem, FitsMetadataValues.COMPANY, value);
+            	break;
+            	
+            case WORD_COUNT:
+            case META_WORD_COUNT:
+            	if (!wordCountReported) {
+            		addSimpleElement (elem, FitsMetadataValues.WORD_COUNT, value);
+            		wordCountReported = true;
+            	}
+            	break;
+            	
+            case CHARACTER_COUNT:
+            	addSimpleElement (elem, FitsMetadataValues.CHARACTER_COUNT, value);
+            	break;
+            	
+            case LANGUAGE:
+            	addSimpleElement(elem, FitsMetadataValues.LANGUAGE, value);
+            	break;
+            	
+            case RIGHTS:
+            case DC_RIGHTS:
+            	if (!rightsReported) {
+            		value = "yes";
+            		addSimpleElement (elem, FitsMetadataValues.IS_RIGHTS_MANAGED, value);
+            		rightsReported = true;
+            	}
+            	break;
             }
         }
 

@@ -1,6 +1,6 @@
 <fitsXmlMap>
 
-	<tool name="jhove" version="1.5">
+	<tool name="jhove">
 		<mime type="all">
 			<element name="colorSpace">
 				<map from="Greyscale" to="Grayscale"/>
@@ -8,7 +8,7 @@
 		</mime>
 	</tool>
 
-	<tool name="exiftool" version="9.05">
+	<tool name="exiftool">
 		<mime type="all">
 			<element name="samplingFrequencyUnit">
 				<map from="None" to="no absolute unit of measurement"/>
@@ -109,7 +109,7 @@
 		</mime>
 	</tool>
 
-	<tool name="NLNZ Metadata Extractor" version="3.6GA">
+	<tool name="NLNZ Metadata Extractor">
 		<mime type="all">
 			<element name="flash">
 				<map from="No Flash" to="Flash did not fire"/>
@@ -137,7 +137,7 @@
 		</mime>
 	</tool>
 	
-	<tool name="mediainfo" version="0.7.75">
+	<tool name="mediainfo">
 		<mime type="all">
 			<element name="colorSpace">
 				<map from="Greyscale" to="Grayscale"/>
@@ -150,7 +150,7 @@
 
 	<!-- Mapping Example -->
 	<!-- 
-	<tool name="jhove" version="1.2">
+	<tool name="jhove">
 		<mime type="all">
 			<element name="identity">
 				<attribute name="format">

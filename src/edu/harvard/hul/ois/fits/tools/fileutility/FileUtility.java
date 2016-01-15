@@ -130,8 +130,8 @@ public class FileUtility extends ToolBase {
 		String charset = null;
 		List<String> linebreaks = new ArrayList<String>();
 
-		//if mime indicates plain text
-		if(execMimeOut.startsWith("text/") && execMimeOut.contains("charset=")) {
+		//if mime indicates plain text (except if RTF files)
+		if(execMimeOut.startsWith("text/") && execMimeOut.contains("charset=") && !execOut.contains("Rich Text Format")) {
 			//mime = "text/plain";
 			mime = execMimeOut.substring(0,execMimeOut.indexOf("; charset="));
 			charset = execMimeOut.substring(execMimeOut.indexOf("=")+1);
@@ -158,6 +158,10 @@ public class FileUtility extends ToolBase {
 					linebreaks.add(b);
 				}
 			}
+		}
+		else if (execOut.contains("Rich Text Format") && execMimeOut.contains("charset=")) {
+			format = "Rich Text Format (RTF)";
+			mime = execMimeOut.substring(0,execMimeOut.indexOf("; charset="));
 		}
 		else if(execMimeOut.contains("charset=")) {
 			format = execOut;
