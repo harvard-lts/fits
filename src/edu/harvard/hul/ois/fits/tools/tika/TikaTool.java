@@ -783,10 +783,7 @@ public class TikaTool extends ToolBase {
         boolean titleReported = false;
         boolean authorReported = false;
         boolean pageCountReported = false;
-<<<<<<< HEAD
         boolean rightsReported = false;
-=======
->>>>>>> 810db12... Modify FITS output to conform to desired output for RTF files.
         boolean wordCountReported = false;
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
