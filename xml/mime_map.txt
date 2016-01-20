@@ -11,3 +11,4 @@ audio/flac=audio/x-flac
 application/photoshop=image/vnd.adobe.photoshop
 application/fits, image/fits=application/fits
 com.adobe.photoshop-image, image/vnd.adobe.photoshop=image/vnd.adobe.photoshop
+application/rtf, text/rtf=application/rtf
