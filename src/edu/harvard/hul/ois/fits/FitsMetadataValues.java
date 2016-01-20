@@ -118,6 +118,7 @@ public class FitsMetadataValues {
     public final static String ROTATION = "rotation";        // image, video
     public final static String PAGE_COUNT = "pageCount";     // document
     public final static String IS_RIGHTS_MANAGED = "isRightsManaged";
+    public final static String IS_PROTECTED = "isProtected";
     public final static String PRIMARY_CHROMATICITIES_BLUE_X = "primaryChromaticitiesBlueX";
     public final static String PRIMARY_CHROMATICITIES_BLUE_Y = "primaryChromaticitiesBlueY";
     public final static String PRIMARY_CHROMATICITIES_GREEN_X = "primaryChromaticitiesGreenX";

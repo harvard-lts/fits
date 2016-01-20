@@ -145,7 +145,7 @@
 					<xsl:value-of select="string('Portable Document Format')"/>
 				</xsl:when>	
 				<xsl:when test="$format='DOC'">
-					<xsl:value-of select="string('Microsoft Word Document')"/>
+					<xsl:value-of select="string('Microsoft Word Binary File Format')"/>
 				</xsl:when>
                 <xsl:when test="$format='DOCX'">
                     <xsl:value-of select="string('OpenDocument Text')"/>

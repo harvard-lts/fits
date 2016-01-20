@@ -349,7 +349,7 @@
 					<!--  MS Word -->
 					<xsl:when test="$mime='application/msword'">
 						<xsl:attribute name="format">
-						  	<xsl:value-of select="string('Microsoft Word Document')"/>
+						  	<xsl:value-of select="string('Microsoft Word Binary File Format')"/>
 						</xsl:attribute>				
 					</xsl:when>	
 					<!-- Zip archive data, at least v2.0 to extract -->

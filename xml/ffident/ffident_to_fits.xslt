@@ -17,6 +17,9 @@
                             <xsl:when test="$format='Rich Text Format'">
                                 <xsl:value-of select="string('Rich Text Format (RTF)')"/>
                             </xsl:when>
+                            <xsl:when test="$format='Microsoft Word Document'">
+                                <xsl:value-of select="string('Microsoft Word Binary File Format')"/>
+                            </xsl:when>
                             <xsl:otherwise>
 								<xsl:value-of select="$format" />
                             </xsl:otherwise>
