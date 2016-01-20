@@ -93,6 +93,7 @@ public class Fits {
   private ToolOutputConsolidator consolidator;
   private static XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
   private ToolBelt toolbelt;
+  private boolean resetToolOutput = true; // should always be true except for unit tests
 
   private static boolean traverseDirs;
   
@@ -596,11 +597,25 @@ public class Fits {
       result.createStatistics( toolbelt, ext, t2 - t1 );
     }
 
-    for (Tool t : toolbelt.getTools()) {
-      t.resetOutput();
+    if (resetToolOutput) {
+    	for (Tool t : toolbelt.getTools()) {
+    		t.resetOutput();
+    	}
     }
 
     return result;
+  }
+  
+  /**
+   * Default is that the output of each tool is reset after gathering the results
+   * in the examine() method. This method should only be used for testing purposes.
+   * 
+   * @param resetToolOutput <code>false</code> will change default functionality of
+   * 		resetting each tool's output after running examine().
+   * @see edu.harvard.hul.ois.fits.tools.Tool#resetOutput()
+   */
+  protected void resetToolOutputAfterExaminingInput(boolean resetToolOutput) {
+	  this.resetToolOutput = resetToolOutput;
   }
 
   public ToolBelt getToolbelt() {

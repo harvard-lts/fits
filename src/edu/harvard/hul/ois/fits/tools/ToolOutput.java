@@ -46,7 +46,7 @@ import edu.harvard.hul.ois.fits.identity.ToolIdentity;
  */
 public class ToolOutput {	
 	
-	private Logger logger = Logger.getLogger(this.getClass());
+	private static Logger logger = Logger.getLogger(ToolOutput.class);
 
     private static DocumentBuilderFactory docBuilderFactory;
     static 
