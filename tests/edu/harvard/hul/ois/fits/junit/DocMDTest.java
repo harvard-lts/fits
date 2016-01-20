@@ -353,25 +353,35 @@ public class DocMDTest extends XMLTestCase {
 	@Test
 	public void testWPDOutput() throws Exception {
     	Fits fits = new Fits();
-    	File input = new File("testfiles/WordPerfect6-7.wpd");
     	
-    	
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-		docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
-    	fitsOut.saveToDisk("test-generated-output/WordPerfect6-7_Output.xml");
+    	// process multiple files to examine different types of output
+    	String[] inputFilenames = {"WordPerfect6-7.wpd",
+    			"WordPerfect4_2.wp",
+    			"WordPerfect5_0.wp",
+    			"WordPerfect5_2.wp",
+    			"WordPerfectCompoundFile.wpd"};
+
+    	for (String inputFilename : inputFilenames) {
+    		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
+    		File input = new File("testfiles/" + inputFilename);
+    		FitsOutput fitsOut = fits.examine(input);
+    		
+    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+    		serializer.output(fitsOut.getFitsXml(), System.out);
+    		
+    		fitsOut.addStandardCombinedFormat();
+    		fitsOut.saveToDisk(outputFilename);
+
+    		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+    		
+    		if(docmd != null) {
+    			docmd.setRoot(true);
+    			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+    			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+    			
+    			docmd.output(writer);
+    		}
+    	}
 	}
 	
 	@Test

@@ -8,7 +8,7 @@
 		<identification>
 			<identity>
 				<xsl:attribute name="format">
-					<xsl:value-of select="string('Work Perfect')" />
+					<xsl:value-of select="string('WordPerfect Document')" />
 				</xsl:attribute>
 				<xsl:attribute name="mimetype">
 					<xsl:value-of select="//METADATA/TYPE" />
@@ -43,9 +43,6 @@
 					<xsl:when test="//ENCRYPTED='true'">
 						<xsl:value-of select="string('yes')"/>
 					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="string('no')"/>
-					</xsl:otherwise>
 				</xsl:choose>				
 			</isProtected>
 
