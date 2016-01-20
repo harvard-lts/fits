@@ -73,9 +73,9 @@ public class DocMDTest extends XMLTestCase {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -93,23 +93,12 @@ public class DocMDTest extends XMLTestCase {
     	Fits fits = new Fits();
     	File input = new File("testfiles/Word2003_many_graphics.doc");
     	
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
 		fitsOut.addStandardCombinedFormat();
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-		docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
-    	fitsOut.saveToDisk("test-generated-output//Word2003_many_graphics-DOC_Output.xml");
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		fitsOut.saveToDisk("test-generated-output//Word2003_many_graphics-DOC_Output.xml");
 	}
     
 	@Test
@@ -121,9 +110,9 @@ public class DocMDTest extends XMLTestCase {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -141,13 +130,26 @@ public class DocMDTest extends XMLTestCase {
     	Fits fits = new Fits();
     	File input = new File("testfiles/Word2011_Has_Outline.doc");
     	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();		
+		serializer.output(fitsOut.getFitsXml(), System.out);
+    	fitsOut.saveToDisk("test-generated-output//Word2011_Has_Outline-DOC_Output.xml");
+	}
+    
+	@Test
+	public void testWordDocLibreOffice() throws Exception {	
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/LibreOffice.doc");
+    	
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -157,7 +159,7 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output//Word2011_Has_Outline-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output//LibreOffice-DOC_Output.xml");
 	}
     
 	@Test
@@ -169,9 +171,9 @@ public class DocMDTest extends XMLTestCase {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -193,19 +195,18 @@ public class DocMDTest extends XMLTestCase {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
 		docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output//Word_protected_encrypted-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/Word_protected_encrypted-DOC_Output.xml");
 	}
     
 	@Test
@@ -217,9 +218,9 @@ public class DocMDTest extends XMLTestCase {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -241,9 +242,9 @@ public class DocMDTest extends XMLTestCase {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -265,9 +266,9 @@ public class DocMDTest extends XMLTestCase {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -289,9 +290,9 @@ public class DocMDTest extends XMLTestCase {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -335,9 +336,9 @@ public class DocMDTest extends XMLTestCase {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -355,11 +356,11 @@ public class DocMDTest extends XMLTestCase {
     	Fits fits = new Fits();
     	
     	// process multiple files to examine different types of output
-    	String[] inputFilenames = {"WordPerfect6-7.wpd",
+    	String[] inputFilenames = { "WordPerfect6-7.wpd",
     			"WordPerfect4_2.wp",
     			"WordPerfect5_0.wp",
-    			"WordPerfect5_2.wp",
-    			"WordPerfectCompoundFile.wpd"};
+    			"WordPerfect5_2.wp" };
+//    			"WordPerfectCompoundFile.wpd"};  // (not identified as a WordPerfect document)
 
     	for (String inputFilename : inputFilenames) {
     		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
@@ -367,9 +368,9 @@ public class DocMDTest extends XMLTestCase {
     		FitsOutput fitsOut = fits.examine(input);
     		
     		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+    		fitsOut.addStandardCombinedFormat();
     		serializer.output(fitsOut.getFitsXml(), System.out);
     		
-    		fitsOut.addStandardCombinedFormat();
     		fitsOut.saveToDisk(outputFilename);
 
     		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();

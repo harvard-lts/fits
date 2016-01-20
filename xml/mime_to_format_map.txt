@@ -9,3 +9,4 @@ application/vnd.openxmlformats-officedocument.wordprocessingml.document=OpenDocu
 application/rtf=Rich Text Format (RTF)
 text/rtf=Rich Text Format (RTF)
 application/vnd.wordperfect=WordPerfect Document
+application/msword=Microsoft Word Binary File Format
