@@ -457,11 +457,17 @@
 							<xsl:value-of select="string('AAC')"/>
 						</xsl:attribute>
 					</xsl:when>	
-	  			<xsl:when test="ends-with($format,'ICC Profile')">
-						<xsl:attribute name="format">	
-							<xsl:value-of select="string('ICC')"/>
-						</xsl:attribute>
-	  			</xsl:when>		
+		  			<xsl:when test="ends-with($format,'ICC Profile')">
+							<xsl:attribute name="format">	
+								<xsl:value-of select="string('ICC')"/>
+							</xsl:attribute>
+		  			</xsl:when>
+		  			<!-- WORD PERFECT -->
+                    <xsl:when test="$format='(Corel/WP)'">
+                        <xsl:attribute name="format">
+                            <xsl:value-of select="string('WordPerfect Document')"/>
+                        </xsl:attribute>
+                    </xsl:when>     
 					<xsl:otherwise>
 						<xsl:attribute name="format">
 							<xsl:value-of select="$format"/>
