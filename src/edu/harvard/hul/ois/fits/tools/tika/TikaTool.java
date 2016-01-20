@@ -8,6 +8,7 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
@@ -27,6 +28,7 @@ import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
+import opennlp.tools.util.StringUtil;
 
 
 public class TikaTool extends ToolBase {
@@ -55,7 +57,6 @@ public class TikaTool extends ToolBase {
     private final static String P_CREATED = "created";
     private final static String P_CREATION_DATE = "Creation-Date";
     private final static String P_CREATOR = "creator";
-    private final static String P_RIGHTS = "rights";
     private final static String P_CREATOR_TOOL = "xmp:CreatorTool";
     private final static String P_DATA_BITS_PER_SAMPLE = "Data BitsPerSample";
     private final static String P_DATA_PLANAR_CONFIGURATION = "Data PlanarConfiguration";
@@ -109,7 +110,9 @@ public class TikaTool extends ToolBase {
     private final static String P_PUBLISHER = "publisher";
     private final static String P_RESOLUTION_UNIT = "Resolution Unit";
     private final static String P_RESOURCE_NAME = "resourceName";
+    private final static String P_RIGHTS = "rights";
     private final static String P_SAMPLE_RATE = "samplerate";
+    private final static String P_SECURITY = "Security";
     private final static String P_SUBJECT = "subject";
     private final static String P_TABLE_COUNT = "Table-Count";
     private final static String P_TIFF_BITS_PER_SAMPLE = "tiff:BitsPerSample";
@@ -169,7 +172,6 @@ public class TikaTool extends ToolBase {
         DATA_PLANAR_CONFIGURATION,
         DATA_SAMPLE_FORMAT,
         DATE,
-        RIGHTS,
         DC_CONTRIBUTOR,
         DC_CREATED,
         DC_CREATOR,
@@ -219,7 +221,9 @@ public class TikaTool extends ToolBase {
         PUBLISHER,
         RESOLUTION_UNIT,
         RESOURCE_NAME,
+        RIGHTS,
         SAMPLE_RATE,
+        SECURITY,
         SUBJECT,
         TABLE_COUNT,
         TIFF_BITS_PER_SAMPLE,
@@ -281,7 +285,6 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_DATA_PLANAR_CONFIGURATION, TikaProperty.DATA_PLANAR_CONFIGURATION);
         propertyNameMap.put (P_DATA_SAMPLE_FORMAT, TikaProperty.DATA_SAMPLE_FORMAT);
         propertyNameMap.put (P_DATE, TikaProperty.DATE);
-        propertyNameMap.put(P_RIGHTS, TikaProperty.RIGHTS);
         propertyNameMap.put (P_DC_CONTRIBUTOR, TikaProperty.DC_CONTRIBUTOR);
         propertyNameMap.put (P_DC_CREATED, TikaProperty.DC_CREATED);
         propertyNameMap.put (P_DC_CREATOR, TikaProperty.DC_CREATOR);
@@ -330,7 +333,9 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_PUBLISHER, TikaProperty.PUBLISHER);
         propertyNameMap.put (P_RESOLUTION_UNIT, TikaProperty.RESOLUTION_UNIT);
         propertyNameMap.put (P_RESOURCE_NAME, TikaProperty.RESOURCE_NAME);
+        propertyNameMap.put (P_RIGHTS, TikaProperty.RIGHTS);
         propertyNameMap.put (P_SAMPLE_RATE, TikaProperty.SAMPLE_RATE);
+        propertyNameMap.put (P_SECURITY, TikaProperty.SECURITY);
         propertyNameMap.put (P_SUBJECT, TikaProperty.SUBJECT);
         propertyNameMap.put (P_TABLE_COUNT, TikaProperty.TABLE_COUNT);
         propertyNameMap.put (P_TIFF_BITS_PER_SAMPLE, TikaProperty.TIFF_BITS_PER_SAMPLE);
@@ -492,7 +497,9 @@ public class TikaTool extends ToolBase {
         String contentLength = metadata.get (P_CONTENT_LENGTH);
         String producer = metadata.get (P_PRODUCER);
         String creator = metadata.get (P_CREATOR_TOOL);
+        String applicationName = metadata.get(P_APPLICATION_NAME);
         
+        // look for creating application
         String appName = "";
         if(producer != null && creator != null) {
         	appName = producer + "/" + creator;
@@ -502,6 +509,9 @@ public class TikaTool extends ToolBase {
         }
         else if(creator != null) {
         	appName = creator;
+        }
+        if (applicationName != null) {
+        	appName = applicationName;
         }
         
 
@@ -848,6 +858,12 @@ public class TikaTool extends ToolBase {
             		value = "yes";
             		addSimpleElement (elem, FitsMetadataValues.IS_RIGHTS_MANAGED, value);
             		rightsReported = true;
+            	}
+            	break;
+            case SECURITY:
+            	if (!StringUtils.isEmpty(value)) {
+            		value = "yes";
+            		addSimpleElement(elem, FitsMetadataValues.IS_PROTECTED, value);
             	}
             	break;
             }
