@@ -8,7 +8,7 @@
 		<identification>
 			<identity>
 				<xsl:attribute name="format">
-					<xsl:value-of select="string('Microsoft Word Document')" />
+					<xsl:value-of select="string('Microsoft Word Binary File Format')" />
 				</xsl:attribute>
 				<xsl:attribute name="mimetype">
 					<xsl:if test="//METADATA/TYPE='application/ms-word'">
@@ -23,13 +23,11 @@
 				<xsl:value-of select="//CREATED"/>
 			</created>
 
-			<creatingApplicationName>
-				<xsl:value-of select="//APPLICATION"/>
-			</creatingApplicationName>
-			
-			<creatingApplicationVersion>
-				<xsl:value-of select="//PRODUCTVERSION"/>
-			</creatingApplicationVersion>
+            <xsl:if test="//APPLICATION!='null'">
+				<creatingApplicationName>
+					<xsl:value-of select="//APPLICATION"/>
+				</creatingApplicationName>
+            </xsl:if>
 			
 		</fileinfo>
 		
@@ -70,7 +68,7 @@
             
             <xsl:if test="//HASPICTURES and //HASPICTURES='true'">
 	            <hasPictures>
-	                <xsl:value-of select="//HASPICTURES"/>
+	                <xsl:value-of select="string('yes')"/>
 	            </hasPictures>
             </xsl:if>
             
@@ -78,12 +76,6 @@
 	            <isEncrypted>
 	                <xsl:value-of select="string('yes')" />
 	            </isEncrypted>
-            </xsl:if>
-            
-            <xsl:if test="//KEYWORDS and //KEYWORDS!='null'">
-                <keywords>
-                    <xsl:value-of select="//KEYWORDS"/>
-                </keywords>
             </xsl:if>
             
 		</document>	
