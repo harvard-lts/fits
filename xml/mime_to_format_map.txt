@@ -4,13 +4,8 @@
 image/jpx=JPEG 2000 JPX
 image/jp2=JPEG 2000 JP2
 application/zip=ZIP Format
-<<<<<<< HEAD
 application/epub+zip=EPUB
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=OpenDocument Text
 application/rtf=Rich Text Format (RTF)
 text/rtf=Rich Text Format (RTF)
-=======
-application/vnd.openxmlformats-officedocument.wordprocessingml.document=OpenDocument Text
-application/epub+zip=ePub format
-application/rtf=Rich Text Format (RTF)
->>>>>>> 810db12... Modify FITS output to conform to desired output for RTF files.
+application/vnd.wordperfect=WordPerfect Document

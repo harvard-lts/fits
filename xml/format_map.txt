@@ -26,4 +26,7 @@ Digital Negative Format (DNG)=Digital Negative (DNG)
 Rich Text Format=Rich Text Format (RTF)
 ePub format=EPUB
 Electronic Publication=EPUB
+WordPerfect for MS-DOS/Windows Document=WordPerfect Document
+WordPerfect for MS-DOS Document=WordPerfect Document
+WordPerfect for Windows Document=WordPerfect Document
 Material Exchange Format=Material Exchange Format (MXF)
