@@ -29,7 +29,6 @@ import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
 
-
 public class TikaTool extends ToolBase {
 
     /** Constants for all Tika property names, so that they're all gathered in
