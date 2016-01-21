@@ -147,9 +147,6 @@
                 <xsl:when test="$format='DOCX'">
                     <xsl:value-of select="string('OpenDocument Text')"/>
                 </xsl:when>
-                <xsl:when test="$format='EPUB'">
-                    <xsl:value-of select="string('ePub format')"/>
-                </xsl:when>
                 <xsl:when test="$format='RTF'">
                     <xsl:value-of select="string('Rich Text Format')"/>
                 </xsl:when>

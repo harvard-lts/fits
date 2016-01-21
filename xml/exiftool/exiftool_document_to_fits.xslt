@@ -37,7 +37,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			</title>	
 
 			<author>
-				<xsl:value-of select="exiftool/Author"/>
+				<xsl:value-of select="exiftool/Creator"/>
 			</author>
 			
 			<lineCount>
@@ -53,9 +53,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					<xsl:when test="exiftool/Rights or exiftool/xmpRights">
 						<xsl:value-of select="string('yes')"/>
 					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="string('no')"/>
-					</xsl:otherwise>
 				</xsl:choose>
 			</isRightsManaged>
 
