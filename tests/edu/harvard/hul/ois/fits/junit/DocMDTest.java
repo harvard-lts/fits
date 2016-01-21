@@ -52,7 +52,6 @@ public class DocMDTest extends XMLTestCase {
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
 		fitsOut.addStandardCombinedFormat();
-<<<<<<< HEAD
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -77,8 +76,6 @@ public class DocMDTest extends XMLTestCase {
 		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-=======
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -88,7 +85,6 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-<<<<<<< HEAD
     	fitsOut.saveToDisk("test-generated-output//Word2003_has_URLs_has_embedded_resources-DOC_Output.xml");
 	}
     
@@ -96,63 +92,13 @@ public class DocMDTest extends XMLTestCase {
 	public void testWordDocGraphics() throws Exception {	
     	Fits fits = new Fits();
     	File input = new File("testfiles/Word2003_many_graphics.doc");
-=======
-    	fitsOut.saveToDisk("test-generated-output//test-ODS_Output.xml");
-	}
-    
-	@Test
-	public void testWordDocUrlEmbeddedResources() throws Exception {	
-    	Fits fits = new Fits();
-    	File input = new File("testfiles/Word2003_has_URLs_has_embedded_resources.doc");
-    	
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-<<<<<<< HEAD
 		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		fitsOut.saveToDisk("test-generated-output//Word2003_many_graphics-DOC_Output.xml");
-=======
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-		docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
-    	fitsOut.saveToDisk("test-generated-output//Word2003_has_URLs_has_embedded_resources-DOC_Output.xml");
-	}
-    
-	@Test
-	public void testWordDocGraphics() throws Exception {	
-    	Fits fits = new Fits();
-    	File input = new File("testfiles/Word2003_many_graphics.doc");
-    	
-    	
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-		docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
-    	fitsOut.saveToDisk("test-generated-output//Word2003_many_graphics-DOC_Output.xml");
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
 	}
     
 	@Test
@@ -167,7 +113,6 @@ public class DocMDTest extends XMLTestCase {
 		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -185,7 +130,6 @@ public class DocMDTest extends XMLTestCase {
     	Fits fits = new Fits();
     	File input = new File("testfiles/Word2011_Has_Outline.doc");
     	
-<<<<<<< HEAD
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -230,15 +174,6 @@ public class DocMDTest extends XMLTestCase {
 		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-=======
-    	
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -248,7 +183,6 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-<<<<<<< HEAD
     	fitsOut.saveToDisk("test-generated-output//Word2003_has_table_of_contents-DOC_Output.xml");
 	}
     
@@ -273,9 +207,6 @@ public class DocMDTest extends XMLTestCase {
 			docmd.output(writer);
 		}
     	fitsOut.saveToDisk("test-generated-output/Word_protected_encrypted-DOC_Output.xml");
-=======
-    	fitsOut.saveToDisk("test-generated-output//Word2011_Has_Outline-DOC_Output.xml");
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
 	}
     
 	@Test
@@ -290,7 +221,6 @@ public class DocMDTest extends XMLTestCase {
 		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -358,18 +288,11 @@ public class DocMDTest extends XMLTestCase {
     	
     	
     	FitsOutput fitsOut = fits.examine(input);
-<<<<<<< HEAD
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-=======
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -379,56 +302,6 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output/Word_has_index_DOCX_Output.xml");
-	}
-	
-	@Test
-	public void testEpubOutput() throws Exception {
-    	Fits fits = new Fits();
-    	File input = new File("testfiles/GeographyofBliss_oneChapter.epub");
-    	
-    	
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-		docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
-    	fitsOut.saveToDisk("test-generated-output/GeographyofBliss_oneChapter_EPUB_Output.xml");
-	}
-	
-	@Test
-	public void testWPOutput() throws Exception {
-    	Fits fits = new Fits();
-    	File input = new File("testfiles/WordPerfect5_2.wp");
-    	
-    	
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-		docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
-<<<<<<< HEAD
     	fitsOut.saveToDisk("test-generated-output/Word_has_index_DOCX_Output.xml");
 	}
 	
@@ -458,29 +331,14 @@ public class DocMDTest extends XMLTestCase {
 	public void testWPOutput() throws Exception {
     	Fits fits = new Fits();
     	File input = new File("testfiles/WordPerfect5_2.wp");
-=======
-    	fitsOut.saveToDisk("test-generated-output/WordPerfect5_2_Output.xml");
-	}
-	
-	@Test
-	public void testWPDOutput() throws Exception {
-    	Fits fits = new Fits();
-    	File input = new File("testfiles/WordPerfect6-7.wpd");
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
     	
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-<<<<<<< HEAD
 		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-=======
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
@@ -490,7 +348,6 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-<<<<<<< HEAD
     	fitsOut.saveToDisk("test-generated-output/WordPerfect5_2_Output.xml");
 	}
 	
@@ -526,9 +383,6 @@ public class DocMDTest extends XMLTestCase {
     			docmd.output(writer);
     		}
     	}
-=======
-    	fitsOut.saveToDisk("test-generated-output/WordPerfect6-7_Output.xml");
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
 	}
 	
 	@Test
@@ -538,7 +392,6 @@ public class DocMDTest extends XMLTestCase {
     	
     	
     	FitsOutput fitsOut = fits.examine(input);
-<<<<<<< HEAD
     	fitsOut.addStandardCombinedFormat();
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -559,23 +412,6 @@ public class DocMDTest extends XMLTestCase {
 		
 		// write to file
 		fitsOut.saveToDisk("test-generated-output/PDF_embedded_resources_Output.xml");
-=======
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-		docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
-    	fitsOut.saveToDisk("test-generated-output/TestDoc_RTF_Output.xml");
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
 	}
     
 	@Test

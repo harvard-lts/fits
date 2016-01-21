@@ -66,7 +66,6 @@
 				<xsl:value-of select="//LANG"/>
 			</language>
             
-<<<<<<< HEAD
             <xsl:if test="//HASPICTURES and //HASPICTURES='true'">
 	            <hasPictures>
 	                <xsl:value-of select="string('yes')"/>
@@ -78,13 +77,7 @@
 	                <xsl:value-of select="string('yes')" />
 	            </isEncrypted>
             </xsl:if>
-            
-=======
-            <hasPictures>
-                <xsl:value-of select="//HASPICTURES"/>
-            </hasPictures>
 
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
 		</document>	
 		</metadata>
 	</fits>	

@@ -41,21 +41,12 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			</author>
 			
 			<lineCount>
-<<<<<<< HEAD
 				<xsl:value-of select="exiftool/Lines"/>
 			</lineCount>
 			
 			<paragraphCount>
 				<xsl:value-of select="exiftool/Paragraphs"/>
 			</paragraphCount>
-=======
-			    <xsl:value-of select="exiftool/Lines"/>
-			</lineCount>
-            
-            <paragraphCount>
-                <xsl:value-of select="exiftool/Paragraphs"/>
-            </paragraphCount>
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
 			
 			<isRightsManaged>
 				<xsl:choose>
@@ -65,7 +56,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</xsl:choose>
 			</isRightsManaged>
 
-<<<<<<< HEAD
 			<xsl:if test="exiftool/Encryption">
 				<isEncrypted>
 	    			<xsl:value-of select="string('yes')"/>
@@ -74,26 +64,11 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			
 			<xsl:variable name="security" select="exiftool/Security"/>
 			<isProtected>
-=======
-			<isEncrypted>
->>>>>>> f338aec... First iteration at adding metadata and standard output for .doc files.
 				<xsl:choose>
 					<xsl:when test="$security='Password protected'">
 						<xsl:value-of select="string('yes')"/>
 					</xsl:when>
 				</xsl:choose>
-			</isEncrypted>
-			
-			<xsl:variable name="security" select="exiftool/Security"/>
-			<isProtected>
-                <xsl:choose>
-	                <xsl:when test="$security='Password protected'">
-	                    <xsl:value-of select="string('yes')"/>
-	                </xsl:when>
-	                <xsl:otherwise>
-	                    <xsl:value-of select="string('no')"/>
-	                </xsl:otherwise>
-                </xsl:choose>
 			</isProtected>
             
             <subject>
