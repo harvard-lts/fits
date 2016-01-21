@@ -28,7 +28,6 @@ import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
-import opennlp.tools.util.StringUtil;
 
 
 public class TikaTool extends ToolBase {
