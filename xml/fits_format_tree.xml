@@ -57,6 +57,11 @@
 		<branch format="OpenDocument Formula"/>
 		<branch format="OpenDocument Formula Template"/>
 		<branch format="OpenDocument Master Document"/>
-		<branch format="OpenDocument HTML Document Template"/>	
+		<branch format="OpenDocument HTML Document Template"/>
+		<branch format="EPUB"/>
+	</branch>
+	
+	<branch format="OLE2 Compound Document Format">
+	   <branch format="Microsoft Word Binary File Format" />
 	</branch>
 </format-tree>
