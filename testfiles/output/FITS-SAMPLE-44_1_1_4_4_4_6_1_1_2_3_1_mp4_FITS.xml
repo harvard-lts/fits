@@ -47,6 +47,7 @@
         <scanningOrder>TFF</scanningOrder>
         <chromaSubsampling>4:2:0</chromaSubsampling>
         <colorspace>YUV</colorspace>
+        <broadcastStandard>NTSC</broadcastStandard>
       </track>
       <track type="audio" id="2" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
         <audioDataEncoding>AAC</audioDataEncoding>

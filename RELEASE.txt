@@ -1,5 +1,14 @@
 RELEASE NOTES
 
+Version 0.10.0
+----------------------
+
+- Added the latest OTS jar file with Codec changes and additional Video MIME type inclusion
+- Removed a conflict for DROID with some XML files.
+- Removed some TODO and TBD defaults in Video byteOrder and compression.
+- Removed default of scanType for 'apcn'.
+- Added MediaInfo video "standard" for FITS and Ebucore broadcastStandard.
+
 Version 0.9.0
 ----------------------
 

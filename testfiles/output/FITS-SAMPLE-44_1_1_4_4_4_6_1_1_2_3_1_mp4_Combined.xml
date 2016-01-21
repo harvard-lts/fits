@@ -47,6 +47,7 @@
         <scanningOrder>TFF</scanningOrder>
         <chromaSubsampling>4:2:0</chromaSubsampling>
         <colorspace>YUV</colorspace>
+        <broadcastStandard>NTSC</broadcastStandard>
       </track>
       <track type="audio" id="2" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
         <audioDataEncoding>AAC</audioDataEncoding>
@@ -91,6 +92,7 @@
                 <ebucore:technicalAttributeString typeLabel="frameRateMode">constant</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="byteOrder">unknown</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="compression">unknown</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="broadcastStandard">NTSC</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeInteger typeLabel="frameCount">124</ebucore:technicalAttributeInteger>
                 <ebucore:technicalAttributeInteger typeLabel="bitDepth">8</ebucore:technicalAttributeInteger>
                 <ebucore:technicalAttributeInteger typeLabel="duration">4137</ebucore:technicalAttributeInteger>

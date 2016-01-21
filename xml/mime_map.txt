@@ -4,6 +4,7 @@
 image/x-ms-bmp=image/bmp
 application/rdf+xml=text/xml
 application/xml=text/xml
+application/xml, text/xml=text/xml
 audio/x-wav=audio/x-wave
 audio/aiff=audio/x-aiff
 audio/x-ogg=audio/ogg

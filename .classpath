@@ -107,7 +107,7 @@
 	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang-2.6.jar"/>
-    <classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl-2.9.1.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.12.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.12.jar"/>
@@ -118,12 +118,12 @@
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/jID3LibMp3_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/mpeg4_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/warc_adapter_1_0.jar"/>
-    <classpathentry kind="lib" path="lib/nzmetool/adapters/msword_adapter_2_0.jar"/>
-    <classpathentry kind="lib" path="lib/nzmetool/aspose-words-15.7.0.jar"/>
-    <classpathentry kind="lib" path="lib/nzmetool/bcmail-jdk16-1.46.jar"/>
-    <classpathentry kind="lib" path="lib/nzmetool/bcprov-jdk16-1.46.jar"/>
-    <classpathentry kind="lib" path="lib/nzmetool/poi-3.12.jar"/>
-    <classpathentry kind="lib" path="lib/nzmetool/poi-ooxml-3.12.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/adapters/msword_adapter_2_0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/aspose-words-15.7.0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/bcmail-jdk16-1.46.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/bcprov-jdk16-1.46.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/poi-3.12.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/poi-ooxml-3.12.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/commons-httpclient-3.1.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/fastutil-5.0.3-heritrix-subset-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/heritrix-1.14.1.jar"/>
@@ -186,6 +186,6 @@
 	<classpathentry kind="lib" path="lib/droid/stax-api-1.0-2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/droid/xml-apis-1.3.04.jar"/>
-	<classpathentry kind="lib" path="lib/ots_1.0.19.jar"/>
+	<classpathentry kind="lib" path="lib/ots_1.0.23.jar"/>
 	<classpathentry kind="output" path="build_local"/>
 </classpath>
