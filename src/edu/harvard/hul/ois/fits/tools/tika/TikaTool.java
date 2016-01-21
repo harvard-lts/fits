@@ -55,6 +55,7 @@ public class TikaTool extends ToolBase {
     private final static String P_CREATED = "created";
     private final static String P_CREATION_DATE = "Creation-Date";
     private final static String P_CREATOR = "creator";
+    private final static String P_RIGHTS = "rights";
     private final static String P_CREATOR_TOOL = "xmp:CreatorTool";
     private final static String P_DATA_BITS_PER_SAMPLE = "Data BitsPerSample";
     private final static String P_DATA_PLANAR_CONFIGURATION = "Data PlanarConfiguration";
@@ -167,6 +168,7 @@ public class TikaTool extends ToolBase {
         DATA_PLANAR_CONFIGURATION,
         DATA_SAMPLE_FORMAT,
         DATE,
+        RIGHTS,
         DC_CONTRIBUTOR,
         DC_CREATED,
         DC_CREATOR,
@@ -277,6 +279,7 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_DATA_PLANAR_CONFIGURATION, TikaProperty.DATA_PLANAR_CONFIGURATION);
         propertyNameMap.put (P_DATA_SAMPLE_FORMAT, TikaProperty.DATA_SAMPLE_FORMAT);
         propertyNameMap.put (P_DATE, TikaProperty.DATE);
+        propertyNameMap.put(P_RIGHTS, TikaProperty.RIGHTS);
         propertyNameMap.put (P_DC_CONTRIBUTOR, TikaProperty.DC_CONTRIBUTOR);
         propertyNameMap.put (P_DC_CREATED, TikaProperty.DC_CREATED);
         propertyNameMap.put (P_DC_CREATOR, TikaProperty.DC_CREATOR);
@@ -767,6 +770,7 @@ public class TikaTool extends ToolBase {
         boolean titleReported = false;
         boolean authorReported = false;
         boolean pageCountReported = false;
+        boolean rightsReported = false;
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {
@@ -824,6 +828,15 @@ public class TikaTool extends ToolBase {
             	
             case LANGUAGE:
             	addSimpleElement(elem, FitsMetadataValues.LANGUAGE, value);
+            	break;
+            	
+            case RIGHTS:
+            case DC_RIGHTS:
+            	if (!rightsReported) {
+            		value = "yes";
+            		addSimpleElement (elem, FitsMetadataValues.IS_RIGHTS_MANAGED, value);
+            		rightsReported = true;
+            	}
             	break;
             }
         }
