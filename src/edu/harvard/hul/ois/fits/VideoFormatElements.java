@@ -35,6 +35,7 @@ public enum VideoFormatElements {
 	delay ("delay"),
 	compression ("compression"),
 	streamSize ("streamSize"),
+	broadcastStandard ("broadcastStandard"),
 	frameCount ("frameCount"),
 	bitDepth ("bitDepth"),
 	duration ("duration");

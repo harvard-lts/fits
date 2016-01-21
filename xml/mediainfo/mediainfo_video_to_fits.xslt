@@ -488,7 +488,10 @@
        			    </chromaSubsampling>
        			    <colorspace>
        			        <xsl:value-of select="./Color_space"/>
-       			    </colorspace>       			      			                              	                  	    
+       			    </colorspace>
+       			    <broadcastStandard>
+       			        <xsl:value-of select="./Standard"/>
+       			    </broadcastStandard>        			          			      			                              	                  	    
 	           </track>	
             </xsl:if>
             <!-- End Video Track -->

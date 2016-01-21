@@ -188,7 +188,8 @@ public class EbuCoreModel {
     			break;
     			
     		// Technical Attribute Strings
-    		case colorspace: 			
+    		case colorspace:
+    		case broadcastStandard:		
         		TechnicalAttributeString tas =
     				new TechnicalAttributeString(dataValue);   		
         		tas.setTypeLabel(videoElem.getName());

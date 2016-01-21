@@ -50,6 +50,7 @@
         <scanningOrder>BFF</scanningOrder>
         <chromaSubsampling>4:1:1</chromaSubsampling>
         <colorspace>YUV</colorspace>
+        <broadcastStandard>NTSC</broadcastStandard>
       </track>
       <track type="audio" id="3" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
         <audioDataEncoding>PCM</audioDataEncoding>
