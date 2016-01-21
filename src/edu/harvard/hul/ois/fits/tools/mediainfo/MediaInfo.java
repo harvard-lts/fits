@@ -432,14 +432,7 @@ public class MediaInfo extends ToolBase {
 		    
 		    String codecInfo = getMediaInfoString(ndx, "Codec/Info", 
 		    		MediaInfoNativeWrapper.StreamKind.Video);
-		    addDataToMap (videoTrackValuesMap, id, "codecInfo", codecInfo);
-		    
-// HACK >>>
-		    String Standard = getMediaInfoString(ndx, "Standard", 
-		    		MediaInfoNativeWrapper.StreamKind.Video);
-		    String Standard_2 = getMediaInfoString(ndx, "standard", 
-		    		MediaInfoNativeWrapper.StreamKind.Video);		    
-// HACK <<<		    
+		    addDataToMap (videoTrackValuesMap, id, "codecInfo", codecInfo);	    
 		    
 		    // NOTE:
 		    // formatProfile goes in the FITS XML general section, but
