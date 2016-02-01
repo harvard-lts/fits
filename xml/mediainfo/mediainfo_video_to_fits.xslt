@@ -67,10 +67,17 @@
 		                </xsl:attribute>
 		                
 		                <xsl:attribute name="format">
-		                    <xsl:value-of select="./Format"/>
+                           <xsl:choose>
+                               <xsl:when test="$format = 'MXF'">
+                                   <xsl:value-of select="string('Material Exchange Format (MXF)')"/>
+                               </xsl:when>
+                               <xsl:otherwise>
+                                   <xsl:value-of select="$format"/>
+                               </xsl:otherwise>
+                           </xsl:choose>
 		                </xsl:attribute>                          
                 
-                    </identity>                
+                    </identity>
 		        </identification>
 		        		        
             </xsl:if>

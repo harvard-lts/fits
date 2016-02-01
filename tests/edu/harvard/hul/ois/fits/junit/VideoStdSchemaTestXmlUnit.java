@@ -411,5 +411,74 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 		
 	}
 	
+	/**
+	 * Tests that the output from FITS matches the expected output.
+	 */
+	@Test
+	public void testVideoXmlUnitOutput_MXF() throws Exception {
+		
+    	String inputFilename = "freeMXF-mxf1a.mxf";
+    	String outputFilename = inputFilename + "_Output.xml";
+    	String expectedOutputFilename = "FITS-freeMXF-mxf1a-expected-output.xml";
 
+    	File input = new File("testfiles/" + inputFilename);
+		Fits fits = new Fits();	// use standard fits.xml file
+		FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.saveToDisk("test-generated-output/"+ outputFilename);
+		
+		// Output stream for FITS to write to 
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		
+		// Create combined output in the stream passed in
+		Fits.outputStandardCombinedFormat(fitsOut, out);
+		
+		// Turn output stream into a String HtmlUnit can use
+		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
+		
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+	            "testfiles/output/" + expectedOutputFilename));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		// Set up XMLUnit
+		XMLUnit.setIgnoreWhitespace(true); 
+		XMLUnit.setNormalizeWhitespace(true);
+		
+		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
+
+		// Initialize attributes or elements to ignore for difference checking
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+				"version",		// fits[@version]
+				"toolversion",
+				"dateModified",
+				"fslastmodified",
+				"startDate",
+				"startTime",
+				"timestamp", 
+				"fitsExecutionTime",
+				"executionTime",
+				"filepath",
+				"location",
+				"ebucore:locator"));
+
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+
+		// Display any Differences
+		List<Difference> diffs = detailedDiff.getAllDifferences();
+		if (!diff.identical()) { 
+			StringBuffer differenceDescription = new StringBuffer(); 
+			differenceDescription.append(diffs.size()).append(" differences"); 
+			
+			System.out.println(differenceDescription.toString());
+			for(Difference difference : diffs) {
+				System.out.println(difference.toString());
+			}
+
+		}
+		
+		assertTrue("Differences in XML", diff.identical());
+		
+	}
 }

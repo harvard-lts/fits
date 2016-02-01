@@ -76,5 +76,21 @@ public class VideoStdSchemaTest{
 		}
     	
 	}    
+    
+    @Test
+    public void testMxfVideo() throws Exception {
+    	
+    	String inputFilename = "freeMXF-mxf1a.mxf";
+    	String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
+    	
+    	Fits fits = new Fits(null, new File("testfiles/properties/fits-full-with-tool-output.xml"));
+    	File input = new File("testfiles/" + inputFilename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		fitsOut.saveToDisk(outputFilename);
+	}
 
 }
