@@ -25,3 +25,4 @@ Macromedia FLV=Flash Video (FLV)
 Digital Negative Format (DNG)=Digital Negative (DNG)
 ePub format=EPUB
 Electronic Publication=EPUB
+Material Exchange Format=Material Exchange Format (MXF)
