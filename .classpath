@@ -2,7 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="xml/nlnz"/>
+	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+    <classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/serializer.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove-handler.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove.jar"/>
@@ -23,8 +25,6 @@
 	<classpathentry kind="lib" path="lib/stax2-api-3.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/woodstox-core-lgpl-4.0.7.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="lib" path="lib/droid/antlr-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/antlr-runtime-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/aopalliance-1.0.jar"/>
@@ -112,7 +112,6 @@
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.12.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.12.jar"/>
 	<classpathentry kind="lib" path="lib/jna-4.1.0.jar"/>
-	<classpathentry kind="lib" path="lib/fits.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/arc_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/flac_adapter_1_1.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/jID3LibMp3_adapter_1_0.jar"/>
@@ -187,5 +186,5 @@
 	<classpathentry kind="lib" path="lib/droid/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/droid/xml-apis-1.3.04.jar"/>
 	<classpathentry kind="lib" path="lib/ots_1.0.23.jar"/>
-	<classpathentry kind="output" path="build_local"/>
+	<classpathentry kind="output" path="build"/>
 </classpath>
