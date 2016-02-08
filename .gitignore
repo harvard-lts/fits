@@ -9,3 +9,6 @@ TAGS
 # Mac OS X system file
 .DS_Store
 /fits.log
+/lib-fits/
+/classes/
+/build/
