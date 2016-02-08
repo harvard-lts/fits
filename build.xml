@@ -15,14 +15,15 @@
   <property name="app.name"              value="fits"/>
   <property name="app.longName"          value="File Information Toolset"/>	
   <property name="app.package"           value="edu.harvard.hul.ois.fits"/>
-  <property name="jar.name"	         	 value="${app.name}.jar"/>
-  <property name="jar.home"	         	 value="lib"/>
+  <property name="fits.jar.name"	         	 value="${app.name}.jar"/>
+  <property name="fits.jar.home"         value="lib-fits"/>
   <property name="src.dirs"	             value="src"/>
   <property name="test.dirs"             value="tests"/>
   <property name="javadoc.home"          value="javadoc"/>
   <property name="manifest.name"         value="MANIFEST.MF"/>
   <property name="output.location" 		 value="release_temp"/>
   <property name="junit.reports.dir"     value="test-generated-output/ant-junit-test-reports" />
+  <property name="build.dir"             value="build" />
 
 <!-- ===================== Compilation Control Options ==================== -->
 
@@ -57,6 +58,7 @@
   <path id="compile.classpath">
     <!-- Include all JAR files that will be included in lib -->
   	<!-- Some tool subdirectories may not have any JAR files but are included for future expansion -->
+  	<pathelement path="${build.dir}"/>
     <fileset dir=".">
       <include name="lib/*.jar"/>
       <include name="lib/adltool/*.jar"/>
@@ -75,17 +77,9 @@
   </path>
 
   <path id="junit.classpath">
-    <!-- Include all JAR files that will be included in lib -->
+    <!-- Include all JAR files related to unit tests -->
     <fileset dir=".">
-      <include name="lib/*.jar" />
       <include name="lib-ant/*.jar" />
-    	<!--
-      <include name="lib/droid/*.jar"/>
-      <include name="lib/jhove/*.jar"/>
-      <include name="lib/mediainfo/*.jar"/>
-      <include name="lib/nzmetool/*.jar"/>
-      <include name="lib/tika/*.jar"/>
-    	-->
     </fileset>
   </path>
 
@@ -100,27 +94,34 @@
 
   <target name="compile" description="Compile Java sources">
 
+    <mkdir dir="${build.dir}"/>
     <javac debug="${compile.debug}"
            deprecation="${compile.deprecation}"
-	       optimize="${compile.optimize}">
+	       optimize="${compile.optimize}"
+    	   destdir="${build.dir}">
     	<src path="${src.dirs}" />
         <src path="${test.dirs}" />
         <classpath refid="compile.classpath">
         </classpath>
     </javac>
-  	
-    <antcall target="create-tmp-jar" />
-    <antcall target="compile-copy-lib" />
-    <antcall target="delete-tmp-jar" />
-
   </target>
 
 
-  <target name="compile-copy-lib" if="lib.present" depends="check-lib">
-    <copy file="${app.name}.jar" todir="lib" />
+  <target name="compile-create-jar" depends="compile, check-build" description="Compile sources and create fits.jar">
+    <fail unless="${build.present}" message="${build.dir} not present"/>
+  	<mkdir dir="${fits.jar.home}"/>
+    <antcall target="create-manifest" />
+    <jar jarfile="${fits.jar.home}/${fits.jar.name}"
+         update="true"
+    	 manifest="${manifest.name}">
+       <fileset dir="${build.dir}">
+       <include name="**/*.class"/>
+     </fileset>
+    </jar>
+    <antcall target="delete-manifest" />
   </target>
 
-  <target name="clean-compile-jar" if="lib.present" depends="clean, compile" description="Recompile all code and create a lib/fits.jar">
+  <target name="clean-compile-jar" if="fits.jar.preset" depends="clean, compile-create-jar, check-fits-jar" description="Clean, compile all code and create a fits.jar">
   </target>
 
 
@@ -133,38 +134,36 @@
 
 -->
 
-  <target name="clean"
-   description="Delete old build and dist directories">
-    <delete quiet="true">
-       <fileset  dir="${src.dirs}" includes="**/*.class"/>
-       <fileset  dir="${test.dirs}" includes="**/*.class"/>
-    </delete>
+  <target name="clean" description="Delete old build and dist directories">
+    <delete dir="${build.dir}" quiet="true" />
+    <delete dir="${fits.jar.home}" quiet="true"/>
   </target>
 
 
-<!-- ===================== Create Tmp Jar Target ========================== -->
+<!-- ===================== Create Tmp Jar Target ========================== 
 
-  <target name="create-tmp-jar"
+  <target name="create-tmp-jar" depends="compile, check-build"
           description="Create the jar for this project">
+  	<fail unless="${build.present}" message="${build.dir} no present"/>
     <antcall target="create-manifest" />
     <antcall target="create-tmp-jar-src" />
     <antcall target="delete-manifest" />
   </target>
 
-  <target name="create-tmp-jar-src" if="src.present" depends="check-src">
-    <jar jarfile="${app.name}.jar"
+  <target name="create-tmp-jar-src" depends="create-manifest">
+    <jar jarfile="${fits.jar.home}/${fits.jar.name}"
          update="true"
 	 manifest="${manifest.name}">
-         <fileset dir="src">
+         <fileset dir="${build.dir}">
 	   <include name="**/*.class"/>      
 	   <include name="**/*.properties"/>
 	   <include name="**/*.xml"/>
 	 </fileset>
     </jar>
   </target>
+-->
 
-  <target name="create-manifest"
-          description="Create the manifest for the jar file">
+  <target name="create-manifest">
     
     <condition property="jar.version" 
                value="${build.version}">
@@ -208,16 +207,16 @@
     </manifest>
   </target>
 
-  <target name="delete-manifest"
-          description="Deletes the tmp manifest file">
+  <target name="delete-manifest">
     <delete quiet="true" file="${manifest.name}" />
   </target>
 
+<!--
   <target name="delete-tmp-jar"
           description="Delete the tmp jar for this project">
     <delete file="${app.name}.jar" quiet="true" />
   </target>
-
+-->
     
 <!-- ==================== Javadoc Target ================================== -->
 
@@ -246,20 +245,17 @@
 
 <!-- ==================== Check and Set Targets =========================== -->
 
-  <target name="check-conf">
-    <available file="conf" type="dir" property="conf.present" />
+  <target name="check-fits-jar">
+    <available file="${fits.jar.home}/${fits.jar.name}" property="fits.jar.preset" />
   </target>
 
-  <target name="check-lib">
-    <available file="lib" type="dir" property="lib.present" />
-  </target>
-
-  <target name="check-src">
-    <available file="src" type="dir" property="src.present" />
+  <target name="check-build">
+    <available file="${build.dir}" type="dir" property="build.present" />
   </target>
 
 <!-- ========================= Release Targets ============================ -->
-	<target name="release">
+	<target name="release" depends="clean-compile-jar, check-fits-jar">
+		<fail unless="fits.jar.preset" message="There is no ${fits.jar.name} in ${fits.jar.home}"/>
 		<property name="output.location.version" 
 			value="${output.location}/${app.name}-${build.version}"/>
 		<mkdir dir="${output.location}" />
@@ -281,6 +277,7 @@
 				<exclude name="**/.cvsignore"/>
 			</fileset>
 		</copy>
+        <copy todir="${output.location.version}/lib" file="${fits.jar.home}/${fits.jar.name}" description="copy fits.jar" />
 		<copy todir="${output.location.version}/src">
 			<fileset dir="src">
 		  		<exclude name="**/CVS"/>
@@ -323,7 +320,10 @@
         <junit fork="true" forkmode="once" logfailedtests="true" printsummary="withOutAndErr"
                 haltonfailure="${halt.tests.on.failure}" haltonerror="${halt.tests.on.error}">
         	<classpath refid="junit.classpath" />
+        	<classpath refid="compile.classpath" />
+<!--
         	<classpath path="${test.dirs}" />
+-->
             <classpath location="./xml/nlnz" />
             <classpath location="./xml/nlnz/fits" />
         	<batchtest skipNonTests="true" todir="${junit.reports.dir}">
@@ -336,7 +336,5 @@
         	<formatter type="plain"/>
         </junit>
     </target>
-
-
 
 </project>
