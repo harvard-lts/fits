@@ -15,7 +15,7 @@
   <property name="app.name"              value="fits"/>
   <property name="app.longName"          value="File Information Toolset"/>	
   <property name="app.package"           value="edu.harvard.hul.ois.fits"/>
-  <property name="fits.jar.name"	         	 value="${app.name}.jar"/>
+  <property name="fits.jar.name"         value="${app.name}.jar"/>
   <property name="fits.jar.home"         value="lib-fits"/>
   <property name="src.dirs"	             value="src"/>
   <property name="test.dirs"             value="tests"/>
@@ -140,28 +140,7 @@
   </target>
 
 
-<!-- ===================== Create Tmp Jar Target ========================== 
-
-  <target name="create-tmp-jar" depends="compile, check-build"
-          description="Create the jar for this project">
-  	<fail unless="${build.present}" message="${build.dir} no present"/>
-    <antcall target="create-manifest" />
-    <antcall target="create-tmp-jar-src" />
-    <antcall target="delete-manifest" />
-  </target>
-
-  <target name="create-tmp-jar-src" depends="create-manifest">
-    <jar jarfile="${fits.jar.home}/${fits.jar.name}"
-         update="true"
-	 manifest="${manifest.name}">
-         <fileset dir="${build.dir}">
-	   <include name="**/*.class"/>      
-	   <include name="**/*.properties"/>
-	   <include name="**/*.xml"/>
-	 </fileset>
-    </jar>
-  </target>
--->
+<!-- ===================== Create Tmp Jar Target ========================== -->
 
   <target name="create-manifest">
     
@@ -211,13 +190,6 @@
     <delete quiet="true" file="${manifest.name}" />
   </target>
 
-<!--
-  <target name="delete-tmp-jar"
-          description="Delete the tmp jar for this project">
-    <delete file="${app.name}.jar" quiet="true" />
-  </target>
--->
-    
 <!-- ==================== Javadoc Target ================================== -->
 
 <!--
@@ -321,9 +293,6 @@
                 haltonfailure="${halt.tests.on.failure}" haltonerror="${halt.tests.on.error}">
         	<classpath refid="junit.classpath" />
         	<classpath refid="compile.classpath" />
-<!--
-        	<classpath path="${test.dirs}" />
--->
             <classpath location="./xml/nlnz" />
             <classpath location="./xml/nlnz/fits" />
         	<batchtest skipNonTests="true" todir="${junit.reports.dir}">
