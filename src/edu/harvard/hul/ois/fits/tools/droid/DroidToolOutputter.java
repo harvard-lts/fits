@@ -65,6 +65,8 @@ public class DroidToolOutputter {
             
             if(formatName.equals("Digital Negative (DNG)")) {
             	mimeType="image/x-adobe-dng";
+            } else if (formatName.equals("Office Open XML Document")) {
+            	mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document";
             }
             
             String version = res.getVersion();

@@ -104,6 +104,7 @@ public class FitsMetadataValues {
     public final static String ISO_SPEED_RATING = "isoSpeedRating";
     public final static String LANGUAGE = "language";      // may be useful someday
     public final static String LIGHT_SOURCE = "lightSource";
+    public final static String LINE_COUNT = "lineCount";     // document
     public final static String MARKUP_BASIS = "markupBasis";
     public final static String MARKUP_BASIS_VERSION = "markupBasisVersion";
     public final static String MARKUP_LANGUAGE = "markupLanguage";
@@ -117,6 +118,7 @@ public class FitsMetadataValues {
     public final static String PIXEL_ASPECT_RATIO = "pixelAspectRatio";  // video
     public final static String ROTATION = "rotation";        // image, video
     public final static String PAGE_COUNT = "pageCount";     // document
+    public final static String PARAGRAPH_COUNT = "paragraphCount";     // document
     public final static String IS_RIGHTS_MANAGED = "isRightsManaged";
     public final static String IS_PROTECTED = "isProtected";
     public final static String PRIMARY_CHROMATICITIES_BLUE_X = "primaryChromaticitiesBlueX";

@@ -79,10 +79,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                 <xsl:value-of select="exiftool/Category"/>
             </category>
             
-            <company>
-                <xsl:value-of select="exiftool/Company"/>
-            </company>
-            
             <hyperlinks>
                 <xsl:value-of select="exiftool/Hyperlinks"/>
             </hyperlinks>
@@ -97,10 +93,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<category>
 				<xsl:value-of select="exiftool/Category"/>
 			</category>
-			
-			<hyperlinks>
-				<xsl:value-of select="exiftool/Hyperlinks"/>
-			</hyperlinks>
 			
 		</document>				
 		</metadata>

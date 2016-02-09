@@ -25,6 +25,7 @@
 	<classpathentry kind="lib" path="lib/stax2-api-3.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/woodstox-core-lgpl-4.0.7.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="lib/tika/tika-app-1.10.jar"/>
 	<classpathentry kind="lib" path="lib/droid/antlr-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/antlr-runtime-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/aopalliance-1.0.jar"/>
@@ -102,7 +103,6 @@
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/wave_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/wordperfect_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/xml_adapter_1_0.jar"/>
-	<classpathentry kind="lib" path="lib/tika/tika-app-1.10.jar"/>
 	<classpathentry kind="lib" path="lib/commons-configuration-1.8.jar"/>
 	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
