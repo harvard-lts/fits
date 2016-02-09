@@ -40,6 +40,9 @@
                 <xsl:when test="$mime='text/rtf'">
                     <xsl:value-of select="string('application/rtf')"/>
                 </xsl:when>
+                <xsl:when test="$mime='application/vnd.ms-word.document.macroEnabled'">
+                    <xsl:value-of select="string('application/vnd.ms-word.document.macroenabled.12')"/>
+                </xsl:when>
 				<xsl:when test="$mime='application/photoshop'">
 					<xsl:value-of select="string('image/vnd.adobe.photoshop')"/>
 				</xsl:when>		
@@ -148,7 +151,10 @@
 					<xsl:value-of select="string('Microsoft Word Binary File Format')"/>
 				</xsl:when>
                 <xsl:when test="$format='DOCX'">
-                    <xsl:value-of select="string('OpenDocument Text')"/>
+                    <xsl:value-of select="string('Office Open XML Document')"/>
+                </xsl:when>
+                <xsl:when test="$format='DOCM'">
+                    <xsl:value-of select="string('Office Open XML Document (Macros Enabled)')"/>
                 </xsl:when>
                 <xsl:when test="$format='RTF'">
                     <xsl:value-of select="string('Rich Text Format (RTF)')"/>

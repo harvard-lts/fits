@@ -363,7 +363,6 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_XMP_VIDEO_PIXEL_DEPTH, TikaProperty.XMP_VIDEO_PIXEL_DEPTH);
     }
     
-
     /** Map of Tika compression types to FITS compression types */
     private final static Map<String, String> compressionTypeMap = new HashMap<String, String>();
     static {
@@ -372,13 +371,10 @@ public class TikaTool extends ToolBase {
         compressionTypeMap.put("deflate", FitsMetadataValues.CMPR_DEFLATE);
     }
     
-    
     private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
     private final static String TOOL_NAME = "Tika";
     private final static String TOOL_VERSION = "1.10";  // Hard-coded version till we can do better
-    
 
-//    private final static MediaTypeRegistry typeRegistry = MediaTypeRegistry.getDefaultRegistry();
     private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
     private Tika tika = new Tika ();
     
@@ -393,7 +389,7 @@ public class TikaTool extends ToolBase {
     public ToolOutput extractInfo(File file) throws FitsToolException {
         logger.debug("TikaTool.extractInfo starting on " + file.getName());
     	long startTime = System.currentTimeMillis();
-        Metadata metadata = new Metadata(); // = new Metadata();
+        Metadata metadata = new Metadata();
         FileInputStream instrm = null;
         try {
             instrm = new FileInputStream (file);
@@ -468,7 +464,6 @@ public class TikaTool extends ToolBase {
 	        throw new FitsToolException ("Exception reading metadata", e);
 	    }
 	}
-	
 
 	/* Build the file information.
 	 * Tika can deliver the same property with different names, sometimes for
@@ -562,7 +557,6 @@ public class TikaTool extends ToolBase {
 	        throw new FitsToolException("Tika error looking up mime type");
 	    }
 	}
-	
 
    private Element buildMetadataElement (Metadata metadata, String mimeType) {
        DocumentTypes.Doctype doctype = DocumentTypes.mimeToDoctype(mimeType);
@@ -593,7 +587,6 @@ public class TikaTool extends ToolBase {
        }
        return metadataElem;  
    }
-
    
    /* Return an element for an audio file */
    private Element buildAudioElement(Metadata metadata) {
@@ -654,7 +647,6 @@ public class TikaTool extends ToolBase {
        }
        return elem;
    }
-   
 
 	/* Return an element for an image file */
 	private Element buildImageElement(Metadata metadata) {

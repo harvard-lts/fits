@@ -284,8 +284,8 @@ public class DocMDTest extends XMLTestCase {
 	@Test
 	public void testWordDocxOutput() throws Exception {
     	Fits fits = new Fits();
-    	File input = new File("testfiles/Word_has_index.docx");
-    	
+    	String inputFilename = "Word_has_index.docx";
+    	File input = new File("testfiles/" + inputFilename);
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
@@ -302,7 +302,55 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output/Word_has_index_DOCX_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+	}
+	
+	@Test
+	public void testWordDocxPasswordProtected() throws Exception {
+    	Fits fits = new Fits();
+    	String inputFilename = "WordPasswordProtected.docx";
+    	File input = new File("testfiles/" + inputFilename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+	}
+	
+	@Test
+	public void testWordDocmOutput() throws Exception {
+    	Fits fits = new Fits();
+    	String inputFilename = "Document_Has_Form_Controls.docm";
+    	File input = new File("testfiles/" + inputFilename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
 	
 	@Test

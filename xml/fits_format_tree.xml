@@ -59,6 +59,9 @@
 		<branch format="OpenDocument Master Document"/>
 		<branch format="OpenDocument HTML Document Template"/>
 		<branch format="EPUB"/>
+        <branch format="Office Open XML Document">
+            <branch format="Office Open XML Document (Macros Enabled)" />
+        </branch>
 	</branch>
 	<branch format="OLE2 Compound Document Format">
 	   <branch format="Microsoft Word Binary File Format" />
