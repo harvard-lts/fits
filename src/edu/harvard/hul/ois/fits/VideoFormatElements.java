@@ -34,7 +34,11 @@ public enum VideoFormatElements {
 	byteOrder ("byteOrder"),
 	delay ("delay"),
 	compression ("compression"),
-	streamSize ("streamSize"),
+	
+	// NOTE the difference between the name and the ebucoreName so that .name()
+	// and .getEbucoreName() are different
+	trackSize ("streamSize"),	
+
 	broadcastStandard ("broadcastStandard"),
 	frameCount ("frameCount"),
 	bitDepth ("bitDepth"),
