@@ -51,7 +51,7 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.MimeType;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Position;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Start;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeInteger;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeLong;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoEncoding;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoFormat;
@@ -209,7 +209,7 @@ public class EbuCoreModel {
         		vfmt.addTechnicalAttributeString(tasLc);
     			break;
     			
-        	// Technical Attribute Integers	
+        	// Technical Attribute Longs	
     		case trackSize:
     		case frameCount:
     		case bitDepth:
@@ -221,11 +221,11 @@ public class EbuCoreModel {
     	    				split(" ");
     	    		dataValue = parts[0];
     			}
-        		TechnicalAttributeInteger tai = 
-        				new TechnicalAttributeInteger(Integer.
-						parseInt(dataValue));
-        		tai.setTypeLabel(videoElem.getName());
-        		vfmt.addTechnicalAttributeInteger(tai);
+        		TechnicalAttributeLong tal = 
+        				new TechnicalAttributeLong(Long.
+						parseLong(dataValue));
+        		tal.setTypeLabel(videoElem.getName());
+        		vfmt.addTechnicalAttributeLong(tal);
     			break;	
     			
     		default:
@@ -370,15 +370,15 @@ public class EbuCoreModel {
  	    		afmt.addTechnicalAttributeString(tas);
  	    		break;
  	    		
- 	    	// Technical Attribute Integers	
+ 	    	// Technical Attribute Longs	
     		case trackSize:
     		case numSamples:
     		case duration:
-	    		TechnicalAttributeInteger tai = 
-					new TechnicalAttributeInteger(Integer.
-					parseInt(dataValue));
-	    			tai.setTypeLabel(audioElem.getEbucoreName());
-	    		afmt.addTechnicalAttributeInteger(tai);
+	    		TechnicalAttributeLong tal = 
+					new TechnicalAttributeLong(Long.
+					parseLong(dataValue));
+	    			tal.setTypeLabel(audioElem.getEbucoreName());
+	    		afmt.addTechnicalAttributeLong(tal);
     			break;
     			
     		default:
