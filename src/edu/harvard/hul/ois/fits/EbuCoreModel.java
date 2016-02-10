@@ -111,9 +111,11 @@ public class EbuCoreModel {
     	vt.setTrackId(id);         			
     	vfmt.setVideoTrack(vt); 
 
-    	for (VideoFormatElements videoElem : VideoFormatElements.values()) {
+    	for (VideoFormatElements videoElem : VideoFormatElements.values()) {	
 
-    		String fitsName = videoElem.getName ();
+    		// NOTE: use the .name(), not .getName(), so we can use the correct
+    		// value to set the typeLabel
+    		String fitsName = videoElem.name();
     		Element dataElement = elem.getChild (fitsName,ns);
     		if (dataElement == null)
     			continue;
@@ -208,7 +210,7 @@ public class EbuCoreModel {
     			break;
     			
         	// Technical Attribute Integers	
-    		case streamSize:
+    		case trackSize:
     		case frameCount:
     		case bitDepth:
     		case duration:
