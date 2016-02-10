@@ -6,6 +6,8 @@ Version 0.10.1
 - fits.jar is no longer included in source control since it it a primary build artifact of this project. It will be available only in a FITS released ZIP file.
 - fits.jar is no longer needed to run unit tests. All source files are compiled to the 'build' directory rather than being compiled into the source directories. This 'build'
 directory is now used to resolve classes rather than fits.jar.
+- Revised code to now output a streamSize attribute for the Video tracks.
+- Due to a NumberFormatException caused by using too large a numeric String to create an Integer, revised code to hold data in an Ebucore TchnicalAttributeLong
 
 Version 0.10.0
 ----------------------
