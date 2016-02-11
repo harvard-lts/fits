@@ -343,6 +343,9 @@
 				<xsl:when test="$mime='application/msword'">
 					<xsl:value-of select="exiftool/Software"/>			
 				</xsl:when>			
+                <xsl:when test="$mime='application/vnd.oasis.opendocument.text'">
+                    <xsl:value-of select="exiftool/Generator"/>          
+                </xsl:when>         
 			</xsl:choose>
 		</creatingApplicationName>	
 		<creatingApplicationVersion>

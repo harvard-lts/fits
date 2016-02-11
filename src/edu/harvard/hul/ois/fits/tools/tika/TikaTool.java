@@ -83,6 +83,7 @@ public class TikaTool extends ToolBase {
     private final static String P_ICCP = "iCCP";
     private final static String P_IDENTIFIER = "identifier";
     private final static String P_IHDR = "IHDR";
+    private final static String P_IMAGE_COUNT = "Image-Count";
     private final static String P_IMAGE_HEIGHT = "Image Height";
     private final static String P_IMAGE_WIDTH = "Image Width";
     private final static String P_KEYWORDS = "Keywords";
@@ -195,6 +196,7 @@ public class TikaTool extends ToolBase {
         ICCP,
         IDENTIFIER,
         IHDR,
+        IMAGE_COUNT,
         IMAGE_HEIGHT,
         IMAGE_WIDTH,
         KEYWORDS,
@@ -310,6 +312,7 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_ICCP, TikaProperty.ICCP);
         propertyNameMap.put (P_IDENTIFIER, TikaProperty.IDENTIFIER);
         propertyNameMap.put (P_IHDR, TikaProperty.IHDR);
+        propertyNameMap.put (P_IMAGE_COUNT, TikaProperty.IMAGE_COUNT);
         propertyNameMap.put (P_IMAGE_HEIGHT, TikaProperty.IMAGE_HEIGHT);
         propertyNameMap.put (P_IMAGE_WIDTH, TikaProperty.IMAGE_WIDTH);
         propertyNameMap.put (P_KEYWORDS, TikaProperty.KEYWORDS);
@@ -495,20 +498,24 @@ public class TikaTool extends ToolBase {
         }
         String contentLength = metadata.get (P_CONTENT_LENGTH);
         String producer = metadata.get (P_PRODUCER);
-        String creator = metadata.get (P_CREATOR_TOOL);
+        String creatorTool = metadata.get (P_CREATOR_TOOL);
+        String generator = metadata.get (P_GENERATOR);
         String applicationName = metadata.get(P_APPLICATION_NAME);
         String applicationVersion = metadata.get(P_APPLICATION_VERSION);
         
         // look for creating application
         String appName = "";
-        if(producer != null && creator != null) {
-        	appName = producer + "/" + creator;
+        if(producer != null && creatorTool != null) {
+        	appName = producer + "/" + creatorTool;
         }
         else if(producer != null) {
         	appName = producer;
         }
-        else if(creator != null) {
-        	appName = creator;
+        else if(creatorTool != null) {
+        	appName = creatorTool;
+        }
+        else if (generator !=null) {
+        	appName = generator;
         }
         if (applicationName != null) {
         	appName = applicationName;
@@ -518,25 +525,25 @@ public class TikaTool extends ToolBase {
         // Put together the fileinfo element
         Element fileInfoElem = new Element ("fileinfo", fitsNS);
         if (lastModified != null) {
-            Element lastModElem = new Element ("lastmodified", fitsNS);
+            Element lastModElem = new Element (FitsMetadataValues.LAST_MODIFIED, fitsNS);
             lastModElem.addContent (lastModified);
             fileInfoElem.addContent (lastModElem);
         }
         
         if (appName != null) {
-            Element appNameElem = new Element ("creatingApplicationName", fitsNS);
+            Element appNameElem = new Element (FitsMetadataValues.CREATING_APPLICATION_NAME, fitsNS);
             appNameElem.addContent (appName);
             fileInfoElem.addContent (appNameElem);
         }
 
         if (applicationVersion != null) {
-            Element appVersionElem = new Element ("creatingApplicationVersion", fitsNS);
+            Element appVersionElem = new Element (FitsMetadataValues.CREATING_APPLICATION_VERSION, fitsNS);
             appVersionElem.addContent (applicationVersion);
             fileInfoElem.addContent (appVersionElem);
         }
         
         if (contentLength != null) {
-            Element sizeElem = new Element ("size", fitsNS);
+            Element sizeElem = new Element (FitsMetadataValues.SIZE, fitsNS);
             sizeElem.addContent (sizeElem);
             fileInfoElem.addContent (sizeElem);
         }
@@ -864,10 +871,30 @@ public class TikaTool extends ToolBase {
             		rightsReported = true;
             	}
             	break;
+
             case SECURITY:
             	if (!StringUtils.isEmpty(value)) {
             		value = "yes";
             		addSimpleElement(elem, FitsMetadataValues.IS_PROTECTED, value);
+            	}
+            	break;
+
+            case IMAGE_COUNT:
+            	if (!StringUtils.isEmpty(value)) {
+            		addSimpleElement(elem, FitsMetadataValues.IMAGE_COUNT, value);
+            	}
+            	break;
+
+            case TABLE_COUNT:
+            	if (!StringUtils.isEmpty(value)) {
+            		addSimpleElement(elem, FitsMetadataValues.TABLE_COUNT, value);
+            	}
+            	break;
+
+            case OBJECT_COUNT:
+            	if (!StringUtils.isEmpty(value)) {
+            		value = "yes";
+            		addSimpleElement(elem, FitsMetadataValues.HAS_EMBEDDED_RESOURCES, value);
             	}
             	break;
             }

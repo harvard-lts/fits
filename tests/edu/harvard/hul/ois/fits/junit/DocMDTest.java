@@ -167,7 +167,6 @@ public class DocMDTest extends XMLTestCase {
     	Fits fits = new Fits();
     	File input = new File("testfiles/Word2003_has_table_of_contents.doc");
     	
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -191,7 +190,6 @@ public class DocMDTest extends XMLTestCase {
     	Fits fits = new Fits();
     	File input = new File("testfiles/Word_protected_encrypted.doc");
     	
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -212,8 +210,8 @@ public class DocMDTest extends XMLTestCase {
 	@Test
 	public void testOpenOfficeDoc() throws Exception {	
     	Fits fits = new Fits();
-    	File input = new File("testfiles/LibreODT-Ur-doc.odt");
-    	
+    	String inputFilename = "LibreODT-Ur-doc.odt";
+    	File input = new File("testfiles/" + inputFilename);
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
@@ -230,13 +228,62 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output/LibreODT-Ur-ODT_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+	}
+    
+	@Test
+	public void testOpenOfficeDocEmbeddedResources() throws Exception {	
+    	Fits fits = new Fits();
+    	String inputFilename = "LibreODTwFormulas.odt";
+    	File input = new File("testfiles/" + inputFilename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+	}
+    
+	@Test
+	public void testOpenOfficeDocHasTables() throws Exception {	
+    	Fits fits = new Fits();
+    	String inputFilename = "LibreODT-hasTables.odt";
+    	File input = new File("testfiles/" + inputFilename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+		docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
     
 	@Test
 	public void testOpenOfficeDocPasswordProtected() throws Exception {	
     	Fits fits = new Fits();
-    	File input = new File("testfiles/LibreODT_protected.odt");
+    	String inputFilename = "LibreODT_protected.odt";
+    	File input = new File("testfiles/" + inputFilename);
     	
     	
     	FitsOutput fitsOut = fits.examine(input);
@@ -254,14 +301,14 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output/LibreODT_protected_ODT_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
     
 	@Test
 	public void testOpenOfficeDocUnparseableDate() throws Exception {	
     	Fits fits = new Fits();
-    	File input = new File("testfiles/UnparseableDate.odt");
-    	
+    	String inputFilename = "UnparseableDate.odt";
+    	File input = new File("testfiles/" + inputFilename);
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
@@ -278,7 +325,7 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output/UnparseableDate_ODT_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
 	
 	@Test

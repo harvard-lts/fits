@@ -21,15 +21,34 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					<xsl:when test="exiftool/PageCount">
 						<xsl:value-of select="exiftool/PageCount"/>
 					</xsl:when>
+                    <xsl:when test="exiftool/Document-statisticPage-count">
+                        <xsl:value-of select="exiftool/Document-statisticPage-count"/>
+                    </xsl:when>
 				</xsl:choose>
 			</pageCount>
 
 			<wordCount>
-				<xsl:value-of select="exiftool/Words"/>
+                <xsl:choose>
+	                <!-- different file types will output a different element name -->
+	                <xsl:when test="exiftool/Words">
+						<xsl:value-of select="exiftool/Words"/>
+	                </xsl:when>
+                    <xsl:when test="exiftool/Document-statisticWord-count">
+		                <xsl:value-of select="exiftool/Document-statisticWord-count"/>
+                    </xsl:when>
+                </xsl:choose>
 			</wordCount>
 			
 			<characterCount>
-				<xsl:value-of select="exiftool/Characters"/>
+                <xsl:choose>
+                    <!-- different file types will output a different element name -->
+                    <xsl:when test="exiftool/Characters">
+						<xsl:value-of select="exiftool/Characters"/>
+                    </xsl:when>
+                    <xsl:when test="exiftool/Document-statisticCharacter-count">
+                        <xsl:value-of select="exiftool/Document-statisticCharacter-count"/>
+                    </xsl:when>
+                </xsl:choose>
 			</characterCount>
 			
 			<title>
@@ -45,7 +64,15 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			</lineCount>
 			
 			<paragraphCount>
-				<xsl:value-of select="exiftool/Paragraphs"/>
+                <xsl:choose>
+                    <!-- different file types will output a different element name -->
+                    <xsl:when test="exiftool/Paragraphs">
+                        <xsl:value-of select="exiftool/Paragraphs"/>
+                    </xsl:when>
+                    <xsl:when test="exiftool/Document-statisticParagraph-count">
+                        <xsl:value-of select="exiftool/Document-statisticParagraph-count"/>
+                    </xsl:when>
+                </xsl:choose>
 			</paragraphCount>
 			
 			<isRightsManaged>
@@ -94,6 +121,19 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:value-of select="exiftool/Category"/>
 			</category>
 			
+			<xsl:if test="exiftool/Document-statisticObject-count and exiftool/Document-statisticObject-count != '0'">
+			    <hasEmbeddedResources>
+			         <xsl:value-of select="string('yes')"/>
+			    </hasEmbeddedResources>
+			</xsl:if>
+			
+			<tableCount>
+			    <xsl:value-of select="exiftool/Document-statisticTable-count" />
+			</tableCount>
+
+			<graphicsCount>
+			    <xsl:value-of select="exiftool/Document-statisticImage-count" />
+			</graphicsCount>
 		</document>				
 		</metadata>
 	</fits>	

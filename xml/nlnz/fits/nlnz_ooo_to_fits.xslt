@@ -60,7 +60,13 @@
 			
 			<language>
 				<xsl:value-of select="//LANGUAGE"/>
-			</language>		
+			</language>
+
+            <xsl:if test="//OBJECT-COUNT and //OBJECT-COUNT != '0'">
+                <hasEmbeddedResources>
+                     <xsl:value-of select="string('yes')"/>
+                </hasEmbeddedResources>
+            </xsl:if>
 
 		</document>	
 		</metadata>
