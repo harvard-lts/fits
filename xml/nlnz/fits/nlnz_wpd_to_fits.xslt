@@ -22,7 +22,8 @@
 			</creatingApplicationName>
 			
 			<creatingApplicationVersion>
-				<xsl:value-of select="concat(//MAJOR-VERSION,//MINOR-VERSION)"/>
+			    <xsl:variable name="majorVersion" select="concat(substring-before(//MAJOR-VERSION,'.'), '.')" />
+				<xsl:value-of select="concat($majorVersion,//MINOR-VERSION)"/>
 			</creatingApplicationVersion>
 			
 		</fileinfo>

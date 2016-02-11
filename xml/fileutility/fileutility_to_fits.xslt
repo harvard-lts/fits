@@ -81,7 +81,12 @@
 						</xsl:when>	
 						<xsl:when test="$format='OpenDocument HTML Document Template'">
 								<xsl:value-of select="string('application/vnd.oasis.opendocument.text-web')"/>
-						</xsl:when>		
+						</xsl:when>
+						<!-- Word Perfect formats -->
+                        <xsl:when test="$format='(Corel/WP)'">
+                                <xsl:value-of select="string('application/vnd.wordperfect')"/>
+                        </xsl:when>
+
 						<xsl:when test="$format='ColorSync ICC Profile'">
 								<xsl:value-of select="string('application/vnd.iccprofile')"/>
 						</xsl:when>			

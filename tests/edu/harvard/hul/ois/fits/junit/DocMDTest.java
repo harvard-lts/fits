@@ -424,30 +424,6 @@ public class DocMDTest extends XMLTestCase {
 	}
 	
 	@Test
-	public void testWPOutput() throws Exception {
-    	Fits fits = new Fits();
-    	File input = new File("testfiles/WordPerfect5_2.wp");
-    	
-    	
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-		docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
-    	fitsOut.saveToDisk("test-generated-output/WordPerfect5_2_Output.xml");
-	}
-	
-	@Test
 	public void testWPDOutput() throws Exception {
     	Fits fits = new Fits();
     	
