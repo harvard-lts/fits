@@ -110,13 +110,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                 <xsl:value-of select="exiftool/Hyperlinks"/>
             </hyperlinks>
 			
-			<!-- outputs integer as subject when PDF -->
-			<xsl:if test="exiftool/MIMEType!='application/pdf'">
-				<subject>
-					<xsl:value-of select="exiftool/Subject"/>
-				</subject>
-			</xsl:if>
-			
 			<category>
 				<xsl:value-of select="exiftool/Category"/>
 			</category>
@@ -134,6 +127,18 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<graphicsCount>
 			    <xsl:value-of select="exiftool/Document-statisticImage-count" />
 			</graphicsCount>
+            
+            <description>
+                <xsl:value-of select="exiftool/Description" />
+            </description>
+            
+            <identifier>
+                <xsl:value-of select="exiftool/Identifier" />
+            </identifier>
+            
+            <source>
+                <xsl:value-of select="exiftool/Source" />
+            </source>
 		</document>				
 		</metadata>
 	</fits>	

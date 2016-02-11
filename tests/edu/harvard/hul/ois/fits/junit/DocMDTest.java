@@ -408,7 +408,8 @@ public class DocMDTest extends XMLTestCase {
     	String[] inputFilenames = {"Winnie-the-Pooh-protected.epub",
     			"GeographyofBliss_oneChapter.epub",
     			"aliceDynamic_images_metadata_tableOfContents.epub",
-    			"epub30-test-font-embedding-obfuscation.epub"};
+    			"epub30-test-font-embedding-obfuscation.epub",
+    			"Calibre_hasTable_of_Contents.epub"};
 
     	for (String inputFilename : inputFilenames) {
     		

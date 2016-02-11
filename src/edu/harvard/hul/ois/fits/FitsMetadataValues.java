@@ -84,6 +84,7 @@ public class FitsMetadataValues {
     public final static String CREATING_APPLICATION_NAME = "creatingApplicationName";
     public final static String CREATING_APPLICATION_VERSION = "creatingApplicationVersion";
     public final static String DATA_FORMAT_TYPE = "dataFormatType";
+    public final static String DESCRIPTION = "description";
     public final static String DIGITAL_CAMERA_MANUFACTURER = "digitalCameraManufacturer";
     public final static String DIGITAL_CAMERA_MODEL_NAME = "digitalCameraModelName";
     public final static String DIGITAL_CAMERA_SERIAL_NO = "digitalCameraSerialNo";
@@ -102,6 +103,7 @@ public class FitsMetadataValues {
     public final static String GRAY_RESPONSE_UNIT = "grayResponseUnit";
     public final static String ICC_PROFILE_NAME = "iccProfileName";
     public final static String ICC_PROFILE_VERSION = "iccProfileVersion";
+    public final static String IDENTIFIER = "identifier";
     public final static String IMAGE_COUNT = "graphicsCount";
     public final static String IMAGE_HEIGHT = "imageHeight";
     public final static String IMAGE_WIDTH = "imageWidth";
@@ -120,6 +122,7 @@ public class FitsMetadataValues {
     public final static String NUM_SAMPLES = "numSamples";       // audio
     public final static String OFFSET = "offset";
     public final static String ORIENTATION = "orientation";       // image, video
+    public final static String PUBLISHER = "publisher";
     public final static String PIXEL_ASPECT_RATIO = "pixelAspectRatio";  // video
     public final static String ROTATION = "rotation";        // image, video
     public final static String PAGE_COUNT = "pageCount";     // document

@@ -63,6 +63,7 @@ public class TikaTool extends ToolBase {
     private final static String P_DC_CONTRIBUTOR = "dc:contributor";
     private final static String P_DC_CREATED = "dcterms:created";
     private final static String P_DC_CREATOR = "dc:creator";
+    private final static String P_DC_DESCRIPTION = "dc:description";
     private final static String P_DC_FORMAT = "dc:format";
     private final static String P_DC_IDENTIFIER = "dc:identifier";
     private final static String P_DC_LANGUAGE = "dc:language";
@@ -71,6 +72,7 @@ public class TikaTool extends ToolBase {
     private final static String P_DC_RIGHTS = "dc:rights";
     private final static String P_DC_SUBJECT = "dc:subject";
     private final static String P_DC_TITLE = "dc:title";
+    private final static String P_DESCRIPTION = "description";
     private final static String P_DIMENSION_HORIZONTAL_PIXEL_SIZE = "Dimension HorizontalPixelSize";
     private final static String P_DIMENSION_IMAGE_ORIENTATION ="Dimension ImageOrientation";
     private final static String P_DIMENSION_PIXEL_ASPECT_RATIO ="Dimension PixelAspectRatio";
@@ -176,6 +178,7 @@ public class TikaTool extends ToolBase {
         DC_CONTRIBUTOR,
         DC_CREATED,
         DC_CREATOR,
+        DC_DESCRIPTION,
         DC_FORMAT,
         DC_IDENTIFIER,
         DC_LANGUAGE,
@@ -184,6 +187,7 @@ public class TikaTool extends ToolBase {
         DC_RIGHTS,
         DC_SUBJECT,
         DC_TITLE,
+        DESCRIPTION,
         DIMENSION_HORIZONTAL_PIXEL_SIZE,
         DIMENSION_IMAGE_ORIENTATION,
         DIMENSION_PIXEL_ASPECT_RATIO,
@@ -292,6 +296,7 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_DC_CONTRIBUTOR, TikaProperty.DC_CONTRIBUTOR);
         propertyNameMap.put (P_DC_CREATED, TikaProperty.DC_CREATED);
         propertyNameMap.put (P_DC_CREATOR, TikaProperty.DC_CREATOR);
+        propertyNameMap.put (P_DC_DESCRIPTION, TikaProperty.DC_DESCRIPTION);
         propertyNameMap.put (P_DC_FORMAT, TikaProperty.DC_FORMAT);
         propertyNameMap.put (P_DC_IDENTIFIER, TikaProperty.DC_IDENTIFIER);
         propertyNameMap.put (P_DC_LANGUAGE, TikaProperty.DC_LANGUAGE);
@@ -300,6 +305,7 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_DC_RIGHTS, TikaProperty.DC_RIGHTS);
         propertyNameMap.put (P_DC_SUBJECT, TikaProperty.DC_SUBJECT);
         propertyNameMap.put (P_DC_TITLE, TikaProperty.DC_TITLE);
+        propertyNameMap.put (P_DESCRIPTION, TikaProperty.DESCRIPTION);
         propertyNameMap.put (P_DIMENSION_HORIZONTAL_PIXEL_SIZE, TikaProperty.DIMENSION_HORIZONTAL_PIXEL_SIZE);
         propertyNameMap.put (P_DIMENSION_IMAGE_ORIENTATION, TikaProperty.DIMENSION_IMAGE_ORIENTATION);
         propertyNameMap.put (P_DIMENSION_PIXEL_ASPECT_RATIO, TikaProperty.DIMENSION_PIXEL_ASPECT_RATIO);
@@ -795,6 +801,8 @@ public class TikaTool extends ToolBase {
         boolean pageCountReported = false;
         boolean rightsReported = false;
         boolean wordCountReported = false;
+        boolean descriptionReported = false;
+        boolean identifierReported = false;
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {
@@ -815,8 +823,13 @@ public class TikaTool extends ToolBase {
             case AUTHOR:
             case META_AUTHOR:
                 if (!authorReported) {
-                    addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
-                    authorReported = true;
+                	// Take Author if only one value from metadata (check for multiple values)
+                	// otherwise will skip and let another tool deal with this.
+                	String[] values = metadata.getValues(name);
+                	if (values != null && values.length == 1) {
+                        addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
+                	}
+                	authorReported = true;
                 }
                 break;
                 
@@ -892,9 +905,24 @@ public class TikaTool extends ToolBase {
             	break;
 
             case OBJECT_COUNT:
-            	if (!StringUtils.isEmpty(value)) {
+            	if (!StringUtils.isEmpty(value) && !"0".equals(value)) {
             		value = "yes";
             		addSimpleElement(elem, FitsMetadataValues.HAS_EMBEDDED_RESOURCES, value);
+            	}
+
+            case DESCRIPTION:
+            case DC_DESCRIPTION:
+            	if (!descriptionReported) {
+            		addSimpleElement(elem, FitsMetadataValues.DESCRIPTION, value);
+            		descriptionReported = true;
+            	}
+            	break;
+
+            case IDENTIFIER:
+            case DC_IDENTIFIER:
+            	if (!identifierReported) {
+            		addSimpleElement(elem, FitsMetadataValues.IDENTIFIER, value);
+            		identifierReported = true;
             	}
             	break;
             }
