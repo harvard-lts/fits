@@ -41,35 +41,10 @@ import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 public class DocMDTest extends XMLTestCase {
     
 	@Test
-	public void testOds() throws Exception {	
-    	Fits fits = new Fits();
-    	File input = new File("testfiles/test.ods");
-    	
-    	
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		fitsOut.addStandardCombinedFormat();
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-		docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
-    	fitsOut.saveToDisk("test-generated-output//test-ODS_Output.xml");
-	}
-    
-	@Test
 	public void testWordDocUrlEmbeddedResources() throws Exception {	
     	Fits fits = new Fits();
     	File input = new File("testfiles/Word2003_has_URLs_has_embedded_resources.doc");
     	
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -85,7 +60,7 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output//Word2003_has_URLs_has_embedded_resources-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/Word2003_has_URLs_has_embedded_resources-DOC_Output.xml");
 	}
     
 	@Test
@@ -98,14 +73,13 @@ public class DocMDTest extends XMLTestCase {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
-		fitsOut.saveToDisk("test-generated-output//Word2003_many_graphics-DOC_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/Word2003_many_graphics-DOC_Output.xml");
 	}
     
 	@Test
 	public void testWordDocPasswordProtected() throws Exception {	
     	Fits fits = new Fits();
     	File input = new File("testfiles/Word2003PasswordProtected.doc");
-    	
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
@@ -122,7 +96,7 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output//Word2003PasswordProtected-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/Word2003PasswordProtected-DOC_Output.xml");
 	}
     
 	@Test
@@ -135,14 +109,13 @@ public class DocMDTest extends XMLTestCase {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();		
 		serializer.output(fitsOut.getFitsXml(), System.out);
-    	fitsOut.saveToDisk("test-generated-output//Word2011_Has_Outline-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/Word2011_Has_Outline-DOC_Output.xml");
 	}
     
 	@Test
 	public void testWordDocLibreOffice() throws Exception {	
     	Fits fits = new Fits();
     	File input = new File("testfiles/LibreOffice.doc");
-    	
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
@@ -159,7 +132,7 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output//LibreOffice-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/LibreOffice-DOC_Output.xml");
 	}
     
 	@Test
@@ -182,7 +155,7 @@ public class DocMDTest extends XMLTestCase {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output//Word2003_has_table_of_contents-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/Word2003_has_table_of_contents-DOC_Output.xml");
 	}
     
 	@Test
@@ -460,15 +433,29 @@ public class DocMDTest extends XMLTestCase {
 	@Test
 	public void testRtfOutput() throws Exception {
     	Fits fits = new Fits();
-    	File input = new File("testfiles/TestDoc.rtf");
-    	
+    	String inputFilename = "TestDoc.rtf";
+    	File input = new File("testfiles/" + inputFilename);
     	
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
-    	fitsOut.saveToDisk("test-generated-output/TestDoc_RTF_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+	}
+	
+	@Test
+	public void testRtfWithCompanyOutput() throws Exception {
+    	Fits fits = new Fits();
+    	String inputFilename = "Doc2.rtf";
+    	File input = new File("testfiles/" + inputFilename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
     
 	@Test

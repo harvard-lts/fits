@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:01 AM">
+  <identification>
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.10.1">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Jhove" toolversion="1.11" />
+      <version toolname="Droid" toolversion="6.1.5">1b</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/354</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.11">105831</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.11" status="CONFLICT">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
+    <creatingApplicationName toolname="Exiftool" toolversion="10.00" status="CONFLICT">Adobe PDF Library 11.0/Zakuta, Vitaly</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2016:01:27 10:29:34-05:00</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T23:13:22Z</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:19 19:12:42-04:00</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFa_equations.pdf</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_equations.pdf</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">83fa9407b0ddf13a38579a18fe9f7734</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1453908574000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <document>
+      <author toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Zakuta, Vitaly</author>
+      <language toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">EN-US</language>
+      <pageCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">3</pageCount>
+      <isTagged toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</isTagged>
+      <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="345">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="18" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="135" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="66" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="216" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="77" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="6" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="12" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="333" />
+  </statistics>
+</fits>
+
