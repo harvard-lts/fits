@@ -8,6 +8,7 @@ Version 0.10.1
 directory is now used to resolve classes rather than fits.jar.
 - Revised code to now output a streamSize attribute for the Video tracks.
 - Due to a NumberFormatException caused by using too large a numeric String to create an Integer, revised code to hold data in an Ebucore TechnicalAttributeLong.
+- Remove the following from being processed by JHOVE due to slowness of precessing: avi,mov,mpg,mpeg,mkv,mp4,mpeg4,m2ts,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv
 
 Version 0.10.0
 ----------------------
