@@ -386,8 +386,12 @@ public class XmlContentConverter {
                         }
                         break;
                     case exposureIndex:
-                        mm.id.setExposureIndex (Double.parseDouble (dataValue));
-                        mm.attachImageData ();
+                    	Double doubleVal = Double.parseDouble (dataValue);
+                    	// only a positive non-zero value will validate against MIX schema
+                    	if (doubleVal > 0.0) {
+                    		mm.id.setExposureIndex (doubleVal);
+                    		mm.attachImageData ();
+                    	}
                         break;
                     case sensingMethod:
                         mm.id.setSensingMethod (dataValue);
