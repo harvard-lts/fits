@@ -69,5 +69,28 @@ public class MixTest extends XMLTestCase {
 		fitsOut.saveToDisk("test-generated-output/topazscanner.xml");
 
 	}
+    
+	@Test
+	public void testMixJpg() throws Exception {	
+    	Fits fits = new Fits("");
+    	String filename = "3426592.jpg";
+    	File input = new File("testfiles/" + filename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		Mix mix = (Mix)fitsOut.getStandardXmlContent();
+		mix.setRoot(true);
+				
+		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+		
+		mix.output(writer);
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
+
+	}
 
 }
