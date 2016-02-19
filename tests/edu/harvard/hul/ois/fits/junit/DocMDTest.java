@@ -23,9 +23,11 @@ import java.io.File;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
-import org.custommonkey.xmlunit.XMLTestCase;
+import org.custommonkey.xmlunit.XMLUnit;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -38,13 +40,31 @@ import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
  * 
  * @author dan179
  */
-public class DocMDTest extends XMLTestCase {
+public class DocMDTest {
+
+	/*
+	 *  Only one Fits instance is needed to run all tests.
+	 *  This also speeds up the tests.
+	 */
+	private static Fits fits;
+
+	@BeforeClass
+	public static void beforeClass() throws Exception {
+		// Set up XMLUnit and FITS for entire class.
+		XMLUnit.setIgnoreWhitespace(true);
+		XMLUnit.setNormalizeWhitespace(true);
+		fits = new Fits();
+	}
+	
+	@AfterClass
+	public static void afterClass() {
+		fits = null;
+	}
     
 	@Test
 	public void testWordDocUrlEmbeddedResources() throws Exception {	
-    	Fits fits = new Fits();
+
     	File input = new File("testfiles/Word2003_has_URLs_has_embedded_resources.doc");
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -65,9 +85,8 @@ public class DocMDTest extends XMLTestCase {
     
 	@Test
 	public void testWordDocGraphics() throws Exception {	
-    	Fits fits = new Fits();
-    	File input = new File("testfiles/Word2003_many_graphics.doc");
-    	
+
+		File input = new File("testfiles/Word2003_many_graphics.doc");
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -78,9 +97,8 @@ public class DocMDTest extends XMLTestCase {
     
 	@Test
 	public void testWordDocPasswordProtected() throws Exception {	
-    	Fits fits = new Fits();
-    	File input = new File("testfiles/Word2003PasswordProtected.doc");
-    	
+
+		File input = new File("testfiles/Word2003PasswordProtected.doc");
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -101,9 +119,8 @@ public class DocMDTest extends XMLTestCase {
     
 	@Test
 	public void testWordDoc2011() throws Exception {	
-    	Fits fits = new Fits();
+
     	File input = new File("testfiles/Word2011_Has_Outline.doc");
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -114,9 +131,8 @@ public class DocMDTest extends XMLTestCase {
     
 	@Test
 	public void testWordDocLibreOffice() throws Exception {	
-    	Fits fits = new Fits();
+
     	File input = new File("testfiles/LibreOffice.doc");
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -137,9 +153,8 @@ public class DocMDTest extends XMLTestCase {
     
 	@Test
 	public void testWordDocHyperlinks() throws Exception {	
-    	Fits fits = new Fits();
+
     	File input = new File("testfiles/Word2003_has_table_of_contents.doc");
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -160,9 +175,8 @@ public class DocMDTest extends XMLTestCase {
     
 	@Test
 	public void testWordDocPasswordAndEncrypted() throws Exception {	
-    	Fits fits = new Fits();
+
     	File input = new File("testfiles/Word_protected_encrypted.doc");
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -182,10 +196,9 @@ public class DocMDTest extends XMLTestCase {
     
 	@Test
 	public void testOpenOfficeDoc() throws Exception {	
-    	Fits fits = new Fits();
+
     	String inputFilename = "LibreODT-Ur-doc.odt";
     	File input = new File("testfiles/" + inputFilename);
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -206,10 +219,9 @@ public class DocMDTest extends XMLTestCase {
     
 	@Test
 	public void testOpenOfficeDocEmbeddedResources() throws Exception {	
-    	Fits fits = new Fits();
+
     	String inputFilename = "LibreODTwFormulas.odt";
     	File input = new File("testfiles/" + inputFilename);
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -230,10 +242,9 @@ public class DocMDTest extends XMLTestCase {
     
 	@Test
 	public void testOpenOfficeDocHasTables() throws Exception {	
-    	Fits fits = new Fits();
+
     	String inputFilename = "LibreODT-hasTables.odt";
     	File input = new File("testfiles/" + inputFilename);
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -254,11 +265,9 @@ public class DocMDTest extends XMLTestCase {
     
 	@Test
 	public void testOpenOfficeDocPasswordProtected() throws Exception {	
-    	Fits fits = new Fits();
+
     	String inputFilename = "LibreODT_protected.odt";
     	File input = new File("testfiles/" + inputFilename);
-    	
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -279,10 +288,9 @@ public class DocMDTest extends XMLTestCase {
     
 	@Test
 	public void testOpenOfficeDocUnparseableDate() throws Exception {	
-    	Fits fits = new Fits();
+
     	String inputFilename = "UnparseableDate.odt";
     	File input = new File("testfiles/" + inputFilename);
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -303,10 +311,9 @@ public class DocMDTest extends XMLTestCase {
 	
 	@Test
 	public void testWordDocxOutput() throws Exception {
-    	Fits fits = new Fits();
+
     	String inputFilename = "Word_has_index.docx";
     	File input = new File("testfiles/" + inputFilename);
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -327,10 +334,9 @@ public class DocMDTest extends XMLTestCase {
 	
 	@Test
 	public void testWordDocxPasswordProtected() throws Exception {
-    	Fits fits = new Fits();
+
     	String inputFilename = "WordPasswordProtected.docx";
     	File input = new File("testfiles/" + inputFilename);
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -351,10 +357,9 @@ public class DocMDTest extends XMLTestCase {
 	
 	@Test
 	public void testWordDocmOutput() throws Exception {
-    	Fits fits = new Fits();
+
     	String inputFilename = "Document_Has_Form_Controls.docm";
     	File input = new File("testfiles/" + inputFilename);
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -375,7 +380,6 @@ public class DocMDTest extends XMLTestCase {
 	
 	@Test
 	public void testEpubOutput() throws Exception {
-    	Fits fits = new Fits();
 
     	// process multiple files to examine different types of output
     	String[] inputFilenames = {"Winnie-the-Pooh-protected.epub",
@@ -398,7 +402,6 @@ public class DocMDTest extends XMLTestCase {
 	
 	@Test
 	public void testWPDOutput() throws Exception {
-    	Fits fits = new Fits();
     	
     	// process multiple files to examine different types of output
     	String[] inputFilenames = { "WordPerfect6-7.wpd",
@@ -432,10 +435,9 @@ public class DocMDTest extends XMLTestCase {
 	
 	@Test
 	public void testRtfOutput() throws Exception {
-    	Fits fits = new Fits();
+
     	String inputFilename = "TestDoc.rtf";
     	File input = new File("testfiles/" + inputFilename);
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
     	
@@ -446,10 +448,9 @@ public class DocMDTest extends XMLTestCase {
 	
 	@Test
 	public void testRtfWithCompanyOutput() throws Exception {
-    	Fits fits = new Fits();
+
     	String inputFilename = "Doc2.rtf";
     	File input = new File("testfiles/" + inputFilename);
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
     	
@@ -461,9 +462,7 @@ public class DocMDTest extends XMLTestCase {
 	@Test
 	public void testPdf() throws Exception {
 		
-    	Fits fits = new Fits();
     	File input = new File("testfiles/PDF_embedded_resources.pdf");
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		// write to console
@@ -476,9 +475,7 @@ public class DocMDTest extends XMLTestCase {
 	@Test
 	public void testPdfA() throws Exception {
 		
-    	Fits fits = new Fits();
     	File input = new File("testfiles/PDFa_equations.pdf");
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		// write to console
@@ -491,9 +488,7 @@ public class DocMDTest extends XMLTestCase {
 	@Test
 	public void testPdfX() throws Exception {
 		
-    	Fits fits = new Fits();
     	File input = new File("testfiles/altona_technical_1v2_x3_has_annotations.pdf");
-    	
     	FitsOutput fitsOut = fits.examine(input);
     	
 		// write to console

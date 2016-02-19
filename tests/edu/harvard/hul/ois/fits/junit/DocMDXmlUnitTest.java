@@ -18,6 +18,8 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
+import static org.custommonkey.xmlunit.XMLAssert.assertXMLIdentical;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -26,10 +28,10 @@ import java.util.Scanner;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
-import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -39,12 +41,12 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 
 /**
- * These tests test actual FITS output with expected output on various word processing documents.
+ * These tests compare actual FITS output with expected output on various word processing documents.
  * These tests should be run with <display-tool-output>false</display-tool-output> in fits.xml.
  * 
  * @author dan179
  */
-public class DocMDXmlUnitTest extends XMLTestCase {
+public class DocMDXmlUnitTest {
 	
 	private static final String ACTUAL_OUTPUT_FILE_SUFFIX = "_XmlUnitActualOutput.xml";
 	private static final String EXPECTED_OUTPUT_FILE_SUFFIX = "_XmlUnitExpectedOutput.xml";
@@ -59,18 +61,31 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 			"fitsExecutionTime",
 			"executionTime",
 			"filepath",
-			"location"};
+			"location",
+			"lastmodified"};
+	
+	/*
+	 *  Only one Fits instance is needed to run all tests.
+	 *  This also speeds up the tests.
+	 */
+	private static Fits fits;
 
 	@BeforeClass
-	public static void beforeClass() {
-		// Set up XMLUnit
-		XMLUnit.setIgnoreWhitespace(true); 
-		XMLUnit.setNormalizeWhitespace(true); 		
+	public static void beforeClass() throws Exception {
+		// Set up XMLUnit and FITS for entire class.
+		XMLUnit.setIgnoreWhitespace(true);
+		XMLUnit.setNormalizeWhitespace(true);
+		fits = new Fits();
 	}
-    
+	
+	@AfterClass
+	public static void afterClass() {
+		fits = null;
+	}
+	
 	@Test
-	public void testWordDocUrlEmbeddedResources() throws Exception {	
-    	Fits fits = new Fits();
+	public void testWordDocUrlEmbeddedResources() throws Exception {
+
     	String inputFilename = "Word2003_has_URLs_has_embedded_resources.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -90,8 +105,8 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	}
     
 	@Test
-	public void testWordDocGraphics() throws Exception {	
-    	Fits fits = new Fits();
+	public void testWordDocGraphics() throws Exception {
+
     	String inputFilename = "Word2003_many_graphics.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -111,8 +126,8 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	}
     
 	@Test
-	public void testWordDocPasswordProtected() throws Exception {	
-    	Fits fits = new Fits();
+	public void testWordDocPasswordProtected() throws Exception {
+
     	String inputFilename = "Word2003PasswordProtected.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -132,8 +147,8 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	}
     
 	@Test
-	public void testWordDoc2011() throws Exception {	
-    	Fits fits = new Fits();
+	public void testWordDoc2011() throws Exception {
+
     	String inputFilename = "Word2011_Has_Outline.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -153,8 +168,8 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	}
     
 	@Test
-	public void testWordDocLibreOffice() throws Exception {	
-    	Fits fits = new Fits();
+	public void testWordDocLibreOffice() throws Exception {
+
     	String inputFilename = "LibreOffice.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -174,8 +189,8 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	}
     
 	@Test
-	public void testWordDocHyperlinks() throws Exception {	
-    	Fits fits = new Fits();
+	public void testWordDocHyperlinks() throws Exception {
+
     	String inputFilename = "Word2003_has_table_of_contents.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -195,8 +210,8 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	}
     
 	@Test
-	public void testWordDocPasswordAndEncrypted() throws Exception {	
-    	Fits fits = new Fits();
+	public void testWordDocPasswordAndEncrypted() throws Exception {
+
     	String inputFilename = "Word_protected_encrypted.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -216,8 +231,8 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	}
     
 	@Test
-	public void testOpenOfficeDoc() throws Exception {	
-    	Fits fits = new Fits();
+	public void testOpenOfficeDoc() throws Exception {
+
     	String inputFilename = "LibreODT-Ur-doc.odt";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -237,8 +252,8 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	}
     
 	@Test
-	public void testOpenOfficeDocEmbeddedResources() throws Exception {	
-    	Fits fits = new Fits();
+	public void testOpenOfficeDocEmbeddedResources() throws Exception {
+
     	String inputFilename = "LibreODTwFormulas.odt";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -258,8 +273,8 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	}
     
 	@Test
-	public void testOpenOfficeDocHasTables() throws Exception {	
-    	Fits fits = new Fits();
+	public void testOpenOfficeDocHasTables() throws Exception {
+
     	String inputFilename = "LibreODT-hasTables.odt";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -279,8 +294,8 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	}
     
 	@Test
-	public void testOpenOfficeDocPasswordProtected() throws Exception {	
-    	Fits fits = new Fits();
+	public void testOpenOfficeDocPasswordProtected() throws Exception {
+
     	String inputFilename = "LibreODT_protected.odt";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -300,8 +315,8 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	}
     
 	@Test
-	public void testOpenOfficeDocUnparseableDate() throws Exception {	
-    	Fits fits = new Fits();
+	public void testOpenOfficeDocUnparseableDate() throws Exception {
+
     	String inputFilename = "UnparseableDate.odt";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -322,7 +337,7 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	
 	@Test
 	public void testWordDocxOutput() throws Exception {
-    	Fits fits = new Fits();
+
     	String inputFilename = "Word_has_index.docx";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -347,7 +362,7 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	@Ignore
 	@Test
 	public void testWordDocxPasswordProtected() throws Exception {
-    	Fits fits = new Fits();
+
     	String inputFilename = "WordPasswordProtected.docx";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -368,7 +383,7 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	
 	@Test
 	public void testWordDocmOutput() throws Exception {
-    	Fits fits = new Fits();
+
     	String inputFilename = "Document_Has_Form_Controls.docm";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -389,7 +404,6 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	
 	@Test
 	public void testEpubOutput() throws Exception {
-    	Fits fits = new Fits();
 
     	// process multiple files to examine different types of output
     	String[] inputFilenames = {"Winnie-the-Pooh-protected.epub",
@@ -420,7 +434,6 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	
 	@Test
 	public void testWPDOutput() throws Exception {
-    	Fits fits = new Fits();
     	
     	// process multiple files to examine different types of output
     	String[] inputFilenames = { "WordPerfect6-7.wpd",
@@ -450,7 +463,7 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	
 	@Test
 	public void testRtfOutput() throws Exception {
-    	Fits fits = new Fits();
+
     	String inputFilename = "TestDoc.rtf";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -471,7 +484,7 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	
 	@Test
 	public void testRtfWithCompanyOutput() throws Exception {
-    	Fits fits = new Fits();
+
     	String inputFilename = "Doc2.rtf";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -493,7 +506,6 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	@Test
 	public void testPdf() throws Exception {
 		
-    	Fits fits = new Fits();
     	String inputFilename = "PDF_embedded_resources.pdf";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -515,7 +527,6 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	@Test
 	public void testPdfA() throws Exception {
 		
-    	Fits fits = new Fits();
     	String inputFilename = "PDFa_equations.pdf";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -537,7 +548,6 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 	@Test
 	public void testPdfX() throws Exception {
 		
-    	Fits fits = new Fits();
     	String inputFilename = "altona_technical_1v2_x3_has_annotations.pdf";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
@@ -581,8 +591,7 @@ public class DocMDXmlUnitTest extends XMLTestCase {
 			}
 
 		}
-		
-		assertTrue("Differences in XML", diff.identical());
+		assertXMLIdentical("Differences in XML", diff, true);
 	}
 
 }

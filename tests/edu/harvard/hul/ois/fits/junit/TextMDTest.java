@@ -31,11 +31,8 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 
-import org.custommonkey.xmlunit.*;
 
-
-public class TextMDTest extends XMLTestCase {
-
+public class TextMDTest {
     
 	@Test
 	public void testTextMD() throws Exception {	
@@ -55,7 +52,6 @@ public class TextMDTest extends XMLTestCase {
 		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 		
 		textmd.output(writer);
-    	
 	}
 
 }

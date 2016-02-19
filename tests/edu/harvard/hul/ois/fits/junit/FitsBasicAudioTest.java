@@ -19,17 +19,14 @@
 package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
+
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tools.Tool;
 
-import org.custommonkey.xmlunit.*;
-
-
-public class FitsBasicAudioTest extends XMLTestCase {
-
+public class FitsBasicAudioTest {
     
 	@Test
 	public void testFitsAudio () throws Exception {	

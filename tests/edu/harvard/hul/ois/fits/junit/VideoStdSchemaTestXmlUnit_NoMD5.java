@@ -18,7 +18,7 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-import static org.junit.Assert.assertTrue;
+import static org.custommonkey.xmlunit.XMLAssert.assertXMLIdentical;
 
 import java.io.File;
 import java.util.List;
@@ -92,7 +92,7 @@ public class VideoStdSchemaTestXmlUnit_NoMD5 {
 
 		}
 		
-		assertTrue("Differences in XML", diff.identical());
+		assertXMLIdentical("Differences in XML", diff, true);
 	}
 
 }

@@ -17,10 +17,7 @@
 		<branch format="JPEG 2000 JPX"/>
 	</branch>
 	<branch format="Portable Document Format">
-		<branch format="Adobe Illustrator"/>
-		<branch format="PDF/A">
-			<branch format="Adobe Illustrator"/>
-		</branch>
+		<branch format="PDF/A"/>
 		<branch format="PDF/X"/>
 	</branch>
 	<branch format="Plain text">

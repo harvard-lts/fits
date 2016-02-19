@@ -79,9 +79,6 @@
     <!-- Include all JAR files related to unit tests -->
     <pathelement path="${build.dir}"/>
     <fileset dir=".">
-<!--
-   	<include name="${fits.jar.home}/${fits.jar.name}" />
--->
       <include name="lib-ant/*.jar" />
     </fileset>
   </path>

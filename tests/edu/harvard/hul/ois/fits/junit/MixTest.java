@@ -32,11 +32,7 @@ import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tools.Tool;
 import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
 
-import org.custommonkey.xmlunit.*;
-
-
-public class MixTest extends XMLTestCase {
-
+public class MixTest {
     
 	@Test
 	public void testMIX() throws Exception {	
@@ -67,7 +63,6 @@ public class MixTest extends XMLTestCase {
 		mix.output(writer);
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/topazscanner.xml");
-
 	}
 
 }
