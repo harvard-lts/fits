@@ -58,7 +58,6 @@
   <path id="compile.classpath">
     <!-- Include all JAR files that will be included in lib -->
   	<!-- Some tool subdirectories may not have any JAR files but are included for future expansion -->
-  	<pathelement path="${build.dir}"/>
     <fileset dir=".">
       <include name="lib/*.jar"/>
       <include name="lib/adltool/*.jar"/>
@@ -78,7 +77,11 @@
 
   <path id="junit.classpath">
     <!-- Include all JAR files related to unit tests -->
+    <pathelement path="${build.dir}"/>
     <fileset dir=".">
+<!--
+   	<include name="${fits.jar.home}/${fits.jar.name}" />
+-->
       <include name="lib-ant/*.jar" />
     </fileset>
   </path>
@@ -101,8 +104,9 @@
     	   destdir="${build.dir}">
     	<src path="${src.dirs}" />
         <src path="${test.dirs}" />
-        <classpath refid="compile.classpath">
-        </classpath>
+    	<classpath refid="junit.classpath" />
+        <classpath refid="compile.classpath" />
+
     </javac>
   </target>
 
@@ -283,24 +287,32 @@
 		<delete dir="${output.location}" quiet="true"/>
 	</target>
 	
-    <target name="unit-tests" depends="compile">
+    <target name="unit-tests" depends="compile-create-jar, check-fits-jar">
+        <fail unless="fits.jar.preset" message="${fits.jar.home}/${fits.jar.name} not present for tests"/>
     	<property name="halt.tests.on.failure" value="false"/> <!-- whether to terminate tests once first test failure encountered -->
         <property name="halt.tests.on.error" value="false"/> <!-- whether to terminate tests once first test error encountered -->
     	
-    	<!-- Assumed ant-junit4.jar are already on classpath from Ant installation -->
-    	<!-- see https://ant.apache.org/manual/Tasks/junit.html -->
-        <junit fork="true" forkmode="once" logfailedtests="true" printsummary="withOutAndErr"
+    	<!--
+    	     Assumes ant-junit4.jar is already on classpath from Ant installation
+    	     see https://ant.apache.org/manual/Tasks/junit.html
+
+    	     Also, due to the intensive nature of some of the tests, it may be necessary to increase the
+    	     memory for running Ant to avoid a "java.lang.OutOfMemoryError: PermGen space"
+    	     Try adding the environment setting ANT_OPTS=-XX:MaxPermSize=1024m
+    	     or, when running in Eclipse, modifying the eclipse.ini file by adding -XX:MaxPermSize=1024m
+    	-->
+        <junit fork="true" forkmode="perTest" logfailedtests="true" printsummary="withOutAndErr"
                 haltonfailure="${halt.tests.on.failure}" haltonerror="${halt.tests.on.error}">
         	<classpath refid="junit.classpath" />
         	<classpath refid="compile.classpath" />
-            <classpath location="./xml/nlnz" />
-            <classpath location="./xml/nlnz/fits" />
         	<batchtest skipNonTests="true" todir="${junit.reports.dir}">
         		<fileset dir="${test.dirs}">
         			<!-- tests to exclude due to known errors in tests -->
         			<exclude name="**/FitsOutputXmlTest.java"/>
                     <exclude name="**/FitsOutputXmlTest.class"/>
-       			</fileset>
+                    <exclude name="**/XmlContentConverterTest.java"/>
+                    <exclude name="**/XmlContentConverterTest.class"/>
+        		</fileset>
         	</batchtest>
         	<formatter type="plain"/>
         </junit>

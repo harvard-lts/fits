@@ -77,7 +77,6 @@ public class Fits {
   public static volatile String FITS_HOME;
   public static String FITS_XML_DIR;
   public static String FITS_TOOLS_DIR;
-  public static String FITS_LIB_DIR;
   public static XMLConfiguration config;
   public static FitsXmlMapper mapper;
   public static boolean validateToolOutput;
@@ -151,7 +150,6 @@ public class Fits {
 
     FITS_XML_DIR = FITS_HOME + "xml" + File.separator;
     FITS_TOOLS_DIR = FITS_HOME + "tools" + File.separator;
-    FITS_LIB_DIR = FITS_HOME + "lib" + File.separator;
 
     // Set up logging.
     // Now using an explicit properties file, because otherwoise DROID will
