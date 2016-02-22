@@ -483,33 +483,6 @@ public class Fits {
     formatter.printHelp( "fits", opts );
   }
 
-  /*
-   * ORIGINAL EXAMINE METHOD WITHOUT THREADS
-   * 
-   * public FitsOutput examineOriginal(File input) throws FitsException {
-   * if(!input.exists()) { throw new
-   * FitsConfigurationException(input+" does not exist or is not readable"); }
-   * 
-   * List<ToolOutput> toolResults = new ArrayList<ToolOutput>();
-   * 
-   * //run file through each tool, catching exceptions thrown by tools
-   * List<Exception> caughtExceptions = new ArrayList<Exception>(); String path
-   * = input.getPath().toLowerCase(); String ext =
-   * path.substring(path.lastIndexOf(".")+1); for(Tool t : toolbelt.getTools())
-   * { if(t.isEnabled()) { if(!t.hasExcludedExtension(ext)) { try { ToolOutput
-   * tOutput = t.extractInfo(input); toolResults.add(tOutput); } catch(Exception
-   * e) { caughtExceptions.add(e); } } } }
-   * 
-   * 
-   * // consolidate the results into a single DOM FitsOutput result =
-   * consolidator.processResults(toolResults);
-   * result.setCaughtExceptions(caughtExceptions);
-   * 
-   * for(Tool t: toolbelt.getTools()) { t.resetOutput(); }
-   * 
-   * return result; }
-   */
-
   public FitsOutput examine( File input ) throws FitsException {
     long t1 = System.currentTimeMillis();
     if (!input.exists()) {
@@ -577,7 +550,7 @@ public class Fits {
       try {
         thread.join();
       } catch (InterruptedException e) {
-        e.printStackTrace();
+        logger.error("Caught exception while waiting for tools to finish running: " + e.getMessage(), e);
       }
     }
 

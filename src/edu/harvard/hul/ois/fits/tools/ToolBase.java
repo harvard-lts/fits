@@ -273,11 +273,7 @@ public abstract class ToolBase implements Tool {
 
 	public void run() {
 		try {
-			//java.util.Date time = new java.util.Date();
-			//System.out.println(new java.sql.Time(time.getTime()) + " STARTING "+this.getClass());
 			output = extractInfo(inputFile);
-			//java.util.Date time2 = new java.util.Date();
-			//System.out.println(new java.sql.Time(time2.getTime()) +" FINISHED "+this.getClass());
 		} catch (FitsToolException e) {
 		    setCaughtException (e);
 		    logger.error("Caught exception running tool: " + this.getName(), e);

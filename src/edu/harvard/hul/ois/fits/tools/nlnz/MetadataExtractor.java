@@ -107,36 +107,7 @@ public class MetadataExtractor extends ToolBase {
 		try {				
 			// Extract the metadata.
 			adapter.adapt(file, pContext);
-
-			//transformer to convert raw output to nlnz_presmet format
-			//TransformProcessor transformer = TransformProcessor.getInstance(outDTD, "nlnz_presmet.xsd");
-						
-			//get the adapter output as a byte array
-			//byte[] adapterByteOutput = adapterOutput.toByteArray();
-			
-			//temporary to get output prior to nlnz xslt conversion
-			//Document tmpDom = saxBuilder.build(new StringReader(new String(adapterByteOutput)));
-			//XmlUtils.printToConsole(tmpDom);
-		
-			//transform adapter output byte array
-			//transformer.transform(new ByteArrayInputStream(adapterByteOutput),tAdapterOutput);
-			
-			//convert the transformed output to a dom object
-			//InputSource is = new InputSource(new ByteArrayInputStream(tAdapterOutput.toByteArray()));
-			//is.setEncoding("UTF-8");
-			
 			dom = saxBuilder.build(new StringReader(adapterOutput.toString()));
-			
-			/*
-			//convert the adapter byte array output to a dom object  
-			is = new InputSource(new ByteArrayInputStream(adapterByteOutput));
-			is.setEncoding("UTF-8");
-			try {
-				rawDom = docBuilder.parse(is);
-			} catch (SAXException e) {
-				e.printStackTrace();
-			}*/
-					
 		} 
 		catch (JDOMException e) {
             logger.error("Error parsing NLNZ Metadata Extractor XML output: " + e.getClass().getName());

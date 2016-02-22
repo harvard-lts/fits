@@ -892,9 +892,6 @@ public class XmlContentConverter {
 
     	} catch (XmlContentException e) {
     		logger.error("Invalid content: " + e.getMessage ());
-    		// TODO: Should we throw an exception?
-    		// What should we do here?
-    		//e.printStackTrace();
     	}
 
     	return ebucoreModel.ebucoreMain;

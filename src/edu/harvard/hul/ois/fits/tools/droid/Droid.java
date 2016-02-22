@@ -57,7 +57,6 @@ public class Droid extends ToolBase {
 	            throw new FitsToolException("Problem with DROID signature file");
 	        }
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new FitsToolException("Error initilizing DROID",e);
 		}
 	}

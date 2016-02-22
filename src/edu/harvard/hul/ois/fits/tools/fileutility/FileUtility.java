@@ -175,18 +175,6 @@ public class FileUtility extends ToolBase {
 		
 		Document rawOut = createXml(mime,format,charset,linebreaks,execOut+"\n"+execMimeOut);
 		Document fitsXml = transform(xslt,rawOut);
-			
-		/*
-		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());		
-		try {
-			outputter.output(fitsXml, System.out);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		
-		
 		
 		output = new ToolOutput(this,fitsXml,rawOut);
 		

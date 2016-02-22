@@ -81,8 +81,6 @@ public class MediaInfo extends ToolBase {
 		    	
 		    	// Assume we are 64-bit, so default to 64-bit DLL location
 		    	nativeLibPath = fitsHome + "/tools/mediainfo/windows/64";
-
-				// System.out.println("Path to DLL: " + dllDir);
 		    	
 				// If 32 bit, we need to path to the 32-bit DLL
 				String jvmModel =  System.getProperty("sun.arch.data.model");
@@ -96,7 +94,9 @@ public class MediaInfo extends ToolBase {
 		    case Linux:
 		    	nativeLibPath = fitsHome + "/tools/mediainfo/linux";
 		    	break;
-		    case Other: System.out.println("Other OS"); break;
+		    case Other:
+		    	logger.warn("Unsupported native support in MediaInfor for this OS");
+		    	break;
 		}
 		System.setProperty("jna.library.path", nativeLibPath);
 

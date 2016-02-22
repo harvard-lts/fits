@@ -39,18 +39,6 @@ public abstract class CommandLine {
 				builder.directory(new File(directory));
 			}
 			Process proc = builder.start();
-			/*
-			StringBuffer sb = new StringBuffer();
-		    BufferedReader bro = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-		    String line;
-		    while ((line = bro.readLine()) != null) {
-		    	sb.append(line);
-		    	System.out.println(line);
-		    }
-
-		    // The process should be done now, but wait to be sure.
-		    proc.waitFor();
-			*/
 			
 			StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(),bos);
 			StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(),bos);
@@ -75,17 +63,4 @@ public abstract class CommandLine {
 		}
 		return output;
 	}
-/*
-	public static void exec(String cmd, OutputStream output) throws Exception {
-		//Runtime rt = Runtime.getRuntime();
-		//Process proc = rt.exec(cmd.toString());
-		ProcessBuilder builder = new ProcessBuilder(cmd);
-		Process proc = builder.start();
-		StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(),"ERROR", output);
-		StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(),"OUTPUT", output);
-		errorGobbler.start();
-		outputGobbler.start();
-		proc.waitFor();
-	}
-	*/
 }

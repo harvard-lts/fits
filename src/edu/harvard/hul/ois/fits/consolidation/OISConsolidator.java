@@ -110,7 +110,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 					}
 				}
 			} catch (JDOMException e) {
-				e.printStackTrace();
+				logger.error("Error parsing XML with XPath expression.", e);
 			}	
 		}
 		return null;
@@ -228,7 +228,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 				}
 			}
 			catch(JDOMException e) {
-				e.printStackTrace();
+				logger.error("Error parsing XML with XPath expression.", e);
 			}
 		}	
 

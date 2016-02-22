@@ -259,10 +259,10 @@ public class FitsMetadataValues {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Error reading or parsing input file: " + inputFile, e);
 		}
 		finally {
-			if(in != null) try {in.close(); } catch (IOException e) { }
+			if(in != null) try {in.close(); } catch (IOException e) { } // nothing to do if exception when closing file
 		}
 		return map;
     }
