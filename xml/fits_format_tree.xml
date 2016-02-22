@@ -17,10 +17,7 @@
 		<branch format="JPEG 2000 JPX"/>
 	</branch>
 	<branch format="Portable Document Format">
-		<branch format="Adobe Illustrator"/>
-		<branch format="PDF/A">
-			<branch format="Adobe Illustrator"/>
-		</branch>
+		<branch format="PDF/A"/>
 		<branch format="PDF/X"/>
 	</branch>
 	<branch format="Plain text">
@@ -29,12 +26,6 @@
 		</branch>
 		<branch format="Hypertext Markup Language"/>
 		<branch format="Postscript"/>
-	</branch>
-	<branch format="ISO Media, Apple QuickTime movie">
-		<branch format="Quicktime"/>
-	</branch>
-	<branch format="ISO Media, MPEG v4 system, version 2">
-		<branch format="MPEG-4"/>
 	</branch>
 	<branch format="ZIP Format">
 		<branch format="OpenDocument"/>
@@ -56,8 +47,10 @@
 		<branch format="OpenDocument Master Document"/>
 		<branch format="OpenDocument HTML Document Template"/>
 		<branch format="EPUB"/>
+        <branch format="Office Open XML Document">
+            <branch format="Office Open XML Document (Macros Enabled)" />
+        </branch>
 	</branch>
-	
 	<branch format="OLE2 Compound Document Format">
 	   <branch format="Microsoft Word Binary File Format" />
 	</branch>
