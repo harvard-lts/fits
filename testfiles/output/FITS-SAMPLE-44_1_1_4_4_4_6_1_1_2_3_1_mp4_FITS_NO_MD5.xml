@@ -3,6 +3,7 @@
   <identification status="SINGLE_RESULT">
     <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="0.8.3">
       <tool toolname="MediaInfo" toolversion="0.7.75" />
+      <tool toolname="file utility" toolversion="5.04" />
     </identity>
   </identification>
   <fileinfo>
