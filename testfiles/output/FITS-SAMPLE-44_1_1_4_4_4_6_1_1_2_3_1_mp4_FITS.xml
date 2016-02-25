@@ -70,6 +70,7 @@
     <tool toolname="MediaInfo" toolversion="0.7.71" executionTime="976" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
     <tool toolname="Droid" toolversion="6.1.3" executionTime="432" />    
     <tool toolname="Jhove" toolversion="1.5" status="did not run" />
     <tool toolname="file utility" toolversion="5.04" executionTime="1001" />
