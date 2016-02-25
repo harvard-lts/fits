@@ -72,9 +72,10 @@
                 <ebucore:technicalAttributeString typeLabel="delay">3600000</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="compression">lossy</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="broadcastStandard">Component</ebucore:technicalAttributeString>
-                <ebucore:technicalAttributeInteger typeLabel="frameCount">266</ebucore:technicalAttributeInteger>
-                <ebucore:technicalAttributeInteger typeLabel="bitDepth">8</ebucore:technicalAttributeInteger>
-                <ebucore:technicalAttributeInteger typeLabel="duration">10640</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeLong typeLabel="streamSize">544768</ebucore:technicalAttributeLong>
+                <ebucore:technicalAttributeLong typeLabel="frameCount">266</ebucore:technicalAttributeLong>
+                <ebucore:technicalAttributeLong typeLabel="bitDepth">8</ebucore:technicalAttributeLong>
+                <ebucore:technicalAttributeLong typeLabel="duration">10640</ebucore:technicalAttributeLong>
               </ebucore:videoFormat>
               <ebucore:audioFormatExtended />
               <ebucore:containerFormat>
@@ -101,8 +102,9 @@
     <tool toolname="MediaInfo" toolversion="0.7.75" executionTime="499" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
     <tool toolname="Droid" toolversion="6.1.5" executionTime="147" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="945" />
+    <tool toolname="Jhove" toolversion="1.11" status="did not run" />
     <tool toolname="file utility" toolversion="5.04" executionTime="558" />
     <tool toolname="Exiftool" toolversion="10.00" status="did not run" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />

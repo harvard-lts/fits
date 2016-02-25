@@ -26,6 +26,7 @@
 		</branch>
 		<branch format="Hypertext Markup Language"/>
 		<branch format="Postscript"/>
+		<branch format="WebVTT"/>		
 	</branch>
 	<branch format="ZIP Format">
 		<branch format="OpenDocument"/>

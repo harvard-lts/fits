@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="xml/nlnz"/>
 	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-    <classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/serializer.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove-handler.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove.jar"/>
@@ -185,6 +185,6 @@
 	<classpathentry kind="lib" path="lib/droid/stax-api-1.0-2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/droid/xml-apis-1.3.04.jar"/>
-	<classpathentry kind="lib" path="lib/ots_1.0.23.jar"/>
+	<classpathentry kind="lib" path="lib/ots_1.0.25.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
