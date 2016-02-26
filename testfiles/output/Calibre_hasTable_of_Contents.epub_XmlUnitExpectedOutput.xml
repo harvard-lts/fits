@@ -25,6 +25,7 @@
       <subject toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Classical literature, Political science -- Early works to 1800, Utopias -- Early works to 1800, Justice -- Early works to 1800</subject>
       <identifier toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">e8238742-96ac-4a7c-b997-ab0eeb905569</identifier>
       <source toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">http://www.gutenberg.org/files/1497/1497-h/1497-h.htm</source>
+      <language toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">en</language>
     </document>
   </metadata>
   <statistics fitsExecutionTime="193">

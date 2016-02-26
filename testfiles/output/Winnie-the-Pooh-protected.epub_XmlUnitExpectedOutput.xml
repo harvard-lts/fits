@@ -21,7 +21,7 @@
       <author toolname="Exiftool" toolversion="10.00">A. A. Milne</author>
       <isRightsManaged toolname="Exiftool" toolversion="10.00">yes</isRightsManaged>
       <identifier toolname="Exiftool" toolversion="10.00">1-101-15893-X</identifier>
-      <language toolname="Tika" toolversion="1.10" status="SINGLE_RESULT">en</language>
+      <language toolname="Exiftool" toolversion="10.00">en</language>
     </document>
   </metadata>
   <statistics fitsExecutionTime="234">

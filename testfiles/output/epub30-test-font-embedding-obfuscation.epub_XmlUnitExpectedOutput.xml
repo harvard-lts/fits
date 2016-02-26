@@ -24,7 +24,7 @@
       <isRightsManaged toolname="Exiftool" toolversion="10.00">yes</isRightsManaged>
       <description toolname="Exiftool" toolversion="10.00">Tests for Font Embedding and Obfuscation [UNDER CONSTRUCTION]</description>
       <identifier toolname="Exiftool" toolversion="10.00">com.github.epub-testsuite.epub30-test-0103</identifier>
-      <language toolname="Tika" toolversion="1.10" status="SINGLE_RESULT">en</language>
+      <language toolname="Exiftool" toolversion="10.00">en</language>
     </document>
   </metadata>
   <statistics fitsExecutionTime="190">

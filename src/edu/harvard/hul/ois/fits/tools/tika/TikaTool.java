@@ -108,6 +108,9 @@ public class TikaTool extends ToolBase {
     private final static String P_OBJECT_COUNT = "Object-Count";
     private final static String P_PAGE_COUNT = "Page-Count";
     private final static String P_PARAGRAPH_COUNT = "Paragraph-Count";
+    private final static String P_PDF_VERSION = "pdf:PDFVersion";
+    private final static String P_PDFA_VERSION = "pdfa:PDFVersion";
+    private final static String P_PDFX_VERSION = "GTS_PDFXVersion";
     private final static String P_PHYS = "pHYs";
     private final static String P_PRODUCER = "producer";
     private final static String P_PUBLISHER = "publisher";
@@ -224,6 +227,9 @@ public class TikaTool extends ToolBase {
         OBJECT_COUNT,
         PAGE_COUNT,
         PARAGRAPH_COUNT,
+        PDF_VERSION,
+        PDFA_VERSION,
+        PDFX_VERSION,
         PHYS,
         PRODUCER,
         PUBLISHER,
@@ -341,6 +347,9 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_OBJECT_COUNT, TikaProperty.OBJECT_COUNT);
         propertyNameMap.put (P_PAGE_COUNT, TikaProperty.PAGE_COUNT);
         propertyNameMap.put (P_PARAGRAPH_COUNT, TikaProperty.PARAGRAPH_COUNT);
+        propertyNameMap.put (P_PDF_VERSION, TikaProperty.PDF_VERSION);
+        propertyNameMap.put (P_PDFA_VERSION, TikaProperty.PDFA_VERSION);
+        propertyNameMap.put (P_PDFX_VERSION, TikaProperty.PDFX_VERSION);
         propertyNameMap.put (P_PHYS, TikaProperty.PHYS);
         propertyNameMap.put (P_PRODUCER, TikaProperty.PRODUCER);
         propertyNameMap.put (P_PUBLISHER, TikaProperty.PUBLISHER);
@@ -451,7 +460,24 @@ public class TikaTool extends ToolBase {
         Element identityElem = new Element ("identity", fitsNS);
         // Format and mime type info. 
         
-        Attribute attr = new Attribute ("format", getFormatType(mimeType));
+        String formatType = getFormatType(mimeType);
+        // special case -- possibly override for PDF subtypes
+        String pdfa = metadata.get(P_PDFA_VERSION);
+        String pdfx = metadata.get(P_PDFX_VERSION);
+        if (pdfa != null) {
+        	formatType = "PDF/A";
+        } else if (pdfx != null) {
+        	formatType = "PDF/X";
+        }
+        String pdfVersion = metadata.get(P_PDF_VERSION);
+        if (pdfVersion != null) {
+        	Element versionElem = new Element("version", fitsNS);
+        	versionElem.addContent(pdfVersion);
+        	identityElem.addContent(versionElem);
+        	
+        }
+        
+        Attribute attr = new Attribute ("format", formatType);
         identityElem.setAttribute (attr);
         attr = new Attribute ("mimetype", mimeType);
         identityElem.setAttribute (attr);
@@ -576,6 +602,9 @@ public class TikaTool extends ToolBase {
 	        if (stdText != null) {
 	            format = stdText;
 	        }
+	        
+	        // it may be necessary to get format name based on tool element rather than mime type
+	        
 	        
 	        
 	        return format;

@@ -101,7 +101,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
@@ -122,7 +122,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
@@ -143,7 +143,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
@@ -164,7 +164,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
@@ -185,7 +185,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
@@ -206,7 +206,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
@@ -227,7 +227,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
@@ -248,7 +248,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
@@ -269,7 +269,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
@@ -290,7 +290,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
@@ -311,7 +311,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
@@ -332,7 +332,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 	
 	@Test
@@ -353,7 +353,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 	
 	/*
@@ -378,7 +378,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 	
 	@Test
@@ -399,7 +399,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 	
 	@Test
@@ -428,7 +428,7 @@ public class DocMDXmlUnitTest {
     				useDelimiter("\\Z").next();
     		scan.close();
 
-    		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+    		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
     	}
 	}
 	
@@ -457,7 +457,7 @@ public class DocMDXmlUnitTest {
     				useDelimiter("\\Z").next();
     		scan.close();
 
-    		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+    		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
     	}
 	}
 	
@@ -479,7 +479,7 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 	
 	@Test
@@ -500,76 +500,97 @@ public class DocMDXmlUnitTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
     
 	@Test
 	public void testPdf() throws Exception {
 		
-    	String inputFilename = "PDF_embedded_resources.pdf";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+    	String[] inputFilenames = {"PDF_embedded_resources.pdf",
+    			"PDF_equations.pdf",
+    			"HasChangeHistory.pdf",
+    			"PDF_eng.pdf",
+    			"HasAnnotations.pdf"};
 
-		// Read in the expected XML file
-		Scanner scan = new Scanner(new File(
-				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-		String expectedXmlStr = scan.
-				useDelimiter("\\Z").next();
-		scan.close();
-
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+    	for (String inputFilename : inputFilenames) {
+    		File input = new File("testfiles/" + inputFilename);
+	    	FitsOutput fitsOut = fits.examine(input);
+	    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+	    	
+			XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+			String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+	
+			// Read in the expected XML file
+			Scanner scan = new Scanner(new File(
+					"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+			String expectedXmlStr = scan.
+					useDelimiter("\\Z").next();
+			scan.close();
+	
+			testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+    	}
 	}
     
 	@Test
 	public void testPdfA() throws Exception {
 		
-    	String inputFilename = "PDFa_equations.pdf";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+    	String[] inputFilenames = {"PDFa_equations.pdf",
+    			"PDFa_multiplefonts.pdf",
+    			"PDFa_has_form.pdf",
+    			"PDFa_has_table_of_contents.pdf",
+    			"PDFa_has_tables.pdf",
+    			"PDFA_Document with tables.pdf",
+    			"PDFa_embedded_resources.pdf"};
 
-		// Read in the expected XML file
-		Scanner scan = new Scanner(new File(
-				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-		String expectedXmlStr = scan.
-				useDelimiter("\\Z").next();
-		scan.close();
-
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+    	for (String inputFilename : inputFilenames) {
+    		File input = new File("testfiles/" + inputFilename);
+	    	FitsOutput fitsOut = fits.examine(input);
+	    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+	    	
+			XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+			String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+	
+			// Read in the expected XML file
+			Scanner scan = new Scanner(new File(
+					"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+			String expectedXmlStr = scan.
+					useDelimiter("\\Z").next();
+			scan.close();
+	
+			testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+    	}
 	}
     
 	@Test
 	public void testPdfX() throws Exception {
 		
-    	String inputFilename = "altona_technical_1v2_x3_has_annotations.pdf";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+    	String[] inputFilenames = {//"altona_technical_1v2_x3_has_annotations.pdf",
+//    			"Book_pdfx1a.pdf",
+    			"PDFx3.pdf"};
 
-		// Read in the expected XML file
-		Scanner scan = new Scanner(new File(
-				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-		String expectedXmlStr = scan.
-				useDelimiter("\\Z").next();
-		scan.close();
-
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr);
+    	for (String inputFilename : inputFilenames) {
+    		File input = new File("testfiles/" + inputFilename);
+	    	FitsOutput fitsOut = fits.examine(input);
+	    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+	    	
+			XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+			String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+	
+			// Read in the expected XML file
+			Scanner scan = new Scanner(new File(
+					"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+			String expectedXmlStr = scan.
+					useDelimiter("\\Z").next();
+			scan.close();
+	
+			testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+    	}
 	}
 
 	/*
 	 * This method performs the actual test of actual FITS output against expected.
 	 */
-	private void testActualAgainstExpected(String actualXmlStr, String expectedXmlStr)
+	private void testActualAgainstExpected(String actualXmlStr, String expectedXmlStr, String inputFilename)
 			throws SAXException, IOException {
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
@@ -591,7 +612,7 @@ public class DocMDXmlUnitTest {
 			}
 
 		}
-		assertXMLIdentical("Differences in XML", diff, true);
+		assertXMLIdentical("Differences in XML for file: " + inputFilename, diff, true);
 	}
 
 }

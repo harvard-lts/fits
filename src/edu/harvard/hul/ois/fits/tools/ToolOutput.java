@@ -186,4 +186,11 @@ public class ToolOutput {
 		return identities;
 	}
 	
+	public String toString() {
+		StringBuilder sb = new StringBuilder("ToolOutput[");
+		sb.append(tool.getName());
+		sb.append("]");
+		return sb.toString();
+	}
+	
 }

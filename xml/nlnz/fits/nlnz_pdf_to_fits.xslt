@@ -26,7 +26,7 @@
 			</created>
 			-->
 			<creatingApplicationName>
-				<xsl:if test="//PRODUCER and //CREATOR">
+				<xsl:if test="//PRODUCER and string-length(//PRODUCER) > 0 and //CREATOR and string-length(//CREATOR) > 0">
 					<xsl:value-of select="concat(//PRODUCER,'/',//CREATOR)"/>
 				</xsl:if>
 			</creatingApplicationName>

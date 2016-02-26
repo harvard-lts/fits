@@ -139,6 +139,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
             <source>
                 <xsl:value-of select="exiftool/Source" />
             </source>
+            
+            <language>
+                <xsl:value-of select="exiftool/Language" />
+            </language>
 		</document>				
 		</metadata>
 	</fits>	

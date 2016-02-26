@@ -67,6 +67,12 @@
 					<xsl:when test="not(string-length($exifByteOrder) = 0) and not(exiftool/FileType = 'JP2')">
 						<xsl:value-of select="concat(exiftool/FileType,' EXIF')" />
 					</xsl:when>
+                    <xsl:when test="exiftool/GTS_PDFXVersion and starts-with(exiftool/GTS_PDFXVersion, 'PDF/X')">
+                        <xsl:value-of select="string('PDF/X')" />
+					</xsl:when>
+                    <xsl:when test="exiftool/SchemasSchema and starts-with(exiftool/SchemasSchema, 'PDF/A')">
+                        <xsl:value-of select="string('PDF/A')" />
+                    </xsl:when>
 					<xsl:otherwise>
 						<xsl:value-of select="exiftool/FileType" />
 					</xsl:otherwise>
@@ -336,8 +342,8 @@
 					<xsl:value-of select="exiftool/Model"/>					
 				</xsl:when>	
 				<xsl:when test="$mime='application/pdf'">
-					<xsl:if test="exiftool/Producer and //exiftool/Creator">
-						<xsl:value-of select="concat(exiftool/Producer,'/',//exiftool/Creator)"/>
+					<xsl:if test="exiftool/Producer and //exiftool/CreatorTool">
+						<xsl:value-of select="concat(exiftool/Producer,'/',//exiftool/CreatorTool)"/>
 					</xsl:if>			
 				</xsl:when>		
 				<xsl:when test="$mime='application/msword'">
@@ -354,7 +360,7 @@
 				        $mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document' or
 				        $mime='application/vnd.ms-word.document.macroEnabled'">
 					<xsl:value-of select="exiftool/AppVersion"/>			
-				</xsl:when>			
+				</xsl:when>
 			</xsl:choose>
 		</creatingApplicationVersion>
 		<inhibitorType>

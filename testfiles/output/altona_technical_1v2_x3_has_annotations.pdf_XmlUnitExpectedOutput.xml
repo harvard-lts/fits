@@ -4,15 +4,16 @@
     <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="0.10.1">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Jhove" toolversion="1.11" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="Tika" toolversion="1.10" />
       <version toolname="Jhove" toolversion="1.11">3:2003</version>
       <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/158</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
     <size toolname="Jhove" toolversion="1.11">4274074</size>
-    <creatingApplicationName toolname="Jhove" toolversion="1.11" status="CONFLICT">Acrobat Distiller 5.0.5 f.r Macintosh/QuarkXPress(R) 4.04</creatingApplicationName>
-    <creatingApplicationName toolname="Exiftool" toolversion="10.00" status="CONFLICT">Acrobat Distiller 5.0.5 f.r Macintosh/ECI (www.eci.org), bvdm (www.bvdm-online.de), FOGRA (www.fogra.org), ugra (www.ugra.ch)</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2016:02:08 13:39:36-05:00</lastmodified>
+    <creatingApplicationName toolname="Jhove" toolversion="1.11">Acrobat Distiller 5.0.5 f.r Macintosh/QuarkXPress(R) 4.04</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2016:02:22 16:48:25-05:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2004-05-09T12:07:13Z</lastmodified>
     <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2002:09:21 19:25:36Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/altona_technical_1v2_x3_has_annotations.pdf</filepath>

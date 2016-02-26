@@ -462,40 +462,64 @@ public class DocMDTest {
 	@Test
 	public void testPdf() throws Exception {
 		
-    	File input = new File("testfiles/PDF_embedded_resources.pdf");
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		// write to console
-		Fits.outputStandardCombinedFormat(fitsOut, System.out);
-		
-		// write to file
-		fitsOut.saveToDisk("test-generated-output/PDF_embedded_resources_Output.xml");
+    	String[] inputFilenames = {"PDF_embedded_resources.pdf",
+    			"PDF_equations.pdf",
+    			"HasChangeHistory.pdf",
+    			"PDF_eng.pdf",
+    			"HasAnnotations.pdf"};
+
+    	for (String inputFilename : inputFilenames) {
+    		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
+    		File input = new File("testfiles/" + inputFilename);
+    		FitsOutput fitsOut = fits.examine(input);
+        	fitsOut.addStandardCombinedFormat();
+    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+    		// write to console
+    		serializer.output(fitsOut.getFitsXml(), System.out);
+    		fitsOut.saveToDisk(outputFilename);
+    	}
 	}
     
 	@Test
 	public void testPdfA() throws Exception {
 		
-    	File input = new File("testfiles/PDFa_equations.pdf");
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		// write to console
-		Fits.outputStandardCombinedFormat(fitsOut, System.out);
-		
-		// write to file
-		fitsOut.saveToDisk("test-generated-output/PDFa_equations_Output.xml");
+    	String[] inputFilenames = {"PDFa_equations.pdf",
+    			"PDFa_multiplefonts.pdf",
+    			"PDFa_has_form.pdf",
+    			"PDFa_has_table_of_contents.pdf",
+    			"PDFa_has_tables.pdf",
+    			"PDFA_Document with tables.pdf",
+    			"PDFa_embedded_resources.pdf"};
+
+    	for (String inputFilename : inputFilenames) {
+    		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
+    		File input = new File("testfiles/" + inputFilename);
+    		FitsOutput fitsOut = fits.examine(input);
+        	fitsOut.addStandardCombinedFormat();
+    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+    		// write to console
+    		serializer.output(fitsOut.getFitsXml(), System.out);
+    		fitsOut.saveToDisk(outputFilename);
+    	}
 	}
     
 	@Test
 	public void testPdfX() throws Exception {
 		
-    	File input = new File("testfiles/altona_technical_1v2_x3_has_annotations.pdf");
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		// write to console
-		Fits.outputStandardCombinedFormat(fitsOut, System.out);
-		
-		// write to file
-		fitsOut.saveToDisk("test-generated-output/altona_technical_1v2_x3_has_annotations_PDFX_Output.xml");
+    	String[] inputFilenames = {"altona_technical_1v2_x3_has_annotations.pdf",
+    			"Book_pdfx1a.pdf",
+    			"PDFx3.pdf"};
+
+    	for (String inputFilename : inputFilenames) {
+    		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
+    		File input = new File("testfiles/" + inputFilename);
+    		FitsOutput fitsOut = fits.examine(input);
+        	fitsOut.addStandardCombinedFormat();
+    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+    		// write to console
+    		serializer.output(fitsOut.getFitsXml(), System.out);
+    		fitsOut.saveToDisk(outputFilename);
+    	}
 	}
 
 }
