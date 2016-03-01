@@ -117,7 +117,7 @@ public class Fits {
   }
 
   /**
-   * Constructor with path to FITS alternate .
+   * Constructor with path to alternate FITS_HOME.
    * 
    * @param fits_home Full path to home directory of FITS installation.
    *        NOTE: If FITS_HOME set as environment variable this argument has no effect.

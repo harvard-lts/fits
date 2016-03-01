@@ -138,6 +138,7 @@
   <target name="clean" description="Delete old build and dist directories">
     <delete dir="${build.dir}" quiet="true" />
     <delete dir="${fits.jar.home}" quiet="true"/>
+    <delete dir="${javadoc.home}" quiet="true"/>
   </target>
 
 
@@ -203,16 +204,15 @@
 -->
 
   <target name="javadoc" description="Create Javadoc API documentation">
-
     <mkdir dir="${javadoc.home}"/>
-    <javadoc destdir="${javadoc.home}"
-           packagenames="*">
+    <javadoc destdir="${javadoc.home}" packagenames="*">
       <fileset dir=".">
-	<include name="src/**/*.java"/>
+	    <include name="src/**/*.java"/>
+      	<include name="tests/**/*.java"/>
       </fileset>
       <classpath refid="compile.classpath"/>
+      <classpath refid="junit.classpath"/>
     </javadoc>
-
   </target>
 
 
@@ -227,7 +227,7 @@
   </target>
 
 <!-- ========================= Release Targets ============================ -->
-	<target name="release" depends="clean-compile-jar, check-fits-jar">
+	<target name="release" depends="clean-compile-jar, check-fits-jar, javadoc">
 		<fail unless="fits.jar.preset" message="There is no ${fits.jar.name} in ${fits.jar.home}"/>
 		<property name="output.location.version" 
 			value="${output.location}/${app.name}-${build.version}"/>
@@ -257,6 +257,9 @@
 				<exclude name="**/.cvsignore"/>
 				<exclude name="**/*.class"/>
 			</fileset>
+		</copy>
+		<copy todir="${output.location.version}/javadoc">
+		    <fileset dir="${javadoc.home}" />  
 		</copy>
         <copy file="log4j.properties" todir="${output.location.version}"/>
 		<copy file="cpappend.bat" todir="${output.location.version}"/>
