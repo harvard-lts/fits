@@ -284,8 +284,7 @@
 		<delete dir="${output.location}" quiet="true"/>
 	</target>
 	
-    <target name="unit-tests" depends="compile-create-jar, check-fits-jar">
-        <fail unless="fits.jar.preset" message="${fits.jar.home}/${fits.jar.name} not present for tests"/>
+    <target name="unit-tests" depends="compile">
     	<property name="halt.tests.on.failure" value="false"/> <!-- whether to terminate tests once first test failure encountered -->
         <property name="halt.tests.on.error" value="false"/> <!-- whether to terminate tests once first test error encountered -->
     	
@@ -307,8 +306,6 @@
         			<!-- tests to exclude due to known errors in tests -->
         			<exclude name="**/FitsOutputXmlTest.java"/>
                     <exclude name="**/FitsOutputXmlTest.class"/>
-                    <exclude name="**/XmlContentConverterTest.java"/>
-                    <exclude name="**/XmlContentConverterTest.class"/>
         		</fileset>
         	</batchtest>
         	<formatter type="plain"/>
