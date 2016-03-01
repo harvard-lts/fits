@@ -1,5 +1,14 @@
 RELEASE NOTES
 
+Version 0.11.0
+----------------------
+- Create FITS output and DocumentDM output for all word processing formats.
+- All test classes now use JUnit 4 annotations.
+- All test classes that use XmlUnit no longer extend XmlUnit but, instead, use utility classes.
+- Separate logging for unit tests that extend base class AbstractLoggingTest.java which uses tests.log4j.properties to initialize logging.
+- Fits.java now only initializes logging with this project's log4j.properties if the system property "log4j.configuration" hasn't already been set,
+perhaps by an external system using FITS. This allows for not overriding the setting of the test classes as well.
+
 Version 0.10.1
 ----------------------
 
