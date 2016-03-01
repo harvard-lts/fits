@@ -31,6 +31,7 @@ package edu.harvard.hul.ois.fits;
 
 import java.io.File;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -40,13 +41,13 @@ import org.jdom.Element;
 import org.jdom.Namespace;
 
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
-import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational; 
-import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
-import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
-import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlDateFormat;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.Font;
 import edu.harvard.hul.ois.ots.schemas.MIX.Compression;
 import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
+import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational;
+import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
+import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
+import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlDateFormat;
 
 /** This class handles conversion between FITS metadata and XmlContent
  *  implementations of metadata schemas.
@@ -54,9 +55,19 @@ import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
  *  for this to compile. */
 public class XmlContentConverter {
 	
-	private static final Logger logger = Logger.getLogger( XmlContentConverter.class );
+	private static List<String> docMdNames;
 	
-	private final static Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
+	private static final Logger logger = Logger.getLogger(XmlContentConverter.class);
+
+	private static final Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
+	
+	static {
+    	// collect names of DocumentMD enums
+		docMdNames = new ArrayList<String>(DocumentMDElement.values().length);
+		for (DocumentMDElement elem : DocumentMDElement.values()) {
+			docMdNames.add(elem.getName());
+		}
+	}
     
     /** Converts an image element to a MIX object
      * 
@@ -578,20 +589,20 @@ public class XmlContentConverter {
      */
     public XmlContent toDocumentMD(Element fitsDoc) {
         DocumentMDModel dm = new DocumentMDModel();
-        List<Element> dataElements = fitsDoc.getChildren();
+        @SuppressWarnings("unchecked")
+		List<Element> dataElements = fitsDoc.getChildren();
         for (Element dataElement : dataElements) {
         	// If element name is contained in enum then we're interested in it.
         	DocumentMDElement fitsElem = null;
-        	try {
+        	if (docMdNames.contains(dataElement.getName())) {
+        		// If name of element is contained in list of enum names then we can safely use valueOf()
+        		// rather than having to trap potential exception whenever the dataElement name does not convert to an enum.
         		fitsElem = DocumentMDElement.valueOf(dataElement.getName());
-        	}
-        	catch (IllegalArgumentException e) {
-        		// Hopefully we will never get here, but if we do, just ignore
-        		logger.warn("No DocumentMDElement of type: " + dataElement.getName());
+        	} else {
         		continue;
         	}
             String dataValue = dataElement.getText().trim();
-            Integer intValue = null;  // sometimes necessary to convert to Integer
+            Integer intValue = null;  // it's sometimes necessary to convert to Integer
             switch (fitsElem) {
                 case pageCount:
                     intValue = parseInt(dataValue);
