@@ -26,12 +26,19 @@
  * hulois@hulmail.harvard.edu
  **********************************************************************/
 
-package edu.harvard.hul.ois.fits.junit;
+package edu.harvard.hul.ois.fits;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.Namespace;
+import org.junit.Test;
+
+import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.XmlContentConverter;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD.Feature;
@@ -54,38 +61,34 @@ import edu.harvard.hul.ois.ots.schemas.TextMD.MarkupBasis;
 import edu.harvard.hul.ois.ots.schemas.TextMD.MarkupLanguage;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 
-import org.jdom.Document;
-import org.jdom.Element;
-import org.junit.Ignore;
-import org.junit.Test;
-
-@Ignore // Broken tests
 public class XmlContentConverterTest {
+	
+	private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
 
 	@Test
     public void testToMix () {
         // Construct a document using JDOM
         Document jdoc = new Document ();
-        Element imgElem = new Element ("image");
+        Element imgElem = new Element ("image", fitsNS);
         jdoc.addContent(imgElem);
         
-        Element elem = new Element ("byteOrder");
+        Element elem = new Element ("byteOrder", fitsNS);
         elem.addContent("big endian");
         imgElem.addContent (elem);
         
-        elem = new Element ("gpsVersionID");
+        elem = new Element ("gpsVersionID", fitsNS);
         elem.addContent ("99.5");
         imgElem.addContent (elem);
         
-        elem = new Element ("gpsDestLatitude");
+        elem = new Element ("gpsDestLatitude", fitsNS);
         elem.addContent ("33 deg 24' 51.40\" N");
         imgElem.addContent (elem);
         
-        elem = new Element ("referenceBlackWhite");
+        elem = new Element ("referenceBlackWhite", fitsNS);
         elem.addContent ("0.0 255.0 0.0 255.0 0.0 255.0");
         imgElem.addContent (elem);
         
-        elem = new Element ("YCbCrCoefficients");
+        elem = new Element ("YCbCrCoefficients", fitsNS);
         elem.addContent ("10.0 20.0 30.0");
         imgElem.addContent (elem);
         
@@ -106,9 +109,9 @@ public class XmlContentConverterTest {
         double deg = dlat.getDegrees().toRational().getDouble();
         double min = dlat.getMinutes().toRational().getDouble();
         double sec = dlat.getSeconds().toRational().getDouble();
-        assertTrue ((int) deg == 33);
-        assertTrue ((int) min == 24);
-        assertTrue ((int) sec == 51);
+        assertEquals (33.0, deg, 0.0);
+        assertEquals (24.0, min, 0.0);
+        assertEquals (51.0, sec, 0.4);
         
         BasicImageInformation bii = mix.getBasicImageInformation();
         BasicImageCharacteristics bic = bii.getBasicImageCharacteristics();
@@ -116,65 +119,89 @@ public class XmlContentConverterTest {
         List<ReferenceBlackWhite> rbwList = phi.getReferenceBlackWhites();
         ReferenceBlackWhite rbw = rbwList.get(0);
         List<Component> compList = rbw.getComponents();
-        assertTrue (compList.size() == 3);
+        assertEquals (3, compList.size());
         Component comp = compList.get(0);
         assertEquals ("Y", comp.getComponentPhotometricInterpretation().toString ());
         double headroom = comp.getHeadroom().toRational().getDouble();
-        assertTrue (headroom == 0.0);
+        assertEquals (0.0, headroom, 0.0);
         
         YCbCr ycbcr = phi.getYCbCr();
         YCbCrCoefficients ycbcrc = ycbcr.getYCbCrCoefficients();
         double lumaRed = ycbcrc.getLumaRed().toRational().getDouble ();
-        assertTrue (lumaRed == 10.0);
+        assertEquals (10.0, lumaRed, 0.0);
         double lumaGreen = ycbcrc.getLumaGreen().toRational().getDouble ();
-        assertTrue (lumaGreen == 20.0);
+        assertEquals (20.0, lumaGreen, 0.0);
         double lumaBlue = ycbcrc.getLumaBlue().toRational().getDouble ();
-        assertTrue (lumaBlue == 30.0);    
+        assertEquals (30.0, lumaBlue, 0.0);    
     }
 
 	@Test
-    public void testToDocumentMD () {
+    public void testToDocumentMD() {
         // Construct a document using JDOM
-        Document jdoc = new Document ();
-        Element docElem = new Element ("document");
+        Document jdoc = new Document();
+        Element docElem = new Element("document", fitsNS);
         jdoc.addContent(docElem);
 
-        Element elem = new Element ("isTagged");
-        elem.addContent("no");
-        docElem.addContent (elem);
+        Element elem = new Element("isTagged", fitsNS); // a feature
+        elem.addContent("yes");
+        docElem.addContent(elem);
         
-        elem = new Element ("hasOutline");
-        elem.addContent("no");
-        docElem.addContent (elem);
+        elem = new Element("hasOutline", fitsNS); // a feature
+        elem.addContent("yes");
+        docElem.addContent(elem);
         
-        elem = new Element ("hasAnnotations");
-        elem.addContent("no");
-        docElem.addContent (elem);
+        elem = new Element("hasAnnotations", fitsNS); // a feature
+        elem.addContent("yes");
+        docElem.addContent(elem);
         
-        elem = new Element ("pageCount");
+        elem = new Element("pageCount", fitsNS);
         elem.addContent("6");
-        docElem.addContent (elem);
+        docElem.addContent(elem);
         
-        elem = new Element ("isRightsManaged");
+        elem = new Element("isRightsManaged", fitsNS);
         elem.addContent("yes");
-        docElem.addContent (elem);
+        docElem.addContent(elem);
         
-        elem = new Element ("isProtected");
+        elem = new Element("isProtected", fitsNS);
         elem.addContent("no");
-        docElem.addContent (elem);
+        docElem.addContent(elem);
         
-        elem = new Element( "hasForms");
+        elem = new Element("hasForms", fitsNS); // a feature
         elem.addContent("yes");
-        docElem.addContent (elem);
+        docElem.addContent(elem);
 
-        XmlContentConverter conv = new XmlContentConverter ();
-        DocumentMD dmd = (DocumentMD) conv.toDocumentMD (docElem);
-        List<Feature> features = dmd.getFeatures ();
-        assertTrue (features.size() == 1);
-        Feature feature = features.get(0);
-        assertTrue (feature == Feature.hasForms);
+        // add a font
+        Element fontElem1 = new Element("font", fitsNS);
+        Element elemFontName = new Element("fontName", fitsNS);
+        elemFontName.addContent("Helvetica");
+        Element elemFontIsEmbedded = new Element("fontIsEmbedded", fitsNS);
+        elemFontIsEmbedded.addContent("false");
+        fontElem1.addContent(elemFontName);
+        fontElem1.addContent(elemFontIsEmbedded);
+        docElem.addContent(fontElem1);
 
-        assertTrue (dmd.getPageCount() == 6);
+        // add another font
+        Element fontElem2 = new Element("font", fitsNS);
+        elemFontName = new Element("fontName", fitsNS);
+        elemFontName.addContent("Times");
+        elemFontIsEmbedded = new Element("fontIsEmbedded", fitsNS);
+        elemFontIsEmbedded.addContent("true");
+        fontElem2.addContent(elemFontName);
+        fontElem2.addContent(elemFontIsEmbedded);
+        docElem.addContent(fontElem2);
+
+        XmlContentConverter conv = new XmlContentConverter();
+        DocumentMD dmd =(DocumentMD) conv.toDocumentMD(docElem);
+        assertEquals(6, dmd.getPageCount());
+        List<Feature> features = dmd.getFeatures();
+        assertEquals(4, features.size());
+        assertTrue(features.contains(Feature.hasForms));
+        assertTrue(features.contains(Feature.hasOutline));
+        assertTrue(features.contains(Feature.hasAnnotations));
+        assertTrue(features.contains(Feature.isTagged));
+
+        
+        assertEquals(2, dmd.getFonts().size());
 	}
 
 	@Test
@@ -182,26 +209,26 @@ public class XmlContentConverterTest {
         final String mln = "http://www.loc.gov/standards/mets/mets.xsd";
         // Construct a document using JDOM
         Document jdoc = new Document ();
-        Element textElem = new Element ("text");
+        Element textElem = new Element ("text", fitsNS);
         jdoc.addContent(textElem);
         
-        Element elem = new Element ("linebreak");
+        Element elem = new Element ("linebreak", fitsNS);
         elem.addContent ("LF");
         textElem.addContent (elem);
         
-        elem = new Element ("charset");
+        elem = new Element ("charset", fitsNS);
         elem.addContent ("US-ASCII");
         textElem.addContent (elem);
 
-        elem = new Element ("markupBasis");
+        elem = new Element ("markupBasis", fitsNS);
         elem.addContent ("HTML");
         textElem.addContent (elem);
         
-        elem = new Element ("markupBasisVersion");
+        elem = new Element ("markupBasisVersion", fitsNS);
         elem.addContent ("1.0");
         textElem.addContent (elem);
         
-        elem = new Element ("markupLanguage");
+        elem = new Element ("markupLanguage", fitsNS);
         elem.addContent (mln);
         textElem.addContent (elem);
         
@@ -209,21 +236,21 @@ public class XmlContentConverterTest {
         TextMD tmd = (TextMD) conv.toTextMD (textElem);
         
         List<CharacterInfo> chinfos = tmd.getCharacterInfos();
-        assertTrue (chinfos.size() == 1);
+        assertEquals(1, chinfos.size());
         CharacterInfo chinfo = chinfos.get(0);
-        assertEquals ("US-ASCII", chinfo.getCharset());
-        assertEquals ("LF", chinfo.getLinebreak ());
+        assertEquals("US-ASCII", chinfo.getCharset());
+        assertEquals("LF", chinfo.getLinebreak ());
         
         List<MarkupBasis> mkbases = tmd.getMarkupBases();
-        assertTrue (mkbases.size () == 1);
+        assertEquals(1, mkbases.size());
         MarkupBasis mkbas = mkbases.get(0);
         assertEquals ("HTML", mkbas.getValue());
         assertEquals ("1.0", mkbas.getVersion());
         
         List<MarkupLanguage> mklangs = tmd.getMarkupLanguages();
-        assertTrue (mklangs.size() == 1);
+        assertEquals(1, mklangs.size());
         MarkupLanguage mklang = mklangs.get(0);
-        assertEquals (mln, mklang.getValue());
+        assertEquals(mln, mklang.getValue());
     }
 
 }

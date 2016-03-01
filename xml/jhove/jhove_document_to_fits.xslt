@@ -84,10 +84,26 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                     <xsl:value-of select="$graphicsCount"/>
                 </xsl:if>
 			</graphicsCount>
-			</document>
 			
 			<!-- fonts -->
-			<xsl:variable name="fonts" select="//property[name='Fonts']/values/property/values/property[name='Font']"/>
+            <xsl:variable name="fonts" select="//property[name='Fonts']//property[name='FontName']"/>
+<!-- 			<xsl:variable name="fonts" select="count(//property[name='Fonts']/values/property/values/property[name='Font'])"/> -->
+<!--             <xsl:if test="$fonts"> -->
+			    <xsl:for-each select="$fonts">
+        			<font>
+<!-- 				        <xsl:variable name="cur_font" select=".//property[name='FontName']/values/value/text()" /> -->
+<!--                         <xsl:variable name="cur_font" select="./values/property[name='BaseFont']/values/value/text()" /> -->
+<!--                         <xsl:value-of select="string($cur_font)"/> -->
+				        <fontName>
+		                    <xsl:value-of select="string(./values/value/text())"/>
+				        </fontName>
+				        <fontIsEmbedded>
+				            <xsl:value-of select="string('false')" />
+				        </fontIsEmbedded>
+        			</font>
+			    </xsl:for-each>
+<!--             </xsl:if> -->
+			</document>
 		</metadata>
 
 	</fits>	

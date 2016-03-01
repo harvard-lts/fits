@@ -313,10 +313,9 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		ListIterator<Element> iter = fitsElements.listIterator();
 		while ( iter.hasNext() ) {	
 			Element e = iter.next();
-			if(e == null || e.getValue() == null || e.getText().length() == 0) {
+			if(e.getChildren().isEmpty() && (e == null || e.getValue() == null || e.getText().length() == 0)) {
 				//remove the element from the list
 				iter.remove();
-				//fitsElements.remove(e);
 			}
 		}
 		return fitsElements;
