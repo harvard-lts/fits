@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:01 AM">
   <identification status="CONFLICT">
-    <identity format="Microsoft Word Binary File Format" mimetype="application/msword" toolname="FITS" toolversion="0.10.1">
+    <identity format="Microsoft Word Binary File Format" mimetype="application/msword" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
@@ -32,6 +32,14 @@
       <characterCount toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">0</characterCount>
       <author toolname="NLNZ Metadata Extractor" toolversion="3.6GA">David Neiman</author>
       <language toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">U.S. English</language>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>0</docmd:PageCount>
+          <docmd:WordCount>0</docmd:WordCount>
+          <docmd:CharacterCount>0</docmd:CharacterCount>
+          <docmd:Language>U.S. English</docmd:Language>
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="265">

@@ -34,6 +34,30 @@
       <isTagged toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>IMAFEJ+TimesNewRomanPS-BoldMT</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>IMAFHM+TimesNewRomanPSMT</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>IMAFFL+CourierNewPSMT</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>KCIWKT+Raavi</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>IMAFNL+SymbolMT</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OILUOL+NiagaraEngraved-Reg</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
     </document>
   </metadata>
   <statistics fitsExecutionTime="155">

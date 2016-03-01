@@ -35,6 +35,22 @@
       <isTagged toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OCCMJI+Arimo</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OCCMJJ+Arimo-Bold</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OCCMIG+Arial,Bold</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OCCMJH+Arial</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
     </document>
   </metadata>
   <statistics fitsExecutionTime="154">

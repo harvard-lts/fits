@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:01 AM">
   <identification>
-    <identity format="Rich Text Format (RTF)" mimetype="application/rtf" toolname="FITS" toolversion="0.10.1">
+    <identity format="Rich Text Format (RTF)" mimetype="application/rtf" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="file utility" toolversion="5.04" />
       <tool toolname="Exiftool" toolversion="10.00" />
@@ -26,6 +26,13 @@
       <wordCount toolname="Exiftool" toolversion="10.00">8</wordCount>
       <characterCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">52</characterCount>
       <author toolname="Tika" toolversion="1.10" status="SINGLE_RESULT">Neiman David</author>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>1</docmd:PageCount>
+          <docmd:WordCount>8</docmd:WordCount>
+          <docmd:CharacterCount>52</docmd:CharacterCount>
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="145">

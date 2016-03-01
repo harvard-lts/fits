@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:01 AM">
   <identification>
-    <identity format="Microsoft Word Binary File Format" mimetype="application/msword" toolname="FITS" toolversion="0.10.1">
+    <identity format="Microsoft Word Binary File Format" mimetype="application/msword" toolname="FITS" toolversion="0.11.0">
       <tool toolname="file utility" toolversion="5.04" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
@@ -35,6 +35,16 @@
       <hyperlinks toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">http://hul.harvard.edu/ois/systems/drs/docs/wa2-userguide/edit-urn.html, http://hul.harvard.edu/ois/systems/drs/docs/wa2-userguide/edit-urn.html, http://macitbetter.com/, http://www.nchsoftware.com/zip/zipfreemaci.zip, http://www.kekaosx.com/en/, http://unarchiver.c3.cx/commandline, http://unarchiver.c3.cx/unarchiver, http://www.winzip.com/, https://www.pkware.com/software/pkzip, http://www.7-zip.org/, http://peazip.sourceforge.net/, http://nrs.harvard.edu/urn-3:hul.ois:drshelp, https://drs2-qa.hul.harvard.edu:9400/drs2_webadmin/search, http://nrs.harvard.edu/urn-3:hul:drs2-admin, http://www.publicspace.net/ABetterFinderRename/index.html, http://manytricks.com/namemangler/, http://www.mrrsoftware.com/MRRSoftware/NameChanger.html, http://www.bulkrenameutility.co.uk/Download.php, http://www.herve-thouzard.com/therename.zip, http://nrs.harvard.edu/urn-3:hul.ois:drshelp, http://winscp.net/eng/download.php, http://filezilla-project.org/download.php?type=client, http://hul.harvard.edu/ois/systems/drs/BatchBuilder-2-current.zip, http://hul.harvard.edu/ois/support/docs-drs.html#drs2doc, http://nrs.harvard.edu/urn-3:hul.ois:drshelp, #_Toc413318898, #_Toc413318897, #_Toc413318896, #_Toc413318895, #_Toc413318894, #_Toc413318893, #_Toc413318892, #_Toc413318891, http://support.microsoft.com/kb/180071</hyperlinks>
       <language toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">U.S. English</language>
       <hasPictures toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">yes</hasPictures>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>5</docmd:PageCount>
+          <docmd:WordCount>1341</docmd:WordCount>
+          <docmd:CharacterCount>7646</docmd:CharacterCount>
+          <docmd:ParagraphCount>17</docmd:ParagraphCount>
+          <docmd:LineCount>63</docmd:LineCount>
+          <docmd:Language>U.S. English</docmd:Language>
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="211">

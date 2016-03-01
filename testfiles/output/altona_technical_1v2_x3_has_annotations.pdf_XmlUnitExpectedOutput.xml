@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:01 AM">
   <identification>
-    <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="0.10.1">
+    <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Jhove" toolversion="1.11" />
       <tool toolname="Exiftool" toolversion="10.00" />
@@ -19,7 +19,7 @@
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/altona_technical_1v2_x3_has_annotations.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">altona_technical_1v2_x3_has_annotations.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">c524ab2cd02240b12eab3ee9f8887a9f</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1454956776000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1456177705000</fslastmodified>
   </fileinfo>
   <filestatus>
     <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
@@ -27,12 +27,35 @@
   </filestatus>
   <metadata>
     <document>
-      <title toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Altona_Technical_1v2_x3.pdf</title>
-      <author toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">ECI (www.eci.org), bvdm (www.bvdm-online.de), FOGRA (www.fogra.org), ugra (www.ugra.ch)</author>
-      <pageCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">1</pageCount>
+      <title toolname="Jhove" toolversion="1.11">Altona_Technical_1v2_x3.pdf</title>
+      <author toolname="Jhove" toolversion="1.11">ECI (www.eci.org), bvdm (www.bvdm-online.de), FOGRA (www.fogra.org), ugra (www.ugra.ch)</author>
+      <pageCount toolname="Jhove" toolversion="1.11">1</pageCount>
       <isTagged toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
+      <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">44</graphicsCount>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>Courier-Oblique</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>EMFBGL+Metanormal01-Bold</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>EMFBIO+Metabook01</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>EMEIJA+Helvetica-Bold</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>EMEICK+Helvetica</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <subject toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</subject>
+      <description toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</description>
     </document>
   </metadata>
   <statistics fitsExecutionTime="687">

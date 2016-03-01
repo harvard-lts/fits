@@ -40,6 +40,12 @@
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <subject toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">3</subject>
       <hasForms toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</hasForms>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>6</docmd:PageCount>
+          <docmd:Language>EN-US</docmd:Language>
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="217">

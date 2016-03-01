@@ -37,6 +37,22 @@
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">21</graphicsCount>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OIJGRB+MyriadPro-Regular</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>JYRCZL+MyriadPro-Regular-SC700</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OQHBRB+Verdana</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ANGADD+Verdana</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
     </document>
   </metadata>
   <statistics fitsExecutionTime="545">

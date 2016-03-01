@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:01 AM">
   <identification status="SINGLE_RESULT">
-    <identity format="EPUB" mimetype="application/zip" toolname="FITS" toolversion="0.10.1">
+    <identity format="EPUB" mimetype="application/zip" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Exiftool" toolversion="10.00" />
     </identity>
   </identification>

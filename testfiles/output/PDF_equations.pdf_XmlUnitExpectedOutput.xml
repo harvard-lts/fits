@@ -37,8 +37,19 @@
       <isTagged toolname="Jhove" toolversion="1.11">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>VYOESN+CambriaMath</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
       <subject toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1</subject>
       <hasForms toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</hasForms>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>3</docmd:PageCount>
+          <docmd:Language>EN-US</docmd:Language>
+          <docmd:Font FontName="VYOESN+CambriaMath" isEmbedded="false" />
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="209">

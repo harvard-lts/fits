@@ -35,6 +35,42 @@
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">5</graphicsCount>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>RNDADQ+Times-Roman</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>FHZEQJ+Times-Bold</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>NNWRWI+MathematicalPi-Three</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BBBCHQ+Helvetica-Bold</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ZJVRWI+MathematicalPi-One</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ZJVRWI+Universal-GreekwithMathPi</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>TAXUJQ+Helvetica</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ZDCITP+Times-Italic</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>XWLQSC+Helvetica-Bold</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
     </document>
   </metadata>
   <statistics fitsExecutionTime="154">

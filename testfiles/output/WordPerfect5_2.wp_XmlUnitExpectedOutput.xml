@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:01 AM">
   <identification>
-    <identity format="WordPerfect Document" mimetype="application/vnd.wordperfect" toolname="FITS" toolversion="0.10.1">
+    <identity format="WordPerfect Document" mimetype="application/vnd.wordperfect" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="file utility" toolversion="5.04" />
       <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
@@ -23,6 +23,9 @@
     <document>
       <title toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">Kafka - Metamorphosis Sampel WP document</title>
       <author toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">viz765</author>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd" />
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="120">

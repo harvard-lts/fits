@@ -89,6 +89,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "Word2003_has_URLs_has_embedded_resources.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -110,6 +111,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "Word2003_many_graphics.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -131,6 +133,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "Word2003PasswordProtected.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -152,6 +155,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "Word2011_Has_Outline.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -173,6 +177,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "LibreOffice.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -194,6 +199,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "Word2003_has_table_of_contents.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -215,6 +221,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "Word_protected_encrypted.doc";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -236,6 +243,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "LibreODT-Ur-doc.odt";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -257,6 +265,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "LibreODTwFormulas.odt";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -278,6 +287,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "LibreODT-hasTables.odt";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -299,6 +309,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "LibreODT_protected.odt";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -320,6 +331,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "UnparseableDate.odt";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -341,6 +353,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "Word_has_index.docx";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -357,9 +370,8 @@ public class DocMDXmlUnitTest {
 	}
 	
 	/*
-	 * Still outstanding whether this protected file should be considered valid and whether it should be included in tests.
+	 * TODO: Still outstanding whether this protected file should be considered valid and whether it should be included in tests.
 	 */
-	@Ignore
 	@Test
 	public void testWordDocxPasswordProtected() throws Exception {
 
@@ -387,6 +399,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "Document_Has_Form_Controls.docm";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -416,6 +429,7 @@ public class DocMDXmlUnitTest {
     		
         	File input = new File("testfiles/" + inputFilename);
         	FitsOutput fitsOut = fits.examine(input);
+        	fitsOut.addStandardCombinedFormat();
         	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
         	
     		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -445,6 +459,7 @@ public class DocMDXmlUnitTest {
     	for (String inputFilename : inputFilenames) {
         	File input = new File("testfiles/" + inputFilename);
         	FitsOutput fitsOut = fits.examine(input);
+        	fitsOut.addStandardCombinedFormat();
         	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
         	
     		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -467,6 +482,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "TestDoc.rtf";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -488,6 +504,7 @@ public class DocMDXmlUnitTest {
     	String inputFilename = "Doc2.rtf";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -515,6 +532,7 @@ public class DocMDXmlUnitTest {
     	for (String inputFilename : inputFilenames) {
     		File input = new File("testfiles/" + inputFilename);
 	    	FitsOutput fitsOut = fits.examine(input);
+	    	fitsOut.addStandardCombinedFormat();
 	    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 	    	
 			XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -534,17 +552,18 @@ public class DocMDXmlUnitTest {
 	@Test
 	public void testPdfA() throws Exception {
 		
-    	String[] inputFilenames = {"PDFa_equations.pdf",
-    			"PDFa_multiplefonts.pdf",
-    			"PDFa_has_form.pdf",
-    			"PDFa_has_table_of_contents.pdf",
-    			"PDFa_has_tables.pdf",
-    			"PDFA_Document with tables.pdf",
+    	String[] inputFilenames = {//"PDFa_equations.pdf",
+//    			"PDFa_multiplefonts.pdf",
+//    			"PDFa_has_form.pdf",
+//    			"PDFa_has_table_of_contents.pdf",
+//    			"PDFa_has_tables.pdf",
+//    			"PDFA_Document with tables.pdf",
     			"PDFa_embedded_resources.pdf"};
 
     	for (String inputFilename : inputFilenames) {
     		File input = new File("testfiles/" + inputFilename);
 	    	FitsOutput fitsOut = fits.examine(input);
+	    	fitsOut.addStandardCombinedFormat();
 	    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 	    	
 			XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -564,9 +583,11 @@ public class DocMDXmlUnitTest {
 	@Test
 	public void testPdfX() throws Exception {
 		
-    	String[] inputFilenames = {//"altona_technical_1v2_x3_has_annotations.pdf",
-//    			"Book_pdfx1a.pdf",
-    			"PDFx3.pdf"};
+    	String[] inputFilenames = {
+    			"altona_technical_1v2_x3_has_annotations.pdf",
+    			"Book_pdfx1a.pdf",
+    			"PDFx3.pdf"
+    			};
 
     	for (String inputFilename : inputFilenames) {
     		File input = new File("testfiles/" + inputFilename);

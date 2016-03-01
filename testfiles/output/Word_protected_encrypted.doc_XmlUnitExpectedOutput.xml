@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:00 AM">
   <identification>
-    <identity format="Microsoft Word Binary File Format" mimetype="application/msword" toolname="FITS" toolversion="0.10.1">
+    <identity format="Microsoft Word Binary File Format" mimetype="application/msword" toolname="FITS" toolversion="0.11.0">
       <tool toolname="file utility" toolversion="5.04" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
@@ -34,6 +34,16 @@
       <isProtected toolname="Exiftool" toolversion="10.00">yes</isProtected>
       <language toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">U.S. English</language>
       <isEncrypted toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">yes</isEncrypted>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>1</docmd:PageCount>
+          <docmd:WordCount>10</docmd:WordCount>
+          <docmd:CharacterCount>60</docmd:CharacterCount>
+          <docmd:ParagraphCount>1</docmd:ParagraphCount>
+          <docmd:LineCount>1</docmd:LineCount>
+          <docmd:Language>U.S. English</docmd:Language>
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="416">

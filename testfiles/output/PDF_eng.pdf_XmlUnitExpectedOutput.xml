@@ -36,7 +36,82 @@
       <isTagged toolname="Jhove" toolversion="1.11">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINCOM+MetaNormal-Italic</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINCNJ+MetaBold-Roman</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINCOM+MetaNormal-Italic</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>AODHFO+MetaNormal-Caps</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINCOL+MetaNormal-Roman</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINCOL+MetaNormal-Roman</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINCNJ+MetaBold-Roman</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINDCB+MetaNormalLF-Italic</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINCNJ+MetaBold-Roman</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINCOL+MetaNormal-Roman</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINCOM+MetaNormal-Italic</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>AODHFO+MetaNormal-Caps</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINCOL+MetaNormal-Roman</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINDAO+HelveticaRounded-Bold</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
       <hasForms toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</hasForms>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>32</docmd:PageCount>
+          <docmd:Font FontName="BINCOM+MetaNormal-Italic" isEmbedded="false" />
+          <docmd:Font FontName="BINCNJ+MetaBold-Roman" isEmbedded="false" />
+          <docmd:Font FontName="BINCOM+MetaNormal-Italic" isEmbedded="false" />
+          <docmd:Font FontName="AODHFO+MetaNormal-Caps" isEmbedded="false" />
+          <docmd:Font FontName="BINCOL+MetaNormal-Roman" isEmbedded="false" />
+          <docmd:Font FontName="BINCOL+MetaNormal-Roman" isEmbedded="false" />
+          <docmd:Font FontName="BINCNJ+MetaBold-Roman" isEmbedded="false" />
+          <docmd:Font FontName="BINDCB+MetaNormalLF-Italic" isEmbedded="false" />
+          <docmd:Font FontName="BINCNJ+MetaBold-Roman" isEmbedded="false" />
+          <docmd:Font FontName="BINCOL+MetaNormal-Roman" isEmbedded="false" />
+          <docmd:Font FontName="BINCOM+MetaNormal-Italic" isEmbedded="false" />
+          <docmd:Font FontName="AODHFO+MetaNormal-Caps" isEmbedded="false" />
+          <docmd:Font FontName="BINCOL+MetaNormal-Roman" isEmbedded="false" />
+          <docmd:Font FontName="BINDAO+HelveticaRounded-Bold" isEmbedded="false" />
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="200">

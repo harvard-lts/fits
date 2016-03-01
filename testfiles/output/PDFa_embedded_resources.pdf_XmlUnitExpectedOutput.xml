@@ -35,8 +35,44 @@
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">433</graphicsCount>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKOK+BauerBodoniBT-Bold</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKFN+Charlesworth-Bold</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKCL+BauerBodoniBT-Italic</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKFM+BauerBodoniBT-BoldItalic</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKDM+BauerBodoniBT-Roman</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKCK+Charlesworth-Normal</fontName>
+        <fontIsEmbedded>false</fontIsEmbedded>
+      </font>
       <subject toolname="Exiftool" toolversion="10.00">booklet10</subject>
       <description toolname="Exiftool" toolversion="10.00">booklet10</description>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>52</docmd:PageCount>
+          <docmd:GraphicsCount>433</docmd:GraphicsCount>
+          <docmd:Font FontName="ILMKOK+BauerBodoniBT-Bold" isEmbedded="false" />
+          <docmd:Font FontName="ILMKFN+Charlesworth-Bold" isEmbedded="false" />
+          <docmd:Font FontName="ILMKCL+BauerBodoniBT-Italic" isEmbedded="false" />
+          <docmd:Font FontName="ILMKFM+BauerBodoniBT-BoldItalic" isEmbedded="false" />
+          <docmd:Font FontName="ILMKDM+BauerBodoniBT-Roman" isEmbedded="false" />
+          <docmd:Font FontName="ILMKCK+Charlesworth-Normal" isEmbedded="false" />
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="375">
