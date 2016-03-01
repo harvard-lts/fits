@@ -152,10 +152,14 @@ public class Fits {
     FITS_TOOLS_DIR = FITS_HOME + "tools" + File.separator;
 
     // Set up logging.
-    // Now using an explicit properties file, because otherwoise DROID will
+    // Now using an explicit properties file, because otherwise DROID will
     // hijack it, and it's cleaner this way anyway.
     File log4jProperties = new File(FITS_HOME + "log4j.properties");
-    System.setProperty( "log4j.configuration", log4jProperties.toURI().toString());
+    String log4jSystemProp = System.getProperty("log4j.configuration");
+    // Only set up logging with FITS logging configuration if it hasn't already been configured externally.
+    if (log4jSystemProp == null) {
+    	System.setProperty( "log4j.configuration", log4jProperties.toURI().toString());
+    }
  
     logger = Logger.getLogger( this.getClass() );
     try {

@@ -33,13 +33,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 import org.junit.Test;
 
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.XmlContentConverter;
+import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD.Feature;
 import edu.harvard.hul.ois.ots.schemas.MIX.BasicDigitalObjectInformation;
@@ -61,9 +61,11 @@ import edu.harvard.hul.ois.ots.schemas.TextMD.MarkupBasis;
 import edu.harvard.hul.ois.ots.schemas.TextMD.MarkupLanguage;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 
-public class XmlContentConverterTest {
+public class XmlContentConverterTest extends AbstractLoggingTest {
 	
 	private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
+	
+	private static Logger logger = Logger.getLogger(XmlContentConverterTest.class);
 
 	@Test
     public void testToMix () {
@@ -199,7 +201,6 @@ public class XmlContentConverterTest {
         assertTrue(features.contains(Feature.hasOutline));
         assertTrue(features.contains(Feature.hasAnnotations));
         assertTrue(features.contains(Feature.isTagged));
-
         
         assertEquals(2, dmd.getFonts().size());
 	}
