@@ -46,12 +46,36 @@ public class TextMDTest {
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
 		TextMD textmd = (TextMD)fitsOut.getStandardXmlContent();
-		textmd.setRoot(true);
 		
 		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+
+		if (textmd != null) {
+			textmd.setRoot(true);
+			textmd.output(writer);
+		}
+	}
+    
+	@Test
+	public void testCsv() throws Exception {	
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/random_data.csv");
+    	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		textmd.output(writer);
+		TextMD textmd = (TextMD)fitsOut.getStandardXmlContent();
+		
+		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+
+		if (textmd != null) {
+			textmd.setRoot(true);
+			textmd.output(writer);
+		}
 	}
 
 }
