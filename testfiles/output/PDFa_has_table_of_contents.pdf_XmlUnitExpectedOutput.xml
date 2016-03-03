@@ -32,7 +32,7 @@
       <author toolname="Jhove" toolversion="1.11">viz765</author>
       <language toolname="Jhove" toolversion="1.11">EN-US</language>
       <pageCount toolname="Jhove" toolversion="1.11">5</pageCount>
-      <isTagged toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</isTagged>
+      <isTagged toolname="Jhove" toolversion="1.11">yes</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">1</graphicsCount>
@@ -72,6 +72,25 @@
         <fontName>QKITBX+Arial,Bold</fontName>
         <fontIsEmbedded>false</fontIsEmbedded>
       </font>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>5</docmd:PageCount>
+          <docmd:GraphicsCount>1</docmd:GraphicsCount>
+          <docmd:Language>EN-US</docmd:Language>
+          <docmd:Font FontName="CJPZZP+Cambria" isEmbedded="false" />
+          <docmd:Font FontName="SMRWPJ+Cambria-Bold" isEmbedded="false" />
+          <docmd:Font FontName="OGOYLR+Calibri" isEmbedded="false" />
+          <docmd:Font FontName="DOUTBX+TimesNewRoman,Bold" isEmbedded="false" />
+          <docmd:Font FontName="VUVXTN+Arial" isEmbedded="false" />
+          <docmd:Font FontName="MEFVXF+CourierNew" isEmbedded="false" />
+          <docmd:Font FontName="TLBCDH+SymbolMT" isEmbedded="false" />
+          <docmd:Font FontName="KBGJVJ+TimesNewRoman" isEmbedded="false" />
+          <docmd:Font FontName="QKITBX+Arial,Bold" isEmbedded="false" />
+          <docmd:Features>isTagged</docmd:Features>
+          <docmd:Features>hasOutline</docmd:Features>
+          <docmd:Features>hasAnnotations</docmd:Features>
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="165">

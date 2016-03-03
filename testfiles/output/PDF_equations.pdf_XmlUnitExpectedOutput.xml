@@ -34,20 +34,21 @@
       <author toolname="Exiftool" toolversion="10.00">Zakuta, Vitaly</author>
       <language toolname="Jhove" toolversion="1.11">EN-US</language>
       <pageCount toolname="Jhove" toolversion="1.11">3</pageCount>
-      <isTagged toolname="Jhove" toolversion="1.11">no</isTagged>
+      <isTagged toolname="Exiftool" toolversion="10.00" status="CONFLICT">yes</isTagged>
+      <isTagged toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>VYOESN+CambriaMath</fontName>
         <fontIsEmbedded>false</fontIsEmbedded>
       </font>
-      <subject toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1</subject>
       <hasForms toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</hasForms>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>3</docmd:PageCount>
           <docmd:Language>EN-US</docmd:Language>
           <docmd:Font FontName="VYOESN+CambriaMath" isEmbedded="false" />
+          <docmd:Features>isTagged</docmd:Features>
         </docmd:document>
       </standard>
     </document>

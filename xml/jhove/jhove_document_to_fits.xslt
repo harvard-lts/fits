@@ -49,14 +49,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			
 				
 			<isTagged>
-				<xsl:choose>
-					<xsl:when test="//profiles[profile='Tagged PDF']">
-						<xsl:value-of select="string('yes')"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="string('no')"/>
-					</xsl:otherwise>
-				</xsl:choose>
+				<xsl:if test="//profiles[profile='Tagged PDF']">
+					<xsl:value-of select="string('yes')"/>
+				</xsl:if>
 			</isTagged>
 			<hasOutline>
 				<xsl:choose>
@@ -87,13 +82,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			
 			<!-- fonts -->
             <xsl:variable name="fonts" select="//property[name='Fonts']//property[name='FontName']"/>
-<!-- 			<xsl:variable name="fonts" select="count(//property[name='Fonts']/values/property/values/property[name='Font'])"/> -->
-<!--             <xsl:if test="$fonts"> -->
 			    <xsl:for-each select="$fonts">
         			<font>
-<!-- 				        <xsl:variable name="cur_font" select=".//property[name='FontName']/values/value/text()" /> -->
-<!--                         <xsl:variable name="cur_font" select="./values/property[name='BaseFont']/values/value/text()" /> -->
-<!--                         <xsl:value-of select="string($cur_font)"/> -->
 				        <fontName>
 		                    <xsl:value-of select="string(./values/value/text())"/>
 				        </fontName>
@@ -102,7 +92,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				        </fontIsEmbedded>
         			</font>
 			    </xsl:for-each>
-<!--             </xsl:if> -->
 			</document>
 		</metadata>
 

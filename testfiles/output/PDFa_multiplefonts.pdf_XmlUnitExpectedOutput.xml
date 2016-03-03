@@ -31,7 +31,6 @@
       <title toolname="Jhove" toolversion="1.11">UniversityRecordsPolicies</title>
       <author toolname="Jhove" toolversion="1.11">Harvard University Archives</author>
       <pageCount toolname="Jhove" toolversion="1.11">3</pageCount>
-      <isTagged toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
@@ -58,6 +57,17 @@
         <fontName>OILUOL+NiagaraEngraved-Reg</fontName>
         <fontIsEmbedded>false</fontIsEmbedded>
       </font>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>3</docmd:PageCount>
+          <docmd:Font FontName="IMAFEJ+TimesNewRomanPS-BoldMT" isEmbedded="false" />
+          <docmd:Font FontName="IMAFHM+TimesNewRomanPSMT" isEmbedded="false" />
+          <docmd:Font FontName="IMAFFL+CourierNewPSMT" isEmbedded="false" />
+          <docmd:Font FontName="KCIWKT+Raavi" isEmbedded="false" />
+          <docmd:Font FontName="IMAFNL+SymbolMT" isEmbedded="false" />
+          <docmd:Font FontName="OILUOL+NiagaraEngraved-Reg" isEmbedded="false" />
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="155">

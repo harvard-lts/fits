@@ -32,7 +32,6 @@
       <title toolname="Jhove" toolversion="1.11">DRS Owner Registration and Billing Code Request Form : DRS &amp; Delivery Services : Office for Information Systems</title>
       <author toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Pdfcrowd - online HTML to PDF API - http://pdfcrowd.com</author>
       <pageCount toolname="Jhove" toolversion="1.11">3</pageCount>
-      <isTagged toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
@@ -51,6 +50,16 @@
         <fontName>OCCMJH+Arial</fontName>
         <fontIsEmbedded>false</fontIsEmbedded>
       </font>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>3</docmd:PageCount>
+          <docmd:Font FontName="OCCMJI+Arimo" isEmbedded="false" />
+          <docmd:Font FontName="OCCMJJ+Arimo-Bold" isEmbedded="false" />
+          <docmd:Font FontName="OCCMIG+Arial,Bold" isEmbedded="false" />
+          <docmd:Font FontName="OCCMJH+Arial" isEmbedded="false" />
+          <docmd:Features>hasAnnotations</docmd:Features>
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="154">

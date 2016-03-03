@@ -31,7 +31,6 @@
       <title toolname="Jhove" toolversion="1.11">Untitled-2</title>
       <author toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Adobe InDesign CS6 (Windows)</author>
       <pageCount toolname="Jhove" toolversion="1.11">16</pageCount>
-      <isTagged toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
@@ -46,6 +45,14 @@
         <fontName>VQMBSI+OpenSans-Bold</fontName>
         <fontIsEmbedded>false</fontIsEmbedded>
       </font>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>16</docmd:PageCount>
+          <docmd:Font FontName="BZOLYW+MyriadPro-Regular" isEmbedded="false" />
+          <docmd:Font FontName="WUBHGG+OpenSans" isEmbedded="false" />
+          <docmd:Font FontName="VQMBSI+OpenSans-Bold" isEmbedded="false" />
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="159">

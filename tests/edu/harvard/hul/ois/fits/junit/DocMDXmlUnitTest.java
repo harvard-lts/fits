@@ -551,12 +551,12 @@ public class DocMDXmlUnitTest {
 	@Test
 	public void testPdfA() throws Exception {
 		
-    	String[] inputFilenames = {//"PDFa_equations.pdf",
-//    			"PDFa_multiplefonts.pdf",
-//    			"PDFa_has_form.pdf",
-//    			"PDFa_has_table_of_contents.pdf",
-//    			"PDFa_has_tables.pdf",
-//    			"PDFA_Document with tables.pdf",
+    	String[] inputFilenames = {"PDFa_equations.pdf",
+    			"PDFa_multiplefonts.pdf",
+    			"PDFa_has_form.pdf",
+    			"PDFa_has_table_of_contents.pdf",
+    			"PDFa_has_tables.pdf",
+    			"PDFA_Document with tables.pdf",
     			"PDFa_embedded_resources.pdf"};
 
     	for (String inputFilename : inputFilenames) {

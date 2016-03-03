@@ -30,7 +30,6 @@
       <title toolname="Jhove" toolversion="1.11">Altona_Technical_1v2_x3.pdf</title>
       <author toolname="Jhove" toolversion="1.11">ECI (www.eci.org), bvdm (www.bvdm-online.de), FOGRA (www.fogra.org), ugra (www.ugra.ch)</author>
       <pageCount toolname="Jhove" toolversion="1.11">1</pageCount>
-      <isTagged toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">44</graphicsCount>
@@ -56,6 +55,18 @@
       </font>
       <subject toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</subject>
       <description toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</description>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>1</docmd:PageCount>
+          <docmd:GraphicsCount>44</docmd:GraphicsCount>
+          <docmd:Font FontName="Courier-Oblique" isEmbedded="false" />
+          <docmd:Font FontName="EMFBGL+Metanormal01-Bold" isEmbedded="false" />
+          <docmd:Font FontName="EMFBIO+Metabook01" isEmbedded="false" />
+          <docmd:Font FontName="EMEIJA+Helvetica-Bold" isEmbedded="false" />
+          <docmd:Font FontName="EMEICK+Helvetica" isEmbedded="false" />
+          <docmd:Features>hasAnnotations</docmd:Features>
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="687">

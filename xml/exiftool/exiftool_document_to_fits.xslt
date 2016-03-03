@@ -99,7 +99,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			</isProtected>
             
             <subject>
-                <xsl:value-of select="exiftool/Subject"/>
+                <!-- sometimes for PDF files Exiftool will spit out an integer value which is not a real Subject -->
+                <xsl:if test="exiftool/Subject and string-length(exiftool/Subject) > 1">
+	                <xsl:value-of select="exiftool/Subject"/>
+                </xsl:if>
             </subject>
             
             <category>
@@ -143,6 +146,12 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
             <language>
                 <xsl:value-of select="exiftool/Language" />
             </language>
+            
+            <isTagged>
+                <xsl:if test="exiftool/TaggedPDF and exiftool/TaggedPDF = 'Yes'">
+	                <xsl:value-of select="string('yes')"/>
+                </xsl:if>
+            </isTagged>
 		</document>				
 		</metadata>
 	</fits>	

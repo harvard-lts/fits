@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:01 AM">
   <identification>
-    <identity format="Portable Document Format" mimetype="application/pdf" toolname="FITS" toolversion="0.10.1">
+    <identity format="Portable Document Format" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Jhove" toolversion="1.11" />
       <tool toolname="file utility" toolversion="5.04" />
@@ -34,7 +34,7 @@
       <title toolname="Exiftool" toolversion="10.00">digibook</title>
       <author toolname="Exiftool" toolversion="10.00">Harvard University Archives</author>
       <pageCount toolname="Jhove" toolversion="1.11">52</pageCount>
-      <isTagged toolname="Jhove" toolversion="1.11">no</isTagged>
+      <isTagged toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">433</graphicsCount>

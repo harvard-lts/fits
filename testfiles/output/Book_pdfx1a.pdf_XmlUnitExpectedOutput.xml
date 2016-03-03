@@ -33,7 +33,6 @@
       <title toolname="Jhove" toolversion="1.11">Book.indd</title>
       <author toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Adobe InDesign CS6 (Windows)</author>
       <pageCount toolname="Jhove" toolversion="1.11">8</pageCount>
-      <isTagged toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">21</graphicsCount>
@@ -53,6 +52,16 @@
         <fontName>ANGADD+Verdana</fontName>
         <fontIsEmbedded>false</fontIsEmbedded>
       </font>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>8</docmd:PageCount>
+          <docmd:GraphicsCount>21</docmd:GraphicsCount>
+          <docmd:Font FontName="OIJGRB+MyriadPro-Regular" isEmbedded="false" />
+          <docmd:Font FontName="JYRCZL+MyriadPro-Regular-SC700" isEmbedded="false" />
+          <docmd:Font FontName="OQHBRB+Verdana" isEmbedded="false" />
+          <docmd:Font FontName="ANGADD+Verdana" isEmbedded="false" />
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="545">

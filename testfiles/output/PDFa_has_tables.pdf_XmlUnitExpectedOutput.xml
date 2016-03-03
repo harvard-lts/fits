@@ -31,7 +31,6 @@
       <title toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">XPP</title>
       <author toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">XPP</author>
       <pageCount toolname="Jhove" toolversion="1.11">4</pageCount>
-      <isTagged toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">5</graphicsCount>
@@ -71,6 +70,22 @@
         <fontName>XWLQSC+Helvetica-Bold</fontName>
         <fontIsEmbedded>false</fontIsEmbedded>
       </font>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>4</docmd:PageCount>
+          <docmd:GraphicsCount>5</docmd:GraphicsCount>
+          <docmd:Font FontName="RNDADQ+Times-Roman" isEmbedded="false" />
+          <docmd:Font FontName="FHZEQJ+Times-Bold" isEmbedded="false" />
+          <docmd:Font FontName="NNWRWI+MathematicalPi-Three" isEmbedded="false" />
+          <docmd:Font FontName="BBBCHQ+Helvetica-Bold" isEmbedded="false" />
+          <docmd:Font FontName="ZJVRWI+MathematicalPi-One" isEmbedded="false" />
+          <docmd:Font FontName="ZJVRWI+Universal-GreekwithMathPi" isEmbedded="false" />
+          <docmd:Font FontName="TAXUJQ+Helvetica" isEmbedded="false" />
+          <docmd:Font FontName="ZDCITP+Times-Italic" isEmbedded="false" />
+          <docmd:Font FontName="XWLQSC+Helvetica-Bold" isEmbedded="false" />
+          <docmd:Features>hasAnnotations</docmd:Features>
+        </docmd:document>
+      </standard>
     </document>
   </metadata>
   <statistics fitsExecutionTime="154">
