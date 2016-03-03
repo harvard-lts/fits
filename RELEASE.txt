@@ -11,6 +11,7 @@ directory is now used to resolve classes rather than fits.jar.
 - Remove the following from being processed by JHOVE due to slowness of precessing: avi,mov,mpg,mpeg,mkv,mp4,mpeg4,m2ts,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv
 - Move normalization for Quicktime and MPEG-4 to correct files
 - Added VTT file support for video.
+- revised the version of ots.jar to support validation of text/*.
 
 Version 0.10.0
 ----------------------
