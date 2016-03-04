@@ -34,7 +34,6 @@
       <paragraphCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">21</paragraphCount>
       <subject toolname="Exiftool" toolversion="10.00">This is the Subject</subject>
       <category toolname="Exiftool" toolversion="10.00">This is a Category</category>
-      <category toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">This is a Category</category>
       <language toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">U.S. English</language>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">

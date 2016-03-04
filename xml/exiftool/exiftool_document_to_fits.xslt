@@ -113,10 +113,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                 <xsl:value-of select="exiftool/Hyperlinks"/>
             </hyperlinks>
 			
-			<category>
-				<xsl:value-of select="exiftool/Category"/>
-			</category>
-			
 			<xsl:if test="exiftool/Document-statisticObject-count and exiftool/Document-statisticObject-count != '0'">
 			    <hasEmbeddedResources>
 			         <xsl:value-of select="string('yes')"/>
