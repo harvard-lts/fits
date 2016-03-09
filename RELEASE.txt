@@ -8,6 +8,8 @@ Version 0.11.0
 - Separate logging for unit tests that extend base class AbstractLoggingTest.java which uses tests.log4j.properties to initialize logging.
 - Fits.java now only initializes logging with this project's log4j.properties if the system property "log4j.configuration" hasn't already been set,
 perhaps by an external system using FITS. This allows for not overriding the setting of the test classes as well.
+- Fits logging via Log4j can be initialized externally to the application by setting the Log4j environment variable -Dlog4j.configuration=/path/to/log4j.properties> or <URL-to-log4j.properties>
+and will fall back to default properties if property does not exist, is invalid, or exception is thrown.
 
 Version 0.10.1
 ----------------------
