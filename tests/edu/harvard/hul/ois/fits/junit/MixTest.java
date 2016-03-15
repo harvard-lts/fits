@@ -23,36 +23,44 @@ import java.io.File;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.custommonkey.xmlunit.XMLUnit;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tools.Tool;
+import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
 
-import org.custommonkey.xmlunit.*;
+public class MixTest {
 
+	/*
+	 *  Only one Fits instance is needed to run all tests.
+	 *  This also speeds up the tests.
+	 */
+	private static Fits fits;
 
-public class MixTest extends XMLTestCase {
-
+	@BeforeClass
+	public static void beforeClass() throws Exception {
+		// Set up XMLUnit and FITS for entire class.
+		XMLUnit.setIgnoreWhitespace(true);
+		XMLUnit.setNormalizeWhitespace(true);
+		fits = new Fits();
+	}
+	
+	@AfterClass
+	public static void afterClass() {
+		fits = null;
+	}
     
 	@Test
 	public void testMIX() throws Exception {	
-    	Fits fits = new Fits("");
-    	//File input = new File("testfiles/IMG_5075.jpg");
-    	File input = new File("testfiles/topazscanner.tif");
-    	
-    	for(Tool t : fits.getToolbelt().getTools()) {
-    		if(t.getToolInfo().getName().equals("Jhove")) {
-    			//t.setEnabled(false);
-    		}
-    		if(t.getToolInfo().getName().equals("Exiftool")) {
-    			//t.setEnabled(false);
-    		}
-    	}
-    	
+
+		String inputFilename = "topazscanner.tif";
+    	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
@@ -66,8 +74,30 @@ public class MixTest extends XMLTestCase {
 		
 		mix.output(writer);
 		fitsOut.addStandardCombinedFormat(); // output all data to file
-		fitsOut.saveToDisk("test-generated-output/topazscanner.xml");
-
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+	}
+	
+	@Test
+	public void testUncompressedTif() throws Exception {
+		
+		String inputFilename = "4072820.tif";
+    	File input = new File("testfiles/" + inputFilename);
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		fitsOut.addStandardCombinedFormat();
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		
+		if(docmd != null) {
+			docmd.setRoot(true);
+			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+			
+			docmd.output(writer);
+		}
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
     
 	@Test
@@ -92,5 +122,4 @@ public class MixTest extends XMLTestCase {
 		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
 
 	}
-
 }
