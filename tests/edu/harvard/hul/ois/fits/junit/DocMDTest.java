@@ -74,7 +74,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
@@ -108,7 +108,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
@@ -142,7 +142,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
@@ -164,7 +164,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
@@ -186,7 +186,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			docmd.output(writer);
@@ -208,7 +208,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
@@ -231,7 +231,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
@@ -254,7 +254,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
@@ -277,7 +277,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
@@ -300,7 +300,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
@@ -323,7 +323,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
@@ -346,7 +346,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
@@ -369,7 +369,7 @@ public class DocMDTest {
 		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
 		
 		if(docmd != null) {
-		docmd.setRoot(true);
+			docmd.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
