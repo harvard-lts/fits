@@ -101,7 +101,7 @@ public class EbuCoreModel {
         ebucoreMain.setCoreMetadata(cm);
     }
 	
-    protected void createVideoFormatElement(Element elem, Namespace ns) 
+    protected void createVideoFormatElement(Element elem, Namespace ns, String mimeType) 
     		throws XmlContentException {
 
     	VideoFormat vfmt = new VideoFormat("videoFormat");
@@ -240,11 +240,16 @@ public class EbuCoreModel {
    			codecIdentifierValue = dataElement.getText().trim();
    		}
    		//
-   		// TODO: 
-   		// Sometimes the codeId will not be returned by MediaInfo
-   		// If MXF file, we need to get the codec identifier value
-   		// from ???
+   		// Sometimes the codeId will not be returned by MediaInfo.
+   		// If MXF file, we need to get the codec identifier value from codecId
    		//
+   		else if(mimeType != null && mimeType.equals("application/mxf")) {	// no codecCC and mxf
+   	   	   	dataElement = elem.getChild ("codecId",ns); 
+   	   	   	if(dataElement != null) {
+   	   	   		codecIdentifierValue = dataElement.getText().trim();
+   	   	   	}
+   		}
+
         if(codecIdentifierValue != null) {   		
         	CodecIdentifier ci = new CodecIdentifier("codecIdentifier");
         	ci.setIdentifier(codecIdentifierValue);

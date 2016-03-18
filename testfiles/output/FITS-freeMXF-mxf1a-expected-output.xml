@@ -63,6 +63,14 @@
                   <ebucore:factorDenominator>3</ebucore:factorDenominator>
                 </ebucore:aspectRatio>
                 <ebucore:videoEncoding typeLabel="0D01030102046001" />
+                <ebucore:codec>
+                  <ebucore:codecIdentifier>
+                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">0D01030102046001</dc:identifier>
+                  </ebucore:codecIdentifier>
+                  <ebucore:name>MPEG-2V</ebucore:name>
+                  <ebucore:version>Main@Main</ebucore:version>
+                  <ebucore:family>MPEG-V</ebucore:family>
+                </ebucore:codec>                
                 <ebucore:bitRate>409600</ebucore:bitRate>
                 <ebucore:scanningFormat>progressive</ebucore:scanningFormat>
                 <ebucore:videoTrack trackId="2" />
