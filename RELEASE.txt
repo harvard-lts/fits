@@ -1,5 +1,11 @@
 RELEASE NOTES
 
+Version 0.10.2
+----------------------
+- add MXF codec creation from CodecId, as CodecCC is not present
+- add validation of codecs in ots descriptor validation for MXF (ots)
+- remove some mimetypes from valid list in ots descriptor validation (ots).
+
 Version 0.10.1
 ----------------------
 
