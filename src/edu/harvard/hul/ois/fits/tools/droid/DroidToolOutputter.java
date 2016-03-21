@@ -115,6 +115,9 @@ public class DroidToolOutputter {
     	else if(formatName.startsWith("Exchangeable Image File Format (Compressed)")) {
     		return "Exchangeable Image File Format";
     	}    	
+    	else if(formatName.startsWith("Exchangeable Image File Format (Uncompressed)")) {
+    		return "Exchangeable Image File Format";
+    	}    	
     	else if(formatName.contains("PDF/A")) {
     		return "PDF/A";
     	}
