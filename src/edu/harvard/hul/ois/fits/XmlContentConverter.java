@@ -658,8 +658,10 @@ public class XmlContentConverter {
                 	if (fontName != null && !fontName.getText().isEmpty()) {
                 		Font font = new Font();
                 		font.setName(fontName.getText());
-                		boolean isEmbedded = fontIsEmbedded != null && !fontIsEmbedded.getText().isEmpty() && "true".equals(fontIsEmbedded.getText());
-                		font.setEmbedded(isEmbedded);
+                		if (fontIsEmbedded != null) {
+                			boolean isEmbedded = !fontIsEmbedded.getText().isEmpty() && "true".equals(fontIsEmbedded.getText());
+                			font.setEmbedded(isEmbedded);
+                		}
                 		dm.docMD.addFont(font);
                 	}
                     break;

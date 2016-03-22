@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:01 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="2/12/16 10:01 AM">
   <identification>
     <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
@@ -13,7 +13,7 @@
   <fileinfo>
     <size toolname="Jhove" toolversion="1.11">4274074</size>
     <creatingApplicationName toolname="Jhove" toolversion="1.11">Acrobat Distiller 5.0.5 f.r Macintosh/QuarkXPress(R) 4.04</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2016:02:22 16:48:25-05:00</lastmodified>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2004:05:09 14:07:13+02:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2004-05-09T12:07:13Z</lastmodified>
     <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2002:09:21 19:25:36Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/altona_technical_1v2_x3_has_annotations.pdf</filepath>
@@ -35,23 +35,18 @@
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">44</graphicsCount>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>Courier-Oblique</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>EMFBGL+Metanormal01-Bold</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>EMFBIO+Metabook01</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>EMEIJA+Helvetica-Bold</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>EMEICK+Helvetica</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <subject toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</subject>
       <description toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</description>
@@ -59,11 +54,11 @@
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>1</docmd:PageCount>
           <docmd:GraphicsCount>44</docmd:GraphicsCount>
-          <docmd:Font FontName="Courier-Oblique" isEmbedded="false" />
-          <docmd:Font FontName="EMFBGL+Metanormal01-Bold" isEmbedded="false" />
-          <docmd:Font FontName="EMFBIO+Metabook01" isEmbedded="false" />
-          <docmd:Font FontName="EMEIJA+Helvetica-Bold" isEmbedded="false" />
-          <docmd:Font FontName="EMEICK+Helvetica" isEmbedded="false" />
+          <docmd:Font FontName="Courier-Oblique" />
+          <docmd:Font FontName="EMFBGL+Metanormal01-Bold" />
+          <docmd:Font FontName="EMFBIO+Metabook01" />
+          <docmd:Font FontName="EMEIJA+Helvetica-Bold" />
+          <docmd:Font FontName="EMEICK+Helvetica" />
           <docmd:Features>hasAnnotations</docmd:Features>
         </docmd:document>
       </standard>

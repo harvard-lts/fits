@@ -3,6 +3,8 @@
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:import href="jhove_common_to_fits.xslt"/>
+<!-- The following key used for de-duplication of fonts. This must be outside main body of XSL. -->
+<xsl:key name="value" match="//property[name='Fonts']//property[name='FontName']/values/value/text()" use="." />
 <xsl:template match="/">
 
     <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output">  
@@ -81,17 +83,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			</graphicsCount>
 			
 			<!-- fonts -->
-            <xsl:variable name="fonts" select="//property[name='Fonts']//property[name='FontName']"/>
-			    <xsl:for-each select="$fonts">
-        			<font>
-				        <fontName>
-		                    <xsl:value-of select="string(./values/value/text())"/>
-				        </fontName>
-				        <fontIsEmbedded>
-				            <xsl:value-of select="string('false')" />
-				        </fontIsEmbedded>
-        			</font>
-			    </xsl:for-each>
+			<!-- De-duplication of fonts. Solution found here: http://stackoverflow.com/questions/2291567/how-to-use-xslt-to-create-distinct-values -->
+		    <xsl:for-each select="//property[name='Fonts']//property[name='FontName']/values/value/text()[generate-id() = generate-id(key('value',.)[1])]">
+       			<font>
+			        <fontName>
+	                    <xsl:value-of select="."/>
+			        </fontName>
+       			</font>
+		    </xsl:for-each>
 			</document>
 		</metadata>
 

@@ -96,6 +96,12 @@
 					</xsl:when>
 					<xsl:when test="starts-with($format,'PDF')">
 						<xsl:choose>
+							<xsl:when test="//profiles[profile='ISO PDF/A-1, Level A']">
+								<xsl:value-of select="string('PDF/A')"/>
+							</xsl:when>
+							<xsl:when test="//profiles[profile='ISO PDF/A-1, Level B']">
+								<xsl:value-of select="string('PDF/A')"/>
+							</xsl:when>
 							<xsl:when test="//profiles[profile='ISO PDF/X-1a']">
 								<xsl:value-of select="string('PDF/X')"/>
 							</xsl:when>
@@ -107,12 +113,6 @@
 							</xsl:when>
 							<xsl:when test="//profiles[profile='ISO PDF/X-2']">
 								<xsl:value-of select="string('PDF/X')"/>
-							</xsl:when>
-							<xsl:when test="//profiles[profile='ISO PDF/A-1, Level A']">
-								<xsl:value-of select="string('PDF/A')"/>
-							</xsl:when>
-							<xsl:when test="//profiles[profile='ISO PDF/A-1, Level B']">
-								<xsl:value-of select="string('PDF/A')"/>
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:value-of select="string('Portable Document Format')"/>
@@ -141,6 +141,12 @@
 			<xsl:if test='repInfo/version'>
 				<version>
 					<xsl:choose>			
+						<xsl:when test="//profiles[profile='ISO PDF/A-1, Level A']">
+							<xsl:value-of select="string('1a')"/>
+						</xsl:when>
+						<xsl:when test="//profiles[profile='ISO PDF/A-1, Level B']">
+							<xsl:value-of select="string('1b')"/>
+						</xsl:when>
 						<xsl:when test="//profiles[profile='ISO PDF/X-1a']">
 							<xsl:value-of select="string('1a:2003')"/>
 						</xsl:when>
@@ -152,12 +158,6 @@
 						</xsl:when>
 						<xsl:when test="//profiles[profile='ISO PDF/X-2']">
 							<xsl:value-of select="string('2:2003')"/>
-						</xsl:when>
-						<xsl:when test="//profiles[profile='ISO PDF/A-1, Level A']">
-							<xsl:value-of select="string('1a')"/>
-						</xsl:when>
-						<xsl:when test="//profiles[profile='ISO PDF/A-1, Level B']">
-							<xsl:value-of select="string('1b')"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:value-of select="repInfo/version" />

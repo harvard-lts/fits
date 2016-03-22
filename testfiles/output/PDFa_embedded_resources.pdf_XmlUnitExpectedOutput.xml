@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="2/26/16 9:28 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
   <identification>
     <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Jhove" toolversion="1.11" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <tool toolname="Tika" toolversion="1.10" />
-      <version toolname="Droid" toolversion="6.1.5" status="CONFLICT">1.4</version>
-<!--       <version toolname="Exiftool" toolversion="10.00" status="CONFLICT">1.4</version> -->
+      <version toolname="Droid" toolversion="6.1.5">1b</version>
       <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/354</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
     <size toolname="Jhove" toolversion="1.11">1219058</size>
     <creatingApplicationName toolname="Jhove" toolversion="1.11">Acrobat Distiller 8.1.0 (Windows)/Adobe PageMaker 6.52</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2016:02:23 15:25:51-05:00</lastmodified>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 17:53-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T21:53:00Z</lastmodified>
     <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2008:09:24 15:27:24-04:00</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFa_embedded_resources.pdf</filepath>
@@ -36,27 +35,21 @@
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">433</graphicsCount>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ILMKOK+BauerBodoniBT-Bold</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ILMKFN+Charlesworth-Bold</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ILMKCL+BauerBodoniBT-Italic</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ILMKFM+BauerBodoniBT-BoldItalic</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ILMKDM+BauerBodoniBT-Roman</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ILMKCK+Charlesworth-Normal</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <subject toolname="Exiftool" toolversion="10.00">booklet10</subject>
       <description toolname="Exiftool" toolversion="10.00">booklet10</description>
@@ -64,12 +57,12 @@
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>52</docmd:PageCount>
           <docmd:GraphicsCount>433</docmd:GraphicsCount>
-          <docmd:Font FontName="ILMKOK+BauerBodoniBT-Bold" isEmbedded="false" />
-          <docmd:Font FontName="ILMKFN+Charlesworth-Bold" isEmbedded="false" />
-          <docmd:Font FontName="ILMKCL+BauerBodoniBT-Italic" isEmbedded="false" />
-          <docmd:Font FontName="ILMKFM+BauerBodoniBT-BoldItalic" isEmbedded="false" />
-          <docmd:Font FontName="ILMKDM+BauerBodoniBT-Roman" isEmbedded="false" />
-          <docmd:Font FontName="ILMKCK+Charlesworth-Normal" isEmbedded="false" />
+          <docmd:Font FontName="ILMKOK+BauerBodoniBT-Bold" />
+          <docmd:Font FontName="ILMKFN+Charlesworth-Bold" />
+          <docmd:Font FontName="ILMKCL+BauerBodoniBT-Italic" />
+          <docmd:Font FontName="ILMKFM+BauerBodoniBT-BoldItalic" />
+          <docmd:Font FontName="ILMKDM+BauerBodoniBT-Roman" />
+          <docmd:Font FontName="ILMKCK+Charlesworth-Normal" />
         </docmd:document>
       </standard>
     </document>

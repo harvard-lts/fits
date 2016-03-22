@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="2/26/16 9:28 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
   <identification>
     <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Jhove" toolversion="1.11" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <tool toolname="Tika" toolversion="1.10" />
-      <version toolname="Droid" toolversion="6.1.5" status="CONFLICT">1.4</version>
-<!--       <version toolname="Exiftool" toolversion="10.00" status="CONFLICT">1.4</version> -->
+      <version toolname="Droid" toolversion="6.1.5">1a</version>
       <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/95</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
     <size toolname="Jhove" toolversion="1.11">248559</size>
     <creatingApplicationName toolname="Jhove" toolversion="1.11">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2016:02:24 10:54:15-05:00</lastmodified>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 18:32:33-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T22:32:33Z</lastmodified>
     <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:19 18:32:31-04:00</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFA_Document with tables.pdf</filepath>
@@ -37,48 +36,40 @@
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>MLOFVQ+ArialMT</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>JEFNFW+TimesNewRomanPSMT</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>WATNFW+Calibri</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>CERSLK+Calibri-Bold</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>QRRDZI+TimesNewRomanPS-BoldMT</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>CWOXLK+Wingdings2</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>NKDLJO+Wingdings-Regular</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>CWOXLK+ArialUnicodeMS</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>3</docmd:PageCount>
           <docmd:Language>EN-US</docmd:Language>
-          <docmd:Font FontName="MLOFVQ+ArialMT" isEmbedded="false" />
-          <docmd:Font FontName="JEFNFW+TimesNewRomanPSMT" isEmbedded="false" />
-          <docmd:Font FontName="WATNFW+Calibri" isEmbedded="false" />
-          <docmd:Font FontName="CERSLK+Calibri-Bold" isEmbedded="false" />
-          <docmd:Font FontName="QRRDZI+TimesNewRomanPS-BoldMT" isEmbedded="false" />
-          <docmd:Font FontName="CWOXLK+Wingdings2" isEmbedded="false" />
-          <docmd:Font FontName="NKDLJO+Wingdings-Regular" isEmbedded="false" />
-          <docmd:Font FontName="CWOXLK+ArialUnicodeMS" isEmbedded="false" />
+          <docmd:Font FontName="MLOFVQ+ArialMT" />
+          <docmd:Font FontName="JEFNFW+TimesNewRomanPSMT" />
+          <docmd:Font FontName="WATNFW+Calibri" />
+          <docmd:Font FontName="CERSLK+Calibri-Bold" />
+          <docmd:Font FontName="QRRDZI+TimesNewRomanPS-BoldMT" />
+          <docmd:Font FontName="CWOXLK+Wingdings2" />
+          <docmd:Font FontName="NKDLJO+Wingdings-Regular" />
+          <docmd:Font FontName="CWOXLK+ArialUnicodeMS" />
           <docmd:Features>isTagged</docmd:Features>
           <docmd:Features>hasAnnotations</docmd:Features>
         </docmd:document>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:01 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="2/12/16 10:01 AM">
   <identification>
     <identity format="OpenDocument Text" mimetype="application/vnd.oasis.opendocument.text" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
@@ -12,8 +12,7 @@
     </identity>
   </identification>
   <fileinfo>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2016:02:10 12:35:21-05:00</lastmodified>
-    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-09-21T12:11:26.720000000</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="SINGLE_RESULT">2015-09-21T12:11:26.720000000</lastmodified>
     <creatingApplicationName toolname="Exiftool" toolversion="10.00">LibreOffice/5.0.1.2$Windows_x86 LibreOffice_project/81898c9f5c0d43f3473ba111d7b351050be20261</creatingApplicationName>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/LibreODT-hasTables.odt</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">LibreODT-hasTables.odt</filename>

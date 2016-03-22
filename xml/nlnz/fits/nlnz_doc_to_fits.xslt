@@ -73,9 +73,9 @@
             </xsl:if>
             
             <xsl:if test="//ISENCRYPTED and //ISENCRYPTED='true'">
-	            <isEncrypted>
+	            <isProtected>
 	                <xsl:value-of select="string('yes')" />
-	            </isEncrypted>
+	            </isProtected>
             </xsl:if>
 
 		</document>	

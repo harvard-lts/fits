@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.1" timestamp="2/12/16 10:01 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="2/12/16 10:01 AM">
   <identification>
     <identity format="EPUB" mimetype="application/epub+zip" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
@@ -9,7 +9,6 @@
     </identity>
   </identification>
   <fileinfo>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2016:02:11 15:55:46-05:00</lastmodified>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/Calibre_hasTable_of_Contents.epub</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Calibre_hasTable_of_Contents.epub</filename>
     <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">465875</size>

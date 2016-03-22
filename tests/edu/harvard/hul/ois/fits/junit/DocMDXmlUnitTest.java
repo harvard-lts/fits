@@ -369,7 +369,7 @@ public class DocMDXmlUnitTest {
 	}
 	
 	/*
-	 * TODO: Still outstanding whether this protected file should be considered valid and whether it should be included in tests.
+	 * This output of this document produces what looks to be invalid output.
 	 */
 	@Test
 	public void testWordDocxPasswordProtected() throws Exception {
@@ -584,13 +584,14 @@ public class DocMDXmlUnitTest {
 		
     	String[] inputFilenames = {
     			"altona_technical_1v2_x3_has_annotations.pdf",
-    			"Book_pdfx1a.pdf",
-    			"PDFx3.pdf"
+    			"Book_pdfx1a.pdf", // converts to PDF/A
+    			"PDFx3.pdf" // converts to PDF/A
     			};
 
     	for (String inputFilename : inputFilenames) {
     		File input = new File("testfiles/" + inputFilename);
 	    	FitsOutput fitsOut = fits.examine(input);
+        	fitsOut.addStandardCombinedFormat();
 	    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 	    	
 			XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());

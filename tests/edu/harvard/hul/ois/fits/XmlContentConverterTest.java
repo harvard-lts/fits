@@ -176,20 +176,14 @@ public class XmlContentConverterTest extends AbstractLoggingTest {
         Element fontElem1 = new Element("font", fitsNS);
         Element elemFontName = new Element("fontName", fitsNS);
         elemFontName.addContent("Helvetica");
-        Element elemFontIsEmbedded = new Element("fontIsEmbedded", fitsNS);
-        elemFontIsEmbedded.addContent("false");
         fontElem1.addContent(elemFontName);
-        fontElem1.addContent(elemFontIsEmbedded);
         docElem.addContent(fontElem1);
 
         // add another font
         Element fontElem2 = new Element("font", fitsNS);
         elemFontName = new Element("fontName", fitsNS);
         elemFontName.addContent("Times");
-        elemFontIsEmbedded = new Element("fontIsEmbedded", fitsNS);
-        elemFontIsEmbedded.addContent("true");
         fontElem2.addContent(elemFontName);
-        fontElem2.addContent(elemFontIsEmbedded);
         docElem.addContent(fontElem2);
 
         XmlContentConverter conv = new XmlContentConverter();

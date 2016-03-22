@@ -83,17 +83,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</xsl:choose>
 			</isRightsManaged>
 
-			<xsl:if test="exiftool/Encryption">
-				<isEncrypted>
-	    			<xsl:value-of select="string('yes')"/>
-				</isEncrypted>
-			</xsl:if>
-			
-			<xsl:variable name="security" select="exiftool/Security"/>
 			<isProtected>
 				<xsl:choose>
-					<xsl:when test="$security='Password protected'">
+					<xsl:when test="exiftool/Security and exiftool/Security='Password protected'">
 						<xsl:value-of select="string('yes')"/>
+					</xsl:when>
+					<xsl:when test="exiftool/Encryption">
+                        <xsl:value-of select="string('yes')"/>
 					</xsl:when>
 				</xsl:choose>
 			</isProtected>

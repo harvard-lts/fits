@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="2/26/16 9:28 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
   <identification>
     <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Jhove" toolversion="1.11" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <tool toolname="Tika" toolversion="1.10" />
-      <version toolname="Droid" toolversion="6.1.5" status="CONFLICT">1.4</version>
-<!--       <version toolname="Exiftool" toolversion="10.00" status="CONFLICT">1.4</version> -->
+      <version toolname="Droid" toolversion="6.1.5">1b</version>
       <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/354</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
     <size toolname="Jhove" toolversion="1.11">117120</size>
     <creatingApplicationName toolname="Jhove" toolversion="1.11">Acrobat Distiller 8.1.0 (Windows)/records policy.doc - Microsoft Word</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2016:02:23 15:25:23-05:00</lastmodified>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 17:45:08-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T21:45:08Z</lastmodified>
     <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2008:09:24 15:27:39-04:00</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFa_multiplefonts.pdf</filepath>
@@ -35,37 +34,31 @@
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>IMAFEJ+TimesNewRomanPS-BoldMT</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>IMAFHM+TimesNewRomanPSMT</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>IMAFFL+CourierNewPSMT</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>KCIWKT+Raavi</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>IMAFNL+SymbolMT</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>OILUOL+NiagaraEngraved-Reg</fontName>
-        <fontIsEmbedded>false</fontIsEmbedded>
       </font>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>3</docmd:PageCount>
-          <docmd:Font FontName="IMAFEJ+TimesNewRomanPS-BoldMT" isEmbedded="false" />
-          <docmd:Font FontName="IMAFHM+TimesNewRomanPSMT" isEmbedded="false" />
-          <docmd:Font FontName="IMAFFL+CourierNewPSMT" isEmbedded="false" />
-          <docmd:Font FontName="KCIWKT+Raavi" isEmbedded="false" />
-          <docmd:Font FontName="IMAFNL+SymbolMT" isEmbedded="false" />
-          <docmd:Font FontName="OILUOL+NiagaraEngraved-Reg" isEmbedded="false" />
+          <docmd:Font FontName="IMAFEJ+TimesNewRomanPS-BoldMT" />
+          <docmd:Font FontName="IMAFHM+TimesNewRomanPSMT" />
+          <docmd:Font FontName="IMAFFL+CourierNewPSMT" />
+          <docmd:Font FontName="KCIWKT+Raavi" />
+          <docmd:Font FontName="IMAFNL+SymbolMT" />
+          <docmd:Font FontName="OILUOL+NiagaraEngraved-Reg" />
         </docmd:document>
       </standard>
     </document>

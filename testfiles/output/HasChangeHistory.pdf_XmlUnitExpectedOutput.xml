@@ -16,7 +16,7 @@
   <fileinfo>
     <size toolname="Jhove" toolversion="1.11">101002</size>
     <creatingApplicationName toolname="Exiftool" toolversion="10.00">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2016:02:25 13:31:47-05:00</lastmodified>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 17:10:57-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T21:10:57Z</lastmodified>
     <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:19 17:10:14-04:00</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/HasChangeHistory.pdf</filepath>

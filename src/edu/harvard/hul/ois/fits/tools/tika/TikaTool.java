@@ -462,19 +462,26 @@ public class TikaTool extends ToolBase {
         
         String formatType = getFormatType(mimeType);
         // special case -- possibly override for PDF subtypes
-        String pdfa = metadata.get(P_PDFA_VERSION);
-        String pdfx = metadata.get(P_PDFX_VERSION);
-        if (pdfa != null) {
+        String pdfVersion = metadata.get(P_PDF_VERSION);
+        String pdfaVersion = metadata.get(P_PDFA_VERSION);
+        String pdfxVersion = metadata.get(P_PDFX_VERSION);
+        if (pdfaVersion != null) {
         	formatType = "PDF/A";
-        } else if (pdfx != null) {
+        } else if (pdfxVersion != null) {
         	formatType = "PDF/X";
         }
-        String pdfVersion = metadata.get(P_PDF_VERSION);
-        if (pdfVersion != null) {
+        String version = null;
+        if (pdfaVersion != null) {
+        	version = pdfaVersion;
+        } else if (pdfxVersion != null) {
+        	version = pdfxVersion;
+        } else if (pdfVersion != null) {
+        	version = pdfVersion;
+        }
+        if (version != null) {
         	Element versionElem = new Element("version", fitsNS);
-        	versionElem.addContent(pdfVersion);
+        	versionElem.addContent(version);
         	identityElem.addContent(versionElem);
-        	
         }
         
         Attribute attr = new Attribute ("format", formatType);

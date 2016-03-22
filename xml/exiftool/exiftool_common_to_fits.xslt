@@ -257,11 +257,6 @@
 					<xsl:value-of select="exiftool/GIFVersion"/>
 				</version>		
 			</xsl:when>
-			<xsl:when test="exiftool/PDFVersion">
-				<version>
-					<xsl:value-of select="exiftool/PDFVersion"/>
-				</version>			
-			</xsl:when>
 			<xsl:when test="exiftool/VorbisVersion">
 				<version>
 					<xsl:value-of select="exiftool/VorbisVersion"/>	
@@ -284,31 +279,14 @@
 					<xsl:value-of select="exiftool/DNGVersion"/>	
 				</version>		
 			</xsl:when>
-			<xsl:when test="exiftool/PDFVersion">
-				<version>
-					<xsl:value-of select="exiftool/PDFVersion"/>		
-				</version>	
-			</xsl:when>
 		</xsl:choose>	
 
     </identity>
     </identification>
     
     <fileinfo>
-    	<!-- 
-    	<fslastmodified>
-    		<xsl:value-of select="exiftool/FileModifyDate"/>
-    	</fslastmodified>
-    	 -->
       	<lastmodified>
-      		<xsl:choose>
-	      		<xsl:when test="exiftool/FileModifyDate">
-	      			<xsl:value-of select="exiftool/FileModifyDate"/>
-	      		</xsl:when>
-	      		<xsl:when test="exiftool/ModifyDate">
-	      			<xsl:value-of select="exiftool/ModifyDate"/>
-	      		</xsl:when>
-      		</xsl:choose>
+   			<xsl:value-of select="exiftool/ModifyDate"/>
     	</lastmodified>
     	<created>
 	    	<xsl:choose>
