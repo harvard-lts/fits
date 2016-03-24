@@ -2,14 +2,13 @@ RELEASE NOTES
 
 Version 0.11.0
 ----------------------
-- Create FITS output and DocumentDM output for all word processing formats.
+- Create FITS output and, optionally, DocumentDM output for word processing formats (.doc, .docx, .epub, .odt, .pdf, .wp, .rtf, .wpd).
 - All test classes now use JUnit 4 annotations.
 - All test classes that use XmlUnit no longer extend XmlUnit but, instead, use utility classes.
+- Some (but not yet all) test classes extend AbstractLoggingTest which loads a new Log4j configuration file, tests.log4j.properties, so that test logging can be set at different levels than the default log4j.properties file that is used by the FITS application.
 - Separate logging for unit tests that extend base class AbstractLoggingTest.java which uses tests.log4j.properties to initialize logging.
-- Fits.java now only initializes logging with this project's log4j.properties if the system property "log4j.configuration" hasn't already been set,
-perhaps by an external system using FITS. This allows for not overriding the setting of the test classes as well.
-- Fits logging via Log4j can be initialized externally to the application by setting the Log4j environment variable -Dlog4j.configuration=/path/to/log4j.properties> or <URL-to-log4j.properties>
-and will fall back to default properties if property does not exist, is invalid, or exception is thrown.
+- Fits.java now only initializes logging with this project's log4j.properties if the system property "log4j.configuration" hasn't already been set, possibly by an external system using FITS. This allows for not overriding the setting of the test classes as well.
+- Fits logging via Log4j can be initialized externally to the application by setting the Log4j environment variable -Dlog4j.configuration=/path/to/log4j.properties> or <URL-to-log4j.properties> and will fall back to default properties if property does not exist, is invalid, or exception is thrown.
 
 Version 0.10.1
 ----------------------
