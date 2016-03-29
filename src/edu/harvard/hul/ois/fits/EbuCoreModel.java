@@ -173,20 +173,12 @@ public class EbuCoreModel {
         		vfmt.setVideoEncoding(ve); 
         		break;
     		case aspectRatio:
-        		String[] splitValues = dataValue.split(":");
-        		// TODO: throw exception if there are not 2 pieces
-        		if (splitValues != null && splitValues.length == 2) {
-        			AspectRatio ar = new AspectRatio(videoElem.getName());
-
-        			// Normalize the ratio
-        			EbuCoreNormalizedRatio ratio = new EbuCoreNormalizedRatio(
-        					splitValues[0], splitValues[1]);
-
-        			ar.setFactorNumerator(ratio.getNormalizedNumerator());
-        			ar.setFactorDenominator(ratio.getNormalizedDenominator());
-        			ar.setTypeLabel("display");
-        			vfmt.setAspectRatio(ar);
-        		}
+    			EbuCoreNormalizedRatio ratio = new EbuCoreNormalizedRatio(dataValue);
+    			AspectRatio ar = new AspectRatio(videoElem.getName());
+    			ar.setFactorNumerator(ratio.getNormalizedNumerator());
+    			ar.setFactorDenominator(ratio.getNormalizedDenominator());
+    			ar.setTypeLabel("display");
+    			vfmt.setAspectRatio(ar);
     			break;
     			
     		// Technical Attribute Strings
