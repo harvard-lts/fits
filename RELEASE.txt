@@ -8,6 +8,7 @@ Version 0.10.2
 - Normalize format name "Exchangeable Image File Format (Uncompressed)" for TIFF files to "Exchangeable Image File Format"
 - Update AES31.jar
 - Revised logic to properly handle video aspect ratio in ebucore.
+- Add additional MXF codecs for video validation (ots).
 
 Version 0.10.1
 ----------------------
