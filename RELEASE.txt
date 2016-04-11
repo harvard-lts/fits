@@ -10,6 +10,7 @@ Version 0.10.2
 - Revised logic to properly handle video aspect ratio in ebucore.
 - Add additional MXF codecs for video validation (ots).
 - Revise call to instantiate AudioObject for AES generation due to revision in ots.jar for handling xsi namespace declaration during parsing.
+- Add closed caption role (ots).
 
 Version 0.10.1
 ----------------------
