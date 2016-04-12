@@ -11,6 +11,7 @@ Version 0.10.2
 - Add additional MXF codecs for video validation (ots).
 - Revise call to instantiate AudioObject for AES generation due to revision in ots.jar for handling xsi namespace declaration during parsing.
 - Add closed caption role (ots).
+- Add HAS_SUPPLEMENT relationship to VideoObject (ots).
 
 Version 0.10.1
 ----------------------
