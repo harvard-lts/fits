@@ -98,7 +98,8 @@
     <javac debug="${compile.debug}"
            deprecation="${compile.deprecation}"
 	       optimize="${compile.optimize}"
-    	   destdir="${build.dir}">
+    	   destdir="${build.dir}"
+    	   includeantruntime="false" source="1.8" target="1.8">
     	<src path="${src.dirs}" />
         <src path="${test.dirs}" />
     	<classpath refid="junit.classpath" />
