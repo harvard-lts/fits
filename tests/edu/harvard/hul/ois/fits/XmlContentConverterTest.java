@@ -171,6 +171,14 @@ public class XmlContentConverterTest extends AbstractLoggingTest {
         elem = new Element("hasForms", fitsNS); // a feature
         elem.addContent("yes");
         docElem.addContent(elem);
+        
+        elem = new Element("hasHyperlinks", fitsNS);
+        elem.addContent("yes");
+        docElem.addContent(elem);
+        
+        elem = new Element("hasEmbeddedResources", fitsNS);
+        elem.addContent("yes");
+        docElem.addContent(elem);
 
         // add a font
         Element fontElem1 = new Element("font", fitsNS);
@@ -190,11 +198,13 @@ public class XmlContentConverterTest extends AbstractLoggingTest {
         DocumentMD dmd =(DocumentMD) conv.toDocumentMD(docElem);
         assertEquals(6, dmd.getPageCount());
         List<Feature> features = dmd.getFeatures();
-        assertEquals(4, features.size());
+        assertEquals(6, features.size());
         assertTrue(features.contains(Feature.hasForms));
         assertTrue(features.contains(Feature.hasOutline));
         assertTrue(features.contains(Feature.hasAnnotations));
         assertTrue(features.contains(Feature.isTagged));
+        assertTrue(features.contains(Feature.hasHyperlinks));
+        assertTrue(features.contains(Feature.hasEmbeddedResources));
         
         assertEquals(2, dmd.getFonts().size());
 	}

@@ -673,6 +673,8 @@ public class XmlContentConverter {
                 case hasAnnotations:
                 case hasAttachments:
                 case useTransparency:
+                case hasHyperlinks:
+                case hasEmbeddedResources:
                     if(dataElement != null) {
                         dm.addFeature(dataElement);
                     }
@@ -1139,7 +1141,9 @@ public class XmlContentConverter {
         hasThumbnails("hasThumbnails"),
         hasAttachments("hasAttachments"),
         hasForms("hasForms"),
-        hasAnnotations("hasAnnotations");
+        hasAnnotations("hasAnnotations"),
+        hasHyperlinks("hasHyperlinks"),
+        hasEmbeddedResources("hasEmbeddedResources");
 
         private String name;
 
