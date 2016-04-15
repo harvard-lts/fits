@@ -20,7 +20,7 @@
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Word2003_has_table_of_contents.doc</filename>
     <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">99328</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">afb707e78e777bebf7563534f2d51762</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1454956776000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1460584552000</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
@@ -32,7 +32,7 @@
       <author toolname="NLNZ Metadata Extractor" toolversion="3.6GA">viz765</author>
       <lineCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">63</lineCount>
       <paragraphCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">17</paragraphCount>
-      <hyperlinks toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">http://hul.harvard.edu/ois/systems/drs/docs/wa2-userguide/edit-urn.html, http://hul.harvard.edu/ois/systems/drs/docs/wa2-userguide/edit-urn.html, http://macitbetter.com/, http://www.nchsoftware.com/zip/zipfreemaci.zip, http://www.kekaosx.com/en/, http://unarchiver.c3.cx/commandline, http://unarchiver.c3.cx/unarchiver, http://www.winzip.com/, https://www.pkware.com/software/pkzip, http://www.7-zip.org/, http://peazip.sourceforge.net/, http://nrs.harvard.edu/urn-3:hul.ois:drshelp, https://drs2-qa.hul.harvard.edu:9400/drs2_webadmin/search, http://nrs.harvard.edu/urn-3:hul:drs2-admin, http://www.publicspace.net/ABetterFinderRename/index.html, http://manytricks.com/namemangler/, http://www.mrrsoftware.com/MRRSoftware/NameChanger.html, http://www.bulkrenameutility.co.uk/Download.php, http://www.herve-thouzard.com/therename.zip, http://nrs.harvard.edu/urn-3:hul.ois:drshelp, http://winscp.net/eng/download.php, http://filezilla-project.org/download.php?type=client, http://hul.harvard.edu/ois/systems/drs/BatchBuilder-2-current.zip, http://hul.harvard.edu/ois/support/docs-drs.html#drs2doc, http://nrs.harvard.edu/urn-3:hul.ois:drshelp, #_Toc413318898, #_Toc413318897, #_Toc413318896, #_Toc413318895, #_Toc413318894, #_Toc413318893, #_Toc413318892, #_Toc413318891, http://support.microsoft.com/kb/180071</hyperlinks>
+      <hasHyperlinks toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">yes</hasHyperlinks>
       <language toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">U.S. English</language>
       <hasPictures toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">yes</hasPictures>
       <standard>
@@ -43,6 +43,7 @@
           <docmd:ParagraphCount>17</docmd:ParagraphCount>
           <docmd:LineCount>63</docmd:LineCount>
           <docmd:Language>U.S. English</docmd:Language>
+          <docmd:Features>hasHyperlinks</docmd:Features>
         </docmd:document>
       </standard>
     </document>
@@ -51,6 +52,7 @@
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
     <tool toolname="Droid" toolversion="6.1.5" executionTime="9" />
     <tool toolname="Jhove" toolversion="1.11" status="did not run" />
     <tool toolname="file utility" toolversion="5.04" executionTime="31" />

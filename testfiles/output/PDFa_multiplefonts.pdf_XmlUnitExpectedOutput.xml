@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="4/15/16 10:27 AM">
   <identification>
     <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
@@ -36,10 +36,10 @@
         <fontName>IMAFEJ+TimesNewRomanPS-BoldMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>IMAFHM+TimesNewRomanPSMT</fontName>
+        <fontName>IMAFFL+CourierNewPSMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>IMAFFL+CourierNewPSMT</fontName>
+        <fontName>IMAFHM+TimesNewRomanPSMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>KCIWKT+Raavi</fontName>
@@ -54,8 +54,8 @@
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>3</docmd:PageCount>
           <docmd:Font FontName="IMAFEJ+TimesNewRomanPS-BoldMT" />
-          <docmd:Font FontName="IMAFHM+TimesNewRomanPSMT" />
           <docmd:Font FontName="IMAFFL+CourierNewPSMT" />
+          <docmd:Font FontName="IMAFHM+TimesNewRomanPSMT" />
           <docmd:Font FontName="KCIWKT+Raavi" />
           <docmd:Font FontName="IMAFNL+SymbolMT" />
           <docmd:Font FontName="OILUOL+NiagaraEngraved-Reg" />
@@ -67,6 +67,7 @@
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
     <tool toolname="Droid" toolversion="6.1.5" executionTime="4" />
     <tool toolname="Jhove" toolversion="1.11" executionTime="62" />
     <tool toolname="file utility" toolversion="5.04" executionTime="28" />

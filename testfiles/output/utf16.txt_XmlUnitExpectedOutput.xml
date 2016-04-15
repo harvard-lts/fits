@@ -31,9 +31,10 @@
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="95" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="365" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="511" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="24" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="205" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="142" />
     <tool toolname="Exiftool" toolversion="10.00" status="did not run" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
     <tool toolname="OIS File Information" toolversion="0.2" executionTime="90" />

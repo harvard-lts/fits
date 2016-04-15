@@ -398,8 +398,12 @@ public class XmlContentConverter {
                         }
                         break;
                     case exposureIndex:
-                        mm.id.setExposureIndex (Double.parseDouble (dataValue));
-                        mm.attachImageData ();
+                    	Double doubleVal = Double.parseDouble (dataValue);
+                    	// only a positive non-zero value will validate against MIX schema
+                    	if (doubleVal > 0.0) {
+                    		mm.id.setExposureIndex (doubleVal);
+                    		mm.attachImageData ();
+                    	}
                         break;
                     case sensingMethod:
                         mm.id.setSensingMethod (dataValue);
@@ -873,15 +877,22 @@ public class XmlContentConverter {
 
     	try {
     		ebucoreModel = new EbuCoreModel();
-    		List<Element> trackList = fitsVideo.getContent();
+    		List<Element> videoElemList = fitsVideo.getContent();
+    		
+    		String mimeType = null;
 
     		// Walk through all of the elements and process them
-    		for(Element elem : trackList) {
+    		for(Element elem : videoElemList) {
     			String fitsName = elem.getName ();
     			
     	    	// Ebucore can only be generated from MediaInfo output
     	    	if(!isMediaInfoTool(fitsName, elem))
     	    		return null;
+    	    	
+    	    	// Set mime type - MXF codec generation needs it
+    	    	if(fitsName.equals("mimeType")) {
+    	    		mimeType = elem.getValue();
+    	    	}
 
     			// Process the tracks
     			if (fitsName.equals("track")) {
@@ -901,7 +912,7 @@ public class XmlContentConverter {
  			    			
     			    		}
 
-    						ebucoreModel.createVideoFormatElement(elem, ns);
+    						ebucoreModel.createVideoFormatElement(elem, ns, mimeType);
 
     					} // video format
 

@@ -432,6 +432,16 @@
 							<xsl:value-of select="string('Flash Video (FLV)')"/>
 						</xsl:attribute>
 					</xsl:when>		
+                    <xsl:when test="$format='ISO Media, Apple QuickTime movie'">
+                        <xsl:attribute name="format">
+                            <xsl:value-of select="string('Quicktime')"/>
+                        </xsl:attribute>
+                    </xsl:when>     
+                    <xsl:when test="$format='ISO Media, MPEG v4 system, version 2'">
+                        <xsl:attribute name="format">
+                            <xsl:value-of select="string('MPEG-4')"/>
+                        </xsl:attribute>
+                    </xsl:when>     
 					<xsl:when test="$format='data'">
 						<xsl:attribute name="format">
 							<xsl:value-of select="string('Unknown Binary')"/>

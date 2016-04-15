@@ -10,12 +10,31 @@ Version 0.11.0
 - Fits.java now only initializes logging with this project's log4j.properties if the system property "log4j.configuration" hasn't already been set, possibly by an external system using FITS. This allows for not overriding the setting of the test classes as well.
 - Fits logging via Log4j can be initialized externally to the application by setting the Log4j environment variable -Dlog4j.configuration=/path/to/log4j.properties> or <URL-to-log4j.properties> and will fall back to default properties if property does not exist, is invalid, or exception is thrown.
 
+Version 0.10.2
+----------------------
+- Add MXF codec creation from CodecId, as CodecCC is not present.
+- Add validation of codecs in ots descriptor validation for MXF (ots).
+- Remove some mimetypes from valid list in ots descriptor validation (ots).
+- Normalize format name "Exchangeable Image File Format (Uncompressed)" for TIFF files to "Exchangeable Image File Format"
+- Update AES31.jar
+- Revised logic to properly handle video aspect ratio in ebucore.
+- Add additional MXF codecs for video validation (ots).
+- Revise call to instantiate AudioObject for AES generation due to revision in ots.jar for handling xsi namespace declaration during parsing.
+- Add closed caption role (ots).
+- Add HAS_SUPPLEMENT relationship to VideoObject (ots).
+
 Version 0.10.1
 ----------------------
 
-- fits.jar is no longer included in source control since it it a primary build artifact of this project. It will be available only in a FITS released ZIP file.
+- fits.jar is no longer included in source control since it is the primary build artifact of this project. It will be available only in a FITS released ZIP file.
 - fits.jar is no longer needed to run unit tests. All source files are compiled to the 'build' directory rather than being compiled into the source directories. This 'build'
 directory is now used to resolve classes rather than fits.jar.
+- Revised code to now output a streamSize attribute for the Video tracks.
+- Due to a NumberFormatException caused by using too large a numeric String to create an Integer, revised code to hold data in an Ebucore TechnicalAttributeLong.
+- Remove the following from being processed by JHOVE due to slowness of precessing: avi,mov,mpg,mpeg,mkv,mp4,mpeg4,m2ts,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv
+- Move normalization for Quicktime and MPEG-4 to correct files
+- Added VTT file support for video.
+- revised the version of ots.jar to support validation of text/*.
 
 Version 0.10.0
 ----------------------

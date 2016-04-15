@@ -68,7 +68,7 @@ public class AESModel {
     protected AESModel () throws XmlContentException {
     	
     	//set up base AES object structure    	
-        aes = new AudioObject ();
+        aes = new AudioObject (true);
         aes.setSchemaVersion("1.0.0");
         aes.setID(audioObjectID);
         aes.setDisposition("");

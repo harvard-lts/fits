@@ -25,9 +25,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
-
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
@@ -41,7 +38,6 @@ import org.xml.sax.SAXException;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 
 
 public class TextMDXmlUnitTest {

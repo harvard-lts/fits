@@ -51,7 +51,7 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.HeightIdentifier;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.MimeType;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Position;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.Start;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeInteger;
+import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeLong;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.TechnicalAttributeString;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoEncoding;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.VideoFormat;
@@ -101,7 +101,7 @@ public class EbuCoreModel {
         ebucoreMain.setCoreMetadata(cm);
     }
 	
-    protected void createVideoFormatElement(Element elem, Namespace ns) 
+    protected void createVideoFormatElement(Element elem, Namespace ns, String mimeType) 
     		throws XmlContentException {
 
     	VideoFormat vfmt = new VideoFormat("videoFormat");
@@ -111,9 +111,11 @@ public class EbuCoreModel {
     	vt.setTrackId(id);         			
     	vfmt.setVideoTrack(vt); 
 
-    	for (VideoFormatElements videoElem : VideoFormatElements.values()) {
+    	for (VideoFormatElements videoElem : VideoFormatElements.values()) {	
 
-    		String fitsName = videoElem.getName ();
+    		// NOTE: use the .name(), not .getName(), so we can use the correct
+    		// value to set the typeLabel
+    		String fitsName = videoElem.name();
     		Element dataElement = elem.getChild (fitsName,ns);
     		if (dataElement == null)
     			continue;
@@ -171,20 +173,12 @@ public class EbuCoreModel {
         		vfmt.setVideoEncoding(ve); 
         		break;
     		case aspectRatio:
-        		String[] splitValues = dataValue.split(":");
-        		// TODO: throw exception if there are not 2 pieces
-        		if (splitValues != null && splitValues.length == 2) {
-        			AspectRatio ar = new AspectRatio(videoElem.getName());
-
-        			// Normalize the ratio
-        			EbuCoreNormalizedRatio ratio = new EbuCoreNormalizedRatio(
-        					splitValues[0], splitValues[1]);
-
-        			ar.setFactorNumerator(ratio.getNormalizedNumerator());
-        			ar.setFactorDenominator(ratio.getNormalizedDenominator());
-        			ar.setTypeLabel("display");
-        			vfmt.setAspectRatio(ar);
-        		}
+    			EbuCoreNormalizedRatio ratio = new EbuCoreNormalizedRatio(dataValue);
+    			AspectRatio ar = new AspectRatio(videoElem.getName());
+    			ar.setFactorNumerator(ratio.getNormalizedNumerator());
+    			ar.setFactorDenominator(ratio.getNormalizedDenominator());
+    			ar.setTypeLabel("display");
+    			vfmt.setAspectRatio(ar);
     			break;
     			
     		// Technical Attribute Strings
@@ -207,8 +201,8 @@ public class EbuCoreModel {
         		vfmt.addTechnicalAttributeString(tasLc);
     			break;
     			
-        	// Technical Attribute Integers	
-    		case streamSize:
+        	// Technical Attribute Longs	
+    		case trackSize:
     		case frameCount:
     		case bitDepth:
     		case duration:
@@ -219,11 +213,11 @@ public class EbuCoreModel {
     	    				split(" ");
     	    		dataValue = parts[0];
     			}
-        		TechnicalAttributeInteger tai = 
-        				new TechnicalAttributeInteger(Integer.
-						parseInt(dataValue));
-        		tai.setTypeLabel(videoElem.getName());
-        		vfmt.addTechnicalAttributeInteger(tai);
+        		TechnicalAttributeLong tal = 
+        				new TechnicalAttributeLong(Long.
+						parseLong(dataValue));
+        		tal.setTypeLabel(videoElem.getName());
+        		vfmt.addTechnicalAttributeLong(tal);
     			break;	
     			
     		default:
@@ -238,11 +232,16 @@ public class EbuCoreModel {
    			codecIdentifierValue = dataElement.getText().trim();
    		}
    		//
-   		// TODO: 
-   		// Sometimes the codeId will not be returned by MediaInfo
-   		// If MXF file, we need to get the codec identifier value
-   		// from ???
+   		// Sometimes the codeId will not be returned by MediaInfo.
+   		// If MXF file, we need to get the codec identifier value from codecId
    		//
+   		else if(mimeType != null && mimeType.equals("application/mxf")) {	// no codecCC and mxf
+   	   	   	dataElement = elem.getChild ("codecId",ns); 
+   	   	   	if(dataElement != null) {
+   	   	   		codecIdentifierValue = dataElement.getText().trim();
+   	   	   	}
+   		}
+
         if(codecIdentifierValue != null) {   		
         	CodecIdentifier ci = new CodecIdentifier("codecIdentifier");
         	ci.setIdentifier(codecIdentifierValue);
@@ -368,15 +367,15 @@ public class EbuCoreModel {
  	    		afmt.addTechnicalAttributeString(tas);
  	    		break;
  	    		
- 	    	// Technical Attribute Integers	
+ 	    	// Technical Attribute Longs	
     		case trackSize:
     		case numSamples:
     		case duration:
-	    		TechnicalAttributeInteger tai = 
-					new TechnicalAttributeInteger(Integer.
-					parseInt(dataValue));
-	    			tai.setTypeLabel(audioElem.getEbucoreName());
-	    		afmt.addTechnicalAttributeInteger(tai);
+	    		TechnicalAttributeLong tal = 
+					new TechnicalAttributeLong(Long.
+					parseLong(dataValue));
+	    			tal.setTypeLabel(audioElem.getEbucoreName());
+	    		afmt.addTechnicalAttributeLong(tal);
     			break;
     			
     		default:

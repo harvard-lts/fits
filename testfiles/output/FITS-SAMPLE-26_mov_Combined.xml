@@ -4,6 +4,7 @@
     <identity format="Quicktime" mimetype="video/quicktime" toolname="FITS" toolversion="0.11.0">
       <tool toolname="MediaInfo" toolversion="0.7.75" />
       <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="file utility" toolversion="5.04" />
       <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/384</externalIdentifier>
     </identity>
   </identification>
@@ -99,9 +100,10 @@
                 <ebucore:technicalAttributeString typeLabel="delay">7121900</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="compression">lossy</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="broadcastStandard">NTSC</ebucore:technicalAttributeString>
-                <ebucore:technicalAttributeInteger typeLabel="frameCount">119</ebucore:technicalAttributeInteger>
-                <ebucore:technicalAttributeInteger typeLabel="bitDepth">8</ebucore:technicalAttributeInteger>
-                <ebucore:technicalAttributeInteger typeLabel="duration">3971</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeLong typeLabel="streamSize">12120079</ebucore:technicalAttributeLong>
+                <ebucore:technicalAttributeLong typeLabel="frameCount">119</ebucore:technicalAttributeLong>
+                <ebucore:technicalAttributeLong typeLabel="bitDepth">8</ebucore:technicalAttributeLong>
+                <ebucore:technicalAttributeLong typeLabel="duration">3971</ebucore:technicalAttributeLong>
               </ebucore:videoFormat>
               <ebucore:audioFormat>
                 <ebucore:audioEncoding typeLabel="PCM" />
@@ -119,9 +121,9 @@
                 <ebucore:technicalAttributeString typeLabel="byteOrder">big</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="delay">7121900</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="compression">none</ebucore:technicalAttributeString>
-                <ebucore:technicalAttributeInteger typeLabel="streamSize">761656</ebucore:technicalAttributeInteger>
-                <ebucore:technicalAttributeInteger typeLabel="sampleCount">190416</ebucore:technicalAttributeInteger>
-                <ebucore:technicalAttributeInteger typeLabel="duration">3967</ebucore:technicalAttributeInteger>
+                <ebucore:technicalAttributeLong typeLabel="streamSize">761656</ebucore:technicalAttributeLong>
+                <ebucore:technicalAttributeLong typeLabel="sampleCount">190416</ebucore:technicalAttributeLong>
+                <ebucore:technicalAttributeLong typeLabel="duration">3967</ebucore:technicalAttributeLong>
               </ebucore:audioFormat>
               <ebucore:audioFormatExtended>
                 <ebucore:audioChannelFormat>
@@ -161,8 +163,9 @@
     <tool toolname="MediaInfo" toolversion="0.7.71" executionTime="1209" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.3" executionTime="648" />    
-    <tool toolname="Jhove" toolversion="1.5" executionTime="8423" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.3" executionTime="648" />
+    <tool toolname="Jhove" toolversion="1.11" status="did not run" />
     <tool toolname="file utility" toolversion="5.04" executionTime="1748" />
     <tool toolname="Exiftool" toolversion="9.13" status="did not run" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" status="did not run" />
