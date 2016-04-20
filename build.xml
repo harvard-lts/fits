@@ -15,7 +15,7 @@
   <property name="app.name"              value="fits"/>
   <property name="app.longName"          value="File Information Toolset"/>	
   <property name="app.package"           value="edu.harvard.hul.ois.fits"/>
-  <property name="fits.jar.name"         value="${app.name}.jar"/>
+  <property name="fits.jar.name"         value="${app.name}-${build.version}.jar"/> <!-- build.version comes from version.properties file -->
   <property name="fits.jar.home"         value="lib-fits"/>
   <property name="src.dirs"	             value="src"/>
   <property name="test.dirs"             value="tests"/>
@@ -99,7 +99,7 @@
            deprecation="${compile.deprecation}"
 	       optimize="${compile.optimize}"
     	   destdir="${build.dir}"
-    	   includeantruntime="false" source="1.8" target="1.8">
+    	   includeantruntime="false" source="1.7" target="1.7">
     	<src path="${src.dirs}" />
         <src path="${test.dirs}" />
     	<classpath refid="junit.classpath" />
