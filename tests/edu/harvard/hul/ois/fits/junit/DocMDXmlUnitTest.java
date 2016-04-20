@@ -41,7 +41,7 @@ import edu.harvard.hul.ois.fits.FitsOutput;
 
 /**
  * These tests compare actual FITS output with expected output on various word processing documents.
- * These tests should be run with <display-tool-output>false</display-tool-output> in fits.xml.
+ * These tests should be run with &lt;display-tool-output&gt;false&lt;/display-tool-output&gt; in fits.xml.
  * 
  * @author dan179
  */

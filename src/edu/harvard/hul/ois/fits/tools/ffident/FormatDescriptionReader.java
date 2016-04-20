@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
- * Read {@link metadata.FormatDescription} objects from a semicolon-separated text file.
+ * Read {@link edu.harvard.hul.ois.fits.tools.ffident.FormatDescription} objects from a semicolon-separated text file.
  * @author Marco Schmidt
  */
 public class FormatDescriptionReader
