@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.3//EN" "http://www.web3d.org/specifications/x3d-3.3.dtd">
+<X3D profile='Interchange' version='3.3' xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' xsd:noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.3.xsd'>
+  <head>
+    <meta content='TriangleStripSet.x3d' name='title'/>
+    <meta content='A simple example of the use of the TriangleStripSet node.' name='description'/>
+    <meta content='22 May 2006' name='created'/>
+    <meta content='12 November 2008' name='modified'/>
+    <meta content='Leonard Daly and Don Brutzman' name='creator'/>
+    <meta content='http://X3dGraphics.com' name='reference'/>
+    <meta content='http://www.web3d.org/x3d/content/examples/X3dResources.html' name='reference'/>
+    <meta content='Copyright 2006, Daly Realism and Don Brutzman' name='rights'/>
+    <meta content='X3D book, X3D graphics, X3D-Edit, http://www.x3dGraphics.com' name='subject'/>
+    <meta content='http://X3dGraphics.com/examples/X3dForWebAuthors/Chapter13-GeometryTrianglesQuadrilaterals/TriangleStripSet.x3d' name='identifier'/>
+    <meta content='X3D-Edit 3.3, https://savage.nps.edu/X3D-Edit' name='generator'/>
+    <meta content='../license.html' name='license'/>
+  </head>
+  <Scene>
+    <Viewpoint description='Initial'/>
+    <Viewpoint description='Book View' orientation='0 -1 0 0.05' position='0.13 2.51 11.24'/>
+    <Background skyColor='1 1 1'/>
+    <Transform>
+      <Shape>
+        <TriangleStripSet solid='false' stripCount='5 4'>
+          <Coordinate point='-4 1 3 -2 2 1 -3 4 0 -2 3 1 0 4 0 2 3 1 5 5 -2 4 3 1 6 4 2'/>
+          <Color color='0 .8 0 0 1 1 1 0 0 1 .5 0 .8 0 1 1 1 0 .6 .3 .1 1 0 .5 0 1 .5'/>
+        </TriangleStripSet>
+      </Shape>
+    </Transform>
+  </Scene>
+</X3D>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN" "http://www.web3d.org/specifications/x3d-3.0.dtd">
+<X3D profile='Interactive' version='3.0' xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' xsd:noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.0.xsd'>
+  <head>
+    <meta content='test-ccwsolid.x3d' name='title'/>
+    <meta content='test-ccwsolid-front.jpg' name='Image'/>
+    <meta content='test-ccwsolid-rear.jpg' name='Image'/>
+    <meta content='test-ccwsolid-top.jpg' name='Image'/>
+    <meta content='test-ccwsolid-bottom.jpg' name='Image'/>
+    <meta content='test-ccwsolid-left.jpg' name='Image'/>
+    <meta content='test-ccwsolid-right.jpg' name='Image'/>
+    <meta content='http://www.nist.gov/vrml.html' name='reference'/>
+    <meta content='http://xsun.sdct.itl.nist.gov/~mkass/vts/html/vrml.html' name='reference'/>
+    <meta content='http://www.itl.nist.gov/div897/ctg/vrml/members.html' name='creator'/>
+    <meta content='This file was provided by the National Institute of Standards and Technology, and is part of the X3D Conformance Test Suite, available at http://www.nist.gov/vrml.html The information contained within this file is provided for use in establishing conformance to the ISO VRML97 Specification. Conformance to this test does not imply recommendation or endorsement by the National Institute of Standards and Technology. This software can be redistributed and/or modified freely provided that any derivative works bear some notice that they are derived from it, and any modified versions bear some notice that they have been modified.' name='disclaimer'/>
+    <meta content='Michael Kass NIST, Don Brutzman NPS' name='translator'/>
+    <meta content='21 January 2001' name='translated'/>
+    <meta content='27 January 2011' name='modified'/>
+    <meta content='Test ccw field. The same ElevationGrid is drawn twice (one in top of the other). For the top one the ccw and solid fields are both set to false (disabling backface culling). For the bottom one the ccw and solid fields are both set to true (enabling backface culling). The test should generate two ElevationGrids. The first one should show both sides of of the grid. The second one should only show the front side of the grid.' name='description'/>
+    <meta content='http://www.web3d.org/x3d/content/examples/ConformanceNist/Geometry/ElevationGrid/test-ccwsolid.x3d' name='identifier'/>
+    <meta content='Vrml97ToX3dNist, http://ovrt.nist.gov/v2_x3d.html' name='generator'/>
+    <meta content='X3D-Edit 3.3, https://savage.nps.edu/X3D-Edit' name='generator'/>
+    <meta content='../../license.html' name='license'/>
+  </head>
+  <Scene>
+    <NavigationInfo type='"EXAMINE" "WALK" "FLY" "ANY"'/>
+    <Transform rotation='1 0 0 0.5' translation='-3 2 -18'>
+      <Shape>
+        <Appearance>
+          <Material/>
+        </Appearance>
+        <ElevationGrid ccw='false' height='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.5 0 0 1.5 0 0 1.5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0' solid='false' xDimension='12' zDimension='10'/>
+      </Shape>
+    </Transform>
+    <Transform rotation='1 0 0 0.5' translation='-3 -2 -18'>
+      <Shape>
+        <Appearance>
+          <Material/>
+        </Appearance>
+        <ElevationGrid height='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.5 0 0 1.5 0 0 1.5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0' xDimension='12' zDimension='10'/>
+      </Shape>
+    </Transform>
+  </Scene>
+</X3D>
