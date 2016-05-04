@@ -62,6 +62,7 @@
       <include name="lib/*.jar"/>
       <include name="lib/adltool/*.jar"/>
       <include name="lib/audioinfo/*.jar"/>
+      <include name="lib/cadtool/*.jar"/>
 	  <include name="lib/droid/*.jar"/>
       <include name="lib/exiftool/*.jar"/>
       <include name="lib/ffident/*.jar"/>

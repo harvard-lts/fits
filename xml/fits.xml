@@ -5,6 +5,7 @@
 		<!-- exclude-exts attribute is a comma delimited list of file extensions that the tool should not try to process -->
         <!-- include-exts attribute is a comma delimited list of file extensions that are the only ones the tool will process -->
         <!-- classpath-dirs attribute is a list of directories where any tool-specific Java JAR files and configuration files used solely by these JAR files -->
+		<tool class="edu.harvard.hul.ois.fits.tools.cad.CadTool" include-exts="dxf,dwg,x3d,pdf" classpath-dirs="lib/cadtool" />
         <tool class="edu.harvard.hul.ois.fits.tools.mediainfo.MediaInfo" include-exts="avi,mov,mpg,mpeg,mkv,mp4,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv,m2ts,mpeg4" classpath-dirs="lib/mediainfo" />
         <tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.AudioInfo" include-exts="wav" classpath-dirs="lib/audioinfo" />
         <tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.ADLTool" include-exts="adl" classpath-dirs="lib/adltool" />
