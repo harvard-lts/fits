@@ -70,12 +70,18 @@ public class TestCadSampleFiles extends AbstractLoggingTest {
         ALL_TEST_FILES.addAll(DXF_TEST_FILES);
     }
 
+<<<<<<< HEAD
 	@BeforeClass
 	public static void beforeClass() throws Exception {
 		// Need to initialize FITS for static values used in CadTool.
 		new Fits();
 		cadTool = new CadTool();
 	}
+=======
+    public TestCadSampleFiles() throws FitsToolException {
+        cadTool = new CadTool();
+    }
+>>>>>>> 638d641... Fix all unit test results resulting from adding CadTool except PDF tests in DocMDXmlUnitTest.
 
     private Element testFiles(String elementName, Collection<String> files) throws FitsToolException {
         final Element results = new Element(elementName);
