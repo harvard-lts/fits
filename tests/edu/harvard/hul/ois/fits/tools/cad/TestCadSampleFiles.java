@@ -14,9 +14,11 @@ import org.apache.log4j.Logger;
 import org.jdom.Element;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
@@ -25,7 +27,7 @@ public class TestCadSampleFiles extends AbstractLoggingTest {
 	
 	private static final Logger logger = Logger.getLogger(TestCadSampleFiles.class);
     private static final XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
-    private final CadTool cadTool;
+    private static CadTool cadTool;
 
     public static final List<String> PDF_TEST_FILES = Arrays.asList(
             "testfiles/1344464123.pdf",
@@ -68,9 +70,12 @@ public class TestCadSampleFiles extends AbstractLoggingTest {
         ALL_TEST_FILES.addAll(DXF_TEST_FILES);
     }
 
-    public TestCadSampleFiles() throws FitsToolException {
-        cadTool = new CadTool();
-    }
+	@BeforeClass
+	public static void beforeClass() throws Exception {
+		// Need to initialize FITS for static values used in CadTool.
+		new Fits();
+		cadTool = new CadTool();
+	}
 
     private Element testFiles(String elementName, Collection<String> files) throws FitsToolException {
         final Element results = new Element(elementName);

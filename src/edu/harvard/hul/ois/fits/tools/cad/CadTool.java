@@ -1,10 +1,16 @@
 package edu.harvard.hul.ois.fits.tools.cad;
 
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
-import edu.harvard.hul.ois.fits.mapping.FitsXmlMapper;
-import edu.harvard.hul.ois.fits.tools.ToolBase;
-import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.output.Format;
@@ -12,20 +18,20 @@ import org.jdom.output.XMLOutputter;
 import org.jdom.transform.XSLTransformException;
 import org.jdom.transform.XSLTransformer;
 
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import java.io.*;
-import java.nio.file.Files;
-import java.util.*;
+import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
+import edu.harvard.hul.ois.fits.tools.ToolBase;
+import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
 public class CadTool extends ToolBase {
     public static final String VERSION = "1.0.0";
     public static final String NAME = "CADTool";
+    public static final String CADTOOL_XML_DIR = "cadtool";
 
     public static final String PREFERRED_DATE_FORMAT = "yyyy-MM-dd'T'HH:mmX";
     public static final String PREFERRED_SHORT_DATE_FORMAT = "yyyy-MM-dd";
 
-    private static final String CADTOOL_XSLT_RESOURCE = "/cadtool_to_fits.xslt";
+    private static final String CADTOOL_XSLT_RESOURCE = Fits.FITS_XML_DIR + CADTOOL_XML_DIR + File.separator + "/cadtool_to_fits.xslt";
 
     private final Map<String, CadExtractor> extractors;
     private final XSLTransformer transformer;
@@ -61,30 +67,10 @@ public class CadTool extends ToolBase {
         extractors = Collections.unmodifiableMap(temp);
 
         try {
-            this.transformer = new XSLTransformer(getClass().getResourceAsStream(CADTOOL_XSLT_RESOURCE));
+            this.transformer = new XSLTransformer(CADTOOL_XSLT_RESOURCE);
         } catch (XSLTransformException e) {
             throw new FitsToolException("Error initializing JDOM XSL Transformer");
         }
-
-        ///////////////UGLY HACK/////////////////
-        //If we are running outside of FITS, we need to fake a few static values that normally get initialized
-        //in its constructor
-        if (Fits.FITS_XML_DIR == null && Fits.mapper == null) {
-            try {
-                //FitsXmlMapper constructor expects to find the fits_xml_map.xml file on the filesystem
-                //Pointed at by the Fits.FITS_XML_DIR variable
-                final String tempDir = System.getProperty("java.io.tmpdir");
-                final File file = new File(tempDir, "fits_xml_map.xml");
-                if (!file.isFile()) {
-                    Files.copy(getClass().getResourceAsStream("/fits_xml_map.xml"), file.toPath());
-                }
-                Fits.FITS_XML_DIR = tempDir;
-                Fits.mapper = new FitsXmlMapper();
-            } catch (JDOMException | IOException e) {
-                throw new FitsToolException("Error initializing static FITS values for standalone use", e);
-            }
-        }
-        /////////////////////////////////////////
     }
 
     protected ToolOutput extractInfo(String filename, DataSource dataSource) throws FitsToolException {
