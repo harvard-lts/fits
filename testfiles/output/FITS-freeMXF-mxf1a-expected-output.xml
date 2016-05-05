@@ -104,8 +104,9 @@
       </standard>
     </video>
   </metadata>
-  <statistics fitsExecutionTime="46">
-    <tool toolname="MediaInfo" toolversion="0.7.75" executionTime="40" />
+  <statistics fitsExecutionTime="971">
+    <tool toolname="CADTool" toolversion="1.0.0" status="did not run" />
+    <tool toolname="MediaInfo" toolversion="0.7.75" executionTime="499" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />

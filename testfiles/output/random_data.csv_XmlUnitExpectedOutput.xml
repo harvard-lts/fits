@@ -15,7 +15,8 @@
   </fileinfo>
   <filestatus />
   <metadata />
-  <statistics fitsExecutionTime="425">
+  <statistics fitsExecutionTime="265">
+    <tool toolname="CADTool" toolversion="1.0.0" status="did not run" />
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />

@@ -48,7 +48,8 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="211">
+  <statistics fitsExecutionTime="194">
+    <tool toolname="CADTool" toolversion="1.0.0" status="did not run" />
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />

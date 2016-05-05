@@ -4,11 +4,13 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jdom.Element;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
@@ -19,7 +21,9 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
-public class TestSampleFiles extends AbstractLoggingTest {
+public class TestCadSampleFiles extends AbstractLoggingTest {
+	
+	private static final Logger logger = Logger.getLogger(TestCadSampleFiles.class);
     private static final XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
     private final CadTool cadTool;
 
@@ -64,7 +68,7 @@ public class TestSampleFiles extends AbstractLoggingTest {
         ALL_TEST_FILES.addAll(DXF_TEST_FILES);
     }
 
-    public TestSampleFiles() throws FitsToolException {
+    public TestCadSampleFiles() throws FitsToolException {
         cadTool = new CadTool();
     }
 
@@ -83,37 +87,41 @@ public class TestSampleFiles extends AbstractLoggingTest {
     @Test
     public void testPdfFiles() throws IOException, FitsToolException {
         final Element results = testFiles("pdf-test-results", PDF_TEST_FILES);
-        out.output(results, System.out);
-        System.out.flush();
+        logResults(results);
     }
 
     @Test
     public void testDwgFiles() throws IOException, FitsToolException {
         final Element results = testFiles("dwg-test-results", DWG_TEST_FILES);
-        out.output(results, System.out);
-        System.out.flush();
+        logResults(results);
     }
 
     @Test
     public void testX3dFiles() throws IOException, FitsToolException {
         final Element results = testFiles("x3d-test-results", X3D_TEST_FILES);
-        out.output(results, System.out);
-        System.out.flush();
+        logResults(results);
     }
 
     @Test
     public void testDxfFiles() throws IOException, FitsToolException {
         final Element results = testFiles("dxf-test-results", DXF_TEST_FILES);
-        out.output(results, System.out);
-        System.out.flush();
+        logResults(results);
     }
 
     @Test
     @Ignore
     public void testAllFiles() throws IOException, FitsToolException {
         final Element results = testFiles("test-results", ALL_TEST_FILES);
-        out.output(results, System.out);
-        System.out.flush();
+        logResults(results);
+    }
+
+    /*
+     * Send the output of the results to logger.
+     */
+    private void logResults(Element results) throws IOException {
+        StringWriter sw = new StringWriter();
+        out.output(results, sw);
+        logger.info(sw.toString());
     }
 }
 
