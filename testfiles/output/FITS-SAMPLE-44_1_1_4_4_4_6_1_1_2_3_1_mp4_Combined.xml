@@ -161,7 +161,7 @@
     <tool toolname="OIS File Information" toolversion="0.2" executionTime="610" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
     <tool toolname="ffident" toolversion="0.2" executionTime="690" />
-    <tool toolname="Tika" toolversion="1.3" executionTime="578" />
+    <tool toolname="Tika" toolversion="1.3" status="did not run" />
   </statistics>
 </fits>
 
