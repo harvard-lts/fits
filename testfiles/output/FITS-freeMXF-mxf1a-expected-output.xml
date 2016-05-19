@@ -106,19 +106,19 @@
       </standard>
     </video>
   </metadata>
-  <statistics fitsExecutionTime="971">
-    <tool toolname="MediaInfo" toolversion="0.7.75" executionTime="499" />
+  <statistics fitsExecutionTime="46">
+    <tool toolname="MediaInfo" toolversion="0.7.75" executionTime="40" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="147" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="3" />
     <tool toolname="Jhove" toolversion="1.11" status="did not run" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="558" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="38" />
     <tool toolname="Exiftool" toolversion="10.00" status="did not run" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="142" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="4" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="312" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="158" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="4" />
+    <tool toolname="Tika" toolversion="1.10" status="did not run" />
   </statistics>
 </fits>
