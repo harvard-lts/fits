@@ -304,7 +304,10 @@
 	
 	<target name="zip-output">
 		<input message="Enter output location for zip file:" addproperty="zip.output"/>
-		<zip basedir="${output.location}" destfile="${zip.output}/${app.name}-${build.version}.zip"/>
+		<zip destfile="${zip.output}/${app.name}-${build.version}.zip">
+			<zipfileset dir="${output.location}" excludes="**/*.sh" />
+			<zipfileset dir="${output.location}" includes="**/*.sh" filemode="755" />
+		</zip>
 	</target>
 	
 	<target name="delete-output">
