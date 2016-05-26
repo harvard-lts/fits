@@ -74,7 +74,7 @@ public class MagicNumberValidator {
         return buf;
     }
 
-    public boolean isValid(InputStream in) throws IOException {
+    private boolean isValid(InputStream in) throws IOException {
         //TODO: might I get something with a UTF-8 (or other) BOM?
         try {
             return Arrays.equals(readBytes(in, magic.length), magic);
@@ -87,7 +87,7 @@ public class MagicNumberValidator {
         }
     }
 
-    public void validate(InputStream in) throws IOException, ValidationException {
+    void validate(InputStream in) throws IOException, ValidationException {
         if(! isValid(in)) {
             throw new ValidationException("Magic number \"0x" + DatatypeConverter.printHexBinary(magic) +
                     "\" not found at start of file");
