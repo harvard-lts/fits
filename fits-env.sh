@@ -3,8 +3,22 @@
 # Sets up the environment for launching a FITS instance via
 # either the fits.sh launcher, or the fits-ngserver.sh Nailgun server
 
-#FITS_HOME=`dirname "$0"`
-FITS_HOME=`echo "$0" | sed 's,/[^/]*$,,'`
+FITS_ENV_SCRIPT="$0"
+
+# Resolve symlinks to this script
+while [ -h "$FITS_ENV_SCRIPT" ] ; do
+  ls=`ls -ld "$FITS_ENV_SCRIPT"`
+  # Drop everything prior to ->
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '/.*' > /dev/null; then
+    FITS_ENV_SCRIPT="$link"
+  else
+    FITS_ENV_SCRIPT=`dirname "$FITS_ENV_SCRIPT"`/"$link"
+  fi
+done
+
+FITS_HOME=`dirname $FITS_ENV_SCRIPT`
+
 export FITS_HOME
 
 # Uncomment the following line if you want "file utility" to dereference and follow symlinks.
