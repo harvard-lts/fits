@@ -38,11 +38,15 @@
       <isTagged toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">no</isTagged>
       <hasOutline toolname="Jhove" toolversion="1.11">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>VYOESN+CambriaMath</fontName>
+      </font>
       <hasForms toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</hasForms>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>3</docmd:PageCount>
           <docmd:Language>EN-US</docmd:Language>
+          <docmd:Font FontName="VYOESN+CambriaMath" />
           <docmd:Features>isTagged</docmd:Features>
         </docmd:document>
       </standard>

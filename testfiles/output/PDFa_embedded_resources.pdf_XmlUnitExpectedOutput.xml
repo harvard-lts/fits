@@ -37,19 +37,19 @@
         <fontName>ILMKOK+BauerBodoniBT-Bold</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>ILMKDM+BauerBodoniBT-Roman</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>ILMKCK+Charlesworth-Normal</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ILMKFN+Charlesworth-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKCL+BauerBodoniBT-Italic</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ILMKFM+BauerBodoniBT-BoldItalic</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>ILMKCL+BauerBodoniBT-Italic</fontName>
+        <fontName>ILMKDM+BauerBodoniBT-Roman</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKCK+Charlesworth-Normal</fontName>
       </font>
       <subject toolname="Exiftool" toolversion="10.00">booklet10</subject>
       <description toolname="Exiftool" toolversion="10.00">booklet10</description>
@@ -58,11 +58,11 @@
           <docmd:PageCount>52</docmd:PageCount>
           <docmd:GraphicsCount>433</docmd:GraphicsCount>
           <docmd:Font FontName="ILMKOK+BauerBodoniBT-Bold" />
+          <docmd:Font FontName="ILMKFN+Charlesworth-Bold" />
+          <docmd:Font FontName="ILMKCL+BauerBodoniBT-Italic" />
+          <docmd:Font FontName="ILMKFM+BauerBodoniBT-BoldItalic" />
           <docmd:Font FontName="ILMKDM+BauerBodoniBT-Roman" />
           <docmd:Font FontName="ILMKCK+Charlesworth-Normal" />
-          <docmd:Font FontName="ILMKFN+Charlesworth-Bold" />
-          <docmd:Font FontName="ILMKFM+BauerBodoniBT-BoldItalic" />
-          <docmd:Font FontName="ILMKCL+BauerBodoniBT-Italic" />
         </docmd:document>
       </standard>
     </document>

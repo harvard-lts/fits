@@ -37,10 +37,10 @@
         <fontName>Courier-Oblique</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>EMFBIO+Metabook01</fontName>
+        <fontName>EMFBGL+Metanormal01-Bold</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>EMFBGL+Metanormal01-Bold</fontName>
+        <fontName>EMFBIO+Metabook01</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>EMEIJA+Helvetica-Bold</fontName>
@@ -55,8 +55,8 @@
           <docmd:PageCount>1</docmd:PageCount>
           <docmd:GraphicsCount>44</docmd:GraphicsCount>
           <docmd:Font FontName="Courier-Oblique" />
-          <docmd:Font FontName="EMFBIO+Metabook01" />
           <docmd:Font FontName="EMFBGL+Metanormal01-Bold" />
+          <docmd:Font FontName="EMFBIO+Metabook01" />
           <docmd:Font FontName="EMEIJA+Helvetica-Bold" />
           <docmd:Font FontName="EMEICK+Helvetica" />
           <docmd:Features>hasAnnotations</docmd:Features>

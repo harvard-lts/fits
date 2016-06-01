@@ -37,19 +37,19 @@
       <hasOutline toolname="Jhove" toolversion="1.11">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>BINDCB+MetaNormalLF-Italic</fontName>
+        <fontName>BINCOM+MetaNormal-Italic</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>BINCNJ+MetaBold-Roman</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>AODHFO+MetaNormal-Caps</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>BINCOL+MetaNormal-Roman</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>BINCOM+MetaNormal-Italic</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>AODHFO+MetaNormal-Caps</fontName>
+        <fontName>BINDCB+MetaNormalLF-Italic</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>BINDAO+HelveticaRounded-Bold</fontName>
@@ -58,11 +58,11 @@
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>32</docmd:PageCount>
-          <docmd:Font FontName="BINDCB+MetaNormalLF-Italic" />
-          <docmd:Font FontName="BINCNJ+MetaBold-Roman" />
-          <docmd:Font FontName="BINCOL+MetaNormal-Roman" />
           <docmd:Font FontName="BINCOM+MetaNormal-Italic" />
+          <docmd:Font FontName="BINCNJ+MetaBold-Roman" />
           <docmd:Font FontName="AODHFO+MetaNormal-Caps" />
+          <docmd:Font FontName="BINCOL+MetaNormal-Roman" />
+          <docmd:Font FontName="BINDCB+MetaNormalLF-Italic" />
           <docmd:Font FontName="BINDAO+HelveticaRounded-Bold" />
         </docmd:document>
       </standard>

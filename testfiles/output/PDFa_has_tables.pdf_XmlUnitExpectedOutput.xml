@@ -40,19 +40,19 @@
         <fontName>FHZEQJ+Times-Bold</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>ZJVRWI+MathematicalPi-One</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>NNWRWI+MathematicalPi-Three</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>BBBCHQ+Helvetica-Bold</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>TAXUJQ+Helvetica</fontName>
+        <fontName>ZJVRWI+MathematicalPi-One</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ZJVRWI+Universal-GreekwithMathPi</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>TAXUJQ+Helvetica</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ZDCITP+Times-Italic</fontName>
@@ -66,11 +66,11 @@
           <docmd:GraphicsCount>5</docmd:GraphicsCount>
           <docmd:Font FontName="RNDADQ+Times-Roman" />
           <docmd:Font FontName="FHZEQJ+Times-Bold" />
-          <docmd:Font FontName="ZJVRWI+MathematicalPi-One" />
           <docmd:Font FontName="NNWRWI+MathematicalPi-Three" />
           <docmd:Font FontName="BBBCHQ+Helvetica-Bold" />
-          <docmd:Font FontName="TAXUJQ+Helvetica" />
+          <docmd:Font FontName="ZJVRWI+MathematicalPi-One" />
           <docmd:Font FontName="ZJVRWI+Universal-GreekwithMathPi" />
+          <docmd:Font FontName="TAXUJQ+Helvetica" />
           <docmd:Font FontName="ZDCITP+Times-Italic" />
           <docmd:Font FontName="XWLQSC+Helvetica-Bold" />
           <docmd:Features>hasAnnotations</docmd:Features>

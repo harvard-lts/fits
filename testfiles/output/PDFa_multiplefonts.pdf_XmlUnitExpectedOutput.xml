@@ -36,10 +36,10 @@
         <fontName>IMAFEJ+TimesNewRomanPS-BoldMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>IMAFFL+CourierNewPSMT</fontName>
+        <fontName>IMAFHM+TimesNewRomanPSMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>IMAFHM+TimesNewRomanPSMT</fontName>
+        <fontName>IMAFFL+CourierNewPSMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>KCIWKT+Raavi</fontName>
@@ -54,8 +54,8 @@
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>3</docmd:PageCount>
           <docmd:Font FontName="IMAFEJ+TimesNewRomanPS-BoldMT" />
-          <docmd:Font FontName="IMAFFL+CourierNewPSMT" />
           <docmd:Font FontName="IMAFHM+TimesNewRomanPSMT" />
+          <docmd:Font FontName="IMAFFL+CourierNewPSMT" />
           <docmd:Font FontName="KCIWKT+Raavi" />
           <docmd:Font FontName="IMAFNL+SymbolMT" />
           <docmd:Font FontName="OILUOL+NiagaraEngraved-Reg" />

@@ -36,19 +36,19 @@
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">1</graphicsCount>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>CJPZZP+Cambria</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>SMRWPJ+Cambria-Bold</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>OGOYLR+Calibri</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>CJPZZP+Cambria</fontName>
+        <fontName>DOUTBX+TimesNewRoman,Bold</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>QKITBX+Arial,Bold</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>KBGJVJ+TimesNewRoman</fontName>
+        <fontName>VUVXTN+Arial</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>MEFVXF+CourierNew</fontName>
@@ -57,25 +57,25 @@
         <fontName>TLBCDH+SymbolMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>DOUTBX+TimesNewRoman,Bold</fontName>
+        <fontName>KBGJVJ+TimesNewRoman</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>VUVXTN+Arial</fontName>
+        <fontName>QKITBX+Arial,Bold</fontName>
       </font>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>5</docmd:PageCount>
           <docmd:GraphicsCount>1</docmd:GraphicsCount>
           <docmd:Language>EN-US</docmd:Language>
+          <docmd:Font FontName="CJPZZP+Cambria" />
           <docmd:Font FontName="SMRWPJ+Cambria-Bold" />
           <docmd:Font FontName="OGOYLR+Calibri" />
-          <docmd:Font FontName="CJPZZP+Cambria" />
-          <docmd:Font FontName="QKITBX+Arial,Bold" />
-          <docmd:Font FontName="KBGJVJ+TimesNewRoman" />
-          <docmd:Font FontName="MEFVXF+CourierNew" />
-          <docmd:Font FontName="TLBCDH+SymbolMT" />
           <docmd:Font FontName="DOUTBX+TimesNewRoman,Bold" />
           <docmd:Font FontName="VUVXTN+Arial" />
+          <docmd:Font FontName="MEFVXF+CourierNew" />
+          <docmd:Font FontName="TLBCDH+SymbolMT" />
+          <docmd:Font FontName="KBGJVJ+TimesNewRoman" />
+          <docmd:Font FontName="QKITBX+Arial,Bold" />
           <docmd:Features>isTagged</docmd:Features>
           <docmd:Features>hasOutline</docmd:Features>
           <docmd:Features>hasAnnotations</docmd:Features>

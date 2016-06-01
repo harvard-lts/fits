@@ -35,19 +35,22 @@
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>QRRDZI+TimesNewRomanPS-BoldMT</fontName>
+        <fontName>MLOFVQ+ArialMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>JEFNFW+TimesNewRomanPSMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>CERSLK+Calibri-Bold</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>WATNFW+Calibri</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>MLOFVQ+ArialMT</fontName>
+        <fontName>CERSLK+Calibri-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>QRRDZI+TimesNewRomanPS-BoldMT</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>CWOXLK+Wingdings2</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>NKDLJO+Wingdings-Regular</fontName>
@@ -55,21 +58,18 @@
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>CWOXLK+ArialUnicodeMS</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>CWOXLK+Wingdings2</fontName>
-      </font>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>3</docmd:PageCount>
           <docmd:Language>EN-US</docmd:Language>
-          <docmd:Font FontName="QRRDZI+TimesNewRomanPS-BoldMT" />
-          <docmd:Font FontName="JEFNFW+TimesNewRomanPSMT" />
-          <docmd:Font FontName="CERSLK+Calibri-Bold" />
-          <docmd:Font FontName="WATNFW+Calibri" />
           <docmd:Font FontName="MLOFVQ+ArialMT" />
+          <docmd:Font FontName="JEFNFW+TimesNewRomanPSMT" />
+          <docmd:Font FontName="WATNFW+Calibri" />
+          <docmd:Font FontName="CERSLK+Calibri-Bold" />
+          <docmd:Font FontName="QRRDZI+TimesNewRomanPS-BoldMT" />
+          <docmd:Font FontName="CWOXLK+Wingdings2" />
           <docmd:Font FontName="NKDLJO+Wingdings-Regular" />
           <docmd:Font FontName="CWOXLK+ArialUnicodeMS" />
-          <docmd:Font FontName="CWOXLK+Wingdings2" />
           <docmd:Features>isTagged</docmd:Features>
           <docmd:Features>hasAnnotations</docmd:Features>
         </docmd:document>
