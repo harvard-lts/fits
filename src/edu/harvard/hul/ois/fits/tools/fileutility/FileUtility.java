@@ -130,8 +130,8 @@ public class FileUtility extends ToolBase {
 		String charset = null;
 		List<String> linebreaks = new ArrayList<String>();
 
-		//if mime indicates plain text
-		if(execMimeOut.startsWith("text/") && execMimeOut.contains("charset=")) {
+		//if mime indicates plain text (except if RTF files)
+		if(execMimeOut.startsWith("text/") && execMimeOut.contains("charset=") && !execOut.contains("Rich Text Format")) {
 			//mime = "text/plain";
 			mime = execMimeOut.substring(0,execMimeOut.indexOf("; charset="));
 			charset = execMimeOut.substring(execMimeOut.indexOf("=")+1);
@@ -159,6 +159,10 @@ public class FileUtility extends ToolBase {
 				}
 			}
 		}
+		else if (execOut.contains("Rich Text Format") && execMimeOut.contains("charset=")) {
+			format = "Rich Text Format (RTF)";
+			mime = execMimeOut.substring(0,execMimeOut.indexOf("; charset="));
+		}
 		else if(execMimeOut.contains("charset=")) {
 			format = execOut;
 			mime = execMimeOut.substring(0,execMimeOut.indexOf("; charset="));
@@ -171,18 +175,6 @@ public class FileUtility extends ToolBase {
 		
 		Document rawOut = createXml(mime,format,charset,linebreaks,execOut+"\n"+execMimeOut);
 		Document fitsXml = transform(xslt,rawOut);
-			
-		/*
-		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());		
-		try {
-			outputter.output(fitsXml, System.out);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		
-		
 		
 		output = new ToolOutput(this,fitsXml,rawOut);
 		

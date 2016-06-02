@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+  <identification>
+    <identity format="Office Open XML Document" mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="Tika" toolversion="1.10" />
+      <version toolname="Droid" toolversion="6.1.5">2007 onwards</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/189</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 23:04:00Z</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T23:04:00Z</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:19 23:03:00Z</created>
+    <creatingApplicationName toolname="Tika" toolversion="1.10" status="SINGLE_RESULT">Microsoft Office Word</creatingApplicationName>
+    <creatingApplicationVersion toolname="Exiftool" toolversion="10.00">14.0000</creatingApplicationVersion>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/Word_has_index.docx</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Word_has_index.docx</filename>
+    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">39310</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">915d4914b6516586a4e05d32ccb27b35</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1455055714000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <document>
+      <pageCount toolname="Exiftool" toolversion="10.00">10</pageCount>
+      <wordCount toolname="Exiftool" toolversion="10.00">1347</wordCount>
+      <characterCount toolname="Exiftool" toolversion="10.00">7682</characterCount>
+      <author toolname="Exiftool" toolversion="10.00">Zakuta, Vitaly</author>
+      <lineCount toolname="Exiftool" toolversion="10.00">64</lineCount>
+      <paragraphCount toolname="Exiftool" toolversion="10.00">18</paragraphCount>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>10</docmd:PageCount>
+          <docmd:WordCount>1347</docmd:WordCount>
+          <docmd:CharacterCount>7682</docmd:CharacterCount>
+          <docmd:ParagraphCount>18</docmd:ParagraphCount>
+          <docmd:LineCount>64</docmd:LineCount>
+        </docmd:document>
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="279">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="7" />
+    <tool toolname="Jhove" toolversion="1.11" status="did not run" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="24" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="191" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="3" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="6" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="270" />
+  </statistics>
+</fits>
+

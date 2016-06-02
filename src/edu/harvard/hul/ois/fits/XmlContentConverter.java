@@ -31,6 +31,7 @@ package edu.harvard.hul.ois.fits;
 
 import java.io.File;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -40,12 +41,13 @@ import org.jdom.Element;
 import org.jdom.Namespace;
 
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
-import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational; 
+import edu.harvard.hul.ois.ots.schemas.DocumentMD.Font;
+import edu.harvard.hul.ois.ots.schemas.MIX.Compression;
+import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
+import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlDateFormat;
-import edu.harvard.hul.ois.ots.schemas.MIX.Compression;
-import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
 
 /** This class handles conversion between FITS metadata and XmlContent
  *  implementations of metadata schemas.
@@ -53,9 +55,19 @@ import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
  *  for this to compile. */
 public class XmlContentConverter {
 	
-	private static final Logger logger = Logger.getLogger( XmlContentConverter.class );
+	private static List<String> docMdNames;
 	
-	private final static Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
+	private static final Logger logger = Logger.getLogger(XmlContentConverter.class);
+
+	private static final Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
+	
+	static {
+    	// collect names of DocumentMD enums
+		docMdNames = new ArrayList<String>(DocumentMDElement.values().length);
+		for (DocumentMDElement elem : DocumentMDElement.values()) {
+			docMdNames.add(elem.getName());
+		}
+	}
     
     /** Converts an image element to a MIX object
      * 
@@ -559,7 +571,7 @@ public class XmlContentConverter {
             		try {
             			date = XmlDateFormat.exifDateTimeToXml(created.getText().trim());
             		}
-            		catch(ParseException e) {
+            		catch (ParseException e) {
             			logger.error("Warning - unable to parse date: " + e.getMessage ());
             		}
             		if(date != null) {
@@ -575,73 +587,106 @@ public class XmlContentConverter {
         return mm.mix;
     }
 
-    /** Converts a document element to a DocumentMD object 
-     *  @param  fitsDoc   a document element in the FITS schema
+    /**
+     * Converts a document element to a DocumentMD object 
+     * @param  fitsDoc   a document element in the FITS schema
      */
-    public XmlContent toDocumentMD (Element fitsDoc) {
-        DocumentMDModel dm = new DocumentMDModel ();
-            for (DocumentMDElement fitsElem : DocumentMDElement.values()) {
-                String fitsName = fitsElem.getName ();
-                Element dataElement = fitsDoc.getChild (fitsName,ns);
-                if (dataElement == null)
-                    continue;
-                String dataValue = dataElement.getText().trim();
-                Integer intValue = null;
-                try {
-                    intValue = Integer.parseInt (dataValue);
-                }
-                catch (NumberFormatException e) {}
-            
-                switch (fitsElem) {
+    public XmlContent toDocumentMD(Element fitsDoc) {
+        DocumentMDModel dm = new DocumentMDModel();
+        @SuppressWarnings("unchecked")
+		List<Element> dataElements = fitsDoc.getChildren();
+        for (Element dataElement : dataElements) {
+        	// If element name is contained in enum then we're interested in it.
+        	DocumentMDElement fitsElem = null;
+        	if (docMdNames.contains(dataElement.getName())) {
+        		// If name of element is contained in list of enum names then we can safely use valueOf()
+        		// rather than having to trap potential exception whenever the dataElement name does not convert to an enum.
+        		fitsElem = DocumentMDElement.valueOf(dataElement.getName());
+        	} else {
+        		continue;
+        	}
+            String dataValue = dataElement.getText().trim();
+            Integer intValue = null;  // it's sometimes necessary to convert to Integer
+            switch (fitsElem) {
                 case pageCount:
-
-                 if(intValue != null)
-                 dm.docMD.setPageCount (intValue);
+                    intValue = parseInt(dataValue);
+                    if(intValue != null) {
+                        dm.docMD.setPageCount(intValue);
+                    }
                     break;
                 case wordCount:
-                 if(intValue != null)
-                 dm.docMD.setWordCount(intValue);
+                    intValue = parseInt(dataValue);
+                    if(intValue != null) {
+                    	dm.docMD.setWordCount(intValue);
+                    }
                     break;
                 case characterCount:
-                 if(intValue != null)
-                 dm.docMD.setCharacterCount(intValue);
+                    intValue = parseInt(dataValue);
+                    if(intValue != null) {
+                        dm.docMD.setCharacterCount(intValue);
+                    }
+                    break;
+                case paragraphCount:
+                    intValue = parseInt(dataValue);
+                    if(intValue != null) {
+                        dm.docMD.setParagraphCount(intValue);
+                    }
                     break;
                 case lineCount:
-                 if(intValue != null)
-                 dm.docMD.setLineCount(intValue);
+                    intValue = parseInt(dataValue);
+                    if(intValue != null) {
+                        dm.docMD.setLineCount(intValue);
+                    }
                     break;
                 case graphicsCount:
-                 if(intValue != null)
-                 dm.docMD.setGraphicsCount(intValue);
+                    intValue = parseInt(dataValue);
+                    if(intValue != null) {
+                        dm.docMD.setGraphicsCount(intValue);
+                    }
                     break;
                 case tableCount:
-                 if(intValue != null)
-                 dm.docMD.setTableCount(intValue);
+                    intValue = parseInt(dataValue);
+                    if(intValue != null) {
+                        dm.docMD.setTableCount(intValue);
+                    }
                     break;
                 case language:
-                 if(dataValue != null)
-                 dm.docMD.addLanguage(dataValue);
+                    if(dataValue != null) {
+                        dm.docMD.addLanguage(dataValue);
+                    }
                     break;
                 case font:
-                    // Currently not provided by FITS
+                    // Need to look for sub-elements
+                	Element fontName = dataElement.getChild(DocumentMDElement.fontName.getName(), ns);
+                	Element fontIsEmbedded = dataElement.getChild(DocumentMDElement.fontIsEmbedded.getName(), ns);
+                	if (fontName != null && !fontName.getText().isEmpty()) {
+                		Font font = new Font();
+                		font.setName(fontName.getText());
+                		if (fontIsEmbedded != null) {
+                			boolean isEmbedded = !fontIsEmbedded.getText().isEmpty() && "true".equals(fontIsEmbedded.getText());
+                			font.setEmbedded(isEmbedded);
+                		}
+                		dm.docMD.addFont(font);
+                	}
                     break;
                 case isTagged:
-                case hasLayers:
-                case hasTransparency:
                 case hasOutline:
                 case hasThumbnails:
-                case hasAttachments:
-                case isRightsManaged:
+                case hasLayers:
                 case hasForms:
-                case isProtected:
                 case hasAnnotations:
-                case hasDigitalSignature:
-                 if(dataElement != null) {
-                	 dm.addFeature(dataElement);
-                 }
-                  break;
-                }
+                case hasAttachments:
+                case useTransparency:
+                case hasHyperlinks:
+                case hasEmbeddedResources:
+                    if(dataElement != null) {
+                        dm.addFeature(dataElement);
+                    }
+                    break;
+                default:
+                	logger.warn("No case entry for : " + fitsElem.getName());
             }
+        }
         return dm.docMD;
     }
     
@@ -694,7 +739,7 @@ public class XmlContentConverter {
     
     /**
      * Converts a audio element into a AudioObject AES object
-     * @param fitsAudio		an audio element in the FITS schema
+     * @param fitsAudio	an audio element in the FITS schema
      */
     public XmlContent toAES (FitsOutput fitsOutput,Element fitsAudio) {
         AESModel aesModel = null;
@@ -899,9 +944,6 @@ public class XmlContentConverter {
 
     	} catch (XmlContentException e) {
     		logger.error("Invalid content: " + e.getMessage ());
-    		// TODO: Should we throw an exception?
-    		// What should we do here?
-    		//e.printStackTrace();
     	}
 
     	return ebucoreModel.ebucoreMain;
@@ -947,11 +989,11 @@ public class XmlContentConverter {
     	
     	private String name;
         
-    	AudioElement(String name) {
+    	private AudioElement(String name) {
             this.name = name;
         }
         
-        public String getName () {
+        public String getName() {
             return name;
         }
     }
@@ -1059,11 +1101,11 @@ public class XmlContentConverter {
         
         private String name;
         
-        ImageElement(String name) {
+        private ImageElement(String name) {
             this.name = name;
         }
         
-        public String getName () {
+        public String getName() {
             return name;
         }
     }
@@ -1080,11 +1122,11 @@ public class XmlContentConverter {
 
         private String name;
 
-        TextMDElement (String name) {
+        private TextMDElement(String name) {
             this.name = name;
         }
 
-        public String getName () {
+        public String getName() {
             return name;
         }
     }
@@ -1101,26 +1143,26 @@ public class XmlContentConverter {
         tableCount ("tableCount"),
         language("language"),
         font("font"),
+        fontName("fontName"), // should only be sub-element of 'font'
+        fontIsEmbedded("fontIsEmbedded"), // should only be sub-element of 'font'
         isTagged("isTagged"),
         hasLayers ("hasLayers"),
-        hasTransparency("hasTransparency"),
+        useTransparency("useTransparency"),
         hasOutline("hasOutline"),
         hasThumbnails("hasThumbnails"),
         hasAttachments("hasAttachments"),
-        isRightsManaged("isRightsManaged"),
         hasForms("hasForms"),
-        isProtected("isProtected"),
         hasAnnotations("hasAnnotations"),
-        hasDigitalSignature("hasDigitalSignature");
-        
+        hasHyperlinks("hasHyperlinks"),
+        hasEmbeddedResources("hasEmbeddedResources");
 
         private String name;
 
-        DocumentMDElement (String name) {
+        private DocumentMDElement(String name) {
             this.name = name;
         }
 
-        public String getName () {
+        public String getName() {
             return name;
         }
     }
@@ -1135,12 +1177,26 @@ public class XmlContentConverter {
     	
     	private String name;
         
-    	AudioFormatElement(String name) {
+    	private AudioFormatElement(String name) {
             this.name = name;
         }
         
-        public String getName () {
+        public String getName() {
             return name;
         }
-    }    
+    }
+    
+    /*
+     * Parse an elements value
+     */
+    private Integer parseInt(String valueToParse) {
+    	Integer intValue = null;
+    	try {
+    		intValue = Integer.parseInt(valueToParse);
+    	}
+    	catch (NumberFormatException e) {
+        	logger.warn("Could not parse dataValue: " + valueToParse + " -- ignoring value.");
+    	}
+    	return intValue;
+    }
 }

@@ -19,21 +19,40 @@
 package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
+
+import org.custommonkey.xmlunit.XMLUnit;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tools.Tool;
 
-import org.custommonkey.xmlunit.*;
+public class FitsBasicVideoTest {
+	
+	/*
+	 *  Only one Fits instance is needed to run all tests.
+	 *  This also speeds up the tests.
+	 */
+	private static Fits fits;
 
-
-public class FitsBasicVideoTest extends XMLTestCase {
-
+	@BeforeClass
+	public static void beforeClass() throws Exception {
+		// Set up XMLUnit and FITS for entire class.
+		XMLUnit.setIgnoreWhitespace(true);
+		XMLUnit.setNormalizeWhitespace(true);
+		fits = new Fits();
+	}
+	
+	@AfterClass
+	public static void afterClass() {
+		fits = null;
+	}
     
 	@Test
 	public void testFitsVideo_AVC() throws Exception {	
-    	Fits fits = new Fits("");
+
     	File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
     	
     	for(Tool t : fits.getToolbelt().getTools()) {
@@ -52,7 +71,7 @@ public class FitsBasicVideoTest extends XMLTestCase {
 	
 	@Test
 	public void testFitsVideo_DV() throws Exception {	
-    	Fits fits = new Fits("");
+
     	File input = new File("testfiles/FITS-SAMPLE-26.mov");
     	
     	for(Tool t : fits.getToolbelt().getTools()) {

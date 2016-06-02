@@ -72,18 +72,25 @@ public class FitsMetadataValues {
     public final static String BLOCK_SIZE_MIN = "blockSizeMin";
     public final static String BRIGHTNESS_VALUE = "brightnessValue";
     public final static String BYTE_ORDER = "byteOrder";      // for possible future use
+    public final static String CATEGORY = "category";
     public final static String CFA_PATTERN = "cfaPattern";    // image
     public final static String CFA_PATTERN2 = "cfaPattern2";  // image
     public final static String CHANNELS = "channels";          // audio, maybe video
+    public final static String CHARACTER_COUNT = "characterCount";
     public final static String CHARSET = "charset";            // text
     public final static String COLOR_SPACE = "colorSpace";
+    public final static String COMPANY = "company";
     public final static String COMPRESSION_SCHEME = "compressionScheme";
+    public final static String CREATING_APPLICATION_NAME = "creatingApplicationName";
+    public final static String CREATING_APPLICATION_VERSION = "creatingApplicationVersion";
     public final static String DATA_FORMAT_TYPE = "dataFormatType";
+    public final static String DESCRIPTION = "description";
     public final static String DIGITAL_CAMERA_MANUFACTURER = "digitalCameraManufacturer";
     public final static String DIGITAL_CAMERA_MODEL_NAME = "digitalCameraModelName";
     public final static String DIGITAL_CAMERA_SERIAL_NO = "digitalCameraSerialNo";
     public final static String DURATION = "duration";
     public final static String EXIF_VERSION = "exifVersion";
+    public final static String HAS_EMBEDDED_RESOURCES = "hasEmbeddedResources";
     public final static String EXPOSURE_BIAS_VALUE = "exposureBiasValue";
     public final static String EXPOSURE_INDEX = "exposureIndex";
     public final static String EXPOSURE_PROGRAM = "exposureProgram";
@@ -96,11 +103,15 @@ public class FitsMetadataValues {
     public final static String GRAY_RESPONSE_UNIT = "grayResponseUnit";
     public final static String ICC_PROFILE_NAME = "iccProfileName";
     public final static String ICC_PROFILE_VERSION = "iccProfileVersion";
+    public final static String IDENTIFIER = "identifier";
+    public final static String IMAGE_COUNT = "graphicsCount";
     public final static String IMAGE_HEIGHT = "imageHeight";
     public final static String IMAGE_WIDTH = "imageWidth";
     public final static String ISO_SPEED_RATING = "isoSpeedRating";
     public final static String LANGUAGE = "language";      // may be useful someday
+    public final static String LAST_MODIFIED = "lastmodified";
     public final static String LIGHT_SOURCE = "lightSource";
+    public final static String LINE_COUNT = "lineCount";     // document
     public final static String MARKUP_BASIS = "markupBasis";
     public final static String MARKUP_BASIS_VERSION = "markupBasisVersion";
     public final static String MARKUP_LANGUAGE = "markupLanguage";
@@ -111,9 +122,13 @@ public class FitsMetadataValues {
     public final static String NUM_SAMPLES = "numSamples";       // audio
     public final static String OFFSET = "offset";
     public final static String ORIENTATION = "orientation";       // image, video
+    public final static String PUBLISHER = "publisher";
     public final static String PIXEL_ASPECT_RATIO = "pixelAspectRatio";  // video
     public final static String ROTATION = "rotation";        // image, video
     public final static String PAGE_COUNT = "pageCount";     // document
+    public final static String PARAGRAPH_COUNT = "paragraphCount";     // document
+    public final static String IS_RIGHTS_MANAGED = "isRightsManaged";
+    public final static String IS_PROTECTED = "isProtected";
     public final static String PRIMARY_CHROMATICITIES_BLUE_X = "primaryChromaticitiesBlueX";
     public final static String PRIMARY_CHROMATICITIES_BLUE_Y = "primaryChromaticitiesBlueY";
     public final static String PRIMARY_CHROMATICITIES_GREEN_X = "primaryChromaticitiesGreenX";
@@ -131,9 +146,11 @@ public class FitsMetadataValues {
     public final static String SCANNING_SOFTWARE_NAME = "scanningSoftwareName";
     public final static String SENSING_METHOD = "sensingMethod";
     public final static String SHUTTER_SPEED_VALUE = "shutterSpeedValue";
+    public final static String SIZE = "size";
     public final static String SPECTRAL_SENSITIVITY = "spectralSensitivity";
     public final static String SOFTWARE = "software";
     public final static String SUBJECT = "subject";
+    public final static String TABLE_COUNT = "tableCount";
     public final static String TIMECODE = "timecode";   // SMPTE timecode, for future use
     public final static String TILE_HEIGHT = "tileHeight";   // image, esp. TIFF
     public final static String TILE_WIDTH = "tileWidth";
@@ -242,10 +259,10 @@ public class FitsMetadataValues {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Error reading or parsing input file: " + inputFile, e);
 		}
 		finally {
-			if(in != null) try {in.close(); } catch (IOException e) { }
+			if(in != null) try {in.close(); } catch (IOException e) { } // nothing to do if exception when closing file
 		}
 		return map;
     }

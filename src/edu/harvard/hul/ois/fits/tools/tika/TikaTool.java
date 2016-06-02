@@ -8,7 +8,7 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
@@ -29,15 +29,17 @@ import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
 
-
 public class TikaTool extends ToolBase {
 
     /** Constants for all Tika property names, so that they're all gathered in
      *  one place and we don't have to fix inline names. */
     private final static String P_APPLICATION_NAME = "Application-Name";
+    private final static String P_APPLICATION_VERSION = "Application-Version";
     private final static String P_AUTHOR = "Author";
     private final static String P_BITS = "bits";
+    private final static String P_CATEGORY = "Category";
     private final static String P_CHANNELS = "channels";
+    private final static String P_CHARACTER_COUNT = "Character Count";
     private final static String P_CHRM = "cHRM";
     private final static String P_CHROMA_BLACK_IS_ZERO = "Chroma BlackIsZero";
     private final static String P_CHROMA_COLOR_SPACE_TYPE = "Chroma ColorSpaceType";
@@ -61,6 +63,7 @@ public class TikaTool extends ToolBase {
     private final static String P_DC_CONTRIBUTOR = "dc:contributor";
     private final static String P_DC_CREATED = "dcterms:created";
     private final static String P_DC_CREATOR = "dc:creator";
+    private final static String P_DC_DESCRIPTION = "dc:description";
     private final static String P_DC_FORMAT = "dc:format";
     private final static String P_DC_IDENTIFIER = "dc:identifier";
     private final static String P_DC_LANGUAGE = "dc:language";
@@ -69,6 +72,7 @@ public class TikaTool extends ToolBase {
     private final static String P_DC_RIGHTS = "dc:rights";
     private final static String P_DC_SUBJECT = "dc:subject";
     private final static String P_DC_TITLE = "dc:title";
+    private final static String P_DESCRIPTION = "description";
     private final static String P_DIMENSION_HORIZONTAL_PIXEL_SIZE = "Dimension HorizontalPixelSize";
     private final static String P_DIMENSION_IMAGE_ORIENTATION ="Dimension ImageOrientation";
     private final static String P_DIMENSION_PIXEL_ASPECT_RATIO ="Dimension PixelAspectRatio";
@@ -81,12 +85,14 @@ public class TikaTool extends ToolBase {
     private final static String P_ICCP = "iCCP";
     private final static String P_IDENTIFIER = "identifier";
     private final static String P_IHDR = "IHDR";
+    private final static String P_IMAGE_COUNT = "Image-Count";
     private final static String P_IMAGE_HEIGHT = "Image Height";
     private final static String P_IMAGE_WIDTH = "Image Width";
     private final static String P_KEYWORDS = "Keywords";
     private final static String P_LANGUAGE = "language";
     private final static String P_LAST_MODIFIED = "Last-Modified";
     private final static String P_LAST_SAVE_DATE = "Last-Save-Date";
+    private final static String P_LINE_COUNT = "Line-Count";
     private final static String P_META_AUTHOR = "meta:author";
     private final static String P_META_CREATION_DATE = "meta:creation-date";
     private final static String P_META_INITIAL_AUTHOR = "meta:initial-author";
@@ -95,17 +101,24 @@ public class TikaTool extends ToolBase {
     private final static String P_META_OBJECT_COUNT = "meta:object-count";
     private final static String P_META_PAGE_COUNT = "meta:page-count";
     private final static String P_META_TABLE_COUNT = "meta:table-count";
+    private final static String P_META_WORD_COUNT = "meta:word-count";
     private final static String P_MODIFIED = "modified";
     private final static String P_NBOBJECT = "nbObject";
     private final static String P_NBTAB = "nbTab";
     private final static String P_OBJECT_COUNT = "Object-Count";
     private final static String P_PAGE_COUNT = "Page-Count";
+    private final static String P_PARAGRAPH_COUNT = "Paragraph-Count";
+    private final static String P_PDF_VERSION = "pdf:PDFVersion";
+    private final static String P_PDFA_VERSION = "pdfa:PDFVersion";
+    private final static String P_PDFX_VERSION = "GTS_PDFXVersion";
     private final static String P_PHYS = "pHYs";
     private final static String P_PRODUCER = "producer";
     private final static String P_PUBLISHER = "publisher";
     private final static String P_RESOLUTION_UNIT = "Resolution Unit";
     private final static String P_RESOURCE_NAME = "resourceName";
+    private final static String P_RIGHTS = "rights";
     private final static String P_SAMPLE_RATE = "samplerate";
+    private final static String P_SECURITY = "Security";
     private final static String P_SUBJECT = "subject";
     private final static String P_TABLE_COUNT = "Table-Count";
     private final static String P_TIFF_BITS_PER_SAMPLE = "tiff:BitsPerSample";
@@ -138,10 +151,13 @@ public class TikaTool extends ToolBase {
     /** Enumeration of Tika properties. */
     private enum TikaProperty {
         APPLICATION_NAME,
+        APPLICATION_VERSION,
         AUTHOR,
         BITS,
         //BITS_PER_SAMPLE,
+        CATEGORY,
         CHANNELS,
+        CHARACTER_COUNT,
         CHRM,
         CHROMA_BLACK_IS_ZERO,
         CHROMA_COLOR_SPACE_TYPE,
@@ -165,6 +181,7 @@ public class TikaTool extends ToolBase {
         DC_CONTRIBUTOR,
         DC_CREATED,
         DC_CREATOR,
+        DC_DESCRIPTION,
         DC_FORMAT,
         DC_IDENTIFIER,
         DC_LANGUAGE,
@@ -173,6 +190,7 @@ public class TikaTool extends ToolBase {
         DC_RIGHTS,
         DC_SUBJECT,
         DC_TITLE,
+        DESCRIPTION,
         DIMENSION_HORIZONTAL_PIXEL_SIZE,
         DIMENSION_IMAGE_ORIENTATION,
         DIMENSION_PIXEL_ASPECT_RATIO,
@@ -185,12 +203,14 @@ public class TikaTool extends ToolBase {
         ICCP,
         IDENTIFIER,
         IHDR,
+        IMAGE_COUNT,
         IMAGE_HEIGHT,
         IMAGE_WIDTH,
         KEYWORDS,
         LANGUAGE,
         LAST_MODIFIED,
         LAST_SAVE_DATE,
+        LINE_COUNT,
         META_AUTHOR,
         META_CREATION_DATE,
         META_INITIAL_AUTHOR,
@@ -199,18 +219,25 @@ public class TikaTool extends ToolBase {
         META_OBJECT_COUNT,
         META_PAGE_COUNT,
         META_TABLE_COUNT,
+        META_WORD_COUNT,
         MODIFIED,
         N_PAGES,
         NBOBJECT,
         NBTAB,
         OBJECT_COUNT,
         PAGE_COUNT,
+        PARAGRAPH_COUNT,
+        PDF_VERSION,
+        PDFA_VERSION,
+        PDFX_VERSION,
         PHYS,
         PRODUCER,
         PUBLISHER,
         RESOLUTION_UNIT,
         RESOURCE_NAME,
+        RIGHTS,
         SAMPLE_RATE,
+        SECURITY,
         SUBJECT,
         TABLE_COUNT,
         TIFF_BITS_PER_SAMPLE,
@@ -246,9 +273,12 @@ public class TikaTool extends ToolBase {
             new HashMap<String, TikaProperty>();
     static {
         propertyNameMap.put (P_APPLICATION_NAME, TikaProperty.APPLICATION_NAME);
+        propertyNameMap.put (P_APPLICATION_VERSION, TikaProperty.APPLICATION_VERSION);
         propertyNameMap.put (P_AUTHOR, TikaProperty.AUTHOR);
         propertyNameMap.put (P_BITS, TikaProperty.BITS);
+        propertyNameMap.put (P_CATEGORY, TikaProperty.CATEGORY);
         propertyNameMap.put (P_CHANNELS, TikaProperty.CHANNELS);
+        propertyNameMap.put (P_CHARACTER_COUNT, TikaProperty.CHARACTER_COUNT);
         propertyNameMap.put (P_CHRM, TikaProperty.CHRM);
         propertyNameMap.put (P_CHROMA_BLACK_IS_ZERO, TikaProperty.CHROMA_BLACK_IS_ZERO);
         propertyNameMap.put (P_CHROMA_COLOR_SPACE_TYPE, TikaProperty.CHROMA_COLOR_SPACE_TYPE);
@@ -272,6 +302,7 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_DC_CONTRIBUTOR, TikaProperty.DC_CONTRIBUTOR);
         propertyNameMap.put (P_DC_CREATED, TikaProperty.DC_CREATED);
         propertyNameMap.put (P_DC_CREATOR, TikaProperty.DC_CREATOR);
+        propertyNameMap.put (P_DC_DESCRIPTION, TikaProperty.DC_DESCRIPTION);
         propertyNameMap.put (P_DC_FORMAT, TikaProperty.DC_FORMAT);
         propertyNameMap.put (P_DC_IDENTIFIER, TikaProperty.DC_IDENTIFIER);
         propertyNameMap.put (P_DC_LANGUAGE, TikaProperty.DC_LANGUAGE);
@@ -280,6 +311,7 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_DC_RIGHTS, TikaProperty.DC_RIGHTS);
         propertyNameMap.put (P_DC_SUBJECT, TikaProperty.DC_SUBJECT);
         propertyNameMap.put (P_DC_TITLE, TikaProperty.DC_TITLE);
+        propertyNameMap.put (P_DESCRIPTION, TikaProperty.DESCRIPTION);
         propertyNameMap.put (P_DIMENSION_HORIZONTAL_PIXEL_SIZE, TikaProperty.DIMENSION_HORIZONTAL_PIXEL_SIZE);
         propertyNameMap.put (P_DIMENSION_IMAGE_ORIENTATION, TikaProperty.DIMENSION_IMAGE_ORIENTATION);
         propertyNameMap.put (P_DIMENSION_PIXEL_ASPECT_RATIO, TikaProperty.DIMENSION_PIXEL_ASPECT_RATIO);
@@ -292,12 +324,14 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_ICCP, TikaProperty.ICCP);
         propertyNameMap.put (P_IDENTIFIER, TikaProperty.IDENTIFIER);
         propertyNameMap.put (P_IHDR, TikaProperty.IHDR);
+        propertyNameMap.put (P_IMAGE_COUNT, TikaProperty.IMAGE_COUNT);
         propertyNameMap.put (P_IMAGE_HEIGHT, TikaProperty.IMAGE_HEIGHT);
         propertyNameMap.put (P_IMAGE_WIDTH, TikaProperty.IMAGE_WIDTH);
         propertyNameMap.put (P_KEYWORDS, TikaProperty.KEYWORDS);
         propertyNameMap.put (P_LANGUAGE, TikaProperty.LANGUAGE);
         propertyNameMap.put (P_LAST_MODIFIED, TikaProperty.LAST_MODIFIED);
         propertyNameMap.put (P_LAST_SAVE_DATE, TikaProperty.LAST_SAVE_DATE);
+        propertyNameMap.put (P_LINE_COUNT, TikaProperty.LINE_COUNT);
         propertyNameMap.put (P_META_AUTHOR, TikaProperty.META_AUTHOR);
         propertyNameMap.put (P_META_CREATION_DATE, TikaProperty.META_CREATION_DATE);
         propertyNameMap.put (P_META_INITIAL_AUTHOR, TikaProperty.META_INITIAL_AUTHOR);
@@ -305,18 +339,25 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_META_OBJECT_COUNT, TikaProperty.META_OBJECT_COUNT);
         propertyNameMap.put (P_META_PAGE_COUNT, TikaProperty.META_PAGE_COUNT);
         propertyNameMap.put (P_META_TABLE_COUNT, TikaProperty.META_TABLE_COUNT);
+        propertyNameMap.put (P_META_WORD_COUNT, TikaProperty.META_WORD_COUNT);
         propertyNameMap.put (P_META_SAVE_DATE, TikaProperty.META_SAVE_DATE);
         propertyNameMap.put (P_MODIFIED, TikaProperty.MODIFIED);
         propertyNameMap.put (P_NBOBJECT, TikaProperty.NBOBJECT);
         propertyNameMap.put (P_NBTAB, TikaProperty.NBTAB);
         propertyNameMap.put (P_OBJECT_COUNT, TikaProperty.OBJECT_COUNT);
         propertyNameMap.put (P_PAGE_COUNT, TikaProperty.PAGE_COUNT);
+        propertyNameMap.put (P_PARAGRAPH_COUNT, TikaProperty.PARAGRAPH_COUNT);
+        propertyNameMap.put (P_PDF_VERSION, TikaProperty.PDF_VERSION);
+        propertyNameMap.put (P_PDFA_VERSION, TikaProperty.PDFA_VERSION);
+        propertyNameMap.put (P_PDFX_VERSION, TikaProperty.PDFX_VERSION);
         propertyNameMap.put (P_PHYS, TikaProperty.PHYS);
         propertyNameMap.put (P_PRODUCER, TikaProperty.PRODUCER);
         propertyNameMap.put (P_PUBLISHER, TikaProperty.PUBLISHER);
         propertyNameMap.put (P_RESOLUTION_UNIT, TikaProperty.RESOLUTION_UNIT);
         propertyNameMap.put (P_RESOURCE_NAME, TikaProperty.RESOURCE_NAME);
+        propertyNameMap.put (P_RIGHTS, TikaProperty.RIGHTS);
         propertyNameMap.put (P_SAMPLE_RATE, TikaProperty.SAMPLE_RATE);
+        propertyNameMap.put (P_SECURITY, TikaProperty.SECURITY);
         propertyNameMap.put (P_SUBJECT, TikaProperty.SUBJECT);
         propertyNameMap.put (P_TABLE_COUNT, TikaProperty.TABLE_COUNT);
         propertyNameMap.put (P_TIFF_BITS_PER_SAMPLE, TikaProperty.TIFF_BITS_PER_SAMPLE);
@@ -346,7 +387,6 @@ public class TikaTool extends ToolBase {
         propertyNameMap.put (P_XMP_VIDEO_PIXEL_DEPTH, TikaProperty.XMP_VIDEO_PIXEL_DEPTH);
     }
     
-
     /** Map of Tika compression types to FITS compression types */
     private final static Map<String, String> compressionTypeMap = new HashMap<String, String>();
     static {
@@ -355,13 +395,10 @@ public class TikaTool extends ToolBase {
         compressionTypeMap.put("deflate", FitsMetadataValues.CMPR_DEFLATE);
     }
     
-    
     private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
     private final static String TOOL_NAME = "Tika";
     private final static String TOOL_VERSION = "1.10";  // Hard-coded version till we can do better
-    
 
-//    private final static MediaTypeRegistry typeRegistry = MediaTypeRegistry.getDefaultRegistry();
     private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
     private Tika tika = new Tika ();
     
@@ -376,7 +413,7 @@ public class TikaTool extends ToolBase {
     public ToolOutput extractInfo(File file) throws FitsToolException {
         logger.debug("TikaTool.extractInfo starting on " + file.getName());
     	long startTime = System.currentTimeMillis();
-        Metadata metadata = new Metadata(); // = new Metadata();
+        Metadata metadata = new Metadata();
         FileInputStream instrm = null;
         try {
             instrm = new FileInputStream (file);
@@ -423,7 +460,31 @@ public class TikaTool extends ToolBase {
         Element identityElem = new Element ("identity", fitsNS);
         // Format and mime type info. 
         
-        Attribute attr = new Attribute ("format", getFormatType(mimeType));
+        String formatType = getFormatType(mimeType);
+        // special case -- possibly override for PDF subtypes
+        String pdfVersion = metadata.get(P_PDF_VERSION);
+        String pdfaVersion = metadata.get(P_PDFA_VERSION);
+        String pdfxVersion = metadata.get(P_PDFX_VERSION);
+        if (pdfaVersion != null) {
+        	formatType = "PDF/A";
+        } else if (pdfxVersion != null) {
+        	formatType = "PDF/X";
+        }
+        String version = null;
+        if (pdfaVersion != null) {
+        	version = pdfaVersion;
+        } else if (pdfxVersion != null) {
+        	version = pdfxVersion;
+        } else if (pdfVersion != null) {
+        	version = pdfVersion;
+        }
+        if (version != null) {
+        	Element versionElem = new Element("version", fitsNS);
+        	versionElem.addContent(version);
+        	identityElem.addContent(versionElem);
+        }
+        
+        Attribute attr = new Attribute ("format", formatType);
         identityElem.setAttribute (attr);
         attr = new Attribute ("mimetype", mimeType);
         identityElem.setAttribute (attr);
@@ -451,7 +512,6 @@ public class TikaTool extends ToolBase {
 	        throw new FitsToolException ("Exception reading metadata", e);
 	    }
 	}
-	
 
 	/* Build the file information.
 	 * Tika can deliver the same property with different names, sometimes for
@@ -477,36 +537,52 @@ public class TikaTool extends ToolBase {
         }
         String contentLength = metadata.get (P_CONTENT_LENGTH);
         String producer = metadata.get (P_PRODUCER);
-        String creator = metadata.get (P_CREATOR_TOOL);
+        String creatorTool = metadata.get (P_CREATOR_TOOL);
+        String generator = metadata.get (P_GENERATOR);
+        String applicationName = metadata.get(P_APPLICATION_NAME);
+        String applicationVersion = metadata.get(P_APPLICATION_VERSION);
         
+        // look for creating application
         String appName = "";
-        if(producer != null && creator != null) {
-        	appName = producer + "/" + creator;
+        if(producer != null && creatorTool != null) {
+        	appName = producer + "/" + creatorTool;
         }
         else if(producer != null) {
         	appName = producer;
         }
-        else if(creator != null) {
-        	appName = creator;
+        else if(creatorTool != null) {
+        	appName = creatorTool;
+        }
+        else if (generator !=null) {
+        	appName = generator;
+        }
+        if (applicationName != null) {
+        	appName = applicationName;
         }
         
 
         // Put together the fileinfo element
         Element fileInfoElem = new Element ("fileinfo", fitsNS);
         if (lastModified != null) {
-            Element lastModElem = new Element ("lastmodified", fitsNS);
+            Element lastModElem = new Element (FitsMetadataValues.LAST_MODIFIED, fitsNS);
             lastModElem.addContent (lastModified);
             fileInfoElem.addContent (lastModElem);
         }
         
         if (appName != null) {
-            Element appNameElem = new Element ("creatingApplicationName", fitsNS);
+            Element appNameElem = new Element (FitsMetadataValues.CREATING_APPLICATION_NAME, fitsNS);
             appNameElem.addContent (appName);
             fileInfoElem.addContent (appNameElem);
         }
+
+        if (applicationVersion != null) {
+            Element appVersionElem = new Element (FitsMetadataValues.CREATING_APPLICATION_VERSION, fitsNS);
+            appVersionElem.addContent (applicationVersion);
+            fileInfoElem.addContent (appVersionElem);
+        }
         
         if (contentLength != null) {
-            Element sizeElem = new Element ("size", fitsNS);
+            Element sizeElem = new Element (FitsMetadataValues.SIZE, fitsNS);
             sizeElem.addContent (sizeElem);
             fileInfoElem.addContent (sizeElem);
         }
@@ -534,13 +610,15 @@ public class TikaTool extends ToolBase {
 	            format = stdText;
 	        }
 	        
+	        // it may be necessary to get format name based on tool element rather than mime type
+	        
+	        
 	        
 	        return format;
 	    } catch (MimeTypeException e) {
 	        throw new FitsToolException("Tika error looking up mime type");
 	    }
 	}
-	
 
    private Element buildMetadataElement (Metadata metadata, String mimeType) {
        DocumentTypes.Doctype doctype = DocumentTypes.mimeToDoctype(mimeType);
@@ -571,7 +649,6 @@ public class TikaTool extends ToolBase {
        }
        return metadataElem;  
    }
-
    
    /* Return an element for an audio file */
    private Element buildAudioElement(Metadata metadata) {
@@ -632,7 +709,6 @@ public class TikaTool extends ToolBase {
        }
        return elem;
    }
-   
 
 	/* Return an element for an image file */
 	private Element buildImageElement(Metadata metadata) {
@@ -759,6 +835,10 @@ public class TikaTool extends ToolBase {
         boolean titleReported = false;
         boolean authorReported = false;
         boolean pageCountReported = false;
+        boolean rightsReported = false;
+        boolean wordCountReported = false;
+        boolean descriptionReported = false;
+        boolean identifierReported = false;
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {
@@ -779,12 +859,18 @@ public class TikaTool extends ToolBase {
             case AUTHOR:
             case META_AUTHOR:
                 if (!authorReported) {
-                    addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
-                    authorReported = true;
+                	// Take Author if only one value from metadata (check for multiple values)
+                	// otherwise will skip and let another tool deal with this.
+                	String[] values = metadata.getValues(name);
+                	if (values != null && values.length == 1) {
+                        addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
+                	}
+                	authorReported = true;
                 }
                 break;
                 
             case SUBJECT:
+            	// TODO: don't include if mime type == 'application/pdf' ??? -- see output for Tika & Exiftool
                 addSimpleElement (elem, FitsMetadataValues.SUBJECT, value);
                 break;
             
@@ -797,6 +883,84 @@ public class TikaTool extends ToolBase {
                     pageCountReported = true;
                 }
                 break;
+                
+            case CATEGORY:
+                addSimpleElement (elem, FitsMetadataValues.CATEGORY, value);
+                break;
+                
+            case WORD_COUNT:
+            case META_WORD_COUNT:
+            	if (!wordCountReported) {
+            		addSimpleElement (elem, FitsMetadataValues.WORD_COUNT, value);
+            		wordCountReported = true;
+            	}
+            	break;
+            	
+            case CHARACTER_COUNT:
+            	addSimpleElement (elem, FitsMetadataValues.CHARACTER_COUNT, value);
+            	break;
+            	
+            case LINE_COUNT:
+            	addSimpleElement (elem, FitsMetadataValues.LINE_COUNT, value);
+            	break;
+            	
+            case PARAGRAPH_COUNT:
+            	addSimpleElement (elem, FitsMetadataValues.PARAGRAPH_COUNT, value);
+            	break;
+            	
+            case LANGUAGE:
+            	addSimpleElement(elem, FitsMetadataValues.LANGUAGE, value);
+            	break;
+            	
+            case RIGHTS:
+            case DC_RIGHTS:
+            	if (!rightsReported) {
+            		value = "yes";
+            		addSimpleElement (elem, FitsMetadataValues.IS_RIGHTS_MANAGED, value);
+            		rightsReported = true;
+            	}
+            	break;
+
+            case SECURITY:
+            	if (!StringUtils.isEmpty(value)) {
+            		value = "yes";
+            		addSimpleElement(elem, FitsMetadataValues.IS_PROTECTED, value);
+            	}
+            	break;
+
+            case IMAGE_COUNT:
+            	if (!StringUtils.isEmpty(value)) {
+            		addSimpleElement(elem, FitsMetadataValues.IMAGE_COUNT, value);
+            	}
+            	break;
+
+            case TABLE_COUNT:
+            	if (!StringUtils.isEmpty(value)) {
+            		addSimpleElement(elem, FitsMetadataValues.TABLE_COUNT, value);
+            	}
+            	break;
+
+            case OBJECT_COUNT:
+            	if (!StringUtils.isEmpty(value) && !"0".equals(value)) {
+            		value = "yes";
+            		addSimpleElement(elem, FitsMetadataValues.HAS_EMBEDDED_RESOURCES, value);
+            	}
+
+            case DESCRIPTION:
+            case DC_DESCRIPTION:
+            	if (!descriptionReported) {
+            		addSimpleElement(elem, FitsMetadataValues.DESCRIPTION, value);
+            		descriptionReported = true;
+            	}
+            	break;
+
+            case IDENTIFIER:
+            case DC_IDENTIFIER:
+            	if (!identifierReported) {
+            		addSimpleElement(elem, FitsMetadataValues.IDENTIFIER, value);
+            		identifierReported = true;
+            	}
+            	break;
             }
         }
 

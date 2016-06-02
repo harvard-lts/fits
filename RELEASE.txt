@@ -1,5 +1,15 @@
 RELEASE NOTES
 
+Version 0.11.0
+----------------------
+- Create FITS output and, optionally, DocumentDM output for word processing formats (.doc, .docx, .epub, .odt, .pdf, .wp, .rtf, .wpd).
+- All test classes now use JUnit 4 annotations.
+- All test classes that use XmlUnit no longer extend XmlUnit but, instead, use utility classes.
+- Some (but not yet all) test classes extend AbstractLoggingTest which loads a new Log4j configuration file, tests.log4j.properties, so that test logging can be set at different levels than the default log4j.properties file that is used by the FITS application.
+- Separate logging for unit tests that extend base class AbstractLoggingTest.java which uses tests.log4j.properties to initialize logging.
+- Fits.java now only initializes logging with this project's log4j.properties if the system property "log4j.configuration" hasn't already been set, possibly by an external system using FITS. This allows for not overriding the setting of the test classes as well.
+- Fits logging via Log4j can be initialized externally to the application by setting the Log4j environment variable -Dlog4j.configuration=/path/to/log4j.properties> or <URL-to-log4j.properties> and will fall back to default properties if property does not exist, is invalid, or exception is thrown.
+
 Version 0.10.2
 ----------------------
 - Add MXF codec creation from CodecId, as CodecCC is not present.
@@ -38,19 +48,21 @@ Version 0.10.0
 
 Version 0.9.0
 ----------------------
+This release contains a major refactoring of how JAR files are handled by the tools that are Java-based.
+JAR files specific to each tool are loaded within their own custom class loader.
+Details for configuring a new Java-based tool are in edu.harvard.hul.ois.fits.tools.ToolBelt.java and on the [fitstool](http://fitstool.org) site.
 
 Video - Normalized height and width values in FITS default output.
 Update of the following tools used by FITS:
-DROID 6.1.5
-ExifTool 10.00
-Tika 1.10
-NLNZ Metadata Extractor 3.6GA
-JHOVE 1.11
-m2ts files now included in MediaInfo tool and excluded from Exiftool tool.
-Revised licensing details of MediaInfo 3rd party libraries.
+* DROID 6.1.5
+* ExifTool 10.00
+* Tika 1.10
+* NLNZ Metadata Extractor 3.6GA
+* JHOVE 1.11
 
-Major refactoring of how JAR files are handled by the tools that are Java-based. JAR files specific to each tool are loaded
-within their own custom class loader. Details are in edu.harvard.hul.ois.fits.tools.ToolBelt.java.
+'m2ts' files are now included in MediaInfo tool and excluded from Exiftool tool.
+Revised licensing details of MediaInfo 3rd party libraries.
+log4j.properties has been moved to the top level directory.
 
 Version 0.8.10 (10/21/15)
 ----------------------

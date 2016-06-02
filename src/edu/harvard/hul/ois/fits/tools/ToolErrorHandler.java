@@ -15,29 +15,16 @@ public class ToolErrorHandler implements ErrorHandler {
     
     @Override
     public void error(SAXParseException e) throws SAXException {
-        reportIt (e, "SAX error: ");
+        logger.error("SAX error", e);
     }
 
     @Override
     public void fatalError(SAXParseException e) throws SAXException {
-        reportIt (e, "Fatal SAX error: ");
-
+        logger.fatal("Fatal SAX error", e);
     }
 
     @Override
     public void warning(SAXParseException e) throws SAXException {
-        reportIt (e, "SAX warning: ");
-
+    	logger.warn("SAX warning", e);
     }
-    
-    private void reportIt (SAXParseException e, String m) {
-        StringWriter wtr = new StringWriter();
-        PrintWriter pwtr = new PrintWriter (wtr);
-        e.printStackTrace(pwtr);
-        String message = m + e.getMessage() + "\n" +
-                wtr.toString();
-        logger.error(message);
-        pwtr.close();
-    }
-
 }

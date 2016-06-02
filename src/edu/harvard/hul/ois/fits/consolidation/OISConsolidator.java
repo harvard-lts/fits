@@ -51,7 +51,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 
     private static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");        
 
-    private Logger logger = Logger.getLogger(this.getClass());
+    private static Logger logger = Logger.getLogger(OISConsolidator.class);
     
 	private boolean reportConflicts;
 	private boolean displayToolOutput;
@@ -110,7 +110,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 					}
 				}
 			} catch (JDOMException e) {
-				e.printStackTrace();
+				logger.error("Error parsing XML with XPath expression.", e);
 			}	
 		}
 		return null;
@@ -228,7 +228,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 				}
 			}
 			catch(JDOMException e) {
-				e.printStackTrace();
+				logger.error("Error parsing XML with XPath expression.", e);
 			}
 		}	
 
@@ -313,10 +313,9 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		ListIterator<Element> iter = fitsElements.listIterator();
 		while ( iter.hasNext() ) {	
 			Element e = iter.next();
-			if(e == null || e.getValue() == null || e.getText().length() == 0) {
+			if(e.getChildren().isEmpty() && (e == null || e.getValue() == null || e.getText().length() == 0)) {
 				//remove the element from the list
 				iter.remove();
-				//fitsElements.remove(e);
 			}
 		}
 		return fitsElements;

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+  <identification>
+    <identity format="Portable Document Format" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Jhove" toolversion="1.11" />
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
+      <tool toolname="ffident" toolversion="0.2" />
+      <tool toolname="Tika" toolversion="1.10" />
+      <version toolname="Droid" toolversion="6.1.5">1.6</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/20</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.11">1113979</size>
+    <creatingApplicationName toolname="Exiftool" toolversion="10.00">Acrobat Distiller 8.1.0 (Windows)/Adobe PageMaker 6.52</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 16:17:32-04:00</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T20:17:32Z</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2008:09:24 15:27:24-04:00</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDF_embedded_resources.pdf</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDF_embedded_resources.pdf</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">dbfbf8c633100f5d4301fed7b65ad698</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1456177705000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">false</well-formed>
+    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">false</valid>
+    <message toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Expected dictionary for font entry in page resource offset=3410</message>
+  </filestatus>
+  <metadata>
+    <document>
+      <title toolname="Exiftool" toolversion="10.00">digibook</title>
+      <author toolname="Exiftool" toolversion="10.00">Harvard University Archives</author>
+      <pageCount toolname="Jhove" toolversion="1.11">52</pageCount>
+      <isTagged toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</isTagged>
+      <hasOutline toolname="Jhove" toolversion="1.11">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
+      <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">433</graphicsCount>
+      <subject toolname="Exiftool" toolversion="10.00">booklet10</subject>
+      <description toolname="Exiftool" toolversion="10.00">booklet10</description>
+      <hasForms toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</hasForms>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>52</docmd:PageCount>
+          <docmd:GraphicsCount>433</docmd:GraphicsCount>
+        </docmd:document>
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="1581">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="42" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="1401" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="96" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="611" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="91" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="101" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="13" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="1553" />
+  </statistics>
+</fits>
+

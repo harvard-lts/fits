@@ -27,15 +27,18 @@
  **********************************************************************/
 package edu.harvard.hul.ois.fits.junit;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.fail;
+
 import java.util.List;
+
+import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.tools.mediainfo.ChannelPositionParser;
 import edu.harvard.hul.ois.fits.tools.mediainfo.ChannelPositionWrapper;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
 
-import org.junit.Test;
-
-public class EbucoreParseChannelPositionTest extends junit.framework.TestCase {
+public class EbucoreParseChannelPositionTest {
 	
 	// Taken and revised from a MediaInfo header file
 	private static final String[] DTS_ChannelPositions =

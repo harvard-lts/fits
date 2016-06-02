@@ -66,7 +66,7 @@ public class ToolOutput {
 	private Document toolOutput = null;
 	//Reference to the tool the output was created with
 	private Tool tool;
-	//Identification data about the image
+	//Identification data about the input file
 	private List<ToolIdentity> identity = new ArrayList<ToolIdentity>();
 	
 	/** Constructor
@@ -131,11 +131,6 @@ public class ToolOutput {
 	private boolean validateXmlOutput(Document output) {
 		
 		try {
-//			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-//			docBuilderFactory.setNamespaceAware(true);
-//			docBuilderFactory.setValidating(true);
-//			docBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
-//			docBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", Fits.FITS_HOME+Fits.internalOutputSchema);
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 			docBuilder.setErrorHandler (new ToolErrorHandler()); 
 			
@@ -143,38 +138,11 @@ public class ToolOutput {
 			String xml = outputter.outputString(output);
 			
 			docBuilder.parse(new InputSource(new StringReader(xml)));
-			} 
-			catch(Exception e) {
-				logger.error("tool returned invalid XML",e);
-				return false;
-			} 
-			return true;
-		
-		/*
-		SAXBuilder builder =  new SAXBuilder("org.apache.xerces.parsers.SAXParser", true);
-		builder.setFeature("http://apache.org/xml/features/validation/schema", true);
-		builder.setProperty("http://apache.org/xml/properties/schema/external-schemaLocation",
-								Fits.FITS_HOME+Fits.internalOutputSchema);
-		
-		
-		XMLOutputter outputter2 = new XMLOutputter(Format.getPrettyFormat());
-		try {
-			outputter2.output(output, System.out);
-		} catch (IOException e) {
-			//  Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		try {
-			XMLOutputter outputter = new XMLOutputter();
-			String xml = outputter.outputString(output);
-			builder.build(new InputSource(new StringReader(xml)));
-		} catch (Exception e) {
-			
+		} catch(Exception e) {
+			logger.error("tool returned invalid XML",e);
 			return false;
 		} 
-	    return true;*/
+		return true;
 	}
 	
 	private List<ToolIdentity> createFileIdentities(Document dom, ToolInfo info) {
@@ -213,9 +181,16 @@ public class ToolOutput {
 				identities.add(identity);
 			}
 		} catch (JDOMException e) {
-			e.printStackTrace();
+			logger.error("Error parsing DOC with XPath", e);
 		}
 		return identities;
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder("ToolOutput[");
+		sb.append(tool.getName());
+		sb.append("]");
+		return sb.toString();
 	}
 	
 }

@@ -18,26 +18,21 @@
  */
 package edu.harvard.hul.ois.fits.tools.utils;
 
-//import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-//import org.jdom.Namespace;
 import org.jdom.xpath.XPath;
 
-//import edu.harvard.hul.ois.fits.Fits;
-//import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
-//import edu.harvard.hul.ois.fits.identity.ToolIdentity;
-//import edu.harvard.hul.ois.fits.tools.ToolInfo;
-
 public class XmlUtils {
-			
+
+    private static final Logger logger = Logger.getLogger(XmlUtils.class);
+
     /**
      * Returns the first value of the element in the provided dom object.  Returns
      * empty string if not found.
@@ -52,7 +47,7 @@ public class XmlUtils {
 				return e.getText();
 			}
 		} catch (JDOMException e) {
-			e.printStackTrace();
+			logger.error("Error parsing DOC with XPath", e);
 		}
 		return null;
 	}
@@ -74,48 +69,10 @@ public class XmlUtils {
 				return s;
 			}
 		} catch (JDOMException e) {
-			e.printStackTrace();
+			logger.error("Error parsing DOC with XPath", e);
 		}
 		return null;
 	}
-/*	
-	public static Document wrapInDom(String elementName, String text) {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder = null;
-		try {
-			docBuilder = factory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
-		
-		Document dom = docBuilder.newDocument();
-		Element element = dom.createElement(elementName);
-		CDATASection cdata = dom.createCDATASection(text);
-		element.appendChild(cdata);
-		dom.appendChild(element);
-		return dom;
-	}
-*/	
-	/*
-	public static void printToConsole(Document dom) {	
-		XMLOutputter outputter = new XMLOutputter(); 
-		try {
-			outputter.output(dom, System.out);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-	}*/
-	
-	/*
-	public static Element getChildWithAttribute(Element parent, String attName, String attValue) {
-		for(Element e:(List<Element>)parent.getChildren()) {
-			Attribute attr = e.getAttribute(attName);
-			if(attr != null && attr.getValue().equalsIgnoreCase(attValue)) {
-				return e;
-			}
-		}
-		return null;
-	}*/
 		
 	public static Element getChildWithAttribute(Element e, Attribute a) {
 		Element foundE = null;

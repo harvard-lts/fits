@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+  <identification>
+    <identity format="Rich Text Format (RTF)" mimetype="application/rtf" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="Tika" toolversion="1.10" />
+      <version toolname="Droid" toolversion="6.1.5">1.9</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/355</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:05 09:25:00</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:05 09:25:00</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/TestDoc.rtf</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">TestDoc.rtf</filename>
+    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">29650</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">7ef9fd20c3545d3f29a79a9d77d85a03</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1454956776000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <document>
+      <pageCount toolname="Exiftool" toolversion="10.00">1</pageCount>
+      <wordCount toolname="Exiftool" toolversion="10.00">8</wordCount>
+      <characterCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">52</characterCount>
+      <author toolname="Tika" toolversion="1.10" status="SINGLE_RESULT">Neiman David</author>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>1</docmd:PageCount>
+          <docmd:WordCount>8</docmd:WordCount>
+          <docmd:CharacterCount>52</docmd:CharacterCount>
+        </docmd:document>
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="145">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="19" />
+    <tool toolname="Jhove" toolversion="1.11" status="did not run" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="38" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="135" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="4" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" status="did not run" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="58" />
+  </statistics>
+</fits>
+

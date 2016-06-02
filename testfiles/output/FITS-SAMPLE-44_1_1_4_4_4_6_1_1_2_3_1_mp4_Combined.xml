@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="3/19/15 9:43 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="4/15/16 9:08 AM">
   <identification>
-    <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="0.8.3">
+    <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="0.11.0">
       <tool toolname="MediaInfo" toolversion="0.7.75" />
       <tool toolname="file utility" toolversion="5.04" />
     </identity>
   </identification>
   <fileinfo>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filepath>
-    <filename toolname="MediaInfo" toolversion="0.7.71">FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filename>
-    <size toolname="MediaInfo" toolversion="0.7.71">9093784</size>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filepath>
+    <filename toolname="MediaInfo" toolversion="0.7.75">FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filename>
+    <size toolname="MediaInfo" toolversion="0.7.75">9093784</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">61c4efc89a4acfb9db38edcdd6c39379</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1426264984000</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
     <video>
-      <location toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</location>
-      <mimeType toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">video/mp4</mimeType>
-      <format toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">MPEG-4</format>
-      <formatProfile toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">Base Media / Version 2</formatProfile>
-      <duration toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">4137</duration>
-      <bitRate toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">17585272</bitRate>
-      <dateCreated toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">UTC 2015-03-13 19:21:21</dateCreated>
-      <dateModified toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">UTC 2015-03-13 16:43:04</dateModified>
-      <track type="video" id="1" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">      
+      <location toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</location>
+      <mimeType toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">video/mp4</mimeType>
+      <format toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">MPEG-4</format>
+      <formatProfile toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">Base Media / Version 2</formatProfile>
+      <duration toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">4137</duration>
+      <bitRate toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">17585272</bitRate>
+      <dateCreated toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">UTC 2015-03-13 19:21:21</dateCreated>
+      <dateModified toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">UTC 2015-11-04 22:09:23</dateModified>
+      <track type="video" id="1" toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">
         <videoDataEncoding>avc1</videoDataEncoding>
         <codecId>avc1</codecId>
         <codecCC>avc1</codecCC>
         <codecVersion>Main@L4.1</codecVersion>
         <codecName>AVC</codecName>
         <codecFamily>AVC</codecFamily>
-        <codecInfo>Advanced Video Codec</codecInfo>       
+        <codecInfo>Advanced Video Codec</codecInfo>
         <compression>Unknown</compression>
         <byteOrder>Unknown</byteOrder>
         <bitDepth>8 bits</bitDepth>
@@ -50,10 +50,10 @@
         <colorspace>YUV</colorspace>
         <broadcastStandard>NTSC</broadcastStandard>
       </track>
-      <track type="audio" id="2" toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">
+      <track type="audio" id="2" toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">
         <audioDataEncoding>AAC</audioDataEncoding>
         <codecId>40</codecId>
-        <codecFamily>AAC</codecFamily>        
+        <codecFamily>AAC</codecFamily>
         <compression>Lossy</compression>
         <bitRate>228374</bitRate>
         <bitRateMode>Variable</bitRateMode>

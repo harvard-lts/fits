@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="2/12/16 10:01 AM">
+  <identification>
+    <identity format="Office Open XML Document (Macros Enabled)" mimetype="application/vnd.ms-word.document.macroenabled.12" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="Tika" toolversion="1.10" />
+    </identity>
+  </identification>
+  <fileinfo>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:09:30 20:34:00Z</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-09-30T20:34:00Z</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:09:30 20:34:00Z</created>
+    <creatingApplicationName toolname="Tika" toolversion="1.10" status="SINGLE_RESULT">Microsoft Office Word</creatingApplicationName>
+    <creatingApplicationVersion toolname="Exiftool" toolversion="10.00">14.0000</creatingApplicationVersion>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/Document_Has_Form_Controls.docm</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Document_Has_Form_Controls.docm</filename>
+    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">117650</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">acd68a6f5ba25303486add10a62a673e</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1455050482000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <document>
+      <pageCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2</pageCount>
+      <wordCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">141</wordCount>
+      <characterCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">805</characterCount>
+      <author toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Zakuta, Vitaly</author>
+      <lineCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">6</lineCount>
+      <paragraphCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1</paragraphCount>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>2</docmd:PageCount>
+          <docmd:WordCount>141</docmd:WordCount>
+          <docmd:CharacterCount>805</docmd:CharacterCount>
+          <docmd:ParagraphCount>1</docmd:ParagraphCount>
+          <docmd:LineCount>6</docmd:LineCount>
+        </docmd:document>
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="781">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="8" />
+    <tool toolname="Jhove" toolversion="1.11" status="did not run" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="34" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="222" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="3" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="7" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="772" />
+  </statistics>
+</fits>
+

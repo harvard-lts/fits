@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="4/15/16 10:38 AM">
+  <identification>
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Jhove" toolversion="1.11" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="Tika" toolversion="1.10" />
+      <version toolname="Droid" toolversion="6.1.5">1b</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/354</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.11">1219058</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.11">Acrobat Distiller 8.1.0 (Windows)/Adobe PageMaker 6.52</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 17:53-04:00</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T21:53:00Z</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2008:09:24 15:27:24-04:00</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFa_embedded_resources.pdf</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_embedded_resources.pdf</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">12b6269615243b9a62cc9181796e76bd</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1460584552000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <document>
+      <title toolname="Jhove" toolversion="1.11">digibook</title>
+      <author toolname="Jhove" toolversion="1.11">Harvard University Archives</author>
+      <pageCount toolname="Jhove" toolversion="1.11">52</pageCount>
+      <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
+      <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">433</graphicsCount>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKOK+BauerBodoniBT-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKFN+Charlesworth-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKCL+BauerBodoniBT-Italic</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKFM+BauerBodoniBT-BoldItalic</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKDM+BauerBodoniBT-Roman</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ILMKCK+Charlesworth-Normal</fontName>
+      </font>
+      <subject toolname="Exiftool" toolversion="10.00">booklet10</subject>
+      <description toolname="Exiftool" toolversion="10.00">booklet10</description>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>52</docmd:PageCount>
+          <docmd:GraphicsCount>433</docmd:GraphicsCount>
+          <docmd:Font FontName="ILMKOK+BauerBodoniBT-Bold" />
+          <docmd:Font FontName="ILMKFN+Charlesworth-Bold" />
+          <docmd:Font FontName="ILMKCL+BauerBodoniBT-Italic" />
+          <docmd:Font FontName="ILMKFM+BauerBodoniBT-BoldItalic" />
+          <docmd:Font FontName="ILMKDM+BauerBodoniBT-Roman" />
+          <docmd:Font FontName="ILMKCK+Charlesworth-Normal" />
+        </docmd:document>
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="348">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="22" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="344" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="31" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="186" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="97" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="6" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="2" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="87" />
+  </statistics>
+</fits>
+

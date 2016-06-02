@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+  <identification>
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Jhove" toolversion="1.11" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="Tika" toolversion="1.10" />
+      <version toolname="Droid" toolversion="6.1.5">1b</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/354</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.11">111020</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.11" status="CONFLICT">JagPDF 1.5.0, http://jagpdf.org            /Pdfcrowd - online HTML to PDF API - http://pdfcrowd.com</creatingApplicationName>
+    <creatingApplicationName toolname="Exiftool" toolversion="10.00" status="CONFLICT">JagPDF 1.5.0, http://jagpdf.org/Pdfcrowd - online HTML to PDF API - http://pdfcrowd.com</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 18:34:33-04:00</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T22:34:33Z</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:19 18:33:55-04:00</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFa_has_form.pdf</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_has_form.pdf</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">553682ae868f787654f5b2da6925861e</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1456259189000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <document>
+      <title toolname="Jhove" toolversion="1.11">DRS Owner Registration and Billing Code Request Form : DRS &amp; Delivery Services : Office for Information Systems</title>
+      <author toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Pdfcrowd - online HTML to PDF API - http://pdfcrowd.com</author>
+      <pageCount toolname="Jhove" toolversion="1.11">3</pageCount>
+      <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OCCMJI+Arimo</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OCCMJJ+Arimo-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OCCMIG+Arial,Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OCCMJH+Arial</fontName>
+      </font>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>3</docmd:PageCount>
+          <docmd:Font FontName="OCCMJI+Arimo" />
+          <docmd:Font FontName="OCCMJJ+Arimo-Bold" />
+          <docmd:Font FontName="OCCMIG+Arial,Bold" />
+          <docmd:Font FontName="OCCMJH+Arial" />
+          <docmd:Features>hasAnnotations</docmd:Features>
+        </docmd:document>
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="154">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="4" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="68" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="31" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="148" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="19" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="2" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="3" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="66" />
+  </statistics>
+</fits>
+

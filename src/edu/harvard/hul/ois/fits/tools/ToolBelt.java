@@ -18,7 +18,6 @@
  */
 package edu.harvard.hul.ois.fits.tools;
 
-import static edu.harvard.hul.ois.fits.Fits.FITS_LIB_DIR;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -36,6 +35,10 @@ import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 import edu.harvard.hul.ois.fits.tools.utils.ParentLastClassLoader;
 
 public class ToolBelt {
+	
+	// Represent the URL of the fit.jar file (or class directory) where this file lives.
+	// This is used for building custom class loaders representing all FITS class files.
+	private URL fitsUrl;
 	
     private static Logger logger = Logger.getLogger(ToolBelt.class);
     
@@ -81,6 +84,8 @@ public class ToolBelt {
 	 * Common initialization of all constructors.
 	 */
 	private void init(XMLConfiguration config) {
+		
+		fitsUrl = getClass().getProtectionDomain().getCodeSource().getLocation();
 	
 		// Collect the tools-used elements
 		List<ToolsUsedItem> toolsUsedList = processToolsUsed(config);
@@ -237,25 +242,18 @@ public class ToolBelt {
 			directoriesUrls.addAll( urls );
 		}
 		
-		// If nothing returned from directories then return null.
+		// If nothing returned from directories then return null; Don't create ClassLoader if nothing to load.
 		if (directoriesUrls.isEmpty()) {
 			return null;
 		}
 		
-		// Create custom ClassLoader, necessarily putting fit.jar first.
+		// Create list of resources for custom ClassLoader.
 		List<URL> classLoaderUrls = new ArrayList<URL>();		
-
-		File fitsJarFile = new File(FITS_LIB_DIR + File.separator + "fits.jar");
-		classLoaderUrls.add( fitsJarFile.toURI().toURL() );
+		// Must always add FITS classes first
+		classLoaderUrls.add(fitsUrl);
 		// add all other resources next
 		classLoaderUrls.addAll(directoriesUrls);
-		
 		logger.debug("URL's" + classLoaderUrls);
-		
-		// Don't create ClassLoader if nothing to load.
-		if (classLoaderUrls.isEmpty()) {
-			return null;
-		}
 		
 		final ParentLastClassLoader cl = new ParentLastClassLoader(classLoaderUrls);
 

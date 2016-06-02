@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="4/15/16 10:27 AM">
+  <identification>
+    <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Jhove" toolversion="1.11" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="Tika" toolversion="1.10" />
+      <version toolname="Jhove" toolversion="1.11">3:2003</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/158</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.11">4274074</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.11">Acrobat Distiller 5.0.5 f.r Macintosh/QuarkXPress(R) 4.04</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2004:05:09 14:07:13+02:00</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2004-05-09T12:07:13Z</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2002:09:21 19:25:36Z</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/altona_technical_1v2_x3_has_annotations.pdf</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">altona_technical_1v2_x3_has_annotations.pdf</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">c524ab2cd02240b12eab3ee9f8887a9f</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1456177705000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <document>
+      <title toolname="Jhove" toolversion="1.11">Altona_Technical_1v2_x3.pdf</title>
+      <author toolname="Jhove" toolversion="1.11">ECI (www.eci.org), bvdm (www.bvdm-online.de), FOGRA (www.fogra.org), ugra (www.ugra.ch)</author>
+      <pageCount toolname="Jhove" toolversion="1.11">1</pageCount>
+      <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
+      <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">44</graphicsCount>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>Courier-Oblique</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>EMFBGL+Metanormal01-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>EMFBIO+Metabook01</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>EMEIJA+Helvetica-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>EMEICK+Helvetica</fontName>
+      </font>
+      <subject toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</subject>
+      <description toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</description>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>1</docmd:PageCount>
+          <docmd:GraphicsCount>44</docmd:GraphicsCount>
+          <docmd:Font FontName="Courier-Oblique" />
+          <docmd:Font FontName="EMFBGL+Metanormal01-Bold" />
+          <docmd:Font FontName="EMFBIO+Metabook01" />
+          <docmd:Font FontName="EMEIJA+Helvetica-Bold" />
+          <docmd:Font FontName="EMEICK+Helvetica" />
+          <docmd:Features>hasAnnotations</docmd:Features>
+        </docmd:document>
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="687">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="106" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="525" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="90" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="243" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="240" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="33" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="12" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="675" />
+  </statistics>
+</fits>
+

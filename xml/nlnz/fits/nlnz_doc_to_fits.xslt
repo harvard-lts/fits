@@ -8,7 +8,7 @@
 		<identification>
 			<identity>
 				<xsl:attribute name="format">
-					<xsl:value-of select="string('Microsoft Word Document')" />
+					<xsl:value-of select="string('Microsoft Word Binary File Format')" />
 				</xsl:attribute>
 				<xsl:attribute name="mimetype">
 					<xsl:if test="//METADATA/TYPE='application/ms-word'">
@@ -23,13 +23,11 @@
 				<xsl:value-of select="//CREATED"/>
 			</created>
 
-			<creatingApplicationName>
-				<xsl:value-of select="//APPLICATION"/>
-			</creatingApplicationName>
-			
-			<creatingApplicationVersion>
-				<xsl:value-of select="//PRODUCTVERSION"/>
-			</creatingApplicationVersion>
+            <xsl:if test="//APPLICATION!='null'">
+				<creatingApplicationName>
+					<xsl:value-of select="//APPLICATION"/>
+				</creatingApplicationName>
+            </xsl:if>
 			
 		</fileinfo>
 		
@@ -46,19 +44,39 @@
 			
 			<characterCount>
 				<xsl:value-of select="//CHARACTERS"/>
-			</characterCount>	
-							
-			<title>
-				<xsl:value-of select="//TITLE"/>
-			</title>
+			</characterCount>
+			
+			<xsl:if test="//TITLE and //TITLE!='null'">
+				<title>
+					<xsl:value-of select="//TITLE"/>
+				</title>
+			</xsl:if>
+            
+            <xsl:if test="//SUBJECT and //SUBJECT!='null'">
+	            <subject>
+	                <xsl:value-of select="//SUBJECT"/>
+	            </subject>
+            </xsl:if>
 			
 			<author>
 				<xsl:value-of select="//AUTHOR"/>
-			</author>			
+			</author>
 			
 			<language>
 				<xsl:value-of select="//LANG"/>
-			</language>		
+			</language>
+            
+            <xsl:if test="//HASPICTURES and //HASPICTURES='true'">
+	            <hasPictures>
+	                <xsl:value-of select="string('yes')"/>
+	            </hasPictures>
+            </xsl:if>
+            
+            <xsl:if test="//ISENCRYPTED and //ISENCRYPTED='true'">
+	            <isProtected>
+	                <xsl:value-of select="string('yes')" />
+	            </isProtected>
+            </xsl:if>
 
 		</document>	
 		</metadata>

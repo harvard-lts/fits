@@ -27,23 +27,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * helper class that tries to identify the file format for a given file
  * or byte array representing the first bytes of a file. <h3>Usage</h3>
- * 
- * <pre>
- * FormatIdentification identifier = new FormatIdentification(String config);
- * FormatDescription desc = identifier.identify(&quot;file&quot;);
- * if (desc != null) {
- * 	System.out.println(desc.getShortName());
- * 
- * </pre>
  * 
  * @author Marco Schmidt, Modified for use by FITS by Spencer McEwen
  */
 public class FormatIdentification {
 	private static List<FormatDescription> descriptions;
 	private static int minBufferSize;
+	private static final Logger logger = LoggerFactory.getLogger(FormatIdentification.class);
 
 	public FormatIdentification(String configFile) throws FileNotFoundException {
 		init(configFile);
@@ -115,14 +111,15 @@ public class FormatIdentification {
 			}
 
 		} catch (IOException e) {
-
+			logger.error("Problem reading file: " + configFile, e);
 		} finally {
 			try {
 				if (fr != null) {
 					fr.close();
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				// nothing to do if exception other than log
+				logger.info("Problem closing FileReader for file: " + configFile, e);
 			}
 		}
 	}

@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -37,6 +38,7 @@ public class FitsXmlMapper {
 	
 	public static final String FITS_XML_MAP_PATH = Fits.FITS_XML_DIR+"fits_xml_map.xml";
 	private List<ToolMap> toolMaps = new ArrayList<ToolMap>();
+    private static Logger logger = Logger.getLogger(FitsXmlMapper.class);
 	
 	public FitsXmlMapper() throws JDOMException, IOException {
 		 SAXBuilder saxBuilder = new SAXBuilder();
@@ -63,7 +65,7 @@ public class FitsXmlMapper {
 				mime = e.getAttributeValue("mimetype");
 			}
 		} catch (JDOMException e) {
-			e.printStackTrace();
+			logger.error("Error parsing XML with XPath expression.", e);
 		}
 		//iterate through all elements in doc
 		Element root = doc.getRootElement();
@@ -104,11 +106,7 @@ public class FitsXmlMapper {
 	private ToolMap getElementMapsForTool(ToolInfo tInfo) {
 		for(ToolMap map : toolMaps) {
 			String tName = map.getToolName();
-			String tVersion = map.getToolVersion();
-			if(tName.equalsIgnoreCase(tInfo.getName()) && tVersion == null) {
-				return map;
-			}
-			else if(tVersion != null && tVersion.equalsIgnoreCase(tInfo.getVersion())) {
+			if(tName.equalsIgnoreCase(tInfo.getName())) {
 				return map;
 			}
 		}

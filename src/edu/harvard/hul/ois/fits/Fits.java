@@ -25,6 +25,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -77,7 +79,6 @@ public class Fits {
   public static volatile String FITS_HOME;
   public static String FITS_XML_DIR;
   public static String FITS_TOOLS_DIR;
-  public static String FITS_LIB_DIR;
   public static XMLConfiguration config;
   public static FitsXmlMapper mapper;
   public static boolean validateToolOutput;
@@ -118,7 +119,7 @@ public class Fits {
   }
 
   /**
-   * Constructor with path to FITS alternate .
+   * Constructor with path to alternate FITS_HOME.
    * 
    * @param fits_home Full path to home directory of FITS installation.
    *        NOTE: If FITS_HOME set as environment variable this argument has no effect.
@@ -151,15 +152,51 @@ public class Fits {
 
     FITS_XML_DIR = FITS_HOME + "xml" + File.separator;
     FITS_TOOLS_DIR = FITS_HOME + "tools" + File.separator;
-    FITS_LIB_DIR = FITS_HOME + "lib" + File.separator;
 
-    // Set up logging.
-    // Now using an explicit properties file, because otherwoise DROID will
-    // hijack it, and it's cleaner this way anyway.
-    File log4jProperties = new File(FITS_HOME + "log4j.properties");
-    System.setProperty( "log4j.configuration", log4jProperties.toURI().toString());
+    // Set up logging explicitly so one of the tools aggregated into FITS does not circumvent this.
+    // This process also makes initialization a more flexible by allowing a path to a file without a scheme.
+    // Log4j seems to want a valid URI with a scheme value for proper initialization.
+    // If the property is just a path then convert it to a URI with a scheme and
+    // set it back into the system property.
+    //
+    // First look for a system property (the Log4j preferred way of configuration) at the Log4j expected value, "log4j.configuration".
+    // This value can be either a file path, file protocol (e.g. - file:/path/to/log4j.properties), or a URL (http://some/server/log4j.properties).
+    // If this value either is does not exist or is not valid, the default file that comes with FITS will be used for initialization.
+    String log4jSystemProp = System.getProperty("log4j.configuration");
+    URI log4jUri = null;
+    if (log4jSystemProp != null) {
+        try {
+            log4jUri = new URI(log4jSystemProp);
+            // log4j system needs a scheme in the URI so convert to file if necessary.
+            if (null == log4jUri.getScheme()) {
+                File log4jProperties = new File(log4jSystemProp);
+                if (log4jProperties.exists() && log4jProperties.isFile()) {
+                    log4jUri = log4jProperties.toURI();
+                } else {
+                    // No scheme and not a file - yikes!!! Let's bail and use fall-back file.
+                    log4jUri = null;
+                    throw new URISyntaxException(log4jSystemProp, "Not a valid file");
+                }
+            }
+        } catch (URISyntaxException e) {
+            // fall back to FITS-supplied file
+            System.err.println("Unable to load log4j.properties file: " + log4jSystemProp + " -- reason: " + e.getReason());
+            System.err.println("Falling back to default log4j.properties file: " + FITS_HOME + "log4j.properties");
+        }
+    }
+    // Only set up logging with FITS default logging configuration if
+    // either the System property is null or exception was thrown creating URI.
+    if (log4jUri == null) {
+        File log4jProperties = new File(FITS_HOME + "log4j.properties");
+        log4jUri = log4jProperties.toURI();
+    }
+
+    // Even if set, reset logging System property to ensure it's in a URI format
+    // with scheme so the log4j framework can initialize.
+    System.setProperty( "log4j.configuration", log4jUri.toString());
  
     logger = Logger.getLogger( this.getClass() );
+    logger.info("Logging initialized with: " + log4jUri.toString());
     try {
       if ( fitsXmlConfig != null ) {
           config = new XMLConfiguration( fitsXmlConfig );
@@ -376,7 +413,7 @@ public class Fits {
     FitsOutput result = this.examine( inputFile );
     if (result.getCaughtExceptions().size() > 0) {
       for (Exception e : result.getCaughtExceptions()) {
-        System.err.println( "Warning: " + e.getMessage() );
+        logger.error( "Warning: " + e.getMessage(), e );
       }
     }
     return result;
@@ -485,33 +522,6 @@ public class Fits {
     formatter.printHelp( "fits", opts );
   }
 
-  /*
-   * ORIGINAL EXAMINE METHOD WITHOUT THREADS
-   * 
-   * public FitsOutput examineOriginal(File input) throws FitsException {
-   * if(!input.exists()) { throw new
-   * FitsConfigurationException(input+" does not exist or is not readable"); }
-   * 
-   * List<ToolOutput> toolResults = new ArrayList<ToolOutput>();
-   * 
-   * //run file through each tool, catching exceptions thrown by tools
-   * List<Exception> caughtExceptions = new ArrayList<Exception>(); String path
-   * = input.getPath().toLowerCase(); String ext =
-   * path.substring(path.lastIndexOf(".")+1); for(Tool t : toolbelt.getTools())
-   * { if(t.isEnabled()) { if(!t.hasExcludedExtension(ext)) { try { ToolOutput
-   * tOutput = t.extractInfo(input); toolResults.add(tOutput); } catch(Exception
-   * e) { caughtExceptions.add(e); } } } }
-   * 
-   * 
-   * // consolidate the results into a single DOM FitsOutput result =
-   * consolidator.processResults(toolResults);
-   * result.setCaughtExceptions(caughtExceptions);
-   * 
-   * for(Tool t: toolbelt.getTools()) { t.resetOutput(); }
-   * 
-   * return result; }
-   */
-
   public FitsOutput examine( File input ) throws FitsException {
     long t1 = System.currentTimeMillis();
     if (!input.exists()) {
@@ -579,7 +589,7 @@ public class Fits {
       try {
         thread.join();
       } catch (InterruptedException e) {
-        e.printStackTrace();
+        logger.error("Caught exception while waiting for tools to finish running: " + e.getMessage(), e);
       }
     }
 

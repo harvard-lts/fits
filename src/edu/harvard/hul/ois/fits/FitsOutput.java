@@ -32,6 +32,7 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -72,8 +73,12 @@ public class FitsOutput {
 	private Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 	
-	//for backwards compatibility with older FITS clients
+	/**
+	 * For backwards compatibility with older FITS clients.
+	 * @deprecated
+	 */
 	public static String VERSION = Fits.VERSION;
+    private static final Logger logger = Logger.getLogger(FitsOutput.class);
 	
 	public FitsOutput(String fitsXmlStr) throws JDOMException, IOException {
 		SAXBuilder builder = new SAXBuilder();
@@ -423,7 +428,7 @@ public class FitsOutput {
 				identities.add(fileIdentSect);
 			}
 		} catch (JDOMException e) {
-			e.printStackTrace();
+			logger.error("Error parsing DOC with XPath", e);
 		}
 		return identities;
 	}

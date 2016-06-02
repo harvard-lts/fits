@@ -146,17 +146,6 @@ public class Jhove extends ToolBase {
 		}
 		String format = XmlUtils.getDomValue(dom,"format");
 		String xsltTransform = (String)transformMap.get(format.toUpperCase());
-
-		/* debug code
-		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
-		try {
-			outputter.output(dom, System.out);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("-------------------------------------------------------------------------------------");
-		 */
 		
 		Document fitsXml = null;
 		if(xsltTransform != null) {
@@ -166,41 +155,12 @@ public class Jhove extends ToolBase {
 			fitsXml = transform(jhoveFitsConfig+"jhove_text_to_fits.xslt",dom);
 		}
 		
-		/*
-		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
-		try {
-			outputter.output(fitsXml, System.out);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		
 		output = new ToolOutput(this,fitsXml,dom);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
         logger.debug("Jhove.extractInfo finished on " + file.getName());
 		return output;
 	}
-/*
-	public boolean isIdentityKnown(FileIdentity identity) {
-		if(identity == null
-				|| identity.getMime() == null 
-				|| identity.getMime().length() == 0
-				|| identity.getFormat() == null 
-				|| identity.getFormat().length() == 0) {
-			return false;
-		}
-		String format = identity.getFormat();
-		String mime = identity.getMime();
-		if((format.equals("bytestream") || format.equals("Unknown Binary"))
-				&& mime.equals("application/octet-stream")) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}*/
 	
 	public boolean isEnabled() {
 		return enabled;

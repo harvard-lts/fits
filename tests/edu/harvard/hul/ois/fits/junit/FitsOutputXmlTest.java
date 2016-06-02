@@ -18,6 +18,8 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
+import static org.custommonkey.xmlunit.XMLAssert.assertXMLIdentical;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.StringWriter;
@@ -25,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.DifferenceListener;
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
@@ -40,14 +44,12 @@ import edu.harvard.hul.ois.fits.FitsMetadataElement;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.IgnoreAttributeValuesDifferenceListener;
 
-import org.custommonkey.xmlunit.*;
-
 /*
  * BROKEN TEST
  */
 @Ignore
 @RunWith(value=Parameterized.class)
-public class FitsOutputXmlTest extends XMLTestCase {
+public class FitsOutputXmlTest {
 	
     private FitsOutput expected;
     private FitsOutput actual;
@@ -115,7 +117,7 @@ public class FitsOutputXmlTest extends XMLTestCase {
 	    Diff diff = new Diff(expectedStr,actualStr);
 	    diff.overrideDifferenceListener(myDifferenceListener);
 
-	    assertXMLEqual("Error comparing: "+item.getValue(),diff,true);
+	    assertXMLIdentical("Error comparing: "+item.getValue(), diff, true);
 	}
 	
 }

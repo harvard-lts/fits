@@ -31,11 +31,8 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 
-import org.custommonkey.xmlunit.*;
 
-
-public class TextMDTest extends XMLTestCase {
-
+public class TextMDTest {
     
 	@Test
 	public void testTextMD() throws Exception {	
@@ -49,13 +46,36 @@ public class TextMDTest extends XMLTestCase {
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
 		TextMD textmd = (TextMD)fitsOut.getStandardXmlContent();
-		textmd.setRoot(true);
 		
 		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-		
-		textmd.output(writer);
+
+		if (textmd != null) {
+			textmd.setRoot(true);
+			textmd.output(writer);
+		}
+	}
+    
+	@Test
+	public void testCsv() throws Exception {	
+    	Fits fits = new Fits();
+    	File input = new File("testfiles/random_data.csv");
     	
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		TextMD textmd = (TextMD)fitsOut.getStandardXmlContent();
+		
+		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+
+		if (textmd != null) {
+			textmd.setRoot(true);
+			textmd.output(writer);
+		}
 	}
 
 }

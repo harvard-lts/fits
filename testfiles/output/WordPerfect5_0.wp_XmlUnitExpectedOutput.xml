@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+  <identification>
+    <identity format="WordPerfect Document" mimetype="application/vnd.wordperfect" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
+      <version toolname="Droid" toolversion="6.1.5">5.0</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/393</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <creatingApplicationName toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">WordPerfect</creatingApplicationName>
+    <creatingApplicationVersion toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">5.0</creatingApplicationVersion>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/WordPerfect5_0.wp</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">WordPerfect5_0.wp</filename>
+    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">3329</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">dd08b1df84b3d38736ac777795566b42</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1454956776000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <document>
+      <title toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">Kafka - Metamorphosis Sampel WP document</title>
+      <author toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">viz765</author>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd" />
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="125">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="8" />
+    <tool toolname="Jhove" toolversion="1.11" status="did not run" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="36" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="122" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="29" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="2" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="4" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="4" />
+  </statistics>
+</fits>
+

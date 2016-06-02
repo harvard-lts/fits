@@ -18,6 +18,8 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
+import static org.custommonkey.xmlunit.XMLAssert.assertXMLIdentical;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.List;
@@ -26,21 +28,54 @@ import java.util.Scanner;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
-import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 
-public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
+public class VideoStdSchemaTestXmlUnit {
+	
+	private static final String[] IGNORED_XML_ELEMENTS = {
+			"version",
+			"toolversion",
+			"dateModified",
+			"fslastmodified",
+			"startDate",
+			"startTime",
+			"timestamp", 
+			"fitsExecutionTime",
+			"executionTime",
+			"filepath",
+			"location",
+			"lastmodified",
+			"ebucore:locator"};
+
+	/*
+	 *  Only one Fits instance is needed to run all tests.
+	 *  This also speeds up the tests.
+	 */
+	private static Fits fits;
+
+	@BeforeClass
+	public static void beforeClass() throws Exception {
+		// Set up XMLUnit and FITS for entire class.
+		XMLUnit.setIgnoreWhitespace(true);
+		XMLUnit.setNormalizeWhitespace(true);
+		fits = new Fits();
+	}
+	
+	@AfterClass
+	public static void afterClass() {
+		fits = null;
+	}
 
 	@Test  
 	public void testVideoXmlUnitFitsOutput_AVC() throws Exception {
-
-		Fits fits = new Fits();
 		
 		// First generate the FITS output
 		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
@@ -64,18 +99,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
 		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
-				"toolversion",
-				"dateModified",
-				"fslastmodified",
-				"startDate",
-				"startTime",
-				"timestamp", 
-				"fitsExecutionTime",
-				"executionTime",
-				"filepath",
-				"location"));
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 
@@ -92,13 +116,11 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		}
 		
-		assertTrue("Differences in XML", diff.identical());
+		assertXMLIdentical("Differences in XML", diff, true);
 	}
 	
 	@Test  
 	public void testVideoXmlUnitFitsOutput_DV() throws Exception {
-
-		Fits fits = new Fits();
 		
 		// First generate the FITS output
 		File input = new File("testfiles/FITS-SAMPLE-26.mov");
@@ -122,18 +144,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
 		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
-				"toolversion",
-				"dateModified",
-				"fslastmodified",
-				"startDate",
-				"startTime",				
-				"timestamp", 
-				"fitsExecutionTime",
-				"executionTime",
-				"filepath",
-				"location"));
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 
@@ -150,7 +161,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		}
 		
-		assertTrue("Differences in XML", diff.identical());
+		assertXMLIdentical("Differences in XML", diff, true);
 	}	
 	
 	@Test  
@@ -158,7 +169,6 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 		
 		// First generate the FITS output
 		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
-		Fits fits = new Fits();	
 		FitsOutput fitsOut = fits.examine(input);
 		
 		// Output stream for FITS to write to 
@@ -184,20 +194,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
 		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
-				"toolversion",
-				"dateModified",
-				"fslastmodified",
-				"startDate",
-				"startTime",
-				"timestamp", 
-				"fitsExecutionTime",
-				"executionTime",
-				// Not in Standard Output
-				//"filepath",
-				//"location",
-				"ebucore:locator"));
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 
@@ -214,7 +211,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		}
 		
-		assertTrue("Differences in XML", diff.identical());
+		assertXMLIdentical("Differences in XML", diff, true);
 		
 	}
 	
@@ -223,7 +220,6 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 		
 		// First generate the FITS output
 		File input = new File("testfiles/FITS-SAMPLE-26.mov");
-		Fits fits = new Fits();	
 		FitsOutput fitsOut = fits.examine(input);
 		
 		// Output stream for FITS to write to 
@@ -249,20 +245,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
 		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
-				"toolversion",
-				"dateModified",
-				"fslastmodified",
-				"startDate",
-				"startTime",
-				"timestamp", 
-				"fitsExecutionTime",
-				"executionTime",
-				// Not in Standard Output
-				//"filepath",
-				//"location",
-				"ebucore:locator"));
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 
@@ -279,7 +262,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		}
 		
-		assertTrue("Differences in XML", diff.identical());
+		assertXMLIdentical("Differences in XML", diff, true);
 		
 	}	
 	
@@ -287,7 +270,6 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 	public void testVideoXmlUnitCombinedOutput_AVC() throws Exception {
 		
 		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
-		Fits fits = new Fits();	
 		FitsOutput fitsOut = fits.examine(input);
     	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitCombinedOutput_AVC_Output.xml");
 		
@@ -314,19 +296,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
 		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
-				"toolversion",
-				"dateModified",
-				"fslastmodified",
-				"startDate",
-				"startTime",
-				"timestamp", 
-				"fitsExecutionTime",
-				"executionTime",
-				"filepath",
-				"location",
-				"ebucore:locator"));
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 
@@ -343,7 +313,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		}
 		
-		assertTrue("Differences in XML", diff.identical());
+		assertXMLIdentical("Differences in XML", diff, true);
 		
 	}
 	
@@ -351,7 +321,6 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 	public void testVideoXmlUnitCombinedOutput_DV() throws Exception {
 		
 		File input = new File("testfiles/FITS-SAMPLE-26.mov");
-		Fits fits = new Fits();	
 		FitsOutput fitsOut = fits.examine(input);
     	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitCombinedOutput_DV_Output.xml");
 		
@@ -378,19 +347,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
 		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
-				"toolversion",
-				"dateModified",
-				"fslastmodified",
-				"startDate",
-				"startTime",
-				"timestamp", 
-				"fitsExecutionTime",
-				"executionTime",
-				"filepath",
-				"location",
-				"ebucore:locator"));
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 
@@ -407,7 +364,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		}
 		
-		assertTrue("Differences in XML", diff.identical());
+		assertXMLIdentical("Differences in XML", diff, true);
 		
 	}
 	
@@ -422,7 +379,6 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
     	String expectedOutputFilename = "FITS-freeMXF-mxf1a-expected-output.xml";
 
     	File input = new File("testfiles/" + inputFilename);
-		Fits fits = new Fits();	// use standard fits.xml file
 		FitsOutput fitsOut = fits.examine(input);
     	fitsOut.saveToDisk("test-generated-output/"+ outputFilename);
 		
@@ -449,19 +405,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
 		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
-				"toolversion",
-				"dateModified",
-				"fslastmodified",
-				"startDate",
-				"startTime",
-				"timestamp", 
-				"fitsExecutionTime",
-				"executionTime",
-				"filepath",
-				"location",
-				"ebucore:locator"));
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 
@@ -478,7 +422,7 @@ public class VideoStdSchemaTestXmlUnit extends XMLTestCase {
 
 		}
 		
-		assertTrue("Differences in XML", diff.identical());
+		assertXMLIdentical("Differences in XML", diff, true);
 		
 	}
 }

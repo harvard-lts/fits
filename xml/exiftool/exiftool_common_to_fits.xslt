@@ -37,6 +37,12 @@
 				<xsl:when test="$mime='audio/flac'">
 					<xsl:value-of select="string('audio/x-flac')"/>
 				</xsl:when>
+                <xsl:when test="$mime='text/rtf'">
+                    <xsl:value-of select="string('application/rtf')"/>
+                </xsl:when>
+                <xsl:when test="$mime='application/vnd.ms-word.document.macroEnabled'">
+                    <xsl:value-of select="string('application/vnd.ms-word.document.macroenabled.12')"/>
+                </xsl:when>
 				<xsl:when test="$mime='application/photoshop'">
 					<xsl:value-of select="string('image/vnd.adobe.photoshop')"/>
 				</xsl:when>		
@@ -61,6 +67,12 @@
 					<xsl:when test="not(string-length($exifByteOrder) = 0) and not(exiftool/FileType = 'JP2')">
 						<xsl:value-of select="concat(exiftool/FileType,' EXIF')" />
 					</xsl:when>
+                    <xsl:when test="exiftool/GTS_PDFXVersion and starts-with(exiftool/GTS_PDFXVersion, 'PDF/X')">
+                        <xsl:value-of select="string('PDF/X')" />
+					</xsl:when>
+                    <xsl:when test="exiftool/SchemasSchema and starts-with(exiftool/SchemasSchema, 'PDF/A')">
+                        <xsl:value-of select="string('PDF/A')" />
+                    </xsl:when>
 					<xsl:otherwise>
 						<xsl:value-of select="exiftool/FileType" />
 					</xsl:otherwise>
@@ -142,8 +154,23 @@
 					<xsl:value-of select="string('Portable Document Format')"/>
 				</xsl:when>	
 				<xsl:when test="$format='DOC'">
-					<xsl:value-of select="string('Microsoft Word Document')"/>
+					<xsl:value-of select="string('Microsoft Word Binary File Format')"/>
 				</xsl:when>
+                <xsl:when test="$format='DOCX'">
+                    <xsl:value-of select="string('Office Open XML Document')"/>
+                </xsl:when>
+                <xsl:when test="$format='DOCM'">
+                    <xsl:value-of select="string('Office Open XML Document (Macros Enabled)')"/>
+                </xsl:when>
+                <xsl:when test="$format='RTF'">
+                    <xsl:value-of select="string('Rich Text Format (RTF)')"/>
+                </xsl:when>
+                <xsl:when test="$format='WP'">
+                    <xsl:value-of select="string('Word Perfect')"/>
+                </xsl:when>
+                <xsl:when test="$format='WPD'">
+                    <xsl:value-of select="string('Word Perfect')"/>
+                </xsl:when>
 				<xsl:when test="$format='GZIP'">
 					<xsl:value-of select="string('GZIP Format')"/>
 				</xsl:when>		
@@ -230,11 +257,6 @@
 					<xsl:value-of select="exiftool/GIFVersion"/>
 				</version>		
 			</xsl:when>
-			<xsl:when test="exiftool/PDFVersion">
-				<version>
-					<xsl:value-of select="exiftool/PDFVersion"/>
-				</version>			
-			</xsl:when>
 			<xsl:when test="exiftool/VorbisVersion">
 				<version>
 					<xsl:value-of select="exiftool/VorbisVersion"/>	
@@ -257,31 +279,14 @@
 					<xsl:value-of select="exiftool/DNGVersion"/>	
 				</version>		
 			</xsl:when>
-			<xsl:when test="exiftool/PDFVersion">
-				<version>
-					<xsl:value-of select="exiftool/PDFVersion"/>		
-				</version>	
-			</xsl:when>
 		</xsl:choose>	
 
     </identity>
     </identification>
     
     <fileinfo>
-    	<!-- 
-    	<fslastmodified>
-    		<xsl:value-of select="exiftool/FileModifyDate"/>
-    	</fslastmodified>
-    	 -->
       	<lastmodified>
-      		<xsl:choose>
-	      		<xsl:when test="exiftool/FileModifyDate">
-	      			<xsl:value-of select="exiftool/FileModifyDate"/>
-	      		</xsl:when>
-	      		<xsl:when test="exiftool/ModifyDate">
-	      			<xsl:value-of select="exiftool/ModifyDate"/>
-	      		</xsl:when>
-      		</xsl:choose>
+   			<xsl:value-of select="exiftool/ModifyDate"/>
     	</lastmodified>
     	<created>
 	    	<xsl:choose>
@@ -315,20 +320,25 @@
 					<xsl:value-of select="exiftool/Model"/>					
 				</xsl:when>	
 				<xsl:when test="$mime='application/pdf'">
-					<xsl:if test="exiftool/Producer and //exiftool/Creator">
-						<xsl:value-of select="concat(exiftool/Producer,'/',//exiftool/Creator)"/>
+					<xsl:if test="exiftool/Producer and //exiftool/CreatorTool">
+						<xsl:value-of select="concat(exiftool/Producer,'/',//exiftool/CreatorTool)"/>
 					</xsl:if>			
 				</xsl:when>		
 				<xsl:when test="$mime='application/msword'">
 					<xsl:value-of select="exiftool/Software"/>			
 				</xsl:when>			
+                <xsl:when test="$mime='application/vnd.oasis.opendocument.text'">
+                    <xsl:value-of select="exiftool/Generator"/>          
+                </xsl:when>         
 			</xsl:choose>
 		</creatingApplicationName>	
 		<creatingApplicationVersion>
 			<xsl:choose>
-				<xsl:when test="$mime='application/msword'">
+				<xsl:when test="$mime='application/msword' or
+				        $mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document' or
+				        $mime='application/vnd.ms-word.document.macroEnabled'">
 					<xsl:value-of select="exiftool/AppVersion"/>			
-				</xsl:when>			
+				</xsl:when>
 			</xsl:choose>
 		</creatingApplicationVersion>
 		<inhibitorType>

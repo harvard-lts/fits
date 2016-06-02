@@ -8,7 +8,7 @@
 		<identification>
 			<identity>
 				<xsl:attribute name="format">
-					<xsl:value-of select="string('Work Perfect')" />
+					<xsl:value-of select="string('WordPerfect Document')" />
 				</xsl:attribute>
 				<xsl:attribute name="mimetype">
 					<xsl:value-of select="//METADATA/TYPE" />
@@ -22,7 +22,8 @@
 			</creatingApplicationName>
 			
 			<creatingApplicationVersion>
-				<xsl:value-of select="concat(//MAJOR-VERSION,//MINOR-VERSION)"/>
+			    <xsl:variable name="majorVersion" select="concat(substring-before(//MAJOR-VERSION,'.'), '.')" />
+				<xsl:value-of select="concat($majorVersion,//MINOR-VERSION)"/>
 			</creatingApplicationVersion>
 			
 		</fileinfo>
@@ -43,9 +44,6 @@
 					<xsl:when test="//ENCRYPTED='true'">
 						<xsl:value-of select="string('yes')"/>
 					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="string('no')"/>
-					</xsl:otherwise>
 				</xsl:choose>				
 			</isProtected>
 

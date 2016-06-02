@@ -15,7 +15,7 @@
   <property name="app.name"              value="fits"/>
   <property name="app.longName"          value="File Information Toolset"/>	
   <property name="app.package"           value="edu.harvard.hul.ois.fits"/>
-  <property name="fits.jar.name"	         	 value="${app.name}.jar"/>
+  <property name="fits.jar.name"         value="${app.name}-${build.version}.jar"/> <!-- build.version comes from version.properties file -->
   <property name="fits.jar.home"         value="lib-fits"/>
   <property name="src.dirs"	             value="src"/>
   <property name="test.dirs"             value="tests"/>
@@ -58,7 +58,6 @@
   <path id="compile.classpath">
     <!-- Include all JAR files that will be included in lib -->
   	<!-- Some tool subdirectories may not have any JAR files but are included for future expansion -->
-  	<pathelement path="${build.dir}"/>
     <fileset dir=".">
       <include name="lib/*.jar"/>
       <include name="lib/adltool/*.jar"/>
@@ -78,6 +77,7 @@
 
   <path id="junit.classpath">
     <!-- Include all JAR files related to unit tests -->
+    <pathelement path="${build.dir}"/>
     <fileset dir=".">
       <include name="lib-ant/*.jar" />
     </fileset>
@@ -98,11 +98,13 @@
     <javac debug="${compile.debug}"
            deprecation="${compile.deprecation}"
 	       optimize="${compile.optimize}"
-    	   destdir="${build.dir}">
+    	   destdir="${build.dir}"
+    	   includeantruntime="false" source="1.7" target="1.7">
     	<src path="${src.dirs}" />
         <src path="${test.dirs}" />
-        <classpath refid="compile.classpath">
-        </classpath>
+    	<classpath refid="junit.classpath" />
+        <classpath refid="compile.classpath" />
+
     </javac>
   </target>
 
@@ -137,31 +139,11 @@
   <target name="clean" description="Delete old build and dist directories">
     <delete dir="${build.dir}" quiet="true" />
     <delete dir="${fits.jar.home}" quiet="true"/>
+    <delete dir="${javadoc.home}" quiet="true"/>
   </target>
 
 
-<!-- ===================== Create Tmp Jar Target ========================== 
-
-  <target name="create-tmp-jar" depends="compile, check-build"
-          description="Create the jar for this project">
-  	<fail unless="${build.present}" message="${build.dir} no present"/>
-    <antcall target="create-manifest" />
-    <antcall target="create-tmp-jar-src" />
-    <antcall target="delete-manifest" />
-  </target>
-
-  <target name="create-tmp-jar-src" depends="create-manifest">
-    <jar jarfile="${fits.jar.home}/${fits.jar.name}"
-         update="true"
-	 manifest="${manifest.name}">
-         <fileset dir="${build.dir}">
-	   <include name="**/*.class"/>      
-	   <include name="**/*.properties"/>
-	   <include name="**/*.xml"/>
-	 </fileset>
-    </jar>
-  </target>
--->
+<!-- ===================== Create Tmp Jar Target ========================== -->
 
   <target name="create-manifest">
     
@@ -211,13 +193,6 @@
     <delete quiet="true" file="${manifest.name}" />
   </target>
 
-<!--
-  <target name="delete-tmp-jar"
-          description="Delete the tmp jar for this project">
-    <delete file="${app.name}.jar" quiet="true" />
-  </target>
--->
-    
 <!-- ==================== Javadoc Target ================================== -->
 
 <!--
@@ -230,16 +205,15 @@
 -->
 
   <target name="javadoc" description="Create Javadoc API documentation">
-
     <mkdir dir="${javadoc.home}"/>
-    <javadoc destdir="${javadoc.home}"
-           packagenames="*">
+    <javadoc destdir="${javadoc.home}" packagenames="*">
       <fileset dir=".">
-	<include name="src/**/*.java"/>
+	    <include name="src/**/*.java"/>
+      	<include name="tests/**/*.java"/>
       </fileset>
       <classpath refid="compile.classpath"/>
+      <classpath refid="junit.classpath"/>
     </javadoc>
-
   </target>
 
 
@@ -254,7 +228,7 @@
   </target>
 
 <!-- ========================= Release Targets ============================ -->
-	<target name="release" depends="clean-compile-jar, check-fits-jar">
+	<target name="release" depends="clean-compile-jar, check-fits-jar, javadoc">
 		<fail unless="fits.jar.preset" message="There is no ${fits.jar.name} in ${fits.jar.home}"/>
 		<property name="output.location.version" 
 			value="${output.location}/${app.name}-${build.version}"/>
@@ -285,6 +259,9 @@
 				<exclude name="**/*.class"/>
 			</fileset>
 		</copy>
+		<copy todir="${output.location.version}/javadoc">
+		    <fileset dir="${javadoc.home}" />  
+		</copy>
         <copy file="log4j.properties" todir="${output.location.version}"/>
 		<copy file="cpappend.bat" todir="${output.location.version}"/>
 		<copy file="fits.bat" todir="${output.location.version}"/>
@@ -312,26 +289,28 @@
 	</target>
 	
     <target name="unit-tests" depends="compile">
-    	<property name="halt.tests.on.failure" value="false"/> <!-- whether to terminate tests once first test failure encountered -->
-        <property name="halt.tests.on.error" value="false"/> <!-- whether to terminate tests once first test error encountered -->
+    	<property name="halt.tests.on.failure" value="true"/> <!-- whether to terminate tests once first test failure encountered -->
+        <property name="halt.tests.on.error" value="true"/> <!-- whether to terminate tests once first test error encountered -->
     	
-    	<!-- Assumed ant-junit4.jar are already on classpath from Ant installation -->
-    	<!-- see https://ant.apache.org/manual/Tasks/junit.html -->
-        <junit fork="true" forkmode="once" logfailedtests="true" printsummary="withOutAndErr"
+    	<!--
+    	     Assumes ant-junit4.jar is already on classpath from Ant installation
+    	     see https://ant.apache.org/manual/Tasks/junit.html
+
+    	     Also, due to the intensive nature of some of the tests, it may be necessary to increase the
+    	     memory for running Ant to avoid a "java.lang.OutOfMemoryError: PermGen space"
+    	     Try adding the environment setting ANT_OPTS=-XX:MaxPermSize=1024m
+    	     or, when running in Eclipse, modifying the eclipse.ini file by adding -XX:MaxPermSize=1024m
+    	-->
+        <junit fork="true" forkmode="perTest" logfailedtests="true" printsummary="withOutAndErr"
                 haltonfailure="${halt.tests.on.failure}" haltonerror="${halt.tests.on.error}">
         	<classpath refid="junit.classpath" />
         	<classpath refid="compile.classpath" />
-<!--
-        	<classpath path="${test.dirs}" />
--->
-            <classpath location="./xml/nlnz" />
-            <classpath location="./xml/nlnz/fits" />
         	<batchtest skipNonTests="true" todir="${junit.reports.dir}">
         		<fileset dir="${test.dirs}">
         			<!-- tests to exclude due to known errors in tests -->
         			<exclude name="**/FitsOutputXmlTest.java"/>
                     <exclude name="**/FitsOutputXmlTest.class"/>
-       			</fileset>
+        		</fileset>
         	</batchtest>
         	<formatter type="plain"/>
         </junit>

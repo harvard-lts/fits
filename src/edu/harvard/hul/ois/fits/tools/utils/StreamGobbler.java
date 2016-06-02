@@ -18,11 +18,21 @@
  */
 package edu.harvard.hul.ois.fits.tools.utils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class StreamGobbler extends Thread {
 	private InputStream is;
 	private OutputStream os;
+
+	private static final Logger logger = LoggerFactory.getLogger(StreamGobbler.class);
 
 	/** Constructor with no output stream. Output from the process
 	 *  will be discarded.
@@ -55,7 +65,7 @@ class StreamGobbler extends Thread {
 			if (pw != null)
 				pw.flush();
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			logger.error("Error reading input command.", ioe);
 		}
 	}
 }

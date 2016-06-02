@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+  <identification>
+    <identity format="Microsoft Word Binary File Format" mimetype="application/msword" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
+      <tool toolname="ffident" toolversion="0.2" />
+      <tool toolname="Tika" toolversion="1.10" />
+    </identity>
+  </identification>
+  <fileinfo>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:20 15:59:00</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-20T15:59:00Z</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:20 15:59:00</created>
+    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015-08-20 11:59:00</created>
+    <creatingApplicationName toolname="Exiftool" toolversion="10.00">Microsoft Office Word</creatingApplicationName>
+    <creatingApplicationVersion toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">14.0000</creatingApplicationVersion>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/Word2003_has_table_of_contents.doc</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Word2003_has_table_of_contents.doc</filename>
+    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">99328</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">afb707e78e777bebf7563534f2d51762</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1460584552000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <document>
+      <pageCount toolname="Exiftool" toolversion="10.00">5</pageCount>
+      <wordCount toolname="Exiftool" toolversion="10.00">1341</wordCount>
+      <characterCount toolname="Exiftool" toolversion="10.00">7646</characterCount>
+      <title toolname="Exiftool" toolversion="10.00">Digital Repository Services (DRS) User Manual for Data Loading</title>
+      <author toolname="NLNZ Metadata Extractor" toolversion="3.6GA">viz765</author>
+      <lineCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">63</lineCount>
+      <paragraphCount toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">17</paragraphCount>
+      <hasHyperlinks toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">yes</hasHyperlinks>
+      <language toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">U.S. English</language>
+      <hasPictures toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">yes</hasPictures>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>5</docmd:PageCount>
+          <docmd:WordCount>1341</docmd:WordCount>
+          <docmd:CharacterCount>7646</docmd:CharacterCount>
+          <docmd:ParagraphCount>17</docmd:ParagraphCount>
+          <docmd:LineCount>63</docmd:LineCount>
+          <docmd:Language>U.S. English</docmd:Language>
+          <docmd:Features>hasHyperlinks</docmd:Features>
+        </docmd:document>
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="211">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="9" />
+    <tool toolname="Jhove" toolversion="1.11" status="did not run" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="31" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="201" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="18" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="4" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="7" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="32" />
+  </statistics>
+</fits>
+

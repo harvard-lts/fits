@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/15/16 4:24 PM">
+  <identification status="SINGLE_RESULT">
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="Jhove" toolversion="1.11" />
+      <version toolname="Jhove" toolversion="1.11">1b</version>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.11">962199</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.11">Adobe PDF Library 10.0.1/Adobe InDesign CS6 (Windows)</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:20 18:29:04-04:00</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-20T22:29:04Z</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:20 18:29-04:00</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/Book_pdfx1a.pdf</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Book_pdfx1a.pdf</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">2d4fc60b4498c7cb63a95d7d247f6160</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1456242101000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <document>
+      <title toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Book.indd</title>
+      <pageCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">8</pageCount>
+      <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
+      <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">21</graphicsCount>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OIJGRB+MyriadPro-Regular</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>JYRCZL+MyriadPro-Regular-SC700</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OQHBRB+Verdana</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ANGADD+Verdana</fontName>
+      </font>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>8</docmd:PageCount>
+          <docmd:GraphicsCount>21</docmd:GraphicsCount>
+          <docmd:Font FontName="OIJGRB+MyriadPro-Regular" />
+          <docmd:Font FontName="JYRCZL+MyriadPro-Regular-SC700" />
+          <docmd:Font FontName="OQHBRB+Verdana" />
+          <docmd:Font FontName="ANGADD+Verdana" />
+        </docmd:document>
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="545">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="19" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="541" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="48" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="183" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="58" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="5" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="5" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="53" />
+  </statistics>
+</fits>
+

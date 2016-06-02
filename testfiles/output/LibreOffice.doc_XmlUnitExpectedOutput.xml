@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+  <identification status="CONFLICT">
+    <identity format="Microsoft Word Binary File Format" mimetype="application/msword" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
+      <tool toolname="Tika" toolversion="1.10" />
+      <version toolname="Droid" toolversion="6.1.5">97-2003</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/40</externalIdentifier>
+    </identity>
+    <identity format="Microsoft Excel Format" mimetype="application/vnd.ms-excel" toolname="FITS" toolversion="0.11.0">
+      <tool toolname="ffident" toolversion="0.2" />
+    </identity>
+  </identification>
+  <fileinfo>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2016:01:15 20:03:34</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2016-01-15T20:03:34Z</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:12:14 16:12:58</created>
+    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015-12-14 11:12:58</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/LibreOffice.doc</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">LibreOffice.doc</filename>
+    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">10240</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">2520885e1d9e43b13d8dab9009393b56</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1454956776000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <document>
+      <pageCount toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">0</pageCount>
+      <wordCount toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">0</wordCount>
+      <characterCount toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">0</characterCount>
+      <author toolname="NLNZ Metadata Extractor" toolversion="3.6GA">David Neiman</author>
+      <language toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">U.S. English</language>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>0</docmd:PageCount>
+          <docmd:WordCount>0</docmd:WordCount>
+          <docmd:CharacterCount>0</docmd:CharacterCount>
+          <docmd:Language>U.S. English</docmd:Language>
+        </docmd:document>
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="265">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="9" />
+    <tool toolname="Jhove" toolversion="1.11" status="did not run" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="80" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="249" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="28" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="2" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="10" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="142" />
+  </statistics>
+</fits>
+
