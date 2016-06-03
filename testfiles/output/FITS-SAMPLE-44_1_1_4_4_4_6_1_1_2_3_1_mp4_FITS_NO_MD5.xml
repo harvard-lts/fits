@@ -29,7 +29,7 @@
         <codecCC>avc1</codecCC>
         <codecVersion>Main@L4.1</codecVersion>
         <codecName>AVC</codecName>
-        <codecFamily>AVC</codecFamily>
+        <codecFamily>H.264</codecFamily>
         <codecInfo>Advanced Video Codec</codecInfo>
         <compression>Unknown</compression>
         <byteOrder>Unknown</byteOrder>

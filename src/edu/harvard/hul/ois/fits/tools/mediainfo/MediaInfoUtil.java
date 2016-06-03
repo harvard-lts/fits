@@ -19,6 +19,8 @@
 package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,89 @@ import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
  * doesn't or can't handle.
  */
 public class MediaInfoUtil {
+	
+	public static final String CODEC_FAMILY_AVID_DNXHD = "Avid DNxHD";
+	public static final String CODEC_FAMILY_JPG2000 = "JPEG 2000";
+	public static final String CODEC_FAMILY_DV = "DV";
+	public static final String CODEC_FAMILY_UNCOMPRESSED = "Uncompressed";	
+	public static final String CODEC_FAMILY_H_264 = "H.264";
+	public static final String CODEC_FAMILY_PRORES = "Apple ProRes";	
+	
+	@SuppressWarnings("serial")	
+	private static final Map<String, String> CODEC_4CC_TO_FAMILY = Collections.unmodifiableMap(
+		    new HashMap<String, String>() {{
+                put("mjp2", CODEC_FAMILY_JPG2000);
+                
+                put("r210", CODEC_FAMILY_UNCOMPRESSED);
+                
+                put("v210", CODEC_FAMILY_UNCOMPRESSED);
+                put("v216", CODEC_FAMILY_UNCOMPRESSED);
+                put("2vuy", CODEC_FAMILY_UNCOMPRESSED);
+                put("yuv2", CODEC_FAMILY_UNCOMPRESSED);
+                put("v308", CODEC_FAMILY_UNCOMPRESSED);
+                put("v408", CODEC_FAMILY_UNCOMPRESSED);
+                put("v410", CODEC_FAMILY_UNCOMPRESSED);
+                put("R10g", CODEC_FAMILY_UNCOMPRESSED);
+                put("2Vuy", CODEC_FAMILY_UNCOMPRESSED);
+                
+                put("dv1p", CODEC_FAMILY_DV);
+                put("dv1n", CODEC_FAMILY_DV);
+                put("dv5n", CODEC_FAMILY_DV);
+                put("dv5p", CODEC_FAMILY_DV);
+                put("dvc", CODEC_FAMILY_DV);
+                put("dvcp", CODEC_FAMILY_DV);
+                put("dvh2", CODEC_FAMILY_DV);
+                put("dvh3", CODEC_FAMILY_DV);
+                put("dvh5", CODEC_FAMILY_DV);
+                put("dvh6", CODEC_FAMILY_DV);
+                put("dvhp", CODEC_FAMILY_DV);
+                put("dvhq", CODEC_FAMILY_DV);
+                put("dvp", CODEC_FAMILY_DV);
+                put("dvpp", CODEC_FAMILY_DV);
+                
+                put("mp2v", "MPEG-2");
+                
+                put("avc1", CODEC_FAMILY_H_264);
+                put("h264", CODEC_FAMILY_H_264);
+                put("v264", CODEC_FAMILY_H_264);
+                put("x264", CODEC_FAMILY_H_264);
+
+                put("AVdn", CODEC_FAMILY_AVID_DNXHD);
+                
+                put("ap4h", CODEC_FAMILY_PRORES);
+                put("ap4x", CODEC_FAMILY_PRORES);
+                put("apch", CODEC_FAMILY_PRORES);
+                put("apcn", CODEC_FAMILY_PRORES);
+                put("apco", CODEC_FAMILY_PRORES);
+                put("apcs", CODEC_FAMILY_PRORES);
+		    }});
+
+	@SuppressWarnings("serial")	
+	private static final Map<String, String> CODEC_MXF_TO_FAMILY = Collections.unmodifiableMap(
+		    new HashMap<String, String>() {{
+                put("0D010301020C0100-040102020301017F", CODEC_FAMILY_JPG2000);
+                put("0D010301020C0100-0401020203010000", CODEC_FAMILY_JPG2000);
+                put("0D010301020C0100-0401020203010100", CODEC_FAMILY_JPG2000);
+                put("0D010301020C0100-0401020203010101", CODEC_FAMILY_JPG2000);
+                put("0D010301020C0100-0401020203010103", CODEC_FAMILY_JPG2000);
+                put("0D010301020C0100-0401020203010104", CODEC_FAMILY_JPG2000);
+                
+                put("0D01030102110100-0401020271010000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271030000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271040000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271070000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271080000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271090000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271100000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271110000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271120000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271130000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271160000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271180000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-040102027119000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-04010202711A0000",CODEC_FAMILY_AVID_DNXHD);
+                
+		    }});
 	
 	private final static String TOOL_NAME = "MediaInfo";
 	private static final Logger logger = Logger.getLogger(MediaInfoUtil.class);
@@ -210,10 +295,22 @@ public class MediaInfoUtil {
 		    String codecVersion = getMediaInfoString(ndx, "Codec_Profile", 
 		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap (videoTrackValuesMap, id, "codecVersion", codecVersion);
-		    
-		    String codecFamily = getMediaInfoString(ndx, "Codec/Family", 
-		    		MediaInfoNativeWrapper.StreamKind.Video);
-		    addDataToMap (videoTrackValuesMap, id, "codecFamily", codecFamily);
+
+		    // By design - if the 4CC code is not one expected, then don't 
+		    // generate a Code Family.
+		    // NOTE for all but MXF, codecCC is used for the 4CC code.
+		    // for MXF, we use the codecId.
+		    // String codecFamily = getMediaInfoString(ndx, "Codec/Family", 
+		    //		MediaInfoNativeWrapper.StreamKind.Video);
+		    String codecFamily = CODEC_4CC_TO_FAMILY.get(codecCC);
+		    // Now try for MXF files, if we haven't gotten a Codec Family
+		    if(codecFamily == null) {
+		    	codecFamily = CODEC_MXF_TO_FAMILY.get(codecId);
+		    }
+		    // If we got a Codec Family, set it in the map
+		    if(codecFamily != null) {
+		    	addDataToMap (videoTrackValuesMap, id, "codecFamily", codecFamily);
+		    }
 		    
 		    String codecInfo = getMediaInfoString(ndx, "Codec/Info", 
 		    		MediaInfoNativeWrapper.StreamKind.Video);
@@ -771,4 +868,5 @@ public class MediaInfoUtil {
     	}
 
 	}
+
 }

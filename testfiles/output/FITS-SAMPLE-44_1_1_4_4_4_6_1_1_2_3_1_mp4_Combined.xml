@@ -30,7 +30,7 @@
         <codecCC>avc1</codecCC>
         <codecVersion>Main@L4.1</codecVersion>
         <codecName>AVC</codecName>
-        <codecFamily>AVC</codecFamily>
+        <codecFamily>H.264</codecFamily>
         <codecInfo>Advanced Video Codec</codecInfo>
         <compression>Unknown</compression>
         <byteOrder>Unknown</byteOrder>
@@ -83,7 +83,7 @@
                     </ebucore:codecIdentifier>
                     <ebucore:name>AVC</ebucore:name>
                     <ebucore:version>Main@L4.1</ebucore:version>
-                    <ebucore:family>AVC</ebucore:family>
+                    <ebucore:family>H.264</ebucore:family>
                 </ebucore:codec>                
                 <ebucore:bitRate>17375067</ebucore:bitRate>
                 <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
