@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="4/15/16 10:32 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/3/16 11:32 AM">
   <identification>
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Jhove" toolversion="1.11" />
       <tool toolname="Exiftool" toolversion="10.00" />
@@ -39,28 +39,28 @@
         <fontName>CJPZZP+Cambria</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>SMRWPJ+Cambria-Bold</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>OGOYLR+Calibri</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>DOUTBX+TimesNewRoman,Bold</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>VUVXTN+Arial</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>MEFVXF+CourierNew</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>TLBCDH+SymbolMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>KBGJVJ+TimesNewRoman</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>MEFVXF+CourierNew</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>OGOYLR+Calibri</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>QKITBX+Arial,Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>SMRWPJ+Cambria-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>TLBCDH+SymbolMT</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>VUVXTN+Arial</fontName>
       </font>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
@@ -68,14 +68,14 @@
           <docmd:GraphicsCount>1</docmd:GraphicsCount>
           <docmd:Language>EN-US</docmd:Language>
           <docmd:Font FontName="CJPZZP+Cambria" />
-          <docmd:Font FontName="SMRWPJ+Cambria-Bold" />
-          <docmd:Font FontName="OGOYLR+Calibri" />
           <docmd:Font FontName="DOUTBX+TimesNewRoman,Bold" />
-          <docmd:Font FontName="VUVXTN+Arial" />
-          <docmd:Font FontName="MEFVXF+CourierNew" />
-          <docmd:Font FontName="TLBCDH+SymbolMT" />
           <docmd:Font FontName="KBGJVJ+TimesNewRoman" />
+          <docmd:Font FontName="MEFVXF+CourierNew" />
+          <docmd:Font FontName="OGOYLR+Calibri" />
           <docmd:Font FontName="QKITBX+Arial,Bold" />
+          <docmd:Font FontName="SMRWPJ+Cambria-Bold" />
+          <docmd:Font FontName="TLBCDH+SymbolMT" />
+          <docmd:Font FontName="VUVXTN+Arial" />
           <docmd:Features>isTagged</docmd:Features>
           <docmd:Features>hasOutline</docmd:Features>
           <docmd:Features>hasAnnotations</docmd:Features>
