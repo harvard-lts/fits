@@ -85,6 +85,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<!-- fonts -->
 			<!-- De-duplication of fonts. Solution found here: http://stackoverflow.com/questions/2291567/how-to-use-xslt-to-create-distinct-values -->
 		    <xsl:for-each select="//property[name='Fonts']//property[name='FontName']/values/value/text()[generate-id() = generate-id(key('value',.)[1])]">
+		        <xsl:sort select="."/>
        			<font>
 			        <fontName>
 	                    <xsl:value-of select="."/>

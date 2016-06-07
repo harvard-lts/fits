@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="4/15/16 10:35 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/3/16 11:46 AM">
   <identification>
-    <identity format="Portable Document Format" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+    <identity format="Portable Document Format" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Jhove" toolversion="1.11" />
       <tool toolname="file utility" toolversion="5.04" />
@@ -37,33 +37,33 @@
       <hasOutline toolname="Jhove" toolversion="1.11">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>BINCOM+MetaNormal-Italic</fontName>
+        <fontName>AODHFO+MetaNormal-Caps</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>BINCNJ+MetaBold-Roman</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>AODHFO+MetaNormal-Caps</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>BINCOL+MetaNormal-Roman</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>BINDCB+MetaNormalLF-Italic</fontName>
+        <fontName>BINCOM+MetaNormal-Italic</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>BINDAO+HelveticaRounded-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>BINDCB+MetaNormalLF-Italic</fontName>
       </font>
       <hasForms toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</hasForms>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>32</docmd:PageCount>
-          <docmd:Font FontName="BINCOM+MetaNormal-Italic" />
-          <docmd:Font FontName="BINCNJ+MetaBold-Roman" />
           <docmd:Font FontName="AODHFO+MetaNormal-Caps" />
+          <docmd:Font FontName="BINCNJ+MetaBold-Roman" />
           <docmd:Font FontName="BINCOL+MetaNormal-Roman" />
-          <docmd:Font FontName="BINDCB+MetaNormalLF-Italic" />
+          <docmd:Font FontName="BINCOM+MetaNormal-Italic" />
           <docmd:Font FontName="BINDAO+HelveticaRounded-Bold" />
+          <docmd:Font FontName="BINDCB+MetaNormalLF-Italic" />
         </docmd:document>
       </standard>
     </document>

@@ -303,28 +303,6 @@ public class DocMDXmlUnitTest {
 	}
     
 	@Test
-	public void testOpenOfficeDocPasswordProtected() throws Exception {
-
-    	String inputFilename = "LibreODT_protected.odt";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-		// Read in the expected XML file
-		Scanner scan = new Scanner(new File(
-				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-		String expectedXmlStr = scan.
-				useDelimiter("\\Z").next();
-		scan.close();
-
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
-	}
-    
-	@Test
 	public void testOpenOfficeDocUnparseableDate() throws Exception {
 
     	String inputFilename = "UnparseableDate.odt";
@@ -523,7 +501,7 @@ public class DocMDXmlUnitTest {
 	public void testPdf() throws Exception {
 		
     	String[] inputFilenames = {"PDF_embedded_resources.pdf",
-    			"PDF_equations.pdf",
+//    			"PDF_equations.pdf", // different "font" output when running in Java 7 vs. Java 8
     			"HasChangeHistory.pdf",
     			"PDF_eng.pdf",
     			"HasAnnotations.pdf"};

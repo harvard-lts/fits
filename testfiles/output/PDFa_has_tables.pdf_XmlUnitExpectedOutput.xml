@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="4/15/16 10:35 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/3/16 11:35 AM">
   <identification>
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Jhove" toolversion="1.11" />
       <tool toolname="Exiftool" toolversion="10.00" />
@@ -34,7 +34,7 @@
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">5</graphicsCount>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>RNDADQ+Times-Roman</fontName>
+        <fontName>BBBCHQ+Helvetica-Bold</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>FHZEQJ+Times-Bold</fontName>
@@ -43,7 +43,16 @@
         <fontName>NNWRWI+MathematicalPi-Three</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>BBBCHQ+Helvetica-Bold</fontName>
+        <fontName>RNDADQ+Times-Roman</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>TAXUJQ+Helvetica</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>XWLQSC+Helvetica-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>ZDCITP+Times-Italic</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ZJVRWI+MathematicalPi-One</fontName>
@@ -51,28 +60,19 @@
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>ZJVRWI+Universal-GreekwithMathPi</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>TAXUJQ+Helvetica</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>ZDCITP+Times-Italic</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>XWLQSC+Helvetica-Bold</fontName>
-      </font>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>4</docmd:PageCount>
           <docmd:GraphicsCount>5</docmd:GraphicsCount>
-          <docmd:Font FontName="RNDADQ+Times-Roman" />
+          <docmd:Font FontName="BBBCHQ+Helvetica-Bold" />
           <docmd:Font FontName="FHZEQJ+Times-Bold" />
           <docmd:Font FontName="NNWRWI+MathematicalPi-Three" />
-          <docmd:Font FontName="BBBCHQ+Helvetica-Bold" />
+          <docmd:Font FontName="RNDADQ+Times-Roman" />
+          <docmd:Font FontName="TAXUJQ+Helvetica" />
+          <docmd:Font FontName="XWLQSC+Helvetica-Bold" />
+          <docmd:Font FontName="ZDCITP+Times-Italic" />
           <docmd:Font FontName="ZJVRWI+MathematicalPi-One" />
           <docmd:Font FontName="ZJVRWI+Universal-GreekwithMathPi" />
-          <docmd:Font FontName="TAXUJQ+Helvetica" />
-          <docmd:Font FontName="ZDCITP+Times-Italic" />
-          <docmd:Font FontName="XWLQSC+Helvetica-Bold" />
           <docmd:Features>hasAnnotations</docmd:Features>
         </docmd:document>
       </standard>

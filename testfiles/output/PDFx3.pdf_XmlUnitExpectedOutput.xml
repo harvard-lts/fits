@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/3/16 11:42 AM">
   <identification status="SINGLE_RESULT">
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
       <tool toolname="Jhove" toolversion="1.11" />
       <version toolname="Jhove" toolversion="1.11">1b</version>
     </identity>
@@ -31,17 +31,17 @@
         <fontName>BZOLYW+MyriadPro-Regular</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>WUBHGG+OpenSans</fontName>
+        <fontName>VQMBSI+OpenSans-Bold</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>VQMBSI+OpenSans-Bold</fontName>
+        <fontName>WUBHGG+OpenSans</fontName>
       </font>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>16</docmd:PageCount>
           <docmd:Font FontName="BZOLYW+MyriadPro-Regular" />
-          <docmd:Font FontName="WUBHGG+OpenSans" />
           <docmd:Font FontName="VQMBSI+OpenSans-Bold" />
+          <docmd:Font FontName="WUBHGG+OpenSans" />
         </docmd:document>
       </standard>
     </document>
