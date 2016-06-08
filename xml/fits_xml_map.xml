@@ -151,8 +151,9 @@
 				</attribute>
 			</element>
 			<element name="format">
-                <map from="mjp2" to="JPEG 2000"/>			
-			</element>		
+                <map from="mjp2" to="JPEG 2000"/>
+                <map from="MXF" to="Material Exchange Format (MXF)"/>
+			</element>
 		</mime>
 	</tool>	
 
