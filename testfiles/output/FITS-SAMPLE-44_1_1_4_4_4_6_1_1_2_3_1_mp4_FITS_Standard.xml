@@ -17,7 +17,7 @@
                     </ebucore:codecIdentifier>
                     <ebucore:name>AVC</ebucore:name>
                     <ebucore:version>Main@L4.1</ebucore:version>
-                    <ebucore:family>AVC</ebucore:family>
+                    <ebucore:family>H.264</ebucore:family>
                 </ebucore:codec> 
                 <ebucore:bitRate>17375067</ebucore:bitRate>
                 <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
@@ -67,13 +67,13 @@
                 </ebucore:audioChannelFormat>
               </ebucore:audioFormatExtended>                             
              <ebucore:containerFormat>
-                <ebucore:comment>MPEG-4</ebucore:comment>
+                <ebucore:comment>Quicktime</ebucore:comment>
                 <ebucore:comment>Base Media / Version 2</ebucore:comment>
              </ebucore:containerFormat>
               <ebucore:duration>
                 <ebucore:editUnitNumber factorDenominator="1" factorNumerator="1" editRate="1000">4137</ebucore:editUnitNumber>
               </ebucore:duration>
-             <ebucore:mimeType typeLabel="video/mp4"/>
+             <ebucore:mimeType typeLabel="video/quicktime"/>
              <ebucore:locator>testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</ebucore:locator>
              <ebucore:technicalAttributeString typeLabel="overallBitRate">17585272</ebucore:technicalAttributeString>
              <ebucore:dateModified startTime="16:43:04Z" startDate="2015-03-13"/>

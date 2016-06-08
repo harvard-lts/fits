@@ -20,8 +20,8 @@
   <metadata>
     <video>
       <location toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/FITS-SAMPLE-26.mov</location>
-      <mimeType toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">video/mp4</mimeType>
-      <format toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">MPEG-4</format>
+      <mimeType toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">video/quicktime</mimeType>
+      <format toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">Quicktime</format>
       <formatProfile toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">QuickTime</formatProfile>
       <duration toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">3971</duration>
       <timecodeStart toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">01:58:41:27</timecodeStart>
@@ -140,7 +140,7 @@
                 </ebucore:audioChannelFormat>
               </ebucore:audioFormatExtended>              
               <ebucore:containerFormat>
-                <ebucore:comment>MPEG-4</ebucore:comment>
+                <ebucore:comment>Quicktime</ebucore:comment>
                 <ebucore:comment>QuickTime</ebucore:comment>
               </ebucore:containerFormat>
               <ebucore:start>
@@ -149,7 +149,7 @@
                 <ebucore:duration>
                     <ebucore:editUnitNumber factorDenominator="1" factorNumerator="1" editRate="1000">3971</ebucore:editUnitNumber>
                 </ebucore:duration>
-              <ebucore:mimeType typeLabel="video/mp4" />
+              <ebucore:mimeType typeLabel="video/quicktime" />
               <ebucore:locator>/Users/dab980/Documents/Video/FITS-VIDEO-SAMPLE-FILES/FITS-SAMPLE-26.mov</ebucore:locator>
               <ebucore:technicalAttributeString typeLabel="overallBitRate">30341389</ebucore:technicalAttributeString>
               <ebucore:dateModified startTime="12:58:24Z" startDate="2015-03-16" />

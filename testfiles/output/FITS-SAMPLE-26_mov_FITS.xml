@@ -20,8 +20,8 @@
   <metadata>
     <video>
       <location toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/FITS-SAMPLE-26.mov</location>
-      <mimeType toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">video/mp4</mimeType>
-      <format toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">MPEG-4</format>
+      <mimeType toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">video/quicktime</mimeType>
+      <format toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">Quicktime</format>
       <formatProfile toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">QuickTime</formatProfile>
       <duration toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">3971</duration>
       <timecodeStart toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">01:58:41:27</timecodeStart>

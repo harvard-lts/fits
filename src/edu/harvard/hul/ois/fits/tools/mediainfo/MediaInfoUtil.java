@@ -19,6 +19,7 @@
 package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,9 +40,96 @@ import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
  * this class is post process and revise XML data where necessary when either
  * the MediaInfo API does not not return a value in its default XML output, 
  * or we need to do do some normalization based upon things the XSLT process
- * doesn't or can't handle.
+ * doesn't handle or can't handle.
  */
 public class MediaInfoUtil {
+	
+	public static final String CODEC_FAMILY_AVID_DNXHD = "Avid DNxHD";
+	public static final String CODEC_FAMILY_JPG2000 = "JPEG 2000";
+	public static final String CODEC_FAMILY_DV = "DV";
+	public static final String CODEC_FAMILY_UNCOMPRESSED = "Uncompressed";	
+	public static final String CODEC_FAMILY_H_264 = "H.264";
+	public static final String CODEC_FAMILY_PRORES = "Apple ProRes";
+	
+	public static final String QUICKTIME_MIMETYPE = "video/quicktime";
+	public static final String QUICKTIME_FORMAT = "Quicktime";
+	public static final String MPEG4_FORMAT = "MPEG-4";
+	
+	@SuppressWarnings("serial")	
+	private static final Map<String, String> CODEC_4CC_TO_FAMILY = Collections.unmodifiableMap(
+		    new HashMap<String, String>() {{
+                put("mjp2", CODEC_FAMILY_JPG2000);
+                
+                put("r210", CODEC_FAMILY_UNCOMPRESSED);
+                
+                put("v210", CODEC_FAMILY_UNCOMPRESSED);
+                put("v216", CODEC_FAMILY_UNCOMPRESSED);
+                put("2vuy", CODEC_FAMILY_UNCOMPRESSED);
+                put("yuv2", CODEC_FAMILY_UNCOMPRESSED);
+                put("v308", CODEC_FAMILY_UNCOMPRESSED);
+                put("v408", CODEC_FAMILY_UNCOMPRESSED);
+                put("v410", CODEC_FAMILY_UNCOMPRESSED);
+                put("R10g", CODEC_FAMILY_UNCOMPRESSED);
+                put("2Vuy", CODEC_FAMILY_UNCOMPRESSED);
+                
+                put("dv1p", CODEC_FAMILY_DV);
+                put("dv1n", CODEC_FAMILY_DV);
+                put("dv5n", CODEC_FAMILY_DV);
+                put("dv5p", CODEC_FAMILY_DV);
+                put("dvc", CODEC_FAMILY_DV);
+                put("dvcp", CODEC_FAMILY_DV);
+                put("dvh2", CODEC_FAMILY_DV);
+                put("dvh3", CODEC_FAMILY_DV);
+                put("dvh5", CODEC_FAMILY_DV);
+                put("dvh6", CODEC_FAMILY_DV);
+                put("dvhp", CODEC_FAMILY_DV);
+                put("dvhq", CODEC_FAMILY_DV);
+                put("dvp", CODEC_FAMILY_DV);
+                put("dvpp", CODEC_FAMILY_DV);
+                
+                put("mp2v", "MPEG-2");
+                
+                put("avc1", CODEC_FAMILY_H_264);
+                put("h264", CODEC_FAMILY_H_264);
+                put("v264", CODEC_FAMILY_H_264);
+                put("x264", CODEC_FAMILY_H_264);
+
+                put("AVdn", CODEC_FAMILY_AVID_DNXHD);
+                
+                put("ap4h", CODEC_FAMILY_PRORES);
+                put("ap4x", CODEC_FAMILY_PRORES);
+                put("apch", CODEC_FAMILY_PRORES);
+                put("apcn", CODEC_FAMILY_PRORES);
+                put("apco", CODEC_FAMILY_PRORES);
+                put("apcs", CODEC_FAMILY_PRORES);
+		    }});
+
+	@SuppressWarnings("serial")	
+	private static final Map<String, String> CODEC_MXF_TO_FAMILY = Collections.unmodifiableMap(
+		    new HashMap<String, String>() {{
+                put("0D010301020C0100-040102020301017F", CODEC_FAMILY_JPG2000);
+                put("0D010301020C0100-0401020203010000", CODEC_FAMILY_JPG2000);
+                put("0D010301020C0100-0401020203010100", CODEC_FAMILY_JPG2000);
+                put("0D010301020C0100-0401020203010101", CODEC_FAMILY_JPG2000);
+                put("0D010301020C0100-0401020203010103", CODEC_FAMILY_JPG2000);
+                put("0D010301020C0100-0401020203010104", CODEC_FAMILY_JPG2000);
+                
+                put("0D01030102110100-0401020271010000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271030000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271040000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271070000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271080000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271090000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271100000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271110000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271120000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271130000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271160000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-0401020271180000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-040102027119000",CODEC_FAMILY_AVID_DNXHD);
+                put("0D01030102110100-04010202711A0000",CODEC_FAMILY_AVID_DNXHD);
+                
+		    }});
 	
 	private final static String TOOL_NAME = "MediaInfo";
 	private static final Logger logger = Logger.getLogger(MediaInfoUtil.class);
@@ -68,7 +156,6 @@ public class MediaInfoUtil {
 
 	    generalValuesDataMap.put("generalFileSize", getMediaInfoString(
 	    		"FileSize", MediaInfoNativeWrapper.StreamKind.General));
-
 
 //	    //
 //	    // TODO: bitRate_Maximum never seems to appear in MediaInfo
@@ -210,10 +297,22 @@ public class MediaInfoUtil {
 		    String codecVersion = getMediaInfoString(ndx, "Codec_Profile", 
 		    		MediaInfoNativeWrapper.StreamKind.Video);
 		    addDataToMap (videoTrackValuesMap, id, "codecVersion", codecVersion);
-		    
-		    String codecFamily = getMediaInfoString(ndx, "Codec/Family", 
-		    		MediaInfoNativeWrapper.StreamKind.Video);
-		    addDataToMap (videoTrackValuesMap, id, "codecFamily", codecFamily);
+
+		    // By design - if the 4CC code is not one expected, then don't 
+		    // generate a Code Family.
+		    // NOTE for all but MXF, codecCC is used for the 4CC code.
+		    // for MXF, we use the codecId.
+		    // String codecFamily = getMediaInfoString(ndx, "Codec/Family", 
+		    //		MediaInfoNativeWrapper.StreamKind.Video);
+		    String codecFamily = CODEC_4CC_TO_FAMILY.get(codecCC);
+		    // Now try for MXF files, if we haven't gotten a Codec Family
+		    if(codecFamily == null) {
+		    	codecFamily = CODEC_MXF_TO_FAMILY.get(codecId);
+		    }
+		    // If we got a Codec Family, set it in the map
+		    if(codecFamily != null) {
+		    	addDataToMap (videoTrackValuesMap, id, "codecFamily", codecFamily);
+		    }
 		    
 		    String codecInfo = getMediaInfoString(ndx, "Codec/Info", 
 		    		MediaInfoNativeWrapper.StreamKind.Video);
@@ -343,8 +442,29 @@ public class MediaInfoUtil {
 
 		    Element videoElement = (Element)xpathFits.selectSingleNode(fitsXml);
 		    List <Element>elementList = videoElement.getContent();
+		    
+		    // --------------------------------------------
+		    // We need to normalize the format for files with MIME Type of
+		    // "video/quicktime" to Format of "Quicktime" in some cases
+		    String mimeType = null;
+		    String format = null;
 		    for (Element element : elementList) {
-		    	
+		    	if(element.getName().equals("mimeType")) {
+					mimeType = element.getText();		    		
+		    	}
+		    	else if(element.getName().equals("format")) {
+					format = element.getText();		    		
+		    	}		    	
+		    }
+	    	if(mimeType != null && format != null) {
+			    if(mimeType.equals(QUICKTIME_MIMETYPE) && format.equals(MPEG4_FORMAT)) {
+			    	generalValuesDataMap.put("format", QUICKTIME_FORMAT);		    	
+			    }	    		
+	    	}		    
+		    // --------------------------------------------		    
+		    
+		    for (Element element : elementList) {
+
 		    	// First revise the general data right off the video element
 		    	reviseGeneralSection(element,  generalValuesDataMap);
 				
@@ -430,10 +550,8 @@ public class MediaInfoUtil {
 	    }		
 		
 		//
-		// Normalize the format and mimetype if necessary.
-		// NOTE: If the following is true, then we need to update the 
-		// "identity" element to be "quicktime" for the format attribute 
-		// and "video/quicktime" for the mimetype attribute
+		// Normalize the format and mimetype to "video/quicktime" and
+	    // Quicktime
 		//
 	    XPath xpathFitsIdentity = XPath.newInstance("//x:fits/x:identification");
 	    
@@ -452,10 +570,13 @@ public class MediaInfoUtil {
 	    	// Only Reset the format and mimetype if they are the format and
 	    	// formatProfile from the video section are the required types
 	    	if(formatAttrib != null && mimeAttrib != null) {
-		    	if(videoFormat.toUpperCase().contains("MPEG-4") && videoFormatProfile.toUpperCase().equals("QUICKTIME")){	    		
-		    		formatAttrib.setValue("Quicktime");
-		    		mimeAttrib.setValue("video/quicktime");
+		    	if(videoFormat.toUpperCase().contains(MPEG4_FORMAT) && videoFormatProfile.toUpperCase().equals(QUICKTIME_FORMAT.toUpperCase())){	    		
+		    		formatAttrib.setValue(QUICKTIME_FORMAT);
+		    		mimeAttrib.setValue(QUICKTIME_MIMETYPE);
 		    	}
+		    	else if(videoFormat.toUpperCase().contains(MPEG4_FORMAT) && mimeAttrib.getValue().equals(QUICKTIME_MIMETYPE)){	    		
+		    		formatAttrib.setValue(QUICKTIME_FORMAT);
+		    	}		    	
 	    		break;
 	    	}
 	    	
@@ -536,6 +657,12 @@ public class MediaInfoUtil {
 			}
 			
 		}
+    	else if (element.getName().equals("format")) {
+    		String format = generalValuesDataMap.get("format");
+			if (!StringUtils.isEmpty(format)) {
+				element.setText(format);
+			}   		
+    	}
 		
 	}
 	
@@ -771,4 +898,5 @@ public class MediaInfoUtil {
     	}
 
 	}
+
 }

@@ -31,13 +31,13 @@
    		                <xsl:attribute name="mimetype">                   
        			           <xsl:choose>
       			               <xsl:when test="contains($formatLC, 'mpeg-4')">
-       			                   <xsl:value-of select="string('video/mp4')"/>
+       			                   <xsl:value-of select="string('video/quicktime')"/>
        			               </xsl:when>
        			               <xsl:when test="contains($formatLC, 'mpeg')">
        			                   <xsl:value-of select="string('video/mpg')"/>
        			               </xsl:when>
       			               <xsl:when test="$formatLC = 'quicktime'">
-       			                   <xsl:value-of select="string('video/mp4')"/>
+       			                   <xsl:value-of select="string('video/quicktime')"/>
        			               </xsl:when> 
       			               <xsl:when test="$formatLC = 'mxf'">
        			                   <xsl:value-of select="string('application/mxf')"/>
@@ -58,7 +58,7 @@
        			                   <xsl:value-of select="string('video/x-dv')"/>
        			               </xsl:when> 
       			               <xsl:when test="contains($formatLC, 'avc')">
-       			                   <xsl:value-of select="string('video/mp4')"/>
+       			                   <xsl:value-of select="string('video/quicktime')"/>
        			               </xsl:when>       			                         			              			             			       
 		                       <xsl:otherwise>
 				                   <xsl:text>TBD</xsl:text>
@@ -127,13 +127,13 @@
       			<mimeType>
        			   <xsl:choose>
       			       <xsl:when test="contains($formatLC, 'mpeg-4')">
-       			           <xsl:value-of select="string('video/mp4')"/>
+       			           <xsl:value-of select="string('video/quicktime')"/>
        			       </xsl:when>
        			       <xsl:when test="contains($formatLC, 'mpeg')">
        			           <xsl:value-of select="string('video/mpg')"/>
        			       </xsl:when>
       			       <xsl:when test="$formatLC = 'quicktime'">
-       			           <xsl:value-of select="string('video/mp4')"/>
+       			           <xsl:value-of select="string('video/quicktime')"/>
        			       </xsl:when> 
       			       <xsl:when test="$formatLC = 'mxf'">
        			           <xsl:value-of select="string('application/mxf')"/>
@@ -154,7 +154,7 @@
        			           <xsl:value-of select="string('video/x-dv')"/>
        			       </xsl:when>
       			       <xsl:when test="contains($formatLC, 'avc')">
-       			           <xsl:value-of select="string('video/mp4')"/>
+       			           <xsl:value-of select="string('video/quicktime')"/>
        			       </xsl:when>        			                			              			             			       
 		               <xsl:otherwise>
 				           <xsl:text>TBD</xsl:text>
