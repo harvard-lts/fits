@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.8.3" timestamp="3/19/15 11:26 AM">
-  <identification>
-    <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="0.8.3">
+  <identification status="CONFLICT">
+    <identity format="Quicktime" mimetype="video/quicktime" toolname="FITS" toolversion="1.0.0">
       <tool toolname="MediaInfo" toolversion="0.7.75" />
+    </identity>
+    <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="1.0.0">
       <tool toolname="file utility" toolversion="5.04" />
     </identity>
   </identification>
@@ -16,8 +18,8 @@
   <metadata>
     <video>
       <location toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</location>
-      <mimeType toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">video/mp4</mimeType>
-      <format toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">MPEG-4</format>
+      <mimeType toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">video/quicktime</mimeType>
+      <format toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">Quicktime</format>
       <formatProfile toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">Base Media / Version 2</formatProfile>
       <duration toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">4137</duration>
       <bitRate toolname="MediaInfo" toolversion="0.7.71" status="SINGLE_RESULT">17585272</bitRate>

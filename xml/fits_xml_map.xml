@@ -142,6 +142,17 @@
 			<element name="colorSpace">
 				<map from="Greyscale" to="Grayscale"/>
 			</element>
+			<element name="mimetype">
+                <map from="video/mp4" to="video/quicktime"/>
+			</element>
+			<element name="identity">
+				<attribute name="format">
+                <map from="mjp2" to="JPEG 2000"/>
+				</attribute>
+			</element>
+			<element name="format">
+                <map from="mjp2" to="JPEG 2000"/>			
+			</element>		
 		</mime>
 	</tool>	
 

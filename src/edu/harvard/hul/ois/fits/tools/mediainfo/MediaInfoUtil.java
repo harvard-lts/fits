@@ -19,7 +19,6 @@
 package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +40,7 @@ import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
  * this class is post process and revise XML data where necessary when either
  * the MediaInfo API does not not return a value in its default XML output, 
  * or we need to do do some normalization based upon things the XSLT process
- * doesn't or can't handle.
+ * doesn't handle or can't handle.
  */
 public class MediaInfoUtil {
 	
@@ -50,7 +49,11 @@ public class MediaInfoUtil {
 	public static final String CODEC_FAMILY_DV = "DV";
 	public static final String CODEC_FAMILY_UNCOMPRESSED = "Uncompressed";	
 	public static final String CODEC_FAMILY_H_264 = "H.264";
-	public static final String CODEC_FAMILY_PRORES = "Apple ProRes";	
+	public static final String CODEC_FAMILY_PRORES = "Apple ProRes";
+	
+	public static final String QUICKTIME_MIMETYPE = "video/quicktime";
+	public static final String QUICKTIME_FORMAT = "Quicktime";
+	public static final String MPEG4_FORMAT = "MPEG-4";
 	
 	@SuppressWarnings("serial")	
 	private static final Map<String, String> CODEC_4CC_TO_FAMILY = Collections.unmodifiableMap(
@@ -153,7 +156,6 @@ public class MediaInfoUtil {
 
 	    generalValuesDataMap.put("generalFileSize", getMediaInfoString(
 	    		"FileSize", MediaInfoNativeWrapper.StreamKind.General));
-
 
 //	    //
 //	    // TODO: bitRate_Maximum never seems to appear in MediaInfo
@@ -440,8 +442,29 @@ public class MediaInfoUtil {
 
 		    Element videoElement = (Element)xpathFits.selectSingleNode(fitsXml);
 		    List <Element>elementList = videoElement.getContent();
+		    
+		    // --------------------------------------------
+		    // We need to normalize the format for files with MIME Type of
+		    // "video/quicktime" to Format of "Quicktime" in some cases
+		    String mimeType = null;
+		    String format = null;
 		    for (Element element : elementList) {
-		    	
+		    	if(element.getName().equals("mimeType")) {
+					mimeType = element.getText();		    		
+		    	}
+		    	else if(element.getName().equals("format")) {
+					format = element.getText();		    		
+		    	}		    	
+		    }
+	    	if(mimeType != null && format != null) {
+			    if(mimeType.equals(QUICKTIME_MIMETYPE) && format.equals(MPEG4_FORMAT)) {
+			    	generalValuesDataMap.put("format", QUICKTIME_FORMAT);		    	
+			    }	    		
+	    	}		    
+		    // --------------------------------------------		    
+		    
+		    for (Element element : elementList) {
+
 		    	// First revise the general data right off the video element
 		    	reviseGeneralSection(element,  generalValuesDataMap);
 				
@@ -527,10 +550,8 @@ public class MediaInfoUtil {
 	    }		
 		
 		//
-		// Normalize the format and mimetype if necessary.
-		// NOTE: If the following is true, then we need to update the 
-		// "identity" element to be "quicktime" for the format attribute 
-		// and "video/quicktime" for the mimetype attribute
+		// Normalize the format and mimetype to "video/quicktime" and
+	    // Quicktime
 		//
 	    XPath xpathFitsIdentity = XPath.newInstance("//x:fits/x:identification");
 	    
@@ -549,10 +570,13 @@ public class MediaInfoUtil {
 	    	// Only Reset the format and mimetype if they are the format and
 	    	// formatProfile from the video section are the required types
 	    	if(formatAttrib != null && mimeAttrib != null) {
-		    	if(videoFormat.toUpperCase().contains("MPEG-4") && videoFormatProfile.toUpperCase().equals("QUICKTIME")){	    		
-		    		formatAttrib.setValue("Quicktime");
-		    		mimeAttrib.setValue("video/quicktime");
+		    	if(videoFormat.toUpperCase().contains(MPEG4_FORMAT) && videoFormatProfile.toUpperCase().equals(QUICKTIME_FORMAT.toUpperCase())){	    		
+		    		formatAttrib.setValue(QUICKTIME_FORMAT);
+		    		mimeAttrib.setValue(QUICKTIME_MIMETYPE);
 		    	}
+		    	else if(videoFormat.toUpperCase().contains(MPEG4_FORMAT) && mimeAttrib.getValue().equals(QUICKTIME_MIMETYPE)){	    		
+		    		formatAttrib.setValue(QUICKTIME_FORMAT);
+		    	}		    	
 	    		break;
 	    	}
 	    	
@@ -633,6 +657,12 @@ public class MediaInfoUtil {
 			}
 			
 		}
+    	else if (element.getName().equals("format")) {
+    		String format = generalValuesDataMap.get("format");
+			if (!StringUtils.isEmpty(format)) {
+				element.setText(format);
+			}   		
+    	}
 		
 	}
 	
