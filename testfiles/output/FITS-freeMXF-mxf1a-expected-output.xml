@@ -19,7 +19,7 @@
     <video>
       <location toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/freeMXF-mxf1a.mxf</location>
       <mimeType toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">application/mxf</mimeType>
-      <format toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">MXF</format>
+      <format toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">Material Exchange Format (MXF)</format>
       <formatProfile toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">OP-1a</formatProfile>
       <duration toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">10640</duration>
       <timecodeStart toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">00:00:00:00</timecodeStart>
@@ -85,7 +85,7 @@
               </ebucore:videoFormat>
               <ebucore:audioFormatExtended />
               <ebucore:containerFormat>
-                <ebucore:comment>MXF</ebucore:comment>
+                <ebucore:comment>Material Exchange Format (MXF)</ebucore:comment>
                 <ebucore:comment>OP-1a</ebucore:comment>
               </ebucore:containerFormat>
               <ebucore:start>
