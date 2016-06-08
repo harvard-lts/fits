@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<xsl:stylesheet version="1.0"
+<xsl:stylesheet version="2.0"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:import href="jhove_common_to_fits.xslt"/>
-<!-- The following key used for de-duplication of fonts. This must be outside main body of XSL. -->
-<xsl:key name="value" match="//property[name='Fonts']//property[name='FontName']/values/value/text()" use="." />
 <xsl:template match="/">
 
     <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output">  
@@ -17,7 +15,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			<title>
 				 <xsl:choose>
                     <xsl:when test="//property[name='Info']/values/property['Title']/values/value and //property[name='Info']/values/property['Title']/values/value != '&lt;May be encrypted&gt;'">
-						<xsl:value-of select="//property[name='Info']/values/property['Title']/values/value"/>
+						<xsl:value-of select="//property[name='Info']/values/property[name='Title']/values/value"/>
 					</xsl:when>
 					<xsl:otherwise>
 					<xsl:if test="//property[name='Title']/values/value = '&lt;May be encrypted&gt;'" >
@@ -81,11 +79,21 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                     <xsl:value-of select="$graphicsCount"/>
                 </xsl:if>
 			</graphicsCount>
-			
-			<!-- fonts -->
-			<!-- De-duplication of fonts. Solution found here: http://stackoverflow.com/questions/2291567/how-to-use-xslt-to-create-distinct-values -->
-		    <xsl:for-each select="//property[name='Fonts']//property[name='FontName']/values/value/text()[generate-id() = generate-id(key('value',.)[1])]">
-		        <xsl:sort select="."/>
+
+			<!-- De-duplication of fonts. First create collection of nodes of font names with tag prefixes stripped off (if they exist). These can added into PDF's. -->
+			<!-- Note: It may be possible to have the same font names with different tag prefixes. -->
+			<xsl:variable name="fontNames" as="element()*">
+			    <xsl:for-each select="//property[name='Fonts']//property[name='FontName']/values/value[1]">
+			        <xsl:element name="anElement">
+			            <xsl:variable name="fontText" select="./text()" />
+			            <xsl:value-of select="if (contains($fontText,'+')) then replace($fontText, '[A-Z]+\+', '') else $fontText"/>
+			        </xsl:element>
+			    </xsl:for-each>
+			</xsl:variable>
+
+            <!-- Iterate all unique font names in sorted order. -->
+            <xsl:for-each select="distinct-values($fontNames/text())">
+                <xsl:sort select="." />
        			<font>
 			        <fontName>
 	                    <xsl:value-of select="."/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/3/16 11:37 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/8/16 1:29 PM">
   <identification>
     <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
       <tool toolname="Droid" toolversion="6.1.5" />
@@ -19,7 +19,7 @@
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFA_Document with tables.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFA_Document with tables.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">fd8c309140462d55d6a76e5e3ec709ee</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1460584552000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1464898750000</fslastmodified>
   </fileinfo>
   <filestatus>
     <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
@@ -27,7 +27,6 @@
   </filestatus>
   <metadata>
     <document>
-      <title toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Zakuta, Vitaly</title>
       <author toolname="Jhove" toolversion="1.11">Zakuta, Vitaly</author>
       <language toolname="Jhove" toolversion="1.11">EN-US</language>
       <pageCount toolname="Jhove" toolversion="1.11">3</pageCount>
@@ -35,61 +34,61 @@
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>CERSLK+Calibri-Bold</fontName>
+        <fontName>ArialMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>CWOXLK+ArialUnicodeMS</fontName>
+        <fontName>ArialUnicodeMS</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>CWOXLK+Wingdings2</fontName>
+        <fontName>Calibri</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>JEFNFW+TimesNewRomanPSMT</fontName>
+        <fontName>Calibri-Bold</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>MLOFVQ+ArialMT</fontName>
+        <fontName>TimesNewRomanPS-BoldMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>NKDLJO+Wingdings-Regular</fontName>
+        <fontName>TimesNewRomanPSMT</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>QRRDZI+TimesNewRomanPS-BoldMT</fontName>
+        <fontName>Wingdings-Regular</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>WATNFW+Calibri</fontName>
+        <fontName>Wingdings2</fontName>
       </font>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>3</docmd:PageCount>
           <docmd:Language>EN-US</docmd:Language>
-          <docmd:Font FontName="CERSLK+Calibri-Bold" />
-          <docmd:Font FontName="CWOXLK+ArialUnicodeMS" />
-          <docmd:Font FontName="CWOXLK+Wingdings2" />
-          <docmd:Font FontName="JEFNFW+TimesNewRomanPSMT" />
-          <docmd:Font FontName="MLOFVQ+ArialMT" />
-          <docmd:Font FontName="NKDLJO+Wingdings-Regular" />
-          <docmd:Font FontName="QRRDZI+TimesNewRomanPS-BoldMT" />
-          <docmd:Font FontName="WATNFW+Calibri" />
+          <docmd:Font FontName="ArialMT" />
+          <docmd:Font FontName="ArialUnicodeMS" />
+          <docmd:Font FontName="Calibri" />
+          <docmd:Font FontName="Calibri-Bold" />
+          <docmd:Font FontName="TimesNewRomanPS-BoldMT" />
+          <docmd:Font FontName="TimesNewRomanPSMT" />
+          <docmd:Font FontName="Wingdings-Regular" />
+          <docmd:Font FontName="Wingdings2" />
           <docmd:Features>isTagged</docmd:Features>
           <docmd:Features>hasAnnotations</docmd:Features>
         </docmd:document>
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="155">
+  <statistics fitsExecutionTime="231">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="5" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="56" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="33" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="151" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="24" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="2" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="24" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="152" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="86" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="191" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="65" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="12" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="3" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="24" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="16" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="113" />
   </statistics>
 </fits>
 

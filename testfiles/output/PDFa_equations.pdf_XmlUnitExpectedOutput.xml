@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/7/16 3:01 PM">
   <identification>
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Jhove" toolversion="1.11" />
       <tool toolname="Exiftool" toolversion="10.00" />
@@ -19,7 +19,7 @@
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFa_equations.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_equations.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">83fa9407b0ddf13a38579a18fe9f7734</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1455736667000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1458852347000</fslastmodified>
   </fileinfo>
   <filestatus>
     <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
@@ -27,7 +27,6 @@
   </filestatus>
   <metadata>
     <document>
-      <title toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Zakuta, Vitaly</title>
       <author toolname="Jhove" toolversion="1.11">Zakuta, Vitaly</author>
       <language toolname="Jhove" toolversion="1.11">EN-US</language>
       <pageCount toolname="Jhove" toolversion="1.11">3</pageCount>
@@ -35,40 +34,36 @@
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>AIBIKD+Calibri</fontName>
+        <fontName>Calibri</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>RSQGOV+CambriaMath</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>VYOESN+CambriaMath</fontName>
+        <fontName>CambriaMath</fontName>
       </font>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>3</docmd:PageCount>
           <docmd:Language>EN-US</docmd:Language>
-          <docmd:Font FontName="AIBIKD+Calibri" />
-          <docmd:Font FontName="RSQGOV+CambriaMath" />
-          <docmd:Font FontName="VYOESN+CambriaMath" />
+          <docmd:Font FontName="Calibri" />
+          <docmd:Font FontName="CambriaMath" />
           <docmd:Features>isTagged</docmd:Features>
         </docmd:document>
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="345">
+  <statistics fitsExecutionTime="2405">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="18" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="135" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="66" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="216" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="77" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="6" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="140" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="1250" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="1264" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="835" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="772" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="133" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="12" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="333" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="436" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="2283" />
   </statistics>
 </fits>
 
