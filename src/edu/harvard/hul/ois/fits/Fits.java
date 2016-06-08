@@ -474,7 +474,7 @@ public class Fits {
     Transformer transformer = null;
 
     // initialize transformer for pretty print xslt
-    TransformerFactory tFactory = TransformerFactory.newInstance();
+    TransformerFactory tFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
     String prettyPrintXslt = FITS_XML_DIR + "prettyprint.xslt";
     try {
       Templates template = tFactory.newTemplates( new StreamSource( prettyPrintXslt ) );

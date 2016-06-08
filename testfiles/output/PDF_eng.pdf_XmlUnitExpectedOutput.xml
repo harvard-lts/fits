@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/3/16 11:46 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/7/16 2:58 PM">
   <identification>
     <identity format="Portable Document Format" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
       <tool toolname="Droid" toolversion="6.1.5" />
@@ -22,7 +22,7 @@
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDF_eng.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDF_eng.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">4ef7c6dd77d598fe8f60f84af8e4e7de</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1460584552000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1464898750000</fslastmodified>
   </fileinfo>
   <filestatus>
     <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
@@ -37,51 +37,51 @@
       <hasOutline toolname="Jhove" toolversion="1.11">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>AODHFO+MetaNormal-Caps</fontName>
+        <fontName>HelveticaRounded-Bold</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>BINCNJ+MetaBold-Roman</fontName>
+        <fontName>MetaBold-Roman</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>BINCOL+MetaNormal-Roman</fontName>
+        <fontName>MetaNormal-Caps</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>BINCOM+MetaNormal-Italic</fontName>
+        <fontName>MetaNormal-Italic</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>BINDAO+HelveticaRounded-Bold</fontName>
+        <fontName>MetaNormal-Roman</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>BINDCB+MetaNormalLF-Italic</fontName>
+        <fontName>MetaNormalLF-Italic</fontName>
       </font>
       <hasForms toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</hasForms>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>32</docmd:PageCount>
-          <docmd:Font FontName="AODHFO+MetaNormal-Caps" />
-          <docmd:Font FontName="BINCNJ+MetaBold-Roman" />
-          <docmd:Font FontName="BINCOL+MetaNormal-Roman" />
-          <docmd:Font FontName="BINCOM+MetaNormal-Italic" />
-          <docmd:Font FontName="BINDAO+HelveticaRounded-Bold" />
-          <docmd:Font FontName="BINDCB+MetaNormalLF-Italic" />
+          <docmd:Font FontName="HelveticaRounded-Bold" />
+          <docmd:Font FontName="MetaBold-Roman" />
+          <docmd:Font FontName="MetaNormal-Caps" />
+          <docmd:Font FontName="MetaNormal-Italic" />
+          <docmd:Font FontName="MetaNormal-Roman" />
+          <docmd:Font FontName="MetaNormalLF-Italic" />
         </docmd:document>
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="183">
+  <statistics fitsExecutionTime="423">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="5" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="138" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="53" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="175" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="82" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="8" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="391" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="93" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="209" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="107" />
     <tool toolname="OIS File Information" toolversion="0.2" executionTime="1" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="5" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="67" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="13" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="98" />
   </statistics>
 </fits>
 
