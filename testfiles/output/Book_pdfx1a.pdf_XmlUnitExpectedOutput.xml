@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/15/16 4:24 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/3/16 11:41 AM">
   <identification status="SINGLE_RESULT">
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
       <tool toolname="Jhove" toolversion="1.11" />
       <version toolname="Jhove" toolversion="1.11">1b</version>
     </identity>
@@ -29,25 +29,25 @@
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">21</graphicsCount>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>OIJGRB+MyriadPro-Regular</fontName>
+        <fontName>ANGADD+Verdana</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>JYRCZL+MyriadPro-Regular-SC700</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>OQHBRB+Verdana</fontName>
+        <fontName>OIJGRB+MyriadPro-Regular</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>ANGADD+Verdana</fontName>
+        <fontName>OQHBRB+Verdana</fontName>
       </font>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>8</docmd:PageCount>
           <docmd:GraphicsCount>21</docmd:GraphicsCount>
-          <docmd:Font FontName="OIJGRB+MyriadPro-Regular" />
-          <docmd:Font FontName="JYRCZL+MyriadPro-Regular-SC700" />
-          <docmd:Font FontName="OQHBRB+Verdana" />
           <docmd:Font FontName="ANGADD+Verdana" />
+          <docmd:Font FontName="JYRCZL+MyriadPro-Regular-SC700" />
+          <docmd:Font FontName="OIJGRB+MyriadPro-Regular" />
+          <docmd:Font FontName="OQHBRB+Verdana" />
         </docmd:document>
       </standard>
     </document>

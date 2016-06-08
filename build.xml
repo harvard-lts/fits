@@ -268,7 +268,9 @@
 		<copy file="fits.sh" todir="${output.location.version}"/>
 		<copy file="fits-env.sh" todir="${output.location.version}"/>
 		<copy file="fits-ngserver.sh" todir="${output.location.version}"/>
-		<copy file="RELEASE.txt" todir="${output.location.version}"/>
+		<copy todir="${output.location.version}">
+			<fileset dir="." includes="*.md" />
+		</copy>
 		<copy file="COPYING" todir="${output.location.version}"/>
 		<copy file="COPYING.LESSER" todir="${output.location.version}"/>
 		<copy file="COPYING_APACHE_LICENSE_v2.txt" todir="${output.location.version}"/>

@@ -53,7 +53,8 @@ public class DocMDTest {
 		// Set up XMLUnit and FITS for entire class.
 		XMLUnit.setIgnoreWhitespace(true);
 		XMLUnit.setNormalizeWhitespace(true);
-		fits = new Fits();
+		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
+		fits = new Fits(null, fitsConfigFile);
 	}
 	
 	@AfterClass
@@ -244,29 +245,6 @@ public class DocMDTest {
 	public void testOpenOfficeDocHasTables() throws Exception {	
 
     	String inputFilename = "LibreODT-hasTables.odt";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
-	}
-    
-	@Test
-	public void testOpenOfficeDocPasswordProtected() throws Exception {	
-
-    	String inputFilename = "LibreODT_protected.odt";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	

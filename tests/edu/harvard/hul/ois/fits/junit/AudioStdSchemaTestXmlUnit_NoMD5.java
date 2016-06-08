@@ -77,7 +77,8 @@ public class AudioStdSchemaTestXmlUnit_NoMD5 {
 				"fitsExecutionTime",
 				"executionTime",
 				"filepath",
-				"location"));
+				"location",
+				"message"));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 

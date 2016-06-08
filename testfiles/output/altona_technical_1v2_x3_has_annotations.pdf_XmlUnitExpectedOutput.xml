@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="4/15/16 10:27 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/3/16 11:40 AM">
   <identification>
-    <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+    <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="Jhove" toolversion="1.11" />
       <tool toolname="Exiftool" toolversion="10.00" />
@@ -37,16 +37,16 @@
         <fontName>Courier-Oblique</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>EMFBGL+Metanormal01-Bold</fontName>
-      </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>EMFBIO+Metabook01</fontName>
+        <fontName>EMEICK+Helvetica</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>EMEIJA+Helvetica-Bold</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
-        <fontName>EMEICK+Helvetica</fontName>
+        <fontName>EMFBGL+Metanormal01-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+        <fontName>EMFBIO+Metabook01</fontName>
       </font>
       <subject toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</subject>
       <description toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</description>
@@ -55,10 +55,10 @@
           <docmd:PageCount>1</docmd:PageCount>
           <docmd:GraphicsCount>44</docmd:GraphicsCount>
           <docmd:Font FontName="Courier-Oblique" />
+          <docmd:Font FontName="EMEICK+Helvetica" />
+          <docmd:Font FontName="EMEIJA+Helvetica-Bold" />
           <docmd:Font FontName="EMFBGL+Metanormal01-Bold" />
           <docmd:Font FontName="EMFBIO+Metabook01" />
-          <docmd:Font FontName="EMEIJA+Helvetica-Bold" />
-          <docmd:Font FontName="EMEICK+Helvetica" />
           <docmd:Features>hasAnnotations</docmd:Features>
         </docmd:document>
       </standard>
