@@ -9,6 +9,7 @@ TAGS
 # Mac OS X system file
 .DS_Store
 /fits.log
+/tests.log4j.properties
 /lib-fits/
 /classes/
 /build/
