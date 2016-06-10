@@ -271,9 +271,6 @@
 		<copy todir="${output.location.version}">
 			<fileset dir="." includes="*.md" />
 		</copy>
-		<copy file="COPYING" todir="${output.location.version}"/>
-		<copy file="COPYING.LESSER" todir="${output.location.version}"/>
-		<copy file="COPYING_APACHE_LICENSE_v2.txt" todir="${output.location.version}"/>
 		<copy file="build.xml" todir="${output.location.version}"/>
 		<copy file="version.properties" todir="${output.location.version}"/>
 		<antcall target="zip-output" />
