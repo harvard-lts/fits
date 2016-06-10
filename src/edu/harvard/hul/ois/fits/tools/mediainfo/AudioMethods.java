@@ -1,44 +1,37 @@
-/* 
- * Copyright 2015 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
+
 package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 public enum AudioMethods {
 	delay ("delay"),
-	numSamples ("numSamples"),       	
+	numSamples ("numSamples"),
 	bitRate ("bitRate"),
 	codecId ("codecId"),
-	codeFamily ("codecFamily"),	
-	duration ("duration"),    	
+	codeFamily ("codecFamily"),
+	duration ("duration"),
 	trackSize ("trackSize"),
 	samplingRate ("samplingRate"),
 	channels ("channels");
-   	
+
 	private String name;
-    
+
 	AudioMethods(String name) {
         this.name = name;
     }
-    
+
     public String getName () {
         return name;
     }
-    
+
     static public AudioMethods lookup(String name) {
     	AudioMethods retMethod = null;
     	for(AudioMethods method : AudioMethods.values()) {

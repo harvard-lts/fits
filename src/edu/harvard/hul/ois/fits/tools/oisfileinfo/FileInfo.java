@@ -1,21 +1,13 @@
-/* 
- * Copyright 2009 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
 package edu.harvard.hul.ois.fits.tools.oisfileinfo;
 
 import java.io.File;
@@ -38,11 +30,11 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
 /** The FileInfo tool uses Java system calls to get basic information about
  *  a file, as well as calculating an MD5 digest.
- *  
+ *
  *  @see <a href="http://www.twmacinta.com/myjava/fast_md5.php">Fast MD5 Implementation in Java</a>
  */
 public class FileInfo extends ToolBase {
-	
+
     private final static String TOOL_NAME = "OIS File Information";
     private final static String TOOL_VERSION = "0.2";
     private final static String TOOL_DATE = "12/13/2013";
@@ -53,7 +45,7 @@ public class FileInfo extends ToolBase {
     private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
     private boolean enabled = true;
-	
+
 	public FileInfo() throws FitsToolException{
         logger.debug ("Initializing FileInfo");
         info.setName(TOOL_NAME);
@@ -61,7 +53,7 @@ public class FileInfo extends ToolBase {
 		info.setDate(TOOL_DATE);
 	}
 
-	public ToolOutput extractInfo(File file) throws FitsToolException {	
+	public ToolOutput extractInfo(File file) throws FitsToolException {
         logger.debug("FileInfo.extractInfo starting on " + file.getName());
         long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
@@ -71,10 +63,10 @@ public class FileInfo extends ToolBase {
         logger.debug("FileInfo.extractInfo finished on " + file.getName());
 		return output;
 	}
-	
+
 	private Document createXml(File file) throws FitsToolException {
-		
-		
+
+
 		Element root = new Element("fits",fitsNS);
 		root.setAttribute(new Attribute("schemaLocation","http://hul.harvard.edu/ois/xml/ns/fits/fits_output "+Fits.externalOutputSchema,xsiNS));
 		//fileinfo section
@@ -90,7 +82,7 @@ public class FileInfo extends ToolBase {
 		//size
 		Element size = new Element("size",fitsNS);
 		size.setText(String.valueOf(file.length()));
-		fileInfo.addContent(size);		
+		fileInfo.addContent(size);
 		//Calculate the MD5 checksum
 		if (Fits.config.getBoolean("output.enable-checksum")) {
 			@SuppressWarnings("unchecked")
@@ -104,7 +96,7 @@ public class FileInfo extends ToolBase {
 					fileInfo.addContent(signature);
 				} catch (IOException e) {
 					throw new FitsToolException("Could not calculate the MD5 for "+file.getPath(),e);
-				}				
+				}
 			}
 
 		}
@@ -113,10 +105,10 @@ public class FileInfo extends ToolBase {
 		fslastmodified.setText(String.valueOf(file.lastModified()));
 		fileInfo.addContent(fslastmodified);
 		root.addContent(fileInfo);
-		
+
 		return new Document(root);
     }
-	
+
 	// NOTE: This check is separate from the tool extension exclusions
 	public boolean hasExcludedExtensionForMD5(String ext, List<String> excludedExtensions) {
 		for(String extension : excludedExtensions) {
@@ -126,17 +118,17 @@ public class FileInfo extends ToolBase {
 		}
 		return false;
 	}
-	
+
 	public Boolean canIdentify() {
 		return false;
 	}
 
-	
+
 	public boolean isEnabled() {
 		return enabled;
 	}
 
 	public void setEnabled(boolean value) {
-		enabled = value;		
+		enabled = value;
 	}
 }

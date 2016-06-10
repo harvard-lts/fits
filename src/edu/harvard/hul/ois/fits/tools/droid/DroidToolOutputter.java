@@ -1,3 +1,13 @@
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
 package edu.harvard.hul.ois.fits.tools.droid;
 
 import java.io.IOException;
@@ -19,21 +29,21 @@ import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 
 /** This class generates the tool output for DROID.
- * 
+ *
  *  @author <a href="http://www.garymcgath.com">Gary McGath</a>
  */
 public class DroidToolOutputter {
-    
+
     private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
 
     private IdentificationResultCollection results;
     private Droid toolBase;
-    
+
     public DroidToolOutputter (Droid toolBase, IdentificationResultCollection results) {
         this.toolBase = toolBase;
         this.results = results;
     }
-    
+
     /** Produce a JDOM document with fits as its root element. This
      *  will contain just identification, not metadata elements.
      */
@@ -42,9 +52,9 @@ public class DroidToolOutputter {
         Document fitsXml = createToolData ();
         Document rawOut = buildRawData (resList);
         ToolOutput output = new ToolOutput(toolBase,fitsXml,rawOut);
-        return output;  
+        return output;
     }
-    
+
     /** Create a base tool data document and add elements
      *  for each format. */
     private Document createToolData () {
@@ -58,20 +68,20 @@ public class DroidToolOutputter {
             String formatName = res.getName();
             formatName = mapFormatName(formatName);
             String mimeType = res.getMimeType();
-            
+
             if(FitsMetadataValues.getInstance().normalizeMimeType(mimeType) != null) {
-            	mimeType = FitsMetadataValues.getInstance().normalizeMimeType(mimeType); 
+            	mimeType = FitsMetadataValues.getInstance().normalizeMimeType(mimeType);
             }
-            
+
             if(formatName.equals("Digital Negative (DNG)")) {
             	mimeType="image/x-adobe-dng";
             } else if (formatName.equals("Office Open XML Document")) {
             	mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document";
             }
-            
+
             String version = res.getVersion();
             version = mapVersion(version);
-            
+
             Element identityElem = new Element ("identity", fitsNS);
             Attribute attr = null;
             if (formatName != null) {
@@ -85,7 +95,7 @@ public class DroidToolOutputter {
             // Is there anything to put into the fileinfo or metadata elements?
             // Both are optional, so they can be left out if they'd be empty.
             idElem.addContent (identityElem);
-            
+
             // If there's a version, report it
             if (version != null) {
                 Element versionElem = new Element ("version", fitsNS);
@@ -105,9 +115,9 @@ public class DroidToolOutputter {
 
         return toolDoc;     // TODO stub
     }
-    
+
     private String mapFormatName(String formatName) {
-    	
+
     	if(formatName == null || formatName.length() == 0) {
     		return FitsMetadataValues.DEFAULT_FORMAT;
     	}
@@ -116,10 +126,10 @@ public class DroidToolOutputter {
     	}
     	else if(formatName.startsWith("Exchangeable Image File Format (Compressed)")) {
     		return "Exchangeable Image File Format";
-    	}    	
+    	}
     	else if(formatName.startsWith("Exchangeable Image File Format (Uncompressed)")) {
     		return "Exchangeable Image File Format";
-    	}    	
+    	}
     	else if(formatName.contains("PDF/A")) {
     		return "PDF/A";
     	}
@@ -139,9 +149,9 @@ public class DroidToolOutputter {
     		return formatName;
     	}
     }
-    
+
     private String mapVersion(String version) {
-    	
+
     	if(version == null || version.length() == 0) {
     		return version;
     	}
@@ -152,18 +162,18 @@ public class DroidToolOutputter {
     		return version;
     	}
     }
-    
+
     /**
      * Create "raw" XML. The DROID namespace is no longer meaningful. Does this have any
      * particular requirements beyond dumping as much data as might be useful?
-     * 
-     * @throws FitsToolException 
-     * @throws SAXException 
+     *
+     * @throws FitsToolException
+     * @throws SAXException
      */
     private Document buildRawData (List<IdentificationResult> resList) throws FitsToolException {
-            
+
             StringWriter out = new StringWriter();
-            
+
             out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             out.write("\n");
             out.write("<results>");
@@ -189,23 +199,23 @@ public class DroidToolOutputter {
             out.write("\n");
 
             out.flush();
-         
+
             try {
                 out.close();
             } catch (IOException e) {
                 throw new FitsToolException("Error closing DROID XML output stream",e);
             }
-            
+
             Document doc = null;
             try {
                 SAXBuilder saxBuilder = toolBase.getSaxBuilder();
                 doc = saxBuilder.build(new StringReader(out.toString()));
             } catch (Exception e) {
                 throw new FitsToolException("Error parsing DROID XML Output",e);
-            } 
+            }
             return doc;
-        }    
-    
+        }
+
     /* Change any MIME types that need to be normalized. */
     private String mimeToFileType (String mime) {
         return mime;       // TODO stub

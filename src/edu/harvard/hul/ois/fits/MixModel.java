@@ -1,30 +1,12 @@
-/**********************************************************************
- * Copyright (c) 2009 by the President and Fellows of Harvard College
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
- * USA.
- *
- * Contact information
- *
- * Office for Information Systems
- * Harvard University Library
- * Harvard University
- * Cambridge, MA  02138
- * (617)495-3724
- * hulois@hulmail.harvard.edu
- **********************************************************************/
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
 
 package edu.harvard.hul.ois.fits;
 
@@ -107,9 +89,9 @@ public class MixModel {
     protected SubjectDistance sd;
     protected GPSData gps;
     protected Colormap cm;
-    
-    
-    
+
+
+
     protected MixModel () {
         mix = new Mix ();
         try {
@@ -132,7 +114,7 @@ public class MixModel {
             iam.setImageColorEncoding(ice);
             gci = new GeneralCaptureInformation ();
             icm.setGeneralCaptureInformation(gci);
-            
+
             // Here are some pieces which are constructed once, but added only if they're needed.
             cp = new ColorProfile ();           // Add this to phi if needed
             iccp = new IccProfile();            // Add this to cp if needed
@@ -149,7 +131,7 @@ public class MixModel {
             id = new ImageData ();              // Add this to ccs if needed
             gps = new GPSData ();               // Add this to ccs if needed
             sd = new SubjectDistance ();        // Add this to id if needed
-            
+
             // Build DigitalCameraCapture with subelements, but don't hook it to icm
             // until it's needed.
             dcc = new DigitalCameraCapture ();
@@ -157,14 +139,14 @@ public class MixModel {
             dcc.setDigitalCameraModel(dcm);
             ccs = new CameraCaptureSettings ();
             dcc.setCameraCaptureSettings(ccs);
-            
+
             cm = new Colormap();
         }
         catch (XmlContentException e) {
             // Should never happen, unless the code is buggy
         }
     }
-    
+
     /** Fill out a YCbCrSubSampling element, tokenizing the value */
     protected void populateYCbCrSS (YCbCrSubSampling ycbcrss, String data) {
         // Separation by spaces is easy material for an ordinary StringTokenizer
@@ -188,7 +170,7 @@ public class MixModel {
         catch (XmlContentException e) {
         }
     }
-    
+
     protected void populateYCbCrCoefficients (String data) {
         StringTokenizer tok = new StringTokenizer (data);
         double red;
@@ -213,8 +195,8 @@ public class MixModel {
         }
         catch (XmlContentException e) {}
     }
-    
-    
+
+
     protected void populateJPEG2000 () {
         try {
             bii.setSpecialFormatCharacteristics(sfc);
@@ -225,7 +207,7 @@ public class MixModel {
         catch (XmlContentException e) {
         }
     }
-    
+
     protected void populateWhitePoint () {
         try {
             if (wp == null) {
@@ -236,7 +218,7 @@ public class MixModel {
         catch (XmlContentException e) {
         }
     }
-    
+
     protected void populatePrimaryChromaticities () {
         try {
             if (pc == null) {
@@ -247,8 +229,8 @@ public class MixModel {
         catch (XmlContentException e) {
         }
     }
-    
-    
+
+
     //bits per sample in FITS should be in the form "8 8 8", with all values
     //  concatenated together separated by a space.
     protected void setBitsPerSample (String stringBPS) {
@@ -264,8 +246,8 @@ public class MixModel {
         catch (XmlContentException e) {
         }
     }
-    
-    
+
+
 
     /** Make the ColorProfile and ICCProfile part of the MIX */
     protected void attachIccp () {
@@ -275,7 +257,7 @@ public class MixModel {
         }
         catch (XmlContentException e) {}
     }
-    
+
     /** Make the ScannerCapture part of the MIX */
     protected void attachScannerCapture () {
         try {
@@ -283,7 +265,7 @@ public class MixModel {
         }
         catch (XmlContentException e) {}
     }
-    
+
     protected void attachScanningSystemSoftware () {
         try {
             icm.setScannerCapture (sc);
@@ -291,7 +273,7 @@ public class MixModel {
         }
         catch (XmlContentException e) {}
     }
-    
+
     protected void attachImageData () {
         try {
             ccs.setImageData (id);
@@ -301,7 +283,7 @@ public class MixModel {
         }
         catch (XmlContentException e) {}
     }
-    
+
     protected void attachGPSData () {
         try {
             ccs.setGPSData (gps);
@@ -318,7 +300,7 @@ public class MixModel {
         parseItude (longit, longitude);
         try {
             gps.setGPSLongitude(longit);
-        } 
+        }
         catch (XmlContentException e) {}
     }
 
@@ -328,7 +310,7 @@ public class MixModel {
         parseItude (latit, latitude);
         try {
             gps.setGPSLatitude(latit);
-        } 
+        }
         catch (XmlContentException e) {}
     }
 
@@ -348,10 +330,10 @@ public class MixModel {
         parseItude (latit, latitude);
         try {
             gps.setGPSDestLatitude(latit);
-        } 
+        }
         catch (XmlContentException e) {}
     }
-    
+
     protected void populateReferenceBlackWhite (String data, String colorspace) {
         /* This consists of a series of six numbers, separated by spaces, each of which
          * is a headroom-footroom pair. The second argument tells us whether
@@ -411,7 +393,7 @@ public class MixModel {
         }
         catch (XmlContentException e) {}
     }
-    
+
     /** Make the Colormap part of the MIX */
     protected void attachColorMap () {
         try {
@@ -419,7 +401,7 @@ public class MixModel {
         }
         catch (XmlContentException e) {}
     }
-    
+
     protected void attachSubjectDistance () {
         try {
             id.setSubjectDistance (sd);
@@ -436,7 +418,7 @@ public class MixModel {
      */
     private void parseItude (GPSItudeElement elem, String itude) {
         StringBuffer itudeBuf = new StringBuffer (itude);
-        // Get rid of the non-number portions 
+        // Get rid of the non-number portions
         try {
             int pos = itudeBuf.indexOf ("deg ");
             if (pos > 0)
@@ -455,13 +437,13 @@ public class MixModel {
             int deg = 0;
             int min = 0;
             double sec = 0;
-            
+
             deg = Integer.parseInt (tok.nextToken ());
             if (tok.hasMoreElements())
                 min = Integer.parseInt (tok.nextToken ());
             if (tok.hasMoreElements())
                 sec = Double.parseDouble (tok.nextToken ());
-            
+
             elem.setDegrees (new Rational (deg, 1));
             elem.setMinutes (new Rational (min, 1));
             elem.setSeconds (new Rational ((int) (sec * 100), 100));

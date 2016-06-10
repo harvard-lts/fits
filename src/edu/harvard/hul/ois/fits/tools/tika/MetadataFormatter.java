@@ -1,5 +1,15 @@
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
 /**
- * 
+ *
  */
 package edu.harvard.hul.ois.fits.tools.tika;
 
@@ -24,7 +34,7 @@ public final class MetadataFormatter {
 
 	private static NumberFormat FORMATTER = NumberFormat.getInstance();
 	private static Gson GSON = new Gson();
-	
+
 	public static MetadataFormatter getInstance() {
 		return INSTANCE;
 	}
@@ -90,7 +100,7 @@ public final class MetadataFormatter {
 		}
 		return sb.toString();
 	}
-	
+
 	private static String formatValue(String value) {
 //		String retVal = "null";
 		if (value != null && value.length() > 0) {
@@ -105,7 +115,7 @@ public final class MetadataFormatter {
 		}
 		return value;
 	}
-	
+
 	public static String toXML(MediaType mediaType) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<mediaType>");
@@ -133,7 +143,7 @@ public final class MetadataFormatter {
 		sb.append("</parameters>");
 		return sb.toString();
 	}
-	
+
 	public static String toJSON(MediaType mediaType) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
