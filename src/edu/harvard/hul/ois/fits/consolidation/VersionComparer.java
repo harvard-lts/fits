@@ -1,21 +1,14 @@
-/* 
- * Copyright 2009 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
+
 package edu.harvard.hul.ois.fits.consolidation;
 
 import java.io.IOException;
@@ -37,7 +30,7 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
      * Version identifier parts separator.
      */
     public static final char SEPARATOR = '.';
-    
+
     /**
      * Parses given string as version identifier. All missing parts will be
      * initialized to 0 or empty string. Parsing starts from left side of the
@@ -56,11 +49,11 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
     private transient int build;
     private transient String name;
     private transient String asString;
-    
+
     private VersionComparer() {
         // no-op
     }
-    
+
     private void parseString(final String str) {
         major = 0;
         minor = 0;
@@ -117,7 +110,7 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
             }
         }
     }
-    
+
     /**
      * Creates version identifier object from given parts. No validation
      * performed during object instantiation, all values become parts of
@@ -155,7 +148,7 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
     public int getMinor() {
         return minor;
     }
-    
+
     /**
      * @return build name
      */
@@ -168,7 +161,7 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
      * greater than or equal to the argument.
      * <p>
      * A version identifier is considered to be greater than or equal
-     * if its major component is greater than the argument major 
+     * if its major component is greater than the argument major
      * component, or the major components are equal and its minor component
      * is greater than the argument minor component, or the
      * major and minor components are equal and its build component is
@@ -205,7 +198,7 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
     /**
      * Compares two version identifiers for compatibility.
      * <p>
-     * A version identifier is considered to be compatible if its major 
+     * A version identifier is considered to be compatible if its major
      * component equals to the argument major component, and its minor component
      * is greater than or equal to the argument minor component.
      * If the minor components are equal, than the build component of the
@@ -240,8 +233,8 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
     /**
      * Compares two version identifiers for equivalency.
      * <p>
-     * Two version identifiers are considered to be equivalent if their major 
-     * and minor components equal and are at least at the same build level 
+     * Two version identifiers are considered to be equivalent if their major
+     * and minor components equal and are at least at the same build level
      * as the argument.
      * </p>
      *
@@ -268,7 +261,7 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
 
     /**
      * Compares two version identifiers for order using multi-decimal
-     * comparison. 
+     * comparison.
      *
      * @param other the other version identifier
      * @return <code>true</code> if this version identifier
@@ -305,7 +298,7 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
     public int hashCode() {
         return toString().hashCode();
     }
-    
+
     /**
      * @see java.lang.Object#equals(java.lang.Object)
      */
@@ -327,7 +320,7 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
     }
 
     /**
-     * Returns the string representation of this version identifier. 
+     * Returns the string representation of this version identifier.
      * The result satisfies
      * <code>version.equals(new Version(version.toString()))</code>.
      * @return the string representation of this version identifier
@@ -362,13 +355,13 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
         return name.toLowerCase(Locale.ENGLISH).compareTo(
                 obj.name.toLowerCase(Locale.ENGLISH));
     }
-    
+
     // Serialization related stuff.
-    
+
     private void writeObject(final ObjectOutputStream out) throws IOException {
         out.writeUTF(toString());
     }
-    
+
     private void readObject(final ObjectInputStream in) throws IOException {
         parseString(in.readUTF());
     }

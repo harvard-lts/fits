@@ -1,21 +1,13 @@
-/* 
- * Copyright 2009 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
 package edu.harvard.hul.ois.fits.tools;
 
 import java.io.File;
@@ -41,12 +33,12 @@ import net.sf.saxon.TransformerFactoryImpl;
 import net.sf.saxon.jdom.DocumentWrapper;
 
 /** An abstract class implementing the Tool interface, the base
- *  for all FITS tools. 
+ *  for all FITS tools.
  */
 public abstract class ToolBase implements Tool {
 
 	private static final Logger logger = LoggerFactory.getLogger( ToolBase.class );
-	
+
 	protected ToolInfo info = null;
 	protected ToolOutput output = null;
 	protected SAXBuilder saxBuilder;
@@ -56,12 +48,12 @@ public abstract class ToolBase implements Tool {
 	private TransformerFactory tFactory;
     private File inputFile;
     private String name;
-    
+
     private List<String> excludedExtensions;
     private List<String> includedExtensions;
-    
+
     private Throwable caughtThrowable;
-	
+
 	public ToolBase() throws FitsToolException {
 		info = new ToolInfo();
 		tFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", ToolBase.class.getClassLoader());
@@ -69,46 +61,46 @@ public abstract class ToolBase implements Tool {
 		excludedExtensions = new ArrayList<String>();
 		includedExtensions = new ArrayList<String>();
 	}
-	
+
 	/** Returns the name. This should be the name of the tool class,
 	 *  without the package prefix.
 	 */
 	public String getName () {
 	    return name;
 	}
-	
+
 	/** Sets the name. This should be the name of the tool class, without
 	 *  the package prefix (e.g., "Droid" or "Jhove").
 	 */
 	public void setName (String n) {
 	    name = n;
 	}
-	
+
 	/** Returns identifying information about the tool. */
 	public ToolInfo getToolInfo() {
 		return info;
 	}
-	
+
 	/** Returns true if the tool provides identification information.
 	 *  Override if a value other than true should ever be returned. */
 	public Boolean canIdentify() {
 		return true;
 	}
-	
+
 	/** Specifies the file to be processed. */
 	public void setInputFile(File file) {
 		inputFile = file;
 	}
-	
+
 	public boolean isIdentityKnown(ToolIdentity identity) {
 		if(!canIdentify()) {
 			return false;
 		}
-		//identity and mimetype must not be null or empty strings for an identity to be "known"		
+		//identity and mimetype must not be null or empty strings for an identity to be "known"
 		if(identity == null
-				|| identity.getMime() == null 
+				|| identity.getMime() == null
 				|| identity.getMime().length() == 0
-				|| identity.getFormat() == null 
+				|| identity.getFormat() == null
 				|| identity.getFormat().length() == 0) {
 			return false;
 		}
@@ -121,7 +113,7 @@ public abstract class ToolBase implements Tool {
 			return true;
 		}
 	}
-		
+
 	public Boolean validate(File files_or_dir, ToolIdentity identity) {
 		return null;
 	}
@@ -142,11 +134,11 @@ public abstract class ToolBase implements Tool {
 		}
 		return doc;
 	}
-	
+
 	public void addExcludedExtension(String ext) {
 		excludedExtensions.add(ext);
 	}
-	
+
 	public boolean hasExcludedExtension(String ext) {
 		for(String extension : excludedExtensions) {
 			if(extension.equalsIgnoreCase(ext)) {
@@ -155,11 +147,11 @@ public abstract class ToolBase implements Tool {
 		}
 		return false;
 	}
-	
+
 	public void addIncludedExtension(String ext) {
 		includedExtensions.add(ext);
 	}
-	
+
 	public boolean hasIncludedExtensions() {
 		if(includedExtensions.size() > 0) {
 			return true;
@@ -168,7 +160,7 @@ public abstract class ToolBase implements Tool {
 			return false;
 		}
 	}
-	
+
 	public boolean hasExcludedExtensions() {
 		if(excludedExtensions.size() > 0) {
 			return true;
@@ -177,7 +169,7 @@ public abstract class ToolBase implements Tool {
 			return false;
 		}
 	}
-	
+
 	public boolean hasIncludedExtension(String ext) {
 		for(String extension : includedExtensions) {
 			if(extension.equalsIgnoreCase(ext)) {
@@ -186,7 +178,7 @@ public abstract class ToolBase implements Tool {
 		}
 		return false;
 	}
-	
+
 	/** Take the list of tools-used items and modify the included and
 	 *  excluded extensions if applicable. included-exts and
 	 *  excluded-exts attributes take priority.
@@ -220,7 +212,7 @@ public abstract class ToolBase implements Tool {
 	        }
 	    }
 	}
-	
+
 	/* A case-independent surrogate for List.contains */
 	private boolean containsIgnoreCase (List<String> lst, String s) {
 	    for (String s1 : lst) {
@@ -233,11 +225,11 @@ public abstract class ToolBase implements Tool {
 	public ToolOutput getOutput() {
 		return output;
 	}
-	
+
 	public void resetOutput() {
 		output = null;
 	}
-	
+
 	public long getDuration() {
 		return duration;
 	}
@@ -245,23 +237,23 @@ public abstract class ToolBase implements Tool {
 	public void setDuration(long duration) {
 		this.duration = duration;
 	}
-	
-	public RunStatus getRunStatus() { 
+
+	public RunStatus getRunStatus() {
 		return runStatus;
 	}
-	
+
 	public void setRunStatus(RunStatus runStatus) {
 		this.runStatus = runStatus;
 	}
-	
+
 	/** Save an exception for reporting. */
 	public void setCaughtException (Throwable e) {
 	    caughtThrowable = e;
 	}
-	
+
 	/** Append any reported exceptions to a master list.
 	 *  This is called after the tool has finished running.
-	 *  
+	 *
 	 *  @param exceptions   List of Exceptions. Exceptions may be appended
 	 *         to it by this call.
 	 */

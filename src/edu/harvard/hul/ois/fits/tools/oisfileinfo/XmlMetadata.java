@@ -1,21 +1,13 @@
-/* 
- * Copyright 2009 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
 package edu.harvard.hul.ois.fits.tools.oisfileinfo;
 
 import java.io.File;
@@ -35,22 +27,22 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 /** A FITS-native tool for getting informationa about XML files.
  */
 public class XmlMetadata extends ToolBase {
-	
+
     private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
     private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
     private final static String XML_SCHEMA_INSTANCE = "http://www.w3.org/2001/XMLSchema-instance";
 	private final static String XML_FORMAT = "Extensible Markup Language";
 	private final static String XML_MIME = "text/xml";
-	
+
     private final static String TOOL_NAME = "OIS XML Metadata";
     private final static String TOOL_VERSION = "0.2";
     private final static String TOOL_DATE = "12/22/10";
-    
+
 	private boolean enabled = true;
-	
+
     private static Logger logger = Logger.getLogger(XmlMetadata.class);
-    
+
 	public XmlMetadata() throws FitsToolException{
 	    logger.debug ("Initializing XmlMetadata");
 		info.setName(TOOL_NAME);
@@ -58,7 +50,7 @@ public class XmlMetadata extends ToolBase {
 		info.setDate(TOOL_DATE);
 	}
 
-	public ToolOutput extractInfo(File file) throws FitsToolException {	
+	public ToolOutput extractInfo(File file) throws FitsToolException {
         logger.debug("XmlMetadata.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
@@ -68,17 +60,17 @@ public class XmlMetadata extends ToolBase {
         logger.debug("XmlMetadata.extractInfo finished on " + file.getName());
 		return output;
 	}
-	
+
 	private Document createXml(File file) throws FitsToolException {
 
-		
+
 		Element root = new Element("fits",fitsNS);
 		root.setAttribute(new Attribute("schemaLocation","http://hul.harvard.edu/ois/xml/ns/fits/fits_output "+Fits.externalOutputSchema,xsiNS));
 		//If the file is XML then parse and set text metadata
 		if(file.getPath().toLowerCase().endsWith(".xml")) {
 			Element metadata = new Element("metadata",fitsNS);
 			Element textMetadata = new Element("text",fitsNS);
-			
+
 			Document xml = null;
 			try {
 				saxBuilder.setFeature("http://apache.org/xml/features/validation/schema",false);
@@ -99,8 +91,8 @@ public class XmlMetadata extends ToolBase {
 				identification.addContent(identity);
 				//add identification section to root
 				root.addContent(identification);
-								
-				Element xmlRoot = xml.getRootElement();					
+
+				Element xmlRoot = xml.getRootElement();
 				String defaultNamespaceURI = xmlRoot.getNamespaceURI();
 				@SuppressWarnings("unchecked")
 				List<Namespace> namespaces = xmlRoot.getAdditionalNamespaces();
@@ -111,7 +103,7 @@ public class XmlMetadata extends ToolBase {
 						break;
 					}
 				}
-				
+
 				Namespace schemaNS = xmlRoot.getNamespace(schemaPrefix);
 				String schemaLocations = null;
 				String noNamespaceSchemaLocation = null;
@@ -121,16 +113,16 @@ public class XmlMetadata extends ToolBase {
 				}
 
 				String schemaURI = null;
-				if(schemaLocations != null && schemaLocations.length() > 0)  { 
-					String[] locations = schemaLocations.split("\\s+");					
+				if(schemaLocations != null && schemaLocations.length() > 0)  {
+					String[] locations = schemaLocations.split("\\s+");
 					for(int i=0;i<locations.length;i++) {
 						if(locations[i].equalsIgnoreCase(defaultNamespaceURI)) {
 							schemaURI = locations[i+1];
 							break;
 						}
-					}		
+					}
 				}
-				else if(noNamespaceSchemaLocation != null && noNamespaceSchemaLocation.length() > 0)  { 
+				else if(noNamespaceSchemaLocation != null && noNamespaceSchemaLocation.length() > 0)  {
 					schemaURI = noNamespaceSchemaLocation;
 				}
 
@@ -146,24 +138,24 @@ public class XmlMetadata extends ToolBase {
 						textMetadata.addContent(dtd);
 					}
 				}
-				
-				
+
+
 				//add to metadata section
 				metadata.addContent(textMetadata);
 				//add metadata section to root
 				root.addContent(metadata);
 			}
 		}
-		
+
 		return new Document(root);
     }
-	
+
 	public boolean isEnabled() {
 		return enabled;
 	}
 
 	public void setEnabled(boolean value) {
-		enabled = value;		
+		enabled = value;
 	}
 
 }

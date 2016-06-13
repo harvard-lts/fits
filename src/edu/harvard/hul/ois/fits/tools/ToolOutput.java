@@ -1,21 +1,13 @@
-/* 
- * Copyright 2009 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
 package edu.harvard.hul.ois.fits.tools;
 
 import java.io.StringReader;
@@ -44,12 +36,12 @@ import edu.harvard.hul.ois.fits.identity.ToolIdentity;
  *   The output created by a Tool. A ToolOutput object holds JDOM objects
  *   representing the FITS output and the raw form of the output.
  */
-public class ToolOutput {	
-	
+public class ToolOutput {
+
 	private static Logger logger = Logger.getLogger(ToolOutput.class);
 
     private static DocumentBuilderFactory docBuilderFactory;
-    static 
+    static
     {
         docBuilderFactory = DocumentBuilderFactory.newInstance();
         docBuilderFactory.setNamespaceAware(true);
@@ -68,9 +60,9 @@ public class ToolOutput {
 	private Tool tool;
 	//Identification data about the input file
 	private List<ToolIdentity> identity = new ArrayList<ToolIdentity>();
-	
+
 	/** Constructor
-	 * 
+	 *
 	 *  @param tool       The Tool creating this output
 	 *  @param fitsXml    JDOM Document following the FITS output schema
 	 *  @param toolOutput Raw XML JDOM Document representing the original output
@@ -81,70 +73,70 @@ public class ToolOutput {
 			throw new FitsToolException(tool.getToolInfo().getName()+" "+
 					tool.getToolInfo().getVersion() + " produced invalid FITS XML output");
 		}
-		
+
 		this.tool = tool;
 		this.toolOutput = toolOutput;
-		//map values and get identities from fitsXML if not null 
+		//map values and get identities from fitsXML if not null
 		if(fitsXml != null) {
 			//fitsxml doc is mapped here before identities are extracted
 			this.fitsXml = Fits.mapper.applyMap(tool,fitsXml);
 			identity = createFileIdentities(fitsXml,tool.getToolInfo());
-		}		
+		}
 	}
-	
+
 	public ToolOutput(Tool tool, Document fitsXml) throws FitsToolException {
-		this(tool,fitsXml,null);	
+		this(tool,fitsXml,null);
 	}
 
 	/** Returns the Tool that created this object */
 	public Tool getTool() {
 		return tool;
 	}
-	
+
 	/** Returns the FITS-structured XML as a JDOM Document */
 	public Document getFitsXml() {
 		return fitsXml;
 	}
-	
+
 	/** Sets the FITS-structured XML as a JDOM Document */
 	public void setFitsXml(Document fitsXml) {
 		this.fitsXml = fitsXml;
 	}
-	
+
 	/** Returns the raw XML from the tool */
 	public Document getToolOutput() {
 		return toolOutput;
 	}
-	
+
 	/** Returns a List of identity information objects about the file,
 	 *  one for each reporting tool */
 	public List<ToolIdentity> getFileIdentity() {
 		return identity;
 	}
-	
-	/** Add a tool's identity information on a file to the identity list 
+
+	/** Add a tool's identity information on a file to the identity list
 	 */
 	public void addFileIdentity(ToolIdentity id) {
 		identity.add(id);
 	}
-	
+
 	private boolean validateXmlOutput(Document output) {
-		
+
 		try {
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-			docBuilder.setErrorHandler (new ToolErrorHandler()); 
-			
+			docBuilder.setErrorHandler (new ToolErrorHandler());
+
 			XMLOutputter outputter = new XMLOutputter();
 			String xml = outputter.outputString(output);
-			
+
 			docBuilder.parse(new InputSource(new StringReader(xml)));
 		} catch(Exception e) {
 			logger.error("tool returned invalid XML",e);
 			return false;
-		} 
+		}
 		return true;
 	}
-	
+
 	private List<ToolIdentity> createFileIdentities(Document dom, ToolInfo info) {
 		List<ToolIdentity> identities = new ArrayList<ToolIdentity>();
 		try {
@@ -156,11 +148,11 @@ public class ToolOutput {
 				Attribute formatAttr = element.getAttribute("format");
 				Attribute mimetypeAttr = element.getAttribute("mimetype");
 				Element versionElement = element.getChild("version",ns);
-				
+
 				String format = null;
 				String mimetype = null;
 				String version = null;
-				
+
 				if(formatAttr != null) {
 					format = formatAttr.getValue();
 				}
@@ -185,12 +177,12 @@ public class ToolOutput {
 		}
 		return identities;
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("ToolOutput[");
 		sb.append(tool.getName());
 		sb.append("]");
 		return sb.toString();
 	}
-	
+
 }

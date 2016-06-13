@@ -1,21 +1,14 @@
-/* 
- * Copyright 2009 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
+
 package edu.harvard.hul.ois.fits.tools.fileutility;
 
 import java.io.File;
@@ -47,12 +40,12 @@ public class FileUtility extends ToolBase {
 	private List<String> FILE_TEST_COMMAND = new ArrayList<String>(Arrays.asList("which", "file"));
 	private final static String WIN_FILE_DATE = "6/7/2008";
 	private boolean enabled = true;
-	
+
     private static final Logger logger = Logger.getLogger(FileUtility.class);
 
 	public final static String xslt = Fits.FITS_XML_DIR+"fileutility/fileutility_to_fits.xslt";
 
-	public FileUtility() throws FitsToolException{	
+	public FileUtility() throws FitsToolException{
         logger.debug ("Initializing FileUtility");
 		String osName = System.getProperty("os.name");
 		info = new ToolInfo();
@@ -68,31 +61,31 @@ public class FileUtility extends ToolBase {
 
 		}
 		else if (testOSForCommand()){
-			osHasTool = true;	
-			//use file command in operating system			
+			osHasTool = true;
+			//use file command in operating system
 			infoCommand.addAll(UNIX_COMMAND);
             logger.debug("FileUtility will use system command");
 		}
-		
+
 		else {
 			//Tool cannot be used on this system
 		    logger.error("File Utility cannot be used on this system");
 			throw new FitsToolException("File Utility cannot be used on this system");
 		}
-		infoCommand.add("-v");		
-		versionOutput = CommandLine.exec(infoCommand,null);		
+		infoCommand.add("-v");
+		versionOutput = CommandLine.exec(infoCommand,null);
 		String[] lines = versionOutput.split("\n");
 		String firstLine = lines[0];
 		String[] nameVersion = firstLine.split("-");
 		info.setVersion(nameVersion[nameVersion.length-1].trim());
 		info.setNote(lines[1]);
-		
+
 	}
 
 	public ToolOutput extractInfo(File file) throws FitsToolException {
 	    logger.debug("FileUtility.extractInfo starting");
 		long startTime = System.currentTimeMillis();
-		
+
 		List<String> execCommand = new ArrayList<String>();
 		if (osIsWindows) {
 			//use provided Windows File Utility
@@ -115,7 +108,7 @@ public class FileUtility extends ToolBase {
 		else {
 			execOut = "";
 		}
-		
+
 		execCommand.add(1, "--mime"); // options must come before file path
 		String execMimeOut = CommandLine.exec(execCommand,null);
 		if(execMimeOut != null && execMimeOut.length() > 0) {
@@ -124,7 +117,7 @@ public class FileUtility extends ToolBase {
 		else {
 			execMimeOut = "";
 		}
-		
+
 		String format = null;
 		String mime = null;
 		String charset = null;
@@ -142,10 +135,10 @@ public class FileUtility extends ToolBase {
 					execOut.contains("UTF-16 Unicode") ||
 					execOut.contains("Non-ISO extended-ASCII text") ||
 					execOut.contains("ISO-8859")) {
-				format = "Plain text";	
+				format = "Plain text";
 			}*/
 			format = "Plain text";
-			
+
 			Pattern p = Pattern.compile("(.*) with (.*) line terminators");
 			Matcher m = p.matcher(execOut);
 			if(m.matches()) {
@@ -172,18 +165,18 @@ public class FileUtility extends ToolBase {
 			format = execOut;
 			mime = execMimeOut;
 		}
-		
+
 		Document rawOut = createXml(mime,format,charset,linebreaks,execOut+"\n"+execMimeOut);
 		Document fitsXml = transform(xslt,rawOut);
-		
+
 		output = new ToolOutput(this,fitsXml,rawOut);
-		
+
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
         logger.debug("FileUtility.extractInfo finished");
 		return output;
 	}
-	
+
 	public boolean testOSForCommand() throws FitsToolCLIException {
 		String output = CommandLine.exec(FILE_TEST_COMMAND,null);
 		if(output == null || output.length() == 0) {
@@ -193,7 +186,7 @@ public class FileUtility extends ToolBase {
 			return true;
 		}
 	}
-	private Document createXml(String mime_s, String format_s, String charset_s, List<String> linebreaks, String rawOutput_s) throws FitsToolException {    	
+	private Document createXml(String mime_s, String format_s, String charset_s, List<String> linebreaks, String rawOutput_s) throws FitsToolException {
 		//xml root
 		Element root = new Element("fileUtilityOutput");
 		//rawoutput
@@ -222,15 +215,15 @@ public class FileUtility extends ToolBase {
 			}
 		}
 		return new Document(root);
-		
+
     }
 	/*
 	public boolean isIdentityKnown(FileIdentity identity) {
 		//identity and mimetype must not be null or empty strings for an identity to be "known"
 		if(identity == null
-				|| identity.getMime() == null 
+				|| identity.getMime() == null
 				|| identity.getMime().length() == 0
-				|| identity.getFormat() == null 
+				|| identity.getFormat() == null
 				|| identity.getFormat().length() == 0) {
 			return false;
 		}
@@ -244,15 +237,15 @@ public class FileUtility extends ToolBase {
 		}
 	}
 */
-	
+
 	public boolean isEnabled() {
 		return enabled;
 	}
 
 	public void setEnabled(boolean value) {
-		enabled = value;		
+		enabled = value;
 	}
-	
+
 	 public String stripNonValidXMLCharacters(String in) {
 	        StringBuffer out = new StringBuffer(); // Used to hold the output.
 	        char current; // Used to reference the current character.

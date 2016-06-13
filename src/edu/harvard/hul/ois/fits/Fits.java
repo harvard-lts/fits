@@ -1,21 +1,13 @@
-/* 
- * Copyright 2009 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
 package edu.harvard.hul.ois.fits;
 
 import java.io.ByteArrayInputStream;
@@ -97,8 +89,8 @@ public class Fits {
   private boolean resetToolOutput = true; // should always be true except for unit tests
 
   private static boolean traverseDirs;
-  
-  
+
+
     static {
         // set FITS_HOME from environment variable if it exists
         FITS_HOME = System.getenv( "FITS_HOME" );
@@ -111,7 +103,7 @@ public class Fits {
   /**
    * Default, no-arg constructor. FITS configuration file expected in default location with
    * FITS_HOME either default location or set by environment variable.
-   * 
+   *
    * @throws FitsConfigurationException If there is a problem configuring FITS.
    */
   public Fits() throws FitsConfigurationException {
@@ -120,7 +112,7 @@ public class Fits {
 
   /**
    * Constructor with path to alternate FITS_HOME.
-   * 
+   *
    * @param fits_home Full path to home directory of FITS installation.
    *        NOTE: If FITS_HOME set as environment variable this argument has no effect.
    * @throws FitsConfigurationException If there is a problem configuring FITS.
@@ -131,7 +123,7 @@ public class Fits {
 
   /**
    * Constructor with alternate FITS_HOME and alternate FITS configuration file.
-   * 
+   *
    * @param fits_home Full path to home directory of FITS installation.
    *        NOTE: If FITS_HOME set as environment variable this argument has no effect.
    * @param fitsXmlConfig File containing FITS configuration.
@@ -147,7 +139,7 @@ public class Fits {
         FITS_HOME = fits_home;
       }
     }
-    
+
     setFitsVersionFromFile();
 
     FITS_XML_DIR = FITS_HOME + "xml" + File.separator;
@@ -194,7 +186,7 @@ public class Fits {
     // Even if set, reset logging System property to ensure it's in a URI format
     // with scheme so the log4j framework can initialize.
     System.setProperty( "log4j.configuration", log4jUri.toString());
- 
+
     logger = Logger.getLogger( this.getClass() );
     logger.info("Logging initialized with: " + log4jUri.toString());
     try {
@@ -307,12 +299,12 @@ public class Fits {
 
     System.exit( 0 );
   }
-  
+
   /*
    * Called from either main() for stand-alone application usage or constructor
    * when used by another program, this reads the properties file containing the
    * current version of FITS.
-   * 
+   *
    * Precondition of this method is that the static FITS_HOME has been set via
    * an environment variable, being passed into a constructor, or is just the current directory.
    */
@@ -329,7 +321,7 @@ public class Fits {
       if ( !StringUtils.isEmpty(FITS_HOME) ) {
           versionPropFileFullPath = FITS_HOME;
       }
-      
+
       File versionFile = new File( versionPropFileFullPath + VERSION_PROPERTIES_FILE );
       Properties versionProps = new Properties();
       try {
@@ -345,7 +337,7 @@ public class Fits {
 
   /**
    * Recursively processes all files in the directory.
-   * 
+   *
    * @param intputFile
    * @param useStandardSchemas
    * @throws IOException
@@ -356,17 +348,17 @@ public class Fits {
 		if(inputDir.listFiles() == null) {
 			return;
 		}
-		
+
 		logger.info("Processing directory " + inputDir.getAbsolutePath());
-		
+
 		for (File f : inputDir.listFiles()) {
 
 			if(f == null || !f.exists() || !f.canRead()) {
 				continue;
 			}
-			
+
 			logger.info("processing " + f.getPath());
-			
+
 			if (f.isDirectory() && traverseDirs) {
 				doDirectory(f, outputDir, useStandardSchemas, standardCombinedFormat);
 			} else if (f.isFile()) {
@@ -398,7 +390,7 @@ public class Fits {
   /**
    * processes a single file and outputs to the provided output location.
    * Outputs to standard out if outputLocation is null
-   * 
+   *
    * @param inputFile
    * @param outputLocation
    * @param useStandardSchemas
@@ -615,11 +607,11 @@ public class Fits {
 
     return result;
   }
-  
+
   /**
    * Default is that the output of each tool is reset after gathering the results
    * in the examine() method. This method should only be used for testing purposes.
-   * 
+   *
    * @param resetToolOutput <code>false</code> will change default functionality of
    * 		resetting each tool's output after running examine().
    * @see edu.harvard.hul.ois.fits.tools.Tool#resetOutput()

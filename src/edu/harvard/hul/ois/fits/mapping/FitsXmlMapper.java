@@ -1,21 +1,13 @@
-/* 
- * Copyright 2009 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
 package edu.harvard.hul.ois.fits.mapping;
 
 import java.io.IOException;
@@ -35,21 +27,21 @@ import edu.harvard.hul.ois.fits.tools.Tool;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 
 public class FitsXmlMapper {
-	
+
 	public static final String FITS_XML_MAP_PATH = Fits.FITS_XML_DIR+"fits_xml_map.xml";
 	private List<ToolMap> toolMaps = new ArrayList<ToolMap>();
     private static Logger logger = Logger.getLogger(FitsXmlMapper.class);
-	
+
 	public FitsXmlMapper() throws JDOMException, IOException {
 		 SAXBuilder saxBuilder = new SAXBuilder();
-		 Document doc = saxBuilder.build(FITS_XML_MAP_PATH);	
-		 List<Element> tElements = doc.getRootElement().getChildren("tool");		 
+		 Document doc = saxBuilder.build(FITS_XML_MAP_PATH);
+		 List<Element> tElements = doc.getRootElement().getChildren("tool");
 		 for(Element tElement : tElements) {
 			 ToolMap xmlMap = new ToolMap(tElement);
 			 toolMaps.add(xmlMap);
 		 }
 	}
-	
+
 	public Document applyMap(Tool tool,Document doc) {
 		//apply mapping
 		ToolMap map = getElementMapsForTool(tool.getToolInfo());
@@ -74,13 +66,13 @@ public class FitsXmlMapper {
 		}
 		return doc;
 	}
-	
+
 	private void doMapping(ToolMap map_t, Element element, String mime) {
 		List<Element> children = element.getChildren();
 		for(Element element2 : children) {
 			doMapping(map_t, element2,mime);
 		}
-		
+
 		//get the maps for the element name in the given tool maps for the provided mime type
 		ElementMap map_e = map_t.getXmlMapElement(element.getName(), mime);
 		if(map_e != null) {
@@ -102,7 +94,7 @@ public class FitsXmlMapper {
 			}
 		}
 	}
-	
+
 	private ToolMap getElementMapsForTool(ToolInfo tInfo) {
 		for(ToolMap map : toolMaps) {
 			String tName = map.getToolName();

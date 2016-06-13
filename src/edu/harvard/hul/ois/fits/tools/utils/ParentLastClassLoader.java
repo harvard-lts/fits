@@ -1,21 +1,13 @@
-/* 
- * Copyright 2015 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
 package edu.harvard.hul.ois.fits.tools.utils;
 
 import java.net.URL;
@@ -34,24 +26,24 @@ import org.slf4j.LoggerFactory;
  * class names and packages to be loaded by the parent loader first. Any class that either matches one of
  * these names or is a member of one of these packages is delegated to the parent class loader.
  * This allows for avoiding a ClassCastException when casting classes loaded from different class loaders.
- * 
+ *
  * A use case is where this class loader loads an interface and a class that it implements. If this class
  * is passed to a thread loaded by the system class loader and is then cast to the same-named interface
  * loaded by the system class loader, there will be a ClassCastException. By attempting to load the interface
  * listed in the "exclusion list" of this custom class loader it will instead be loaded from the system
  * class loader. As a result the class can then be cast to the interface contained within the thread loaded
  * by the system class loader.
- * 
+ *
  * Note: All logging statements are wrapped in a check to see if logging is enabled since this class is used
  * intensively. Even if a logging level is not enabled the full String that *would* be logged needs to be created
  * anyway causing unnecessary CPU load.
- * 
+ *
  * @author David Neiman
  */
 public class ParentLastClassLoader extends ClassLoader {
-	
+
     private static final Logger logger = LoggerFactory.getLogger( ParentLastClassLoader.class );
-    
+
     private static List<String> loadByParentClassLoader;
 	private ChildClassLoader childClassLoader;
 
@@ -65,11 +57,11 @@ public class ParentLastClassLoader extends ClassLoader {
 		loadByParentClassLoader.add("org.w3c");
 		loadByParentClassLoader.add("org.jdom");
 	}
-	
+
 	/**
 	 * Construct this class loader with the list of URL's which will be searched
 	 * first for loading classes and resources.
-	 * 
+	 *
 	 * @param classpathUrls List of URL's.
 	 */
 	public ParentLastClassLoader(List<URL> classpathUrls){
@@ -95,7 +87,7 @@ public class ParentLastClassLoader extends ClassLoader {
 			return super.loadClass(name, resolve);
 		}
 	}
-	
+
 	@Override
 	 public URL getResource(String name) {
 		// Attempt to load resource locally first.
@@ -106,10 +98,10 @@ public class ParentLastClassLoader extends ClassLoader {
 		}
 		return url;
 	}
-	
+
 	// Class that wraps URLClassLoader so as to check locally first rather than parent first.
 	private static class ChildClassLoader extends URLClassLoader {
-		
+
 		private DetectClass realParent;
 
 		private ChildClassLoader(URL[] urls, DetectClass realParent) {
@@ -131,7 +123,7 @@ public class ParentLastClassLoader extends ClassLoader {
 					}
 					return clazz;
 				}
-				
+
 				// See if class has already been loaded
 				if (logger.isTraceEnabled()) {
 					logger.trace(" findLoadedClass(name) to see if class already loaded: " + name);
@@ -143,7 +135,7 @@ public class ParentLastClassLoader extends ClassLoader {
 					}
 					return loaded;
 				}
-				
+
 				// Not already loaded so attempt to load.
 				String superClassLoaderName = super.getClass().getSimpleName();
 				if (logger.isTraceEnabled()) {
@@ -167,7 +159,7 @@ public class ParentLastClassLoader extends ClassLoader {
 				return clazz;
 			}
 		}
-		
+
 		@Override
 		public URL findResource(String name) {
 			URL url = super.findResource(name);
@@ -188,7 +180,7 @@ public class ParentLastClassLoader extends ClassLoader {
 
 	// Wrapper for parent class loader.
 	private static class DetectClass extends ClassLoader {
-		
+
 		private DetectClass(ClassLoader parent) {
 			super(parent);
 		}
@@ -198,7 +190,7 @@ public class ParentLastClassLoader extends ClassLoader {
 			return super.findClass(name);
 		}
 	}
-	
+
 	// check if class name begins with any of the package names in "exclusion" list
 	private static boolean beginsWith(String className) {
 		boolean isContained = false;
