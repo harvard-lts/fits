@@ -213,12 +213,29 @@
 					</xsl:when>						
 					<!--  XML -->
 					<xsl:when test="$mime='application/xml'">
-						<xsl:attribute name="format">
-						  	<xsl:if test="$format='XML  document text'">
+						<!-- test if format contains: XML VERSION* SOMETHING,* ELSE* -->
+						<!-- whereas: * is optional --> 
+						<!-- version <= file-5.24 example: XML document text -->
+						<!-- version >= file-5.25 example: XML 1.0 document, ASCII text -->
+						<xsl:analyze-string select="$format" regex="XML ([\d\.]*).*">
+						    <xsl:matching-substring>
+							<xsl:attribute name="format">
 								<xsl:value-of select="string('Extensible Markup Language')"/>
+							</xsl:attribute>
+							<!-- test if there is a version string -->
+							<xsl:if test="regex-group(1) != ''">
+								<version>
+									<xsl:value-of select="regex-group(1)"/>
+								</version>
 							</xsl:if>
-						</xsl:attribute>				
-					</xsl:when>	
+						    </xsl:matching-substring>
+						    <xsl:non-matching-substring>
+							<xsl:attribute name="format">
+								<xsl:value-of select="$format" />
+							</xsl:attribute>
+						    </xsl:non-matching-substring>
+						</xsl:analyze-string>
+					</xsl:when>
 					<!--  HTML -->
 					<xsl:when test="$mime='text/html'">
 						<xsl:attribute name="format">
