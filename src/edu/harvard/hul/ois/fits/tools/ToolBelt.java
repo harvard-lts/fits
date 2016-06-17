@@ -1,21 +1,13 @@
-/* 
- * Copyright 2009 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
 package edu.harvard.hul.ois.fits.tools;
 
 
@@ -35,29 +27,29 @@ import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 import edu.harvard.hul.ois.fits.tools.utils.ParentLastClassLoader;
 
 public class ToolBelt {
-	
+
 	// Represent the URL of the fit.jar file (or class directory) where this file lives.
 	// This is used for building custom class loaders representing all FITS class files.
 	private URL fitsUrl;
-	
+
     private static Logger logger = Logger.getLogger(ToolBelt.class);
-    
+
     /** The representation of one tools-used element in the config file */
     public class ToolsUsedItem {
         public List<String> extensions;
         public List<String> toolNames;
-        
+
         public ToolsUsedItem (List<String> exts, List<String> tools) {
             extensions = exts;
             toolNames = tools;
         }
     }
-    
+
 	private List<Tool> tools;
-	
+
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param configFile Full path to and including name of FITS configuration file.
 	 * @throws FitsConfigurationException If there is a problem reading or parsing the configuration file.
 	 */
@@ -73,25 +65,25 @@ public class ToolBelt {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param config XMLConfiguration of FITS configuration file.
 	 */
 	public ToolBelt(XMLConfiguration config) {
 		init(config);
 	}
-	
+
 	/*
 	 * Common initialization of all constructors.
 	 */
 	private void init(XMLConfiguration config) {
-		
+
 		fitsUrl = getClass().getProtectionDomain().getCodeSource().getLocation();
-	
+
 		// Collect the tools-used elements
 		List<ToolsUsedItem> toolsUsedList = processToolsUsed(config);
-		
+
 		tools = new ArrayList<Tool>();
-		
+
 		// get number of tools
 		int size = config.getList("tools.tool[@class]").size();
 		ClassLoader savedClassLoader = ToolBelt.class.getClassLoader();
@@ -120,27 +112,27 @@ public class ToolBelt {
 
 				logger.debug("Will attempt to load class: " + tClass + " -- with ClassLoader: " + toolClassLoader.getClass().getName());
 				Class<?> toolClass = Class.forName(tClass, true, toolClassLoader);
-				
+
 				// Looooong debugging block if using custom class loader
 				// verify the tool's class loader is the custom one and that it's class loader has
 				// loaded the Tool interface from the main class loader so it can be cast here to Tool
 				if (toolClassLoader != savedClassLoader && logger.isTraceEnabled()) { // yes, we want an this type of exact equals comparison
 					ClassLoader tcl = toolClass.getClassLoader();
 					logger.trace("Specific tool: " + tClass + " -- ClassLoader: " + tcl);
-					
+
 					// Tool interface loaded from custom class loader
 					Class<?> toolInterfaceCustomClassLoader = Class.forName("edu.harvard.hul.ois.fits.tools.Tool", true, tcl);
 					logger.trace("Tool ClassLoader via custom class loader: " + toolInterfaceCustomClassLoader.getClassLoader());
-					
+
 					// Tool interface loaded from system class loader which will be used for casting immediately below.
 					Class<?> toolInterfaceClass = Tool.class.getClassLoader().loadClass(Tool.class.getName());
 					logger.trace("Tool ClassLoader " + Tool.class.getName() + " -- ClassLoader: " + Tool.class.getClassLoader());
-					
+
 					// verify that specific tool from custom class loader can be assigned to Tool
 					boolean isAssignable = toolInterfaceClass.isAssignableFrom(toolClass);
 					logger.trace("Tool from custom ClassLoader isAssignableFrom(toolClass): " + isAssignable);
 				}
-				
+
 				Tool t = (Tool)toolClass.newInstance();
 
 				if(t != null) {
@@ -162,8 +154,8 @@ public class ToolBelt {
 			    // Can't use this tool, but continue anyway.
 				//throw new FitsConfigurationException("Error initializing "+tClass,e);
 			    logger.error ("Thread "+Thread.currentThread().getId() +
-			    				" error initializing " + tClass +  
-			    				": " + ex.getClass().getName() + 
+			    				" error initializing " + tClass +
+			    				": " + ex.getClass().getName() +
 			    				"  Message: " + ex.getMessage(), ex);
 			    continue;
 			} finally {
@@ -174,11 +166,11 @@ public class ToolBelt {
 			}
 		}
 	}
-	
+
 	public List<Tool> getTools() {
 		return tools;
 	}
-	
+
 	public void printToolInfo(boolean includeSysInfo) {
 		if(includeSysInfo) {
 			//system info
@@ -187,13 +179,13 @@ public class ToolBelt {
 			logger.info("OS Version = "+System.getProperty("os.version"));
 			logger.info("------------------------------------");
 		}
-		
+
 		for(Tool t : tools) {
 			logger.info(t.getToolInfo().print());
 		}
 
 	}
-	
+
 	/* Process the tools-used elements and return a list of
 	 * ... something */
 	private List<ToolsUsedItem> processToolsUsed (XMLConfiguration config) {
@@ -208,27 +200,27 @@ public class ToolBelt {
 	    }
 	    return results;
 	}
-	
-	/* Extract the last component of the class name to use as the 
+
+	/* Extract the last component of the class name to use as the
 	 * tool's name field */
 	private String bareClassName(String cname) {
 	    int n = cname.lastIndexOf(".");
 	    return cname.substring(n + 1);
 	}
-	
+
 	/*
 	 * Create a custom class loader specifically for a set of resources as designated by a list of directories
 	 * which are specified for each tool in fits.xml. If the parameter is null or empty OR
 	 * there are no resources within any of the list of given directories then this method will return null.
-	 * 
+	 *
 	 * @return custom class loader ONLY if JAR files in tool-specific lib directory; <code>null</code> otherwise.
 	 */
 	private ClassLoader createClassLoader(List<String> classpathDirs) throws MalformedURLException {
-		
+
 		if (classpathDirs == null || classpathDirs.isEmpty()) {
 			return null;
 		}
-		
+
 		// collect all files from all specified directories
 		List<URL> directoriesUrls = new ArrayList<URL>();
 		for (String dir : classpathDirs) {
@@ -241,35 +233,35 @@ public class ToolBelt {
 			}
 			directoriesUrls.addAll( urls );
 		}
-		
+
 		// If nothing returned from directories then return null; Don't create ClassLoader if nothing to load.
 		if (directoriesUrls.isEmpty()) {
 			return null;
 		}
-		
+
 		// Create list of resources for custom ClassLoader.
-		List<URL> classLoaderUrls = new ArrayList<URL>();		
+		List<URL> classLoaderUrls = new ArrayList<URL>();
 		// Must always add FITS classes first
 		classLoaderUrls.add(fitsUrl);
 		// add all other resources next
 		classLoaderUrls.addAll(directoriesUrls);
 		logger.debug("URL's" + classLoaderUrls);
-		
+
 		final ParentLastClassLoader cl = new ParentLastClassLoader(classLoaderUrls);
 
 		return cl;
 	}
-	
+
 	/*
 	 * Recursive method to create a list of URL's of all files in a directory and all of its sub-directories.
 	 * All files that end in ".txt" or begin with "." will be ignored. Also, simple directory URL's will not be added.
 	 */
 	private List<URL> gatherClassLoaderUrls(List<URL> urls, String rootDir) throws MalformedURLException {
-		
+
 		if (urls == null) {
 			urls = new ArrayList<URL>();
 		}
-		
+
 		File dirFile = getFileFromName(rootDir);
 		File[] directoryListing = dirFile.listFiles();
 		if (directoryListing != null) {
@@ -278,7 +270,7 @@ public class ToolBelt {
 				if (file.isDirectory()) {
 					gatherClassLoaderUrls(urls, rootDir + File.separator + file.getName());
 					logger.debug("finished with directory: " + file.getAbsolutePath());
-					
+
 				} else if (!file.exists() || !file.isFile() || !file.canRead() ||
 						file.getName().endsWith(".txt") ||file.getName().startsWith(".", 0)) {
 					// ignoring any .txt files -- used as placeholder for directories, OSX .DS_Store, etc.
@@ -290,15 +282,14 @@ public class ToolBelt {
 		}
 		return urls;
 	}
-	
-	/* 
+
+	/*
 	 * Creates and returns a File object from a full path to a directory (or file).
 	 */
 	private File getFileFromName(String dirName) throws MalformedURLException {
-		
+
 		String fullPathPrefix = StringUtils.isEmpty(Fits.FITS_HOME) ? "" : Fits.FITS_HOME + File.separator;
 		File dirFile = new File(fullPathPrefix + dirName);
 		return dirFile;
 	}
 }
-

@@ -1,30 +1,12 @@
-/**********************************************************************
- * Copyright (c) 2015 by the President and Fellows of Harvard College
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
- * USA.
- *
- * Contact information
- *
- * Office for Information Systems
- * Harvard University Library
- * Harvard University
- * Cambridge, MA  02138
- * (617)495-3724
- * hulois@hulmail.harvard.edu
- **********************************************************************/
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
 
 package edu.harvard.hul.ois.fits;
 
@@ -54,13 +36,13 @@ import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlDateFormat;
  *  ots-schemas.jar (or the OTS-Schemas project in Eclipse) has to be on the build path
  *  for this to compile. */
 public class XmlContentConverter {
-	
+
 	private static List<String> docMdNames;
-	
+
 	private static final Logger logger = Logger.getLogger(XmlContentConverter.class);
 
 	private static final Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
-	
+
 	static {
     	// collect names of DocumentMD enums
 		docMdNames = new ArrayList<String>(DocumentMDElement.values().length);
@@ -68,14 +50,14 @@ public class XmlContentConverter {
 			docMdNames.add(elem.getName());
 		}
 	}
-    
+
     /** Converts an image element to a MIX object
-     * 
+     *
      *  @param  fitsImage   an image element in the FITS schema
      */
     public XmlContent toMix (Element fitsImage, Element fileinfo) {
         MixModel mm = new MixModel ();
-        
+
         for (ImageElement fitsElem : ImageElement.values()) {
         	try {
                 String fitsName = fitsElem.getName ();
@@ -95,7 +77,7 @@ public class XmlContentConverter {
                         dblValue = Double.parseDouble (dataValue);
                     }
                     catch (NumberFormatException e) {}
-                    Rational ratValue = null; 
+                    Rational ratValue = null;
                     if (intValue != null) {
                         ratValue = new Rational (intValue, 1);
                     }
@@ -110,7 +92,7 @@ public class XmlContentConverter {
                     	}
                     	catch (NumberFormatException e) {}
                     }
-                    
+
                     // This is a very long switch, but I don't think much would be gained
                     // by breaking out each case into a separate processing function.
                     switch (fitsElem) {
@@ -176,7 +158,7 @@ public class XmlContentConverter {
                             if (intValue != null) {
                                 if (fitsElem == ImageElement.qualityLayers)
                                     mm.eo.setQualityLayers(intValue);
-                                else 
+                                else
                                     mm.eo.setResolutionLevels(intValue);
                             }
                         }
@@ -214,7 +196,7 @@ public class XmlContentConverter {
                         mm.cm.setColormapReference(dataValue);
                         break;
                     case grayResponseCurve:
-                        // If FITS gives us anything it will be just one number, not the whole curve. 
+                        // If FITS gives us anything it will be just one number, not the whole curve.
                         // We're best off ignoring it rather than putting defective
                         // data into MIX.
                         break;
@@ -280,14 +262,14 @@ public class XmlContentConverter {
                         break;
                     case scanningSoftwareName:
                     case scanningSoftwareVersionNo:
-                        if (fitsElem == ImageElement.scanningSoftwareName) 
+                        if (fitsElem == ImageElement.scanningSoftwareName)
                             mm.sss.setScanningSoftwareName(dataValue);
                         else
                             mm.sss.setScanningSoftwareVersionNo (dataValue);
                         mm.attachScanningSystemSoftware();
                         break;
-                    
-                     
+
+
                     case digitalCameraManufacturer:
                     	mm.dcc.setDigitalCameraManufacturer(dataValue);
                     	break;
@@ -561,8 +543,8 @@ public class XmlContentConverter {
             	logger.error("Invalid MIX content for element [" + fitsElem + "]: " + e.getMessage ());
             }
         }//end of for loop
-            
-            
+
+
        try {
             if(fileinfo != null) {
             	Element created = fileinfo.getChild (ImageElement.created.toString(),ns);
@@ -583,12 +565,12 @@ public class XmlContentConverter {
        catch (XmlContentException e) {
     	   logger.error("Invalid MIX content: " + e.getMessage ());
        }
-            
+
         return mm.mix;
     }
 
     /**
-     * Converts a document element to a DocumentMD object 
+     * Converts a document element to a DocumentMD object
      * @param  fitsDoc   a document element in the FITS schema
      */
     public XmlContent toDocumentMD(Element fitsDoc) {
@@ -689,8 +671,8 @@ public class XmlContentConverter {
         }
         return dm.docMD;
     }
-    
-    /** Converts a text element to a TextMD object 
+
+    /** Converts a text element to a TextMD object
      *  @param  fitsText   a text element in the FITS schema
      */
     public XmlContent toTextMD (Element fitsText) {
@@ -712,19 +694,19 @@ public class XmlContentConverter {
                     tm.ci.setCharset(dataValue.toUpperCase());
                     break;
                 case markupBasis:
-                    tm.attachMarkupBasis (); 
+                    tm.attachMarkupBasis ();
                     tm.mb.setValue(dataValue);
                     break;
                 case markupBasisVersion:
-                    tm.attachMarkupBasis (); 
+                    tm.attachMarkupBasis ();
                     tm.mb.setVersion(dataValue);
                     break;
                 case markupLanguage:
-                    tm.attachMarkupLanguage (); 
+                    tm.attachMarkupLanguage ();
                     tm.ml.setValue(dataValue);
                     break;
                 case markupLanguageVersion:
-                    tm.attachMarkupLanguage (); 
+                    tm.attachMarkupLanguage ();
                     tm.ml.setVersion(dataValue);
                     break;
                 }
@@ -733,53 +715,53 @@ public class XmlContentConverter {
 	        	logger.error("Invalid content: " + e.getMessage ());
 	        }
         }//end for
-            
+
         return tm.textMD;
     }
-    
+
     /**
      * Converts a audio element into a AudioObject AES object
      * @param fitsAudio	an audio element in the FITS schema
      */
     public XmlContent toAES (FitsOutput fitsOutput,Element fitsAudio) {
         AESModel aesModel = null;
-        
+
     	try {
 			aesModel = new AESModel ();
 		} catch (XmlContentException e2) {
 			logger.error("Invalid content: " + e2.getMessage ());
 		}
-    	
+
     	String filename = fitsOutput.getMetadataElement("filename").getValue();
-    	
-    	
+
+
     	FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
     	String version = null;
     	if(fitsIdent.getFormatVersions().size() > 0) {
     		version = fitsIdent.getFormatVersions().get(0).getValue();
     	}
-    	
+
     	try {
 			aesModel.setFormat(fitsIdent.getFormat(),version);
 		} catch (XmlContentException e1) {
 			logger.error("Invalid content: " + e1.getMessage ());
 		}
-    	
+
     	aesModel.aes.getPrimaryIdentifier().setText(new File(filename).getName());
-    	
+
     	int sampleRate = 0;
     	int channelCnt = 0;
     	long numSamples = 0;
     	String duration = "0";
     	String timeStampStart = "0";
-    	
+
         for (AudioElement fitsElem : AudioElement.values()) {
             try {
                 String fitsName = fitsElem.getName ();
                 Element dataElement = fitsAudio.getChild (fitsName,ns);
                 if (dataElement == null)
                     continue;
-                String dataValue = dataElement.getText().trim();                
+                String dataValue = dataElement.getText().trim();
                 switch (fitsElem) {
                 case duration:
                 	duration = dataValue;
@@ -840,11 +822,11 @@ public class XmlContentConverter {
                 case codecCreatorApplication:
                 	aesModel.setCodecCreatorApplication(dataValue);
                 	break;
-                case codecCreatorApplicationVersion: 
+                case codecCreatorApplicationVersion:
                 	aesModel.setCodecCreatorApplicationVersion(dataValue);
                 	break;
                 }
-                
+
             }
             catch (XmlContentException e) {
                 logger.error("Invalid content: " + e.getMessage ());
@@ -860,10 +842,10 @@ public class XmlContentConverter {
 		} catch (XmlContentException e) {
 			logger.error("Invalid content: " + e.getMessage ());
 		}
-    	
+
         return aesModel.aes;
     }
-    
+
     /**
      * Converts a video element into a VideoObject ??? object
      * @param fitsVideo		a video element in the FITS schema
@@ -871,24 +853,24 @@ public class XmlContentConverter {
     public XmlContent toEbuCoreVideo (FitsOutput fitsOutput,Element fitsVideo) {
 
     	EbuCoreModel ebucoreModel = null;
-    	
+
     	String framerate = "NOT_SET";
     	String timecode = "NOT_SET";
 
     	try {
     		ebucoreModel = new EbuCoreModel();
     		List<Element> videoElemList = fitsVideo.getContent();
-    		
+
     		String mimeType = null;
 
     		// Walk through all of the elements and process them
     		for(Element elem : videoElemList) {
     			String fitsName = elem.getName ();
-    			
+
     	    	// Ebucore can only be generated from MediaInfo output
     	    	if(!isMediaInfoTool(fitsName, elem))
     	    		return null;
-    	    	
+
     	    	// Set mime type - MXF codec generation needs it
     	    	if(fitsName.equals("mimeType")) {
     	    		mimeType = elem.getValue();
@@ -909,7 +891,7 @@ public class XmlContentConverter {
     		   					if (!StringUtils.isEmpty(dataValue)) {
             			    		framerate = dataValue;
     		   					}
- 			    			
+
     			    		}
 
     						ebucoreModel.createVideoFormatElement(elem, ns, mimeType);
@@ -917,13 +899,13 @@ public class XmlContentConverter {
     					} // video format
 
     					// Audio Format
-    					else if (type.toLowerCase().equals("audio")) {                			
+    					else if (type.toLowerCase().equals("audio")) {
     						ebucoreModel.createAudioFormatElement(elem, ns);
     					}  // audio format
-    				} 
+    				}
     			}  // track
     			else {
-    				
+
     				// Set the timecode
     				if(fitsName.equals("timecodeStart")) {
     					String dataValue = elem.getText().trim();
@@ -931,16 +913,16 @@ public class XmlContentConverter {
     						timecode = dataValue;
     					}
     				}
-   				
+
     				// Process Elements directly off the root of the Format Element
     				ebucoreModel.createFormatElement(fitsName, elem);
     			}
 
-    		}  // for(Element elem : trackList)  
-    		
+    		}  // for(Element elem : trackList)
+
 			// Process Elements directly off the root of the Format Element
 			ebucoreModel.
-			createStart(timecode, framerate);    		
+			createStart(timecode, framerate);
 
     	} catch (XmlContentException e) {
     		logger.error("Invalid content: " + e.getMessage ());
@@ -948,26 +930,26 @@ public class XmlContentConverter {
 
     	return ebucoreModel.ebucoreMain;
     } // toEbuCoreVideo
-    
+
     boolean isMediaInfoTool(String fitsName, Element elem) {
-    	
+
     	// Ebucore can only be generated from MediaInfo output
 		Attribute toolNameAttr = elem.getAttribute("toolname");
     	String toolName = toolNameAttr.getValue();
     	if(!toolName.equalsIgnoreCase("mediainfo"))
     		return false;
-    	
+
     	return true;
     }
-    
+
     /* an enumeration for mapping symbols to FITS audio element names */
     public enum AudioElement {
        	//samplingRate ("samplingRate"),
-       	//sampleSize ("sampleSize"),       	
+       	//sampleSize ("sampleSize"),
     	//bitRate ("bitRate"),
-    	//bitRateMode ("bitRateMode"),    	
-    	//channels ("channels"); 
-       	
+    	//bitRateMode ("bitRateMode"),
+    	//channels ("channels");
+
     	bitsPerSample ("bitsPerSample"),
     	duration ("duration"),
     	bitDepth ("bitDepth"),
@@ -986,18 +968,18 @@ public class XmlContentConverter {
         codecNameVersion ("codecNameVersion"),
         codecCreatorApplication ("codecCreatorApplication"),
         codecCreatorApplicationVersion ("codecCreatorApplicationVersion");
-    	
+
     	private String name;
-        
+
     	private AudioElement(String name) {
             this.name = name;
         }
-        
+
         public String getName() {
             return name;
         }
     }
-    
+
     /* An enumeration for mapping symbols to FITS image element names. */
     public enum ImageElement {
         byteOrder ("byteOrder"),
@@ -1098,19 +1080,19 @@ public class XmlContentConverter {
         digitalCameraModelSerialNo("digitalCameraModelSerialNo"),
         digitalCameraManufacturer("digitalCameraManufacturer"),
         created("created");
-        
+
         private String name;
-        
+
         private ImageElement(String name) {
             this.name = name;
         }
-        
+
         public String getName() {
             return name;
         }
     }
-    
-    
+
+
     /* An enumeration for mapping symbols to FITS text metadata element names. */
     public enum TextMDElement {
         linebreak ("linebreak"),
@@ -1166,26 +1148,26 @@ public class XmlContentConverter {
             return name;
         }
     }
-    
+
     /* an enumeration for mapping symbols to FITS audio element names */
     public enum AudioFormatElement {
        	samplingRate ("samplingRate"),
-       	sampleSize ("sampleSize"),       	
+       	sampleSize ("sampleSize"),
     	bitRate ("bitRate"),
-    	bitRateMode ("bitRateMode"),    	
-    	channels ("channels"); 
-    	
+    	bitRateMode ("bitRateMode"),
+    	channels ("channels");
+
     	private String name;
-        
+
     	private AudioFormatElement(String name) {
             this.name = name;
         }
-        
+
         public String getName() {
             return name;
         }
     }
-    
+
     /*
      * Parse an elements value
      */

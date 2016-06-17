@@ -1,21 +1,14 @@
-/* 
- * Copyright 2009 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
+
 package edu.harvard.hul.ois.fits.tools.ffident;
 
 import java.io.File;
@@ -39,11 +32,11 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
  *  Uses tools/ffident/formats.txt
  */
 public class FFIdent extends ToolBase {
-	
+
     private final static String TOOL_NAME = "ffident";
     private final static String TOOL_VERSION = "0.2";
     private final static String TOOL_DATE = "2005-10-21";
-            
+
 	private FormatIdentification identifier = null;
 	public final static String xslt =Fits.FITS_XML_DIR+"/ffident/ffident_to_fits.xslt";
 	private boolean enabled = true;
@@ -54,15 +47,15 @@ public class FFIdent extends ToolBase {
 
         logger.debug ("Initializing FFIdent");
 		info = new ToolInfo(TOOL_NAME, TOOL_VERSION, TOOL_DATE);
-		
+
 		try {
 			File config = new File(Fits.FITS_TOOLS_DIR+"ffident/formats.txt");
 			identifier = new FormatIdentification(config.getPath());
 		} catch (FileNotFoundException e) {
 			throw new FitsToolException(Fits.FITS_TOOLS_DIR+"ffident/formats.txt could not be found",e);
-		} 
+		}
 	}
-	
+
 	public ToolOutput extractInfo(File file) throws FitsToolException {
 	    logger.debug ("FFIdent.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
@@ -83,21 +76,21 @@ public class FFIdent extends ToolBase {
         logger.debug ("FFIdent.extractInfo finished on " + file.getName());
 		return output;
 	}
-	
-   private Document createXml(FormatDescription desc) throws FitsToolException {    	
+
+   private Document createXml(FormatDescription desc) throws FitsToolException {
     	StringWriter out = new StringWriter();
-    	
+
     	String shortname;
     	String longname;
     	String group;
     	List<String> mimetypes = new ArrayList<String>();
-    	List<String> exts = new ArrayList<String>(); 
-    	
+    	List<String> exts = new ArrayList<String>();
+
     	if(desc == null) {
     		shortname = "";
     		longname = "Unknown Binary";
     		group = "";
-    		mimetypes.add("application/octet-stream");   
+    		mimetypes.add("application/octet-stream");
     	}
     	else {
     		shortname = desc.getShortName();
@@ -106,10 +99,10 @@ public class FFIdent extends ToolBase {
     		mimetypes = desc.getMimeTypes();
     		exts = desc.getFileExtensions();
     	}
-    	
+
         out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         out.write("\n");
-        out.write("<ffidentOutput>");	   
+        out.write("<ffidentOutput>");
         out.write("\n");
         out.write("  <shortName>"+shortname+"</shortName>");
         out.write("\n");
@@ -125,7 +118,7 @@ public class FFIdent extends ToolBase {
         }
         out.write("  </mimetypes>");
         out.write("\n");
-        
+
         out.write("  <fileExtensions>");
         out.write("\n");
         for(String ext : exts) {
@@ -143,23 +136,23 @@ public class FFIdent extends ToolBase {
 		    logger.debug ("Error closing ffident XML output stream: " + e.getClass().getName());
 			throw new FitsToolException("Error closing ffident XML output stream",e);
 		}
-		
+
         Document doc = null;
 		try {
 			doc = saxBuilder.build(new StringReader(out.toString()));
 		} catch (Exception e) {
 		    logger.debug("Error parsing ffident XML Output: " + e.getClass().getName());
 			throw new FitsToolException("Error parsing ffident XML Output",e);
-		} 
+		}
         return doc;
     }
-   
+
 	public boolean isEnabled() {
 		return enabled;
 	}
 
 	public void setEnabled(boolean value) {
-		enabled = value;		
+		enabled = value;
 	}
 
 }

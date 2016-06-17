@@ -1,30 +1,12 @@
-/**********************************************************************
- * Copyright (c) 2009 by the President and Fellows of Harvard College
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
- * USA.
- *
- * Contact information
- *
- * Office for Information Systems
- * Harvard University Library
- * Harvard University
- * Cambridge, MA  02138
- * (617)495-3724
- * hulois@hulmail.harvard.edu
- **********************************************************************/
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
 
 package edu.harvard.hul.ois.fits;
 
@@ -58,16 +40,16 @@ public class AESModel {
     protected TimeRange timeline;
     protected TimeRange timeRange;
     protected BitrateReduction brr;
-    
+
     protected final String audioObjectID = "AUDIO_OBJECT_"+UUID.randomUUID().toString();
     protected final String faceID = "FACE_"+UUID.randomUUID().toString();
     protected final String regionID = "REGION_"+UUID.randomUUID().toString();
     protected final String formatRegionID = "FORMAT_REGION_"+UUID.randomUUID().toString();
-	
+
 
     protected AESModel () throws XmlContentException {
-    	
-    	//set up base AES object structure    	
+
+    	//set up base AES object structure
         aes = new AudioObject (true);
         aes.setSchemaVersion("1.0.0");
         aes.setID(audioObjectID);
@@ -75,20 +57,20 @@ public class AESModel {
         Identifier ident = new Identifier("","primaryIdentifier");
         ident.setIdentifierType("FILE_NAME");
         aes.setPrimaryIdentifier(ident);
-            	
+
     	face = new Face();
     	face.setLabel("face 1");
     	face.setDirection("NONE");
     	face.setID(faceID);
     	face.setAudioObjectRef(audioObjectID);
     	aes.addFace(face);
-    	
+
     	timeline = new TimeRange("timeline");
     	EditUnitNumber startTime = new EditUnitNumber(0,"startTime");
     	startTime.setEditRate(1);
     	timeline.setStartTime(startTime);
     	face.setTimeline(timeline);
-    	
+
     	region = new FaceRegion();
     	region.setID(regionID);
     	region.setFaceRef(faceID);
@@ -98,20 +80,20 @@ public class AESModel {
     	region.setTimeRange(timeRange);
     	region.setFormatRef(formatRegionID);
     	face.addRegion(region);
-    	
+
     	formatList = new FormatList();
-    	
+
     	formatRegion = new FormatRegion(regionTypeEnum.GENERIC);
     	genericFormatRegion = (GenericFormatRegion) formatRegion.getContent();
     	genericFormatRegion.setID(formatRegionID);
     	genericFormatRegion.setOwnerRef(regionID);
     	genericFormatRegion.setLabel("format region 1");
-   
+
     	formatList.addFormatRegion(formatRegion);
     	aes.setFormatList(formatList);
-    
+
     }
-    
+
     private void initBitRateReduction() throws XmlContentException {
     	brr = new BitrateReduction();
     	brr.setCodecName("");
@@ -123,7 +105,7 @@ public class AESModel {
     	brr.setDataRateMode("FIXED");
     	genericFormatRegion.addBitrateReduction(brr);
     }
-    
+
     protected void setBitRate(String rate) throws XmlContentException {
     	if(brr == null) {
     		initBitRateReduction();
@@ -154,7 +136,7 @@ public class AESModel {
     	}
     	brr.setCodecCreatorApplicationVersion(codecCreatorAppVersion);
     }
-    
+
     /**
      * sets the timeline and timeRage startTime
      * @param time
@@ -168,7 +150,7 @@ public class AESModel {
      	//set timeRange startTime
     	timeRange.setStartTime(startTime);
     }
-    
+
     /**
      * Sets the timeline and timeRange duration
      * @param time
@@ -181,9 +163,9 @@ public class AESModel {
     	//set timeline duration
     	timeline.setDuration(duration);
     	//set timeRange duration
-    	timeRange.setDuration(duration);    	
+    	timeRange.setDuration(duration);
     }
-    
+
     private EditUnitNumber getEditUnitNumber(String time, int editRate, long numSamples, String elementName) {
     	EditUnitNumber eun = null;
     	if(editRate != 0 && numSamples != 0) {
@@ -207,12 +189,12 @@ public class AESModel {
     	}
     	return eun;
     }
-    
+
     private double timeUnitToAddress(String time) {
     	String[] parts = time.split(":");
-    	
+
     	double seconds = 0;
-    	
+
     	// hours:minutes:seconds:milliseconds
     	if(parts.length >= 3) {
 	    	//hours
@@ -234,19 +216,19 @@ public class AESModel {
     	}
     	return seconds;
     }
-    
+
     /**
      * sets bps
-     * @throws XmlContentException 
+     * @throws XmlContentException
      */
     protected void setBitDepth(int bitDepth) throws XmlContentException {
     	genericFormatRegion.setBitDepth(bitDepth);
     }
-    
+
     protected void setWordSize(int wordsize) throws XmlContentException {
     	genericFormatRegion.setWordSize(wordsize);
     }
-    
+
     protected void setNumChannels(int num) throws XmlContentException {
     	region.setNumChannels(num);
 		if (num == 1) {
@@ -259,8 +241,8 @@ public class AESModel {
 			genericFormatRegion.setSoundField("SURROUND");
 		}
     }
-    
-    
+
+
     protected void setDummyUseType() throws XmlContentException {
     	if(aes.getUses().size() == 0) {
     		Use use = new Use();
@@ -269,7 +251,7 @@ public class AESModel {
 	    	use.setOtherType("unknown");
     	}
     }
-        
+
     protected void addStream(int channelNum, double leftRightPos, double frontRearPos) throws XmlContentException {
     	Stream stream = new Stream();
     	stream.setID("STREAM_"+UUID.randomUUID().toString());
@@ -282,7 +264,7 @@ public class AESModel {
     	stream.setChannelAssignment(channelAssignment);
     	region.addStream(stream);
     }
-    
+
     protected void setFormat(String format, String version) throws XmlContentException {
     	Format formatElem = new Format(format);
     	if(version != null && version.length() > 0) {
@@ -290,11 +272,11 @@ public class AESModel {
     	}
     	aes.setFormat(formatElem);
     }
-    
+
     protected void setAudioDataEncoding(String encoding) throws XmlContentException {
     	aes.setAudioDataEncoding(encoding);
     }
-    
+
     protected void setAudioDataBlockSize(int adbs) throws XmlContentException {
     	aes.setAudioDataBlockSize(adbs);
     }

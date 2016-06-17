@@ -7,7 +7,11 @@ FITS is a Java program and requires Java version 1.7 or higher. To find out your
 
 Installation
 ------------
-Download the latest official release from our Downloads page. If this is your first time downloading FITS, create a directory for FITS, for example:
+Download the latest official release from our [Downloads](http://fitstool.org/downloads) page.
+
+**IMPORTANT NOTE**: The code on this GitHub site is not meant for direct installation since it does NOT include the necessary fits.jar file (which is a primary build artifact of this project). If you want to use this GitHub site for installing FITS, you must first download (or Git clone) the code then build the project using the Ant 'release' target.
+
+If this is your first time downloading FITS, create a directory for FITS, for example:
 
     On Windows: C:\Program Files\Fits
     On Mac OS X: /Applications/Fits
@@ -15,7 +19,7 @@ Download the latest official release from our Downloads page. If this is your fi
 
 Extract the contents of your ZIP file to your FITS directory. You should end up with a another directory under your top-level FITS directory that has a version number embedded in it, for example on Windows:
 
-    C:\Program Files\Fits\fits-0.9.0
+    C:\Program Files\Fits\fits-1.0.0
 
 Running FITS
 ------------

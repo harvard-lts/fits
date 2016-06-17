@@ -1,21 +1,13 @@
-/* 
- * Copyright 2016 Harvard University Library
- * 
- * This file is part of FITS (File Information Tool Set).
- * 
- * FITS is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * FITS is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
- */
+//
+// Copyright (c) 2016 by The President and Fellows of Harvard College
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software distributed under the License is
+// distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permission and limitations under the License.
+//
+
 package edu.harvard.hul.ois.fits.tools.oisfileinfo;
 
 import java.io.File;
@@ -34,7 +26,7 @@ import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
 /**
- * This is a class used to parse and validate VTT video caption files 
+ * This is a class used to parse and validate VTT video caption files
  */
 public class VTTTool extends ToolBase {
 
@@ -44,7 +36,7 @@ public class VTTTool extends ToolBase {
 	private static final Logger logger = Logger.getLogger(VTTTool.class);
 
 	private final static String VTT_TOOL_VERSION = "0.1";
-	private final static String VTT_IDENTIFIER = "WEBVTT";	
+	private final static String VTT_IDENTIFIER = "WEBVTT";
 
 	public VTTTool() throws FitsToolException {
 		info.setName("VTT Tool");
@@ -52,7 +44,7 @@ public class VTTTool extends ToolBase {
 		info.setDate("02/23/16");
 	}
 
-	public ToolOutput extractInfo(File file) throws FitsToolException {	
+	public ToolOutput extractInfo(File file) throws FitsToolException {
 		logger.debug("VTTTool.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
@@ -72,7 +64,7 @@ public class VTTTool extends ToolBase {
 
 			boolean isVtt = false;
 			try	{
-				
+
 				Scanner scanner = new Scanner(new FileReader(file));
 				try {
 					// Should be on the 1st line
@@ -91,7 +83,7 @@ public class VTTTool extends ToolBase {
 			catch (Exception e)	{
 				throw new FitsToolException("Error parsing VTT file", e);
 			}
-			
+
 			if(isVtt) {
 				Element identification = new Element("identification",fitsNS);
 				Element identity = new Element("identity",fitsNS);
@@ -106,14 +98,14 @@ public class VTTTool extends ToolBase {
 				root.addContent(fileInfo);
 
 				// There really isn't any metadata to set
-				// Element metadata = new Element("metadata",fitsNS);			
-				// Element textMetadata = new Element("text",fitsNS);			
-				
+				// Element metadata = new Element("metadata",fitsNS);
+				// Element textMetadata = new Element("text",fitsNS);
+
 				////add to metadata section
 				//metadata.addContent(textMetadata);
 
 				////add metadata section to root
-				//root.addContent(metadata);				
+				//root.addContent(metadata);
 			}
 
 
@@ -127,7 +119,7 @@ public class VTTTool extends ToolBase {
 	}
 
 	public void setEnabled(boolean value) {
-		enabled = value;		
+		enabled = value;
 	}
 
 }
