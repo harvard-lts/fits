@@ -280,6 +280,9 @@ public class MediaInfoUtil {
 
 		    String codecCC = getMediaInfoString(ndx, "Codec/CC",
 		    		MediaInfoNativeWrapper.StreamKind.Video);
+		    if(codecCC != null) {
+		    	codecCC = codecCC.trim();
+		    }		    
 		    addDataToMap (videoTrackValuesMap, id, "codecCC", codecCC);
 
 		    String codecName = getMediaInfoString(ndx, "Codec",
