@@ -461,6 +461,8 @@ public class Fits {
   public static void outputStandardSchemaXml( FitsOutput fitsOutput, OutputStream out ) throws XMLStreamException,
       IOException {
     XmlContent xml = fitsOutput.getStandardXmlContent();
+	FitsMetadataElement fileNameElement = fitsOutput.getMetadataElement("filename");
+	String inputFilename = fileNameElement == null ? null : fileNameElement.getValue();
 
     // create an xml output factory
     Transformer transformer = null;
@@ -498,14 +500,14 @@ public class Fits {
         out.flush();
 
       } catch (Exception e) {
-        System.err.println( "error converting output to a standard schema format" );
+        System.err.println( "error converting output to a standard schema format for input file: [" + inputFilename + "]");
       } finally {
         xmlOutStream.close();
         xsltOutStream.close();
       }
 
     } else {
-      System.err.println( "Error: output cannot be converted to a standard schema format for this file" );
+      System.err.println( "Error: output cannot be converted to a standard schema format for input file: [" + inputFilename + "]");
     }
   }
 
