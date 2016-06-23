@@ -70,4 +70,21 @@ public class FitsMetadataElement {
 		this.status = status;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("FitsMetadataElement [name=");
+		builder.append(name);
+		builder.append(", value=");
+		builder.append(value);
+		builder.append(", reportingToolName=");
+		builder.append(reportingToolName);
+		builder.append(", reportingToolVersion=");
+		builder.append(reportingToolVersion);
+		builder.append(", status=");
+		builder.append(status);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }
