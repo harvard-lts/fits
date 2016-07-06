@@ -67,8 +67,8 @@
                 </ebucore:audioChannelFormat>
               </ebucore:audioFormatExtended>                             
              <ebucore:containerFormat>
-                <ebucore:comment>Quicktime</ebucore:comment>
-                <ebucore:comment>Base Media / Version 2</ebucore:comment>
+                <ebucore:comment typeLabel="format">Quicktime</ebucore:comment>
+                <ebucore:comment typeLabel="formatProfile">Base Media / Version 2</ebucore:comment>
              </ebucore:containerFormat>
               <ebucore:duration>
                 <ebucore:editUnitNumber factorDenominator="1" factorNumerator="1" editRate="1000">4137</ebucore:editUnitNumber>

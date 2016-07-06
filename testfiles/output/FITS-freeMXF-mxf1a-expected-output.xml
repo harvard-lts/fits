@@ -85,8 +85,8 @@
               </ebucore:videoFormat>
               <ebucore:audioFormatExtended />
               <ebucore:containerFormat>
-                <ebucore:comment>Material Exchange Format (MXF)</ebucore:comment>
-                <ebucore:comment>OP-1a</ebucore:comment>
+                <ebucore:comment typeLabel="format">Material Exchange Format (MXF)</ebucore:comment>
+                <ebucore:comment typeLabel="formatProfile">OP-1a</ebucore:comment>
               </ebucore:containerFormat>
               <ebucore:start>
                 <ebucore:editUnitNumber factorDenominator="1001" factorNumerator="1000" editRate="25">0</ebucore:editUnitNumber>

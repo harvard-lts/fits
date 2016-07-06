@@ -140,8 +140,8 @@
                 </ebucore:audioChannelFormat>
               </ebucore:audioFormatExtended>              
               <ebucore:containerFormat>
-                <ebucore:comment>Quicktime</ebucore:comment>
-                <ebucore:comment>QuickTime</ebucore:comment>
+                <ebucore:comment typeLabel="format">Quicktime</ebucore:comment>
+                <ebucore:comment typeLabel="formatProfile">QuickTime</ebucore:comment>
               </ebucore:containerFormat>
               <ebucore:start>
                 <ebucore:editUnitNumber factorDenominator="1001" factorNumerator="1000" editRate="30">213657</ebucore:editUnitNumber>
