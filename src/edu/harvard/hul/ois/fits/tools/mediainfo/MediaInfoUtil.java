@@ -80,6 +80,7 @@ public class MediaInfoUtil {
                 put("dvpp", CODEC_FAMILY_DV);
 
                 put("mp2v", "MPEG-2");
+                put("m2v1", "MPEG-2");                
 
                 put("avc1", CODEC_FAMILY_H_264);
                 put("h264", CODEC_FAMILY_H_264);

@@ -425,4 +425,55 @@ public class VideoStdSchemaTestXmlUnit {
 		assertXMLIdentical("Differences in XML", diff, true);
 		
 	}
+	
+	@Test  
+	public void testVideoXmlUnitCombinedOutput_MPEG2() throws Exception {
+		
+		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov");
+		FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitCombinedOutput_MPEG2_Output.xml");
+		
+		// Output stream for FITS to write to 
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		
+		// Create combined output in the stream passed in
+		Fits.outputStandardCombinedFormat(fitsOut, out);
+		
+		// Turn output stream into a String HtmlUnit can use
+		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
+		
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+	            "testfiles/output/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1_mov_mpeg2_combined.xml"));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		// Set up XMLUnit
+		XMLUnit.setIgnoreWhitespace(true); 
+		XMLUnit.setNormalizeWhitespace(true);
+		
+		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
+
+		// Initialize attributes or elements to ignore for difference checking
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
+
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+
+		// Display any Differences
+		List<Difference> diffs = detailedDiff.getAllDifferences();
+		if (!diff.identical()) { 
+			StringBuffer differenceDescription = new StringBuffer(); 
+			differenceDescription.append(diffs.size()).append(" differences"); 
+			
+			System.out.println(differenceDescription.toString());
+			for(Difference difference : diffs) {
+				System.out.println(difference.toString());
+			}
+
+		}
+		
+		assertXMLIdentical("Differences in XML", diff, true);
+		
+	}	
 }
