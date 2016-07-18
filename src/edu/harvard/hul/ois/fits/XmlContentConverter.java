@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Element;
 import org.jdom.Namespace;
+import org.jdom.Text;
 
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.Font;
@@ -851,6 +852,26 @@ public class XmlContentConverter {
      * @param fitsVideo		a video element in the FITS schema
      */
     public XmlContent toEbuCoreVideo (FitsOutput fitsOutput,Element fitsVideo) {
+    	
+    	//
+    	// NOTE:
+    	// The FitsOutput INPUT can be one of 3 types:
+    	// 1) "FITS"
+    	// 2) "Combined" (both FITS and Standard)
+    	// 3) "Standard" (Ebucore)
+    	// ... and either contain spaces in the XML, or not
+    	//
+    	// The XmlContent object returned output will be as follows for each
+    	// input type:
+    	// 1) FITS or Combined = Standard Ebucore
+    	// 2) Standard (Ebucore) = null XmlContent Object, as the fitsOutput
+    	// does not contain elements or data which can be parsed into Ebucore.
+    	// In other words, there is no data present which can be used to 
+    	// transform the data to Ebucore because it is ALREADY Ebucore.
+    	//
+    	// TODO: - Maybe return an Ebucore-based FitsOutput based upon the
+    	// Ebucore data contained in the Standard Element for FitsOutput input
+    	// objects of type "Standard".
 
     	EbuCoreModel ebucoreModel = null;
 
@@ -859,14 +880,29 @@ public class XmlContentConverter {
 
     	try {
     		ebucoreModel = new EbuCoreModel();
-    		List<Element> videoElemList = fitsVideo.getContent();
+    		List<Object> videoElemList = fitsVideo.getContent();    		
 
     		String mimeType = null;
 
     		// Walk through all of the elements and process them
-    		for(Element elem : videoElemList) {
+    		// skipping any Text Objects
+    		for(Object obj : videoElemList) {
+    			
+    			// Skip the text object.
+    			// This is most likely due to spaces preceding the real element
+    			if(obj instanceof Text) {
+    				continue;
+    			}
+    			
+    			Element elem = (Element)obj;
     			String fitsName = elem.getName ();
-
+    			
+    			// If we have a standard element, then we are done.
+    			// We only wish to process the basic FITS output
+    			if(fitsName.equals ("standard")) {
+    				break;
+    			}
+    			
     	    	// Ebucore can only be generated from MediaInfo output
     	    	if(!isMediaInfoTool(fitsName, elem))
     	    		return null;
@@ -936,6 +972,8 @@ public class XmlContentConverter {
     	// Ebucore can only be generated from MediaInfo output
 		Attribute toolNameAttr = elem.getAttribute("toolname");
     	String toolName = toolNameAttr.getValue();
+    	if(toolName == null)  // just in case
+    		return false;
     	if(!toolName.equalsIgnoreCase("mediainfo"))
     		return false;
 
