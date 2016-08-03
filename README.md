@@ -51,6 +51,19 @@ Here are a couple examples of running FITS to get you started. These are relativ
     Output the technical metadata for FITS' release text file in the TextMD format to the terminal: fits.bat -i RELEASE.txt -x
     Output the FITS output plus technical metadata for FITS' release text file in the TextMD format to the terminal: fits.bat -i RELEASE.txt -xc
 
+Logging
+-------
+Whether using the default log4j.properties configuration file contained within the application deployment or configuring an external log4j.properties file, the default logging output file, fits.log, is configured to be written to the directory from which the FITS is launched. This can be modified by finding the following line within the log4j.properties file in the top-level directory of the FITS deployment:
+
+    log4j.appender.FILE.File = ./fits.log
+
+Modify the path to fits.log to have this log file written to a different place on the file system.
+To use a log4j.properties file external to the FITS deployment, when launching FITS add the following property to the deployment script:
+
+    -Dlog4j.configuration=/path/to/log4j.properties
+
+For more information on configuring the verboseness of logging using ERROR, WARN, INFO, DEBUG, see the [log4j site](http://logging.apache.org/log4j/1.2/)
+
 Using FITS Java API
 -------------------
 See the [Developer Manual](http://fitstool.org/developer-manual).
