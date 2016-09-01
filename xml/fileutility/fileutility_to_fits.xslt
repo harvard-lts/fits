@@ -221,11 +221,18 @@
 					</xsl:when>	
 					<!--  HTML -->
 					<xsl:when test="$mime='text/html'">
-						<xsl:attribute name="format">
-						  	<xsl:if test="$format='HTML document text'">
+						<xsl:analyze-string select="$format" regex="HTML.*?document.*">
+						    <xsl:matching-substring>
+							<xsl:attribute name="format">
 								<xsl:value-of select="string('Hypertext Markup Language')"/>
-							</xsl:if>
-						</xsl:attribute>				
+							</xsl:attribute>
+						    </xsl:matching-substring>
+						    <xsl:non-matching-substring>
+							<xsl:attribute name="format">
+								<xsl:value-of select="$format" />
+							</xsl:attribute>
+						    </xsl:non-matching-substring>
+						</xsl:analyze-string>
 					</xsl:when>	
 					<!-- RTF -->
 					<xsl:when test="contains($rawoutput,'Rich Text Format')">

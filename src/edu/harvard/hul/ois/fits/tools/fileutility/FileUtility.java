@@ -124,7 +124,7 @@ public class FileUtility extends ToolBase {
 		List<String> linebreaks = new ArrayList<String>();
 
 		//if mime indicates plain text (except if RTF files)
-		if(execMimeOut.startsWith("text/") && execMimeOut.contains("charset=") && !execOut.contains("Rich Text Format")) {
+		if(execMimeOut.startsWith("text/plain") && execMimeOut.contains("charset=") && !execOut.contains("Rich Text Format")) {
 			//mime = "text/plain";
 			mime = execMimeOut.substring(0,execMimeOut.indexOf("; charset="));
 			charset = execMimeOut.substring(execMimeOut.indexOf("=")+1);
