@@ -17,7 +17,6 @@ Windows bitmap=Windows Bitmap
 PPT=Microsoft Powerpoint Presentation
 Plain Text File=Plain text
 Scalable Vector Graphics=Scalable Vector Graphics (SVG)
-Tagged Image File Format for Internet Fax (TIFF-FX)=Tagged Image File Format
 Microsoft Excel Spreadsheet=Microsoft Excel
 Audio Video Interleave File=Audio/Video Interleaved Format
 Photoshop Image=Adobe Photoshop

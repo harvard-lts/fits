@@ -79,7 +79,7 @@ public class ToolOutput {
 		//map values and get identities from fitsXML if not null
 		if(fitsXml != null) {
 			//fitsxml doc is mapped here before identities are extracted
-			this.fitsXml = Fits.mapper.applyMap(tool,fitsXml);
+			this.fitsXml = Fits.mapper.applyMap(tool,fitsXml); // Perform any last-chance transformations/normalizations of FITS output.
 			identity = createFileIdentities(fitsXml,tool.getToolInfo());
 		}
 	}

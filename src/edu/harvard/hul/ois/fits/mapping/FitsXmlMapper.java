@@ -26,6 +26,10 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.tools.Tool;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 
+/**
+ * Transform FITS output as configured in fits_xml_map.xml. Transformations will happen only
+ * if configured in the XML file. Otherwise, the output will pass directly through without transformation.
+ */
 public class FitsXmlMapper {
 
 	public static final String FITS_XML_MAP_PATH = Fits.FITS_XML_DIR+"fits_xml_map.xml";
@@ -54,7 +58,7 @@ public class FitsXmlMapper {
 		try {
 			Element e = (Element)XPath.selectSingleNode(doc,"//identity");
 			if(e != null) {
-				mime = e.getAttributeValue("mimetype");
+				mime = e.getAttributeValue("mimetype"); // (This code is never accessed from any of the unit tests. Is it ever?)
 			}
 		} catch (JDOMException e) {
 			logger.error("Error parsing XML with XPath expression.", e);

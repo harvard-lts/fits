@@ -1,9 +1,12 @@
 <fitsXmlMap>
-
+    <!-- Case of tool name and element name does not matter; case of 'from' attribute value DOES matter. -->
 	<tool name="jhove">
 		<mime type="all">
 			<element name="colorSpace">
 				<map from="Greyscale" to="Grayscale"/>
+			</element>
+			<element name="meteringMode">
+				<map from="pattern" to="Pattern"/>
 			</element>
 		</mime>
 	</tool>

@@ -48,8 +48,10 @@ public class MixTest {
 		// Set up XMLUnit and FITS for entire class.
 		XMLUnit.setIgnoreWhitespace(true);
 		XMLUnit.setNormalizeWhitespace(true);
-		fits = new Fits();
-	}
+		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
+		fits = new Fits(null, fitsConfigFile);
+//		fits = new Fits();	// Use this instead to turn off tool output.
+		}
 	
 	@AfterClass
 	public static void afterClass() {
@@ -102,8 +104,8 @@ public class MixTest {
     
 	@Test
 	public void testMixJpg() throws Exception {	
-    	Fits fits = new Fits("");
-    	String filename = "3426592.jpg";
+
+		String filename = "3426592.jpg";
     	File input = new File("testfiles/" + filename);
     	
     	FitsOutput fitsOut = fits.examine(input);
