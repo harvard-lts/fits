@@ -95,7 +95,6 @@ public class CadTool extends ToolBase {
             //TODO: maybe this shouldn't throw an exception but instead just return some "empty" output
             throw new FitsToolException("Error running cad extractor " + extractor.getName() + " on " + filename, e);
         } catch (IOException e) {
-            e.printStackTrace();  //Printing here for debug since FitsToolExceptions don't inherit stack trace
             throw new FitsToolException("Error running cad extractor " + extractor.getName() + " on " + filename, e);
         }
 
@@ -104,7 +103,6 @@ public class CadTool extends ToolBase {
         try {
             fitsOutput = transformer.transform(toolOutput);
         } catch (JDOMException e) {
-            e.printStackTrace(); //Printing here for debug since FitsToolExceptions don't inherit stack trace
             throw new FitsToolException("Error transforming tool output to fits output", e);
         }
 
