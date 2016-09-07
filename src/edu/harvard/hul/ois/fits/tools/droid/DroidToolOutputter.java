@@ -125,10 +125,10 @@ public class DroidToolOutputter {
     		return "JPEG 2000 JP2";
     	}
     	else if(formatName.startsWith("Exchangeable Image File Format (Compressed)")) {
-    		return "Exchangeable Image File Format";
+    		return "JPEG EXIF";
     	}
     	else if(formatName.startsWith("Exchangeable Image File Format (Uncompressed)")) {
-    		return "Exchangeable Image File Format";
+    		return "TIFF EXIF";
     	}
     	else if(formatName.contains("PDF/A")) {
     		return "PDF/A";
