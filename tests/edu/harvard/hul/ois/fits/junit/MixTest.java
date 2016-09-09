@@ -32,10 +32,11 @@ import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
+import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
 
-public class MixTest {
+public class MixTest extends AbstractLoggingTest {
 
 	/*
 	 *  Only one Fits instance is needed to run all tests.
@@ -48,10 +49,11 @@ public class MixTest {
 		// Set up XMLUnit and FITS for entire class.
 		XMLUnit.setIgnoreWhitespace(true);
 		XMLUnit.setNormalizeWhitespace(true);
-		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
-		fits = new Fits(null, fitsConfigFile);
-//		fits = new Fits();	// Use this instead to turn off tool output.
-		}
+		fits = new Fits();
+		// Use this instead to turn on tool output.
+//		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
+//		fits = new Fits(null, fitsConfigFile);
+	}
 	
 	@AfterClass
 	public static void afterClass() {

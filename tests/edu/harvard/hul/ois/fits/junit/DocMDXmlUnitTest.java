@@ -38,6 +38,7 @@ import org.xml.sax.SAXException;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
+import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 
 /**
  * These tests compare actual FITS output with expected output on various word processing documents.
@@ -45,7 +46,7 @@ import edu.harvard.hul.ois.fits.FitsOutput;
  * 
  * @author dan179
  */
-public class DocMDXmlUnitTest {
+public class DocMDXmlUnitTest extends AbstractLoggingTest {
 	
 	private static final String ACTUAL_OUTPUT_FILE_SUFFIX = "_XmlUnitActualOutput.xml";
 	private static final String EXPECTED_OUTPUT_FILE_SUFFIX = "_XmlUnitExpectedOutput.xml";
@@ -501,7 +502,6 @@ public class DocMDXmlUnitTest {
 	public void testPdf() throws Exception {
 		
     	String[] inputFilenames = {"PDF_embedded_resources.pdf",
-//    			"PDF_equations.pdf", // different "font" output when running in Java 7 vs. Java 8
     			"HasChangeHistory.pdf",
     			"PDF_eng.pdf",
     			"HasAnnotations.pdf"};
