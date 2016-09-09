@@ -42,6 +42,7 @@ import org.junit.runners.Parameterized.Parameters;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsMetadataElement;
 import edu.harvard.hul.ois.fits.FitsOutput;
+import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 import edu.harvard.hul.ois.fits.tests.IgnoreAttributeValuesDifferenceListener;
 
 /*
@@ -49,7 +50,7 @@ import edu.harvard.hul.ois.fits.tests.IgnoreAttributeValuesDifferenceListener;
  */
 @Ignore
 @RunWith(value=Parameterized.class)
-public class FitsOutputXmlTest {
+public class FitsOutputXmlTest extends AbstractLoggingTest {
 	
     private FitsOutput expected;
     private FitsOutput actual;

@@ -37,8 +37,9 @@ import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
+import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 
-public class VideoStdSchemaTestXmlUnit {
+public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 	
 	private static final String[] IGNORED_XML_ELEMENTS = {
 			"version",

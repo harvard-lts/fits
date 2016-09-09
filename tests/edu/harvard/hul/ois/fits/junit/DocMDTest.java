@@ -32,6 +32,7 @@ import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
+import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 
 /**
@@ -40,7 +41,7 @@ import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
  * 
  * @author dan179
  */
-public class DocMDTest {
+public class DocMDTest extends AbstractLoggingTest {
 
 	/*
 	 *  Only one Fits instance is needed to run all tests.
@@ -441,7 +442,6 @@ public class DocMDTest {
 	public void testPdf() throws Exception {
 		
     	String[] inputFilenames = {"PDF_embedded_resources.pdf",
-    			"PDF_equations.pdf",
     			"HasChangeHistory.pdf",
     			"PDF_eng.pdf",
     			"HasAnnotations.pdf"};

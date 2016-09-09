@@ -22,7 +22,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class EbuCoreNormalizedRatioTest{
+import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
+
+public class EbuCoreNormalizedRatioTest extends AbstractLoggingTest {
 
     @Test  
 	public void testNormalAspectRatioC() throws Exception {   

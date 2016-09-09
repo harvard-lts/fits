@@ -34,8 +34,9 @@ import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
+import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 
-public class VideoStdSchemaTestXmlUnit_NoMD5 {
+public class VideoStdSchemaTestXmlUnit_NoMD5 extends AbstractLoggingTest {
 	
 	@Test  
 	public void testVideoXmlUnitFitsOutput_AVC_NO_MD5() throws Exception {

@@ -24,9 +24,10 @@ import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
+import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 import edu.harvard.hul.ois.fits.tools.Tool;
 
-public class FitsBasicAudioTest {
+public class FitsBasicAudioTest extends AbstractLoggingTest {
     
 	@Test
 	public void testFitsAudio () throws Exception {	

@@ -28,8 +28,9 @@ import org.junit.Test;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
+import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 
-public class VTTToolTest {
+public class VTTToolTest extends AbstractLoggingTest {
 
 	@Test  
 	public void testVttRead() throws Exception {   

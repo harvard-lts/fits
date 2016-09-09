@@ -34,11 +34,12 @@ import java.util.List;
 
 import org.junit.Test;
 
+import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 import edu.harvard.hul.ois.fits.tools.mediainfo.ChannelPositionParser;
 import edu.harvard.hul.ois.fits.tools.mediainfo.ChannelPositionWrapper;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
 
-public class EbucoreParseChannelPositionTest {
+public class EbucoreParseChannelPositionTest extends AbstractLoggingTest {
 	
 	// Taken and revised from a MediaInfo header file
 	private static final String[] DTS_ChannelPositions =
