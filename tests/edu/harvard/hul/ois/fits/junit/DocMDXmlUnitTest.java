@@ -52,6 +52,7 @@ public class DocMDXmlUnitTest extends AbstractLoggingTest {
 	private static final String EXPECTED_OUTPUT_FILE_SUFFIX = "_XmlUnitExpectedOutput.xml";
 	private static final String[] IGNORED_XML_ELEMENTS = {
 			"version",
+			"created",
 			"toolversion",
 			"dateModified",
 			"fslastmodified",
@@ -219,6 +220,50 @@ public class DocMDXmlUnitTest extends AbstractLoggingTest {
 	public void testWordDocPasswordAndEncrypted() throws Exception {
 
     	String inputFilename = "Word_protected_encrypted.doc";
+    	File input = new File("testfiles/" + inputFilename);
+    	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
+    
+	@Test
+	public void testWordDocMacMSWord() throws Exception {
+
+    	String inputFilename = "MacMSWORD_4-5.doc";
+    	File input = new File("testfiles/" + inputFilename);
+    	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
+    
+	@Test
+	public void testWordDocV2() throws Exception {
+
+    	String inputFilename = "NEWSSLID_Word2_0.DOC";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
