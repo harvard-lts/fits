@@ -14,3 +14,5 @@ application/fits, image/fits=application/fits
 com.adobe.photoshop-image, image/vnd.adobe.photoshop=image/vnd.adobe.photoshop
 application/rtf, text/rtf=application/rtf
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=application/vnd.openxmlformats-officedocument.wordprocessingml.document
+application/msword2=application/msword
+application/msword5=application/msword

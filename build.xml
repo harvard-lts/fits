@@ -208,8 +208,8 @@
     <mkdir dir="${javadoc.home}"/>
     <javadoc destdir="${javadoc.home}" packagenames="*">
       <fileset dir=".">
-	    <include name="src/**/*.java"/>
-      	<include name="tests/**/*.java"/>
+	    <include name="${src.dirs}/**/*.java"/>
+      	<include name="${test.dirs}/**/*.java"/>
       </fileset>
       <classpath refid="compile.classpath"/>
       <classpath refid="junit.classpath"/>
@@ -252,13 +252,6 @@
 			</fileset>
 		</copy>
         <copy todir="${output.location.version}/lib" file="${fits.jar.home}/${fits.jar.name}" description="copy fits.jar" />
-		<copy todir="${output.location.version}/src">
-			<fileset dir="src">
-		  		<exclude name="**/CVS"/>
-				<exclude name="**/.cvsignore"/>
-				<exclude name="**/*.class"/>
-			</fileset>
-		</copy>
 		<copy todir="${output.location.version}/javadoc">
 		    <fileset dir="${javadoc.home}" />  
 		</copy>
@@ -271,7 +264,6 @@
 		<copy todir="${output.location.version}">
 			<fileset dir="." includes="*.md" />
 		</copy>
-		<copy file="build.xml" todir="${output.location.version}"/>
 		<copy file="version.properties" todir="${output.location.version}"/>
 		<antcall target="zip-output" />
 		<antcall target="delete-output" /> 
