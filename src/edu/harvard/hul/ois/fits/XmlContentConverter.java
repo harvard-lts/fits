@@ -541,7 +541,7 @@ public class XmlContentConverter {
                 }
             }
             catch (XmlContentException e) {
-            	logger.error("Invalid MIX content for element [" + fitsElem + "]: " + e.getMessage ());
+            	logger.warn("Invalid MIX content for element [" + fitsElem + "]: " + e.getMessage ());
             }
         }//end of for loop
 
@@ -713,7 +713,7 @@ public class XmlContentConverter {
                 }
             }
 	        catch (XmlContentException e) {
-	        	logger.error("Invalid content: " + e.getMessage ());
+            	logger.warn("Invalid TextMD content for element [" + fitsElem + "]: " + e.getMessage ());
 	        }
         }//end for
 
@@ -830,7 +830,7 @@ public class XmlContentConverter {
 
             }
             catch (XmlContentException e) {
-                logger.error("Invalid content: " + e.getMessage ());
+            	logger.warn("Invalid AES content for element [" + fitsElem + "]: " + e.getMessage ());
             }
         }//end for
 
@@ -874,6 +874,7 @@ public class XmlContentConverter {
     	// objects of type "Standard".
 
     	EbuCoreModel ebucoreModel = null;
+    	String fitsName = null;
 
     	String framerate = "NOT_SET";
     	String timecode = "NOT_SET";
@@ -887,73 +888,76 @@ public class XmlContentConverter {
     		// Walk through all of the elements and process them
     		// skipping any Text Objects
     		for(Object obj : videoElemList) {
-    			
-    			// Skip the text object.
-    			// This is most likely due to spaces preceding the real element
-    			if(obj instanceof Text) {
-    				continue;
+    			try {
+	    			// Skip the text object.
+	    			// This is most likely due to spaces preceding the real element
+	    			if(obj instanceof Text) {
+	    				continue;
+	    			}
+	    			
+	    			Element elem = (Element)obj;
+	    			fitsName = elem.getName ();
+	    			
+	    			// If we have a standard element, then we are done.
+	    			// We only wish to process the basic FITS output
+	    			if(fitsName.equals ("standard")) {
+	    				break;
+	    			}
+	    			
+	    	    	// Ebucore can only be generated from MediaInfo output
+	    	    	if(!isMediaInfoTool(fitsName, elem))
+	    	    		return null;
+	
+	    	    	// Set mime type - MXF codec generation needs it
+	    	    	if(fitsName.equals("mimeType")) {
+	    	    		mimeType = elem.getValue();
+	    	    	}
+	
+	    			// Process the tracks
+	    			if (fitsName.equals("track")) {
+	    				Attribute typeAttr = elem.getAttribute("type");
+	    				if(typeAttr != null) {
+	    					String type = typeAttr.getValue();
+	
+	    					if(type.toLowerCase().equals("video")) {
+	
+	    						// Set the framerate
+	    				   		Element dataElement = elem.getChild ("frameRate",ns);
+	    			    		if (dataElement != null) {
+	    			    			String dataValue = dataElement.getText().trim();
+	    		   					if (!StringUtils.isEmpty(dataValue)) {
+	            			    		framerate = dataValue;
+	    		   					}
+	
+	    			    		}
+	
+	    						ebucoreModel.createVideoFormatElement(elem, ns, mimeType);
+	
+	    					} // video format
+	
+	    					// Audio Format
+	    					else if (type.toLowerCase().equals("audio")) {
+	    						ebucoreModel.createAudioFormatElement(elem, ns);
+	    					}  // audio format
+	    				}
+	    			}  // track
+	    			else {
+	
+	    				// Set the timecode
+	    				if(fitsName.equals("timecodeStart")) {
+	    					String dataValue = elem.getText().trim();
+	    					if (!StringUtils.isEmpty(dataValue)) {
+	    						timecode = dataValue;
+	    					}
+	    				}
+	
+	    				// Process Elements directly off the root of the Format Element
+	    				ebucoreModel.createFormatElement(fitsName, elem);
+	    			}
+
+    			} catch (XmlContentException e) {
+    				logger.warn("Invalid EbuCore content for element [" + fitsName + "]: " + e.getMessage ());
     			}
-    			
-    			Element elem = (Element)obj;
-    			String fitsName = elem.getName ();
-    			
-    			// If we have a standard element, then we are done.
-    			// We only wish to process the basic FITS output
-    			if(fitsName.equals ("standard")) {
-    				break;
-    			}
-    			
-    	    	// Ebucore can only be generated from MediaInfo output
-    	    	if(!isMediaInfoTool(fitsName, elem))
-    	    		return null;
-
-    	    	// Set mime type - MXF codec generation needs it
-    	    	if(fitsName.equals("mimeType")) {
-    	    		mimeType = elem.getValue();
-    	    	}
-
-    			// Process the tracks
-    			if (fitsName.equals("track")) {
-    				Attribute typeAttr = elem.getAttribute("type");
-    				if(typeAttr != null) {
-    					String type = typeAttr.getValue();
-
-    					if(type.toLowerCase().equals("video")) {
-
-    						// Set the framerate
-    				   		Element dataElement = elem.getChild ("frameRate",ns);
-    			    		if (dataElement != null) {
-    			    			String dataValue = dataElement.getText().trim();
-    		   					if (!StringUtils.isEmpty(dataValue)) {
-            			    		framerate = dataValue;
-    		   					}
-
-    			    		}
-
-    						ebucoreModel.createVideoFormatElement(elem, ns, mimeType);
-
-    					} // video format
-
-    					// Audio Format
-    					else if (type.toLowerCase().equals("audio")) {
-    						ebucoreModel.createAudioFormatElement(elem, ns);
-    					}  // audio format
-    				}
-    			}  // track
-    			else {
-
-    				// Set the timecode
-    				if(fitsName.equals("timecodeStart")) {
-    					String dataValue = elem.getText().trim();
-    					if (!StringUtils.isEmpty(dataValue)) {
-    						timecode = dataValue;
-    					}
-    				}
-
-    				// Process Elements directly off the root of the Format Element
-    				ebucoreModel.createFormatElement(fitsName, elem);
-    			}
-
     		}  // for(Element elem : trackList)
 
 			// Process Elements directly off the root of the Format Element
@@ -961,7 +965,10 @@ public class XmlContentConverter {
 			createStart(timecode, framerate);
 
     	} catch (XmlContentException e) {
-    		logger.error("Invalid content: " + e.getMessage ());
+    		// If we get here then construction of EbuCoreModel failed so
+    		// return null here to avoid NPE when dereferencing ebucoreMain below.
+    		logger.error("Could not create EbuCoreModel: " + e.getMessage(), e);
+    		return null;
     	}
 
     	return ebucoreModel.ebucoreMain;

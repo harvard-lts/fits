@@ -62,20 +62,10 @@ public class EbuCoreModel {
     protected ContainerFormat containerFormat;
     protected Duration duration;
 
-    //protected final String ebucoreID = "EBUCORE_"+UUID.randomUUID().toString();
-
     protected EbuCoreModel () throws XmlContentException {
 
     	//set up base ebucore main object structure
     	ebucoreMain = new EbuCoreMain ();
-
-    	//ebucoreMain.setSchemaVersion("1.0.0");
-    	//ebucoreMain.setID(ebucoreID);
-        //ebucoreMain.setDisposition("");
-
-        //Identifier ident = new Identifier("","primaryIdentifier");
-        //ident.setIdentifierType("FILE_NAME");
-        //video.setPrimaryIdentifier(ident);
 
         containerFormat = new ContainerFormat();
         duration = new Duration();
