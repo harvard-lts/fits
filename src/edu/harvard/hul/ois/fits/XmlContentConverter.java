@@ -545,27 +545,24 @@ public class XmlContentConverter {
             }
         }//end of for loop
 
-
-       try {
-            if(fileinfo != null) {
-            	Element created = fileinfo.getChild (ImageElement.created.toString(),ns);
-            	if(created != null) {
-            		String date = null;
-            		try {
-            			date = XmlDateFormat.exifDateTimeToXml(created.getText().trim());
-            		}
-            		catch (ParseException e) {
-            			logger.error("Warning - unable to parse date: " + e.getMessage ());
-            		}
-            		if(date != null) {
-            			mm.icm.getGeneralCaptureInformation().setDateTimeCreated(date);
-            		}
-            	}
+        if(fileinfo != null) {
+            Element created = fileinfo.getChild (ImageElement.created.toString(),ns);
+            if(created != null) {
+                String date = null;
+                try {
+                    date = XmlDateFormat.exifDateTimeToXml(created.getText().trim());
+                    if(date != null) {
+                        mm.icm.getGeneralCaptureInformation().setDateTimeCreated(date);
+                    }
+                }
+                catch (ParseException e) {
+                    logger.warn("Warning - unable to parse date: " + e.getMessage ());
+                }
+                catch (XmlContentException e) {
+                    logger.warn("Invalid MIX content for data element [" + date + "]: " + e.getMessage ());
+                }
             }
-       }
-       catch (XmlContentException e) {
-    	   logger.error("Invalid MIX content: " + e.getMessage ());
-       }
+        }
 
         return mm.mix;
     }
