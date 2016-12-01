@@ -73,6 +73,7 @@ public class DroidToolOutputter {
             	mimeType = FitsMetadataValues.getInstance().normalizeMimeType(mimeType);
             }
 
+            // maybe this block should be moved to mapFormatName() ???
             if(formatName.equals("Digital Negative (DNG)")) {
             	mimeType="image/x-adobe-dng";
             } else if (formatName.equals("Office Open XML Document")) {

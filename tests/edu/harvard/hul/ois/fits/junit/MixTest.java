@@ -33,7 +33,6 @@ import org.junit.Test;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
-import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
 
 public class MixTest extends AbstractLoggingTest {
@@ -50,7 +49,7 @@ public class MixTest extends AbstractLoggingTest {
 		XMLUnit.setIgnoreWhitespace(true);
 		XMLUnit.setNormalizeWhitespace(true);
 		fits = new Fits();
-		// Use this instead to turn on tool output.
+		// Use this instead of above line to turn on tool output.
 //		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
 //		fits = new Fits(null, fitsConfigFile);
 	}
@@ -92,14 +91,14 @@ public class MixTest extends AbstractLoggingTest {
 		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+		Mix mix = (Mix)fitsOut.getStandardXmlContent();
 		
-		if(docmd != null) {
-			docmd.setRoot(true);
+		if(mix != null) {
+			mix.setRoot(true);
 			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			
-			docmd.output(writer);
+			mix.output(writer);
 		}
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
