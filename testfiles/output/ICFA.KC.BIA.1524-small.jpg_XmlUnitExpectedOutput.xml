@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.5" timestamp="2/15/17 10:59 AM">
+  <identification>
+    <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="1.0.5">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Jhove" toolversion="1.11" />
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
+      <version toolname="Droid" toolversion="6.1.5" status="CONFLICT">2.2.1</version>
+      <version toolname="Exiftool" toolversion="10.00" status="CONFLICT">5.5</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/645</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.11">38829</size>
+    <creatingApplicationName toolname="Exiftool" toolversion="10.00" status="CONFLICT">Canon EOS 5D Mark II</creatingApplicationName>
+    <creatingApplicationName toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">Adobe Photoshop CS6 (Windows)</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2017:01:30 11:39:51</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2017-01-30T11:39:51</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="CONFLICT">2010:07:07 14:22:53</created>
+    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2017:01:30 11:39:51</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/ICFA.KC.BIA.1524-small.jpg</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">ICFA.KC.BIA.1524-small.jpg</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">0108175c9153da1d41278066a2e3c1a2</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1487174117000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+    <message toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Value offset not word-aligned: 239 offset=126</message>
+    <message toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Value offset not word-aligned: 247 offset=138</message>
+    <message toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Value offset not word-aligned: 255 offset=174</message>
+    <message toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Value offset not word-aligned: 285 offset=186</message>
+  </filestatus>
+  <metadata>
+    <image>
+      <byteOrder toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">big endian</byteOrder>
+      <compressionScheme toolname="Jhove" toolversion="1.11" status="CONFLICT">JPEG</compressionScheme>
+      <compressionScheme toolname="Exiftool" toolversion="10.00" status="CONFLICT">Uncompressed</compressionScheme>
+      <imageWidth toolname="Jhove" toolversion="1.11">109</imageWidth>
+      <imageHeight toolname="Exiftool" toolversion="10.00">150</imageHeight>
+      <colorSpace toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">RGB</colorSpace>
+      <iccProfileName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Adobe RGB (1998)</iccProfileName>
+      <YCbCrSubSampling toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1 1</YCbCrSubSampling>
+      <orientation toolname="Exiftool" toolversion="10.00">normal*</orientation>
+      <samplingFrequencyUnit toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">in.</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Exiftool" toolversion="10.00">350</xSamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="10.00">350</ySamplingFrequency>
+      <bitsPerSample toolname="Jhove" toolversion="1.11">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Jhove" toolversion="1.11">3</samplesPerPixel>
+      <scanningSoftwareName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Adobe Photoshop CS6 (Windows)</scanningSoftwareName>
+      <digitalCameraModelName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Canon EOS 5D Mark II</digitalCameraModelName>
+      <fNumber toolname="Exiftool" toolversion="10.00">11.0</fNumber>
+      <exposureTime toolname="Exiftool" toolversion="10.00">0.125</exposureTime>
+      <isoSpeedRating toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">100</isoSpeedRating>
+      <exposureBiasValue toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">0</exposureBiasValue>
+      <lightSource toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">unknown</lightSource>
+      <focalLength toolname="Exiftool" toolversion="10.00">50.0</focalLength>
+      <iccProfileVersion toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
+      <digitalCameraManufacturer toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Canon</digitalCameraManufacturer>
+      <exifVersion toolname="Exiftool" toolversion="10.00" status="CONFLICT">0221</exifVersion>
+      <exifVersion toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">1220</exifVersion>
+      <shutterSpeedValue toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1/8</shutterSpeedValue>
+      <apertureValue toolname="Exiftool" toolversion="10.00" status="CONFLICT">11.0</apertureValue>
+      <apertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">6.918863</apertureValue>
+      <maxApertureValue toolname="Exiftool" toolversion="10.00" status="CONFLICT">2.5</maxApertureValue>
+      <maxApertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2.625</maxApertureValue>
+      <standard>
+        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
+          <mix:BasicDigitalObjectInformation>
+            <mix:byteOrder>big endian</mix:byteOrder>
+            <mix:Compression>
+              <mix:compressionScheme>JPEG</mix:compressionScheme>
+            </mix:Compression>
+          </mix:BasicDigitalObjectInformation>
+          <mix:BasicImageInformation>
+            <mix:BasicImageCharacteristics>
+              <mix:imageWidth>109</mix:imageWidth>
+              <mix:imageHeight>150</mix:imageHeight>
+              <mix:PhotometricInterpretation>
+                <mix:colorSpace>RGB</mix:colorSpace>
+                <mix:ColorProfile>
+                  <mix:IccProfile>
+                    <mix:iccProfileName>Adobe RGB (1998)</mix:iccProfileName>
+                    <mix:iccProfileVersion>2.1.0</mix:iccProfileVersion>
+                  </mix:IccProfile>
+                </mix:ColorProfile>
+                <mix:YCbCr>
+                  <mix:YCbCrSubSampling>
+                    <mix:yCbCrSubsampleHoriz>1</mix:yCbCrSubsampleHoriz>
+                    <mix:yCbCrSubsampleVert>1</mix:yCbCrSubsampleVert>
+                  </mix:YCbCrSubSampling>
+                </mix:YCbCr>
+              </mix:PhotometricInterpretation>
+            </mix:BasicImageCharacteristics>
+          </mix:BasicImageInformation>
+          <mix:ImageCaptureMetadata>
+            <mix:GeneralCaptureInformation>
+              <mix:dateTimeCreated>2010-07-07T18:22:53.0Z</mix:dateTimeCreated>
+            </mix:GeneralCaptureInformation>
+            <mix:ScannerCapture>
+              <mix:ScanningSystemSoftware>
+                <mix:scanningSoftwareName>Adobe Photoshop CS6 (Windows)</mix:scanningSoftwareName>
+              </mix:ScanningSystemSoftware>
+            </mix:ScannerCapture>
+            <mix:DigitalCameraCapture>
+              <mix:digitalCameraManufacturer>Canon</mix:digitalCameraManufacturer>
+              <mix:DigitalCameraModel>
+                <mix:digitalCameraModelName>Canon EOS 5D Mark II</mix:digitalCameraModelName>
+              </mix:DigitalCameraModel>
+              <mix:CameraCaptureSettings>
+                <mix:ImageData>
+                  <mix:fNumber>11.0</mix:fNumber>
+                  <mix:exposureTime>0.125</mix:exposureTime>
+                  <mix:isoSpeedRatings>100</mix:isoSpeedRatings>
+                  <mix:exifVersion>0221</mix:exifVersion>
+                  <mix:shutterSpeedValue>
+                    <mix:numerator>1</mix:numerator>
+                    <mix:denominator>8</mix:denominator>
+                  </mix:shutterSpeedValue>
+                  <mix:apertureValue>
+                    <mix:numerator>1100</mix:numerator>
+                    <mix:denominator>100</mix:denominator>
+                  </mix:apertureValue>
+                  <mix:exposureBiasValue>
+                    <mix:numerator>0</mix:numerator>
+                    <mix:denominator>1</mix:denominator>
+                  </mix:exposureBiasValue>
+                  <mix:maxApertureValue>
+                    <mix:numerator>250</mix:numerator>
+                    <mix:denominator>100</mix:denominator>
+                  </mix:maxApertureValue>
+                  <mix:lightSource>unknown</mix:lightSource>
+                  <mix:focalLength>50.0</mix:focalLength>
+                </mix:ImageData>
+              </mix:CameraCaptureSettings>
+            </mix:DigitalCameraCapture>
+            <mix:orientation>normal*</mix:orientation>
+          </mix:ImageCaptureMetadata>
+          <mix:ImageAssessmentMetadata>
+            <mix:SpatialMetrics>
+              <mix:samplingFrequencyUnit>in.</mix:samplingFrequencyUnit>
+              <mix:xSamplingFrequency>
+                <mix:numerator>350</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:xSamplingFrequency>
+              <mix:ySamplingFrequency>
+                <mix:numerator>350</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:ySamplingFrequency>
+            </mix:SpatialMetrics>
+            <mix:ImageColorEncoding>
+              <mix:BitsPerSample>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleUnit>integer</mix:bitsPerSampleUnit>
+              </mix:BitsPerSample>
+              <mix:samplesPerPixel>3</mix:samplesPerPixel>
+            </mix:ImageColorEncoding>
+          </mix:ImageAssessmentMetadata>
+        </mix:mix>
+      </standard>
+    </image>
+  </metadata>
+  <statistics fitsExecutionTime="820">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="207" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="744" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="663" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="747" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="681" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="201" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="616" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="580" />
+  </statistics>
+</fits>
+

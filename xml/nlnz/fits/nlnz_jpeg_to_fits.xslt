@@ -13,7 +13,7 @@
 			        		<xsl:value-of select="'JPEG File Interchange Format'"/>
 			       		</xsl:when>
 			       		<xsl:when test="/JPG/EXIF">
-			        		<xsl:value-of select="'Exchangeable Image File Format'"/>
+			        		<xsl:value-of select="'JPEG EXIF'"/>
 			       		</xsl:when>
 		       		</xsl:choose>
 				</xsl:attribute>

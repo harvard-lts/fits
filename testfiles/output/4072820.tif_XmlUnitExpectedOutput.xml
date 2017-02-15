@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.5" timestamp="2/15/17 10:52 AM">
+  <identification>
+    <identity format="TIFF EXIF" mimetype="image/tiff" toolname="FITS" toolversion="1.0.5">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <version toolname="Droid" toolversion="6.1.5">2.2</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/387</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.11">13941032</size>
+    <creatingApplicationName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Adobe Photoshop CS Macintosh</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2005:12:15 12:46:50</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2005-12-15T12:46:50</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2005:12:15 10:56:19-05:00</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/4072820.tif</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">4072820.tif</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">4a333061a5619b94aa5afc3bb106eb54</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1460585102000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <image>
+      <compressionScheme toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Uncompressed</compressionScheme>
+      <imageWidth toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1867</imageWidth>
+      <imageHeight toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2484</imageHeight>
+      <colorSpace toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">RGB</colorSpace>
+      <iccProfileName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">sRGB IEC61966-2.1</iccProfileName>
+      <iccProfileVersion toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
+      <xSamplingFrequency toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">300</xSamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">300</ySamplingFrequency>
+      <bitsPerSample toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">3</samplesPerPixel>
+      <captureDevice toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">digital still camera</captureDevice>
+      <digitalCameraManufacturer toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">NIKON CORPORATION</digitalCameraManufacturer>
+      <digitalCameraModelName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">NIKON D100</digitalCameraModelName>
+      <scanningSoftwareName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Adobe Photoshop CS Macintosh</scanningSoftwareName>
+      <fNumber toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">8.0</fNumber>
+      <exposureTime toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">0.0333</exposureTime>
+      <exposureProgram toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Manual</exposureProgram>
+      <exifVersion toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">0220</exifVersion>
+      <exposureBiasValue toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">0</exposureBiasValue>
+      <maxApertureValue toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2.8</maxApertureValue>
+      <meteringMode toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Pattern</meteringMode>
+      <lightSource toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">unknown</lightSource>
+      <flash toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Flash did not fire</flash>
+      <focalLength toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">28.0</focalLength>
+      <sensingMethod toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">One-chip color area sensor</sensingMethod>
+      <cfaPattern toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">[Green,Red][Blue,Green]</cfaPattern>
+      <standard>
+        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
+          <mix:BasicDigitalObjectInformation>
+            <mix:Compression>
+              <mix:compressionScheme>Uncompressed</mix:compressionScheme>
+            </mix:Compression>
+          </mix:BasicDigitalObjectInformation>
+          <mix:BasicImageInformation>
+            <mix:BasicImageCharacteristics>
+              <mix:imageWidth>1867</mix:imageWidth>
+              <mix:imageHeight>2484</mix:imageHeight>
+              <mix:PhotometricInterpretation>
+                <mix:colorSpace>RGB</mix:colorSpace>
+                <mix:ColorProfile>
+                  <mix:IccProfile>
+                    <mix:iccProfileName>sRGB IEC61966-2.1</mix:iccProfileName>
+                    <mix:iccProfileVersion>2.1.0</mix:iccProfileVersion>
+                  </mix:IccProfile>
+                </mix:ColorProfile>
+              </mix:PhotometricInterpretation>
+            </mix:BasicImageCharacteristics>
+          </mix:BasicImageInformation>
+          <mix:ImageCaptureMetadata>
+            <mix:GeneralCaptureInformation>
+              <mix:dateTimeCreated>2005-12-15T15:56:19.0Z</mix:dateTimeCreated>
+              <mix:captureDevice>digital still camera</mix:captureDevice>
+            </mix:GeneralCaptureInformation>
+            <mix:ScannerCapture>
+              <mix:ScanningSystemSoftware>
+                <mix:scanningSoftwareName>Adobe Photoshop CS Macintosh</mix:scanningSoftwareName>
+              </mix:ScanningSystemSoftware>
+            </mix:ScannerCapture>
+            <mix:DigitalCameraCapture>
+              <mix:digitalCameraManufacturer>NIKON CORPORATION</mix:digitalCameraManufacturer>
+              <mix:DigitalCameraModel>
+                <mix:digitalCameraModelName>NIKON D100</mix:digitalCameraModelName>
+              </mix:DigitalCameraModel>
+              <mix:CameraCaptureSettings>
+                <mix:ImageData>
+                  <mix:fNumber>8.0</mix:fNumber>
+                  <mix:exposureTime>0.0333</mix:exposureTime>
+                  <mix:exposureProgram>Manual</mix:exposureProgram>
+                  <mix:exifVersion>0220</mix:exifVersion>
+                  <mix:exposureBiasValue>
+                    <mix:numerator>0</mix:numerator>
+                    <mix:denominator>1</mix:denominator>
+                  </mix:exposureBiasValue>
+                  <mix:maxApertureValue>
+                    <mix:numerator>280</mix:numerator>
+                    <mix:denominator>100</mix:denominator>
+                  </mix:maxApertureValue>
+                  <mix:meteringMode>Pattern</mix:meteringMode>
+                  <mix:lightSource>unknown</mix:lightSource>
+                  <mix:flash>Flash did not fire</mix:flash>
+                  <mix:focalLength>28.0</mix:focalLength>
+                  <mix:sensingMethod>One-chip color area sensor</mix:sensingMethod>
+                </mix:ImageData>
+              </mix:CameraCaptureSettings>
+            </mix:DigitalCameraCapture>
+          </mix:ImageCaptureMetadata>
+          <mix:ImageAssessmentMetadata>
+            <mix:SpatialMetrics>
+              <mix:xSamplingFrequency>
+                <mix:numerator>300</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:xSamplingFrequency>
+              <mix:ySamplingFrequency>
+                <mix:numerator>300</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:ySamplingFrequency>
+            </mix:SpatialMetrics>
+            <mix:ImageColorEncoding>
+              <mix:BitsPerSample>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleUnit>integer</mix:bitsPerSampleUnit>
+              </mix:BitsPerSample>
+              <mix:samplesPerPixel>3</mix:samplesPerPixel>
+            </mix:ImageColorEncoding>
+          </mix:ImageAssessmentMetadata>
+        </mix:mix>
+      </standard>
+    </image>
+  </metadata>
+  <statistics fitsExecutionTime="1054">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="21" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="1033" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="135" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="394" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="120" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="10" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="219" />
+  </statistics>
+</fits>
+

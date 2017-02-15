@@ -48,9 +48,6 @@
 					<xsl:when test="$format='JPEG JFIF'">
 						<xsl:value-of select="string('JPEG File Interchange Format')"/>
 					</xsl:when>
-					<xsl:when test="$format='JPEG EXIF'">
-						<xsl:value-of select="string('Exchangeable Image File Format')"/>
-					</xsl:when>
 					<xsl:when test="$format='GIF GIF 87a'">
 						<xsl:value-of select="string('Graphics Interchange Format')"/>
 					</xsl:when>		

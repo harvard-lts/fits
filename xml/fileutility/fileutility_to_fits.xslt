@@ -116,7 +116,7 @@
 					<!--  "JPEG image data, EXIF standard" -->
 					<xsl:when test="starts-with($format,'JPEG image data, EXIF standard')">
 				    	<xsl:attribute name="format">
-							<xsl:value-of select="string('Exchangeable Image File Format')"/>
+							<xsl:value-of select="string('JPEG EXIF')"/>
 				    	</xsl:attribute>
 					  	<xsl:analyze-string select="$format" regex="(\D*?)(\d+\.*\d+)(.*)">		
 						    <xsl:matching-substring>
