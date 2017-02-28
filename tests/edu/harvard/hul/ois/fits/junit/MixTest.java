@@ -136,14 +136,29 @@ public class MixTest extends AbstractLoggingTest {
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		Mix mix = (Mix)fitsOut.getStandardXmlContent();
-		mix.setRoot(true);
 				
 		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 		
-		mix.output(writer);
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
+
+	}
+    
+	@Test
+	public void testJpgJfif() throws Exception {	
+
+		String filename = "gps.jpg";
+    	File input = new File("testfiles/" + filename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+				
+		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
 

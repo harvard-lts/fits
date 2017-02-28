@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.6" timestamp="2/24/17 11:40 AM">
+  <identification>
+    <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="1.0.6">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
+      <version toolname="Droid" toolversion="6.1.5" status="CONFLICT">2.2.1</version>
+      <version toolname="file utility" toolversion="5.04" status="CONFLICT">2.21</version>
+      <version toolname="Exiftool" toolversion="10.00" status="CONFLICT">1.01</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/645</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.11">41851</size>
+    <creatingApplicationName toolname="Exiftool" toolversion="10.00" status="CONFLICT">FinePix F30</creatingApplicationName>
+    <creatingApplicationName toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">Digital Camera FinePix F30     Ver1.02</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2006:11:03 02:26:02</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2006-11-03T02:26:02</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="CONFLICT">2006:11:03 07:14:39</created>
+    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2006:11:03 02:26:02</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/gps.jpg</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">gps.jpg</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">201f1db44775631d307b3ffd62acb3ac</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1487953518000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <image>
+      <compressionScheme toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">JPEG (old-style)</compressionScheme>
+      <imageWidth toolname="Exiftool" toolversion="10.00">600</imageWidth>
+      <imageHeight toolname="Exiftool" toolversion="10.00">800</imageHeight>
+      <YCbCrSubSampling toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2 2</YCbCrSubSampling>
+      <YCbCrPositioning toolname="Exiftool" toolversion="10.00">2</YCbCrPositioning>
+      <orientation toolname="Exiftool" toolversion="10.00">normal*</orientation>
+      <samplingFrequencyUnit toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">in.</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Exiftool" toolversion="10.00">72</xSamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="10.00">72</ySamplingFrequency>
+      <bitsPerSample toolname="Exiftool" toolversion="10.00">8 8 8</bitsPerSample>
+      <captureDevice toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">digital still camera</captureDevice>
+      <digitalCameraManufacturer toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">FUJIFILM</digitalCameraManufacturer>
+      <digitalCameraModelName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">FinePix F30</digitalCameraModelName>
+      <scanningSoftwareName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Digital Camera FinePix F30     Ver1.02</scanningSoftwareName>
+      <fNumber toolname="Exiftool" toolversion="10.00">2.8</fNumber>
+      <exposureTime toolname="Exiftool" toolversion="10.00" status="CONFLICT">0.0083</exposureTime>
+      <exposureTime toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">0.008333333333333333</exposureTime>
+      <exposureProgram toolname="Exiftool" toolversion="10.00">Normal program</exposureProgram>
+      <isoSpeedRating toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">400</isoSpeedRating>
+      <exifVersion toolname="Exiftool" toolversion="10.00" status="CONFLICT">0221</exifVersion>
+      <exifVersion toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">1220</exifVersion>
+      <shutterSpeedValue toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1/124</shutterSpeedValue>
+      <apertureValue toolname="Exiftool" toolversion="10.00" status="CONFLICT">2.8</apertureValue>
+      <apertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">3.0</apertureValue>
+      <brightnessValue toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">3.02</brightnessValue>
+      <exposureBiasValue toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">0</exposureBiasValue>
+      <maxApertureValue toolname="Exiftool" toolversion="10.00" status="CONFLICT">2.8</maxApertureValue>
+      <maxApertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">3.0</maxApertureValue>
+      <meteringMode toolname="Exiftool" toolversion="10.00">Pattern</meteringMode>
+      <lightSource toolname="Exiftool" toolversion="10.00">unknown</lightSource>
+      <focalLength toolname="Exiftool" toolversion="10.00">8.0</focalLength>
+      <sensingMethod toolname="Exiftool" toolversion="10.00">One-chip color area sensor</sensingMethod>
+      <gpsVersionID toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2.2.0.0</gpsVersionID>
+      <gpsLatitudeRef toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">N</gpsLatitudeRef>
+      <gpsLatitude toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">33 deg 24' 51.80" N</gpsLatitude>
+      <gpsLongitudeRef toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">E</gpsLongitudeRef>
+      <gpsLongitude toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">130 deg 33' 31.40" E</gpsLongitude>
+      <gpsTimeStamp toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">22:14:39</gpsTimeStamp>
+      <gpsStatus toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">A</gpsStatus>
+      <gpsMapDatum toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">WGS-84</gpsMapDatum>
+      <gpsDateStamp toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2006-11-02</gpsDateStamp>
+      <brightnessvalue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">3737910</brightnessvalue>
+      <standard>
+        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
+          <mix:BasicDigitalObjectInformation>
+            <mix:Compression>
+              <mix:compressionScheme>JPEG (old-style)</mix:compressionScheme>
+            </mix:Compression>
+          </mix:BasicDigitalObjectInformation>
+          <mix:BasicImageInformation>
+            <mix:BasicImageCharacteristics>
+              <mix:imageWidth>600</mix:imageWidth>
+              <mix:imageHeight>800</mix:imageHeight>
+              <mix:PhotometricInterpretation>
+                <mix:YCbCr>
+                  <mix:YCbCrSubSampling>
+                    <mix:yCbCrSubsampleHoriz>2</mix:yCbCrSubsampleHoriz>
+                    <mix:yCbCrSubsampleVert>2</mix:yCbCrSubsampleVert>
+                  </mix:YCbCrSubSampling>
+                </mix:YCbCr>
+              </mix:PhotometricInterpretation>
+            </mix:BasicImageCharacteristics>
+          </mix:BasicImageInformation>
+          <mix:ImageCaptureMetadata>
+            <mix:GeneralCaptureInformation>
+              <mix:dateTimeCreated>2006-11-03T12:14:39.0Z</mix:dateTimeCreated>
+              <mix:captureDevice>digital still camera</mix:captureDevice>
+            </mix:GeneralCaptureInformation>
+            <mix:ScannerCapture>
+              <mix:ScanningSystemSoftware>
+                <mix:scanningSoftwareName>Digital Camera FinePix F30     Ver1.02</mix:scanningSoftwareName>
+              </mix:ScanningSystemSoftware>
+            </mix:ScannerCapture>
+            <mix:DigitalCameraCapture>
+              <mix:digitalCameraManufacturer>FUJIFILM</mix:digitalCameraManufacturer>
+              <mix:DigitalCameraModel>
+                <mix:digitalCameraModelName>FinePix F30</mix:digitalCameraModelName>
+              </mix:DigitalCameraModel>
+              <mix:CameraCaptureSettings>
+                <mix:ImageData>
+                  <mix:fNumber>2.8</mix:fNumber>
+                  <mix:exposureTime>0.0083</mix:exposureTime>
+                  <mix:exposureProgram>Normal program</mix:exposureProgram>
+                  <mix:isoSpeedRatings>400</mix:isoSpeedRatings>
+                  <mix:exifVersion>0221</mix:exifVersion>
+                  <mix:shutterSpeedValue>
+                    <mix:numerator>1</mix:numerator>
+                    <mix:denominator>124</mix:denominator>
+                  </mix:shutterSpeedValue>
+                  <mix:apertureValue>
+                    <mix:numerator>280</mix:numerator>
+                    <mix:denominator>100</mix:denominator>
+                  </mix:apertureValue>
+                  <mix:brightnessValue>
+                    <mix:numerator>302</mix:numerator>
+                    <mix:denominator>100</mix:denominator>
+                  </mix:brightnessValue>
+                  <mix:exposureBiasValue>
+                    <mix:numerator>0</mix:numerator>
+                    <mix:denominator>1</mix:denominator>
+                  </mix:exposureBiasValue>
+                  <mix:maxApertureValue>
+                    <mix:numerator>280</mix:numerator>
+                    <mix:denominator>100</mix:denominator>
+                  </mix:maxApertureValue>
+                  <mix:meteringMode>Pattern</mix:meteringMode>
+                  <mix:lightSource>unknown</mix:lightSource>
+                  <mix:focalLength>8.0</mix:focalLength>
+                  <mix:sensingMethod>One-chip color area sensor</mix:sensingMethod>
+                </mix:ImageData>
+                <mix:GPSData>
+                  <mix:gpsVersionID>2.2.0.0</mix:gpsVersionID>
+                  <mix:gpsLatitudeRef>N</mix:gpsLatitudeRef>
+                  <mix:GPSLatitude>
+                    <mix:degrees>
+                      <mix:numerator>33</mix:numerator>
+                      <mix:denominator>1</mix:denominator>
+                    </mix:degrees>
+                    <mix:minutes>
+                      <mix:numerator>24</mix:numerator>
+                      <mix:denominator>1</mix:denominator>
+                    </mix:minutes>
+                    <mix:seconds>
+                      <mix:numerator>5180</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:seconds>
+                  </mix:GPSLatitude>
+                  <mix:gpsLongitudeRef>E</mix:gpsLongitudeRef>
+                  <mix:GPSLongitude>
+                    <mix:degrees>
+                      <mix:numerator>130</mix:numerator>
+                      <mix:denominator>1</mix:denominator>
+                    </mix:degrees>
+                    <mix:minutes>
+                      <mix:numerator>33</mix:numerator>
+                      <mix:denominator>1</mix:denominator>
+                    </mix:minutes>
+                    <mix:seconds>
+                      <mix:numerator>3140</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:seconds>
+                  </mix:GPSLongitude>
+                  <mix:gpsTimeStamp>22:14:39</mix:gpsTimeStamp>
+                  <mix:gpsStatus>A</mix:gpsStatus>
+                  <mix:gpsMapDatum>WGS-84</mix:gpsMapDatum>
+                  <mix:gpsDateStamp>2006-11-02</mix:gpsDateStamp>
+                </mix:GPSData>
+              </mix:CameraCaptureSettings>
+            </mix:DigitalCameraCapture>
+            <mix:orientation>normal*</mix:orientation>
+          </mix:ImageCaptureMetadata>
+          <mix:ImageAssessmentMetadata>
+            <mix:SpatialMetrics>
+              <mix:samplingFrequencyUnit>in.</mix:samplingFrequencyUnit>
+              <mix:xSamplingFrequency>
+                <mix:numerator>72</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:xSamplingFrequency>
+              <mix:ySamplingFrequency>
+                <mix:numerator>72</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:ySamplingFrequency>
+            </mix:SpatialMetrics>
+            <mix:ImageColorEncoding>
+              <mix:BitsPerSample>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleUnit>integer</mix:bitsPerSampleUnit>
+              </mix:BitsPerSample>
+            </mix:ImageColorEncoding>
+          </mix:ImageAssessmentMetadata>
+        </mix:mix>
+      </standard>
+    </image>
+  </metadata>
+  <statistics fitsExecutionTime="687">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="133" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="603" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="551" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="619" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="574" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="127" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="508" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="399" />
+  </statistics>
+</fits>
+
