@@ -152,9 +152,9 @@ public class MixXmlUnitTest extends AbstractLoggingTest {
 	}
     
 	@Test
-	public void testMixJpg() throws Exception {	
+	public void testJpgExif() throws Exception {	
 
-		String inputFilename = "3426592.jpg";
+		String inputFilename = "ICFA.KC.BIA.1524-small.jpg";
     	File input = new File("testfiles/" + inputFilename);
     	
     	FitsOutput fitsOut = fits.examine(input);
@@ -185,9 +185,9 @@ public class MixXmlUnitTest extends AbstractLoggingTest {
 	}
     
 	@Test
-	public void testJpgExif() throws Exception {	
+	public void testJpgExif2() throws Exception {	
 
-		String inputFilename = "ICFA.KC.BIA.1524-small.jpg";
+		String inputFilename = "gps.jpg";
     	File input = new File("testfiles/" + inputFilename);
     	
     	FitsOutput fitsOut = fits.examine(input);
@@ -195,13 +195,32 @@ public class MixXmlUnitTest extends AbstractLoggingTest {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		Mix mix = (Mix)fitsOut.getStandardXmlContent();
-		mix.setRoot(true);
-				
-		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
+    
+	@Test
+	public void testJpgJfif() throws Exception {	
+
+		String inputFilename = "GLOBE1.JPG";
+    	File input = new File("testfiles/" + inputFilename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		mix.output(writer);
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 

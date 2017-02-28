@@ -58,11 +58,11 @@
    		<xsl:attribute name="format">    
    			<xsl:variable name="format">
 	   			<xsl:choose>
-		   			<xsl:when test="not(string-length($jfif) = 0) and not(exiftool/FileType = 'JP2')">
-						<xsl:value-of select="concat(exiftool/FileType,' JFIF')" />
-					</xsl:when>
 					<xsl:when test="not(string-length($exif) = 0) and not(exiftool/FileType = 'JP2')">
 						<xsl:value-of select="concat(exiftool/FileType,' EXIF')" />
+					</xsl:when>
+		   			<xsl:when test="not(string-length($jfif) = 0) and not(exiftool/FileType = 'JP2')">
+						<xsl:value-of select="concat(exiftool/FileType,' JFIF')" />
 					</xsl:when>
 					<xsl:when test="not(string-length($exifByteOrder) = 0) and not(exiftool/FileType = 'JP2')">
 						<xsl:value-of select="concat(exiftool/FileType,' EXIF')" />

@@ -9,11 +9,11 @@
 			<identity>
 				<xsl:attribute name="format">
 					<xsl:choose>
-						<xsl:when test="/JPG/JFIF/IDENTIFIER='JFIF'">
-			        		<xsl:value-of select="'JPEG File Interchange Format'"/>
-			       		</xsl:when>
 			       		<xsl:when test="/JPG/EXIF">
 			        		<xsl:value-of select="'JPEG EXIF'"/>
+			       		</xsl:when>
+						<xsl:when test="/JPG/JFIF/IDENTIFIER='JFIF'">
+			        		<xsl:value-of select="'JPEG File Interchange Format'"/>
 			       		</xsl:when>
 		       		</xsl:choose>
 				</xsl:attribute>
