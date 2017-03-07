@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.6" timestamp="3/7/17 12:21 PM">
+  <identification>
+    <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="1.0.6">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Jhove" toolversion="1.11" />
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
+      <version toolname="Droid" toolversion="6.1.5">2.2.1</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/645</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.11">4324778</size>
+    <creatingApplicationName toolname="Exiftool" toolversion="10.00" status="CONFLICT">HERO3+ Black Edition</creatingApplicationName>
+    <creatingApplicationName toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">Adobe Photoshop CS6 (Macintosh)</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:06:25 11:03:38</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-06-25T11:03:38</lastmodified>
+    <created toolname="Exiftool" toolversion="10.00" status="CONFLICT">2014:10:27 12:34:43</created>
+    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015:06:25 11:03:38</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/JPEGTest_20170591--JPEGTest_20170591.jpeg</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">JPEGTest_20170591--JPEGTest_20170591.jpeg</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">3c5a86c471809d347e99d19c51bd1b94</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1488896176000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <image>
+      <byteOrder toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">big endian</byteOrder>
+      <compressionScheme toolname="Jhove" toolversion="1.11" status="CONFLICT">JPEG</compressionScheme>
+      <compressionScheme toolname="Exiftool" toolversion="10.00" status="CONFLICT">JPEG (old-style)</compressionScheme>
+      <imageWidth toolname="Jhove" toolversion="1.11">3920</imageWidth>
+      <imageHeight toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2160</imageHeight>
+      <colorSpace toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">RGB</colorSpace>
+      <iccProfileName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">sRGB IEC61966-2.1</iccProfileName>
+      <YCbCrSubSampling toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1 1</YCbCrSubSampling>
+      <YCbCrPositioning toolname="Exiftool" toolversion="10.00">1</YCbCrPositioning>
+      <orientation toolname="Exiftool" toolversion="10.00">normal*</orientation>
+      <samplingFrequencyUnit toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">in.</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Exiftool" toolversion="10.00">72</xSamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="10.00">72</ySamplingFrequency>
+      <bitsPerSample toolname="Jhove" toolversion="1.11">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Jhove" toolversion="1.11">3</samplesPerPixel>
+      <scanningSoftwareName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Adobe Photoshop CS6 (Macintosh)</scanningSoftwareName>
+      <digitalCameraModelName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">HERO3+ Black Edition</digitalCameraModelName>
+      <fNumber toolname="Exiftool" toolversion="10.00">2.8</fNumber>
+      <exposureTime toolname="Exiftool" toolversion="10.00" status="CONFLICT">0.0083</exposureTime>
+      <exposureTime toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">0.008340283569641367</exposureTime>
+      <isoSpeedRating toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">142</isoSpeedRating>
+      <exposureBiasValue toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">0</exposureBiasValue>
+      <lightSource toolname="Exiftool" toolversion="10.00">unknown</lightSource>
+      <subjectDistance toolname="Exiftool" toolversion="10.00" status="CONFLICT">undef</subjectDistance>
+      <subjectDistance toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">NaN</subjectDistance>
+      <meteringMode toolname="Exiftool" toolversion="10.00">Center weighted average</meteringMode>
+      <flash toolname="Exiftool" toolversion="10.00">No flash function</flash>
+      <focalLength toolname="Exiftool" toolversion="10.00" status="CONFLICT">2.8</focalLength>
+      <focalLength toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2.77</focalLength>
+      <exposureIndex toolname="Exiftool" toolversion="10.00" status="CONFLICT">undef</exposureIndex>
+      <exposureIndex toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">NaN</exposureIndex>
+      <iccProfileVersion toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
+      <captureDevice toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">digital still camera</captureDevice>
+      <digitalCameraManufacturer toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">GoPro</digitalCameraManufacturer>
+      <exposureProgram toolname="Exiftool" toolversion="10.00">Normal program</exposureProgram>
+      <exifVersion toolname="Exiftool" toolversion="10.00">0221</exifVersion>
+      <shutterSpeedValue toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1/120</shutterSpeedValue>
+      <apertureValue toolname="Exiftool" toolversion="10.00" status="CONFLICT">2.8</apertureValue>
+      <apertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2.97</apertureValue>
+      <maxApertureValue toolname="Exiftool" toolversion="10.00" status="CONFLICT">2.8</maxApertureValue>
+      <maxApertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2.97</maxApertureValue>
+      <sensingMethod toolname="Exiftool" toolversion="10.00">One-chip color area sensor</sensingMethod>
+      <standard>
+        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
+          <mix:BasicDigitalObjectInformation>
+            <mix:byteOrder>big endian</mix:byteOrder>
+            <mix:Compression>
+              <mix:compressionScheme>JPEG</mix:compressionScheme>
+            </mix:Compression>
+          </mix:BasicDigitalObjectInformation>
+          <mix:BasicImageInformation>
+            <mix:BasicImageCharacteristics>
+              <mix:imageWidth>3920</mix:imageWidth>
+              <mix:imageHeight>2160</mix:imageHeight>
+              <mix:PhotometricInterpretation>
+                <mix:colorSpace>RGB</mix:colorSpace>
+                <mix:ColorProfile>
+                  <mix:IccProfile>
+                    <mix:iccProfileName>sRGB IEC61966-2.1</mix:iccProfileName>
+                    <mix:iccProfileVersion>2.1.0</mix:iccProfileVersion>
+                  </mix:IccProfile>
+                </mix:ColorProfile>
+                <mix:YCbCr>
+                  <mix:YCbCrSubSampling>
+                    <mix:yCbCrSubsampleHoriz>1</mix:yCbCrSubsampleHoriz>
+                    <mix:yCbCrSubsampleVert>1</mix:yCbCrSubsampleVert>
+                  </mix:YCbCrSubSampling>
+                </mix:YCbCr>
+              </mix:PhotometricInterpretation>
+            </mix:BasicImageCharacteristics>
+          </mix:BasicImageInformation>
+          <mix:ImageCaptureMetadata>
+            <mix:GeneralCaptureInformation>
+              <mix:dateTimeCreated>2014-10-27T16:34:43.0Z</mix:dateTimeCreated>
+              <mix:captureDevice>digital still camera</mix:captureDevice>
+            </mix:GeneralCaptureInformation>
+            <mix:ScannerCapture>
+              <mix:ScanningSystemSoftware>
+                <mix:scanningSoftwareName>Adobe Photoshop CS6 (Macintosh)</mix:scanningSoftwareName>
+              </mix:ScanningSystemSoftware>
+            </mix:ScannerCapture>
+            <mix:DigitalCameraCapture>
+              <mix:digitalCameraManufacturer>GoPro</mix:digitalCameraManufacturer>
+              <mix:DigitalCameraModel>
+                <mix:digitalCameraModelName>HERO3+ Black Edition</mix:digitalCameraModelName>
+              </mix:DigitalCameraModel>
+              <mix:CameraCaptureSettings>
+                <mix:ImageData>
+                  <mix:fNumber>2.8</mix:fNumber>
+                  <mix:exposureTime>0.0083</mix:exposureTime>
+                  <mix:exposureProgram>Normal program</mix:exposureProgram>
+                  <mix:isoSpeedRatings>142</mix:isoSpeedRatings>
+                  <mix:exifVersion>0221</mix:exifVersion>
+                  <mix:shutterSpeedValue>
+                    <mix:numerator>1</mix:numerator>
+                    <mix:denominator>120</mix:denominator>
+                  </mix:shutterSpeedValue>
+                  <mix:apertureValue>
+                    <mix:numerator>280</mix:numerator>
+                    <mix:denominator>100</mix:denominator>
+                  </mix:apertureValue>
+                  <mix:exposureBiasValue>
+                    <mix:numerator>0</mix:numerator>
+                    <mix:denominator>1</mix:denominator>
+                  </mix:exposureBiasValue>
+                  <mix:maxApertureValue>
+                    <mix:numerator>280</mix:numerator>
+                    <mix:denominator>100</mix:denominator>
+                  </mix:maxApertureValue>
+                  <mix:meteringMode>Center weighted average</mix:meteringMode>
+                  <mix:lightSource>unknown</mix:lightSource>
+                  <mix:flash>No flash function</mix:flash>
+                  <mix:focalLength>2.8</mix:focalLength>
+                  <mix:sensingMethod>One-chip color area sensor</mix:sensingMethod>
+                </mix:ImageData>
+              </mix:CameraCaptureSettings>
+            </mix:DigitalCameraCapture>
+            <mix:orientation>normal*</mix:orientation>
+          </mix:ImageCaptureMetadata>
+          <mix:ImageAssessmentMetadata>
+            <mix:SpatialMetrics>
+              <mix:samplingFrequencyUnit>in.</mix:samplingFrequencyUnit>
+              <mix:xSamplingFrequency>
+                <mix:numerator>72</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:xSamplingFrequency>
+              <mix:ySamplingFrequency>
+                <mix:numerator>72</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:ySamplingFrequency>
+            </mix:SpatialMetrics>
+            <mix:ImageColorEncoding>
+              <mix:BitsPerSample>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleUnit>integer</mix:bitsPerSampleUnit>
+              </mix:BitsPerSample>
+              <mix:samplesPerPixel>3</mix:samplesPerPixel>
+            </mix:ImageColorEncoding>
+          </mix:ImageAssessmentMetadata>
+        </mix:mix>
+      </standard>
+    </image>
+  </metadata>
+  <statistics fitsExecutionTime="915">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="300" />
+    <tool toolname="Jhove" toolversion="1.11" executionTime="801" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="692" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="798" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="715" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="134" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="688" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="805" />
+  </statistics>
+</fits>
+
