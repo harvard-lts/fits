@@ -163,4 +163,22 @@ public class MixTest extends AbstractLoggingTest {
 		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
 
 	}
+    
+	@Test
+	public void testJpg2() throws Exception {	
+
+		String filename = "JPEGTest_20170591--JPEGTest_20170591.jpeg";
+    	File input = new File("testfiles/" + filename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+				
+		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+		
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
+
+	}
 }

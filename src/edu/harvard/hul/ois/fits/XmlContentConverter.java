@@ -67,32 +67,10 @@ public class XmlContentConverter {
                     continue;
                 String dataValue = dataElement.getText().trim();
                 if (dataElement != null) {
-                    // Parse the numerically various ways, just once
+
                     Integer intValue = null;
-                    try {
-                        intValue = Integer.parseInt (dataValue);
-                    }
-                    catch (NumberFormatException e) {}
                     Double dblValue = null;
-                    try {
-                        dblValue = Double.parseDouble (dataValue);
-                    }
-                    catch (NumberFormatException e) {}
-                    Rational ratValue = null;
-                    if (intValue != null) {
-                        ratValue = new Rational (intValue, 1);
-                    }
-                    else if (dblValue != null) {
-                        ratValue = new Rational ((int) (dblValue * 100 + 0.5), 100);
-                    }
-                    else if(dataValue.contains("/")) {
-                    	try {
-	                    	int num = Integer.parseInt(dataValue.substring(0,dataValue.indexOf("/")));
-	                    	int den = Integer.parseInt(dataValue.substring(dataValue.indexOf("/")+1));
-	                    	ratValue = new Rational(num,den);
-                    	}
-                    	catch (NumberFormatException e) {}
-                    }
+                    Rational rationalValue = null;
 
                     // This is a very long switch, but I don't think much would be gained
                     // by breaking out each case into a separate processing function.
@@ -106,10 +84,16 @@ public class XmlContentConverter {
                         cmp.setCompressionScheme (dataValue);
                         break;
                     case imageWidth:
-                        mm.bic.setImageWidth(Integer.parseInt (dataValue));
+                    	intValue = parseInt(dataValue, fitsElem.toString());
+                    	if (intValue != null) {
+                    		mm.bic.setImageWidth(intValue);
+                    	}
                         break;
                     case imageHeight:
-                        mm.bic.setImageHeight(Integer.parseInt (dataValue));
+                    	intValue = parseInt(dataValue, fitsElem.toString());
+                    	if (intValue != null) {
+                    		mm.bic.setImageHeight(intValue);
+                    	}
                         break;
                     case colorSpace:
                         mm.phi.setColorSpace (dataValue);
@@ -142,28 +126,24 @@ public class XmlContentConverter {
                     case tileWidth:
                     case tileHeight:
                         mm.populateJPEG2000 ();
-                        try {
-                            if (intValue != null) {
-                                if (fitsElem == ImageElement.tileWidth)
-                                    mm.tiles.setTileWidth(intValue);
-                                else
-                                    mm.tiles.setTileHeight(intValue);
-                            }
+                    	intValue = parseInt(dataValue, fitsElem.toString());
+                        if (intValue != null) {
+                            if (fitsElem == ImageElement.tileWidth)
+                                mm.tiles.setTileWidth(intValue);
+                            else
+                                mm.tiles.setTileHeight(intValue);
                         }
-                        catch (NumberFormatException e) {}
                         break;
                     case qualityLayers:
                     case resolutionLevels:
                         mm.populateJPEG2000();
-                        try {
-                            if (intValue != null) {
-                                if (fitsElem == ImageElement.qualityLayers)
-                                    mm.eo.setQualityLayers(intValue);
-                                else
-                                    mm.eo.setResolutionLevels(intValue);
-                            }
+                    	intValue = parseInt(dataValue, fitsElem.toString());
+                        if (intValue != null) {
+                            if (fitsElem == ImageElement.qualityLayers)
+                                mm.eo.setQualityLayers(intValue);
+                            else
+                                mm.eo.setResolutionLevels(intValue);
                         }
-                        catch (NumberFormatException e) {}
                         break;
                     case orientation:
                         mm.icm.setOrientation(dataValue);
@@ -172,18 +152,21 @@ public class XmlContentConverter {
                         mm.sm.setSamplingFrequencyUnit(dataValue);
                         break;
                     case xSamplingFrequency:
-                        if (ratValue != null)
-                            mm.sm.setXSamplingFrequency(ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null)
+                            mm.sm.setXSamplingFrequency(rationalValue);
                         break;
                     case ySamplingFrequency:
-                        if (ratValue != null)
-                            mm.sm.setYSamplingFrequency(ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null)
+                            mm.sm.setYSamplingFrequency(rationalValue);
                         break;
                     case bitsPerSample:
                         if (dataValue != null)
                             mm.setBitsPerSample (dataValue);
                         break;
                     case samplesPerPixel:
+                    	intValue = parseInt(dataValue, fitsElem.toString());
                         if (intValue != null)
                             mm.ice.setSamplesPerPixel (intValue);
                         break;
@@ -206,16 +189,18 @@ public class XmlContentConverter {
                         break;
                     case whitePointXValue:
                         //Can there be more than one of these?
-                        if (ratValue != null) {
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
                             mm.populateWhitePoint();
-                            mm.wp.setWhitePointXValue(ratValue);
+                            mm.wp.setWhitePointXValue(rationalValue);
                         }
                         break;
                     case whitePointYValue:
                         //Can there be more than one of these?
-                        if (ratValue != null) {
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
                             mm.populateWhitePoint();
-                            mm.wp.setWhitePointYValue(ratValue);
+                            mm.wp.setWhitePointYValue(rationalValue);
                         }
                         break;
                     case primaryChromaticitiesRedX:
@@ -225,19 +210,20 @@ public class XmlContentConverter {
                     case primaryChromaticitiesGreenX:
                     case primaryChromaticitiesGreenY:
                         mm.populatePrimaryChromaticities();
-                        if (ratValue != null) {
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
                             if (fitsElem == ImageElement.primaryChromaticitiesRedX)
-                                mm.pc.setPrimaryChromaticitiesRedX(ratValue);
+                                mm.pc.setPrimaryChromaticitiesRedX(rationalValue);
                             else if (fitsElem == ImageElement.primaryChromaticitiesRedY)
-                                mm.pc.setPrimaryChromaticitiesRedY(ratValue);
+                                mm.pc.setPrimaryChromaticitiesRedY(rationalValue);
                             if (fitsElem == ImageElement.primaryChromaticitiesGreenX)
-                                mm.pc.setPrimaryChromaticitiesGreenX(ratValue);
+                                mm.pc.setPrimaryChromaticitiesGreenX(rationalValue);
                             else if (fitsElem == ImageElement.primaryChromaticitiesGreenY)
-                                mm.pc.setPrimaryChromaticitiesGreenY(ratValue);
+                                mm.pc.setPrimaryChromaticitiesGreenY(rationalValue);
                             if (fitsElem == ImageElement.primaryChromaticitiesBlueX)
-                                mm.pc.setPrimaryChromaticitiesBlueX(ratValue);
+                                mm.pc.setPrimaryChromaticitiesBlueX(rationalValue);
                             else if (fitsElem == ImageElement.primaryChromaticitiesBlueY)
-                                mm.pc.setPrimaryChromaticitiesBlueY(ratValue);
+                                mm.pc.setPrimaryChromaticitiesBlueY(rationalValue);
                         }
                         break;
                     case imageProducer:
@@ -286,12 +272,14 @@ public class XmlContentConverter {
                         break;
 
                     case fNumber:
+                    	dblValue = parseDouble(dataValue, fitsElem.toString());
                         if (dblValue != null) {
                             mm.id.setFNumber(dblValue);
                             mm.attachImageData();
                         }
                         break;
                     case exposureTime:
+                    	dblValue = parseDouble(dataValue, fitsElem.toString());
                         if (dblValue != null) {
                             mm.id.setExposureTime (dblValue);
                             mm.attachImageData();
@@ -306,14 +294,16 @@ public class XmlContentConverter {
                         mm.attachImageData ();
                         break;
                     case isoSpeedRating:
+                    	intValue = parseInt(dataValue, fitsElem.toString());
                         if (intValue != null) {
                             mm.id.setIsoSpeedRatings(intValue);
                             mm.attachImageData ();
                         }
                         break;
                     case oECF:
-                        if (ratValue != null) {
-                            mm.id.setOECF(ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.id.setOECF(rationalValue);
                             mm.attachImageData ();
                         }
                         break;
@@ -322,37 +312,43 @@ public class XmlContentConverter {
                         mm.attachImageData ();
                         break;
                     case shutterSpeedValue:
-                        if (ratValue != null) {
-                            mm.id.setShutterSpeedValue(ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.id.setShutterSpeedValue(rationalValue);
                             mm.attachImageData ();
                         }
                         break;
                     case apertureValue:
-                        if (ratValue != null) {
-                            mm.id.setApertureValue(ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.id.setApertureValue(rationalValue);
                             mm.attachImageData ();
                         }
                         break;
                     case brightnessValue:
-                        if (ratValue != null) {
-                            mm.id.setBrightnessValue(ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.id.setBrightnessValue(rationalValue);
                             mm.attachImageData ();
                         }
                         break;
                     case exposureBiasValue:
-                        if (ratValue != null) {
-                            mm.id.setExposureBiasValue(ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.id.setExposureBiasValue(rationalValue);
                             mm.attachImageData ();
                         }
                         break;
                     case maxApertureValue:
-                        if (ratValue != null) {
-                            mm.id.setMaxApertureValue(ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.id.setMaxApertureValue(rationalValue);
                             mm.attachImageData ();
                         }
                         break;
                     case subjectDistance:
                         // I think we use only the nominal distance, not the min and max
+                    	dblValue = parseDouble(dataValue, fitsElem.toString());
                         if (dblValue != null) {
                             mm.sd.setDistance(dblValue);
                             mm.attachSubjectDistance ();
@@ -371,20 +367,24 @@ public class XmlContentConverter {
                         mm.attachImageData ();
                         break;
                     case focalLength:
-                        mm.id.setFocalLength (Double.parseDouble (dataValue));
-                        mm.attachImageData ();
+                    	dblValue = parseDouble(dataValue, fitsElem.toString());
+                    	if (dblValue != null) {
+                    		mm.id.setFocalLength (dblValue);
+                    		mm.attachImageData ();
+                    	}
                         break;
                     case flashEnergy:
-                        if (ratValue != null) {
-                            mm.id.setFlashEnergy(ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.id.setFlashEnergy(rationalValue);
                             mm.attachImageData ();
                         }
                         break;
                     case exposureIndex:
-                    	Double doubleVal = Double.parseDouble (dataValue);
                     	// only a positive non-zero value will validate against MIX schema
-                    	if (doubleVal > 0.0) {
-                    		mm.id.setExposureIndex (doubleVal);
+                    	dblValue = parseDouble(dataValue, fitsElem.toString());
+                    	if (dblValue != null && dblValue > 0.0) {
+                    		mm.id.setExposureIndex (dblValue);
                     		mm.attachImageData ();
                     	}
                         break;
@@ -393,6 +393,7 @@ public class XmlContentConverter {
                         mm.attachImageData ();
                         break;
                     case cfaPattern:
+                    	intValue = parseInt(dataValue, fitsElem.toString());
                         if (intValue != null) {
                             mm.id.setCfaPattern(intValue);
                             mm.attachImageData ();
@@ -425,8 +426,9 @@ public class XmlContentConverter {
                         mm.attachGPSData();
                         break;
                     case gpsAltitude:
-                        if (ratValue != null) {
-                            mm.gps.setGpsAltitude(ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.gps.setGpsAltitude(rationalValue);
                             mm.attachGPSData();
                         }
                         break;
@@ -447,8 +449,9 @@ public class XmlContentConverter {
                         mm.attachGPSData();
                         break;
                     case gpsDOP:
-                        if (ratValue != null) {
-                            mm.gps.setGpsDOP (ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.gps.setGpsDOP (rationalValue);
                             mm.attachGPSData();
                         }
                         break;
@@ -457,8 +460,9 @@ public class XmlContentConverter {
                         mm.attachGPSData();
                         break;
                     case gpsSpeed:
-                        if (ratValue != null) {
-                            mm.gps.setGpsSpeed (ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.gps.setGpsSpeed (rationalValue);
                             mm.attachGPSData();
                         }
                         break;
@@ -467,8 +471,9 @@ public class XmlContentConverter {
                         mm.attachGPSData();
                         break;
                     case gpsTrack:
-                        if (ratValue != null) {
-                            mm.gps.setGpsTrack (ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.gps.setGpsTrack (rationalValue);
                             mm.attachGPSData();
                         }
                         break;
@@ -477,8 +482,9 @@ public class XmlContentConverter {
                         mm.attachGPSData();
                         break;
                     case gpsImgDirection:
-                        if (ratValue != null) {
-                            mm.gps.setGpsImgDirection (ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.gps.setGpsImgDirection (rationalValue);
                             mm.attachGPSData();
                         }
                         break;
@@ -505,8 +511,9 @@ public class XmlContentConverter {
                         mm.attachGPSData();
                         break;
                     case gpsDestBearing:
-                        if (ratValue != null) {
-                            mm.gps.setGpsDestBearing (ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.gps.setGpsDestBearing (rationalValue);
                             mm.attachGPSData();
                         }
                         break;
@@ -515,8 +522,9 @@ public class XmlContentConverter {
                         mm.attachGPSData();
                         break;
                     case gpsDestDistance:
-                        if (ratValue != null) {
-                            mm.gps.setGpsDestDistance (ratValue);
+                    	rationalValue = parseRational(dataValue, fitsElem.toString());
+                        if (rationalValue != null) {
+                            mm.gps.setGpsDestDistance (rationalValue);
                             mm.attachGPSData();
                         }
                         break;
@@ -589,43 +597,43 @@ public class XmlContentConverter {
             Integer intValue = null;  // it's sometimes necessary to convert to Integer
             switch (fitsElem) {
                 case pageCount:
-                    intValue = parseInt(dataValue);
+                    intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
                         dm.docMD.setPageCount(intValue);
                     }
                     break;
                 case wordCount:
-                    intValue = parseInt(dataValue);
+                    intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
                     	dm.docMD.setWordCount(intValue);
                     }
                     break;
                 case characterCount:
-                    intValue = parseInt(dataValue);
+                    intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
                         dm.docMD.setCharacterCount(intValue);
                     }
                     break;
                 case paragraphCount:
-                    intValue = parseInt(dataValue);
+                    intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
                         dm.docMD.setParagraphCount(intValue);
                     }
                     break;
                 case lineCount:
-                    intValue = parseInt(dataValue);
+                    intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
                         dm.docMD.setLineCount(intValue);
                     }
                     break;
                 case graphicsCount:
-                    intValue = parseInt(dataValue);
+                    intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
                         dm.docMD.setGraphicsCount(intValue);
                     }
                     break;
                 case tableCount:
-                    intValue = parseInt(dataValue);
+                    intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
                         dm.docMD.setTableCount(intValue);
                     }
@@ -760,12 +768,16 @@ public class XmlContentConverter {
                 if (dataElement == null)
                     continue;
                 String dataValue = dataElement.getText().trim();
+                Integer intValue = null;
                 switch (fitsElem) {
                 case duration:
                 	duration = dataValue;
                     break;
                 case bitDepth:
-                	aesModel.setBitDepth(Integer.parseInt(dataValue));
+                	intValue = parseInt(dataValue, fitsElem.toString());
+                	if (intValue != null) {
+                		aesModel.setBitDepth(intValue);
+                	}
                     break;
                 case sampleRate:
             		if(dataValue.contains(".")) {
@@ -775,20 +787,32 @@ public class XmlContentConverter {
             			}
             		}
             		else {
-            			sampleRate = Integer.parseInt(dataValue);
+            			intValue = parseInt(dataValue, fitsElem.toString());
+                    	if (intValue != null) {
+                    		sampleRate = intValue;
+                    	}
             		}
-                    aesModel.genericFormatRegion.setSampleRate(Double.parseDouble(dataValue));
+            		Double doubleValue = parseDouble(dataValue, fitsElem.toString());
+            		if (doubleValue != null) {
+            			aesModel.genericFormatRegion.setSampleRate(doubleValue);
+            		}
                     break;
                 case channels:
-                	channelCnt = Integer.parseInt(dataValue);
-                	//add streams and channel cnt
-                	aesModel.setNumChannels(channelCnt);
-                	for(int i=0;i<channelCnt;i++) {
-                		aesModel.addStream(i,0.0,0.0);
+                	intValue = parseInt(dataValue, fitsElem.toString());
+                	if (intValue != null) {
+                		channelCnt = intValue;
+                		//add streams and channel cnt
+                		aesModel.setNumChannels(channelCnt);
+                		for(int i=0;i<channelCnt;i++) {
+                			aesModel.addStream(i,0.0,0.0);
+                		}
                 	}
                     break;
                 case offset:
-                    aesModel.aes.setFirstSampleOffset(Integer.parseInt(dataValue));
+                	intValue = parseInt(dataValue, fitsElem.toString());
+                	if (intValue != null) {
+                		aesModel.aes.setFirstSampleOffset(intValue);
+                	}
                     break;
                 case timeStampStart:
                     timeStampStart = dataValue;
@@ -800,16 +824,25 @@ public class XmlContentConverter {
                     aesModel.setBitRate(dataValue);
                     break;
                 case numSamples:
-                    numSamples = Long.valueOf(dataValue);
+                	Long longValue = parseLong(dataValue, fitsElem.toString());
+                	if (longValue != null) {
+                		numSamples = longValue;
+                	}
                     break;
                 case wordSize:
-                	aesModel.setWordSize(Integer.parseInt(dataValue));
+                	intValue = parseInt(dataValue, fitsElem.toString());
+                	if (intValue != null) {
+                		aesModel.setWordSize(intValue);
+                	}
                 	break;
                 case audioDataEncoding:
                 	aesModel.setAudioDataEncoding(dataValue);
                 	break;
                 case blockAlign:
-                	aesModel.setAudioDataBlockSize(Integer.parseInt(dataValue));
+                	intValue = parseInt(dataValue, fitsElem.toString());
+                	if (intValue != null) {
+                		aesModel.setAudioDataBlockSize(intValue);
+                	}
                 	break;
                 case codecName:
                 	aesModel.setCodec(dataValue);
@@ -1211,16 +1244,86 @@ public class XmlContentConverter {
     }
 
     /*
-     * Parse an elements value
+     * Parse a String value to Integer
      */
-    private Integer parseInt(String valueToParse) {
+    private Integer parseInt(String valueToParse, String fitsElem) {
     	Integer intValue = null;
     	try {
     		intValue = Integer.parseInt(valueToParse);
     	}
-    	catch (NumberFormatException e) {
-        	logger.warn("Could not parse dataValue: " + valueToParse + " -- ignoring value.");
+    	catch (NumberFormatException | NullPointerException e) {
+        	logger.info("Could not parse element [" + fitsElem + "] to Integer: " + valueToParse + " -- ignoring value. Exception message: " + e.getMessage());
     	}
     	return intValue;
+    }
+
+    /*
+     * Parse a String value to Double
+     */
+    private Double parseDouble(String valueToParse, String fitsElem) {
+    	Double doubleValue = null;
+    	try {
+    		doubleValue = Double.parseDouble(valueToParse);
+    	}
+    	catch (NumberFormatException | NullPointerException e) {
+        	logger.info("Could not parse element [" + fitsElem + "] Double: " + valueToParse + " -- ignoring value.. Exception message: " + e.getMessage());
+    	}
+    	return doubleValue;
+    }
+
+    /*
+     * Parse a String value to Long
+     */
+    private Long parseLong(String valueToParse, String fitsElem) {
+    	Long longValue = null;
+    	try {
+    		longValue = Long.parseLong(valueToParse);
+    	}
+    	catch (NumberFormatException | NullPointerException e) {
+        	logger.info("Could not parse element [" + fitsElem + "] to Long: " + valueToParse + " -- ignoring value.. Exception message: " + e.getMessage());
+    	}
+    	return longValue;
+    }
+    
+    /*
+     * First convert String input to either Integer or Double then, subsequently, to an OTS Rational value.
+     * The input could be fractional, separated by a '/' character which would then get converted to a Rational.
+     */
+    private Rational parseRational(String valueToParse, String fitsElem) {
+    	Rational rationalValue = null;
+    	Integer intValue = null;
+    	Double dblValue = null;
+    	
+    	try {
+    		intValue = Integer.parseInt(valueToParse);
+    	}
+    	catch(NumberFormatException | NullPointerException e) {} 
+    	
+        if (intValue != null) {
+            rationalValue = new Rational (intValue, 1);
+        }
+        else {
+        	try {
+        		dblValue = Double.parseDouble(valueToParse);
+        	}
+        	catch(NumberFormatException | NullPointerException e) {}
+        	
+        	if (dblValue != null) {
+        		rationalValue = new Rational ((int) (dblValue * 100 + 0.5), 100);
+        	}
+        	else if(valueToParse.contains("/")) {
+        		try {
+        			int num = Integer.parseInt(valueToParse.substring(0,valueToParse.indexOf("/")));
+        			int den = Integer.parseInt(valueToParse.substring(valueToParse.indexOf("/")+1));
+        			rationalValue = new Rational(num,den);
+        		}
+        		catch (NumberFormatException | NullPointerException e) {}
+        	}
+        }
+    	
+        if (rationalValue == null) {
+        	logger.info("Could not parse element [" + fitsElem + "] to Rational -- ignoring valueToParse: [" + valueToParse + "]");
+        }
+    	return rationalValue;
     }
 }
