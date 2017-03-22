@@ -23,7 +23,6 @@ import java.io.File;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
-import org.custommonkey.xmlunit.XMLUnit;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.junit.AfterClass;
@@ -45,9 +44,7 @@ public class MixTest extends AbstractLoggingTest {
 
 	@BeforeClass
 	public static void beforeClass() throws Exception {
-		// Set up XMLUnit and FITS for entire class.
-		XMLUnit.setIgnoreWhitespace(true);
-		XMLUnit.setNormalizeWhitespace(true);
+		// Set up FITS for entire class.
 		fits = new Fits();
 		// Use this instead of above line to turn on tool output.
 //		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");

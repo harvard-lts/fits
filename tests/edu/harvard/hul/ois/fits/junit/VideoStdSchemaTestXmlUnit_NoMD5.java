@@ -18,25 +18,18 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-import static org.custommonkey.xmlunit.XMLAssert.assertXMLIdentical;
-
 import java.io.File;
-import java.util.List;
 import java.util.Scanner;
 
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.Difference;
-import org.custommonkey.xmlunit.XMLUnit;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
+import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
 
-public class VideoStdSchemaTestXmlUnit_NoMD5 extends AbstractLoggingTest {
+public class VideoStdSchemaTestXmlUnit_NoMD5 extends AbstractXmlUnitTest {
 	
 	@Test  
 	public void testVideoXmlUnitFitsOutput_AVC_NO_MD5() throws Exception {
@@ -60,42 +53,7 @@ public class VideoStdSchemaTestXmlUnit_NoMD5 extends AbstractLoggingTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		// Set up XMLUnit
-		XMLUnit.setIgnoreWhitespace(true); 
-		XMLUnit.setNormalizeWhitespace(true); 		
-
-		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
-
-		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",
-				"toolversion",
-				"dateModified",
-				"fslastmodified",
-				"startDate",
-				"startTime",
-				"timestamp", 
-				"fitsExecutionTime",
-				"executionTime",
-				"filepath",
-				"location"));
-
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		// Display any Differences
-		List<Difference> diffs = detailedDiff.getAllDifferences();
-		if (!diff.identical()) { 
-			StringBuffer differenceDescription = new StringBuffer(); 
-			differenceDescription.append(diffs.size()).append(" differences"); 
-			
-			System.out.println(differenceDescription.toString());
-			for(Difference difference : diffs) {
-				System.out.println(difference.toString());
-			}
-
-		}
-		
-		assertXMLIdentical("Differences in XML", diff, true);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 
 }

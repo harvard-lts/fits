@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.10.0" timestamp="1/29/16 3:42 PM">
+  <identification>
+    <identity format="Material Exchange Format (MXF)" mimetype="application/mxf" toolname="FITS" toolversion="0.10.0">
+      <tool toolname="MediaInfo" toolversion="0.7.75" />
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/200</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/freeMXF-mxf1a.mxf</filepath>
+    <filename toolname="MediaInfo" toolversion="0.7.75">freeMXF-mxf1a.mxf</filename>
+    <size toolname="MediaInfo" toolversion="0.7.75">623664</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">6ed70658f07daccac680a52fe2273b71</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1454097708000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <video>
+      <location toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/freeMXF-mxf1a.mxf</location>
+      <mimeType toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">application/mxf</mimeType>
+      <format toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">Material Exchange Format (MXF)</format>
+      <formatProfile toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">OP-1a</formatProfile>
+      <duration toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">10640</duration>
+      <timecodeStart toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">00:00:00:00</timecodeStart>
+      <bitRate toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">468920</bitRate>
+      <dateCreated toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">2006-01-11 18:59:25.708</dateCreated>
+      <dateModified toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">UTC 2016-01-29 20:01:48</dateModified>
+      <track type="video" id="2" toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">
+        <videoDataEncoding>0D01030102046001</videoDataEncoding>
+        <codecId>0D01030102046001</codecId>
+        <codecVersion>Main@Main</codecVersion>
+        <codecName>MPEG-2V</codecName>
+        <compression>Lossy</compression>
+        <byteOrder>Unknown</byteOrder>
+        <bitDepth>8 bits</bitDepth>
+        <bitRate>409600</bitRate>
+        <duration>10640</duration>
+        <delay>3600000</delay>
+        <trackSize>544768</trackSize>
+        <width>720 pixels</width>
+        <height>576 pixels</height>
+        <frameRate>25.000</frameRate>
+        <frameCount>266</frameCount>
+        <aspectRatio>4:3</aspectRatio>
+        <scanningFormat>Progressive</scanningFormat>
+        <scanningOrder>BFF</scanningOrder>
+        <chromaSubsampling>4:2:0</chromaSubsampling>
+        <colorspace>YUV</colorspace>
+        <broadcastStandard>Component</broadcastStandard>
+      </track>
+      <standard>
+        <ebucore:ebuCoreMain xmlns:ebucore="urn:ebu:metadata-schema:ebuCore_2014">
+          <ebucore:coreMetadata>
+            <ebucore:format>
+              <ebucore:videoFormat>
+                <ebucore:width unit="pixel">720</ebucore:width>
+                <ebucore:height unit="pixel">576</ebucore:height>
+                <ebucore:frameRate factorDenominator="1001" factorNumerator="1000">25</ebucore:frameRate>
+                <ebucore:aspectRatio typeLabel="display">
+                  <ebucore:factorNumerator>4</ebucore:factorNumerator>
+                  <ebucore:factorDenominator>3</ebucore:factorDenominator>
+                </ebucore:aspectRatio>
+                <ebucore:videoEncoding typeLabel="0D01030102046001" />
+                <ebucore:codec>
+                  <ebucore:codecIdentifier>
+                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">0D01030102046001</dc:identifier>
+                  </ebucore:codecIdentifier>
+                  <ebucore:name>MPEG-2V</ebucore:name>
+                  <ebucore:version>Main@Main</ebucore:version>
+                </ebucore:codec>                
+                <ebucore:bitRate>409600</ebucore:bitRate>
+                <ebucore:scanningFormat>progressive</ebucore:scanningFormat>
+                <ebucore:videoTrack trackId="2" />
+                <ebucore:technicalAttributeString typeLabel="chromaSubsampling">4:2:0</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="colorspace">YUV</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="byteOrder">unknown</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="delay">3600000</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="compression">lossy</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="broadcastStandard">Component</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeLong typeLabel="streamSize">544768</ebucore:technicalAttributeLong>
+                <ebucore:technicalAttributeLong typeLabel="frameCount">266</ebucore:technicalAttributeLong>
+                <ebucore:technicalAttributeLong typeLabel="bitDepth">8</ebucore:technicalAttributeLong>
+                <ebucore:technicalAttributeLong typeLabel="duration">10640</ebucore:technicalAttributeLong>
+              </ebucore:videoFormat>
+              <ebucore:audioFormatExtended />
+              <ebucore:containerFormat>
+                <ebucore:comment typeLabel="format">Material Exchange Format (MXF)</ebucore:comment>
+                <ebucore:comment typeLabel="formatProfile">OP-1a</ebucore:comment>
+              </ebucore:containerFormat>
+              <ebucore:start>
+                <ebucore:editUnitNumber factorDenominator="1001" factorNumerator="1000" editRate="25">0</ebucore:editUnitNumber>
+              </ebucore:start>
+              <ebucore:duration>
+                <ebucore:editUnitNumber factorDenominator="1" factorNumerator="1" editRate="1000">10640</ebucore:editUnitNumber>
+              </ebucore:duration>
+              <ebucore:mimeType typeLabel="application/mxf" />
+              <ebucore:locator>/Users/dan179/git/fits-daveneiman/fits/testfiles/freeMXF-mxf1a.mxf</ebucore:locator>
+              <ebucore:technicalAttributeString typeLabel="overallBitRate">468920</ebucore:technicalAttributeString>
+              <ebucore:dateModified startTime="20:01:48Z" startDate="2016-01-29" />
+            </ebucore:format>
+          </ebucore:coreMetadata>
+        </ebucore:ebuCoreMain>
+      </standard>
+    </video>
+  </metadata>
+  <statistics fitsExecutionTime="46">
+    <tool toolname="MediaInfo" toolversion="0.7.75" executionTime="40" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="3" />
+    <tool toolname="Jhove" toolversion="1.11" status="did not run" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="38" />
+    <tool toolname="Exiftool" toolversion="10.00" status="did not run" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="4" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="4" />
+    <tool toolname="Tika" toolversion="1.10" status="did not run" />
+  </statistics>
+</fits>

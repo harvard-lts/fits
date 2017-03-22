@@ -25,6 +25,8 @@ import javax.xml.stream.XMLStreamWriter;
 
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -35,9 +37,25 @@ import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 
 public class TextMDTest extends AbstractLoggingTest {
     
+	/*
+	 *  Only one Fits instance is needed to run all tests.
+	 *  This also speeds up the tests.
+	 */
+	private static Fits fits;
+
+	@BeforeClass
+	public static void beforeClass() throws Exception {
+		// Set up FITS for entire class.
+		fits = new Fits();
+	}
+	
+	@AfterClass
+	public static void afterClass() {
+		fits = null;
+	}
+
 	@Test
 	public void testTextMD() throws Exception {	
-    	Fits fits = new Fits();
     	File input = new File("testfiles/utf16.txt");
     	
     	
@@ -59,7 +77,6 @@ public class TextMDTest extends AbstractLoggingTest {
     
 	@Test
 	public void testCsv() throws Exception {	
-    	Fits fits = new Fits();
     	File input = new File("testfiles/random_data.csv");
     	
     	
