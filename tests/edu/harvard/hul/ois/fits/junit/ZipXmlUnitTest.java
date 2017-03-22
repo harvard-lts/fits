@@ -1,5 +1,5 @@
 /* 
- * Copyright 2009 Harvard University Library
+ * Copyright 2016 Harvard University Library
  * 
  * This file is part of FITS (File Information Tool Set).
  * 
@@ -21,11 +21,9 @@ package edu.harvard.hul.ois.fits.junit;
 import static org.custommonkey.xmlunit.XMLAssert.assertXMLIdentical;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
 
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
@@ -36,14 +34,37 @@ import org.jdom.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
-import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
-public class AudioStdSchemaTest extends AbstractLoggingTest {
-
+/**
+ * These tests compare actual FITS output with expected output on ZIP files.
+ * These tests should be run with &lt;display-tool-output&gt;false&lt;/display-tool-output&gt; in fits.xml.
+ * 
+ * @author dan179
+ */
+public class ZipXmlUnitTest extends AbstractLoggingTest {
+	
+	private static final String ACTUAL_OUTPUT_FILE_SUFFIX = "_XmlUnitActualOutput.xml";
+	private static final String EXPECTED_OUTPUT_FILE_SUFFIX = "_XmlUnitExpectedOutput.xml";
+	private static final String[] IGNORED_XML_ELEMENTS = {
+			"version",
+			"created",
+			"toolversion",
+			"dateModified",
+			"fslastmodified",
+			"startDate",
+			"startTime",
+			"timestamp", 
+			"fitsExecutionTime",
+			"executionTime",
+			"filepath",
+			"location",
+			"lastmodified"};
+	
 	/*
 	 *  Only one Fits instance is needed to run all tests.
 	 *  This also speeds up the tests.
@@ -56,77 +77,49 @@ public class AudioStdSchemaTest extends AbstractLoggingTest {
 		XMLUnit.setIgnoreWhitespace(true);
 		XMLUnit.setNormalizeWhitespace(true);
 		fits = new Fits();
-		// Use the following two lines to turn on tool output
-//		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
-//		fits = new Fits(null, fitsConfigFile);
 	}
 	
 	@AfterClass
 	public static void afterClass() {
 		fits = null;
 	}
+	
+	@Test
+	public void testZipFile() throws Exception {
 
-    @Test  
-	public void testAudioMD() throws Exception {   
-
-    	File input = new File("testfiles/test.wav");
+    	String inputFilename = "32044020597662.zip";
+    	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		XmlContent xml = fitsOut.getStandardXmlContent();
-		
-		if(xml != null) {
-			xml.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			xml.output(writer);
-		}
-	}
-    
-    @Test  
-	public void testAudioChunk() throws Exception {   
-
-    	File input = new File("testfiles/testchunk.wav");
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/testchunk_wav_Output.xml");
+    	fitsOut.addStandardCombinedFormat();
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				"testfiles/output/testchunk.wav.xml"));
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		// Set up XMLUnit
-		XMLUnit.setIgnoreWhitespace(true); 
-		XMLUnit.setNormalizeWhitespace(true); 		
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
 
+	/*
+	 * This method performs the actual test of actual FITS output against expected.
+	 */
+	private void testActualAgainstExpected(String actualXmlStr, String expectedXmlStr, String inputFilename)
+			throws SAXException, IOException {
 		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
 
 		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
-				"version",		// fits[@version]
-				"toolversion",
-				"dateModified",
-				"fslastmodified",
-				"startDate",
-				"startTime",
-				"timestamp", 
-				"fitsExecutionTime",
-				"executionTime",
-				"filepath",
-				"lastmodified",				
-				"location"));
+		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
 
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 
 		// Display any Differences
+		@SuppressWarnings("unchecked")
 		List<Difference> diffs = detailedDiff.getAllDifferences();
 		if (!diff.identical()) { 
 			StringBuffer differenceDescription = new StringBuffer(); 
@@ -138,9 +131,7 @@ public class AudioStdSchemaTest extends AbstractLoggingTest {
 			}
 
 		}
-		
-		assertXMLIdentical("Differences in XML", diff, true);    	
-	}    
+		assertXMLIdentical("Differences in XML for file: " + inputFilename, diff, true);
+	}
 
 }
-

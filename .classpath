@@ -8,9 +8,8 @@
 	<classpathentry kind="lib" path="lib-ant/xmlunit-1.6.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/serializer.jar"/>
-	<classpathentry kind="lib" path="lib/jhove/jhove-handler.jar"/>
-	<classpathentry kind="lib" path="lib/jhove/jhove.jar"/>
-	<classpathentry kind="lib" path="lib/jhove/jhove-module.jar"/>
+	<classpathentry kind="lib" path="lib/jhove/jhove-core-1.16.5.jar"/>
+	<classpathentry kind="lib" path="lib/jhove/jhove-modules-1.16.5.jar"/>
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/saxpath.jar"/>
 	<classpathentry kind="lib" path="lib/fast-md5.jar"/>

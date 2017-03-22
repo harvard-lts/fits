@@ -22,7 +22,7 @@ public class FitsToolException extends FitsException {
     public FitsToolException(String message) {
         super(message);
     }
-    public FitsToolException(String message, Exception e) {
+    public FitsToolException(String message, Throwable e) {
     	super(message,e);
     }
 

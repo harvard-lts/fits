@@ -45,8 +45,10 @@ public class VideoStdSchemaTestXmlUnit_NoMD5 extends AbstractLoggingTest {
 		Fits fits = new Fits(null, fitsConfigFile);
 		
 		// First generate the FITS output
-		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
+    	String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
+    	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
+		fitsOut.saveToDisk("test-generated-output/" + "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_FITS_NO_MD5_XmlUnitActualOutput.xml");
 
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());

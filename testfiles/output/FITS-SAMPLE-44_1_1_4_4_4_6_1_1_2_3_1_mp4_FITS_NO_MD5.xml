@@ -72,7 +72,7 @@
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="Droid" toolversion="6.1.3" executionTime="432" />    
-    <tool toolname="Jhove" toolversion="1.5" executionTime="4659" />
+    <tool toolname="Jhove" toolversion="1.16" status="did not run" />
     <tool toolname="file utility" toolversion="5.04" executionTime="1001" />
     <tool toolname="Exiftool" toolversion="9.13" status="did not run" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA" executionTime="745" />

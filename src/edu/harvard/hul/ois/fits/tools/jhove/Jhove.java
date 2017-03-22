@@ -66,7 +66,7 @@ public class Jhove extends ToolBase {
             jhove.setSignatureFlag(false);
             jhove.setShowRawFlag(false);
       	    xh = new XmlHandler();
-      	    jhoveApp = new App ("Jhove","1.11", new int[] {2015, 05, 25}, "","");
+      	    jhoveApp = new App ("Jhove","1.16", new int[] {2017, 03, 15}, "","");
             xh.setApp(jhoveApp);
             xh.setBase(jhove);
 		}
@@ -135,7 +135,7 @@ public class Jhove extends ToolBase {
 		}
 		catch (OutOfMemoryError e) {
             logger.error("Jhove OutOfMemoryError while processing "+file.getName());
-			throw new FitsToolException("Jhove OutOfMemoryError while processing "+file.getName());
+			throw new FitsToolException("Jhove OutOfMemoryError while processing "+file.getName(), e);
 		}
 		String format = XmlUtils.getDomValue(dom,"format");
 		String xsltTransform = (String)transformMap.get(format.toUpperCase());

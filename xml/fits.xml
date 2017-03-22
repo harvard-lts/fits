@@ -10,7 +10,7 @@
         <tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.ADLTool" include-exts="adl" classpath-dirs="lib/adltool" />
         <tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.VTTTool" include-exts="vtt" />
         <tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="odm" classpath-dirs="lib/droid" />
-        <tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,mbox,arw,adl,eml,java,doc,docx,docm,odt,rtf,pages,wpd,wp,epub,csv,avi,mov,mpg,mpeg,mkv,mp4,mpeg4,m2ts,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv,pcd" classpath-dirs="lib/jhove" />
+        <tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,mbox,arw,adl,eml,java,doc,docx,docm,odt,rtf,pages,wpd,wp,epub,csv,avi,mov,mpg,mpeg,mkv,mp4,mpeg4,m2ts,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv,pcd,zip" classpath-dirs="lib/jhove" />
         <tool class="edu.harvard.hul.ois.fits.tools.fileutility.FileUtility" exclude-exts="dng,wps,adl,jar,epub,csv" classpath-dirs="lib/fileutility" />
         <tool class="edu.harvard.hul.ois.fits.tools.exiftool.Exiftool" exclude-exts="txt,wps,vsd,jar,avi,mov,mpg,mpeg,mkv,mp4,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv,m2ts,mpeg4" classpath-dirs="lib/exiftool" />
         <tool class="edu.harvard.hul.ois.fits.tools.nlnz.MetadataExtractor" include-exts="bmp,gif,jpg,jpeg,wp,wpd,odt,doc,pdf,mp3,bfw,flac,html,xml,arc" classpath-dirs="lib/nzmetool,xml/nlnz"/>
