@@ -49,6 +49,9 @@ public class VideoStdSchemaTest extends AbstractLoggingTest {
 		XMLUnit.setIgnoreWhitespace(true);
 		XMLUnit.setNormalizeWhitespace(true);
 		fits = new Fits();
+// Use the following two lines to turn on tool output
+//		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
+//		fits = new Fits(null, fitsConfigFile);
 	}
 	
 	@AfterClass

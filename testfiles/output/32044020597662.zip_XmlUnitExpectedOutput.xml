@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.7" timestamp="3/21/17 5:59 PM">
+  <identification>
+    <identity format="ZIP Format" mimetype="application/zip" toolname="FITS" toolversion="1.0.7">
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="ffident" toolversion="0.2" />
+      <tool toolname="Tika" toolversion="1.10" />
+      <version toolname="file utility" toolversion="5.04">1.0</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/263</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/32044020597662.zip</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">32044020597662.zip</filename>
+    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">95270</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">7c64750915af83a39c35f0e836d3690f</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1490192287000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata />
+  <statistics fitsExecutionTime="1010">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="128" />
+    <tool toolname="Jhove" toolversion="1.16" status="did not run" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="525" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="512" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="80" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="578" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="1042" />
+  </statistics>
+</fits>
+

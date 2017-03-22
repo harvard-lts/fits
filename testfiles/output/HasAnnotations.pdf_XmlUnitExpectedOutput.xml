@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="2/26/16 9:28 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.6" timestamp="3/21/17 9:15 AM">
   <identification>
-    <identity format="Portable Document Format" mimetype="application/pdf" toolname="FITS" toolversion="0.11.0">
+    <identity format="Portable Document Format" mimetype="application/pdf" toolname="FITS" toolversion="1.0.6">
       <tool toolname="Droid" toolversion="6.1.5" />
-      <tool toolname="Jhove" toolversion="1.11" />
+      <tool toolname="Jhove" toolversion="1.16" />
       <tool toolname="file utility" toolversion="5.04" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
@@ -14,20 +14,19 @@
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.11">103323</size>
+    <size toolname="Jhove" toolversion="1.16">103323</size>
     <creatingApplicationName toolname="Exiftool" toolversion="10.00">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 17:12:03-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T21:12:03Z</lastmodified>
     <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:19 17:10:14-04:00</created>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/HasAnnotations.pdf</filepath>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/HasAnnotations.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">HasAnnotations.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">4475c0c78050f41718837eb3f8069cbd</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1456424437000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1464898750000</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">false</well-formed>
-    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">false</valid>
-    <message toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Invalid object number in cross-reference stream offset=103289</message>
+    <well-formed toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</valid>
   </filestatus>
   <metadata>
     <document>
@@ -37,8 +36,8 @@
       <pageCount toolname="Exiftool" toolversion="10.00">6</pageCount>
       <isTagged toolname="Exiftool" toolversion="10.00" status="CONFLICT">yes</isTagged>
       <isTagged toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">no</isTagged>
-      <hasOutline toolname="Jhove" toolversion="1.11">no</hasOutline>
-      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
+      <hasOutline toolname="Jhove" toolversion="1.16">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">no</hasAnnotations>
       <hasForms toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</hasForms>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
@@ -49,20 +48,20 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="217">
+  <statistics fitsExecutionTime="261">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="4" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="22" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="31" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="205" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="15" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="2" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="13" />
+    <tool toolname="Jhove" toolversion="1.16" executionTime="34" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="61" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="254" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="28" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="9" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="4" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="65" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="11" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="66" />
   </statistics>
 </fits>
 

@@ -56,6 +56,9 @@ public class DocMDTest extends AbstractLoggingTest {
 		XMLUnit.setNormalizeWhitespace(true);
 		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
 		fits = new Fits(null, fitsConfigFile);
+// Use the following two lines to turn on tool output
+//		fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
+//		fits = new Fits(null, fitsConfigFile);
 	}
 	
 	@AfterClass
