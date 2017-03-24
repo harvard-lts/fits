@@ -18,17 +18,10 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-import static org.custommonkey.xmlunit.XMLAssert.assertXMLIdentical;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.List;
 import java.util.Scanner;
 
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.Difference;
-import org.custommonkey.xmlunit.XMLUnit;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import org.junit.AfterClass;
@@ -37,11 +30,12 @@ import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
+import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
 
-public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
+public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 	
-	private static final String[] IGNORED_XML_ELEMENTS = {
+	// These override the values in the parent class.
+	private static final String[] OVERRIDING_IGNORED_XML_ELEMENTS = {
 			"version",
 			"toolversion",
 			"dateModified",
@@ -64,9 +58,7 @@ public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 
 	@BeforeClass
 	public static void beforeClass() throws Exception {
-		// Set up XMLUnit and FITS for entire class.
-		XMLUnit.setIgnoreWhitespace(true);
-		XMLUnit.setNormalizeWhitespace(true);
+		// Set up FITS for entire class.
 		fits = new Fits();
 	}
 	
@@ -78,8 +70,8 @@ public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 	@Test  
 	public void testVideoXmlUnitFitsOutput_AVC() throws Exception {
 		
-		// First generate the FITS output
-		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
+    	String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
+    	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
     	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitFitsOutput_AVC_Output.xml");
 
@@ -93,38 +85,14 @@ public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		// Set up XMLUnit
-		XMLUnit.setIgnoreWhitespace(true); 
-		XMLUnit.setNormalizeWhitespace(true); 		
-
-		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
-
-		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
-
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		// Display any Differences
-		List<Difference> diffs = detailedDiff.getAllDifferences();
-		if (!diff.identical()) { 
-			StringBuffer differenceDescription = new StringBuffer(); 
-			differenceDescription.append(diffs.size()).append(" differences"); 
-			
-			System.out.println(differenceDescription.toString());
-			for(Difference difference : diffs) {
-				System.out.println(difference.toString());
-			}
-
-		}
-		
-		assertXMLIdentical("Differences in XML", diff, true);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 	
 	@Test  
 	public void testVideoXmlUnitFitsOutput_DV() throws Exception {
 		
-		// First generate the FITS output
-		File input = new File("testfiles/FITS-SAMPLE-26.mov");
+    	String inputFilename = "FITS-SAMPLE-26.mov";
+    	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
     	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitFitsOutput_DV_Output.xml");
 
@@ -138,38 +106,14 @@ public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		// Set up XMLUnit
-		XMLUnit.setIgnoreWhitespace(true); 
-		XMLUnit.setNormalizeWhitespace(true); 		
-
-		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
-
-		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
-
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		// Display any Differences
-		List<Difference> diffs = detailedDiff.getAllDifferences();
-		if (!diff.identical()) { 
-			StringBuffer differenceDescription = new StringBuffer(); 
-			differenceDescription.append(diffs.size()).append(" differences"); 
-			
-			System.out.println(differenceDescription.toString());
-			for(Difference difference : diffs) {
-				System.out.println(difference.toString());
-			}
-
-		}
-		
-		assertXMLIdentical("Differences in XML", diff, true);
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}	
 	
 	@Test  
 	public void testVideoXmlUnitStandardOutput_AVC() throws Exception {
 		
-		// First generate the FITS output
-		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
+    	String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
+    	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
 		
 		// Output stream for FITS to write to 
@@ -188,39 +132,14 @@ public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		// Set up XMLUnit
-		XMLUnit.setIgnoreWhitespace(true); 
-		XMLUnit.setNormalizeWhitespace(true);
-		
-		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
-
-		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
-
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		// Display any Differences
-		List<Difference> diffs = detailedDiff.getAllDifferences();
-		if (!diff.identical()) { 
-			StringBuffer differenceDescription = new StringBuffer(); 
-			differenceDescription.append(diffs.size()).append(" differences"); 
-			
-			System.out.println(differenceDescription.toString());
-			for(Difference difference : diffs) {
-				System.out.println(difference.toString());
-			}
-
-		}
-		
-		assertXMLIdentical("Differences in XML", diff, true);
-		
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 	
 	@Test  
 	public void testVideoXmlUnitStandardOutput_DV() throws Exception {
 		
-		// First generate the FITS output
-		File input = new File("testfiles/FITS-SAMPLE-26.mov");
+    	String inputFilename = "FITS-SAMPLE-26.mov";
+    	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
 		
 		// Output stream for FITS to write to 
@@ -239,38 +158,14 @@ public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		// Set up XMLUnit
-		XMLUnit.setIgnoreWhitespace(true); 
-		XMLUnit.setNormalizeWhitespace(true);
-		
-		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
-
-		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
-
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		// Display any Differences
-		List<Difference> diffs = detailedDiff.getAllDifferences();
-		if (!diff.identical()) { 
-			StringBuffer differenceDescription = new StringBuffer(); 
-			differenceDescription.append(diffs.size()).append(" differences"); 
-			
-			System.out.println(differenceDescription.toString());
-			for(Difference difference : diffs) {
-				System.out.println(difference.toString());
-			}
-
-		}
-		
-		assertXMLIdentical("Differences in XML", diff, true);
-		
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}	
 	
 	@Test  
 	public void testVideoXmlUnitCombinedOutput_AVC() throws Exception {
 		
-		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
+    	String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
+    	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
     	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitCombinedOutput_AVC_Output.xml");
 		
@@ -290,38 +185,14 @@ public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		// Set up XMLUnit
-		XMLUnit.setIgnoreWhitespace(true); 
-		XMLUnit.setNormalizeWhitespace(true);
-		
-		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
-
-		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
-
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		// Display any Differences
-		List<Difference> diffs = detailedDiff.getAllDifferences();
-		if (!diff.identical()) { 
-			StringBuffer differenceDescription = new StringBuffer(); 
-			differenceDescription.append(diffs.size()).append(" differences"); 
-			
-			System.out.println(differenceDescription.toString());
-			for(Difference difference : diffs) {
-				System.out.println(difference.toString());
-			}
-
-		}
-		
-		assertXMLIdentical("Differences in XML", diff, true);
-		
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 	
 	@Test  
 	public void testVideoXmlUnitCombinedOutput_DV() throws Exception {
 		
-		File input = new File("testfiles/FITS-SAMPLE-26.mov");
+    	String inputFilename = "FITS-SAMPLE-26.mov";
+    	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
     	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitCombinedOutput_DV_Output.xml");
 		
@@ -341,32 +212,7 @@ public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		// Set up XMLUnit
-		XMLUnit.setIgnoreWhitespace(true); 
-		XMLUnit.setNormalizeWhitespace(true);
-		
-		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
-
-		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
-
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		// Display any Differences
-		List<Difference> diffs = detailedDiff.getAllDifferences();
-		if (!diff.identical()) { 
-			StringBuffer differenceDescription = new StringBuffer(); 
-			differenceDescription.append(diffs.size()).append(" differences"); 
-			
-			System.out.println(differenceDescription.toString());
-			for(Difference difference : diffs) {
-				System.out.println(difference.toString());
-			}
-
-		}
-		
-		assertXMLIdentical("Differences in XML", diff, true);
-		
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 	
 	/**
@@ -376,12 +222,10 @@ public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 	public void testVideoXmlUnitOutput_MXF() throws Exception {
 		
     	String inputFilename = "freeMXF-mxf1a.mxf";
-    	String outputFilename = inputFilename + "_Output.xml";
-    	String expectedOutputFilename = "FITS-freeMXF-mxf1a-expected-output.xml";
 
     	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/"+ outputFilename);
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 		
 		// Output stream for FITS to write to 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -394,43 +238,19 @@ public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-	            "testfiles/output/" + expectedOutputFilename));
+	            "testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		// Set up XMLUnit
-		XMLUnit.setIgnoreWhitespace(true); 
-		XMLUnit.setNormalizeWhitespace(true);
-		
-		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
-
-		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
-
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		// Display any Differences
-		List<Difference> diffs = detailedDiff.getAllDifferences();
-		if (!diff.identical()) { 
-			StringBuffer differenceDescription = new StringBuffer(); 
-			differenceDescription.append(diffs.size()).append(" differences"); 
-			
-			System.out.println(differenceDescription.toString());
-			for(Difference difference : diffs) {
-				System.out.println(difference.toString());
-			}
-
-		}
-		
-		assertXMLIdentical("Differences in XML", diff, true);
-		
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 	
 	@Test  
 	public void testVideoXmlUnitCombinedOutput_MPEG2() throws Exception {
 		
-		File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov");
+    	String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov";
+    	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
     	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitCombinedOutput_MPEG2_Output.xml");
 		
@@ -450,31 +270,14 @@ public class VideoStdSchemaTestXmlUnit extends AbstractLoggingTest {
 				useDelimiter("\\Z").next();
 		scan.close();
 
-		// Set up XMLUnit
-		XMLUnit.setIgnoreWhitespace(true); 
-		XMLUnit.setNormalizeWhitespace(true);
-		
-		Diff diff = new Diff(expectedXmlStr,actualXmlStr);
-
-		// Initialize attributes or elements to ignore for difference checking
-		diff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(IGNORED_XML_ELEMENTS));
-
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		// Display any Differences
-		List<Difference> diffs = detailedDiff.getAllDifferences();
-		if (!diff.identical()) { 
-			StringBuffer differenceDescription = new StringBuffer(); 
-			differenceDescription.append(diffs.size()).append(" differences"); 
-			
-			System.out.println(differenceDescription.toString());
-			for(Difference difference : diffs) {
-				System.out.println(difference.toString());
-			}
-
-		}
-		
-		assertXMLIdentical("Differences in XML", diff, true);
-		
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}	
+
+	/**
+	 * Send in set of XML elements to ignore that overrides the default.
+	 */
+	@Override
+	protected String[] getIgnoredXmlElements() {
+		return OVERRIDING_IGNORED_XML_ELEMENTS;
+	}
 }
