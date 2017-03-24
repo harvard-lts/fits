@@ -31,19 +31,21 @@ public class MediaInfo extends ToolBase {
 
 	private final static String TOOL_NAME = "MediaInfo";
 	private boolean enabled = true;
+    private Fits fits;
 
-	public final static String mediaInfoFitsConfig = Fits.FITS_XML_DIR+"mediainfo"+File.separator;
-	public final static String xsltTransform = "mediainfo_video_to_fits.xslt";
+    private final static String mediaInfoFitsConfig = Fits.FITS_XML_DIR+"mediainfo"+File.separator;
+    private final static String xsltTransform = "mediainfo_video_to_fits.xslt";
 
     private static final Logger logger = Logger.getLogger(MediaInfo.class);
     private static MediaInfoNativeWrapper mi = null;
 
-	public MediaInfo() throws FitsException {
-
+	public MediaInfo(Fits fits) throws FitsException {
+		super();
+		this.fits = fits;
 		info = new ToolInfo();
 		info.setName(TOOL_NAME);
 
-		String fitsHome = Fits.config.getString("fits_home");
+		String fitsHome = fits.getConfig().getString("fits_home");
 		// If the user has passed in the FITS_HOME parameter, use that
 		// instead of what is in the fits.xml
 		if(!StringUtils.isEmpty(Fits.FITS_HOME)) {
@@ -229,7 +231,7 @@ public class MediaInfo extends ToolBase {
 		// String finalXml = new XMLOutputter(Format.getPrettyFormat()).outputString(fitsXml);
 		// System.out.println("\nFINAL XML:\n" + finalXml);
 
-		output = new ToolOutput(this,fitsXml,rawOut);
+		output = new ToolOutput(this,fitsXml,rawOut, fits);
 
 		// DEBUG
 		// String fitsOutputString = new XMLOutputter(Format.getPrettyFormat()).outputString(output.getFitsXml());

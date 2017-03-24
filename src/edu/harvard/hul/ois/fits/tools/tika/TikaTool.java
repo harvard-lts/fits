@@ -414,10 +414,13 @@ public class TikaTool extends ToolBase {
 
     private static final Logger logger = Logger.getLogger(TikaTool.class);
     private boolean enabled = true;
+    private Fits fits;
 
-    public TikaTool() throws FitsToolException {
-        info = new ToolInfo(TOOL_NAME, TOOL_VERSION,"");
+    public TikaTool(Fits fits) throws FitsToolException {
+		super();
+		this.fits = fits;
         logger.debug ("Initializing TikaTool");
+        info = new ToolInfo(TOOL_NAME, TOOL_VERSION,"");
     }
 
     public ToolOutput extractInfo(File file) throws FitsToolException {
@@ -443,7 +446,7 @@ public class TikaTool extends ToolBase {
         Document toolData = buildToolData (metadata);
         // Now construct the raw data JDOM document
         Document rawData = buildRawData (metadata);
-        ToolOutput output = new ToolOutput (this, toolData, rawData);
+        ToolOutput output = new ToolOutput (this, toolData, rawData, fits);
         duration = System.currentTimeMillis()-startTime;
         runStatus = RunStatus.SUCCESSFUL;
         logger.debug ("Tika.extractInfo finished on " + file.getName());

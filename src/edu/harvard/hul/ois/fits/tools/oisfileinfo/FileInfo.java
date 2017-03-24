@@ -45,9 +45,12 @@ public class FileInfo extends ToolBase {
     private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
     private boolean enabled = true;
+    private Fits fits;
 
-	public FileInfo() throws FitsToolException{
+	public FileInfo(Fits fits) throws FitsToolException{
+		super();
         logger.debug ("Initializing FileInfo");
+        this.fits = fits;
         info.setName(TOOL_NAME);
 		info.setVersion(TOOL_VERSION);
 		info.setDate(TOOL_DATE);
@@ -57,7 +60,7 @@ public class FileInfo extends ToolBase {
         logger.debug("FileInfo.extractInfo starting on " + file.getName());
         long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
-		output = new ToolOutput(this,(Document)doc.clone(),doc);
+		output = new ToolOutput(this,(Document)doc.clone(),doc, fits);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
         logger.debug("FileInfo.extractInfo finished on " + file.getName());
@@ -68,7 +71,9 @@ public class FileInfo extends ToolBase {
 
 
 		Element root = new Element("fits",fitsNS);
-		root.setAttribute(new Attribute("schemaLocation","http://hul.harvard.edu/ois/xml/ns/fits/fits_output "+Fits.externalOutputSchema,xsiNS));
+		root.setAttribute(new Attribute("schemaLocation",
+										"http://hul.harvard.edu/ois/xml/ns/fits/fits_output " + fits.getExternalOutputSchema(),
+										xsiNS));
 		//fileinfo section
 		Element fileInfo = new Element("fileinfo",fitsNS);
 		//filepath
@@ -84,9 +89,9 @@ public class FileInfo extends ToolBase {
 		size.setText(String.valueOf(file.length()));
 		fileInfo.addContent(size);
 		//Calculate the MD5 checksum
-		if (Fits.config.getBoolean("output.enable-checksum")) {
+		if (fits.getConfig().getBoolean("output.enable-checksum")) {
 			@SuppressWarnings("unchecked")
-			List<String> checsumExcludes = (List<String>)(List<?>)Fits.config.getList("output.checksum-exclusions[@exclude-exts]");
+			List<String> checsumExcludes = (List<String>)(List<?>)fits.getConfig().getList("output.checksum-exclusions[@exclude-exts]");
 			String ext = FilenameUtils.getExtension(file.getPath());
 			if(!hasExcludedExtensionForMD5(ext, checsumExcludes)) {
 				try {

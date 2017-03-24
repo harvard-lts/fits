@@ -35,11 +35,14 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 public class ADLTool extends ToolBase {
 
 	private boolean enabled = true;
+	private Fits fits;
 	private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
     private static final Logger logger = Logger.getLogger(ADLTool.class);
 
-	public ADLTool() throws FitsToolException {
+	public ADLTool(Fits fits) throws FitsToolException {
+		super();
+		this.fits = fits;
 		info.setName("ADL Tool");
 		info.setVersion("0.1");
 		info.setDate("10/24/11");
@@ -49,7 +52,7 @@ public class ADLTool extends ToolBase {
         logger.debug("ADLTool.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
-		output = new ToolOutput(this,(Document)doc.clone(),doc);
+		output = new ToolOutput(this,(Document)doc.clone(),doc, fits);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
 		logger.debug("ADLTool.extractInfo finishing on " + file.getName());
@@ -59,7 +62,9 @@ public class ADLTool extends ToolBase {
 	private Document createXml(File file) throws FitsToolException {
 
 		Element root = new Element("fits",fitsNS);
-		root.setAttribute(new Attribute("schemaLocation","http://hul.harvard.edu/ois/xml/ns/fits/fits_output "+Fits.externalOutputSchema,xsiNS));
+		root.setAttribute(new Attribute("schemaLocation",
+										"http://hul.harvard.edu/ois/xml/ns/fits/fits_output " + fits.getExternalOutputSchema(),
+										xsiNS));
 
 		if(file.getPath().toLowerCase().endsWith(".adl")) {
 

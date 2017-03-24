@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Constructor;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -66,30 +67,30 @@ import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
  */
 public class Fits {
 
-  private static Logger logger;
-
   public static volatile String FITS_HOME;
   public static String FITS_XML_DIR;
   public static String FITS_TOOLS_DIR;
-  public static XMLConfiguration config;
-  public static FitsXmlMapper mapper;
-  public static boolean validateToolOutput;
-  public static boolean enableStatistics;
-  public static String externalOutputSchema;
-  public static String internalOutputSchema;
-  public static int maxThreads = 20; // GDM 16-Nov-2012
-  public static final String XML_NAMESPACE = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output";
   public static String VERSION = "<unknown>";
+  public static final String XML_NAMESPACE = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output";
+  
+  private static boolean traverseDirs;
+  private static XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 
   private static final String FITS_CONFIG_FILE_NAME = "fits.xml";
-  private static String VERSION_PROPERTIES_FILE = "version.properties";
+  private static final String VERSION_PROPERTIES_FILE = "version.properties";
+  
+  private XMLConfiguration config;
+  private FitsXmlMapper mapper;
+  private boolean enableStatistics;
+  private String externalOutputSchema;
+  private String internalOutputSchema;
+  private boolean validateToolOutput;
+  private int maxThreads = 20;
   private ToolOutputConsolidator consolidator;
-  private static XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
   private ToolBelt toolbelt;
   private boolean resetToolOutput = true; // should always be true except for unit tests
-
-  private static boolean traverseDirs;
-
+  
+  private static Logger logger;
 
     static {
         // set FITS_HOME from environment variable if it exists
@@ -228,15 +229,17 @@ public class Fits {
     }
     logger.debug( "Maximum threads = " + maxThreads );
 
-    String consolidatorClass = config.getString( "output.dataConsolidator[@class]" );
+    String consolidatorClassFullyQualifiedName = config.getString( "output.dataConsolidator[@class]" );
     try {
-      Class<?> c = Class.forName( consolidatorClass );
-      consolidator = (ToolOutputConsolidator) c.newInstance();
+		// Instantiate the Consolidator class using Reflection by passing Fits into the constructor.
+		Class<?> c = Class.forName(consolidatorClassFullyQualifiedName);
+		Constructor<?> ctor = c.getConstructor(Fits.class);
+		consolidator = (ToolOutputConsolidator)ctor.newInstance(this);
     } catch (Exception e) {
-      throw new FitsConfigurationException( "Error initializing " + consolidatorClass, e );
+      throw new FitsConfigurationException( "Error initializing " + consolidatorClassFullyQualifiedName, e );
     }
 
-    toolbelt = new ToolBelt( config );
+    toolbelt = new ToolBelt( config, this );
 
   }
 
@@ -625,7 +628,27 @@ public class Fits {
   public ToolBelt getToolbelt() {
     return toolbelt;
   }
+  
+  public XMLConfiguration getConfig() {
+	  return config;
+  }
+  
+  public FitsXmlMapper getFitsXmlMapper() {
+	  return mapper;
+  }
+  
+  public String getExternalOutputSchema() {
+	  return externalOutputSchema;
+  }
 
+  public String getInternalOutputSchema() {
+	  return internalOutputSchema;
+  }
+  
+  public boolean validateToolOutput() {
+	  return validateToolOutput;
+  }
+  
   /* Count up all the threads that are still running */
   private int countActiveTools( List<Thread> threads ) {
     int count = 0;

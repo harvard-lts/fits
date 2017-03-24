@@ -46,13 +46,15 @@ public class Jhove extends ToolBase {
     private XmlHandler xh;
     private String jhoveConf;
     private boolean enabled = true;
+    private Fits fits;
+
+    private final static Calendar calendar = GregorianCalendar.getInstance();
+    private final static String jhoveFitsConfig = Fits.FITS_XML_DIR + "jhove" + File.separator;
     private static final Logger logger = Logger.getLogger(Jhove.class);
 
-    public final static Calendar calendar = GregorianCalendar.getInstance();
-
-    public final static String jhoveFitsConfig = Fits.FITS_XML_DIR+"jhove"+File.separator;
-
-	public Jhove() throws FitsException {
+	public Jhove(Fits fits) throws FitsException {
+		super();
+		this.fits = fits;
         logger.debug ("Initializing Jhove");
 
 		try {
@@ -148,7 +150,7 @@ public class Jhove extends ToolBase {
 			fitsXml = transform(jhoveFitsConfig+"jhove_text_to_fits.xslt",dom);
 		}
 
-		output = new ToolOutput(this,fitsXml,dom);
+		output = new ToolOutput(this,fitsXml,dom, fits);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
         logger.debug("Jhove.extractInfo finished on " + file.getName());

@@ -45,13 +45,16 @@ public class Exiftool extends ToolBase {
 	private List<String> perlTestCommand = Arrays.asList("which", "perl");
 	private final static String TOOL_NAME = "Exiftool";
 	private boolean enabled = true;
+    private Fits fits;
 
-	public final static String exiftoolFitsConfig = Fits.FITS_XML_DIR+"exiftool"+File.separator;
-	public final static String genericTransform = "exiftool_generic_to_fits.xslt";
+    private final static String exiftoolFitsConfig = Fits.FITS_XML_DIR+"exiftool"+File.separator;
+    private final static String genericTransform = "exiftool_generic_to_fits.xslt";
 
     private static final Logger logger = Logger.getLogger(Exiftool.class);
 
-	public Exiftool() throws FitsException {
+	public Exiftool(Fits fits) throws FitsException {
+		super();
+		this.fits = fits;
         logger.debug ("Initializing Exiftool");
 
 		String osName = System.getProperty("os.name");
@@ -151,7 +154,7 @@ public class Exiftool extends ToolBase {
 			//use generic transform
 			fitsXml = transform(exiftoolFitsConfig+genericTransform,rawOut);
 		}
-		output = new ToolOutput(this,fitsXml,rawOut);
+		output = new ToolOutput(this,fitsXml,rawOut, fits);
 		//}
 
 		duration = System.currentTimeMillis()-startTime;

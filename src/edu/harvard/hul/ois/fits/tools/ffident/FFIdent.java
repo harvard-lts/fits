@@ -38,13 +38,15 @@ public class FFIdent extends ToolBase {
     private final static String TOOL_DATE = "2005-10-21";
 
 	private FormatIdentification identifier = null;
-	public final static String xslt =Fits.FITS_XML_DIR+"/ffident/ffident_to_fits.xslt";
+	private final static String xslt =Fits.FITS_XML_DIR+"/ffident/ffident_to_fits.xslt";
 	private boolean enabled = true;
+    private Fits fits;
 
     private static final Logger logger = Logger.getLogger(FFIdent.class);
 
-	public FFIdent() throws FitsToolException{
-
+	public FFIdent(Fits fits) throws FitsToolException{
+		super();
+		this.fits = fits;
         logger.debug ("Initializing FFIdent");
 		info = new ToolInfo(TOOL_NAME, TOOL_VERSION, TOOL_DATE);
 
@@ -70,7 +72,7 @@ public class FFIdent extends ToolBase {
 			rawOut = createXml(desc);
 			fitsXml = transform(xslt,rawOut);
 		//}
-		output = new ToolOutput(this,fitsXml,rawOut);
+		output = new ToolOutput(this,fitsXml,rawOut, fits);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
         logger.debug ("FFIdent.extractInfo finished on " + file.getName());

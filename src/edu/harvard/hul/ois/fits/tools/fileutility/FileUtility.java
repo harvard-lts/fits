@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -40,12 +39,15 @@ public class FileUtility extends ToolBase {
 	private List<String> FILE_TEST_COMMAND = new ArrayList<String>(Arrays.asList("which", "file"));
 	private final static String WIN_FILE_DATE = "6/7/2008";
 	private boolean enabled = true;
+    private Fits fits;
 
     private static final Logger logger = Logger.getLogger(FileUtility.class);
 
-	public final static String xslt = Fits.FITS_XML_DIR+"fileutility/fileutility_to_fits.xslt";
+    private final static String xslt = Fits.FITS_XML_DIR+"fileutility/fileutility_to_fits.xslt";
 
-	public FileUtility() throws FitsToolException{
+	public FileUtility(Fits fits) throws FitsToolException{
+		super();
+		this.fits = fits;
         logger.debug ("Initializing FileUtility");
 		String osName = System.getProperty("os.name");
 		info = new ToolInfo();
@@ -169,7 +171,7 @@ public class FileUtility extends ToolBase {
 		Document rawOut = createXml(mime,format,charset,linebreaks,execOut+"\n"+execMimeOut);
 		Document fitsXml = transform(xslt,rawOut);
 
-		output = new ToolOutput(this,fitsXml,rawOut);
+		output = new ToolOutput(this,fitsXml,rawOut, fits);
 
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;

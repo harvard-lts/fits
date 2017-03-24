@@ -81,7 +81,7 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
     	Tool tool = toolBelt.getTools().get(0);
     	ToolOutput toolOutput = tool.getOutput();
     	assertNotNull(toolOutput);
-    	OISConsolidator consolidator = new OISConsolidator();
+    	OISConsolidator consolidator = new OISConsolidator(fits);
     	List<ToolOutput> results = new ArrayList<ToolOutput>();
     	results.add(toolOutput);
     	FitsOutput fitsOutput = consolidator.processResults(results);
@@ -127,7 +127,7 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
     	
     	ToolBelt toolBelt = fits.getToolbelt();
     	assertEquals(2, toolBelt.getTools().size());
-    	OISConsolidator consolidator = new OISConsolidator();
+    	OISConsolidator consolidator = new OISConsolidator(fits);
     	List<ToolOutput> results = new ArrayList<ToolOutput>();
     	for (Tool tool : toolBelt.getTools()) {
     		ToolOutput toolOutput = tool.getOutput();
@@ -177,7 +177,7 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
     	
     	ToolBelt toolBelt = fits.getToolbelt();
     	assertEquals(2, toolBelt.getTools().size());
-    	OISConsolidator consolidator = new OISConsolidator();
+    	OISConsolidator consolidator = new OISConsolidator(fits);
     	List<ToolOutput> results = new ArrayList<ToolOutput>();
     	for (Tool tool : toolBelt.getTools()) {
     		ToolOutput toolOutput = tool.getOutput();

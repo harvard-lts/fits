@@ -31,6 +31,7 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 public class VTTTool extends ToolBase {
 
 	private boolean enabled = true;
+	private Fits fits;
 	private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
 	private static final Logger logger = Logger.getLogger(VTTTool.class);
@@ -38,7 +39,9 @@ public class VTTTool extends ToolBase {
 	private final static String VTT_TOOL_VERSION = "0.1";
 	private final static String VTT_IDENTIFIER = "WEBVTT";
 
-	public VTTTool() throws FitsToolException {
+	public VTTTool(Fits fits) throws FitsToolException {
+		super();
+		this.fits = fits;
 		info.setName("VTT Tool");
 		info.setVersion(VTT_TOOL_VERSION);
 		info.setDate("02/23/16");
@@ -48,7 +51,7 @@ public class VTTTool extends ToolBase {
 		logger.debug("VTTTool.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
-		output = new ToolOutput(this,(Document)doc.clone(),doc);
+		output = new ToolOutput(this,(Document)doc.clone(),doc, fits);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
 		logger.debug("VTTTool.extractInfo finishing on " + file.getName());
@@ -58,7 +61,9 @@ public class VTTTool extends ToolBase {
 	private Document createXml(File file) throws FitsToolException {
 
 		Element root = new Element("fits",fitsNS);
-		root.setAttribute(new Attribute("schemaLocation","http://hul.harvard.edu/ois/xml/ns/fits/fits_output "+Fits.externalOutputSchema,xsiNS));
+		root.setAttribute(new Attribute("schemaLocation",
+										"http://hul.harvard.edu/ois/xml/ns/fits/fits_output " + fits.getExternalOutputSchema(),
+										xsiNS));
 
 		if(file.getPath().toLowerCase().endsWith(".vtt")) {
 

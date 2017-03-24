@@ -23,6 +23,8 @@ import java.util.Scanner;
 
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -30,6 +32,45 @@ import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
 
 public class AudioStdSchemaTestXmlUnit_NoMD5 extends AbstractXmlUnitTest {
+
+	/*
+	 *  Only one Fits instance is needed to run all tests.
+	 *  This also speeds up the tests.
+	 */
+	private static Fits fits;
+
+	@BeforeClass
+	public static void beforeClass() throws Exception {
+		// Set up FITS for entire class.
+		fits = new Fits();
+	}
+	
+	@AfterClass
+	public static void afterClass() {
+		fits = null;
+	}
+    
+    @Test  
+	public void testAudioChunk() throws Exception {   
+
+		String inputFilename = "testchunk.wav";
+    	File input = new File("testfiles/" + inputFilename);
+    	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.saveToDisk("test-generated-output/testchunk_wav_Output.xml");
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/testchunk.wav.xml"));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
+
 	
 	@Test  
 	public void testAudioMD_noMD5() throws Exception {
@@ -56,5 +97,4 @@ public class AudioStdSchemaTestXmlUnit_NoMD5 extends AbstractXmlUnitTest {
 
 		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
-
 }

@@ -40,15 +40,7 @@ public class ToolOutput {
 
 	private static Logger logger = Logger.getLogger(ToolOutput.class);
 
-    private static DocumentBuilderFactory docBuilderFactory;
-    static
-    {
-        docBuilderFactory = DocumentBuilderFactory.newInstance();
-        docBuilderFactory.setNamespaceAware(true);
-        docBuilderFactory.setValidating(true);
-        docBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
-        docBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", Fits.FITS_HOME+Fits.internalOutputSchema);
-    }
+    private DocumentBuilderFactory docBuilderFactory;
 
     private static Namespace ns = Namespace.getNamespace("fits",Fits.XML_NAMESPACE);
 
@@ -64,12 +56,20 @@ public class ToolOutput {
 	/** Constructor
 	 *
 	 *  @param tool       The Tool creating this output
-	 *  @param fitsXml    JDOM Document following the FITS output schema
-	 *  @param toolOutput Raw XML JDOM Document representing the original output
+	 * @param fitsXml    JDOM Document following the FITS output schema
+	 * @param toolOutput Raw XML JDOM Document representing the original output
 	 *                    of the tool
+	 * @param fits TODO
 	 */
-	public ToolOutput(Tool tool, Document fitsXml, Document toolOutput) throws FitsToolException {
-		if(Fits.validateToolOutput && fitsXml !=null && !validateXmlOutput(fitsXml)) {
+	public ToolOutput(Tool tool, Document fitsXml, Document toolOutput, Fits fits) throws FitsToolException {
+        docBuilderFactory = DocumentBuilderFactory.newInstance();
+        docBuilderFactory.setNamespaceAware(true);
+        docBuilderFactory.setValidating(true);
+        docBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
+        String internalSchemaLocation = Fits.FITS_HOME + fits.getInternalOutputSchema();
+        docBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", internalSchemaLocation);
+
+        if(fits.validateToolOutput() && fitsXml !=null && !validateXmlOutput(fitsXml)) {
 			throw new FitsToolException(tool.getToolInfo().getName()+" "+
 					tool.getToolInfo().getVersion() + " produced invalid FITS XML output");
 		}
@@ -79,13 +79,21 @@ public class ToolOutput {
 		//map values and get identities from fitsXML if not null
 		if(fitsXml != null) {
 			//fitsxml doc is mapped here before identities are extracted
-			this.fitsXml = Fits.mapper.applyMap(tool,fitsXml); // Perform any last-chance transformations/normalizations of FITS output.
+			this.fitsXml = fits.getFitsXmlMapper().applyMap(tool,fitsXml); // Perform any last-chance transformations/normalizations of FITS output.
 			identity = createFileIdentities(fitsXml,tool.getToolInfo());
 		}
 	}
 
+	/**
+	 * This is not used and there is no need to set <code>null</code> on the Document toolOutput.
+	 * 
+	 * @deprecated
+	 * @param tool
+	 * @param fitsXml
+	 * @throws FitsToolException
+	 */
 	public ToolOutput(Tool tool, Document fitsXml) throws FitsToolException {
-		this(tool,fitsXml,null);
+		this(tool,fitsXml,null, null);
 	}
 
 	/** Returns the Tool that created this object */

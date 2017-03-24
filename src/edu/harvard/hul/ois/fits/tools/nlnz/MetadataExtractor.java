@@ -42,8 +42,10 @@ public class MetadataExtractor extends ToolBase {
     private final static String TOOL_VERSION = "3.6GA";
     private final static String TOOL_DATE = "06/05/2014";
 
-	public static String nlnzFitsConfig;
+    private static String nlnzFitsConfig;
 	private boolean enabled = true;
+    private Fits fits;
+
     private static final Logger logger = Logger.getLogger(MetadataExtractor.class);
 
     static {
@@ -51,7 +53,9 @@ public class MetadataExtractor extends ToolBase {
     	logger.debug("nlnzFitsConfig: " + nlnzFitsConfig);
     }
 
-	public MetadataExtractor() throws FitsException {
+	public MetadataExtractor(Fits fits) throws FitsException {
+		super();
+		this.fits = fits;
         logger.debug ("Initializing MetadataExtractor");
 		info = new ToolInfo(TOOL_NAME,TOOL_VERSION,TOOL_DATE);
 		transformMap = XsltTransformMap.getMap(nlnzFitsConfig+"nlnz_xslt_map.xml");
@@ -136,7 +140,7 @@ public class MetadataExtractor extends ToolBase {
 
 		//XmlUtils.printToConsole(dom);
 
-		output = new ToolOutput(this,fitsXml,dom);
+		output = new ToolOutput(this,fitsXml,dom, fits);
 		duration = System.currentTimeMillis()-startTime;
         logger.debug("MetadataExtractor.extractInfo finished on " + file.getName());
 		runStatus = RunStatus.SUCCESSFUL;
