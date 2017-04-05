@@ -332,6 +332,7 @@ public class Fits {
           String version = versionProps.getProperty("build.version");
           if (version != null && !version.isEmpty()) {
               Fits.VERSION = version;
+              FitsOutput.setFitsVersion(version);
           }
       } catch (IOException e) {
           System.err.println("Problem loading [" + VERSION_PROPERTIES_FILE + "]: " + "Cannot display FITS version information.");
