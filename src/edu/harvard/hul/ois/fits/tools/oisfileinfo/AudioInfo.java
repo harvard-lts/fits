@@ -41,12 +41,15 @@ public class AudioInfo extends ToolBase {
     private final static String TOOL_DATE = "2/17/11";
 
 	private boolean enabled = true;
+	private Fits fits;
 	private static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
 
     private static Logger logger = Logger.getLogger(AudioInfo.class);
 
-	public AudioInfo() throws FitsToolException {
+	public AudioInfo(Fits fits) throws FitsToolException {
+		super();
+		this.fits = fits;
 		info.setName(TOOL_NAME);
 		info.setVersion(TOOL_VERSION);
 		info.setDate(TOOL_DATE);
@@ -56,7 +59,7 @@ public class AudioInfo extends ToolBase {
         logger.debug ("AudioInfo.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
-		output = new ToolOutput(this,(Document)doc.clone(),doc);
+		output = new ToolOutput(this,(Document)doc.clone(),doc, fits);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
         logger.debug ("AudioInfo.extractInfo finished on " + file.getName());
@@ -66,7 +69,9 @@ public class AudioInfo extends ToolBase {
 	private Document createXml(File file) throws FitsToolException {
 
 		Element root = new Element("fits",fitsNS);
-		root.setAttribute(new Attribute("schemaLocation","http://hul.harvard.edu/ois/xml/ns/fits/fits_output "+Fits.externalOutputSchema,xsiNS));
+		root.setAttribute(new Attribute("schemaLocation",
+										"http://hul.harvard.edu/ois/xml/ns/fits/fits_output " + fits.getExternalOutputSchema(),
+										xsiNS));
 
 		//If the file is a wav then parse and set audio metadata
 		int magicNum = -1;

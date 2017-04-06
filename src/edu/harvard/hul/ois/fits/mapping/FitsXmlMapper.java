@@ -32,7 +32,7 @@ import edu.harvard.hul.ois.fits.tools.ToolInfo;
  */
 public class FitsXmlMapper {
 
-	public static final String FITS_XML_MAP_PATH = Fits.FITS_XML_DIR+"fits_xml_map.xml";
+	private static final String FITS_XML_MAP_PATH = Fits.FITS_XML_DIR+"fits_xml_map.xml";
 	private List<ToolMap> toolMaps = new ArrayList<ToolMap>();
     private static Logger logger = Logger.getLogger(FitsXmlMapper.class);
 

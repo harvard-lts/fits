@@ -31,9 +31,9 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
-import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
 import edu.harvard.hul.ois.fits.identity.FormatVersion;
+import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 import edu.harvard.hul.ois.fits.tools.Tool;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
@@ -48,6 +48,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	private boolean reportConflicts;
 	private boolean displayToolOutput;
 	private Document formatTree;
+	private Fits fits;
 
 	private final static int CONFLICT = 0;
 	private final static int SINGLE_RESULT = 1;
@@ -68,19 +69,35 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		UNKNOWN;
 	}
 
-	public OISConsolidator() throws FitsConfigurationException {
+// This class is instantiated by Reflection in the Fits class using a 1-arg constructor
+//	public OISConsolidator() throws FitsConfigurationException {
+//
+//		reportConflicts = Fits.config.getBoolean("output.report-conflicts",true);
+//		displayToolOutput = Fits.config.getBoolean("output.display-tool-output",false);
+//		SAXBuilder saxBuilder = new SAXBuilder();
+//		try {
+//			formatTree = saxBuilder.build(Fits.FITS_XML_DIR+"fits_format_tree.xml");
+//		} catch (Exception e) {
+//			throw new FitsConfigurationException("",e);
+//		}
+//		//fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
+//	}
 
-		reportConflicts = Fits.config.getBoolean("output.report-conflicts",true);
-		displayToolOutput = Fits.config.getBoolean("output.display-tool-output",false);
+	public OISConsolidator(Fits fits) throws FitsConfigurationException {
+		if (fits == null || fits.getConfig() == null) {
+			throw new FitsConfigurationException("Fits parameter to constructor or fits.getConfig() cannot be null.");
+		}
+		this.fits = fits;
+		reportConflicts = fits.getConfig().getBoolean("output.report-conflicts",true);
+		displayToolOutput = fits.getConfig().getBoolean("output.display-tool-output",false);
 		SAXBuilder saxBuilder = new SAXBuilder();
 		try {
 			formatTree = saxBuilder.build(Fits.FITS_XML_DIR+"fits_format_tree.xml");
 		} catch (Exception e) {
 			throw new FitsConfigurationException("",e);
 		}
-		//fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	}
-
+	
 	private Element findAnElement(List<ToolOutput> results, String xpath_query, boolean useChildren) {
 		for(ToolOutput result : results) {
 			Document dom = result.getFitsXml();
@@ -508,19 +525,21 @@ public class OISConsolidator implements ToolOutputConsolidator {
 
 		//start building the FITS xml document
 		Document mergedDoc = new Document();
-		Element fits = new Element("fits",fitsNS);
+		Element elem = new Element("fits",fitsNS);
 
-		fits.addNamespaceDeclaration(xsiNS);
-		fits.setAttribute(new Attribute("schemaLocation",Fits.XML_NAMESPACE+" "+Fits.externalOutputSchema, xsiNS));
+		elem.addNamespaceDeclaration(xsiNS);
+		elem.setAttribute(new Attribute("schemaLocation",
+										Fits.XML_NAMESPACE + " " + fits.getExternalOutputSchema(),
+										xsiNS));
 
-		fits.setAttribute("version", Fits.VERSION);
+		elem.setAttribute("version", Fits.VERSION);
 		DateFormat dateFormat = new SimpleDateFormat();
 		Date date = new Date();
-		fits.setAttribute("timestamp",dateFormat.format(date));
+		elem.setAttribute("timestamp",dateFormat.format(date));
 
 		Element identificationsection = new Element("identification",fitsNS);
-		fits.addContent(identificationsection);
-		mergedDoc.addContent(fits);
+		elem.addContent(identificationsection);
+		mergedDoc.addContent(elem);
 
 		String curSec;
 		String curSecName;
@@ -640,7 +659,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		//curSec = "/fits/fileinfo";
 		curSecName = "fileinfo";
 		Element s = new Element(curSecName,fitsNS);
-		fits.addContent(s);
+		elem.addContent(s);
 		Element e = null;
 		while((e = findAnElement(culledResults,curSec,false)) != null) {
 			List<Element> fitsElements = mergeXmlResults(culledResults, e);
@@ -660,7 +679,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		//curSec = "/fits/filestatus";
 		curSecName = "filestatus";
 		s = new Element(curSecName,fitsNS);
-		fits.addContent(s);
+		elem.addContent(s);
 		e = null;
 		while((e = findAnElement(culledResults,curSec,false)) != null) {
 			List<Element> fitsElements = mergeXmlResults(culledResults, e);
@@ -677,7 +696,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		//curSec = "/fits/metadata";
 		curSecName = "metadata";
 		s = new Element(curSecName,fitsNS);
-		fits.addContent(s);
+		elem.addContent(s);
 		e = null;
 		while((e = findAnElement(culledResults,curSec,true)) != null) {
 			Element eParent = e.getParentElement();
@@ -739,7 +758,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 						}
 				}
 			}
-			fits.addContent(toolOutput);
+			elem.addContent(toolOutput);
 		}
 
 		FitsOutput result = new FitsOutput(mergedDoc);

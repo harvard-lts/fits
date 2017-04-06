@@ -38,10 +38,12 @@ public class DroidToolOutputter {
 
     private IdentificationResultCollection results;
     private Droid toolBase;
+    private Fits fits;
 
-    public DroidToolOutputter (Droid toolBase, IdentificationResultCollection results) {
+    public DroidToolOutputter (Droid toolBase, IdentificationResultCollection results, Fits fits) {
         this.toolBase = toolBase;
         this.results = results;
+        this.fits = fits;
     }
 
     /** Produce a JDOM document with fits as its root element. This
@@ -51,7 +53,7 @@ public class DroidToolOutputter {
         List<IdentificationResult> resList = results.getResults();
         Document fitsXml = createToolData ();
         Document rawOut = buildRawData (resList);
-        ToolOutput output = new ToolOutput(toolBase,fitsXml,rawOut);
+        ToolOutput output = new ToolOutput(toolBase,fitsXml,rawOut, fits);
         return output;
     }
 

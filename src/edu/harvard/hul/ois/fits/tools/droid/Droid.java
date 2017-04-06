@@ -18,14 +18,14 @@ import java.io.StringWriter;
 import org.apache.log4j.Logger;
 import org.jdom.input.SAXBuilder;
 
-import uk.gov.nationalarchives.droid.command.action.VersionCommand;
-import uk.gov.nationalarchives.droid.core.SignatureParseException;
-import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import uk.gov.nationalarchives.droid.command.action.VersionCommand;
+import uk.gov.nationalarchives.droid.core.SignatureParseException;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 
 /**  The principal glue class for invoking DROID under FITS.
  */
@@ -33,15 +33,19 @@ public class Droid extends ToolBase {
 
 	private boolean enabled = true;
 	private DroidQuery droidQuery;
+    private Fits fits;
+
     private static final Logger logger = Logger.getLogger(Droid.class);
 
-	public Droid() throws FitsToolException {
+	public Droid(Fits fits) throws FitsToolException {
+		super();
+		this.fits = fits;
         logger.debug ("Initializing Droid");
 		info = new ToolInfo("Droid", getDroidVersion(), null);
 
 		try {
 			String droid_conf = Fits.FITS_TOOLS_DIR+"droid"+File.separator;
-			File sigFile = new File(droid_conf+Fits.config.getString("droid_sigfile"));
+			File sigFile = new File(droid_conf + fits.getConfig().getString("droid_sigfile"));
 	        try {
 	            droidQuery = new DroidQuery (sigFile);
 	        }
@@ -65,7 +69,7 @@ public class Droid extends ToolBase {
 		    throw new FitsToolException("DROID can't query file " + file.getAbsolutePath(),
 		            e);
 		}
-		DroidToolOutputter outputter = new DroidToolOutputter(this, results);
+		DroidToolOutputter outputter = new DroidToolOutputter(this, results, fits);
 		ToolOutput output = outputter.toToolOutput();
 
 		duration = System.currentTimeMillis()-startTime;

@@ -40,10 +40,13 @@ public class XmlMetadata extends ToolBase {
     private final static String TOOL_DATE = "12/22/10";
 
 	private boolean enabled = true;
+	private Fits fits;
 
     private static Logger logger = Logger.getLogger(XmlMetadata.class);
 
-	public XmlMetadata() throws FitsToolException{
+	public XmlMetadata(Fits fits) throws FitsToolException{
+		super();
+		this.fits = fits;
 	    logger.debug ("Initializing XmlMetadata");
 		info.setName(TOOL_NAME);
 		info.setVersion(TOOL_VERSION);
@@ -54,7 +57,7 @@ public class XmlMetadata extends ToolBase {
         logger.debug("XmlMetadata.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		Document doc = createXml(file);
-		output = new ToolOutput(this,(Document)doc.clone(),doc);
+		output = new ToolOutput(this,(Document)doc.clone(),doc, fits);
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
         logger.debug("XmlMetadata.extractInfo finished on " + file.getName());
@@ -65,7 +68,9 @@ public class XmlMetadata extends ToolBase {
 
 
 		Element root = new Element("fits",fitsNS);
-		root.setAttribute(new Attribute("schemaLocation","http://hul.harvard.edu/ois/xml/ns/fits/fits_output "+Fits.externalOutputSchema,xsiNS));
+		root.setAttribute(new Attribute("schemaLocation",
+										"http://hul.harvard.edu/ois/xml/ns/fits/fits_output " + fits.getExternalOutputSchema(),
+										xsiNS));
 		//If the file is XML then parse and set text metadata
 		if(file.getPath().toLowerCase().endsWith(".xml")) {
 			Element metadata = new Element("metadata",fitsNS);

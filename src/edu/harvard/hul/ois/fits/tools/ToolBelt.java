@@ -12,18 +12,17 @@ package edu.harvard.hul.ois.fits.tools;
 
 
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 import edu.harvard.hul.ois.fits.tools.utils.ParentLastClassLoader;
 
 public class ToolBelt {
@@ -50,32 +49,17 @@ public class ToolBelt {
 	/**
 	 * Constructor
 	 *
-	 * @param configFile Full path to and including name of FITS configuration file.
-	 * @throws FitsConfigurationException If there is a problem reading or parsing the configuration file.
-	 */
-	public ToolBelt(String configFile) throws FitsConfigurationException {
-		XMLConfiguration config = null;
-		try {
-			config = new XMLConfiguration(configFile);
-		} catch (ConfigurationException e) {
-			throw new FitsConfigurationException("Error reading "+configFile,e);
-		}
-		init(config);
-	}
-
-	/**
-	 * Constructor
-	 *
 	 * @param config XMLConfiguration of FITS configuration file.
+	 * @param fits Fits for referencing member variables.
 	 */
-	public ToolBelt(XMLConfiguration config) {
-		init(config);
+	public ToolBelt(XMLConfiguration config, Fits fits) {
+		init(config, fits);
 	}
 
 	/*
 	 * Common initialization of all constructors.
 	 */
-	private void init(XMLConfiguration config) {
+	private void init(XMLConfiguration config, Fits fits) {
 
 		fitsUrl = getClass().getProtectionDomain().getCodeSource().getLocation();
 
@@ -133,7 +117,7 @@ public class ToolBelt {
 					logger.trace("Tool from custom ClassLoader isAssignableFrom(toolClass): " + isAssignable);
 				}
 
-				Tool t = (Tool)toolClass.newInstance();
+				Tool t = createToolClassInstance(toolClass, fits);
 
 				if(t != null) {
 					t.setName(bareClassName(tClass));
@@ -147,10 +131,8 @@ public class ToolBelt {
 					t.applyToolsUsed (toolsUsedList);
 					tools.add(t);
 				}
-			} catch(ClassNotFoundException |
-					MalformedURLException |
-					IllegalAccessException |
-					InstantiationException ex) {
+			} catch(ReflectiveOperationException |
+					MalformedURLException ex) {
 			    // Can't use this tool, but continue anyway.
 				//throw new FitsConfigurationException("Error initializing "+tClass,e);
 			    logger.error ("Thread "+Thread.currentThread().getId() +
@@ -165,6 +147,16 @@ public class ToolBelt {
 				}
 			}
 		}
+	}
+	
+	/*
+	 * Instantiate a Tool class using Reflection by passing Fits into the constructor.
+	 * Note: All Tool class implementations MUST have a 1-argument constructor with Fits as the argument.
+	 */
+	private Tool createToolClassInstance(Class<?> toolClass, Fits fits) throws ReflectiveOperationException {
+		Constructor<?> ctor = toolClass.getConstructor(Fits.class);
+		Object instanceOfTheClass = ctor.newInstance(fits);
+		return (Tool)instanceOfTheClass;
 	}
 
 	public List<Tool> getTools() {
