@@ -154,8 +154,17 @@ public class ToolBelt {
 	 * Note: All Tool class implementations MUST have a 1-argument constructor with Fits as the argument.
 	 */
 	private Tool createToolClassInstance(Class<?> toolClass, Fits fits) throws ReflectiveOperationException {
-		Constructor<?> ctor = toolClass.getConstructor(Fits.class);
-		Object instanceOfTheClass = ctor.newInstance(fits);
+		Object instanceOfTheClass = null;
+		try {
+			Constructor<?> ctor = toolClass.getConstructor(Fits.class);
+			instanceOfTheClass = ctor.newInstance(fits);
+			logger.debug("1-arg constructor for instantiating tool class: " + toolClass.getName());
+		} catch (ReflectiveOperationException e) {
+			// now try a no-arg constructor
+			logger.debug("No Fits 1-arg constructor for tool class: " + toolClass.getName() + " -- trying no-arg constructor...");
+			instanceOfTheClass = toolClass.newInstance();
+			logger.debug("no-arg constructor for instantiating tool class: " + toolClass.getName());
+		}
 		return (Tool)instanceOfTheClass;
 	}
 
