@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits_configuration>
+    <!-- This file is for use by one of the test classes only. -->
+	<tools>
+        <tool class="edu.harvard.hul.ois.fits.tools.OneArgumentTestTool" />
+	</tools>
+	
+	<output>
+		<dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
+		<display-tool-output>false</display-tool-output>
+		<report-conflicts>true</report-conflicts>	
+		<validate-tool-output>false</validate-tool-output>
+		<internal-output-schema>xml/fits_output.xsd</internal-output-schema>
+		<external-output-schema>http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd</external-output-schema>
+		<fits-xml-namespace>http://hul.harvard.edu/ois/xml/ns/fits/fits_output</fits-xml-namespace>
+		<enable-statistics>true</enable-statistics>
+		<enable-checksum>true</enable-checksum>
+		<!-- The below controls the exclusion of the checksum for certain files, even if enable-checksum is true -->
+		<!-- Video Exclusions -->
+		<!-- <checksum-exclusions exclude-exts="avi,mov,mpg,mkv,mp4,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv"/> -->
+		<!-- Audio Exclusions -->
+		<!-- <checksum-exclusions exclude-exts="wav,aif,mp3,mp4,m4a,ra,rm"/> -->
+	</output>
+	
+	<process>
+		<max-threads>20</max-threads>
+	</process>
+	
+	<!-- file name of the droid signature file to use in tools/droid/-->
+	<droid_sigfile>DROID_SignatureFile_V82.xml</droid_sigfile>
+	
+	<!-- the fits home is used by the MediaInfo tool to load the jna api libs  -->
+	<!-- in most cases you won't need to change -->
+	<!-- example for BB will be /fits -->
+	<fits_home>.</fits_home>	
+		
+</fits_configuration>
