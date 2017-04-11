@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.1.0" timestamp="4/6/17 12:11 PM">
+  <identification>
+    <identity format="Waveform Audio" mimetype="audio/x-wave" toolname="FITS" toolversion="1.1.0">
+      <tool toolname="OIS Audio Information" toolversion="0.1" />
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Jhove" toolversion="1.16" />
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <version toolname="Droid" toolversion="6.1.5">0 PCM Encoding</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/142</externalIdentifier>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/703</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.16">898136</size>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/test.wav</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">test.wav</filename>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1446674963000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <audio>
+      <numSamples toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">299159</numSamples>
+      <sampleRate toolname="OIS Audio Information" toolversion="0.1">96000</sampleRate>
+      <audioDataEncoding toolname="OIS Audio Information" toolversion="0.1" status="CONFLICT">PCM</audioDataEncoding>
+      <audioDataEncoding toolname="Jhove" toolversion="1.16" status="CONFLICT">PCM audio in integer format</audioDataEncoding>
+      <audioDataEncoding toolname="Exiftool" toolversion="10.00" status="CONFLICT">Microsoft PCM</audioDataEncoding>
+      <blockAlign toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">3</blockAlign>
+      <time toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">458028579</time>
+      <channels toolname="OIS Audio Information" toolversion="0.1">1</channels>
+      <bitDepth toolname="OIS Audio Information" toolversion="0.1">24</bitDepth>
+      <wordSize toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">3</wordSize>
+      <offset toolname="OIS Audio Information" toolversion="0.1">46</offset>
+      <byteOrder toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">LITTLE_ENDIAN</byteOrder>
+      <duration toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">3.12 s</duration>
+    </audio>
+  </metadata>
+  <statistics fitsExecutionTime="477">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" executionTime="172" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="266" />
+    <tool toolname="Jhove" toolversion="1.16" executionTime="443" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="414" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="432" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="167" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="408" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="247" />
+  </statistics>
+</fits>
+

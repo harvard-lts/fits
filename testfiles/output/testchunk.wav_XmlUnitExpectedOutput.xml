@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.1.0" timestamp="4/6/17 12:11 PM">
+  <identification>
+    <identity format="Waveform Audio" mimetype="audio/x-wave" toolname="FITS" toolversion="1.1.0">
+      <tool toolname="OIS Audio Information" toolversion="0.1" />
+      <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Jhove" toolversion="1.16" />
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <version toolname="Droid" toolversion="6.1.5">2 PCM Encoding</version>
+      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/705</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.16">3986952</size>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/testchunk.wav</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">testchunk.wav</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">2f3b3492bcce357f62f3ebee17f47830</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1446674963000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</valid>
+    <message toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">Chunk type 'FLLR' ignored offset=910</message>
+    <message toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">Chunk type 'MD5 ' ignored offset=3986310</message>
+    <message toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">Chunk type 'axml' ignored offset=3986366</message>
+  </filestatus>
+  <metadata>
+    <audio>
+      <numSamples toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">1323000</numSamples>
+      <sampleRate toolname="OIS Audio Information" toolversion="0.1">44100</sampleRate>
+      <audioDataEncoding toolname="OIS Audio Information" toolversion="0.1" status="CONFLICT">PCM</audioDataEncoding>
+      <audioDataEncoding toolname="Jhove" toolversion="1.16" status="CONFLICT">PCM audio in integer format</audioDataEncoding>
+      <audioDataEncoding toolname="Exiftool" toolversion="10.00" status="CONFLICT">Microsoft PCM</audioDataEncoding>
+      <blockAlign toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">3</blockAlign>
+      <time toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">0</time>
+      <channels toolname="OIS Audio Information" toolversion="0.1">1</channels>
+      <bitDepth toolname="OIS Audio Information" toolversion="0.1">24</bitDepth>
+      <wordSize toolname="OIS Audio Information" toolversion="0.1" status="SINGLE_RESULT">3</wordSize>
+      <offset toolname="OIS Audio Information" toolversion="0.1" status="CONFLICT">17048</offset>
+      <offset toolname="Jhove" toolversion="1.16" status="CONFLICT">17302</offset>
+      <byteOrder toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">LITTLE_ENDIAN</byteOrder>
+      <duration toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">0:00:30</duration>
+    </audio>
+  </metadata>
+  <statistics fitsExecutionTime="382">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" executionTime="4" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.1.5" executionTime="362" />
+    <tool toolname="Jhove" toolversion="1.16" executionTime="72" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="96" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="195" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="48" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="11" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="121" />
+  </statistics>
+</fits>
+
