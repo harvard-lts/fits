@@ -21,7 +21,7 @@
 	<classpathentry kind="lib" path="lib/saxon9-jdom.jar"/>
 	<classpathentry kind="lib" path="lib/saxon9.jar"/>
 	<classpathentry kind="lib" path="lib/AES31.jar"/>
-	<classpathentry kind="lib" path="lib/hclaps.jar"/>
+	<classpathentry kind="lib" path="lib/hclaps-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/stax2-api-3.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/woodstox-core-lgpl-4.0.7.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>

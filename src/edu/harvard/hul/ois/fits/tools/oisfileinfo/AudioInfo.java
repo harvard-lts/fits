@@ -21,6 +21,7 @@ import org.jdom.Element;
 import org.jdom.Namespace;
 import org.apache.log4j.Logger;
 
+import edu.harvard.hcl.hclaps.bwav.InvalidWaveHeaderException;
 import edu.harvard.hcl.hclaps.bwav.WAVEFile;
 import edu.harvard.hcl.hclaps.bwav.chunks.FormatChunk;
 import edu.harvard.hcl.hclaps.util.ByteConvertor;
@@ -98,6 +99,9 @@ public class AudioInfo extends ToolBase {
 		}
 		catch (FileNotFoundException e) {
 			throw new FitsToolException("File "+file.getName() + " not found",e);
+		}
+		catch (InvalidWaveHeaderException e) {
+			throw new FitsToolException("Problem with HCLAPS Wave Header: " + e.getMessage(), e);
 		}
 
 		Element metadata = new Element("metadata",fitsNS);

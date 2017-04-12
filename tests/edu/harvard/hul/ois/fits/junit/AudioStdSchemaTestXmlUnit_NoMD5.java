@@ -56,14 +56,14 @@ public class AudioStdSchemaTestXmlUnit_NoMD5 extends AbstractXmlUnitTest {
 		String inputFilename = "testchunk.wav";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/testchunk_wav_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				"testfiles/output/testchunk.wav.xml"));
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
@@ -83,14 +83,14 @@ public class AudioStdSchemaTestXmlUnit_NoMD5 extends AbstractXmlUnitTest {
 		String inputFilename = "test.wav";
     	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/FITS_test_wav_NO_MD5_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				"testfiles/output/FITS_test_wav_NO_MD5.xml"));
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
