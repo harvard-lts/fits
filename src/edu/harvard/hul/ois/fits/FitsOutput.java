@@ -65,7 +65,11 @@ public class FitsOutput {
 	private Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 
-	private static String fitsVersion = null;
+	/**
+	 * For backwards compatibility with older FITS clients.
+	 * @deprecated
+	 */
+	public static String VERSION = null;
     private static final Logger logger = Logger.getLogger(FitsOutput.class);
     
     /**
@@ -73,7 +77,7 @@ public class FitsOutput {
      */
     static void setFitsVersion(String fitsVersion) {
     	if (fitsVersion != null) {
-    		FitsOutput.fitsVersion = new String(fitsVersion);
+    		FitsOutput.VERSION = new String(fitsVersion);
     	}
     }
 
@@ -465,6 +469,6 @@ public class FitsOutput {
 	}
 	
 	public String getFitsVersion() {
-		return FitsOutput.fitsVersion;
+		return FitsOutput.VERSION;
 	}
 }
