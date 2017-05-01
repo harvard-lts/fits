@@ -65,21 +65,7 @@ public class FitsOutput {
 	private Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 
-	/**
-	 * For backwards compatibility with older FITS clients.
-	 * @deprecated
-	 */
-	public static String VERSION = null;
     private static final Logger logger = Logger.getLogger(FitsOutput.class);
-    
-    /**
-     * Set from Fits.java initialization.
-     */
-    static void setFitsVersion(String fitsVersion) {
-    	if (fitsVersion != null) {
-    		FitsOutput.VERSION = new String(fitsVersion);
-    	}
-    }
 
 	public FitsOutput(String fitsXmlStr) throws JDOMException, IOException {
 		SAXBuilder builder = new SAXBuilder();
@@ -468,7 +454,18 @@ public class FitsOutput {
 
 	}
 	
+	/**
+	 * This is the version of FITS that created the input file of this instance.
+	 * @return The FITS version of the input file.
+	 */
 	public String getFitsVersion() {
-		return FitsOutput.VERSION;
+		
+		String fitsVersion = null;
+		Element root = fitsXml.getRootElement();
+		Attribute fitsVersionAttr = root.getAttribute("version");
+		if (fitsVersionAttr != null) {
+			fitsVersion = fitsVersionAttr.getValue();
+		}
+		return fitsVersion;
 	}
 }

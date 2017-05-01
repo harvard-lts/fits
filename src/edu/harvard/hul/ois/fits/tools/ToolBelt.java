@@ -151,7 +151,8 @@ public class ToolBelt {
 	
 	/*
 	 * Instantiate a Tool class using Reflection by passing Fits into the constructor.
-	 * Note: All Tool class implementations MUST have a 1-argument constructor with Fits as the argument.
+	 * Note: All Tool class implementations can have a 1-argument constructor with Fits as the argument.
+	 * If it does not, then the standard newInstance() method fall-back will be used.
 	 */
 	private Tool createToolClassInstance(Class<?> toolClass, Fits fits) throws ReflectiveOperationException {
 		Object instanceOfTheClass = null;
