@@ -14,7 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 
+import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.log4j.Logger;
 import org.jdom.input.SAXBuilder;
 
@@ -45,9 +47,18 @@ public class Droid extends ToolBase {
 
 		try {
 			String droid_conf = Fits.FITS_TOOLS_DIR+"droid"+File.separator;
-			File sigFile = new File(droid_conf + fits.getConfig().getString("droid_sigfile"));
+			XMLConfiguration config = fits.getConfig();
+			File sigFile = new File(droid_conf + config.getString("droid_sigfile"));
+	        @SuppressWarnings("unchecked")
+			List<String> includeExts = (List<String>)(List<?>)config.getList("droid_read_limit[@include-exts]");
+	        String limit = config.getString("droid_read_limit[@read-limit-kb]");
+	        long kbReadLimit = -1l;
+	        if (limit != null) {
+	        	kbReadLimit = Long.parseLong(limit);
+	        }
+
 	        try {
-	            droidQuery = new DroidQuery (sigFile);
+	            droidQuery = new DroidQuery (sigFile, includeExts, kbReadLimit);
 	        }
 	        catch (SignatureParseException e) {
 	            throw new FitsToolException("Problem with DROID signature file");
