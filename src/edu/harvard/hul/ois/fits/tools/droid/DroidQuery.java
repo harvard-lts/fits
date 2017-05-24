@@ -20,7 +20,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.SignatureParseException;
@@ -31,30 +32,48 @@ import uk.gov.nationalarchives.droid.core.interfaces.resource.RequestMetaData;
 
 public class DroidQuery {
 
-    private BinarySignatureIdentifier sigIdentifier = new BinarySignatureIdentifier();;
-
+    private BinarySignatureIdentifier sigIdentifier = new BinarySignatureIdentifier();
+    // Certain file types (possibly really large file), we only want to examine the beginning of the file.
+    private long bytesToRead = -1;
+    private List<String> fileExtensions;
+    
     /** Create a DroidQuery object. This can be retained for any number of
      *  different queries.
      *
-     *  @param sigFile   File object for a Droid signature file
+     * @param sigFile   File object for a Droid signature file
+     * @param includeExts TODO
+     * @param kbReadLimit TODO
      *
      *   @throws SignatureParseException
      */
-    public DroidQuery (File sigFile)  throws SignatureParseException, FileNotFoundException    {
+    public DroidQuery (File sigFile, List<String> includeExts, long kbReadLimit)  throws SignatureParseException, FileNotFoundException    {
         if (!sigFile.exists()) {
             throw new FileNotFoundException ("Signature file " + sigFile.getAbsolutePath() + " not found");
         }
         sigIdentifier.setSignatureFile (sigFile.getAbsolutePath());
         sigIdentifier.init ();
+        this.fileExtensions = includeExts;
+        if (kbReadLimit > 0) {
+        	this.bytesToRead = (kbReadLimit * 1024) - 1;
+        }
     }
 
     /** Query a file and get back an XML response. */
     public IdentificationResultCollection queryFile (File fil)
             throws IOException {
-        // Set max. number of bytes at beginning of file to process.
+    	
+        // For certain file types, set max. number of bytes at beginning of file to process.
         // See https://groups.google.com/forum/#!msg/droid-list/HqN6lKOATJk/i-qTEI-XEwAJ;context-place=forum/droid-list
-        // which indicates minimum number of bytes required to identify the input file.
-        long bytesToExamine = Math.min(fil.length(), 65535);
+        // which indicates minimum number of bytes required to identify certain input file types.    	
+    	long bytesToExamine = fil.length();
+    	String filename = fil.getName();
+    	int lastDot = filename.lastIndexOf('.');
+    	if (lastDot > 0 && filename.length() > lastDot) {
+    		String fileExtension = filename.substring(++lastDot).toLowerCase(); // examine extension past the last dot
+    		if (fileExtensions != null && fileExtensions.contains(fileExtension) && bytesToRead > 0) {
+    			bytesToExamine = Math.min(fil.length(), bytesToRead);
+    		}
+    	}
         RequestMetaData metadata = new RequestMetaData(bytesToExamine, fil.lastModified(), fil.getName());
         RequestIdentifier identifier = new RequestIdentifier (fil.toURI());
         FileInputStream in = null;

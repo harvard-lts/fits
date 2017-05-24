@@ -204,6 +204,7 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 		
 		// Turn output stream into a String HtmlUnit can use
 		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
