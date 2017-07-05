@@ -8,8 +8,9 @@
 	</branch>
 	<branch format="Raw JPEG Stream">
 		<branch format="jpeg">
-			<branch format="JPEG File Interchange Format"/>
-			<branch format="JPEG EXIF"/>
+			<branch format="JPEG File Interchange Format">
+				<branch format="JPEG EXIF"/>
+			</branch>
 		</branch>
 	</branch>
 	<branch format="JPEG 2000">
