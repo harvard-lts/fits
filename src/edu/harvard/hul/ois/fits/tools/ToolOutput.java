@@ -84,18 +84,6 @@ public class ToolOutput {
 		}
 	}
 
-	/**
-	 * This is not used and there is no need to set <code>null</code> on the Document toolOutput.
-	 * 
-	 * @deprecated
-	 * @param tool
-	 * @param fitsXml
-	 * @throws FitsToolException
-	 */
-	public ToolOutput(Tool tool, Document fitsXml) throws FitsToolException {
-		this(tool,fitsXml,null, null);
-	}
-
 	/** Returns the Tool that created this object */
 	public Tool getTool() {
 		return tool;

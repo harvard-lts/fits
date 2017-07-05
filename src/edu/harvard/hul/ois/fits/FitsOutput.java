@@ -44,6 +44,7 @@ import edu.harvard.hul.ois.fits.tools.Tool.RunStatus;
 import edu.harvard.hul.ois.fits.tools.ToolBelt;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.ots.schemas.AES.AudioObject;
+import edu.harvard.hul.ois.ots.schemas.ContainerMD.ContainerMd;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 import edu.harvard.hul.ois.ots.schemas.Ebucore.EbuCoreMain;
 import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
@@ -65,21 +66,7 @@ public class FitsOutput {
 	private Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 
-	/**
-	 * For backwards compatibility with older FITS clients.
-	 * @deprecated
-	 */
-	public static String VERSION = null;
     private static final Logger logger = Logger.getLogger(FitsOutput.class);
-    
-    /**
-     * Set from Fits.java initialization.
-     */
-    static void setFitsVersion(String fitsVersion) {
-    	if (fitsVersion != null) {
-    		FitsOutput.VERSION = new String(fitsVersion);
-    	}
-    }
 
 	public FitsOutput(String fitsXmlStr) throws JDOMException, IOException {
 		SAXBuilder builder = new SAXBuilder();
@@ -316,6 +303,12 @@ public class FitsOutput {
         	// Process video metadata...
         	return (EbuCoreMain)conv.toEbuCoreVideo(this,subElem);
         }
+        subElem = metadata.getChild ("container",ns);
+        if (subElem != null) {
+        	// Process container metadata...
+        	return (ContainerMd)conv.toContainerMD(subElem);
+        }
+        
         return null;
     }
 

@@ -132,10 +132,11 @@
 	<!-- metadata types -->
 	<xs:complexType name="metadataType">
 		<xs:choice>
+			<xs:element name="audio" type="technicalMetadata" minOccurs="0"/>
+			<xs:element name="container" type="technicalMetadata" minOccurs="0"/>
+			<xs:element name="document" type="technicalMetadata" minOccurs="0"/>
 			<xs:element name="image" type="technicalMetadata" minOccurs="0"/>
 			<xs:element name="text" type="technicalMetadata" minOccurs="0"/>
-			<xs:element name="document" type="technicalMetadata" minOccurs="0"/>
-			<xs:element name="audio" type="technicalMetadata" minOccurs="0"/>
 			<xs:element name="video" type="technicalMetadata" minOccurs="0"/>
 		</xs:choice>
 	</xs:complexType>

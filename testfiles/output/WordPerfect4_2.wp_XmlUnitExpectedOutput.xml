@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.0" timestamp="6/26/17 2:07 PM">
   <identification status="SINGLE_RESULT">
-    <identity format="WordPerfect Document" mimetype="application/vnd.wordperfect" toolname="FITS" toolversion="0.11.0">
-      <tool toolname="Droid" toolversion="6.1.5" />
-      <version toolname="Droid" toolversion="6.1.5">5.2</version>
-      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/203</externalIdentifier>
+    <identity format="WordPerfect Document" mimetype="application/vnd.wordperfect" toolname="FITS" toolversion="1.2.0">
+      <tool toolname="Droid" toolversion="6.3" />
+      <version toolname="Droid" toolversion="6.3" status="CONFLICT">5.2</version>
+      <version toolname="Droid" toolversion="6.3" status="CONFLICT">6 onwards</version>
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/203</externalIdentifier>
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">fmt/892</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/WordPerfect4_2.wp</filepath>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/WordPerfect4_2.wp</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">WordPerfect4_2.wp</filename>
     <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">2677</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">a83edcaa67ad6338bbfee877815df532</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1454956776000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1464898750000</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata />
-  <statistics fitsExecutionTime="143">
+  <statistics fitsExecutionTime="2225">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="7" />
-    <tool toolname="Jhove" toolversion="1.11" status="did not run" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="38" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="140" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="133" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="3" />
+    <tool toolname="Droid" toolversion="6.3" executionTime="2224" />
+    <tool toolname="Jhove" toolversion="1.16" status="did not run" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="47" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="185" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="138" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="2" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="8" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="80" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="4" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="88" />
   </statistics>
 </fits>
 

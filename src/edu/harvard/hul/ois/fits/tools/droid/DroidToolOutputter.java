@@ -13,37 +13,55 @@ package edu.harvard.hul.ois.fits.tools.droid;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.zip.ZipEntry;
 
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.FitsMetadataValues;
-import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
-import edu.harvard.hul.ois.fits.tools.ToolOutput;
-import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResult;
-import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
-
+import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
+import org.xml.sax.SAXException;
 
-/** This class generates the tool output for DROID.
+import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsMetadataValues;
+import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
+import edu.harvard.hul.ois.fits.tools.ToolBase;
+import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResult;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
+
+/**
+ * This class generates the tool output for DROID.
  *
- *  @author <a href="http://www.garymcgath.com">Gary McGath</a>
+ * @author <a href="http://www.garymcgath.com">Gary McGath</a>
  */
 public class DroidToolOutputter {
 
     private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
+    private final static Map<Integer, String> COMPRESSION_METHOD_TO_STRING_VALUE;
+    
+	private static Logger logger = Logger.getLogger(DroidToolOutputter.class);
 
     private IdentificationResultCollection results;
-    private Droid toolBase;
+    private ToolBase toolBase;
     private Fits fits;
+    private ContainerAggregator aggregator; // could be null!!!
+    
+    static {
+    	COMPRESSION_METHOD_TO_STRING_VALUE = new HashMap<>();
+    	COMPRESSION_METHOD_TO_STRING_VALUE.put(ZipEntry.STORED, "stored");
+    	COMPRESSION_METHOD_TO_STRING_VALUE.put(ZipEntry.DEFLATED, "deflate");
+    }
 
-    public DroidToolOutputter (Droid toolBase, IdentificationResultCollection results, Fits fits) {
+    public DroidToolOutputter (ToolBase toolBase, IdentificationResultCollection results, Fits fits, ContainerAggregator aggregator) {
         this.toolBase = toolBase;
         this.results = results;
         this.fits = fits;
+        this.aggregator = aggregator;
     }
 
     /** Produce a JDOM document with fits as its root element. This
@@ -59,7 +77,7 @@ public class DroidToolOutputter {
 
     /** Create a base tool data document and add elements
      *  for each format. */
-    private Document createToolData () {
+    private Document createToolData () throws FitsToolException {
         List<IdentificationResult> resList = results.getResults();
         Element fitsElem = new Element ("fits", fitsNS);
         Document toolDoc = new Document (fitsElem);
@@ -95,6 +113,7 @@ public class DroidToolOutputter {
                 attr = new Attribute ("mimetype", mimeType);
                 identityElem.setAttribute (attr);
             }
+
             // Is there anything to put into the fileinfo or metadata elements?
             // Both are optional, so they can be left out if they'd be empty.
             idElem.addContent (identityElem);
@@ -115,11 +134,45 @@ public class DroidToolOutputter {
                 puidElem.setAttribute (attr);
             }
         }
+        
+        // The only time there will be a metadata section from DROID is when
+        // there is an aggregator for ZIP files and there are file entries.
+        if (aggregator != null && aggregator.getTotalEntriesCount() > 0) {
+        	Element metadataElem = new Element ("metadata", fitsNS);
+        	fitsElem.addContent(metadataElem);
+        	Element containerElem = new Element ("container", fitsNS);
+    		metadataElem.addContent(containerElem);
+        	
+        	Element origSizeElem = new Element("originalSize", fitsNS);
+    		origSizeElem.addContent( String.valueOf(aggregator.getOriginalSize()) );
+    		containerElem.addContent(origSizeElem);
+        	
+        	Element compressionMethodElem = new Element("compressionMethod", fitsNS);
+    		compressionMethodElem.addContent( COMPRESSION_METHOD_TO_STRING_VALUE.get( aggregator.getCompressionMethod() ) );
+    		containerElem.addContent(compressionMethodElem);
+        	
+        	Element entriesElem = new Element("entries", fitsNS);
+    		Attribute totalEntriesCountAttr = new Attribute("totalEntries", String.valueOf(aggregator.getTotalEntriesCount()) );
+			entriesElem.setAttribute(totalEntriesCountAttr);
+    		containerElem.addContent(entriesElem);
+        	
+        	for ( Map.Entry<String, Integer> formatEntry : aggregator.getFormatCounts().entrySet() ) {
+        		Element entryElem = new Element("format", fitsNS);
+        		Attribute nameAttr = new Attribute("name", formatEntry.getKey());
+        		entryElem.setAttribute(nameAttr);
+        		
+        		Attribute numberAttr = new Attribute("number", String.valueOf(formatEntry.getValue()) );
+        		entryElem.setAttribute(numberAttr);
+        		
+        		entriesElem.addContent(entryElem);
+        	}
+        }
 
-        return toolDoc;     // TODO stub
+
+        return toolDoc;
     }
 
-    private String mapFormatName(String formatName) {
+    public static String mapFormatName(String formatName) {
 
     	if(formatName == null || formatName.length() == 0) {
     		return FitsMetadataValues.DEFAULT_FORMAT;
@@ -197,7 +250,38 @@ public class DroidToolOutputter {
                 out.write("<version>" + version + "</version>");
                 out.write("</result>");
             }
+            
+            if (aggregator != null && aggregator.getTotalEntriesCount() > 0) {
+            	out.write("<container originalSize='");
+            	out.write( String.valueOf(aggregator.getOriginalSize()) );
+            	
+            	String method = COMPRESSION_METHOD_TO_STRING_VALUE.get( aggregator.getCompressionMethod() );
+            	out.write("' method='");
+            	out.write(method);
+            	
+            	out.write("'>");
+                out.write("\n");
+            	
+            	out.write("<entries totalEntries='");
+            	out.write( String.valueOf(aggregator.getTotalEntriesCount()) );
+            	out.write("'>");
+                out.write("\n");
 
+                for ( Map.Entry<String, Integer> entry : aggregator.getFormatCounts().entrySet() ) {
+                	out.write("<entry formatName='");
+                	out.write(entry.getKey());
+                	out.write("' count='");
+                	out.write( String.valueOf(entry.getValue()) );
+                	out.write("'></entry>");
+                	out.write("\n");
+                }
+            	out.write("</entries>");
+            	out.write("\n");
+            	
+            	out.write("</container>");
+            	out.write("\n");
+            }
+            
             out.write("  </results>");
             out.write("\n");
 
@@ -218,9 +302,4 @@ public class DroidToolOutputter {
             }
             return doc;
         }
-
-    /* Change any MIME types that need to be normalized. */
-    private String mimeToFileType (String mime) {
-        return mime;       // TODO stub
-    }
 }

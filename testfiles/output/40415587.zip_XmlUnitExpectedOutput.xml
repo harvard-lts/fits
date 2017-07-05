@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.0" timestamp="6/30/17 3:22 PM">
+  <identification>
+    <identity format="ZIP Format" mimetype="application/zip" toolname="FITS" toolversion="1.2.0">
+      <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="ffident" toolversion="0.2" />
+      <tool toolname="Tika" toolversion="1.10" />
+      <version toolname="file utility" toolversion="5.04">2.0</version>
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/263</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/40415587.zip</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">40415587.zip</filename>
+    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">12716562</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">f91dd3fdf89cc68860029b0ee785ad96</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1498832318000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <container>
+      <originalSize toolname="Droid" toolversion="6.3" status="SINGLE_RESULT">12949356</originalSize>
+      <compressionMethod toolname="Droid" toolversion="6.3" status="SINGLE_RESULT">deflate</compressionMethod>
+      <entries totalEntries="1" toolname="Droid" toolversion="6.3" status="SINGLE_RESULT">
+        <format name="Windows Media Video" number="1" />
+      </entries>
+      <standard>
+        <containerMD:containerMD xmlns:containerMD="http://bibnum.bnf.fr/ns/containerMD-v1">
+          <containerMD:container>
+            <containerMD:encoding method="deflate" type="compression" originalSize="12949356" />
+          </containerMD:container>
+          <containerMD:entries>
+            <containerMD:entriesInformation number="1">
+              <containerMD:formats>
+                <containerMD:format number="1" name="Windows Media Video" />
+              </containerMD:formats>
+            </containerMD:entriesInformation>
+          </containerMD:entries>
+        </containerMD:containerMD>
+      </standard>
+    </container>
+  </metadata>
+  <statistics fitsExecutionTime="16565">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.3" executionTime="16530" />
+    <tool toolname="Jhove" toolversion="1.16" status="did not run" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="844" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="844" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="362" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="840" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="740" />
+  </statistics>
+</fits>
+

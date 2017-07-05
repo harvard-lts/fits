@@ -24,6 +24,13 @@ import org.jdom.Namespace;
 import org.jdom.Text;
 
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
+import edu.harvard.hul.ois.ots.schemas.ContainerMD.Container;
+import edu.harvard.hul.ois.ots.schemas.ContainerMD.ContainerMd;
+import edu.harvard.hul.ois.ots.schemas.ContainerMD.Encoding;
+import edu.harvard.hul.ois.ots.schemas.ContainerMD.Entries;
+import edu.harvard.hul.ois.ots.schemas.ContainerMD.EntriesInformation;
+import edu.harvard.hul.ois.ots.schemas.ContainerMD.Format;
+import edu.harvard.hul.ois.ots.schemas.ContainerMD.Formats;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.Font;
 import edu.harvard.hul.ois.ots.schemas.MIX.Compression;
 import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
@@ -878,6 +885,71 @@ public class XmlContentConverter {
     }
 
     /**
+     * Converts a container element to a ContainerMD object
+     * @param  fitsElement an element in the FITS schema
+     */
+    public XmlContent toContainerMD(Element fitsElement) {
+    	
+    	ContainerMd containerMd = new ContainerMd ();
+
+    	try {
+    		Container container = new Container();
+    		containerMd.setContainer(container);
+    		
+    		Encoding encoding = new Encoding();
+    		List<Encoding> encodings = new ArrayList<>();
+    		encodings.add(encoding);
+    		container.setEncodings(encodings);
+    		
+    		// TODO: get encryption element to pull value for either 'encryption' or 'compression'
+    		
+    		encoding.setAttribute("type", "compression");
+    		Element compressionMethod = fitsElement.getChild(ContainerMDElement.compressionMethod.getName(), ns);
+    		if (compressionMethod != null && !compressionMethod.getText().isEmpty()) {
+    			encoding.setAttribute("method", compressionMethod.getText());
+    		}
+    		Element originalSize = fitsElement.getChild(ContainerMDElement.originalSize.getName(), ns);
+    		if (originalSize != null && !originalSize.getText().isEmpty()) {
+    			encoding.setAttribute("originalSize", originalSize.getText());
+    		}
+    		
+    		Entries entries = new Entries();
+    		containerMd.setEntries(entries);
+    		
+    		EntriesInformation entriesInformation = new EntriesInformation();
+    		entries.setEntriesInformation(entriesInformation);
+    		
+    		
+    		Element entriesElement = fitsElement.getChild(ContainerMDElement.entries.getName(), ns);
+    		if (entriesElement != null) {
+    			String totalEntries = entriesElement.getAttributeValue(ContainerMDElement.totalEntries.getName());
+    			entriesInformation.setNumber( parseLong(totalEntries,
+    					ContainerMDElement.entries.getName() + " -- attr.: " + ContainerMDElement.totalEntries.getName()) );
+    			
+    			Formats formats = new Formats();
+    			entriesInformation.setFormats(formats);
+    			
+    			@SuppressWarnings("unchecked")
+    			List<Element> formatElements = entriesElement.getChildren(ContainerMDElement.format.getName(), ns);
+    			if (formatElements != null & formatElements.size() > 0) {
+    				for (Element formatElement : formatElements) {
+    					Format format = new Format();
+    					formats.addFormat(format);
+    					String formatName = formatElement.getAttributeValue(ContainerMDElement.formatName.getName());
+    					format.setNameAttribute(formatName);
+    					String number = formatElement.getAttributeValue(ContainerMDElement.number.getName());
+    					format.setNumber( parseLong(number, ContainerMDElement.formatName.getName() + " -- attr.: " + ContainerMDElement.number.getName()) );
+    				}
+    			}
+    		}
+		} catch (XmlContentException e1) {
+			logger.error("Invalid content: " + e1.getMessage ());
+		}
+
+        return containerMd;
+    }
+
+    /**
      * Converts a video element into a VideoObject ??? object
      * @param fitsVideo		a video element in the FITS schema
      */
@@ -1004,7 +1076,7 @@ public class XmlContentConverter {
     	return ebucoreModel.ebucoreMain;
     } // toEbuCoreVideo
 
-    boolean isMediaInfoTool(String fitsName, Element elem) {
+    private boolean isMediaInfoTool(String fitsName, Element elem) {
 
     	// Ebucore can only be generated from MediaInfo output
 		Attribute toolNameAttr = elem.getAttribute("toolname");
@@ -1235,6 +1307,28 @@ public class XmlContentConverter {
     	private String name;
 
     	private AudioFormatElement(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+    
+    /* An enumeration for mapping symbols to FITS container element names. */
+    public enum ContainerMDElement {
+       	entries("entries"),
+       	totalEntries("totalEntries"),
+       	entry("entry"),
+       	format("format"),
+       	formatName("name"),
+       	number("number"),
+       	originalSize ("originalSize"),
+       	compressionMethod ("compressionMethod");
+
+    	private String name;
+
+    	private ContainerMDElement(String name) {
             this.name = name;
         }
 

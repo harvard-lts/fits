@@ -14,19 +14,22 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.log4j.Logger;
-import org.jdom.input.SAXBuilder;
 
 import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsMetadataValues;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import uk.gov.nationalarchives.droid.command.action.VersionCommand;
+import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.SignatureParseException;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResult;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 
 /**  The principal glue class for invoking DROID under FITS.
@@ -34,8 +37,14 @@ import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollect
 public class Droid extends ToolBase {
 
 	private boolean enabled = true;
-	private DroidQuery droidQuery;
     private Fits fits;
+    private List<String> includeExts;
+    private long kbReadLimit;
+
+    private static File sigFile;
+    private static BinarySignatureIdentifier sigIdentifier = new BinarySignatureIdentifier();
+
+    private final static List<String> CONTAINER_TYPE_MIMETYPES = Arrays.asList("application/zip");
 
     private static final Logger logger = Logger.getLogger(Droid.class);
 
@@ -48,20 +57,23 @@ public class Droid extends ToolBase {
 		try {
 			String droid_conf = Fits.FITS_TOOLS_DIR+"droid"+File.separator;
 			XMLConfiguration config = fits.getConfig();
-			File sigFile = new File(droid_conf + config.getString("droid_sigfile"));
-	        @SuppressWarnings("unchecked")
-			List<String> includeExts = (List<String>)(List<?>)config.getList("droid_read_limit[@include-exts]");
+			// only need a single Droid signature file.
+			if (sigFile == null) {
+				synchronized(this) {
+					sigFile = new File(droid_conf + config.getString("droid_sigfile"));
+					sigIdentifier.setSignatureFile (sigFile.getAbsolutePath());
+					sigIdentifier.init();
+				}
+			}
+	        includeExts = (List<String>)(List<?>)config.getList("droid_read_limit[@include-exts]");
 	        String limit = config.getString("droid_read_limit[@read-limit-kb]");
-	        long kbReadLimit = -1l;
+	        kbReadLimit = -1l;
 	        if (limit != null) {
-	        	kbReadLimit = Long.parseLong(limit);
-	        }
-
-	        try {
-	            droidQuery = new DroidQuery (sigFile, includeExts, kbReadLimit);
-	        }
-	        catch (SignatureParseException e) {
-	            throw new FitsToolException("Problem with DROID signature file");
+	        	try {
+	        		kbReadLimit = Long.parseLong(limit);
+	        	} catch (NumberFormatException nfe) {
+	        		throw new FitsToolException("Invalid long value in fits.xml droid_read_limit[@read-limit-kb]: " + limit, nfe);
+	        	}
 	        }
 		} catch (Exception e) {
 			throw new FitsToolException("Error initilizing DROID",e);
@@ -73,14 +85,40 @@ public class Droid extends ToolBase {
         logger.debug("Droid.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 		IdentificationResultCollection results;
+		ContainerAggregator aggregator = null;
 		try {
-		    results = droidQuery.queryFile(file);
+			DroidQuery droidQuery = new DroidQuery (sigIdentifier, includeExts, kbReadLimit, file);
+			// the following will almost always return a single result
+		    results = droidQuery.queryFile();
+	        for (IdentificationResult res : results.getResults()) {
+	            String formatName = res.getName();
+	            formatName = DroidToolOutputter.mapFormatName(formatName);
+	            String mimeType = res.getMimeType();
+
+	            if(FitsMetadataValues.getInstance().normalizeMimeType(mimeType) != null) {
+	            	mimeType = FitsMetadataValues.getInstance().normalizeMimeType(mimeType);
+	            }
+	            
+	            String fileName = file.getName();
+	            int lastDot = fileName.lastIndexOf('.');
+	            String extension = "";
+	            if (lastDot > -1) {
+	            	extension = fileName.substring(lastDot + 1);
+	            }
+	            
+	            if (CONTAINER_TYPE_MIMETYPES.contains(mimeType) && "zip".equals(extension)) {
+	            	aggregator = droidQuery.queryContainerData(results);
+	            }
+	        }
+
 		}
 		catch (IOException e) {
 		    throw new FitsToolException("DROID can't query file " + file.getAbsolutePath(),
 		            e);
+		} catch (SignatureParseException e) {
+			throw new FitsToolException("Problem with DROID signature file");
 		}
-		DroidToolOutputter outputter = new DroidToolOutputter(this, results, fits);
+		DroidToolOutputter outputter = new DroidToolOutputter(this, results, fits, aggregator);
 		ToolOutput output = outputter.toToolOutput();
 
 		duration = System.currentTimeMillis()-startTime;
@@ -97,12 +135,6 @@ public class Droid extends ToolBase {
 		enabled = value;
 	}
 
-	/** Make the SAXBuilder available to helper class */
-    protected SAXBuilder getSaxBuilder () {
-        return saxBuilder;
-    }
-
-	/* Get the version of DROID. This is about the cleanest I can manage. */
 	private String getDroidVersion () {
 	    StringWriter sw = new StringWriter ();
 	    PrintWriter pw = new PrintWriter (sw);
