@@ -275,4 +275,8 @@ public abstract class ToolBase implements Tool {
 		}
 	}
 
+	public SAXBuilder getSaxBuilder () {
+        return saxBuilder;
+    }
+
 }

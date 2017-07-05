@@ -414,7 +414,7 @@ public class DocMDXmlUnitTest extends AbstractXmlUnitTest {
 	public void testEpubOutput() throws Exception {
 
     	// process multiple files to examine different types of output
-    	String[] inputFilenames = {"Winnie-the-Pooh-protected.epub",
+    	String[] inputFilenames = {"Winnie-the-Pooh-protected.epub", // not properly identified as epub mimetype
     			"GeographyofBliss_oneChapter.epub",
     			"aliceDynamic_images_metadata_tableOfContents.epub", // not properly identified as epub mimetype
     			"epub30-test-font-embedding-obfuscation.epub",
@@ -445,7 +445,7 @@ public class DocMDXmlUnitTest extends AbstractXmlUnitTest {
 	public void testWPDOutput() throws Exception {
     	
     	// process multiple files to examine different types of output
-    	String[] inputFilenames = { "WordPerfect6-7.wpd",
+    	String[] inputFilenames = { //"WordPerfect6-7.wpd",
     			"WordPerfect4_2.wp",
     			"WordPerfect5_0.wp",
     			"WordPerfect5_2.wp" };

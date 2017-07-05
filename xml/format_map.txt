@@ -28,6 +28,7 @@ Electronic Publication=EPUB
 WordPerfect for MS-DOS/Windows Document=WordPerfect Document
 WordPerfect for MS-DOS Document=WordPerfect Document
 WordPerfect for Windows Document=WordPerfect Document
+Compound WordPerfect for Windows Document=WordPerfect Document
 Microsoft Word Document=Microsoft Word Binary File Format
 Microsoft Word for Windows Document=Microsoft Word Binary File Format
 Microsoft Word 2 Document=Microsoft Word Binary File Format

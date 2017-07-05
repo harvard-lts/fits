@@ -19,8 +19,19 @@
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1490192287000</fslastmodified>
   </fileinfo>
   <filestatus />
-  <metadata />
-  <statistics fitsExecutionTime="1010">
+  <metadata>
+    <container>
+      <originalSize toolname="Droid" toolversion="6.3" status="SINGLE_RESULT">83996</originalSize>
+      <compressionMethod toolname="Droid" toolversion="6.3" status="SINGLE_RESULT">stored</compressionMethod>
+      <entries totalEntries="84" toolname="Droid" toolversion="6.3" status="SINGLE_RESULT">
+        <format name="Plain text" number="42" />
+        <format name="JPEG 2000 JP2" number="40" />
+        <format name="Hypertext Markup Language" number="1" />
+        <format name="MD5 File" number="1" />
+      </entries>
+    </container>
+  </metadata>
+  <statistics fitsExecutionTime="2689">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />

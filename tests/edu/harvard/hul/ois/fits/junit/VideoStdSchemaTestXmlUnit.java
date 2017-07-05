@@ -172,11 +172,9 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 		// Output stream for FITS to write to 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
-		// Create combined output in the stream passed in
-		Fits.outputStandardCombinedFormat(fitsOut, out);
-		
 		// Turn output stream into a String HtmlUnit can use
-		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
@@ -231,11 +229,9 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 		// Output stream for FITS to write to 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
-		// Create combined output in the stream passed in
-		Fits.outputStandardCombinedFormat(fitsOut, out);
-		
 		// Turn output stream into a String HtmlUnit can use
-		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(

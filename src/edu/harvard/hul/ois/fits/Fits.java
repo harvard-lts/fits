@@ -332,7 +332,6 @@ public class Fits {
           String version = versionProps.getProperty("build.version");
           if (version != null && !version.isEmpty()) {
               Fits.VERSION = version;
-              FitsOutput.setFitsVersion(version);
           }
       } catch (IOException e) {
           System.err.println("Problem loading [" + VERSION_PROPERTIES_FILE + "]: " + "Cannot display FITS version information.");
@@ -523,7 +522,7 @@ public class Fits {
   public FitsOutput examine( File input ) throws FitsException {
     long t1 = System.currentTimeMillis();
     if (!input.exists()) {
-      throw new FitsConfigurationException( input + " does not exist or is not readable" );
+      throw new FitsConfigurationException( input.getAbsolutePath() + " does not exist or is not readable" );
     }
 
     List<ToolOutput> toolResults = new ArrayList<ToolOutput>();
