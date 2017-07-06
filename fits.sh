@@ -16,6 +16,14 @@ done
 
 . "$(dirname $FITS_SCRIPT)/fits-env.sh"
 
-cmd="java -classpath \"$APPCLASSPATH\" edu.harvard.hul.ois.fits.Fits $args"
 
-eval "exec $cmd"
+# Check to see that we have the fits jar file in the CLASSPATH. It's absence
+# implies that it doesn't exist in 'lib/', which likely means it wasn't compiled.
+if [[ $APPCLASSPATH =~ .*fits-[[:digit:]]\.[[:digit:]]\.[[:digit:]]\.jar.* ]]
+then
+    cmd="java -classpath \"$APPCLASSPATH\" edu.harvard.hul.ois.fits.Fits $args"
+
+    eval "exec $cmd"
+else
+    echo "Fits is not installed correctly. Unable to find the fits jar file. Did you run 'ant compile'?"
+fi
