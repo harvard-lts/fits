@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.0" timestamp="8/9/17 3:16 PM">
+  <identification>
+    <identity format="Adobe Illustrator" mimetype="application/postscript" toolname="FITS" toolversion="1.2.0">
+      <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <version toolname="Droid" toolversion="6.3">9.0</version>
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">fmt/558</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.16">561633</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.16">Adobe PDF library 4.800/Adobe Illustrator 9.0</creatingApplicationName>
+    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2002:08:10 18:43:47</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/MMS-82A.08.12.02.ai</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">MMS-82A.08.12.02.ai</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">b09e1524642c0166da3566d4c7e03871</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1502306011000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <image>
+      <imageWidth toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">315</imageWidth>
+      <imageHeight toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">704</imageHeight>
+    </image>
+  </metadata>
+  <statistics fitsExecutionTime="1716">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.3" executionTime="146" />
+    <tool toolname="Jhove" toolversion="1.16" executionTime="665" />
+    <tool toolname="file utility" toolversion="5.04" executionTime="557" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="624" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="141" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="487" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="1664" />
+  </statistics>
+</fits>
+

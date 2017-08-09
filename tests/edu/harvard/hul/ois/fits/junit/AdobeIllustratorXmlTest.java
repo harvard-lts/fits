@@ -29,12 +29,12 @@ import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
 
 /**
- * These generated FITS output with tool output on the given files files.
+ * These generated FITS output with tool output on the given Adobe Illustrator files.
  * These tests should be run with &lt;display-tool-output&gt;false&lt;/display-tool-output&gt; in fits.xml.
  * 
  * @author dan179
  */
-public class ZipXmlTest extends AbstractXmlUnitTest {
+public class AdobeIllustratorXmlTest extends AbstractXmlUnitTest {
 	
 	/*
 	 *  Only one Fits instance is needed to run all tests.
@@ -55,39 +55,9 @@ public class ZipXmlTest extends AbstractXmlUnitTest {
 	}
 	
 	@Test
-	public void testZipFile() throws Exception {
+	public void testtestAdobeIllustratorFile() throws Exception {
 
-    	String inputFilename = "assorted-files.zip";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
-	}
-	
-	@Test
-	public void testSingleFileZipFile() throws Exception {
-
-    	String inputFilename = "40415587.zip";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
-	}
-	
-	@Test
-	public void testCompressedEncryptedZipFile() throws Exception {
-
-    	String inputFilename = "compressed-encrypted.zip"; // 0sample1-compressed
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
-	}
-	
-	@Test
-	public void testUncompressedEncryptedZipFile() throws Exception {
-
-    	String inputFilename = "uncompressed-encrypted.zip";
+    	String inputFilename = "MMS-82A.08.12.02.ai";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();

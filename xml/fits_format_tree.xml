@@ -21,6 +21,7 @@
 		<branch format="PDF/X">
 			<branch format="PDF/A"/>
 		</branch>
+		<branch format="Adobe Illustrator"/>
 	</branch>
 	<branch format="Plain text">
 		<branch format="Extensible Markup Language">
