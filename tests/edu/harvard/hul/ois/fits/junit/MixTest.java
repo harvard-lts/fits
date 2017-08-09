@@ -45,10 +45,8 @@ public class MixTest extends AbstractLoggingTest {
 	@BeforeClass
 	public static void beforeClass() throws Exception {
 		// Set up FITS for entire class.
-		fits = new Fits();
-		// Use this instead of above line to turn on tool output.
-//		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
-//		fits = new Fits(null, fitsConfigFile);
+		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
+		fits = new Fits(null, fitsConfigFile);
 	}
 	
 	@AfterClass

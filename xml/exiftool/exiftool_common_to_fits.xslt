@@ -46,6 +46,9 @@
 				<xsl:when test="$mime='application/photoshop'">
 					<xsl:value-of select="string('image/vnd.adobe.photoshop')"/>
 				</xsl:when>		
+                <xsl:when test="$mime='application/vnd.adobe.illustrator'">
+                    <xsl:value-of select="string('application/postscript')"/>
+                </xsl:when>
 				<xsl:when test="not($mime) or $mime='' or $mime='application/unknown'">
 					<xsl:value-of select="string('application/octet-stream')"/>
 				</xsl:when>			

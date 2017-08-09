@@ -9,7 +9,7 @@
 			<identity>
 				<xsl:attribute name="format">
 					<xsl:choose>
-			       		<xsl:when test="/JPG/EXIF">
+						<xsl:when test="/JPG/EXIF and not(string-length(/JPG/EXIF) = 0)">
 			        		<xsl:value-of select="'JPEG EXIF'"/>
 			       		</xsl:when>
 						<xsl:when test="/JPG/JFIF/IDENTIFIER='JFIF'">
