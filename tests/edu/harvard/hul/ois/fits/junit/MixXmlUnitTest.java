@@ -22,7 +22,6 @@ import java.io.File;
 import java.util.Scanner;
 
 import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
 
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
@@ -33,7 +32,6 @@ import org.junit.Test;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
-import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
 
 public class MixXmlUnitTest extends AbstractXmlUnitTest {
 	
@@ -62,15 +60,15 @@ public class MixXmlUnitTest extends AbstractXmlUnitTest {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		Mix mix = (Mix)fitsOut.getStandardXmlContent();
-		mix.setRoot(true);
-				
-		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//		Mix mix = (Mix)fitsOut.getStandardXmlContent();
+//		mix.setRoot(true);
+//				
+//		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 		
-		mix.output(writer);
+//		mix.output(writer);
 		fitsOut.addStandardCombinedFormat(); // output all data to file
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
@@ -95,17 +93,17 @@ public class MixXmlUnitTest extends AbstractXmlUnitTest {
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		Mix mix = (Mix)fitsOut.getStandardXmlContent();
-		
-		if(mix != null) {
-			mix.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			mix.output(writer);
-		}
+//		Mix mix = (Mix)fitsOut.getStandardXmlContent();
+//		
+//		if(mix != null) {
+//			mix.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			mix.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
@@ -129,15 +127,15 @@ public class MixXmlUnitTest extends AbstractXmlUnitTest {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		Mix mix = (Mix)fitsOut.getStandardXmlContent();
-		mix.setRoot(true);
+//		Mix mix = (Mix)fitsOut.getStandardXmlContent();
+//		mix.setRoot(true);
 				
 		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 		
-		mix.output(writer);
+//		mix.output(writer);
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
@@ -162,7 +160,7 @@ public class MixXmlUnitTest extends AbstractXmlUnitTest {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
@@ -188,7 +186,7 @@ public class MixXmlUnitTest extends AbstractXmlUnitTest {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
@@ -214,7 +212,7 @@ public class MixXmlUnitTest extends AbstractXmlUnitTest {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
@@ -239,12 +237,12 @@ public class MixXmlUnitTest extends AbstractXmlUnitTest {
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
 		// Read in the expected XML file
@@ -265,12 +263,12 @@ public class MixXmlUnitTest extends AbstractXmlUnitTest {
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
 		// Read in the expected XML file
@@ -291,12 +289,12 @@ public class MixXmlUnitTest extends AbstractXmlUnitTest {
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
 		// Read in the expected XML file

@@ -72,9 +72,9 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
     	
     	// output to file and console to view output if necessary, before running assertions
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_droid_only_Output.xml");
-    	XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//    	XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
     	fitsOut.addStandardCombinedFormat();
-    	serializer.output(fitsOut.getFitsXml(), System.out);
+//    	serializer.output(fitsOut.getFitsXml(), System.out);
     	
     	ToolBelt toolBelt = fits.getToolbelt();
     	assertEquals(1, toolBelt.getTools().size());
@@ -121,9 +121,9 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
     	
     	// output to file and console to view output if necessary, before running assertions
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_tika_droid_Output.xml");
-    	XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//    	XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
     	fitsOut.addStandardCombinedFormat();
-    	serializer.output(fitsOut.getFitsXml(), System.out);
+//    	serializer.output(fitsOut.getFitsXml(), System.out);
     	
     	ToolBelt toolBelt = fits.getToolbelt();
     	assertEquals(2, toolBelt.getTools().size());
@@ -171,9 +171,9 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
     	
     	// output to file and console to view output if necessary, before running assertions
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_droid_tika_Output.xml");
-    	XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//    	XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
     	fitsOut.addStandardCombinedFormat();
-    	serializer.output(fitsOut.getFitsXml(), System.out);
+//    	serializer.output(fitsOut.getFitsXml(), System.out);
     	
     	ToolBelt toolBelt = fits.getToolbelt();
     	assertEquals(2, toolBelt.getTools().size());

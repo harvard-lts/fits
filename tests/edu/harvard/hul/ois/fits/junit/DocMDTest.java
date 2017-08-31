@@ -20,11 +20,6 @@ package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
 
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
-
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,7 +27,6 @@ import org.junit.Test;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
-import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 
 /**
  * This class generates FITS and Standard output for inspection during development.
@@ -66,19 +60,19 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/Word2003_has_URLs_has_embedded_resources.doc");
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/Word2003_has_URLs_has_embedded_resources.doc_Output.xml");
 	}
     
@@ -88,9 +82,9 @@ public class DocMDTest extends AbstractLoggingTest {
 		File input = new File("testfiles/Word2003_many_graphics.doc");
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		fitsOut.saveToDisk("test-generated-output/Word2003_many_graphics.doc_Output.xml");
 	}
     
@@ -100,19 +94,19 @@ public class DocMDTest extends AbstractLoggingTest {
 		File input = new File("testfiles/Word2003PasswordProtected.doc");
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/Word2003PasswordProtected.doc_Output.xml");
 	}
     
@@ -122,9 +116,9 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/Word2011_Has_Outline.doc");
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();		
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
     	fitsOut.saveToDisk("test-generated-output/Word2011_Has_Outline.doc_Output.xml");
 	}
     
@@ -134,19 +128,19 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/LibreOffice.doc");
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/LibreOffice.doc_Output.xml");
 	}
     
@@ -156,19 +150,19 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/Word2003_has_table_of_contents.doc");
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/Word2003_has_table_of_contents.doc_Output.xml");
 	}
     
@@ -178,18 +172,18 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/Word_protected_encrypted.doc");
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/Word_protected_encrypted.doc_Output.xml");
 	}
     
@@ -200,19 +194,19 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
     
@@ -223,19 +217,19 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
     
@@ -246,19 +240,19 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
     
@@ -269,19 +263,19 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
 	
@@ -292,19 +286,19 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
 	
@@ -315,19 +309,19 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
 	
@@ -338,19 +332,19 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-		
-		if(docmd != null) {
-			docmd.setRoot(true);
-			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-			
-			docmd.output(writer);
-		}
+//		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//		
+//		if(docmd != null) {
+//			docmd.setRoot(true);
+//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//			
+//			docmd.output(writer);
+//		}
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
 	
@@ -369,9 +363,9 @@ public class DocMDTest extends AbstractLoggingTest {
     		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
     		File input = new File("testfiles/" + inputFilename);
     		FitsOutput fitsOut = fits.examine(input);
-    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
     		fitsOut.addStandardCombinedFormat();
-    		serializer.output(fitsOut.getFitsXml(), System.out);
+//    		serializer.output(fitsOut.getFitsXml(), System.out);
     		fitsOut.saveToDisk(outputFilename);
     	}
 	}
@@ -391,21 +385,21 @@ public class DocMDTest extends AbstractLoggingTest {
     		File input = new File("testfiles/" + inputFilename);
     		FitsOutput fitsOut = fits.examine(input);
     		
-    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
     		fitsOut.addStandardCombinedFormat();
-    		serializer.output(fitsOut.getFitsXml(), System.out);
+//    		serializer.output(fitsOut.getFitsXml(), System.out);
     		
     		fitsOut.saveToDisk(outputFilename);
 
-    		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
-    		
-    		if(docmd != null) {
-    			docmd.setRoot(true);
-    			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-    			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-    			
-    			docmd.output(writer);
-    		}
+//    		DocumentMD docmd = (DocumentMD)fitsOut.getStandardXmlContent();
+//    		
+//    		if(docmd != null) {
+//    			docmd.setRoot(true);
+//    			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//    			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//    			
+//    			docmd.output(writer);
+//    		}
     	}
 	}
 	
@@ -417,8 +411,8 @@ public class DocMDTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		serializer.output(fitsOut.getFitsXml(), System.out);
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
 	
@@ -430,8 +424,8 @@ public class DocMDTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		serializer.output(fitsOut.getFitsXml(), System.out);
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
     
@@ -448,9 +442,9 @@ public class DocMDTest extends AbstractLoggingTest {
     		File input = new File("testfiles/" + inputFilename);
     		FitsOutput fitsOut = fits.examine(input);
         	fitsOut.addStandardCombinedFormat();
-    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
     		// write to console
-    		serializer.output(fitsOut.getFitsXml(), System.out);
+//    		serializer.output(fitsOut.getFitsXml(), System.out);
     		fitsOut.saveToDisk(outputFilename);
     	}
 	}
@@ -471,9 +465,9 @@ public class DocMDTest extends AbstractLoggingTest {
     		File input = new File("testfiles/" + inputFilename);
     		FitsOutput fitsOut = fits.examine(input);
         	fitsOut.addStandardCombinedFormat();
-    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
     		// write to console
-    		serializer.output(fitsOut.getFitsXml(), System.out);
+//    		serializer.output(fitsOut.getFitsXml(), System.out);
     		fitsOut.saveToDisk(outputFilename);
     	}
 	}
@@ -490,9 +484,9 @@ public class DocMDTest extends AbstractLoggingTest {
     		File input = new File("testfiles/" + inputFilename);
     		FitsOutput fitsOut = fits.examine(input);
         	fitsOut.addStandardCombinedFormat();
-    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//    		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
     		// write to console
-    		serializer.output(fitsOut.getFitsXml(), System.out);
+//    		serializer.output(fitsOut.getFitsXml(), System.out);
     		fitsOut.saveToDisk(outputFilename);
     	}
 	}
