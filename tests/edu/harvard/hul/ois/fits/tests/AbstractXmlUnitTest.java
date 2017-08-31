@@ -94,7 +94,7 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
 		List<Difference> diffs = detailedDiff.getAllDifferences();
 		if (!diff.identical()) { 
 			StringBuffer differenceDescription = new StringBuffer(); 
-			differenceDescription.append(diffs.size()).append(" differences"); 
+			differenceDescription.append(diffs.size()).append(" differences for input file: " + inputFilename); 
 			
 			System.out.println(differenceDescription.toString());
 			for(Difference difference : diffs) {
