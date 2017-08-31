@@ -61,18 +61,18 @@ public class TextMDTest extends AbstractLoggingTest {
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		TextMD textmd = (TextMD)fitsOut.getStandardXmlContent();
-		
-		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-
-		if (textmd != null) {
-			textmd.setRoot(true);
-			textmd.output(writer);
-		}
+//		TextMD textmd = (TextMD)fitsOut.getStandardXmlContent();
+//		
+//		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//
+//		if (textmd != null) {
+//			textmd.setRoot(true);
+//			textmd.output(writer);
+//		}
 	}
     
 	@Test
@@ -82,18 +82,18 @@ public class TextMDTest extends AbstractLoggingTest {
     	
     	FitsOutput fitsOut = fits.examine(input);
     	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
+//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+//		serializer.output(fitsOut.getFitsXml(), System.out);
 		
-		TextMD textmd = (TextMD)fitsOut.getStandardXmlContent();
-		
-		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-
-		if (textmd != null) {
-			textmd.setRoot(true);
-			textmd.output(writer);
-		}
+//		TextMD textmd = (TextMD)fitsOut.getStandardXmlContent();
+//		
+//		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+//		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
+//
+//		if (textmd != null) {
+//			textmd.setRoot(true);
+//			textmd.output(writer);
+//		}
 	}
 
 }

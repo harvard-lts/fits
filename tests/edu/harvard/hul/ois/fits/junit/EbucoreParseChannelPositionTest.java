@@ -168,20 +168,20 @@ public class EbucoreParseChannelPositionTest extends AbstractLoggingTest {
 
 		ChannelPositionParser app = new ChannelPositionParser();
 		
-		System.out.println("\n\nDTS_ChannelPositions");
-		System.out.println("========================");		
+//		System.out.println("\n\nDTS_ChannelPositions");
+//		System.out.println("========================");		
 
 		for (String position : DTS_ChannelPositions) {
 
-			System.out.println("\n-- " + position + " -- ");
+//			System.out.println("\n-- " + position + " -- ");
 
 			List <ChannelPositionWrapper>channelList = app.getChannelsFromString(position);
 			for(ChannelPositionWrapper channel : channelList) {
-				System.out.println("Channel number " + 
-						(channelList.indexOf(channel) +1) + " " + 
-						channel.getName() + "\t" +
-						" X: " + channel.getXpos() + " \t " +
-						" Y: " + channel.getYpos() );
+//				System.out.println("Channel number " + 
+//						(channelList.indexOf(channel) +1) + " " + 
+//						channel.getName() + "\t" +
+//						" X: " + channel.getXpos() + " \t " +
+//						" Y: " + channel.getYpos() );
 			}		
 
 		}
@@ -193,21 +193,21 @@ public class EbucoreParseChannelPositionTest extends AbstractLoggingTest {
 		
 		ChannelPositionParser app = new ChannelPositionParser();
 		
-		System.out.println("\n\nMpegTs_DtsNeural_ChannelPositions_2");
-		System.out.println("=======================================");			
+//		System.out.println("\n\nMpegTs_DtsNeural_ChannelPositions_2");
+//		System.out.println("=======================================");			
 		
 		// MpegTs_DtsNeural_ChannelPositions_2
 		for (String position : MpegTs_DtsNeural_ChannelPositions_2) {
 
-			System.out.println("\n-- " + position + " -- ");
+//			System.out.println("\n-- " + position + " -- ");
 
 			List <ChannelPositionWrapper>channelList = app.getChannelsFromString(position);
 			for(ChannelPositionWrapper channel : channelList) {
-				System.out.println("Channel number " + 
-						(channelList.indexOf(channel) +1) + " " + 
-						channel.getName() + "\t" +
-						" X: " + channel.getXpos() + " \t " +
-						" Y: " + channel.getYpos() );
+//				System.out.println("Channel number " + 
+//						(channelList.indexOf(channel) +1) + " " + 
+//						channel.getName() + "\t" +
+//						" X: " + channel.getXpos() + " \t " +
+//						" Y: " + channel.getYpos() );
 			}		
 
 		}
@@ -227,16 +227,16 @@ public class EbucoreParseChannelPositionTest extends AbstractLoggingTest {
 		// NOTE: Front A and Front B is invalid, but Front C is Valid ...
 		// What should I do?
 		String channelsStr = "Front: A B C, Side: L R, LFE";		
-		System.out.println("\n\n-- " + channelsStr + " -- ");	
+//		System.out.println("\n\n-- " + channelsStr + " -- ");	
 		List<ChannelPositionWrapper> channelList;
 		try {
 			channelList = app.getChannelsFromString(channelsStr);
 			for(ChannelPositionWrapper channel : channelList ) {
-				System.out.println("Channel number " + 
-						(channelList.indexOf(channel) +1) + " " + 
-						channel.getName() + "\t" +
-						" X: " + channel.getXpos() + " \t " +
-						" Y: " + channel.getYpos() );
+//				System.out.println("Channel number " + 
+//						(channelList.indexOf(channel) +1) + " " + 
+//						channel.getName() + "\t" +
+//						" X: " + channel.getXpos() + " \t " +
+//						" Y: " + channel.getYpos() );
 			}
 			fail("An exception should have occurred.");
 		} catch ( XmlContentException e) {
@@ -247,7 +247,7 @@ public class EbucoreParseChannelPositionTest extends AbstractLoggingTest {
 
 		// Bogus: is an invalid location, so the below throws an exception
 		channelsStr = "Front: L C R, Bogus: L R, LFE";		
-		System.out.println("\n\n-- " + channelsStr + " -- ");	
+//		System.out.println("\n\n-- " + channelsStr + " -- ");	
 		try {
 			channelList = app.getChannelsFromString(channelsStr);
 			fail("An exception should have occurred.");
@@ -264,7 +264,7 @@ public class EbucoreParseChannelPositionTest extends AbstractLoggingTest {
 
 		// Invalid Channel String, so the below throws an exception
 		channelsStr = "A Bogus Channel Position";		
-		System.out.println("\n\n-- " + channelsStr + " -- ");
+//		System.out.println("\n\n-- " + channelsStr + " -- ");
 		channelList = null;
 		try {
 			channelList = app.getChannelsFromString(channelsStr);
