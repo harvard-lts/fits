@@ -9,5 +9,5 @@ addons:
       - ant-optional
 
 before_install:
-  -- apt-get install -y perl
+  - sudo apt-get install -y perl
 #  - rvm install 2.1.5
