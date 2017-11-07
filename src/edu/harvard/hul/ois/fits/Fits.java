@@ -253,6 +253,7 @@ public class Fits {
     options.addOption( "o", true, "output file or directory if -i is a directory" );
     options.addOption( "h", false, "print this message" );
     options.addOption( "v", false, "print version information" );
+    options.addOption( "f", true, "alternate fits.xml configuration file location (optional)" );
     OptionGroup outputOptions = new OptionGroup();
     Option stdxml = new Option( "x", false, "convert FITS output to a standard metadata schema" );
     Option combinedStd = new Option( "xc", false, "output using a standard metadata schema and include FITS xml" );
@@ -276,6 +277,18 @@ public class Fits {
     } else {
       traverseDirs = false;
     }
+    
+    File fitsConfigFile = null;
+    if (cmd.hasOption( 'f' )) {
+    	String input = cmd.getOptionValue( 'f' );
+    	if (StringUtils.isEmpty(input)) {
+    		throw new FitsException("When using the -f option there must be an associated value." );
+    	}
+    	fitsConfigFile = new File(input);
+    	if ( !fitsConfigFile.isFile() || !fitsConfigFile.canRead() ) {
+    		throw new FitsException("The FITS configuration file: " + input + " cannot be read." );
+    	}
+    }
 
     if (cmd.hasOption( "i" )) {
       String input = cmd.getOptionValue( "i" );
@@ -287,10 +300,10 @@ public class Fits {
           throw new FitsException(
               "When FITS is run in directory processing mode the output location must be a directory" );
         }
-        Fits fits = new Fits();
+        Fits fits = constructFits(fitsConfigFile);
         fits.doDirectory( inputFile, new File( outputDir ), cmd.hasOption( "x" ), cmd.hasOption( "xc" ) );
       } else {
-        Fits fits = new Fits();
+        Fits fits = constructFits(fitsConfigFile);
         FitsOutput result = fits.doSingleFile( inputFile );
         fits.outputResults( result, cmd.getOptionValue( "o" ), cmd.hasOption( "x" ), cmd.hasOption( "xc" ), false );
       }
@@ -301,6 +314,16 @@ public class Fits {
     }
 
     System.exit( 0 );
+  }
+  
+  private static Fits constructFits(File fitsConfigFile) throws FitsConfigurationException {
+      Fits fits = null;
+      if (fitsConfigFile != null) {
+      	fits = new Fits(null, fitsConfigFile);
+      } else {
+      	fits = new Fits();
+      }
+      return fits;
   }
 
   /*
