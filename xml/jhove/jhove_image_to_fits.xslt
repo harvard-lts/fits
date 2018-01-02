@@ -171,14 +171,14 @@ xmlns:mix="http://www.loc.gov/mix/v20">
 			<xSamplingFrequency>
 			    <xsl:variable name="xNumerator" select="//mix:xSamplingFrequency/mix:numerator"/>
                 <xsl:variable name="xDenominator" select="//mix:xSamplingFrequency/mix:denominator"/>
-		  		<xsl:value-of select="round($xNumerator div $xDenominator)"/>
+		  		<xsl:value-of select="round($xNumerator[1] div $xDenominator[1])"/>
 			</xSamplingFrequency>
 			
 			<!--  ySamplingFrequency -->
 			<ySamplingFrequency>
                 <xsl:variable name="yNumerator" select="//mix:ySamplingFrequency/mix:numerator"/>
                 <xsl:variable name="yDenominator" select="//mix:ySamplingFrequency/mix:denominator"/>
-		  		<xsl:value-of select="round($yNumerator div $yDenominator)"/>
+		  		<xsl:value-of select="round($yNumerator[1] div $yDenominator[1])"/>
 			</ySamplingFrequency>
 			
 			<!--  bitsPerSample -->

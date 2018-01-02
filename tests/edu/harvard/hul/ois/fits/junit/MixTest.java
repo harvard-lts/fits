@@ -118,7 +118,6 @@ public class MixTest extends AbstractLoggingTest {
 		mix.output(writer);
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
-
 	}
     
 	@Test
@@ -131,13 +130,9 @@ public class MixTest extends AbstractLoggingTest {
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
-				
-		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-		
+						
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
-
 	}
     
 	@Test
@@ -150,13 +145,9 @@ public class MixTest extends AbstractLoggingTest {
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
-				
-		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
-
 	}
     
 	@Test
@@ -169,11 +160,23 @@ public class MixTest extends AbstractLoggingTest {
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		serializer.output(fitsOut.getFitsXml(), System.out);
-				
-		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
+	}
+    
+	@Test
+	public void testTwoPageTiff() throws Exception {	
 
+		String filename = "W00EGS1016782-I01JW30--I01JW300001__0001.tif";
+    	File input = new File("testfiles/" + filename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
 	}
 }
