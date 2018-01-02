@@ -282,6 +282,10 @@
 		<delete dir="${output.location}" quiet="true"/>
 	</target>
 	
+	<target name="test" description="Run unit tests" depends="clean">
+		<antcall target="unit-tests" />
+	</target>
+	
     <target name="unit-tests" depends="compile">
     	<property name="halt.tests.on.failure" value="true"/> <!-- whether to terminate tests once first test failure encountered -->
         <property name="halt.tests.on.error" value="true"/> <!-- whether to terminate tests once first test error encountered -->
