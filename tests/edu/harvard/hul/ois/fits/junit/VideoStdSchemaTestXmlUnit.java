@@ -73,14 +73,14 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
     	String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
     	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitFitsOutput_AVC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				"testfiles/output/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_FITS.xml"));
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
@@ -94,14 +94,14 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
     	String inputFilename = "FITS-SAMPLE-26.mov";
     	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitFitsOutput_DV_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				"testfiles/output/FITS-SAMPLE-26_mov_FITS.xml"));
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
@@ -121,13 +121,14 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 		
 		// Create standard output in the stream passed in
 		Fits.outputStandardSchemaXml(fitsOut, out);
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
 		
 		// Turn output stream into a String HtmlUnit can use
 		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				"testfiles/output/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_FITS_Standard.xml"));
+				"testfiles/output/" + inputFilename + "-standard-only" + EXPECTED_OUTPUT_FILE_SUFFIX));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
@@ -147,13 +148,14 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 		
 		// Create standard output in the stream passed in
 		Fits.outputStandardSchemaXml(fitsOut, out);
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
 		
 		// Turn output stream into a String HtmlUnit can use
 		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-				"testfiles/output/FITS-SAMPLE-26_mov_Standard.xml"));
+				"testfiles/output//" + inputFilename + "-standard-only" + EXPECTED_OUTPUT_FILE_SUFFIX));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
@@ -167,7 +169,7 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
     	String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
     	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitCombinedOutput_AVC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-combined" + ACTUAL_OUTPUT_FILE_SUFFIX);
 		
 		// Output stream for FITS to write to 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -178,7 +180,7 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-	            "testfiles/output/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_Combined.xml"));
+	            "testfiles/output/" + inputFilename + "-combined" + EXPECTED_OUTPUT_FILE_SUFFIX));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
@@ -192,7 +194,6 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
     	String inputFilename = "FITS-SAMPLE-26.mov";
     	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitCombinedOutput_DV_Output.xml");
 		
 		// Output stream for FITS to write to 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -202,11 +203,11 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 		
 		// Turn output stream into a String HtmlUnit can use
 		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
-		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-combined" + ACTUAL_OUTPUT_FILE_SUFFIX);
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-	            "testfiles/output/FITS-SAMPLE-26_mov_Combined.xml"));
+	            "testfiles/output/" + inputFilename + "-combined" + EXPECTED_OUTPUT_FILE_SUFFIX));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();
@@ -249,7 +250,7 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
     	String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov";
     	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/testVideoXmlUnitCombinedOutput_MPEG2_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 		
 		// Output stream for FITS to write to 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -262,7 +263,7 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
-	            "testfiles/output/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1_mov_mpeg2_combined.xml"));
+	            "testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
 		String expectedXmlStr = scan.
 				useDelimiter("\\Z").next();
 		scan.close();

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.5" timestamp="2/15/17 10:59 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.x" timestamp="2/2/18 5:13 PM">
   <identification>
-    <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="1.0.5">
-      <tool toolname="Droid" toolversion="6.1.5" />
-      <tool toolname="Jhove" toolversion="1.11" />
-      <tool toolname="file utility" toolversion="5.04" />
+    <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="1.2.x">
+      <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="Jhove" toolversion="1.16" />
+      <tool toolname="file utility" toolversion="5.31" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
-      <version toolname="Droid" toolversion="6.1.5" status="CONFLICT">2.2.1</version>
+      <version toolname="Droid" toolversion="6.3" status="CONFLICT">2.2.1</version>
+      <version toolname="file utility" toolversion="5.31" status="CONFLICT">16</version>
       <version toolname="Exiftool" toolversion="10.00" status="CONFLICT">5.5</version>
-      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/645</externalIdentifier>
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">fmt/645</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.11">38829</size>
+    <size toolname="Jhove" toolversion="1.16">38829</size>
     <creatingApplicationName toolname="Exiftool" toolversion="10.00" status="CONFLICT">Canon EOS 5D Mark II</creatingApplicationName>
     <creatingApplicationName toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">Adobe Photoshop CS6 (Windows)</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2017:01:30 11:39:51</lastmodified>
@@ -23,22 +24,22 @@
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/ICFA.KC.BIA.1524-small.jpg</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">ICFA.KC.BIA.1524-small.jpg</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">0108175c9153da1d41278066a2e3c1a2</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1487174117000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
-    <message toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Value offset not word-aligned: 239 offset=126</message>
-    <message toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Value offset not word-aligned: 247 offset=138</message>
-    <message toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Value offset not word-aligned: 255 offset=174</message>
-    <message toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Value offset not word-aligned: 285 offset=186</message>
+    <well-formed toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</valid>
+    <message toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">Value offset not word-aligned: 239 offset=126</message>
+    <message toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">Value offset not word-aligned: 247 offset=138</message>
+    <message toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">Value offset not word-aligned: 255 offset=174</message>
+    <message toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">Value offset not word-aligned: 285 offset=186</message>
   </filestatus>
   <metadata>
     <image>
-      <byteOrder toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">big endian</byteOrder>
-      <compressionScheme toolname="Jhove" toolversion="1.11" status="CONFLICT">JPEG</compressionScheme>
+      <byteOrder toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">big endian</byteOrder>
+      <compressionScheme toolname="Jhove" toolversion="1.16" status="CONFLICT">JPEG</compressionScheme>
       <compressionScheme toolname="Exiftool" toolversion="10.00" status="CONFLICT">Uncompressed</compressionScheme>
-      <imageWidth toolname="Jhove" toolversion="1.11">109</imageWidth>
+      <imageWidth toolname="Jhove" toolversion="1.16">109</imageWidth>
       <imageHeight toolname="Exiftool" toolversion="10.00">150</imageHeight>
       <colorSpace toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">RGB</colorSpace>
       <iccProfileName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Adobe RGB (1998)</iccProfileName>
@@ -47,8 +48,8 @@
       <samplingFrequencyUnit toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">in.</samplingFrequencyUnit>
       <xSamplingFrequency toolname="Exiftool" toolversion="10.00">350</xSamplingFrequency>
       <ySamplingFrequency toolname="Exiftool" toolversion="10.00">350</ySamplingFrequency>
-      <bitsPerSample toolname="Jhove" toolversion="1.11">8 8 8</bitsPerSample>
-      <samplesPerPixel toolname="Jhove" toolversion="1.11">3</samplesPerPixel>
+      <bitsPerSample toolname="Jhove" toolversion="1.16">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Jhove" toolversion="1.16">3</samplesPerPixel>
       <scanningSoftwareName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Adobe Photoshop CS6 (Windows)</scanningSoftwareName>
       <digitalCameraModelName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Canon EOS 5D Mark II</digitalCameraModelName>
       <fNumber toolname="Exiftool" toolversion="10.00">11.0</fNumber>
@@ -169,15 +170,15 @@
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="207" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="744" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="663" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="747" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="681" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="201" />
+    <tool toolname="Droid" toolversion="6.3" executionTime="49" />
+    <tool toolname="Jhove" toolversion="1.16" executionTime="75" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="74" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="258" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="128" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="3" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="616" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="580" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="7" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="193" />
   </statistics>
 </fits>
 

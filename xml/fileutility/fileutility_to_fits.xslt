@@ -11,6 +11,11 @@
 		<xsl:variable name="rawoutput" select="rawOutput" />
 		<xsl:variable name="mime" select="mimetype" />
 		
+		<!-- using for case-insensitive string comparison -->
+		<xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyz'" />
+        <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+
+		
 		<identification>
 		
 			<identity>
@@ -114,7 +119,7 @@
 						</xsl:analyze-string>					
 					</xsl:when>	
 					<!--  "JPEG image data, EXIF standard" -->
-					<xsl:when test="starts-with($format,'JPEG image data, EXIF standard')">
+					<xsl:when test="starts-with( translate($format, $lowercase, $uppercase), translate('JPEG image data, EXIF standard', $lowercase, $uppercase))">
 				    	<xsl:attribute name="format">
 							<xsl:value-of select="string('JPEG EXIF')"/>
 				    	</xsl:attribute>
@@ -381,6 +386,11 @@
 						  	<xsl:value-of select="string('Microsoft Word Binary File Format')"/>
 						</xsl:attribute>				
 					</xsl:when>	
+                    <xsl:when test="$mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document'">
+                        <xsl:attribute name="format">
+                            <xsl:value-of select="string('Office Open XML Document')"/>
+                        </xsl:attribute>                
+                    </xsl:when> 
 					<!-- Zip archive data, at least v2.0 to extract -->
 					<xsl:when test="$mime='application/zip'">
 					  	<xsl:analyze-string select="$format" regex="(.*),(.*)">		
@@ -455,13 +465,23 @@
 						<xsl:attribute name="format">
 							<xsl:value-of select="string('Flash Video (FLV)')"/>
 						</xsl:attribute>
-					</xsl:when>		
-                    <xsl:when test="$format='ISO Media, Apple QuickTime movie'">
+					</xsl:when>
+                    <xsl:when test="$format='Material exchange container format'">
+                        <xsl:attribute name="format">
+                            <xsl:value-of select="string('Material Exchange Format (MXF)')"/>
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="starts-with($format, 'ISO Media, Apple QuickTime movie')">
                         <xsl:attribute name="format">
                             <xsl:value-of select="string('Quicktime')"/>
                         </xsl:attribute>
                     </xsl:when>     
                     <xsl:when test="$format='ISO Media, MPEG v4 system, version 2'">
+                        <xsl:attribute name="format">
+                            <xsl:value-of select="string('MPEG-4')"/>
+                        </xsl:attribute>
+                    </xsl:when>     
+                    <xsl:when test="starts-with($format, 'ISO Media, MP4')">
                         <xsl:attribute name="format">
                             <xsl:value-of select="string('MPEG-4')"/>
                         </xsl:attribute>
