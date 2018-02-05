@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.6" timestamp="3/7/17 12:21 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.x" timestamp="2/2/18 5:13 PM">
   <identification>
-    <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="1.0.6">
-      <tool toolname="Droid" toolversion="6.1.5" />
-      <tool toolname="Jhove" toolversion="1.11" />
-      <tool toolname="file utility" toolversion="5.04" />
+    <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="1.2.x">
+      <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="Jhove" toolversion="1.16" />
+      <tool toolname="file utility" toolversion="5.31" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
-      <version toolname="Droid" toolversion="6.1.5">2.2.1</version>
-      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/645</externalIdentifier>
+      <version toolname="Droid" toolversion="6.3" status="CONFLICT">2.2.1</version>
+      <version toolname="file utility" toolversion="5.31" status="CONFLICT">16</version>
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">fmt/645</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.11">4324778</size>
+    <size toolname="Jhove" toolversion="1.16">4324778</size>
     <creatingApplicationName toolname="Exiftool" toolversion="10.00" status="CONFLICT">HERO3+ Black Edition</creatingApplicationName>
     <creatingApplicationName toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">Adobe Photoshop CS6 (Macintosh)</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:06:25 11:03:38</lastmodified>
@@ -22,18 +23,18 @@
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/JPEGTest_20170591--JPEGTest_20170591.jpeg</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">JPEGTest_20170591--JPEGTest_20170591.jpeg</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">3c5a86c471809d347e99d19c51bd1b94</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1488896176000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+    <well-formed toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</valid>
   </filestatus>
   <metadata>
     <image>
-      <byteOrder toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">big endian</byteOrder>
-      <compressionScheme toolname="Jhove" toolversion="1.11" status="CONFLICT">JPEG</compressionScheme>
+      <byteOrder toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">big endian</byteOrder>
+      <compressionScheme toolname="Jhove" toolversion="1.16" status="CONFLICT">JPEG</compressionScheme>
       <compressionScheme toolname="Exiftool" toolversion="10.00" status="CONFLICT">JPEG (old-style)</compressionScheme>
-      <imageWidth toolname="Jhove" toolversion="1.11">3920</imageWidth>
+      <imageWidth toolname="Jhove" toolversion="1.16">3920</imageWidth>
       <imageHeight toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2160</imageHeight>
       <colorSpace toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">RGB</colorSpace>
       <iccProfileName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">sRGB IEC61966-2.1</iccProfileName>
@@ -43,8 +44,8 @@
       <samplingFrequencyUnit toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">in.</samplingFrequencyUnit>
       <xSamplingFrequency toolname="Exiftool" toolversion="10.00">72</xSamplingFrequency>
       <ySamplingFrequency toolname="Exiftool" toolversion="10.00">72</ySamplingFrequency>
-      <bitsPerSample toolname="Jhove" toolversion="1.11">8 8 8</bitsPerSample>
-      <samplesPerPixel toolname="Jhove" toolversion="1.11">3</samplesPerPixel>
+      <bitsPerSample toolname="Jhove" toolversion="1.16">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Jhove" toolversion="1.16">3</samplesPerPixel>
       <scanningSoftwareName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Adobe Photoshop CS6 (Macintosh)</scanningSoftwareName>
       <digitalCameraModelName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">HERO3+ Black Edition</digitalCameraModelName>
       <fNumber toolname="Exiftool" toolversion="10.00">2.8</fNumber>
@@ -180,15 +181,15 @@
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="300" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="801" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="692" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="798" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="715" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="134" />
+    <tool toolname="Droid" toolversion="6.3" executionTime="20" />
+    <tool toolname="Jhove" toolversion="1.16" executionTime="197" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="72" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="199" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="41" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="19" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="688" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="805" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="4" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="62" />
   </statistics>
 </fits>
 

@@ -79,7 +79,7 @@ public class DocMDTest extends AbstractLoggingTest {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output/Word2003_has_URLs_has_embedded_resources-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/Word2003_has_URLs_has_embedded_resources.doc_Output.xml");
 	}
     
 	@Test
@@ -91,7 +91,7 @@ public class DocMDTest extends AbstractLoggingTest {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();
 		serializer.output(fitsOut.getFitsXml(), System.out);
-		fitsOut.saveToDisk("test-generated-output/Word2003_many_graphics-DOC_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/Word2003_many_graphics.doc_Output.xml");
 	}
     
 	@Test
@@ -113,7 +113,7 @@ public class DocMDTest extends AbstractLoggingTest {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output/Word2003PasswordProtected-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/Word2003PasswordProtected.doc_Output.xml");
 	}
     
 	@Test
@@ -125,7 +125,7 @@ public class DocMDTest extends AbstractLoggingTest {
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		fitsOut.addStandardCombinedFormat();		
 		serializer.output(fitsOut.getFitsXml(), System.out);
-    	fitsOut.saveToDisk("test-generated-output/Word2011_Has_Outline-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/Word2011_Has_Outline.doc_Output.xml");
 	}
     
 	@Test
@@ -147,7 +147,7 @@ public class DocMDTest extends AbstractLoggingTest {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output/LibreOffice-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/LibreOffice.doc_Output.xml");
 	}
     
 	@Test
@@ -169,7 +169,7 @@ public class DocMDTest extends AbstractLoggingTest {
 			
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output/Word2003_has_table_of_contents-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/Word2003_has_table_of_contents.doc_Output.xml");
 	}
     
 	@Test
@@ -190,7 +190,7 @@ public class DocMDTest extends AbstractLoggingTest {
 			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 			docmd.output(writer);
 		}
-    	fitsOut.saveToDisk("test-generated-output/Word_protected_encrypted-DOC_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/Word_protected_encrypted.doc_Output.xml");
 	}
     
 	@Test

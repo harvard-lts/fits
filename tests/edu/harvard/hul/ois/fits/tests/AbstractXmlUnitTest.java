@@ -39,7 +39,7 @@ import edu.harvard.hul.ois.fits.junit.IgnoreNamedElementsDifferenceListener;
  */
 public class AbstractXmlUnitTest extends AbstractLoggingTest {
 	
-	// Suffix added to input file name for actual FITS output file.
+	// Suffix added to input file name for actual FITS output file used for test comparison.
 	protected static final String ACTUAL_OUTPUT_FILE_SUFFIX = "_XmlUnitActualOutput.xml";
 
 	// Suffix added to input file name for finding expected FITS output file.

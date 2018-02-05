@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 12:31 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.x" timestamp="2/2/18 2:46 PM">
   <identification>
-    <identity format="Office Open XML Document" mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document" toolname="FITS" toolversion="0.11.0">
-      <tool toolname="Droid" toolversion="6.1.5" />
+    <identity format="Office Open XML Document" mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document" toolname="FITS" toolversion="1.2.x">
+      <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="file utility" toolversion="5.31" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <tool toolname="Tika" toolversion="1.10" />
-      <version toolname="Droid" toolversion="6.1.5">2007 onwards</version>
-      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/189</externalIdentifier>
+      <version toolname="Droid" toolversion="6.3">2007 onwards</version>
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">fmt/189</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
