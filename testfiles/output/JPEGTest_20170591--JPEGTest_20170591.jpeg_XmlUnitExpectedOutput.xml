@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.x" timestamp="2/2/18 5:13 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.x" timestamp="2/13/18 2:44 PM">
   <identification>
     <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="1.2.x">
       <tool toolname="Droid" toolversion="6.3" />
@@ -35,7 +35,7 @@
       <compressionScheme toolname="Jhove" toolversion="1.16" status="CONFLICT">JPEG</compressionScheme>
       <compressionScheme toolname="Exiftool" toolversion="10.00" status="CONFLICT">JPEG (old-style)</compressionScheme>
       <imageWidth toolname="Jhove" toolversion="1.16">3920</imageWidth>
-      <imageHeight toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2160</imageHeight>
+      <imageHeight toolname="Jhove" toolversion="1.16">2160</imageHeight>
       <colorSpace toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">RGB</colorSpace>
       <iccProfileName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">sRGB IEC61966-2.1</iccProfileName>
       <YCbCrSubSampling toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1 1</YCbCrSubSampling>
