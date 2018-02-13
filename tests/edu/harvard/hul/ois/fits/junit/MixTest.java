@@ -19,6 +19,7 @@
 package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
+import java.util.Scanner;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
@@ -136,9 +137,9 @@ public class MixTest extends AbstractLoggingTest {
 	}
     
 	@Test
-	public void testJpgJfif() throws Exception {	
+	public void testJpgExif2() throws Exception {	
 
-		String filename = "gps.jpg";
+		String filename = "JPEGTest_20170591--JPEGTest_20170591.jpeg";
     	File input = new File("testfiles/" + filename);
     	
     	FitsOutput fitsOut = fits.examine(input);
@@ -151,9 +152,9 @@ public class MixTest extends AbstractLoggingTest {
 	}
     
 	@Test
-	public void testJpg2() throws Exception {	
+	public void testJpgJfif() throws Exception {	
 
-		String filename = "JPEGTest_20170591--JPEGTest_20170591.jpeg";
+		String filename = "gps.jpg";
     	File input = new File("testfiles/" + filename);
     	
     	FitsOutput fitsOut = fits.examine(input);
@@ -179,4 +180,35 @@ public class MixTest extends AbstractLoggingTest {
 		fitsOut.addStandardCombinedFormat(); // output all data to file
 		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
 	}
+    
+	@Test
+	public void testJp2_1() throws Exception {
+
+		String inputFilename = "test.jp2";
+    	File input = new File("testfiles/" + inputFilename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+	}
+    
+	@Test
+	public void testJp2_2() throws Exception {
+
+		String inputFilename = "006607203_00018.jp2";
+    	File input = new File("testfiles/" + inputFilename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		serializer.output(fitsOut.getFitsXml(), System.out);
+		
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+	}
+
 }

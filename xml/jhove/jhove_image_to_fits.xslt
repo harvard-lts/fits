@@ -51,7 +51,7 @@ xmlns:mix="http://www.loc.gov/mix/v20">
 				<xsl:otherwise>
 					<!-- otherwise use mix metadata -->
 					<compressionScheme>
-					     <xsl:value-of select="(//mix:compressionScheme)[1]"/> <!-- Take the first width found -->
+					     <xsl:value-of select="(//mix:compressionScheme)[1]"/>
 					</compressionScheme> 				
 				</xsl:otherwise>
 			</xsl:choose>
@@ -63,7 +63,7 @@ xmlns:mix="http://www.loc.gov/mix/v20">
 			
 			<!--  height -->
 			<imageHeight>
-		  		<xsl:value-of select="(//mix:imageLength)[1]"/> <!-- Take the first height found -->
+		  		<xsl:value-of select="(//mix:imageHeight)[1]"/> <!-- Take the first height found -->
 			</imageHeight>
 		
 			<!--  colorspace -->
