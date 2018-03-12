@@ -58,9 +58,6 @@ public class FitsOutputXmlTest extends AbstractLoggingTest {
     
     public FitsOutputXmlTest() {
     	super();
-    	// must set output values if using this constructor
-//    	this.expected = ???;
-//    	this.actual = ???;
     }
 
     public FitsOutputXmlTest(FitsOutput expected, FitsOutput value) {
@@ -73,8 +70,7 @@ public class FitsOutputXmlTest extends AbstractLoggingTest {
     public static Collection<FitsOutput[]> data() throws Exception {	
     	Fits fits = new Fits("");
     	SAXBuilder builder = new SAXBuilder();
-//		List<FitsOutput[]> inputs = new ArrayList<String[][]>();
-        List<FitsOutput[]> inputs = new ArrayList<FitsOutput[]>();
+       List<FitsOutput[]> inputs = new ArrayList<FitsOutput[]>();
 	
 		File inputDir =new File("tests/input");
 		File outputDir =new File("tests/output");

@@ -53,60 +53,34 @@ public class VideoStdSchemaTest extends AbstractLoggingTest {
     @Test  
 	public void testVideo_AVC() throws Exception {   
 
-    	File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
+		String fileName = "utf16.txt";
+    	File input = new File("testfiles/" + fileName);
     	FitsOutput fitsOut = fits.examine(input);
-    	
-//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-//		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-//		XmlContent xml = fitsOut.getStandardXmlContent();
-//		
-//		if(xml != null) {
-//			xml.setRoot(true);
-//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-//			
-//			xml.output(writer);
-//		}
-    	
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + fileName + "_Output.xml");
 	}
     
     @Test  
 	public void testVideo_DV() throws Exception {   
 
-    	File input = new File("testfiles/FITS-SAMPLE-26.mov");
+		String fileName = "FITS-SAMPLE-26.mov";
+    	File input = new File("testfiles/" + fileName);
     	FitsOutput fitsOut = fits.examine(input);
-    	
-//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-//		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-//		XmlContent xml = fitsOut.getStandardXmlContent();
-//		
-//		if(xml != null) {
-//			xml.setRoot(true);
-//			XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-//			XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-//			
-//			xml.output(writer);
-//		}
-    	
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + fileName + "_Output.xml");
 	}    
     
     @Test
     public void testMxfVideo() throws Exception {
     	
-    	String inputFilename = "freeMXF-mxf1a.mxf";
-    	String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
-
     	// Here we want a specific fits.xml file so instantiate a new Fits class.
     	Fits fits = new Fits(null, new File("testfiles/properties/fits-full-with-tool-output.xml"));
-    	File input = new File("testfiles/" + inputFilename);
-    	
+
+    	String fileName = "freeMXF-mxf1a.mxf";
+    	File input = new File("testfiles/" + fileName);
     	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.addStandardCombinedFormat();    	
-//		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-//		serializer.output(fitsOut.getFitsXml(), System.out);
-		fitsOut.saveToDisk(outputFilename);
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + fileName + "_Output.xml");
 	}
 
 }
