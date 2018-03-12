@@ -20,11 +20,6 @@ package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
 
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
-
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,7 +27,6 @@ import org.junit.Test;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
-import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 
 
 public class TextMDTest extends AbstractLoggingTest {
@@ -56,44 +50,22 @@ public class TextMDTest extends AbstractLoggingTest {
 
 	@Test
 	public void testTextMD() throws Exception {	
-    	File input = new File("testfiles/utf16.txt");
-    	
-    	
+		
+		String fileName = "utf16.txt";
+    	File input = new File("testfiles/" + fileName);
     	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		TextMD textmd = (TextMD)fitsOut.getStandardXmlContent();
-		
-		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
-
-		if (textmd != null) {
-			textmd.setRoot(true);
-			textmd.output(writer);
-		}
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + fileName + "_Output.xml");
 	}
     
 	@Test
 	public void testCsv() throws Exception {	
-    	File input = new File("testfiles/random_data.csv");
-    	
-    	
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		serializer.output(fitsOut.getFitsXml(), System.out);
-		
-		TextMD textmd = (TextMD)fitsOut.getStandardXmlContent();
-		
-		XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
-		XMLStreamWriter writer = xmlof.createXMLStreamWriter(System.out); 
 
-		if (textmd != null) {
-			textmd.setRoot(true);
-			textmd.output(writer);
-		}
+		String fileName = "random_data.csv";
+    	File input = new File("testfiles/" + fileName);
+    	FitsOutput fitsOut = fits.examine(input);
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + fileName + "_Output.xml");
 	}
 
 }
