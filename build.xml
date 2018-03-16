@@ -255,6 +255,12 @@
 		<copy todir="${output.location.version}/javadoc">
 		    <fileset dir="${javadoc.home}" />  
 		</copy>
+        <copy todir="${output.location.version}/Licenses">
+            <fileset dir="Licenses" />
+        </copy>
+        <copy todir="${output.location.version}/Notices">
+            <fileset dir="Notices" />
+        </copy>
         <copy file="log4j.properties" todir="${output.location.version}"/>
 		<copy file="cpappend.bat" todir="${output.location.version}"/>
 		<copy file="fits.bat" todir="${output.location.version}"/>
