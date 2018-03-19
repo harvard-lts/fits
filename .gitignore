@@ -1,7 +1,6 @@
 /build_local
 *.class
-CVS
-TAGS
+/fitsBasicTestOutput.xml
 
 # Directory created by fits-blackbox-tester
 .bb-testing/
@@ -14,3 +13,4 @@ TAGS
 /build/
 /fits-tests.log
 /javadoc/
+/target/

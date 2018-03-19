@@ -1,1 +1,0 @@
-This directory is for any JAR files that are needed specifically to run JUnit tests via Ant.

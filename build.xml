@@ -305,7 +305,7 @@
     	     Try adding the environment setting ANT_OPTS=-XX:MaxPermSize=1024m
     	     or, when running in Eclipse, modifying the eclipse.ini file by adding -XX:MaxPermSize=1024m
     	-->
-        <junit fork="true" forkmode="perTest" logfailedtests="true" printsummary="withOutAndErr"
+        <junit fork="false" logfailedtests="true" printsummary="withOutAndErr"
                 haltonfailure="${halt.tests.on.failure}" haltonerror="${halt.tests.on.error}">
         	<classpath refid="junit.classpath" />
         	<classpath refid="compile.classpath" />

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>nz.govt.natlib</groupId>
+  <artifactId>metadata</artifactId>
+  <versioning>
+    <release>3.6GA</release>
+    <versions>
+      <version>3.6GA</version>
+    </versions>
+    <lastUpdated>20180316150100</lastUpdated>
+  </versioning>
+</metadata>
