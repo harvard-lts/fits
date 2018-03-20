@@ -18,19 +18,24 @@ import java.util.List;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 
+//import org.apache.xalan.processor.TransformerFactoryImpl;
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
 import org.jdom.transform.JDOMResult;
+import org.jdom.transform.JDOMSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+//import org.w3c.dom.Node;
 
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
-import net.sf.saxon.Configuration;
+//import net.sf.saxon.Configuration;
+//import net.sf.saxon.TransformerFactoryImpl;
+//import net.sf.saxon.jdom.DocumentWrapper;
 import net.sf.saxon.TransformerFactoryImpl;
-import net.sf.saxon.jdom.DocumentWrapper;
 
 /** An abstract class implementing the Tool interface, the base
  *  for all FITS tools.
@@ -56,15 +61,19 @@ public abstract class ToolBase implements Tool {
 
 	public ToolBase() throws FitsToolException {
 		info = new ToolInfo();
-		tFactory = TransformerFactory.newInstance();
-		String factoryImpl = "net.sf.saxon.TransformerFactoryImpl";
-		try {
-			Class<?> clazz = Class.forName(factoryImpl, true, ToolBase.class.getClassLoader());
-			tFactory = (TransformerFactory)clazz.newInstance();
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-			throw new FitsToolException("Could not access or instantiate class: " + factoryImpl, e);
-		}
+//		tFactory = TransformerFactory.newInstance();
+//		String factoryImpl = "net.sf.saxon.TransformerFactoryImpl";
+//		try {
+//			Class<?> clazz = Class.forName(factoryImpl);
+//			Class<?> clazz = Class.forName(factoryImpl, true, ToolBase.class.getClassLoader());
+//			Class<?> xsltFunctionsClass = Class.forName("edu.harvard.hul.ois.fits.tools.utils.XsltFunctions", true, ToolBase.class.getClassLoader());
+//			xsltFunctionsClass.newInstance();
+//			tFactory = (TransformerFactory)clazz.newInstance();
+//		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+//			throw new FitsToolException("Could not access or instantiate class: " + factoryImpl, e);
+//		}
 
+		tFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", ToolBase.class.getClassLoader());
 		saxBuilder = new SAXBuilder();
 		excludedExtensions = new ArrayList<String>();
 		includedExtensions = new ArrayList<String>();
@@ -127,15 +136,23 @@ public abstract class ToolBase implements Tool {
 	}
 
 	public Document transform(String xslt, Document input) throws FitsToolException {
-		Document doc = null;
+		org.jdom.Document doc = null;
 		try {
-			Configuration config = ((TransformerFactoryImpl)tFactory).getConfiguration();
-			DocumentWrapper docw = new DocumentWrapper(input,null,config);
-			JDOMResult out = new JDOMResult();
+//			Configuration config = ((TransformerFactoryImpl)tFactory).getConfiguration();
+//			DocumentWrapper docw = new DocumentWrapper(input,null,config);
 			Templates templates = tFactory.newTemplates(new StreamSource(xslt));
 			Transformer transformer = templates.newTransformer();
-			transformer.transform(docw, out);
-			doc = out.getDocument();
+//			transformer.transform(new DOMSource((Node)input), out);
+//			transformer.transform(docw, out);
+
+		       JDOMSource in = new JDOMSource(input);
+		       JDOMResult out = new JDOMResult();
+//		       JDOMResult result = new JDOMResult();
+		       transformer.transform(in, out);
+		       doc = out.getDocument();
+
+			
+//			doc = out.getDocument();
 		}
 		catch(Exception e) {
 			throw new FitsToolException(info.getName()+": Error converting output using "+xslt,e);

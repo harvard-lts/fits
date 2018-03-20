@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -17,13 +22,35 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove-core-1.16.5.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove-modules-1.16.5.jar"/>
 	<classpathentry kind="lib" path="lib/tika/tika-app-1.10.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/metadata.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/aspose-words-15.7.0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/bcmail-jdk16-1.46.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/bcprov-jdk16-1.46.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/bfj220.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/poi-3.12.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/poi-ooxml-3.12.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/fastutil-5.0.3-heritrix-subset-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/heritrix-1.14.1.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/isoparser-142-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/jflac-1.3-jdk1.4.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/jflac-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/jid3lib-0.5.4.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/jmimemagic-0.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/jwat-arc-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/jwat-common-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/jwat-gzip-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/jwat-warc-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/oro-2.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/PDFBox-0.7.3.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/poi-3.0-FINAL.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/serializer.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/xalan.jar"/>
+	<classpathentry kind="lib" path="lib/nzmetool/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/bmp_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/excel_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/gif_adapter_1_0.jar"/>
@@ -45,28 +72,6 @@
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/mpeg4_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/warc_adapter_1_0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/adapters/msword_adapter_2_0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/aspose-words-15.7.0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/bcmail-jdk16-1.46.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/bcprov-jdk16-1.46.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/poi-3.12.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/poi-ooxml-3.12.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/commons-httpclient-3.1.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/fastutil-5.0.3-heritrix-subset-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/heritrix-1.14.1.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/isoparser-142-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jflac-1.3-jdk1.4.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jflac-1.3.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jid3lib-0.5.4.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jmimemagic-0.1.2.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jwat-arc-1.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jwat-common-1.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jwat-gzip-1.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/jwat-warc-1.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/oro-2.0.8.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/poi-3.0-FINAL.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/serializer.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/xalan.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/droid/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/droid/asm-2.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/droid/bcmail-jdk14-138.jar"/>

@@ -13,6 +13,7 @@ package edu.harvard.hul.ois.fits.tools.droid;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 
 /**
@@ -35,7 +36,7 @@ public class ContainerAggregator {
 	private boolean isEncrypted = false;
 
 	public ContainerAggregator() {
-		formatToCount = new HashMap<>();
+		formatToCount = new TreeMap<>(); // order entries by key for the sake of XMLUnit tests
 	}
 
 	/**
