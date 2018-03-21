@@ -1,0 +1,65 @@
+
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+
+	<!-- ************************************************************* -->
+	<!-- This Maven Assembly creates a final FITS artifact for release -->
+	<!-- ************************************************************* -->
+
+	<id>fits-zip-assembly</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<useProjectArtifact>true</useProjectArtifact>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<unpack>false</unpack>
+			<scope>runtime</scope>
+			<outputDirectory>lib</outputDirectory>
+			<excludes>
+				<exclude>uk.gov.nationalarchives:droid-core</exclude>
+				<exclude>uk.gov.nationalarchives:droid-command-line</exclude>
+				<exclude>org.openpreservation.jhove:jhove-core</exclude>
+				<exclude>org.apache.tika:tika-core</exclude>
+				<exclude>nz.govt.natlib:metadata</exclude>
+			</excludes>
+		</dependencySet>
+	</dependencySets>
+	<fileSets>
+		<fileSet>
+			<directory>Licenses</directory>
+		</fileSet>
+		<fileSet>
+			<directory>Notices</directory>
+		</fileSet>
+		<fileSet>
+			<directory>lib</directory>
+		</fileSet>
+		<fileSet>
+			<directory>tools</directory>
+		</fileSet>
+		<fileSet>
+			<directory>xml</directory>
+		</fileSet>
+		<fileSet>
+			<directory>${project.basedir}</directory>
+			<includes>
+				<include>*.bat</include>
+				<include>*.sh</include>
+				<include>*.md</include>
+				<include>log4j.properties</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+	<files>
+		<file>
+			<!-- isolatted due to filtering -->
+			<source>version.properties</source>
+			<filtered>true</filtered>
+		</file>
+	</files>
+</assembly>
