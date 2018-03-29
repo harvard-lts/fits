@@ -21,6 +21,7 @@
 			<scope>runtime</scope>
 			<outputDirectory>lib</outputDirectory>
 			<excludes>
+				<!-- Exclude these POM dependencies since they should not be in main classpath; they are loaded separately via tool. -->
 				<exclude>uk.gov.nationalarchives:droid-core</exclude>
 				<exclude>uk.gov.nationalarchives:droid-command-line</exclude>
 				<exclude>org.openpreservation.jhove:jhove-core</exclude>
