@@ -23,8 +23,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/jhove/jhove-core-1.16.5.jar"/>
-	<classpathentry kind="lib" path="lib/jhove/jhove-modules-1.16.5.jar"/>
+	<classpathentry kind="lib" path="lib/jhove/jhove-core-1.20.1.jar"/>
+	<classpathentry kind="lib" path="lib/jhove/jhove-modules-1.20.1.jar"/>
 	<classpathentry kind="lib" path="lib/tika/tika-app-1.10.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/metadata.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/aspose-words-15.7.0.jar"/>

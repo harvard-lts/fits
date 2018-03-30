@@ -68,7 +68,7 @@ public class Jhove extends ToolBase {
             jhove.setSignatureFlag(false);
             jhove.setShowRawFlag(false);
       	    xh = new XmlHandler();
-      	    jhoveApp = new App ("Jhove","1.16", new int[] {2017, 03, 15}, "","");
+      	    jhoveApp = new App ("Jhove","1.20", new int[] {2018, 03, 29}, "","");
             xh.setApp(jhoveApp);
             xh.setBase(jhove);
 		}
