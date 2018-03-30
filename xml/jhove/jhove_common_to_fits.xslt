@@ -21,6 +21,9 @@
 					<xsl:when test="$mime='text/plain; charset=UTF-8'">
 						<xsl:value-of select="string('text/plain')"/>
 					</xsl:when>
+                    <xsl:when test="starts-with($mime, 'audio/vnd.wave')">
+                        <xsl:value-of select="string('audio/x-wave')"/>
+                    </xsl:when>
 					<xsl:when test="normalize-space(upper-case(//property[name='Brand']/values/value))='JPX'">		
 						<xsl:value-of select="string('image/jpx')"/>
 					</xsl:when>
@@ -78,6 +81,9 @@
 					<xsl:when test="$format='WAVE WAVEFORMATEX'">
 						<xsl:value-of select="string('Waveform Audio')"/>
 					</xsl:when>
+                    <xsl:when test="starts-with($format,'JPEG Exif')">
+                        <xsl:value-of select="string('JPEG EXIF')"/>
+                    </xsl:when>
 					<xsl:when test="starts-with($format,'JPEG 2000')">
 						<xsl:choose>			
 							<xsl:when test="//profiles[profile='JP2']">
