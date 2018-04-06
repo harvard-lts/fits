@@ -35,7 +35,7 @@ public abstract class AbstractLoggingTest {
 	 * See "Default Initialization Procedure" here: https://logging.apache.org/log4j/1.2/manual.html
 	 */
 	static {
-		File log4jProperties = new File("tests.log4j.properties");
+		File log4jProperties = new File("src/test/resources/log4j.properties");
 	    System.setProperty( "log4j.configuration", log4jProperties.toURI().toString());
 	}
 }

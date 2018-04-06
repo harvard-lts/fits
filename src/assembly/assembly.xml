@@ -21,7 +21,7 @@
 			<scope>runtime</scope>
 			<outputDirectory>lib</outputDirectory>
 			<excludes>
-				<!-- Exclude these POM dependencies since they should not be in main classpath; they are loaded separately via tool. -->
+				<!-- Exclude these POM dependencies since they should not be in main classpath; they are included separately. -->
 				<exclude>uk.gov.nationalarchives:droid-core</exclude>
 				<exclude>uk.gov.nationalarchives:droid-command-line</exclude>
 				<exclude>org.openpreservation.jhove:jhove-core</exclude>
@@ -52,11 +52,18 @@
 				<include>*.bat</include>
 				<include>*.sh</include>
 				<include>*.md</include>
-				<include>log4j.properties</include>
 			</includes>
+		</fileSet>
+		<fileSet>
+			<!-- include generated javadoc from 'target' directory -->
+			<directory>${project.build.directory}/site/apidocs</directory>
+			<outputDirectory>javadoc</outputDirectory>
 		</fileSet>
 	</fileSets>
 	<files>
+		<file>
+			<source>src/main/resources/log4j.properties</source>
+		</file>
 		<file>
 			<!-- isolatted due to filtering -->
 			<source>version.properties</source>
