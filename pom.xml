@@ -78,6 +78,9 @@
 						<manifest>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 						</manifest>
+						<manifestEntries>
+							<Build-Time>${maven.build.timestamp}</Build-Time>
+						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>
@@ -291,6 +294,7 @@
 	</pluginRepositories>
 
 	<distributionManagement>
+		<!-- repository URL and credentials set up in local .m2/settings.xml -->
 		<repository>
 			<id>harvard-lts-internal-release-repository</id>
 			<name>Harvard LTS internal Release Repository</name>
@@ -320,8 +324,14 @@
 		<developer>
 			<name>David Neiman</name>
 			<email>dneiman@g.harvard.edu</email>
-			<organization>Harvard University Library</organization>
-			<organizationUrl>https://library.harvard.edu</organizationUrl>
+            <organization>Harvard University Information Technology</organization>
+            <organizationUrl>https://huit.harvard.edu</organizationUrl>
+		</developer>
+		<developer>
+			<name>Spencer McEwen</name>
+			<email>spencer_mcewen@harvard.edu</email>
+			<organization>Harvard University Information Technology</organization>
+			<organizationUrl>https://huit.harvard.edu</organizationUrl>
 		</developer>
 	</developers>
 
