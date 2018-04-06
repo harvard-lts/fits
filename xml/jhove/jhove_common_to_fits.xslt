@@ -81,6 +81,9 @@
 					<xsl:when test="$format='WAVE WAVEFORMATEX'">
 						<xsl:value-of select="string('Waveform Audio')"/>
 					</xsl:when>
+                    <xsl:when test="$format='WAVE'">
+                        <xsl:value-of select="string('Waveform Audio')"/>
+                    </xsl:when>
                     <xsl:when test="starts-with($format,'JPEG Exif')">
                         <xsl:value-of select="string('JPEG EXIF')"/>
                     </xsl:when>
