@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<mets LABEL="Manks, Dorothy St. John. Massachusetts Horticultural Society library :a classification scheme for horticulture. Boston, Mass. : The Society, 1951." TYPE="PAGEDOBJECT" PROFILE="HUL" xmlns="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pds="http://hul.harvard.edu/ois/xml/ns/pds" xsi:schemaLocation="http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/mets.xsd http://hul.harvard.edu/ois/xml/ns/pds http://hul.harvard.edu/ois/xml/xsd/pds/pds.xsd">
+ <dmdSec ID="C0" GROUPID="CITATION">
+  <mdWrap MDTYPE="MODS">
+   <xmlData>
+    <mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-0.xsd" version="3.0">
+     <mods:name>
+      <mods:displayForm>Manks, Dorothy St. John</mods:displayForm>
+     </mods:name>
+     <mods:titleInfo>
+      <mods:title>Massachusetts Horticultural Society library :a classification scheme for horticulture</mods:title>
+     </mods:titleInfo>
+     <mods:identifier type="hollis">123</mods:identifier>
+    </mods:mods>
+   </xmlData>
+  </mdWrap>
+ </dmdSec>
+ <dmdSec ID="C1" GROUPID="CITATION">
+  <mdWrap MDTYPE="OTHER" OTHERMDTYPE="HULPDS">
+   <xmlData>
+    <pds:pds/>
+   </xmlData>
+  </mdWrap>
+ </dmdSec>
+ <fileSec>
+  <fileGrp ID="text-plain">
+   <file ID="Fkeyed_text-321808_page_1.txt" MIMETYPE="text/plain">
+    <FLocat LOCTYPE="OTHER" OTHERLOCTYPE="OracleID" xlink:type="simple" xlink:href="6662232"/>
+   </file>
+   <file ID="Fkeyed_text-321809_page_2.txt" MIMETYPE="text/plain">
+    <FLocat LOCTYPE="OTHER" OTHERLOCTYPE="OracleID" xlink:type="simple" xlink:href="6662233"/>
+   </file>
+   <file ID="Fkeyed_text-321811_page_3.txt" MIMETYPE="text/plain">
+    <FLocat LOCTYPE="OTHER" OTHERLOCTYPE="OracleID" xlink:type="simple" xlink:href="6662234"/>
+   </file>
+  </fileGrp>
+  <fileGrp ID="image-tiff">
+   <file ID="Fdeliverable-168798_page_1.tif" MIMETYPE="image/tiff">
+    <FLocat LOCTYPE="OTHER" OTHERLOCTYPE="OracleID" xlink:type="simple" xlink:href="6662229"/>
+   </file>
+   <file ID="Fdeliverable-168799_page_2.tif" MIMETYPE="image/tiff">
+    <FLocat LOCTYPE="OTHER" OTHERLOCTYPE="OracleID" xlink:type="simple" xlink:href="6662230"/>
+   </file>
+   <file ID="Fdeliverable-168800_page_3.tif" MIMETYPE="image/tiff">
+    <FLocat LOCTYPE="OTHER" OTHERLOCTYPE="OracleID" xlink:type="simple" xlink:href="6662231"/>
+   </file>
+  </fileGrp>
+ </fileSec>
+ <structMap>
+  <div LABEL="Citation Label8" DMDID="C0 C1" TYPE="CITATION">
+   <div LABEL="First Section" TYPE="INTERMEDIATE">
+    <div ORDER="1" ORDERLABEL="1" LABEL="page 1" TYPE="PAGE">
+     <fptr FILEID="Fdeliverable-168798_page_1.tif"/>
+     <fptr FILEID="Fkeyed_text-321808_page_1.txt"/>
+    </div>
+    <div ORDER="2" ORDERLABEL="2" LABEL="page 2" TYPE="PAGE">
+     <fptr FILEID="Fdeliverable-168799_page_2.tif"/>
+     <fptr FILEID="Fkeyed_text-321809_page_2.txt"/>
+    </div>
+    <div ORDER="3" ORDERLABEL="3" LABEL="page 3" TYPE="PAGE">
+     <fptr FILEID="Fdeliverable-168800_page_3.tif"/>
+     <fptr FILEID="Fkeyed_text-321811_page_3.txt"/>
+    </div>
+   </div>
+  </div>
+ </structMap>
+</mets>

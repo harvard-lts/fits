@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.1" timestamp="4/9/18 4:45 PM">
+  <identification>
+    <identity format="Extensible Markup Language" mimetype="text/xml" toolname="FITS" toolversion="1.2.1">
+      <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="Jhove" toolversion="1.20" />
+      <tool toolname="file utility" toolversion="5.31" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
+      <tool toolname="OIS XML Metadata" toolversion="0.2" />
+      <tool toolname="ffident" toolversion="0.2" />
+      <tool toolname="Tika" toolversion="1.10" />
+      <version toolname="Droid" toolversion="6.3">1.0</version>
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">fmt/101</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.20">3219</size>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/test.xml</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">test.xml</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">43ebf426e75119483bbea6729ba567e9</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1523306483000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <text>
+      <charset toolname="Jhove" toolversion="1.20">utf-8</charset>
+      <markupBasis toolname="Jhove" toolversion="1.20">XML</markupBasis>
+      <markupBasisVersion toolname="Jhove" toolversion="1.20">1.0</markupBasisVersion>
+      <markupLanguage toolname="OIS XML Metadata" toolversion="0.2" status="SINGLE_RESULT">http://www.loc.gov/standards/mets/mets.xsd</markupLanguage>
+    </text>
+  </metadata>
+  <statistics fitsExecutionTime="1430">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.3" executionTime="270" />
+    <tool toolname="Jhove" toolversion="1.20" executionTime="1386" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="613" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="614" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="590" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="204" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" executionTime="261" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="586" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="438" />
+  </statistics>
+</fits>
+
