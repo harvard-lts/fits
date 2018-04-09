@@ -217,7 +217,7 @@
 						</xsl:analyze-string>					
 					</xsl:when>						
 					<!--  XML -->
-					<xsl:when test="$mime='application/xml'">
+					<xsl:when test="$mime='application/xml' or $mime='text/xml'">
 						<!-- test if format contains: XML VERSION* SOMETHING,* ELSE* -->
 						<!-- whereas: * is optional --> 
 						<!-- version <= file-5.24 example: XML document text -->
