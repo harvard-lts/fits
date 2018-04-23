@@ -169,6 +169,6 @@
 	<classpathentry kind="lib" path="lib/droid/jwat-warc-1.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/droid/poi-3.13.jar"/>
 	<classpathentry kind="lib" path="lib/droid/trove4j-3.0.3.jar"/>
-	<classpathentry kind="lib" path="lib/ots-1.0.49.jar"/>
+	<classpathentry kind="lib" path="lib/ots-1.0.50.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
