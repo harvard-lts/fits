@@ -18,7 +18,6 @@ import java.util.List;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 
 //import org.apache.xalan.processor.TransformerFactoryImpl;
@@ -32,10 +31,6 @@ import org.slf4j.LoggerFactory;
 
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
-//import net.sf.saxon.Configuration;
-//import net.sf.saxon.TransformerFactoryImpl;
-//import net.sf.saxon.jdom.DocumentWrapper;
-import net.sf.saxon.TransformerFactoryImpl;
 
 /** An abstract class implementing the Tool interface, the base
  *  for all FITS tools.
@@ -61,19 +56,15 @@ public abstract class ToolBase implements Tool {
 
 	public ToolBase() throws FitsToolException {
 		info = new ToolInfo();
-//		tFactory = TransformerFactory.newInstance();
-//		String factoryImpl = "net.sf.saxon.TransformerFactoryImpl";
-//		try {
-//			Class<?> clazz = Class.forName(factoryImpl);
-//			Class<?> clazz = Class.forName(factoryImpl, true, ToolBase.class.getClassLoader());
-//			Class<?> xsltFunctionsClass = Class.forName("edu.harvard.hul.ois.fits.tools.utils.XsltFunctions", true, ToolBase.class.getClassLoader());
-//			xsltFunctionsClass.newInstance();
-//			tFactory = (TransformerFactory)clazz.newInstance();
-//		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-//			throw new FitsToolException("Could not access or instantiate class: " + factoryImpl, e);
-//		}
-
-		tFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", ToolBase.class.getClassLoader());
+		tFactory = TransformerFactory.newInstance();
+		String factoryImpl = "net.sf.saxon.TransformerFactoryImpl";
+		try {
+			Class<?> clazz = Class.forName(factoryImpl, true, ToolBase.class.getClassLoader());
+			tFactory = (TransformerFactory)clazz.newInstance();
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			throw new FitsToolException("Could not access or instantiate class: " + factoryImpl, e);
+		}
+		
 		saxBuilder = new SAXBuilder();
 		excludedExtensions = new ArrayList<String>();
 		includedExtensions = new ArrayList<String>();

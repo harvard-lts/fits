@@ -65,9 +65,8 @@
 			<source>src/main/resources/log4j.properties</source>
 		</file>
 		<file>
-			<!-- isolatted due to filtering -->
-			<source>version.properties</source>
-			<filtered>true</filtered>
+			<!-- should be copied and filtered to base directory during build -->
+			<source>${project.basedir}/version.properties</source>
 		</file>
 	</files>
 </assembly>

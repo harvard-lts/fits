@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/22/16 1:07 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="build.version=${project.version}" timestamp="4/24/18 12:48 PM">
   <identification>
-    <identity format="Quicktime" mimetype="video/quicktime" toolname="FITS" toolversion="0.11.0">
+    <identity format="Quicktime" mimetype="video/quicktime" toolname="FITS" toolversion="3.1.0">
       <tool toolname="MediaInfo" toolversion="0.7.75" />
-      <tool toolname="Droid" toolversion="6.1.5" />
-      <tool toolname="file utility" toolversion="5.04" />
-      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/384</externalIdentifier>
+      <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="file utility" toolversion="5.31" />
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/384</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
     <creatingApplicationName toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">Apple QuickTime</creatingApplicationName>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/FITS-SAMPLE-26.mov</filepath>
-    <filename toolname="MediaInfo" toolversion="0.7.75">FITS-SAMPLE-26.mov</filename>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/FITS-SAMPLE-26.mov</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">FITS-SAMPLE-26.mov</filename>
     <size toolname="MediaInfo" toolversion="0.7.75">15060707</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">9c560fd7e4e6e0834bed9280c4b52d7b</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1446674963000</fslastmodified>
@@ -19,7 +19,7 @@
   <filestatus />
   <metadata>
     <video>
-      <location toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/FITS-SAMPLE-26.mov</location>
+      <location toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/FITS-SAMPLE-26.mov</location>
       <mimeType toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">video/quicktime</mimeType>
       <format toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">Quicktime</format>
       <formatProfile toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">QuickTime</formatProfile>
@@ -84,11 +84,11 @@
                 </ebucore:aspectRatio>
                 <ebucore:videoEncoding typeLabel="AVdv" />
                 <ebucore:codec>
-                    <ebucore:codecIdentifier>
-                        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">AVdv</dc:identifier>
-                    </ebucore:codecIdentifier>
-                    <ebucore:name>DV</ebucore:name>
-                </ebucore:codec>               
+                  <ebucore:codecIdentifier>
+                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">AVdv</dc:identifier>
+                  </ebucore:codecIdentifier>
+                  <ebucore:name>DV</ebucore:name>
+                </ebucore:codec>
                 <ebucore:bitRate>24417183</ebucore:bitRate>
                 <ebucore:bitRateMode>constant</ebucore:bitRateMode>
                 <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
@@ -111,7 +111,7 @@
                   <ebucore:codecIdentifier>
                     <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">twos</dc:identifier>
                   </ebucore:codecIdentifier>
-                </ebucore:codec>          
+                </ebucore:codec>
                 <ebucore:audioTrackConfiguration typeLabel="Front: L R" />
                 <ebucore:samplingRate>48000</ebucore:samplingRate>
                 <ebucore:bitRate>1536000</ebucore:bitRate>
@@ -138,7 +138,7 @@
                     <ebucore:position coordinate="y">0</ebucore:position>
                   </ebucore:audioBlockFormat>
                 </ebucore:audioChannelFormat>
-              </ebucore:audioFormatExtended>              
+              </ebucore:audioFormatExtended>
               <ebucore:containerFormat>
                 <ebucore:comment typeLabel="format">Quicktime</ebucore:comment>
                 <ebucore:comment typeLabel="formatProfile">QuickTime</ebucore:comment>
@@ -146,13 +146,13 @@
               <ebucore:start>
                 <ebucore:editUnitNumber factorDenominator="1001" factorNumerator="1000" editRate="30">213657</ebucore:editUnitNumber>
               </ebucore:start>
-                <ebucore:duration>
-                    <ebucore:editUnitNumber factorDenominator="1" factorNumerator="1" editRate="1000">3971</ebucore:editUnitNumber>
-                </ebucore:duration>
+              <ebucore:duration>
+                <ebucore:editUnitNumber factorDenominator="1" factorNumerator="1" editRate="1000">3971</ebucore:editUnitNumber>
+              </ebucore:duration>
               <ebucore:mimeType typeLabel="video/quicktime" />
-              <ebucore:locator>/Users/dab980/Documents/Video/FITS-VIDEO-SAMPLE-FILES/FITS-SAMPLE-26.mov</ebucore:locator>
+              <ebucore:locator>/Users/dan179/git/git-daveneiman/fits/testfiles/FITS-SAMPLE-26.mov</ebucore:locator>
               <ebucore:technicalAttributeString typeLabel="overallBitRate">30341389</ebucore:technicalAttributeString>
-              <ebucore:dateModified startTime="12:58:24Z" startDate="2015-03-16" />
+              <ebucore:dateModified startTime="22:09:23Z" startDate="2015-11-04" />
             </ebucore:format>
           </ebucore:coreMetadata>
         </ebucore:ebuCoreMain>

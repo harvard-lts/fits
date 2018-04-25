@@ -486,7 +486,7 @@ public class Fits {
   }
 
   public static void outputStandardSchemaXml( FitsOutput fitsOutput, OutputStream out ) throws XMLStreamException,
-      IOException {
+      IOException, FitsException {
     XmlContent xml = fitsOutput.getStandardXmlContent();
 	FitsMetadataElement fileNameElement = fitsOutput.getMetadataElement("filename");
 	String inputFilename = fileNameElement == null ? null : fileNameElement.getValue();
@@ -495,15 +495,14 @@ public class Fits {
     Transformer transformer = null;
 
     // initialize transformer for pretty print xslt
-//    TransformerFactory tFactory = null;
-    TransformerFactory tFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
-//	String factoryImpl = "net.sf.saxon.TransformerFactoryImpl";
-//	try {
-//		Class<?> clazz = Class.forName(factoryImpl);
-//		tFactory = (TransformerFactory)clazz.newInstance();
-//	} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-//		throw new FitsToolException("Could not access or instantiate class: " + factoryImpl, e);
-//	}
+    TransformerFactory tFactory = null;
+	String factoryImpl = "net.sf.saxon.TransformerFactoryImpl";
+	try {
+		Class<?> clazz = Class.forName(factoryImpl);
+		tFactory = (TransformerFactory)clazz.newInstance();
+	} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+		throw new FitsToolException("Could not access or instantiate class: " + factoryImpl, e);
+	}
 
     String prettyPrintXslt = FITS_XML_DIR + "prettyprint.xslt";
     try {

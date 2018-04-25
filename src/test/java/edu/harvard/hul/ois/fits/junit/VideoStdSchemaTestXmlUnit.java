@@ -270,6 +270,31 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 
 		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}	
+	
+	@Test  
+	public void testVideoXmlUnitFitsOutput_AVC_NO_MD5() throws Exception {
+		
+		File fitsConfigFile = new File("testfiles/properties/fits_no_md5_video.xml");
+		Fits fits = new Fits(null, fitsConfigFile);
+		
+		// First generate the FITS output
+    	String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
+    	File input = new File("testfiles/" + inputFilename);
+		FitsOutput fitsOut = fits.examine(input);
+		fitsOut.saveToDisk("test-generated-output/" + "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_FITS_NO_MD5_XmlUnitActualOutput.xml");
+
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_FITS_NO_MD5.xml"));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
 
 	/**
 	 * Send in set of XML elements to ignore that overrides the default.

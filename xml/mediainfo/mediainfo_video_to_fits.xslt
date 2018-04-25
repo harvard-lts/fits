@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="2.0"
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:fits_XsltFunctions="edu.harvard.hul.ois.fits.tools.utils.XsltFunctions"
    xmlns:dc="http://purl.org/dc/elements/1.1/" 
    xmlns:ebucore="urn:ebu:metadata-schema:ebuCore_2014" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -22,7 +21,6 @@
             <xsl:if test="@type = 'General'">
                 
                 <xsl:variable name="completefilename" select="./Complete_name"/>
-       			<xsl:variable name="fileExtension" select="fits_XsltFunctions:getFileExtension($completefilename)"/>
        			<!-- Convert Format to lowercase for comparison -->
        			<xsl:variable name="format" select="./Format"/>
                 <xsl:variable name="formatLC" select="translate($format, $uppercase, $smallcase)" />             
@@ -110,13 +108,6 @@
         
             <xsl:if test="@type = 'General'">                   
        			<xsl:variable name="completefilename" select="./Complete_name"/>
-       			
-       			<!-- NOTE: This is already reported by the fileinfo element, --> 
-       			<!-- so it might be filtered out by the consolidator -->
-			    <filename>
-       				<xsl:value-of select="fits_XsltFunctions:getFileNameFromUrl($completefilename)"/>
-       			</filename>     			      			           
-
 			    <location>
        				<xsl:value-of select="$completefilename"/>
        			</location>

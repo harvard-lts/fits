@@ -33,10 +33,10 @@ import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
  * 
  * @author dan179
  */
-public class ZipXmlTest extends AbstractXmlUnitTest {
+public class XmlFileTest extends AbstractXmlUnitTest {
 	
 	/*
-	 *  Only one Fits instance is needed to run all tests.
+	 *  Only one Fits instance is needed to run tests.
 	 *  This also speeds up the tests.
 	 */
 	private static Fits fits;
@@ -54,39 +54,9 @@ public class ZipXmlTest extends AbstractXmlUnitTest {
 	}
 	
 	@Test
-	public void testZipFile() throws Exception {
+	public void testXmlFile() throws Exception {
 
-    	String inputFilename = "assorted-files.zip";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
-	}
-	
-	@Test
-	public void testSingleFileZipFile() throws Exception {
-
-    	String inputFilename = "40415587.zip";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
-	}
-	
-	@Test
-	public void testCompressedEncryptedZipFile() throws Exception {
-
-    	String inputFilename = "compressed-encrypted.zip"; // 0sample1-compressed
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
-	}
-	
-	@Test
-	public void testUncompressedEncryptedZipFile() throws Exception {
-
-    	String inputFilename = "uncompressed-encrypted.zip";
+    	String inputFilename = "test.xml";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();

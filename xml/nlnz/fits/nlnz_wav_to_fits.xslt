@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="2.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:fits_XsltFunctions="edu.harvard.hul.ois.fits.tools.utils.XsltFunctions">
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template match="/">
 
@@ -19,19 +18,8 @@
 			</identity>		
 		</identification>
 		
-  		<fileinfo>
-  		<!-- 
-			<fslastmodified>
-				<xsl:value-of select="//MODIFIED"/>
-			</fslastmodified>
-		 -->
-		</fileinfo>
-		
 		<metadata>	
 	     <audio>
-	     	<duration>
-	            <xsl:value-of select="fits_XsltFunctions:getDuration(number(WAV/RIFF/LENGTH),number(WAV/WAVE/AVERAGEBYTESPERSEC))"/>
-	        </duration>
 	     	
 	     	<bitDepth>
 	     		<xsl:choose>     	
