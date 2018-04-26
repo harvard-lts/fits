@@ -20,4 +20,9 @@ for %%i in (lib\*.jar) do call "%FITS_HOME%\cpappend.bat" %%i
 set APPCLASSPATH=.%JARS%
 :: uncomment following line to see classpath
 :: echo classpath=%APPCLASSPATH%
-java -classpath %APPCLASSPATH% edu.harvard.hul.ois.fits.Fits %*
+
+:: optionally set Java maximum heap size - uncomment and adjust as necessary
+set JAVA_OPTS=
+:: set JAVA_OPTS="-Xmx2048m"
+
+java %JAVA_OPTS% -classpath %APPCLASSPATH% edu.harvard.hul.ois.fits.Fits %*

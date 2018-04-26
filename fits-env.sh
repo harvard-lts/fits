@@ -38,4 +38,8 @@ for i in "$JCPATH"/*.jar; do
     APPCLASSPATH="$APPCLASSPATH":"$i"
 done
 
+# optionally set Java maximum heap size
+JAVA_OPTS=""
+#JAVA_OPTS="-Xmx2048m"
+
 # all subdirectories of ${FITS_HOME}/lib/ get loaded dynamically at runtime. DO NOT add here!
