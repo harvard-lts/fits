@@ -49,16 +49,6 @@ public class VideoStdSchemaTest extends AbstractLoggingTest {
 	public static void afterClass() {
 		fits = null;
 	}
-
-    @Test  
-	public void testVideo_AVC() throws Exception {   
-
-		String fileName = "utf16.txt";
-    	File input = new File("testfiles/" + fileName);
-    	FitsOutput fitsOut = fits.examine(input);
-		fitsOut.addStandardCombinedFormat();
-		fitsOut.saveToDisk("test-generated-output/" + fileName + "_Output.xml");
-	}
     
     @Test  
 	public void testVideo_DV() throws Exception {   

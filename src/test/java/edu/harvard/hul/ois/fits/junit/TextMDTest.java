@@ -40,7 +40,8 @@ public class TextMDTest extends AbstractLoggingTest {
 	@BeforeClass
 	public static void beforeClass() throws Exception {
 		// Set up FITS for entire class.
-		fits = new Fits();
+		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
+		fits = new Fits(null, fitsConfigFile);
 	}
 	
 	@AfterClass
@@ -49,9 +50,19 @@ public class TextMDTest extends AbstractLoggingTest {
 	}
 
 	@Test
-	public void testTextMD() throws Exception {	
+	public void testUTF16TextMD() throws Exception {	
 		
 		String fileName = "utf16.txt";
+    	File input = new File("testfiles/" + fileName);
+    	FitsOutput fitsOut = fits.examine(input);
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + fileName + "_Output.xml");
+	}
+
+	@Test
+	public void testPlainText() throws Exception {	
+		
+		String fileName = "plain-text.txt";
     	File input = new File("testfiles/" + fileName);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();

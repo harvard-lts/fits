@@ -5,9 +5,23 @@ System Requirements
 -------------------
 FITS is a Java program and requires Java version 1.7 or higher. To find out your Java version type java -version in a command-line window.
 
+Building FITS
+-------------
+As of release 1.3.0 FITS is built using [Apache Maven](https://maven.apache.org/).
+The build artifacts are fits-<version>.jar and fits-<version>.zip. The JAR file contains the compiled Java source files contained in this project whereas the ZIP file contains the final artifact which can be extracted and used to process input files for analysis.
+The ZIP file can be built with the following command, which will also run the entire test suite:
+
+    mvn clean package
+    
+To build yet skip the tests, use the following command:
+
+    mvn clean package -DskipTests
+
+NOTE: A few Maven dependencies are not in public repositories. These are within the source tree in the lib-local directory. Other dependencies are within the lib directory for use by the FITS custom classloader.
+
 Installation
 ------------
-Download the latest official release from our [Downloads](http://fitstool.org/downloads) page.
+Download the latest official binary release from our [Downloads](http://fitstool.org/downloads) page.
 
 **IMPORTANT NOTE**: The code on this GitHub site is not meant for direct installation since it does NOT include the necessary fits.jar file (which is a primary build artifact of this project). If you want to use this GitHub site for installing FITS, you must first download (or Git clone) the code then build the project using the Ant 'release' target.
 
@@ -19,7 +33,7 @@ If this is your first time downloading FITS, create a directory for FITS, for ex
 
 Extract the contents of your ZIP file to your FITS directory. You should end up with a another directory under your top-level FITS directory that has a version number embedded in it, for example on Windows:
 
-    C:\Program Files\Fits\fits-1.0.0
+    C:\Program Files\Fits\fits-1.3.0
 
 Running FITS
 ------------
