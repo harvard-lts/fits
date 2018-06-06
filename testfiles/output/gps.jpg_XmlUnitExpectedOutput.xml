@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.1" timestamp="3/30/18 1:41 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="build.version=${project.version}" timestamp="4/24/18 12:51 PM">
   <identification>
-    <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="1.2.1">
+    <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="build.version=${project.version}">
       <tool toolname="Droid" toolversion="6.3" />
       <tool toolname="Jhove" toolversion="1.20" />
       <tool toolname="file utility" toolversion="5.31" />
@@ -29,8 +29,8 @@
   <filestatus>
     <well-formed toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</well-formed>
     <valid toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</valid>
-    <message toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">Unknown TIFF IFD tag: 50341 offset=278</message>
-    <message toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">TIFF compression scheme 6 is deprecated</message>
+    <message toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">Unknown TIFF IFD tag: 50341 severity=info offset=278</message>
+    <message toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">TIFF compression scheme 6 is deprecated severity=info</message>
   </filestatus>
   <metadata>
     <image>
@@ -221,20 +221,20 @@
       </standard>
     </image>
   </metadata>
-  <statistics fitsExecutionTime="166">
+  <statistics fitsExecutionTime="173">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.3" executionTime="4" />
-    <tool toolname="Jhove" toolversion="1.20" executionTime="68" />
-    <tool toolname="file utility" toolversion="5.31" executionTime="48" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="154" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="35" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="2" />
+    <tool toolname="Droid" toolversion="6.3" executionTime="6" />
+    <tool toolname="Jhove" toolversion="1.20" executionTime="40" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="43" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="158" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="39" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="3" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="5" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="21" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="8" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="25" />
   </statistics>
 </fits>
 

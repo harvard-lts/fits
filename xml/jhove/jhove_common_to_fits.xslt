@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:fits_XsltFunctions="edu.harvard.hul.ois.fits.tools.utils.XsltFunctions"
 	xmlns:mix="http://www.loc.gov/mix/v20"
 	xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output">
 	<xsl:output method="xml" indent="yes" />
@@ -248,16 +247,23 @@
 			  </xsl:otherwise>
 			</xsl:choose>
 		
-		
-		<xsl:for-each select="repInfo/messages/message">
-			<message>
-				<xsl:variable name="messageText" select="."/>
-				<xsl:variable name="subMessage" select="@subMessage"/>
-				<xsl:variable name="severity" select="@severijty"/>
-				<xsl:variable name="offset" select="@offset"/>
-				<xsl:value-of select="fits_XsltFunctions:getMessageString($messageText,$subMessage,$severity,$offset)"/>				
-			</message>
-		</xsl:for-each>
+        <xsl:for-each select="repInfo/messages/message">
+            <message>
+                <xsl:value-of select="."/>
+                <xsl:if test="@subMessage">
+                    <xsl:value-of select="string(' ')"/>
+                    <xsl:value-of select="@subMessage"/>
+                </xsl:if>         
+                <xsl:if test="@severity">
+	                <xsl:value-of select="string(' severity=')"/>
+	                <xsl:value-of select="@severity"/>
+                </xsl:if>         
+                <xsl:if test="@offset">
+                    <xsl:value-of select="string(' offset=')"/>
+                    <xsl:value-of select="@offset"/>
+                </xsl:if>         
+            </message>
+        </xsl:for-each>
 	</filestatus>
 	
 	</xsl:template>

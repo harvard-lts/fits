@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="build.version=1.3.0" timestamp="5/15/18 11:05 AM">
+  <identification>
+    <identity format="Plain text" mimetype="text/plain" toolname="FITS" toolversion="build.version=1.3.0">
+      <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="Jhove" toolversion="1.20" />
+      <tool toolname="file utility" toolversion="5.31" />
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/111</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.20">42</size>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/plain-text.txt</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">plain-text.txt</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">b5b143e235cb5328a0f284679ed93a6e</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1526312227000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <text>
+      <linebreak toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">LF</linebreak>
+      <charset toolname="Jhove" toolversion="1.20">US-ASCII</charset>
+      <standard>
+        <textMD:textMD xmlns:textMD="info:lc/xmlns/textMD-v3">
+          <textMD:character_info>
+            <textMD:charset>US-ASCII</textMD:charset>
+            <textMD:linebreak>LF</textMD:linebreak>
+          </textMD:character_info>
+        </textMD:textMD>
+      </standard>
+    </text>
+  </metadata>
+  <statistics fitsExecutionTime="1192">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.3" executionTime="146" />
+    <tool toolname="Jhove" toolversion="1.20" executionTime="1005" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="1173" />
+    <tool toolname="Exiftool" toolversion="10.00" status="did not run" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="141" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="949" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="257" />
+  </statistics>
+</fits>
+

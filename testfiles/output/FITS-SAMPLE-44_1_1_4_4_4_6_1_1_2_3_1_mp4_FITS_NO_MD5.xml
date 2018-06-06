@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.1.1" timestamp="6/23/17 4:36 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="build.version=${project.version}" timestamp="4/24/18 12:49 PM">
   <identification status="CONFLICT">
-    <identity format="Quicktime" mimetype="video/quicktime" toolname="FITS" toolversion="1.1.1">
+    <identity format="Quicktime" mimetype="video/quicktime" toolname="FITS" toolversion="build.version=${project.version}">
       <tool toolname="MediaInfo" toolversion="0.7.75" />
     </identity>
-    <identity format="MPEG-4 Media File" mimetype="application/mp4, video/mp4" toolname="FITS" toolversion="1.1.1">
+    <identity format="MPEG-4 Media File" mimetype="application/mp4, video/mp4" toolname="FITS" toolversion="build.version=${project.version}">
       <tool toolname="Droid" toolversion="6.3" />
       <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">fmt/199</externalIdentifier>
     </identity>
-    <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="1.1.1">
-      <tool toolname="file utility" toolversion="5.04" />
+    <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="build.version=${project.version}">
+      <tool toolname="file utility" toolversion="5.31" />
     </identity>
   </identification>
   <fileinfo>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filepath>
-    <filename toolname="MediaInfo" toolversion="0.7.75">FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filename>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filename>
     <size toolname="MediaInfo" toolversion="0.7.75">9093784</size>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1446674963000</fslastmodified>
   </fileinfo>
@@ -71,19 +71,19 @@
       </track>
     </video>
   </metadata>
-  <statistics fitsExecutionTime="3289">
-    <tool toolname="MediaInfo" toolversion="0.7.75" executionTime="610" />
+  <statistics fitsExecutionTime="6999">
+    <tool toolname="MediaInfo" toolversion="0.7.75" executionTime="241" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.3" executionTime="3255" />
-    <tool toolname="Jhove" toolversion="1.16" status="did not run" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="578" />
+    <tool toolname="Droid" toolversion="6.3" executionTime="87" />
+    <tool toolname="Jhove" toolversion="1.20" status="did not run" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="240" />
     <tool toolname="Exiftool" toolversion="10.00" status="did not run" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="2396" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="100" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="6987" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="7" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="553" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="532" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="40" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="388" />
   </statistics>
 </fits>
 

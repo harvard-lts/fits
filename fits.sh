@@ -16,6 +16,6 @@ done
 
 . "$(dirname $FITS_SCRIPT)/fits-env.sh"
 
-cmd="java -classpath \"$APPCLASSPATH\" edu.harvard.hul.ois.fits.Fits $args"
+cmd="java $JAVA_OPTS -classpath \"$APPCLASSPATH\" edu.harvard.hul.ois.fits.Fits $args"
 
 eval "exec $cmd"

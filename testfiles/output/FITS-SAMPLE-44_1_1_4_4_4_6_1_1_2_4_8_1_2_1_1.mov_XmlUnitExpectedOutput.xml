@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.1" timestamp="7/12/16 9:31 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="build.version=${project.version}" timestamp="4/24/18 12:48 PM">
   <identification>
     <identity format="Quicktime" mimetype="video/quicktime" toolname="FITS" toolversion="1.0.1">
       <tool toolname="MediaInfo" toolversion="0.7.75" />
-      <tool toolname="Droid" toolversion="6.1.5" />
-      <tool toolname="file utility" toolversion="5.04" />
-      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/384</externalIdentifier>
+      <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="file utility" toolversion="5.31" />
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/384</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dab980/git/fits/testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov</filepath>
-    <filename toolname="MediaInfo" toolversion="0.7.75">FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov</filename>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov</filename>
     <size toolname="MediaInfo" toolversion="0.7.75">1235897</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">d7e04890d435bc9a8e967f6b1054bb69</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1468330022000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
     <video>
-      <location toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">/Users/dab980/git/fits/testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov</location>
+      <location toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov</location>
       <mimeType toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">video/quicktime</mimeType>
       <format toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">Quicktime</format>
       <formatProfile toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">QuickTime</formatProfile>
       <duration toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">4200</duration>
       <bitRate toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">2354090</bitRate>
       <dateCreated toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">UTC 1904-01-01 00:00:00</dateCreated>
-      <dateModified toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">UTC 2016-07-12 13:27:02</dateModified>
+      <dateModified toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">UTC 2018-01-16 15:53:03</dateModified>
       <track type="video" id="1" toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">
         <videoDataEncoding>m2v1</videoDataEncoding>
         <codecId>m2v1</codecId>

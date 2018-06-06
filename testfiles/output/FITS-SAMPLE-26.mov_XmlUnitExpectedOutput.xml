@@ -3,15 +3,15 @@
   <identification>
     <identity format="Quicktime" mimetype="video/quicktime" toolname="FITS" toolversion="0.11.0">
       <tool toolname="MediaInfo" toolversion="0.7.75" />
-      <tool toolname="Droid" toolversion="6.1.5" />
-      <tool toolname="file utility" toolversion="5.04" />
-      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/384</externalIdentifier>
+      <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="file utility" toolversion="5.31" />
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/384</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
     <creatingApplicationName toolname="MediaInfo" toolversion="0.7.75" status="SINGLE_RESULT">Apple QuickTime</creatingApplicationName>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/FITS-SAMPLE-26.mov</filepath>
-    <filename toolname="MediaInfo" toolversion="0.7.75">FITS-SAMPLE-26.mov</filename>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/FITS-SAMPLE-26.mov</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">FITS-SAMPLE-26.mov</filename>
     <size toolname="MediaInfo" toolversion="0.7.75">15060707</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">9c560fd7e4e6e0834bed9280c4b52d7b</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1446674963000</fslastmodified>
