@@ -21,6 +21,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
+import org.apache.tika.config.TikaConfig;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MimeType;
 import org.apache.tika.mime.MimeTypeException;
@@ -407,10 +408,10 @@ public class TikaTool extends ToolBase {
 
     private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
     private final static String TOOL_NAME = "Tika";
-    private final static String TOOL_VERSION = "1.10";  // Hard-coded version till we can do better
+    private final static String TOOL_VERSION = "1.18";  // Hard-coded version till we can do better
 
     private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
-    private Tika tika = new Tika ();
+    private Tika tika;
 
     private static final Logger logger = Logger.getLogger(TikaTool.class);
     private boolean enabled = true;
@@ -418,6 +419,12 @@ public class TikaTool extends ToolBase {
 
     public TikaTool(Fits fits) throws FitsToolException {
 		super();
+		try {
+			TikaConfig config = new TikaConfig("xml/tika/tika-config.xml");
+			tika = new Tika (config);
+		} catch (Exception e) {
+			throw new FitsToolException("Problem loading tika-config.xml", e);
+		}
 		this.fits = fits;
         logger.debug ("Initializing TikaTool");
         info = new ToolInfo(TOOL_NAME, TOOL_VERSION,"");

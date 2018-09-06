@@ -17,7 +17,7 @@
 		<bcmail.version>132</bcmail.version>
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.22</slf4j.version>
-		<tika.version>1.8</tika.version>
+		<tika.version>1.18</tika.version>
 		<jdom.version>1.1.3</jdom.version>
 		<woodstox.version>4.4.1</woodstox.version>
 		<xmlunit.version>1.6</xmlunit.version>
@@ -30,7 +30,7 @@
 		<commons-io.version>2.4</commons-io.version>
 		<commons-cli.version>1.2</commons-cli.version>
 		<commons-configuration.version>1.8</commons-configuration.version>
-		<droid.version>6.3</droid.version>
+		<droid.version>6.4</droid.version>
 		<ots-schemas.version>1.0.50</ots-schemas.version>
 		<jhove.version>1.18.1</jhove.version>
 		<jna.version>4.1.0</jna.version>
