@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.x" timestamp="12/21/17 1:40 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.3.1" timestamp="9/20/18 11:56 AM">
   <identification status="SINGLE_RESULT">
-    <identity format="TIFF EXIF" mimetype="image/tiff" toolname="FITS" toolversion="1.2.x">
-      <tool toolname="Exiftool" toolversion="10.00" />
+    <identity format="TIFF EXIF" mimetype="image/tiff" toolname="FITS" toolversion="1.3.1">
+      <tool toolname="Exiftool" toolversion="11.01" />
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.16">35130</size>
-    <creatingApplicationName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">ImageMagick 6.5.4-9 2009-09-15 Q16 http://www.imagemagick.org</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2006:12:19 15:08:15</lastmodified>
-    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2006-12-19T15:08:15</lastmodified>
+    <size toolname="Jhove" toolversion="1.20">35130</size>
+    <creatingApplicationName toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">ImageMagick 6.5.4-9 2009-09-15 Q16 http://www.imagemagick.org</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="11.01" status="CONFLICT">2006:12:19 15:08:15</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.18" status="CONFLICT">2006-12-19T10:08:15</lastmodified>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/W00EGS1016782-I01JW30--I01JW300001__0001.tif</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">W00EGS1016782-I01JW30--I01JW300001__0001.tif</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">90f9a85c04e1bc2c5c1f689c110b1588</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1513717094000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1520876219000</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
     <image>
-      <compressionScheme toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">T6/Group 4 Fax</compressionScheme>
-      <imageWidth toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2550</imageWidth>
-      <imageHeight toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">3300</imageHeight>
-      <colorSpace toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">WhiteIsZero</colorSpace>
-      <orientation toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">normal*</orientation>
-      <xSamplingFrequency toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">300</xSamplingFrequency>
-      <ySamplingFrequency toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">300</ySamplingFrequency>
-      <bitsPerSample toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1</bitsPerSample>
-      <samplesPerPixel toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">1</samplesPerPixel>
-      <scanningSoftwareName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">ImageMagick 6.5.4-9 2009-09-15 Q16 http://www.imagemagick.org</scanningSoftwareName>
+      <compressionScheme toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">T6/Group 4 Fax</compressionScheme>
+      <imageWidth toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2550</imageWidth>
+      <imageHeight toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">3300</imageHeight>
+      <colorSpace toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">WhiteIsZero</colorSpace>
+      <orientation toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">normal*</orientation>
+      <samplingFrequencyUnit toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">in.</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">300</xSamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">300</ySamplingFrequency>
+      <bitsPerSample toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">1</bitsPerSample>
+      <samplesPerPixel toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">1</samplesPerPixel>
+      <scanningSoftwareName toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">ImageMagick 6.5.4-9 2009-09-15 Q16 http://www.imagemagick.org</scanningSoftwareName>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -55,6 +56,7 @@
           </mix:ImageCaptureMetadata>
           <mix:ImageAssessmentMetadata>
             <mix:SpatialMetrics>
+              <mix:samplingFrequencyUnit>in.</mix:samplingFrequencyUnit>
               <mix:xSamplingFrequency>
                 <mix:numerator>300</mix:numerator>
                 <mix:denominator>1</mix:denominator>
@@ -76,20 +78,20 @@
       </standard>
     </image>
   </metadata>
-  <statistics fitsExecutionTime="171">
-    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+  <statistics fitsExecutionTime="169">
+    <tool toolname="MediaInfo" toolversion="18.08.1" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.3" executionTime="8" />
-    <tool toolname="Jhove" toolversion="1.16" executionTime="68" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="49" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="162" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="6" />
+    <tool toolname="Jhove" toolversion="1.20" executionTime="33" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="49" />
+    <tool toolname="Exiftool" toolversion="11.01" executionTime="164" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="4" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="3" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="9" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="20" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="5" />
+    <tool toolname="Tika" toolversion="1.18" executionTime="15" />
   </statistics>
 </fits>
 

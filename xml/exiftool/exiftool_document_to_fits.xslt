@@ -51,13 +51,24 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                 </xsl:choose>
 			</characterCount>
 			
-			<title>
-				<xsl:value-of select="exiftool/Title"/>
-			</title>	
+			<xsl:if test="exiftool/Title">
+				<title>
+					<xsl:value-of select="exiftool/Title[1]"/>
+				</title>	
+			</xsl:if>
 
-			<author>
-				<xsl:value-of select="exiftool/Creator"/>
-			</author>
+			<xsl:if test="exiftool/Author or exiftool/Creator">
+				<author>
+					<xsl:choose>
+						<xsl:when test="exiftool/Author">
+							<xsl:value-of select="exiftool/Author[1]"/>
+						</xsl:when>
+						<xsl:when test="exiftool/Creator">
+							<xsl:value-of select="exiftool/Creator[1]"/>
+						</xsl:when>
+					</xsl:choose>
+				</author>
+			</xsl:if>
 			
 			<lineCount>
 				<xsl:value-of select="exiftool/Lines"/>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.3.1-SNAPSHOT" timestamp="9/12/18 5:32 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.3.1" timestamp="9/18/18 4:15 PM">
   <identification>
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.3.1-SNAPSHOT">
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.3.1">
       <tool toolname="Droid" toolversion="6.4" />
       <tool toolname="Jhove" toolversion="1.20" />
+      <tool toolname="Exiftool" toolversion="11.01" />
       <tool toolname="Tika" toolversion="1.18" />
       <version toolname="Droid" toolversion="6.4">1b</version>
       <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">fmt/354</externalIdentifier>
@@ -62,20 +63,20 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="255">
+  <statistics fitsExecutionTime="557">
     <tool toolname="MediaInfo" toolversion="18.08.1" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.4" executionTime="21" />
-    <tool toolname="Jhove" toolversion="1.20" executionTime="182" />
-    <tool toolname="file utility" toolversion="5.31" executionTime="107" />
-    <tool toolname="Exiftool" toolversion="11.01" executionTime="239" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="61" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="13" />
+    <tool toolname="Jhove" toolversion="1.20" executionTime="165" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="552" />
+    <tool toolname="Exiftool" toolversion="11.01" executionTime="246" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="54" />
     <tool toolname="OIS File Information" toolversion="0.2" executionTime="8" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="20" />
-    <tool toolname="Tika" toolversion="1.18" executionTime="66" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="13" />
+    <tool toolname="Tika" toolversion="1.18" executionTime="55" />
   </statistics>
 </fits>
 

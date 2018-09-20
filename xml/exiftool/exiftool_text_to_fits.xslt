@@ -11,10 +11,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 		<metadata>
 		<text>
 			<charset>
-		  		<xsl:value-of select="substring-after(exiftool/ContentType,'charset=')"/>
+		  		<xsl:value-of select="substring-after(exiftool/ContentType[1],'charset=')"/>
 			</charset>
 			<markupBasis>
-				<xsl:value-of select="exiftool/FileType"/>
+				<xsl:value-of select="exiftool/FileType[1]"/>
 			</markupBasis>
 		</text>				
 		</metadata>
