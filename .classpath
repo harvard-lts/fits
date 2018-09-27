@@ -37,8 +37,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove-core-1.20.1.jar"/>
 	<classpathentry kind="lib" path="lib/jhove/jhove-modules-1.20.1.jar"/>
-	<classpathentry kind="lib" path="lib/tika/tika-app-1.18.jar"/>
-	<classpathentry kind="lib" path="lib/tika/sqlite-jdbc-3.19.3.jar"/>
+	<classpathentry kind="lib" path="lib/tika/tika-app-1.19.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/metadata.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/aspose-words-15.7.0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/bcmail-jdk16-1.46.jar"/>
