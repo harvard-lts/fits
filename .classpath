@@ -59,7 +59,6 @@
 	<classpathentry kind="lib" path="lib/nzmetool/jwat-warc-1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/oro-2.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/PDFBox-0.7.3.jar"/>
-	<classpathentry kind="lib" path="lib/nzmetool/poi-3.0-FINAL.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/serializer.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/xalan.jar"/>
 	<classpathentry kind="lib" path="lib/nzmetool/xml-apis.jar"/>
