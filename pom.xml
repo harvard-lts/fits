@@ -151,11 +151,6 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.tika</groupId>
-			<artifactId>tika-core</artifactId>
-			<version>${tika.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.jdom</groupId>
 			<artifactId>jdom</artifactId>
 			<version>${jdom.version}</version>
@@ -206,19 +201,32 @@
 			<version>${commons-configuration.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-core</artifactId>
+			<version>${tika.version}</version>
+			<!-- not included in main lib directory - only in subdirectory  -->
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>uk.gov.nationalarchives</groupId>
 			<artifactId>droid-command-line</artifactId>
 			<version>${droid.version}</version>
+			<!-- not included in main lib directory - only in subdirectory  -->
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.gov.nationalarchives</groupId>
 			<artifactId>droid-core</artifactId>
 			<version>${droid.version}</version>
+			<!-- not included in main lib directory - only in subdirectory  -->
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openpreservation.jhove</groupId>
 			<artifactId>jhove-core</artifactId>
 			<version>${jhove.version}</version>
+			<!-- not included in main lib directory - only in subdirectory  -->
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>
@@ -248,11 +256,6 @@
 			<version>${ots-schemas.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>edu.harvard.hcl</groupId>
-			<artifactId>hclaps</artifactId>
-			<version>${hclaps.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>com.therockquarry.aes</groupId>
 			<artifactId>aes</artifactId>
 			<version>${aes31.version}</version>
@@ -263,9 +266,18 @@
 			<version>${fast-md5.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>edu.harvard.hcl</groupId>
+			<artifactId>hclaps</artifactId>
+			<version>${hclaps.version}</version>
+			<!-- not included in main lib directory - only in subdirectory  -->
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>nz.govt.natlib</groupId>
 			<artifactId>metadata</artifactId>
 			<version>${nzmetool.version}</version>
+			<!-- not included in main lib directory - only in subdirectory  -->
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- test dependencies -->
