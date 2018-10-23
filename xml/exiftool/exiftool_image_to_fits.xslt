@@ -85,7 +85,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:value-of select="exiftool/ProfileVersion[1]"/>
 			</iccProfileVersion>
 			<YCbCrSubSampling>
-				<xsl:variable name="ycbcrPT1" select="substring-after(exiftool/YCbCrSubSampling,'(')"/> 			
+				<xsl:variable name="ycbcrPT1" select="substring-after(exiftool/YCbCrSubSampling[1],'(')"/>
 				<xsl:value-of select="substring-before($ycbcrPT1,')')"/>
 			</YCbCrSubSampling>
 			<YCbCrCoefficients>
