@@ -11,8 +11,9 @@ package Image::ExifTool::SonyIDC;
 use strict;
 use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
+use Image::ExifTool::Exif;
 
-$VERSION = '1.04';
+$VERSION = '1.06';
 
 # Sony IDC tags (ref PH)
 %Image::ExifTool::SonyIDC::Main = (
@@ -236,6 +237,7 @@ $VERSION = '1.04';
         },
         # extract all preview images (not just one)
         RawConv => q{
+            @grps = $self->GetGroup($$val{0});
             require Image::ExifTool::SonyIDC;
             Image::ExifTool::SonyIDC::ExtractPreviews($self);
         },
@@ -273,8 +275,8 @@ sub ExtractPreviews($)
             next;
         }
         # run through IDC preview images in the same order they were extracted
-        my $off = $et->GetValue($key) or last;
-        my $len = $et->GetValue("IDCPreviewLength$xtra") or last;
+        my $off = $et->GetValue($key, 'ValueConv') or last;
+        my $len = $et->GetValue("IDCPreviewLength$xtra", 'ValueConv') or last;
         # get stack version from number in group 1 name
         my $grp1 = $et->GetGroup($key, 1);
         if ($grp1 =~ /(\d+)$/) {
@@ -286,7 +288,7 @@ sub ExtractPreviews($)
                 });
             }
             my $val = Image::ExifTool::Exif::ExtractImage($et, $off, $len, $tag);
-            $et->FoundTag($tag, $val);
+            $et->FoundTag($tag, $val, $et->GetGroup($key));
         } else {
             $preview = Image::ExifTool::Exif::ExtractImage($et, $off, $len, 'IDCPreviewImage');
         }
@@ -317,7 +319,7 @@ write Sony Image Data Converter version 3.0 metadata in ARW images.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

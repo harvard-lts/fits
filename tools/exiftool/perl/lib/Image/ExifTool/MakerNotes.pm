@@ -21,7 +21,7 @@ sub ProcessKodakPatch($$$);
 sub WriteUnknownOrPreview($$$);
 sub FixLeicaBase($$;$);
 
-$VERSION = '1.96';
+$VERSION = '2.04';
 
 my $debug;          # set to 1 to enable debugging code
 
@@ -87,6 +87,15 @@ my $debug;          # set to 1 to enable debugging code
             Start => '$valuePtr + 6',
             ByteOrder => 'Unknown',
             FixBase => 1, # necessary for AVI and MOV videos
+        },
+    },
+    {
+        Name => 'MakerNoteDJI',
+        Condition => '$$self{Make} eq "DJI" and $$valPt !~ /^...\@AMBA/s',
+        SubDirectory => {
+            TagTable => 'Image::ExifTool::DJI::Main',
+            Start => '$valuePtr',
+            ByteOrder => 'Unknown',
         },
     },
     {
@@ -412,16 +421,32 @@ my $debug;          # set to 1 to enable debugging code
     },
     {
         Name => 'MakerNoteKodak11',
-        # these maker notes have an extra 2 bytes after the entry count
+        # these maker notes have a 4-byte entry count
         # - written by the PixPro S-1 (Note: Make is "JK Imaging, Ltd.", so check Model for "Kodak")
         Condition => q{
-            $$self{Model}=~/Kodak/i and
-            $$valPt =~ /^II\x2a\0\x08\0\0\0.\0\0\0/
+            $$self{Model}=~/(Kodak|PixPro)/i and
+            $$valPt =~ /^II\x2a\0\x08\0\0\0.\0\0\0/s
         },
         SubDirectory => {
             TagTable => 'Image::ExifTool::Kodak::Type11',
             ProcessProc => \&ProcessKodakPatch,
             ByteOrder => 'LittleEndian',
+            Start => '$valuePtr + 8',
+            Base => '$start - 8',
+        },
+    },
+    {
+        Name => 'MakerNoteKodak12',
+        # these maker notes have a 4-byte entry count
+        # - written by the PixPro AZ901 (Note: Make is "JK Imaging, Ltd.", so check Model for "Kodak")
+        Condition => q{
+            $$self{Model}=~/(Kodak|PixPro)/i and
+            $$valPt =~ /^MM\0\x2a\0\0\0\x08\0\0\0./s
+        },
+        SubDirectory => {
+            TagTable => 'Image::ExifTool::Kodak::Type11',
+            ProcessProc => \&ProcessKodakPatch,
+            ByteOrder => 'BigEndian',
             Start => '$valuePtr + 8',
             Base => '$start - 8',
         },
@@ -479,6 +504,16 @@ my $debug;          # set to 1 to enable debugging code
         Condition => '$$self{Make} =~ /^(Konica Minolta|Minolta)/i',
         Binary => 1,
         Notes => 'not EXIF-based',
+    },
+    {
+        Name => 'MakerNoteMotorola',
+        Condition => '$$valPt=~/^MOT\0/',
+        SubDirectory => {
+            TagTable => 'Image::ExifTool::Motorola::Main',
+            Start => '$valuePtr + 8',
+            Base => '$start - 8',
+            ByteOrder => 'Unknown',
+        },
     },
     {
         # older Nikon maker notes
@@ -582,13 +617,14 @@ my $debug;          # set to 1 to enable debugging code
         },
     },
     {
-        Name => 'MakerNoteLeica5', # used by the X1/X2/X VARIO/T
+        Name => 'MakerNoteLeica5', # used by the X1/X2/X VARIO/T/X-U
         # (X1 starts with "LEICA\0\x01\0", Make is "LEICA CAMERA AG")
         # (X2 starts with "LEICA\0\x05\0", Make is "LEICA CAMERA AG")
         # (X VARIO starts with "LEICA\0\x04\0", Make is "LEICA CAMERA AG")
         # (T (Typ 701) starts with "LEICA\0\0x6", Make is "LEICA CAMERA AG")
         # (X (Typ 113) starts with "LEICA\0\0x7", Make is "LEICA CAMERA AG")
-        Condition => '$$valPt =~ /^LEICA\0[\x01\x04\x05\x06\x07]\0/',
+        # (X-U (Typ 113) starts with "LEICA\0\x10\0", Make is "LEICA CAMERA AG")
+        Condition => '$$valPt =~ /^LEICA\0[\x01\x04\x05\x06\x07\x10\x1a]\0/',
         SubDirectory => {
             TagTable => 'Image::ExifTool::Panasonic::Leica5',
             Start => '$valuePtr + 8',
@@ -630,13 +666,14 @@ my $debug;          # set to 1 to enable debugging code
             TagTable => 'Image::ExifTool::Panasonic::Leica6',
             Start => '$valuePtr + 8',
             ByteOrder => 'Unknown',
-            Base => '-$base',  # uses absolute file offsets
+            Base => '-$base',  # uses absolute file offsets (not based on TIFF header offset)
         },
     },
     {
         Name => 'MakerNoteLeica8', # used by the Q (Type 116)
         # (Q (Typ 116) starts with "LEICA\0\x08\0", Make is "LEICA CAMERA AG")
-        Condition => '$$valPt =~ /^LEICA\0\x08\0/',
+        # (SL (Typ 601) and CL start with "LEICA\0\x09\0", Make is "LEICA CAMERA AG")
+        Condition => '$$valPt =~ /^LEICA\0[\x08\x09]\0/',
         SubDirectory => {
             TagTable => 'Image::ExifTool::Panasonic::Leica5',
             Start => '$valuePtr + 8',
@@ -644,9 +681,20 @@ my $debug;          # set to 1 to enable debugging code
         },
     },
     {
+        Name => 'MakerNoteLeica9', # used by the M10/S
+        # (M10 and S start with "LEICA0\x02\0")
+        Condition => '$$self{Make} =~ /^Leica Camera AG/ and $$valPt =~ /^LEICA\0\x02\0/',
+        SubDirectory => {
+            TagTable => 'Image::ExifTool::Panasonic::Leica9',
+            Start => '$valuePtr + 8',
+            Base => '$start - 8',
+            ByteOrder => 'Unknown',
+        },
+    },
+    {
         Name => 'MakerNotePanasonic',
         # (starts with "Panasonic\0")
-        Condition => '$$valPt=~/^Panasonic/',
+        Condition => '$$valPt=~/^Panasonic/ and $$self{Model} ne "DC-FT7"',
         SubDirectory => {
             TagTable => 'Image::ExifTool::Panasonic::Main',
             Start => '$valuePtr + 12',
@@ -660,6 +708,17 @@ my $debug;          # set to 1 to enable debugging code
         SubDirectory => {
             TagTable => 'Image::ExifTool::Panasonic::Type2',
             ByteOrder => 'LittleEndian',
+        },
+    },
+    {
+        Name => 'MakerNotePanasonic3', # (DC-FT7)
+        # (starts with "Panasonic\0")
+        Condition => '$$valPt=~/^Panasonic/',
+        SubDirectory => {
+            TagTable => 'Image::ExifTool::Panasonic::Main',
+            Start => '$valuePtr + 12',
+            Base => 12, # crazy!
+            ByteOrder => 'Unknown',
         },
     },
     {
@@ -720,7 +779,7 @@ my $debug;          # set to 1 to enable debugging code
     {
         Name => 'MakerNotePentax5',
         # (starts with "PENTAX \0")
-        # used by cameras such as the Q, Optio  S1, RS1500 and WG-1
+        # used by cameras such as the Q, Optio S1, RS1500 and WG-1
         Condition => '$$valPt=~/^PENTAX \0/',
         SubDirectory => {
             TagTable => 'Image::ExifTool::Pentax::Main',
@@ -761,6 +820,14 @@ my $debug;          # set to 1 to enable debugging code
         },
         SubDirectory => {
             TagTable => 'Image::ExifTool::Reconyx::Main',
+            ByteOrder => 'Little-endian',
+        },
+    },
+    {
+        Name => 'MakerNoteReconyx2',
+        Condition => '$$valPt =~ /^RECONYXUF\0/',
+        SubDirectory => {
+            TagTable => 'Image::ExifTool::Reconyx::Type2',
             ByteOrder => 'Little-endian',
         },
     },
@@ -920,7 +987,7 @@ my $debug;          # set to 1 to enable debugging code
         # (starts with "SONY PIC\0" -- DSC-H200/J20/W370/W510, MHS-TS20)
         Condition => '$$valPt=~/^SONY PIC\0/',
         SubDirectory => { TagTable => 'Image::ExifTool::Sony::PIC' },
-    },    
+    },
     {
         Name => 'MakerNoteSony5', # used in SR2 and ARW images
         Condition => '$$self{Make}=~/^SONY/ and $$valPt!~/^\x01\x00/',
@@ -1055,6 +1122,8 @@ sub GetMakerNoteOffset($)
         } else {
             push @offsets, 0;
         }
+    } elsif ($$et{TIFF_TYPE} eq 'SRW' and $make eq 'SAMSUNG' and $model eq 'EK-GN120') {
+        push @offsets, 40;  # patch to read most of the maker notes, but breaks PreviewIFD
     } elsif ($make eq 'FUJIFILM') {
         # some models have offset of 6, so allow that too (A345,A350,A360,A370)
         push @offsets, 4, 6;
@@ -1362,7 +1431,7 @@ sub LocateIFD($$)
 #
     if ($tagInfo and $$tagInfo{SubDirectory}) {
         my $subdir = $$tagInfo{SubDirectory};
-        unless ($$subdir{ProcessProc} and 
+        unless ($$subdir{ProcessProc} and
                ($$subdir{ProcessProc} eq \&ProcessUnknown or
                 $$subdir{ProcessProc} eq \&ProcessUnknownOrPreview))
         {
@@ -1592,9 +1661,12 @@ sub ProcessKodakPatch($$$)
     my $dataPt = $$dirInfo{DataPt} or return 0;
     my $dirStart = $$dirInfo{DirStart} || 0;
 
-    # these maker notes have 2 extra bytes after the entry count, so fix this
-    return 0 unless $$dirInfo{DirLen} > 2;
-    Set16u(Get16u($dataPt,$dirStart), $dataPt, $dirStart+2);
+    # these maker notes have an 2 extra null bytes either before or after the entry count,
+    # so fix this by making a 2-byte entry count just before the first IFD entry
+    return 0 unless $$dirInfo{DirLen} >= 4;
+    my $t1 = Get16u($dataPt,$dirStart);
+    my $t2 = Get16u($dataPt,$dirStart+2);
+    Set16u($t1 || $t2, $dataPt, $dirStart+2);
     $$dirInfo{DirStart} += 2;
     return Image::ExifTool::Exif::ProcessExif($et, $dirInfo, $tagTablePtr);
 }
@@ -1637,7 +1709,7 @@ sub WriteUnknownOrPreview($$$)
     if ($dirLen > 6 and substr($$dataPt, $dirStart, 3) eq "\xff\xd8\xff") {
         if ($$et{NEW_VALUE}{$Image::ExifTool::Extra{PreviewImage}}) {
             # write or delete new preview (if deleted, it can't currently be added back again)
-            $newVal = $et->GetNewValues('PreviewImage') || '';
+            $newVal = $et->GetNewValue('PreviewImage') || '';
             if ($et->Options('Verbose') > 1) {
                 $et->VerboseValue("- MakerNotes:PreviewImage", substr($$dataPt, $dirStart, $dirLen));
                 $et->VerboseValue("+ MakerNotes:PreviewImage", $newVal) if $newVal;
@@ -1700,7 +1772,7 @@ maker notes in EXIF information.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

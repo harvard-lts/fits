@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="build.version=${project.version}" timestamp="4/25/18 10:17 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.3.1" timestamp="4/25/18 10:17 AM">
   <identification>
-    <identity format="Material Exchange Format (MXF)" mimetype="application/mxf" toolname="FITS" toolversion="build.version=${project.version}">
+    <identity format="Material Exchange Format (MXF)" mimetype="application/mxf" toolname="FITS" toolversion="1.3.1">
       <tool toolname="MediaInfo" toolversion="0.7.75" />
       <tool toolname="Droid" toolversion="6.3" />
       <tool toolname="file utility" toolversion="5.31" />

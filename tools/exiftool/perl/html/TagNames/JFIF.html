@@ -9,7 +9,8 @@
 <h2 class=top>JFIF Tags</h2>
 <p>
 The following information is extracted from the JPEG JFIF header.  See
-<a href="http://www.jpeg.org/public/jfif.pdf">http://www.jpeg.org/public/jfif.pdf</a> for the JFIF 1.02 specification.
+<a href="https://www.w3.org/Graphics/JPEG/jfif3.pdf">https://www.w3.org/Graphics/JPEG/jfif3.pdf</a> for the JFIF 1.02
+specification.
 </p>
 <blockquote>
 <table class=frame><tr><td>
@@ -19,7 +20,7 @@ The following information is extracted from the JPEG JFIF header.  See
 <tr>
 <td class=r title='0 = 0x0'>0</td>
 <td>JFIFVersion</td>
-<td class=c title=' : = Mandatory'>N:</td>
+<td class=c title=' : = Mandatory'>no:</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='2 = 0x2'>2</td>
@@ -38,9 +39,25 @@ The following information is extracted from the JPEG JFIF header.  See
 <td>YResolution</td>
 <td class=c title=' : = Mandatory'>int16u:</td>
 <td>&nbsp;</td></tr>
+<tr>
+<td class=r title='7 = 0x7'>7</td>
+<td>ThumbnailWidth</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='8 = 0x8'>8</td>
+<td>ThumbnailHeight</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='9 = 0x9'>9</td>
+<td>ThumbnailTIFF</td>
+<td class=c>no</td>
+<td><span class=s><span class=n>(raw RGB thumbnail data, extracted as a TIFF image)</span></span></td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='Extension'>JFIF Extension Tags</a></h2>
+<p>Thumbnail images extracted from the JFXX segment.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class=inner cellspacing=1>
@@ -49,13 +66,23 @@ The following information is extracted from the JPEG JFIF header.  See
 <tr>
 <td title='0x0010 = 16'>0x0010</td>
 <td>ThumbnailImage</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
+<td class=c>no</td>
+<td><span class=s><span class=n>(JPEG-format thumbnail image)</span></span></td></tr>
+<tr class=b>
+<td title='0x0011 = 17'>0x0011</td>
+<td>ThumbnailTIFF</td>
+<td class=c>no</td>
+<td><span class=s><span class=n>(raw palette-color thumbnail data, extracted as a TIFF image)</span></span></td></tr>
+<tr>
+<td title='0x0013 = 19'>0x0013</td>
+<td>ThumbnailTIFF</td>
+<td class=c>no</td>
+<td><span class=s><span class=n>(raw RGB thumbnail data, extracted as a TIFF image)</span></span></td></tr>
 </table></td></tr></table></blockquote>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Dec 18, 2013</i>
+<br><i>Last revised Jul 21, 2017</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

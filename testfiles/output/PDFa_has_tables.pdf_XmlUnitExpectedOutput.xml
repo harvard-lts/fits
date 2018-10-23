@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/8/16 1:28 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.3.1" timestamp="9/18/18 4:38 PM">
   <identification>
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
-      <tool toolname="Droid" toolversion="6.1.5" />
-      <tool toolname="Jhove" toolversion="1.11" />
-      <tool toolname="Exiftool" toolversion="10.00" />
-      <tool toolname="Tika" toolversion="1.10" />
-      <version toolname="Droid" toolversion="6.1.5">1b</version>
-      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/354</externalIdentifier>
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.3.1">
+      <tool toolname="Droid" toolversion="6.4" />
+      <tool toolname="Jhove" toolversion="1.20" />
+      <tool toolname="Exiftool" toolversion="11.01" />
+      <tool toolname="Tika" toolversion="1.18" />
+      <version toolname="Droid" toolversion="6.4">1b</version>
+      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">fmt/354</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.11">397527</size>
-    <creatingApplicationName toolname="Jhove" toolversion="1.11">Mac OS X 10.5.6 Quartz PDFContext/XPP</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 18:29:41-04:00</lastmodified>
-    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T22:29:41Z</lastmodified>
-    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2009:04:13 18:38:02Z</created>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFa_has_tables.pdf</filepath>
+    <size toolname="Jhove" toolversion="1.20">397527</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.20">Mac OS X 10.5.6 Quartz PDFContext/XPP</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:08:19 18:29:41-04:00</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.18" status="CONFLICT">2015-08-19T22:29:41Z</lastmodified>
+    <created toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2009:04:13 18:38:02Z</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/PDFa_has_tables.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_has_tables.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">fd321cedf56dec077704cfd5e0b6dbca</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1464898750000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+    <well-formed toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</valid>
   </filestatus>
   <metadata>
     <document>
-      <author toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">XPP</author>
-      <pageCount toolname="Jhove" toolversion="1.11">4</pageCount>
-      <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
-      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
-      <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">5</graphicsCount>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <author toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">XPP</author>
+      <pageCount toolname="Jhove" toolversion="1.20">4</pageCount>
+      <hasOutline toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">yes</hasAnnotations>
+      <graphicsCount toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">5</graphicsCount>
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>Helvetica</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>Helvetica-Bold</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>MathematicalPi-One</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>MathematicalPi-Three</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>Times-Bold</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>Times-Italic</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>Times-Roman</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>Universal-GreekwithMathPi</fontName>
       </font>
       <standard>
@@ -73,20 +73,20 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="256">
-    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+  <statistics fitsExecutionTime="690">
+    <tool toolname="MediaInfo" toolversion="18.08.1" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="20" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="194" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="91" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="227" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="68" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="41" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="15" />
+    <tool toolname="Jhove" toolversion="1.20" executionTime="107" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="554" />
+    <tool toolname="Exiftool" toolversion="11.01" executionTime="681" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="38" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="7" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="11" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="217" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="8" />
+    <tool toolname="Tika" toolversion="1.18" executionTime="57" />
   </statistics>
 </fits>
 

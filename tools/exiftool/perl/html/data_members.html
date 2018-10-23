@@ -25,7 +25,8 @@ value.</p>
 
 <tr><td>ADD_DIRS</td><td>Hash of parent directories for each directory added during
     writing (Note: entry may exist but be undefined for top-level
-    directory!)</td></tr>
+    directory!)  To avoid adding a directory twice, entries may be
+    deleted from this lookup, but only AFTER WriteDirectory() is called.</td></tr>
 
 <tr><td>BASE</td><td>Absolute position of current image in containing file
     (for example, when processing JPEG image in FujiFilm RAF file)</td></tr>
@@ -43,6 +44,9 @@ value.</p>
 
 <tr><td>CHECK_WARN</td><td>Used to return CHECK_PROC warnings</td></tr>
 
+<tr><td>Compression</td><td>Compression for current EXIF IFD (or '' if no Compression tag).
+    Valid only in EXIF directories for tags after 0x0103.</td></tr>
+    
 <tr><td>CUR_LANG</td><td>Hash reference for localized language lookup corresponding
     to current 'Lang' options setting.</td></tr>
 
@@ -100,6 +104,16 @@ value.</p>
 <tr><td>FILE_TYPE</td><td>Root file format type (JPEG, TIFF, RIFF, etc...)</td></tr>
 
 <tr><td>FIRST_EXIF_POS</td><td>Position of first EXIF in file</td></tr>
+
+<tr><td>FMT_EXPR</td><td>The current advanced formatting expression when interpolating tag
+    values in a string.  This member allows the formatting expression to be accessed in
+    the ValueConv function of user-defined Composite tags, which provided a mechanism for
+    arguments to be passed to the ValueConv function.</td></tr>
+
+<tr><td>FORCE_WRITE</td><td>Hash reference for metadata types that are being forced to be
+    rewritten (see Extra ForceWrite tag)</td></tr>
+
+<tr><td>FOUND_DIR</td><td>Names of directories found in file (used by Validate feature)</td></tr>
 
 <tr><td>FOUND_TAGS</td><td>Found tags with proper case and order</td></tr>
 
@@ -235,6 +249,9 @@ value.</p>
 <tr><td>SET_GROUP1</td><td>Value to use for family 1 group name when new tags
     are found.  May start with a '+' sign to add to existing group name</td></tr>
 
+<tr><td>SubfileType</td><td>SubfileType for current EXIF IFD (or '' if no SubfileType tag).
+    Valid only in EXIF directories for tags after 0x00fe.</td></tr>
+    
 <tr><td>TAG_EXTRA</td><td>Hash of extra tag information keyed by tag key.  Current extra
 information may include:
     <table class='clear'>
@@ -253,6 +270,8 @@ information may include:
 
 <tr><td>TIFF_TYPE</td><td>Type of TIFF data, only set if FILE_TYPE is TIFF.  Valid values
     are APP1, APP3, TIFF, CR2, MRW, JP2, JPX, NEF, PEF, ORF, DNG, etc.</td></tr>
+
+<tr><td>Validate</td><td>Flag to do extra validation checks</td></tr>
 
 <tr><td>VALUE</td><td>Hash of raw tag values keyed by tag key</td></tr>
 

@@ -1,10 +1,10 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 10.74
 [File, System, Image] FileName - File Name: Writer_35_failed.jpg
 [File, System, Image] Directory - Directory: t
 [File, System, Image] FileSize - File Size: 9.5 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:04:18 07:17:53-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:18 07:17:53-04:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:18 07:17:53-04:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2018:01:08 13:16:13-05:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2018:01:08 13:16:13-05:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2018:01:08 13:16:13-05:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: JPEG
 [File, File, Image] FileTypeExtension - File Type Extension: jpg
@@ -18,10 +18,6 @@
 [File, File, Image] BitsPerSample - Bits Per Sample: 8
 [File, File, Image] ColorComponents - Color Components: 3
 [File, File, Image] YCbCrSubSampling - Y Cb Cr Sub Sampling: YCbCr4:2:0 (2 2)
-[JFIF, JFIF, Image] 0 - JFIF Version: 1.02
-[JFIF, JFIF, Image] 2 - Resolution Unit: inches
-[JFIF, JFIF, Image] 3 - X Resolution: 144
-[JFIF, JFIF, Image] 5 - Y Resolution: 144
 [EXIF, IFD0, Image] 270 - Image Description: A witty caption
 [EXIF, IFD0, Camera] 271 - Make: FUJIFILM
 [EXIF, IFD0, Camera] 272 - Camera Model Name: FinePix2400Zoom
@@ -87,7 +83,7 @@
 [Photoshop, Photoshop, Author] 1035 - URL: http://owl.phy.queensu.ca/~phil/exiftool/
 [Photoshop, Photoshop, Image] 1037 - Global Angle: 30
 [Photoshop, Photoshop, Image] 1049 - Global Altitude: 30
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.93
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 10.74
 [XMP, XMP-dc, Author] creator - Creator: Phil Harvey
 [XMP, XMP-dc, Image] description - Description: UTF-16 (big-endian) encoded XMP
 [XMP, XMP-dc, Author] rights - Rights: Copyright 2004 Phil Harvey
@@ -111,7 +107,7 @@
 [XMP, XMP-xmpMM, Other] DocumentID - Document ID: adobe:docid:photoshop:4cc7b857-69d0-11d8-8ac4-bb59c92f0d9a
 [XMP, XMP-xmpRights, Author] Marked - Marked: False
 [XMP, XMP-xmpRights, Author] WebStatement - Web Statement: http://owl.phy.queensu.ca/~phil/exiftool/
-[ICC_Profile, ICC-header, Image] 4 - Profile CMM Type: ADBE
+[ICC_Profile, ICC-header, Image] 4 - Profile CMM Type: Adobe Systems Inc.
 [ICC_Profile, ICC-header, Image] 8 - Profile Version: 2.1.0
 [ICC_Profile, ICC-header, Image] 12 - Profile Class: Display Device Profile
 [ICC_Profile, ICC-header, Image] 16 - Color Space Data: RGB 
@@ -125,7 +121,7 @@
 [ICC_Profile, ICC-header, Image] 56 - Device Attributes: Reflective, Glossy, Positive, Color
 [ICC_Profile, ICC-header, Image] 64 - Rendering Intent: Perceptual
 [ICC_Profile, ICC-header, Image] 68 - Connection Space Illuminant: 0.9642 1 0.82491
-[ICC_Profile, ICC-header, Image] 80 - Profile Creator: ADBE
+[ICC_Profile, ICC-header, Image] 80 - Profile Creator: Adobe Systems Inc.
 [ICC_Profile, ICC-header, Image] 84 - Profile ID: 0
 [ICC_Profile, ICC_Profile, Image] cprt - Profile Copyright: Copyright 1999 Adobe Systems Incorporated
 [ICC_Profile, ICC_Profile, Image] desc - Profile Description: Adobe RGB (1998)

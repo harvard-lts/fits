@@ -1,10 +1,10 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.94
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 11.00
 [File, System, Image] FileName - File Name: Panasonic.rw2
 [File, System, Image] Directory - Directory: t/images
 [File, System, Image] FileSize - File Size: 12 kB
 [File, System, Time] FileModifyDate - File Modification Date/Time: 2009:03:25 12:10:29-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:29 20:10:34-04:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:25 10:57:00-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2018:06:05 12:17:19-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2018:05:29 08:43:28-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: RW2
 [File, File, Image] FileTypeExtension - File Type Extension: rw2
@@ -24,9 +24,10 @@
 [EXIF, IFD0, Image] 5 - Sensor Left Border: 8
 [EXIF, IFD0, Image] 6 - Sensor Bottom Border: 2742
 [EXIF, IFD0, Image] 7 - Sensor Right Border: 3656
-[EXIF, IFD0, Image] 8 - Black Level 1: 1
-[EXIF, IFD0, Image] 9 - Black Level 2: 4
-[EXIF, IFD0, Image] 10 - Black Level 3: 12
+[EXIF, IFD0, Image] 8 - Samples Per Pixel: 1
+[EXIF, IFD0, Image] 9 - CFA Pattern: [Blue,Green][Green,Red]
+[EXIF, IFD0, Image] 10 - Bits Per Sample: 12
+[EXIF, IFD0, Image] 11 - Compression: Panasonic RAW 1
 [EXIF, IFD0, Image] 14 - Linearity Limit Red: 4095
 [EXIF, IFD0, Image] 15 - Linearity Limit Green: 4095
 [EXIF, IFD0, Image] 16 - Linearity Limit Blue: 4095
@@ -34,12 +35,14 @@
 [EXIF, IFD0, Image] 24 - High ISO Multiplier Red: 0
 [EXIF, IFD0, Image] 25 - High ISO Multiplier Green: 0
 [EXIF, IFD0, Image] 26 - High ISO Multiplier Blue: 0
+[EXIF, IFD0, Image] 27 - Noise Reduction Params: 3 100 1 1 1 200 2 2 2 400 4 4 4
 [EXIF, IFD0, Image] 28 - Black Level Red: 0
 [EXIF, IFD0, Image] 29 - Black Level Green: 0
 [EXIF, IFD0, Image] 30 - Black Level Blue: 0
 [EXIF, IFD0, Image] 36 - WB Red Level: 570
 [EXIF, IFD0, Image] 37 - WB Green Level: 263
 [EXIF, IFD0, Image] 38 - WB Blue Level: 438
+[EXIF, IFD0, Image] 45 - Raw Format: 4
 [EXIF, IFD0, Camera] 271 - Make: Panasonic
 [EXIF, IFD0, Camera] 272 - Camera Model Name: DMC-LX3
 [EXIF, IFD0, Image] 274 - Orientation: Horizontal (normal)
@@ -111,6 +114,7 @@
 [EXIF, ExifIFD, Camera] 37385 - Flash: Off, Did not fire
 [EXIF, ExifIFD, Camera] 37386 - Focal Length: 5.1 mm
 [EXIF, ExifIFD, Image] 41728 - File Source: Digital Camera
+[EXIF, IFD1, Preview] ThumbnailImage - Thumbnail Image: (Binary data 28 bytes)
 [PanasonicRaw, PanasonicRaw, Other] 0 - Num WB Entries: 7
 [PanasonicRaw, PanasonicRaw, Other] 1 - WB Type 1: Fine Weather
 [PanasonicRaw, PanasonicRaw, Other] 2 - WB RGB Levels 1: 573 256 416
@@ -196,7 +200,6 @@
 [Composite, Composite, Camera] RedBalance - Red Balance: 2.1673
 [Composite, Composite, Camera] ScaleFactor35efl - Scale Factor To 35 mm Equivalent: 4.7
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 1/250
-[Composite, Composite, Preview] ThumbnailImage - Thumbnail Image: (Binary data 28 bytes)
 [Composite, Composite, Camera] CircleOfConfusion - Circle Of Confusion: 0.006 mm
 [Composite, Composite, Image] FOV - Field Of View: 73.7 deg
 [Composite, Composite, Camera] FocalLength35efl - Focal Length: 5.1 mm (35 mm equivalent: 24.0 mm)

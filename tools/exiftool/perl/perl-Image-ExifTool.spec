@@ -1,6 +1,6 @@
 Summary: perl module for image data extraction
 Name: perl-Image-ExifTool
-Version: 10.00
+Version: 11.01
 Release: 1
 License: Artistic/GPL
 Group: Development/Libraries/Perl
@@ -12,51 +12,54 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 ExifTool is a customizable set of Perl modules plus a full-featured
 application for reading and writing meta information in a wide variety of
 files, including the maker note information of many digital cameras by
-various manufacturers such as Canon, Casio, FLIR, FujiFilm, GE, HP,
-JVC/Victor, Kodak, Leaf, Minolta/Konica-Minolta, Nikon, Olympus/Epson,
-Panasonic/Leica, Pentax/Asahi, Phase One, Reconyx, Ricoh, Samsung, Sanyo,
-Sigma/Foveon and Sony.
+various manufacturers such as Canon, Casio, DJI, FLIR, FujiFilm, GE, GoPro,
+HP, JVC/Victor, Kodak, Leaf, Minolta/Konica-Minolta, Nikon, Nintendo,
+Olympus/Epson, Panasonic/Leica, Pentax/Asahi, Phase One, Reconyx, Ricoh,
+Samsung, Sanyo, Sigma/Foveon and Sony.
 
 Below is a list of file types and meta information formats currently
 supported by ExifTool (r = read, w = write, c = create):
 
   File Types
   ------------+-------------+-------------+-------------+------------
-  3FR   r     | DVB   r/w   | KEY   r     | ORF   r/w   | RWL   r/w
-  3G2   r/w   | DYLIB r     | LA    r     | OTF   r     | RWZ   r
-  3GP   r/w   | EIP   r     | LFP   r     | PAC   r     | RM    r
-  AA    r     | EPS   r/w   | LNK   r     | PAGES r     | SEQ   r
-  AAX   r/w   | EPUB  r     | M2TS  r     | PBM   r/w   | SO    r
-  ACR   r     | ERF   r/w   | M4A/V r/w   | PCD   r     | SR2   r/w
-  AFM   r     | EXE   r     | MEF   r/w   | PDB   r     | SRF   r
-  AI    r/w   | EXIF  r/w/c | MIE   r/w/c | PDF   r/w   | SRW   r/w
-  AIFF  r     | EXR   r     | MIFF  r     | PEF   r/w   | SVG   r
-  APE   r     | EXV   r/w/c | MKA   r     | PFA   r     | SWF   r
-  ARW   r/w   | F4A/V r/w   | MKS   r     | PFB   r     | THM   r/w
-  ASF   r     | FFF   r/w   | MKV   r     | PFM   r     | TIFF  r/w
-  AVI   r     | FLA   r     | MNG   r/w   | PGF   r     | TORRENT r
-  AZW   r     | FLAC  r     | MOBI  r     | PGM   r/w   | TTC   r
-  BMP   r     | FLV   r     | MODD  r     | PLIST r     | TTF   r
-  BTF   r     | FPF   r     | MOI   r     | PICT  r     | VCF   r
-  CHM   r     | FPX   r     | MOS   r/w   | PMP   r     | VRD   r/w/c
-  COS   r     | GIF   r/w   | MOV   r/w   | PNG   r/w   | VSD   r
-  CR2   r/w   | GZ    r     | MP3   r     | PPM   r/w   | WAV   r
-  CRW   r/w   | HDP   r/w   | MP4   r/w   | PPT   r     | WDP   r/w
-  CS1   r/w   | HDR   r     | MPC   r     | PPTX  r     | WEBP  r
-  DCM   r     | HTML  r     | MPG   r     | PS    r/w   | WEBM  r
-  DCP   r/w   | ICC   r/w/c | MPO   r/w   | PSB   r/w   | WMA   r
-  DCR   r     | ICS   r     | MQV   r/w   | PSD   r/w   | WMV   r
-  DFONT r     | IDML  r     | MRW   r/w   | PSP   r     | WV    r
-  DIVX  r     | IIQ   r/w   | MXF   r     | QTIF  r/w   | X3F   r/w
-  DJVU  r     | IND   r/w   | NEF   r/w   | RA    r     | XCF   r
-  DLL   r     | INX   r     | NRW   r/w   | RAF   r/w   | XLS   r
-  DNG   r/w   | ITC   r     | NUMBERS r   | RAM   r     | XLSX  r
-  DOC   r     | J2C   r     | ODP   r     | RAR   r     | XMP   r/w/c
-  DOCX  r     | JNG   r/w   | ODS   r     | RAW   r/w   | ZIP   r
-  DPX   r     | JP2   r/w   | ODT   r     | RIFF  r     |
-  DR4   r/w/c | JPEG  r/w   | OFR   r     | RSRC  r     |
-  DSS   r     | K25   r     | OGG   r     | RTF   r     |
-  DV    r     | KDC   r     | OGV   r     | RW2   r/w   |
+  3FR   r     | DV    r     | JP2   r/w   | ODT   r     | RSRC  r
+  3G2   r/w   | DVB   r/w   | JPEG  r/w   | OFR   r     | RTF   r
+  3GP   r/w   | DVR-MS r    | JSON  r     | OGG   r     | RW2   r/w
+  A     r     | DYLIB r     | K25   r     | OGV   r     | RWL   r/w
+  AA    r     | EIP   r     | KDC   r     | OPUS  r     | RWZ   r
+  AAX   r/w   | EPS   r/w   | KEY   r     | ORF   r/w   | RM    r
+  ACR   r     | EPUB  r     | LA    r     | OTF   r     | SEQ   r
+  AFM   r     | ERF   r/w   | LFP   r     | PAC   r     | SKETCH r
+  AI    r/w   | EXE   r     | LNK   r     | PAGES r     | SO    r
+  AIFF  r     | EXIF  r/w/c | M2TS  r     | PBM   r/w   | SR2   r/w
+  APE   r     | EXR   r     | M4A/V r/w   | PCD   r     | SRF   r
+  ARW   r/w   | EXV   r/w/c | MAX   r     | PDB   r     | SRW   r/w
+  ASF   r     | F4A/V r/w   | MEF   r/w   | PDF   r/w   | SVG   r
+  AVI   r     | FFF   r/w   | MIE   r/w/c | PEF   r/w   | SWF   r
+  AZW   r     | FLA   r     | MIFF  r     | PFA   r     | THM   r/w
+  BMP   r     | FLAC  r     | MKA   r     | PFB   r     | TIFF  r/w
+  BPG   r     | FLIF  r/w   | MKS   r     | PFM   r     | TORRENT r
+  BTF   r     | FLV   r     | MKV   r     | PGF   r     | TTC   r
+  CHM   r     | FPF   r     | MNG   r/w   | PGM   r/w   | TTF   r
+  COS   r     | FPX   r     | MOBI  r     | PLIST r     | VCF   r
+  CR2   r/w   | GIF   r/w   | MODD  r     | PICT  r     | VRD   r/w/c
+  CR3   r/w   | GPR   r/w   | MOI   r     | PMP   r     | VSD   r
+  CRM   r/w   | GZ    r     | MOS   r/w   | PNG   r/w   | WAV   r
+  CRW   r/w   | HDP   r/w   | MOV   r/w   | PPM   r/w   | WDP   r/w
+  CS1   r/w   | HDR   r     | MP3   r     | PPT   r     | WEBP  r
+  DCM   r     | HEIC  r     | MP4   r/w   | PPTX  r     | WEBM  r
+  DCP   r/w   | HEIF  r     | MPC   r     | PS    r/w   | WMA   r
+  DCR   r     | HTML  r     | MPG   r     | PSB   r/w   | WMV   r
+  DFONT r     | ICC   r/w/c | MPO   r/w   | PSD   r/w   | WTV   r
+  DIVX  r     | ICS   r     | MQV   r/w   | PSP   r     | WV    r
+  DJVU  r     | IDML  r     | MRW   r/w   | QTIF  r/w   | X3F   r/w
+  DLL   r     | IIQ   r/w   | MXF   r     | R3D   r     | XCF   r
+  DNG   r/w   | IND   r/w   | NEF   r/w   | RA    r     | XLS   r
+  DOC   r     | INX   r     | NRW   r/w   | RAF   r/w   | XLSX  r
+  DOCX  r     | ISO   r     | NUMBERS r   | RAM   r     | XMP   r/w/c
+  DPX   r     | ITC   r     | O     r     | RAR   r     | ZIP   r
+  DR4   r/w/c | J2C   r     | ODP   r     | RAW   r/w   |
+  DSS   r     | JNG   r/w   | ODS   r     | RIFF  r     |
 
   Meta Information
   ----------------------+----------------------+---------------------

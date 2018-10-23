@@ -109,6 +109,7 @@ public class Exiftool extends ToolBase {
 		//Output in tabbed format with tag names instead of descriptive names
 		execCommand.add("-t");
 		execCommand.add("-s");
+		execCommand.add("-a");
 
 		logger.debug("Launching Exiftool, command = " + execCommand);
 		String execOut = CommandLine.exec(execCommand,null);

@@ -8,7 +8,7 @@
 # References:   1) http://search.cpan.org/dist/Image-MetaData-JPEG/
 #               2) http://www.ozhiker.com/electronics/pjmt/jpeg_info/meta.html
 #               3) http://www.cybercom.net/~dcoffin/dcraw/
-#               4) Iliah Borg private communication (LibRaw)
+#               IB) Iliah Borg private communication (LibRaw)
 #
 # Notes:        There really isn't much public information about Kodak formats.
 #               The only source I could find was Image::MetaData::JPEG, which
@@ -24,10 +24,11 @@ use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Exif;
 
-$VERSION = '1.41';
+$VERSION = '1.43';
 
 sub ProcessKodakIFD($$$);
 sub ProcessKodakText($$$);
+sub ProcessPose($$$);
 sub WriteKodakIFD($$$);
 
 # Kodak type 1 maker notes (ref 1)
@@ -189,6 +190,7 @@ sub WriteKodakIFD($$$);
             1 => 'Flash?',
             2 => 'Tungsten',
             3 => 'Daylight',
+            # 5 - seen this for "Auto" with a ProBack 645M
         },
     },
     0x5c => {
@@ -856,6 +858,8 @@ sub WriteKodakIFD($$$);
         writable because the inconsistency of Kodak maker notes is beginning to get
         on my nerves.
     },
+    # (these are related to the Kodak QuickTime UserData tags)
+    0x0104 => 'FirmwareVersion',
     0x0203 => {
         Name => 'PictureEffect',
         PrintConv => {
@@ -869,6 +873,13 @@ sub WriteKodakIFD($$$);
     0x0300 => 'KodakMake',
     0x0308 => 'LensSerialNumber',
     0x0309 => 'LensModel',
+    0x030d => { Name => 'LevelMeter', Unknown => 1 }, # (guess)
+    0x0311 => 'Pitch', # Units??
+    0x0312 => 'Yaw',   # Units??
+    0x0313 => 'Roll',  # Units??
+    0x0314 => { Name => 'CX',   Unknown => 1 },
+    0x0315 => { Name => 'CY',   Unknown => 1 },
+    0x0316 => { Name => 'Rads', Unknown => 1 },
 );
 
 # Kodak SubIFD0 tags (ref PH)
@@ -1360,10 +1371,10 @@ my %sceneModeUsed = (
             TagTable => 'Image::ExifTool::Kodak::TextualInfo',
         },
     },
-    # 0x03f2 - FlashMode (ref 4)
-    # 0x03f3 - FlashCompensation (ref 4)
-    # 0x03f8 - MinAperture (ref 4)
-    # 0x03f9 - MaxAperture (ref 4)
+    # 0x03f2 - FlashMode (ref IB)
+    # 0x03f3 - FlashCompensation (ref IB)
+    # 0x03f8 - MinAperture (ref IB)
+    # 0x03f9 - MaxAperture (ref IB)
     0x03fc => { #3
         Name => 'WhiteBalance',
         Writable => 'int16u',
@@ -1382,7 +1393,7 @@ my %sceneModeUsed = (
         Groups => { 2 => 'Time' },
         Writable => 'string',
     },
-    0x0406 => { #4
+    0x0406 => { #IB
         Name => 'CameraTemperature',
         # (when count is 2, values seem related to temperature, but are not Celius)
         Condition => '$count == 1',
@@ -1391,12 +1402,12 @@ my %sceneModeUsed = (
         PrintConv => '"$val C"',
         PrintConvInv => '$val=~s/ ?C//; $val',
     },
-    0x0407 => { #4
+    0x0407 => { #IB
         Name => 'AdapterVoltage',
         Groups => { 2 => 'Camera' },
         Writable => 'rational64u',
     },
-    0x0408 => { #4
+    0x0408 => { #IB
         Name => 'BatteryVoltage',
         Groups => { 2 => 'Camera' },
         Writable => 'rational64u',
@@ -1406,12 +1417,12 @@ my %sceneModeUsed = (
         Name => 'ColorTemperature',
         Writable => 'int16u',
     },
-    0x0848 => 'WB_RGBLevelsDaylight', #4
-    0x0849 => 'WB_RGBLevelsTungsten', #4
-    0x084a => 'WB_RGBLevelsFluorescent', #4
-    0x084b => 'WB_RGBLevelsFlash', #4
-    0x084c => 'WB_RGBLevelsCustom', #4
-    0x084d => 'WB_RGBLevelsAuto', #4
+    0x0848 => 'WB_RGBLevelsDaylight', #IB
+    0x0849 => 'WB_RGBLevelsTungsten', #IB
+    0x084a => 'WB_RGBLevelsFluorescent', #IB
+    0x084b => 'WB_RGBLevelsFlash', #IB
+    0x084c => 'WB_RGBLevelsCustom', #IB
+    0x084d => 'WB_RGBLevelsAuto', #IB
     0x0852 => 'WB_RGBMul0', #3
     0x0853 => 'WB_RGBMul1', #3
     0x0854 => 'WB_RGBMul2', #3
@@ -1420,26 +1431,26 @@ my %sceneModeUsed = (
     0x085d => { Name => 'WB_RGBCoeffs1', Binary => 1 }, #3
     0x085e => { Name => 'WB_RGBCoeffs2', Binary => 1 }, #3
     0x085f => { Name => 'WB_RGBCoeffs3', Binary => 1 }, #3
-    # 0x089d => true analogue ISO values possible (ref 4)
-    # 0x089e => true analogue ISO used at capture (ref 4)
-    # 0x089f => ISO calibration gain (ref 4)
-    # 0x08a0 => ISO calibration gain table (ref 4)
-    # 0x08a1 => exposure headroom coefficient (ref 4)
-    0x0903 => { Name => 'BaseISO', Writable => 'rational64u' }, #4 (ISO before digital gain)
+    # 0x089d => true analogue ISO values possible (ref IB)
+    # 0x089e => true analogue ISO used at capture (ref IB)
+    # 0x089f => ISO calibration gain (ref IB)
+    # 0x08a0 => ISO calibration gain table (ref IB)
+    # 0x08a1 => exposure headroom coefficient (ref IB)
+    0x0903 => { Name => 'BaseISO', Writable => 'rational64u' }, #IB (ISO before digital gain)
     # 0x090d: linear table (ref 3)
-    0x09ce => { Name => 'SensorSerialNumber', Writable => 'string', Groups => { 2 => 'Camera' } }, #4
+    0x09ce => { Name => 'SensorSerialNumber', Writable => 'string', Groups => { 2 => 'Camera' } }, #IB
     # 0x0c81: some sort of date (manufacture date?) - PH
     0x0ce5 => { Name => 'FirmwareVersion',  Writable => 'string', Groups => { 2 => 'Camera' } },
-    0x0e4c => { #4
+    0x0e4c => { #IB
         Name => 'KodakLook',
         Format => 'undef',
         Writable => 'string',
         ValueConv => '$val=~tr/\0/\n/; $val',
         ValueConvInv => '$val=~tr/\n/\0/; $val',
     },
-    0x1389 => { Name => 'InputProfile',     Writable => 'undef', Binary => 1 }, #4
-    0x138a => { Name => 'KodakLookProfile', Writable => 'undef', Binary => 1 }, #4
-    0x138b => { Name => 'OutputProfile',    Writable => 'undef', Binary => 1 }, #4
+    0x1389 => { Name => 'InputProfile',     Writable => 'undef', Binary => 1 }, #IB
+    0x138a => { Name => 'KodakLookProfile', Writable => 'undef', Binary => 1 }, #IB
+    0x138b => { Name => 'OutputProfile',    Writable => 'undef', Binary => 1 }, #IB
     # 0x1390: value: "DCSProSLRn" (tone curve name?) - PH
     0x1391 => { Name => 'ToneCurveFileName',Writable => 'string' },
     0x1784 => { Name => 'ISO',              Writable => 'int32u' }, #3
@@ -1527,12 +1538,14 @@ my %sceneModeUsed = (
     'Exposure Mode' => {
         Name => 'ExposureMode',
         PrintConv => {
+            OTHER => sub { shift }, # pass other values straight through
             'M' => 'Manual',
             'A' => 'Aperture Priority', #(NC -- I suppose this could be "Auto" too)
             'S' => 'Shutter Priority', #(NC)
             'P' => 'Program', #(NC)
             'B' => 'Bulb', #(NC)
             # have seen "Manual (M)" written by DCS760C - PH
+            # and "Aperture priority AE (Av)" written by a ProBack 645M
         },
     },
     'Firmware Version' => 'FirmwareVersion',
@@ -1858,7 +1871,7 @@ my %sceneModeUsed = (
 %Image::ExifTool::Kodak::frea = (
     GROUPS => { 0 => 'MakerNotes', 2 => 'Image' },
     NOTES => 'Information stored in the "frea" atom of Kodak PixPro SP360 MP4 videos.',
-    # tima - 4 bytes: 0 0 0 0x20
+    # tima - 4 bytes: "0 0 0 0x20" or "0 0 0 0x0a"
     thma => { Name => 'ThumbnailImage', Groups => { 2 => 'Preview' }, Binary => 1 },
     scra => { Name => 'PreviewImage',   Groups => { 2 => 'Preview' }, Binary => 1 },
 );
@@ -1877,6 +1890,18 @@ my %sceneModeUsed = (
         Format => 'undef[$val{2}]',
         RawConv => '$self->ValidateImage(\$val, $tag)',
     },
+);
+
+# acceleration information extracted from 'pose' atom of MP4 videos (ref PH, PixPro 4KVR360)
+%Image::ExifTool::Kodak::pose = (
+    GROUPS => { 0 => 'MakerNotes', 2 => 'Video' },
+    PROCESS_PROC => \&ProcessPose,
+    NOTES => q{
+        Streamed orientation information from the PixPro 4KVR360, extracted as
+        sub-documents when the Duplicates option is used.
+    },
+    Accelerometer => { }, # up, back, left?  units of g
+    AngularVelocity => { } # left, up, ccw?  units?
 );
 
 # Kodak composite tags
@@ -1930,6 +1955,52 @@ my %sceneModeUsed = (
 
 # add our composite tags
 Image::ExifTool::AddCompositeTags('Image::ExifTool::Kodak');
+
+#------------------------------------------------------------------------------
+# Process Kodak accelerometer data (ref PH)
+# Inputs: 0) ExifTool ref, 1) dirInfo ref, 2) tag table ref
+# Returns: 1 on success
+sub ProcessPose($$$)
+{
+    my ($et, $dirInfo, $tagTablePtr) = @_;
+    my $dataPt = $$dirInfo{DataPt};
+    my $dirLen = length $$dataPt;
+    my $ee = $et->Options('ExtractEmbedded');
+    my ($i, $pos);
+
+    return 0 if $dirLen < 0x14;
+    my $num = Get32u($dataPt, 0x10);
+    return 0 if $dirLen < 0x14 + $num * 24;
+
+    $et->VerboseDir('Kodak pose', undef, $dirLen);
+
+    $$et{DOC_NUM} = 0;
+    for ($i=0, $pos=0x14; $i<$num; ++$i, $pos+=24) {
+        $et->HandleTag($tagTablePtr, AngularVelocity =>
+            Image::ExifTool::GetRational64s($dataPt, $pos) . ' ' .
+            Image::ExifTool::GetRational64s($dataPt, $pos + 8) . ' ' .
+            Image::ExifTool::GetRational64s($dataPt, $pos + 16));
+        $ee or $pos += $num * 24, last;
+        ++$$et{DOC_NUM};
+    }
+    $$et{DOC_NUM} = 0;
+
+    return 1 if $dirLen < $pos + 0x10;
+    $num = Get32u($dataPt, $pos + 0x0c);
+    return 1 if $dirLen < $pos + 0x10 + $num * 24;
+
+    for ($i=0, $pos+=0x10; $i<$num; ++$i, $pos+=24) {
+        $et->HandleTag($tagTablePtr, Accelerometer =>
+            Image::ExifTool::GetRational64s($dataPt, $pos) . ' ' .
+            Image::ExifTool::GetRational64s($dataPt, $pos + 8) . ' ' .
+            Image::ExifTool::GetRational64s($dataPt, $pos + 16));
+        $ee or $pos += $num * 24, last;
+        ++$$et{DOC_NUM};
+    }
+    $$et{DOC_NUM} = 0;
+    $ee or $et->Warn('Use the ExtractEmbedded option to extract all accelerometer data',3);
+    return 1;
+}
 
 #------------------------------------------------------------------------------
 # Calculate RGB levels from associated tags (ref 3)
@@ -2069,7 +2140,7 @@ interpret Kodak maker notes EXIF meta information.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

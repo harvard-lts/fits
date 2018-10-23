@@ -1,15 +1,16 @@
 # Before "make install", this script should be runnable with "make test".
 # After "make install" it should work as "perl t/ExifTool.t".
 
-BEGIN { $| = 1; print "1..28\n"; $Image::ExifTool::noConfig = 1; }
+BEGIN {
+    $| = 1; print "1..31\n"; $Image::ExifTool::configFile = '';
+    require './t/TestLib.pm'; t::TestLib->import();
+}
 END {print "not ok 1\n" unless $loaded;}
 
 # test 1: Load the module(s)
 use Image::ExifTool 'ImageInfo';
 $loaded = 1;
 print "ok 1\n";
-
-use t::TestLib;
 
 my $testname = 'ExifTool';
 my $testnum = 1;
@@ -230,7 +231,7 @@ my $testnum = 1;
     my $exifTool = new Image::ExifTool;
     my @foundTags;
     $exifTool->ImageInfo('t/images/ExifTool.jpg', \@foundTags);
-    my $str = $exifTool->InsertTagValues(\@foundTags, '$ifd0:model - $1ciff:3main:model');
+    my $str = $exifTool->InsertTagValues(\@foundTags, '${ifd0:model;tr/i/_/} - $1ciff:3main:model');
     my $testfile = "t/ExifTool_$testnum";
     open(TESTFILE,">$testfile.failed");
     my $oldSep = $/;   
@@ -263,20 +264,27 @@ my $testnum = 1;
 # test 25: Test GlobalTimeShift option
 {
     ++$testnum;
-    my $exifTool = new Image::ExifTool;
-    $exifTool->Options(GlobalTimeShift => '-0:1:0 0:0:0');
-    # Note: can't extract system times because this could result in a different
-    # calculated global time offset (since I am shifting by 1 month)
-    my $info = $exifTool->ImageInfo('t/images/ExifTool.jpg', 'time:all', '-system:all');
-    print 'not ' unless check($exifTool, $info, $testname, $testnum);
-    print "ok $testnum\n";
+    if (eval { require Time::Local }) {
+        my $exifTool = new Image::ExifTool;
+        $exifTool->Options(GlobalTimeShift => '-0:1:0 0:0:0');
+        # Note: can't extract system times because this could result in a different
+        # calculated global time offset (since I am shifting by 1 month)
+        my $info = $exifTool->ImageInfo('t/images/ExifTool.jpg', 'time:all', '-system:all');
+        print 'not ' unless check($exifTool, $info, $testname, $testnum);
+        print "ok $testnum\n";
+    } else {
+        print "ok $testnum # skip Requires Time::Local\n";
+    }
 }
 
-# test 26: Test reading with wildcards
+# test 26: Test wildcards using '#' suffix with duplicate PrintConv tags and exclusions
 {
     ++$testnum;
     my $exifTool = new Image::ExifTool;
-    my $info = $exifTool->ImageInfo('t/images/Canon.jpg', 'E*');
+    # (hack to avoid sorting in TestLib.pm because order of duplicate tags would be indeterminate)
+    $$exifTool{NO_SORT} = 1;
+    my $info = $exifTool->ImageInfo('t/images/Canon.jpg', 'encodingprocess', 'E*#', 'exposureMode',
+                                    '-ExifVersion');
     print 'not ' unless check($exifTool, $info, $testname, $testnum);
     print "ok $testnum\n";
 }
@@ -297,6 +305,39 @@ my $testnum = 1;
     my $exifTool = new Image::ExifTool;
     $exifTool->Options(FastScan => 3);
     my $info = $exifTool->ImageInfo('t/images/ExifTool.jpg');
+    print 'not ' unless check($exifTool, $info, $testname, $testnum);
+    print "ok $testnum\n";
+}
+
+# test 29: Test Filter
+{
+    ++$testnum;
+    my $exifTool = new Image::ExifTool;
+    $exifTool->Options(Filter => 'tr/ /_/;tr/0-9/#/');
+    my $info = $exifTool->ImageInfo('t/images/ExifTool.jpg', '-ExifToolVersion');
+    print 'not ' unless check($exifTool, $info, $testname, $testnum);
+    print "ok $testnum\n";
+}
+
+# test 30: Calculate JPEGDigest and JPEGQualityEstimate
+{
+    ++$testnum;
+    my $skip = '';
+    if (eval 'require Digest::MD5') {
+        my $exifTool = new Image::ExifTool;
+        my $info = $exifTool->ImageInfo('t/images/Writer.jpg', 'JPEGDigest', 'JPEGQualityEstimate');
+        print 'not ' unless check($exifTool, $info, $testname, $testnum);
+    } else {
+        $skip = ' # skip Requires Digest::MD5';
+    }
+    print "ok $testnum$skip\n";
+}
+
+# test 31: Test Validate feature
+{
+    ++$testnum;
+    my $exifTool = new Image::ExifTool;
+    my $info = $exifTool->ImageInfo('t/images/CanonRaw.cr2', 'Validate', 'Warning', 'Error');
     print 'not ' unless check($exifTool, $info, $testname, $testnum);
     print "ok $testnum\n";
 }

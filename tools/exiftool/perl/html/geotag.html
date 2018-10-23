@@ -61,12 +61,8 @@ must be <a href="#Orient">user-defined</a>.</i></blockquote>
 <h3>Implementation</h3>
 
 <p>Geotagging is accomplished in ExifTool through the use of three special
-<a href="TagNames/Extra.html">Extra tags</a>:
+write-only <a href="TagNames/Extra.html">Extra tags</a>:
 <code>Geotag</code>, <code>Geosync</code> and <code>Geotime</code>.</p>
-
-<blockquote class=lt><i>Note: When writing these tags, order is important. If
-<code>Geotime</code> is written, it must be done after both <code>Geotag</code>
-and <code>Geosync</code>.</i></blockquote>
 
 <a name="geotag"></a>
 <h4>Geotag</h4>
@@ -80,9 +76,8 @@ track log file "track.log" in the current directory:</p>
 <pre>exiftool -geotag=track.log /Users/Phil/Pictures
 </pre>
 
-<p>As a convienience the exiftool application also provides a
-<code>-geotag</code> option, so the following command is equivalent to the one
-above:</p>
+<p>For convenience, the exiftool application also provides a
+<code>-geotag</code> option, so this command is equivalent to the one above:</p>
 
 <pre>exiftool -geotag track.log /Users/Phil/Pictures
 </pre>
@@ -99,6 +94,10 @@ supported with the <code>-geotag=</code> syntax.  See the
 <p>Deleting the <code>Geotag</code> tag (with <code>-geotag=</code>) causes the
 GPS tags written by the <code>-geotag</code> feature to be deleted.</p>
 
+<p>A special feature allows writing of only GPS date/time tags when there is no
+position available by specifying a log file name of "DATETIMEONLY" (all
+capitals).</p>
+
 <blockquote class=lt><i>Programmers:  You may write either a GPS log file name
 or the GPS log data as the value for <code>Geotag</code>.  If the value contains
 a newline or a null byte it is assumed to be data, otherwise it is taken as a
@@ -108,11 +107,10 @@ file name.</i></blockquote>
 <h4>Geosync</h4>
 
 <p>The <code>Geosync</code> tag is needed only when the image timestamps are not
-properly synchronized with GPS time, and must be set before <code>Geotime</code>
-to be effective.  The value written to the <code>Geosync</code> tag may take a
-number of different forms, but the basic format is that of a simple time
-difference which is added to <code>Geotime</code> before interpolating the GPS
-position in the track log.  This time difference may be of the form "SS",
+properly synchronized with GPS time.  The value written to <code>Geosync</code>
+may take a number of different forms, but the basic format is that of a simple
+time difference which is added to <code>Geotime</code> before interpolating the
+GPS position in the track log.  This time difference may be of the form "SS",
 "MM:SS", "HH:MM:SS" or "DD HH:MM:SS" (where SS=seconds, MM=minutes, HH=hours and
 DD=days), and a leading "+" or "-" may be added for positive or negative
 differences (negative if the camera clock was ahead of GPS time).  Fractional
@@ -167,7 +165,7 @@ other.</li>
 synchronization point may only be used for constant time offset (ie. no time
 drift correction will be applied).</li>
 <li>Both the GPS and the image times are assumed to be local unless another
-timezone is specified.</li>
+timezone is specified (unless taken from GPSTimeStamp which is UTC).</li>
 <li>Both the GPS and the image time values may contain decimal seconds.</li>
 <li>The applied value of the time drift correction is calculated from a
 piecewise linear interpolation/extrapolation between the synchronization points
@@ -188,8 +186,8 @@ DateTimeOriginal, CreateDate, ModifyDate, FileModifyDate</li>
 position is calculated (by interpolating between fixes in the GPS track log). 
 Unless a group is specified, exiftool writes the generated tags to the default
 groups.  If a value for <code>Geotime</code> is not given, it is taken from
-<code>DateTimeOriginal</code> for each image (as if
-<code>"-Geotime&lt;DateTimeOriginal"</code> had been specified), but the value
+unformatted value of <code>DateTimeOriginal</code> for each image (as if
+<code>"-Geotime&lt;DateTimeOriginal#"</code> had been specified), but the value
 may be copied from any other date/time tag or set directly from a date/time
 string.</p>
 
@@ -211,8 +209,11 @@ tags.</p>
 lines illustrating various aspects of the geotagging feature.</p>
 
 <blockquote class=lt><i>Programmers:  Note that <code>Geotime</code> must always
-be specified when geotagging via the API -- the default value of
-<code>DateTimeOriginal</code> is implemented by the application.</i>
+be specified when geotagging via the API (the default value of
+<code>DateTimeOriginal#</code> is implemented by the application).  Also,
+<code>Geotime</code> must be set after both <code>Geotag</code> and
+<code>Geosync</code> (the exiftool application reorders the assignments to
+ensure this).</i>
 </blockquote>
 
 <a name="Examples"></a>
@@ -220,8 +221,9 @@ be specified when geotagging via the API -- the default value of
 
 <p>Geotag all images in the "c:\images" directory from position information in a
 GPS track log ("c:\gps logs\track.log").  Since the <code>Geotime</code> time is
-not specified, the value of <code>DateTimeOriginal</code> is used.  Local system
-time is assumed unless <code>DateTimeOriginal</code> contains a timezone:</p>
+not specified, the value of <code>DateTimeOriginal#</code> is used.  Local
+system time is assumed unless <code>DateTimeOriginal#</code> contains a
+timezone:</p>
 
 <pre>exiftool -geotag "c:\gps logs\track.log" c:\images</pre>
 
@@ -231,16 +233,12 @@ slower than the GPS clock:</p>
 
 <pre>exiftool -geotag track.log -geosync=+25 dir</pre>
 
-<p>Geotag an image with the GPS position for a specific time.  (Note that the
-<code>Geotag</code> tag must be assigned before <code>Geotime</code> for the GPS
-data to be available when <code>Geotime</code> is set):</p>
+<p>Geotag an image with the GPS position for a specific time:</p>
 
 <pre>exiftool -geotag t.log -geotime="2009:04:02 13:41:12-05:00" a.jpg</pre>
 
 <p>Geotag all images in directory "dir" with XMP tags instead of EXIF tags,
-based on the image <code>CreateDate</code>.  (In this case, the order of the
-arguments doesn't matter because tags with values copied from other tags are
-always set after constant values):</p>
+based on the image <code>CreateDate</code>:</p>
 
 <pre>exiftool -geotag log.gpx "-xmp:geotime&lt;createdate" dir</pre>
 
@@ -495,12 +493,12 @@ in the same timezone.</blockquote>
 <a name="Inverse"></a>
 <h2>Inverse Geotagging</h2>
 
-<p>The <code>-p</code> option may be used to output files in any number of formats.
-This section gives examples for creating GPX and KML output files from a set of
-geotagged images, or from a geotagged video file.  (But note that the
-<code>-ee</code> option must be added to the commands below to extract the full
-track from a video file, and currently only M2TS videos are supported for this
-feature.)</p>
+<p>ExifTool also has the ability to <b>create a GPS track file from a series of
+geotagged images</b>. The <code>-p</code> option may be used to output files in
+any number of formats. This section gives examples for creating GPX and KML
+output files from a set of geotagged images, or from a geotagged video file.
+(But note that the <code>-ee</code> option must be added to the commands below
+to extract the full track from a video file.)</p>
 
 <a name="GPX"></a>
 <h4>Creating a GPX track log</h4>
@@ -513,15 +511,18 @@ one or more geotagged images:</p>
 #
 # Description:  Example ExifTool print format file for generating GPX track log
 #
-# Usage:        exiftool -p gpx.fmt -d %Y-%m-%dT%H:%M:%SZ FILE [...] > out.gpx
+# Usage:        exiftool -p gpx.fmt FILE [...] > out.gpx
 #
-# Requires:     ExifTool version 8.10 or later
+# Requires:     ExifTool version 10.49 or later
 #
 # Revisions:    2010/02/05 - P. Harvey created
+#               2018/01/03 - PH Added IF to be sure position exists
+#               2018/01/06 - PH Use DateFmt function instead of -d option
 #
-# Notes:     1) All input files must contain GPSLatitude and GPSLongitude.
-#            2) The -fileOrder option may be used to control the order of the
-#               generated track points.
+# Notes:     1) Input files must contain GPSLatitude and GPSLongitude.
+#            2) Add the -ee option to extract the full track from video files.
+#            3) The -fileOrder option may be used to control the order of the
+#               generated track points when processing multiple files.
 #------------------------------------------------------------------------------
 #[HEAD]&lt;?xml version="1.0" encoding="utf-8"?&gt;
 #[HEAD]&lt;gpx version="1.0"
@@ -532,9 +533,10 @@ one or more geotagged images:</p>
 #[HEAD]&lt;trk&gt;
 #[HEAD]&lt;number&gt;1&lt;/number&gt;
 #[HEAD]&lt;trkseg&gt;
+#[IF]  $gpslatitude $gpslongitude
 #[BODY]&lt;trkpt lat="$gpslatitude#" lon="$gpslongitude#"&gt;
 #[BODY]  &lt;ele&gt;$gpsaltitude#&lt;/ele&gt;
-#[BODY]  &lt;time&gt;$gpsdatetime&lt;/time&gt;
+#[BODY]  &lt;time&gt;${gpsdatetime#;DateFmt("%Y-%m-%dT%H:%M:%SZ")}&lt;/time&gt;
 #[BODY]&lt;/trkpt&gt;
 #[TAIL]&lt;/trkseg&gt;
 #[TAIL]&lt;/trk&gt;
@@ -555,7 +557,7 @@ used to force processing of files in a particular order.  For example, the
 following command processes files in order of increasing <code>GPSDateTime</code>:
 </p>
 
-<pre>exiftool -fileOrder gpsdatetime -p gpx.fmt -d %Y-%m-%dT%H:%M:%SZ /Users/Phil/Pictures > out.gpx
+<pre>exiftool -fileOrder gpsdatetime -p gpx.fmt /Users/Phil/Pictures > out.gpx
 </pre>
 
 <p>Since no directory was specified for <code>gpx.fmt</code>, this file must
@@ -570,7 +572,7 @@ GPS information are processed.  For example, the following command creates
 <code>GPSDateTime</code> information in directory "<code>pics</code>" and its
 sub-directories:</p>
 
-<pre>exiftool -r -if '$gpsdatetime' -fileOrder gpsdatetime -p gpx.fmt -d %Y-%m-%dT%H:%M:%SZ pics > out.gpx
+<pre>exiftool -r -if '$gpsdatetime' -fileOrder gpsdatetime -p gpx.fmt pics > out.gpx
 </pre>
 
 <p>Note:  In Windows, double quotes (<code>"</code>) must be used instead of
@@ -584,7 +586,8 @@ with pictures ("gpx_wpt.fmt").</p>
 <h4>Creating a Google Earth KML file</h4>
 
 <p>Below is an example of a print format file which generates a Google Earth KML
-file from a collection of geotagged images:</p>
+file from a collection of geotagged images.  This example uses the SECT feature added
+in ExifTool 10.41 to divide the placemarks into folders based on directory name:</p>
 
 <pre>#------------------------------------------------------------------------------
 # File:         kml.fmt
@@ -592,22 +595,25 @@ file from a collection of geotagged images:</p>
 # Description:  Example ExifTool print format file for generating a
 #               Google Earth KML file from a collection of geotagged images
 #
-# Usage:        exiftool -p kml.fmt FILE [...] > out.kml
+# Usage:        exiftool -p kml.fmt -r DIR [...] &gt; out.kml
 #
-# Requires:     ExifTool version 8.10 or later
+# Requires:     ExifTool version 10.41 or later
 #
 # Revisions:    2010/02/05 - P. Harvey created
 #               2013/02/05 - PH Fixed camera icon to work with new Google Earth
+#               2017/02/02 - PH Organize into folders based on file directory
+#               2018/01/03 - PH Added IF to be sure position exists
 #
-# Notes:     1) All input files must contain GPSLatitude and GPSLongitude.
-#            2) For Google Earth to be able to find the images, the input
+# Notes:     1) Input files must contain GPSLatitude and GPSLongitude.
+#            2) Add the -ee option to extract the full track from video files.
+#            3) For Google Earth to be able to find the images, the input
 #               images must be specified using relative paths, and "out.kml"
 #               must stay in the same directory as where the command was run.
-#            3) Google Earth is picky about the case of the image file extension,
+#            4) Google Earth is picky about the case of the image file extension,
 #               and may not be able to display the image if an upper-case
 #               extension is used.
-#            4) The -fileOrder option may be used to control the order of the
-#               generated placemarks.
+#            5) The -fileOrder option may be used to control the order of the
+#               generated placemarks when processing multiple files.
 #------------------------------------------------------------------------------
 #[HEAD]&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 #[HEAD]&lt;kml xmlns="http://earth.google.com/kml/2.0"&gt;
@@ -622,9 +628,10 @@ file from a collection of geotagged images:</p>
 #[HEAD]        &lt;/Icon&gt;
 #[HEAD]      &lt;/IconStyle&gt;
 #[HEAD]    &lt;/Style&gt;
-#[HEAD]    &lt;Folder&gt;
-#[HEAD]      &lt;name&gt;Waypoints&lt;/name&gt;
-#[HEAD]      &lt;open&gt;0&lt;/open&gt;
+#[SECT]    &lt;Folder&gt;
+#[SECT]      &lt;name&gt;$directory&lt;/name&gt;
+#[SECT]      &lt;open&gt;0&lt;/open&gt;
+#[IF]  $gpslatitude $gpslongitude
 #[BODY]      &lt;Placemark&gt;
 #[BODY]        &lt;description&gt;&lt;![CDATA[&lt;br/&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;
 #[BODY]        &lt;img src='$directory/$filename'
@@ -638,17 +645,19 @@ file from a collection of geotagged images:</p>
 #[BODY]          &lt;coordinates&gt;$gpslongitude#,$gpslatitude#,0&lt;/coordinates&gt;
 #[BODY]        &lt;/Point&gt;
 #[BODY]      &lt;/Placemark&gt;
-#[TAIL]    &lt;/Folder&gt;
+#[ENDS]    &lt;/Folder&gt;
 #[TAIL]  &lt;/Document&gt;
 #[TAIL]&lt;/kml&gt;
 </pre>
 
-<p>This example print format file is included in the "fmt_files" directory of
-the full ExifTool distribution.</p>
+<p>This example file is included in the "fmt_files" directory of the full
+ExifTool distribution.  See
+<a href="http://u88.n24.queensu.ca/exiftool/forum/index.php/topic,7836.0.html">this
+forum post</a> for more useful tips about creating KML files.</p>
 
 <hr>
 <i>Created Apr. 2, 2009</i><br>
-<i>Last revised Mar. 5, 2015</i>
+<i>Last revised Jan. 6, 2018</i>
 <p class='lf'><a href="index.html">&lt;-- Back to ExifTool home page</a></p>
 </body>
 </html>

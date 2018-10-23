@@ -12,7 +12,7 @@ use strict;
 use vars qw($VERSION);
 use Image::ExifTool::Exif;
 
-$VERSION = '1.44';
+$VERSION = '1.49';
 
 my %coordConv = (
     ValueConv    => 'Image::ExifTool::GPS::ToDegrees($val)',
@@ -40,8 +40,8 @@ my %coordConv = (
         Writable => 'string',
         Notes => q{
             tags 0x0001-0x0006 used for camera location according to MWG 2.0. ExifTool
-            will also accept a number when writing GPSLatitude -- positive for north
-            latitudes, or negative for south
+            will also accept a number when writing GPSLatitudeRef, positive for north
+            latitudes or negative for south, or a string ending in N or S
         },
         Count => 2,
         PrintConv => {
@@ -69,8 +69,8 @@ my %coordConv = (
         Writable => 'string',
         Count => 2,
         Notes => q{
-            ExifTool will also accept a number when writing this tag -- positive for
-            east longitudes or negative for west
+            ExifTool will also accept a number when writing this tag, positive for east
+            longitudes or negative for west, or a string ending in E or W
         },
         PrintConv => {
             # extract E/W if written from Composite:GPSLongitude
@@ -124,8 +124,8 @@ my %coordConv = (
         Count => 3,
         Shift => 'Time',
         Notes => q{
-            when writing, date is stripped off if present, and time is adjusted to UTC
-            if it includes a timezone
+            UTC time of GPS fix.  When writing, date is stripped off if present, and
+            time is adjusted to UTC if it includes a timezone
         },
         ValueConv => 'Image::ExifTool::GPS::ConvertTimeStamp($val)',
         ValueConvInv => '$val=~tr/:/ /;$val',
@@ -133,7 +133,8 @@ my %coordConv = (
         # pull time out of any format date/time string
         # (converting to UTC if a timezone is given)
         PrintConvInv => sub {
-            my $v = shift;
+            my ($v, $et) = @_;
+            $v = $et->TimeNow() if lc($v) eq 'now';
             my @tz;
             if ($v =~ s/([-+])(.*)//s) {    # remove timezone
                 my $s = $1 eq '-' ? 1 : -1; # opposite sign to convert back to UTC
@@ -230,10 +231,7 @@ my %coordConv = (
         Writable => 'string',
         Notes => 'tags 0x0013-0x001a used for subject location according to MWG 2.0',
         Count => 2,
-        PrintConv => {
-            N => 'North',
-            S => 'South',
-        },
+        PrintConv => { N => 'North', S => 'South' },
     },
     0x0014 => {
         Name => 'GPSDestLatitude',
@@ -245,10 +243,7 @@ my %coordConv = (
         Name => 'GPSDestLongitudeRef',
         Writable => 'string',
         Count => 2,
-        PrintConv => {
-            E => 'East',
-            W => 'West',
-        },
+        PrintConv => { E => 'East', W => 'West' },
     },
     0x0016 => {
         Name => 'GPSDestLongitude',
@@ -307,12 +302,14 @@ my %coordConv = (
             when writing, time is stripped off if present, after adjusting date/time to
             UTC if time includes a timezone.  Format is YYYY:mm:dd
         },
+        RawConv => '$val =~ s/\0+$//; $val',
         ValueConv => 'Image::ExifTool::Exif::ExifDate($val)',
         ValueConvInv => '$val',
         # pull date out of any format date/time string
         # (and adjust to UTC if this is a full date/time/timezone value)
         PrintConvInv => q{
             my $secs;
+            $val = $self->TimeNow() if lc($val) eq 'now';
             if ($val =~ /[-+]/ and ($secs = Image::ExifTool::GetUnixTime($val, 1))) {
                 $val = Image::ExifTool::ConvertUnixTime($secs);
             }
@@ -373,7 +370,7 @@ my %coordConv = (
         PrintConv => 'Image::ExifTool::GPS::ToDMS($self, $val, 1, "E")',
     },
     GPSAltitude => {
-        SubDoc => 1,    # generate for all sub-documents
+        SubDoc => [1,3], # generate for sub-documents if Desire 1 or 3 has a chance to exist
         Desire => {
             0 => 'GPS:GPSAltitude',
             1 => 'GPS:GPSAltitudeRef',
@@ -385,13 +382,30 @@ my %coordConv = (
         ValueConv => q{
             my $alt = $val[0];
             $alt = $val[2] unless defined $alt;
-            return undef unless defined $alt;
+            return undef unless defined $alt and IsFloat($alt);
             return ($val[1] || $val[3]) ? -$alt : $alt;
         },
         PrintConv => q{
             $val = int($val * 10) / 10;
             return ($val =~ s/^-// ? "$val m Below" : "$val m Above") . " Sea Level";
         },
+    },
+    GPSDestLatitude => {
+        Require => {
+            0 => 'GPS:GPSDestLatitude',
+            1 => 'GPS:GPSDestLatitudeRef',
+        },
+        ValueConv => '$val[1] =~ /^S/i ? -$val[0] : $val[0]',
+        PrintConv => 'Image::ExifTool::GPS::ToDMS($self, $val, 1, "N")',
+    },
+    GPSDestLongitude => {
+        SubDoc => 1,    # generate for all sub-documents
+        Require => {
+            0 => 'GPS:GPSDestLongitude',
+            1 => 'GPS:GPSDestLongitudeRef',
+        },
+        ValueConv => '$val[1] =~ /^W/i ? -$val[0] : $val[0]',
+        PrintConv => 'Image::ExifTool::GPS::ToDMS($self, $val, 1, "E")',
     },
 );
 
@@ -443,6 +457,11 @@ sub ToDMS($$;$$)
     my ($et, $val, $doPrintConv, $ref) = @_;
     my ($fmt, @fmt, $num, $sign);
 
+    unless (length $val) {
+        # don't convert an empty value
+        return $val if $doPrintConv and $doPrintConv eq 1;  # avoid hiding existing tag when extracting
+        return undef; # avoid writing empty value
+    }
     if ($ref) {
         if ($val < 0) {
             $val = -$val;
@@ -510,7 +529,8 @@ sub ToDegrees($;$)
     my ($val, $doSign) = @_;
     # extract decimal or floating point values out of any other garbage
     my ($d, $m, $s) = ($val =~ /((?:[+-]?)(?=\d|\.\d)\d*(?:\.\d*)?(?:[Ee][+-]\d+)?)/g);
-    my $deg = ($d || 0) + (($m || 0) + ($s || 0)/60) / 60;
+    return '' unless defined $d;
+    my $deg = $d + (($m || 0) + ($s || 0)/60) / 60;
     # make negative if S or W coordinate
     $deg = -$deg if $doSign ? $val =~ /[^A-Z](S|W)$/i : $deg < 0;
     return $deg;
@@ -536,7 +556,7 @@ GPS (Global Positioning System) meta information in EXIF data.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

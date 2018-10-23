@@ -1,7 +1,10 @@
 # Before "make install", this script should be runnable with "make test".
 # After "make install" it should work as "perl t/XMP.t".
 
-BEGIN { $| = 1; print "1..44\n"; $Image::ExifTool::noConfig = 1; }
+BEGIN {
+    $| = 1; print "1..46\n"; $Image::ExifTool::configFile = '';
+    require './t/TestLib.pm'; t::TestLib->import();
+}
 END {print "not ok 1\n" unless $loaded;}
 
 # definitions for user-defined tag test (#26)
@@ -36,8 +39,6 @@ use Image::ExifTool::XMP;
 $loaded = 1;
 print "ok 1\n";
 
-use t::TestLib;
-
 my $testname = 'XMP';
 my $testnum = 1;
 
@@ -54,7 +55,7 @@ my $testnum = 1;
 {
     ++$testnum;
     my $exifTool = new Image::ExifTool;
-    $exifTool->Options(Duplicates => 1, Binary => 1, List => 1);
+    $exifTool->Options(Duplicates => 1, Binary => 1, ListJoin => undef);
     my $info = $exifTool->ImageInfo('t/images/XMP.jpg');
     my $tag;
     foreach $tag (keys %$info) {
@@ -343,10 +344,11 @@ my $testnum = 1;
     print "ok $testnum\n";
 }
 
-# test 30: Test mass copy with deletion of specific XMP family 1 groups
+# test 30: Test mass copy with deletion of specific XMP family 1 groups in shorthand format
 {
     ++$testnum;
     my $exifTool = new Image::ExifTool;
+    $exifTool->Options(XMPShorthand => 1);
     my $testfile = "t/${testname}_${testnum}_failed.out";
     unlink $testfile;
     $exifTool->SetNewValuesFromFile('t/images/XMP.jpg');
@@ -551,6 +553,39 @@ my $testnum = 1;
     my $err = $exifTool->GetValue('Error');
     warn "\n  $err\n" if $err;
     print 'not ' unless testCompare("t/XMP_$testnum.out",$testfile,$testnum);
+    print "ok $testnum\n";
+}
+
+# test 45: Write empty structures
+{
+    ++$testnum;
+    my $exifTool = new Image::ExifTool;
+    my $testfile = "t/${testname}_${testnum}_failed.xmp";
+    unlink $testfile;
+    $exifTool->SetNewValue('regioninfo' => '{RegionList=[,]}');
+    $exifTool->SetNewValue('xmp:flash' => '{}');
+    $exifTool->WriteInfo(undef, $testfile);
+    print 'not ' unless testCompare("t/XMP_$testnum.out",$testfile,$testnum);
+    print "ok $testnum\n";
+}
+
+# test 46: Test the advanced-formatting '@' feature on an XMP:Subject list
+{
+    ++$testnum;
+    my $exifTool = new Image::ExifTool;
+    $exifTool->Options(ListSplit => ', ');
+    my $cpy = 'subject<${subject@;/^Test/ ? $_=undef : s/Tool$//}';
+    $exifTool->SetNewValuesFromFile('t/images/XMP.jpg', $cpy);
+    $testfile = "t/${testname}_${testnum}_failed.xmp";
+    unlink $testfile;
+    writeInfo($exifTool, undef, $testfile);
+    $exifTool->Options(ListSep => ' // ');
+    my $info = $exifTool->ImageInfo($testfile, 'Subject');
+    if (check($exifTool, $info, $testname, $testnum)) {
+        unlink $testfile;
+    } else {
+        print 'not ';
+    }
     print "ok $testnum\n";
 }
 

@@ -1,7 +1,10 @@
 # Before "make install", this script should be runnable with "make test".
 # After "make install" it should work as "perl t/Writer.t".
 
-BEGIN { $| = 1; print "1..56\n"; $Image::ExifTool::noConfig = 1; }
+BEGIN {
+    $| = 1; print "1..58\n"; $Image::ExifTool::configFile = '';
+    require './t/TestLib.pm'; t::TestLib->import();
+}
 END {print "not ok 1\n" unless $loaded;}
 
 # test 1: Load the module(s)
@@ -10,8 +13,6 @@ $loaded = 1;
 print "ok 1\n";
 
 ######################### End of black magic.
-
-use t::TestLib;
 
 my $testname = 'Writer';
 my $testnum = 1;
@@ -103,7 +104,7 @@ my $testfile;
     $exifTool->SetNewValue(Category => 'IPTC test');
     $exifTool->SetNewValue(Description => 'New description');
     $exifTool->SetNewValue(TimeCodes => '02:53:49:07 2009-11-19T12:38:35:21-03:00');
-    writeInfo($exifTool, 't/images/Canon.jpg', $testfile1);
+    writeInfo($exifTool, 't/images/Canon.jpg', $testfile1, undef, 1);
     my $info = $exifTool->ImageInfo($testfile1);
     print 'not ' unless check($exifTool, $info, $testname, $testnum);
     print "ok $testnum\n";
@@ -143,7 +144,7 @@ my $testfile;
 {
     ++$testnum;
     my $exifTool = new Image::ExifTool;
-    $exifTool->Options(Duplicates => 1, Binary => 1, List => 1);
+    $exifTool->Options(Duplicates => 1, Binary => 1, ListJoin => undef);
     my $info = $exifTool->ImageInfo('t/images/Canon.jpg');
     my $tag;
     foreach $tag (keys %$info) {
@@ -155,7 +156,7 @@ my $testfile;
     my $image;
     writeInfo($exifTool, 't/images/Canon.jpg', \$image);
     # (must drop Composite tags because their order may change)
-    $exifTool->Options(Unknown => 1, Binary => 0, List => 0, Composite => 0);
+    $exifTool->Options(Unknown => 1, Binary => 0, ListJoin => ', ', Composite => 0);
     # (must ignore filesize because it changes as null padding is discarded)
     $info = $exifTool->ImageInfo(\$image, '-filesize');
     $testfile = "t/${testname}_${testnum}_failed.jpg";
@@ -195,7 +196,7 @@ my $testfile;
 {
     ++$testnum;
     my $exifTool = new Image::ExifTool;
-    $exifTool->Options('IgnoreMinorErrors' => 1);
+    $exifTool->Options(IgnoreMinorErrors => 1);
     $exifTool->SetNewValuesFromFile('t/images/Pentax.jpg');
     $testfile = "t/${testname}_${testnum}_failed.jpg";
     unlink $testfile;
@@ -210,12 +211,12 @@ my $testfile;
 }
 
 # tests 11/12: Try creating something from nothing and removing it again
-#              (also test ListSplit and ListSep options)
+#              (also test ListSplit and ListJoin options)
 {
     ++$testnum;
     my $exifTool = new Image::ExifTool;
     $exifTool->Options(ListSplit => ';\\s*');
-    $exifTool->Options(ListSep => ' <<separator>> ');
+    $exifTool->Options(ListJoin => ' <<separator>> ');
     $exifTool->SetNewValue(DateTimeOriginal => '2005:01:19 13:37:22', Group => 'EXIF');
     $exifTool->SetNewValue(FileVersion => 12, Group => 'IPTC');
     $exifTool->SetNewValue(Contributor => 'Guess who', Group => 'XMP');
@@ -423,7 +424,9 @@ my $testOK;
 {
     ++$testnum;
     my $skip = '';
-    if ($testOK) {
+    if (not eval { require POSIX }) {
+        $skip = ' # skip Requires POSIX';
+    } elsif ($testOK) {
         my $newfile = "t/${testname}_${testnum}_20060327_failed.jpg";
         unlink $newfile;
         my $exifTool = new Image::ExifTool;
@@ -588,7 +591,7 @@ my $testOK;
 {
     ++$testnum;
     my $exifTool = new Image::ExifTool;
-    $exifTool->Options(List => 1);
+    $exifTool->Options(ListJoin => undef);
     $exifTool->SetNewValuesFromFile('t/images/IPTC.jpg',
             { Replace => 1 },
             'xmp:subject<filename',
@@ -633,7 +636,7 @@ my $testOK;
                                     'icc_profile', 'canonvrd');
     $testfile = "t/${testname}_${testnum}_failed.jpg";
     unlink $testfile;
-    writeInfo($exifTool, 't/images/ExifTool.jpg', $testfile);
+    writeInfo($exifTool, 't/images/ExifTool.jpg', $testfile, undef, 1);
     $exifTool->Options(Composite => 0);
     my $info = $exifTool->ImageInfo($testfile);
     if (check($exifTool, $info, $testname, $testnum)) {
@@ -962,7 +965,7 @@ my $testOK;
     print "ok $testnum\n";
 }
 
-# test 55-56: Create and edit EXV file
+# tests 55-56: Create and edit EXV file
 {
     ++$testnum;
     my $exifTool = new Image::ExifTool;
@@ -991,6 +994,78 @@ my $testOK;
     } else {
         print 'not ';
     }
+    print "ok $testnum\n";
+}
+
+# test 57: Test setting Composite PreviewImage using various groups
+{
+    ++$testnum;
+    my $ok = 1;
+    my $exifTool = new Image::ExifTool;
+    $exifTool->Options(IgnoreMinorErrors => 1);
+    my %try = (
+        'previewimage'              => 1,
+        'composite:previewimage'    => 0,   # (shouldn't be in the Composite group)
+        'composite:thumbnailimage'  => 0,
+        'composite:jpgfromraw'      => 0,
+        'composite:otherimage'      => 0,
+        'ifd0:previewimage'         => 1,
+        '0ifd0:previewimage'        => 0,
+        '1ifd0:previewimage'        => 1,
+        '2ifd0:previewimage'        => 0,
+        'exif:previewimage'         => 1,
+        '0exif:previewimage'        => 1,
+        '1exif:previewimage'        => 0,
+        '2exif:previewimage'        => 0,
+        'preview:previewimage'      => 1,
+        '0preview:previewimage'     => 0,
+        '1preview:previewimage'     => 0,
+        '2preview:previewimage'     => 1,
+        'makernotes:previewimage'   => 1,
+        '0makernotes:previewimage'  => 1,
+        '1makernotes:previewimage'  => 0,
+        '2makernotes:previewimage'  => 0,
+        'xxx:previewimage'          => 0,
+        '0xxx:previewimage'         => 0,
+        '1xxx:previewimage'         => 0,
+        '2xxx:previewimage'         => 0,
+        'ifd0:exif:preview:previewimage'    => 1,
+        '0ifd0:exif:preview:previewimage'   => 0,
+        '1ifd0:exif:preview:previewimage'   => 1,
+        '2ifd0:exif:preview:previewimage'   => 0,
+        'ifd0:0exif:preview:previewimage'   => 1,
+        'ifd0:1exif:preview:previewimage'   => 0,
+        'ifd0:2exif:preview:previewimage'   => 0,
+        'ifd0:exif:0preview:previewimage'   => 0,
+        'ifd0:exif:1preview:previewimage'   => 0,
+        'ifd0:exif:2preview:previewimage'   => 1,
+        '1ifd0:0exif:2preview:previewimage' => 1,
+        'exif:makernotes:previewimage'      => 1,   # (but wouldn't write anything)
+    );
+    my $tag;
+    foreach $tag (sort keys %try) {
+        my ($num, $err) = $exifTool->SetNewValue($tag => 'test');
+        next unless $num xor $try{$tag};
+        warn "\nError setting $tag\n";
+        $ok = 0;
+    }
+    print 'not ' unless $ok;
+    print "ok $testnum\n";
+}
+
+# test 58: Set ICC_Profile from an external file
+{
+    ++$testnum;
+    my $exifTool = new Image::ExifTool;
+    open IN, 't/images/ICC_Profile.icc' or die;
+    binmode IN;
+    my $buff;
+    read IN, $buff, 1000;
+    close IN;
+    my @writeInfo = (
+        [ICC_Profile => \$buff, Protected => 1],
+    );
+    print 'not ' unless writeCheck(\@writeInfo, $testname, $testnum);
     print "ok $testnum\n";
 }
 

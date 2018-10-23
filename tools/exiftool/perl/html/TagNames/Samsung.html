@@ -81,11 +81,14 @@ information.</p>
   <br>0x1001234 = HMX-H304
   <br>0x100130c = NX100
   <br>0x1001327 = NX11
+  <br>0x170104b = ES65, ES67 / VLUU ES65, ES67 / SL50
   <br>0x170104e = ES70, ES71 / VLUU ES70, ES71 / SL600
   <br>0x1701052 = ES73 / VLUU ES73 / SL605
+  <br>0x1701055 = ES25, ES27 / VLUU ES25, ES27 / SL45
   <br>0x1701300 = ES28 / VLUU ES28
   <br>0x1701303 = ES74,ES75,ES78 / VLUU ES75,ES78
   <br>0x2001046 = PL150 / VLUU PL150 / TL210 / PL151
+  <br>0x2001048 = PL100 / TL205 / VLUU PL100 / PL101
   <br>0x2001311 = PL120,PL121 / VLUU PL120,PL121
   <br>0x2001315 = PL170,PL171 / VLUUPL170,PL171
   <br>0x200131e = PL210, PL211 / VLUU PL210, PL211
@@ -114,6 +117,26 @@ information.</p>
   <br>0x700131c = VLUU SH100, SH100
   <br>0x27127002 = SMX-C20N</span></td></tr>
 <tr class=b>
+<td title='0x0011 = 17'>0x0011</td>
+<td>OrientationInfo</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Samsung.html#OrientationInfo'>Samsung OrientationInfo Tags</a></td></tr>
+<tr>
+<td title='0x0020 = 32'>0x0020</td>
+<td>SmartAlbumColor</td>
+<td class=c>int16u[2]</td>
+<td><span class=s>&#39;0 0&#39; = n/a
+  <br>[Value 0]</span><table class=cols><tr>
+  <td>0 = Red
+  <br>1 = Yellow
+  <br>2 = Green
+  <br>3 = Blue</td><td>&nbsp;&nbsp;</td>
+  <td>4 = Magenta
+  <br>5 = Black
+  <br>6 = White
+  <br>7 = Various</td></tr></table>
+</td></tr>
+<tr class=b>
 <td title='0x0021 = 33'>0x0021</td>
 <td>PictureWizard</td>
 <td class=c>int16u</td>
@@ -132,17 +155,32 @@ information.</p>
 <td title='0x0035 = 53'>0x0035</td>
 <td>PreviewIFD</td>
 <td class=c>-</td>
-<td>--&gt; <a href='Nikon.html#PreviewIFD'>Nikon PreviewIFD Tags</a></td></tr>
+<td>--&gt; <a href='Nikon.html#PreviewIFD'>Nikon PreviewIFD Tags</a>
+  <br>--&gt; <a href='Nikon.html#PreviewIFD'>Nikon PreviewIFD Tags</a></td></tr>
+<tr class=b>
+<td title='0x0040 = 64'>0x0040</td>
+<td>RawDataByteOrder</td>
+<td class=c>yes</td>
+<td><span class=s>0 = Little-endian (Intel, II)
+  <br>1 = Big-endian (Motorola, MM)</span></td></tr>
+<tr>
+<td title='0x0041 = 65'>0x0041</td>
+<td>WhiteBalanceSetup</td>
+<td class=c>int32u</td>
+<td><span class=s>0 = Auto
+  <br>1 = Manual</span></td></tr>
 <tr class=b>
 <td title='0x0043 = 67'>0x0043</td>
 <td>CameraTemperature</td>
 <td class=c>rational64s</td>
 <td>&nbsp;</td></tr>
 <tr>
-<td title='0x0045 = 69'>0x0045</td>
-<td>RawCompressionMode</td>
-<td class=c>int32u</td>
-<td>&nbsp;</td></tr>
+<td title='0x0050 = 80'>0x0050</td>
+<td>RawDataCFAPattern</td>
+<td class=c>yes</td>
+<td><span class=s>0 = Unchanged
+  <br>1 = Swap
+  <br>65535 = Roll</span></td></tr>
 <tr class=b>
 <td title='0x0100 = 256'>0x0100</td>
 <td>FaceDetect</td>
@@ -166,6 +204,11 @@ information.</p>
 <td class=c>string</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td title='0xa002 = 40962'>0xa002</td>
+<td>SerialNumber</td>
+<td class=c>string</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td title='0xa003 = 40963'>0xa003</td>
 <td>LensType</td>
 <td class=c>int16u[n]</td>
@@ -183,87 +226,92 @@ information.</p>
   <br>10 = Samsung NX 45mm F1.8
   <br>11 = Samsung NX 45mm F1.8 2D/3D
   <br>12 = Samsung NX 12-24mm F4-5.6 ED
-  <br>13 = Saumsun NX 16-50mm F2-2.8 S ED OIS
+  <br>13 = Samsung NX 16-50mm F2-2.8 S ED OIS
   <br>14 = Samsung NX 10mm F3.5 Fisheye
   <br>15 = Samsung NX 16-50mm F3.5-5.6 Power Zoom ED OIS
   <br>20 = Samsung NX 50-150mm F2.8 S ED OIS
   <br>21 = Samsung NX 300mm F2.8 ED OIS</span></td></tr>
-<tr>
+<tr class=b>
 <td title='0xa004 = 40964'>0xa004</td>
 <td>LensFirmware</td>
 <td class=c>string</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0xa005 = 40965'>0xa005</td>
 <td>InternalLensSerialNumber</td>
 <td class=c>string</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0xa010 = 40976'>0xa010</td>
 <td>SensorAreas</td>
 <td class=c>int32u[8]</td>
 <td><span class=s><span class=n>(full and valid sensor areas)</span></span></td></tr>
-<tr class=b>
+<tr>
 <td title='0xa011 = 40977'>0xa011</td>
 <td>ColorSpace</td>
 <td class=c>int16u</td>
 <td><span class=s>0 = sRGB
   <br>1 = Adobe RGB</span></td></tr>
-<tr>
+<tr class=b>
 <td title='0xa012 = 40978'>0xa012</td>
 <td>SmartRange</td>
 <td class=c>int16u</td>
 <td><span class=s>0 = Off
   <br>1 = On</span></td></tr>
-<tr class=b>
+<tr>
 <td title='0xa013 = 40979'>0xa013</td>
 <td>ExposureCompensation</td>
 <td class=c>rational64s</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0xa014 = 40980'>0xa014</td>
 <td>ISO</td>
 <td class=c>int32u</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0xa018 = 40984'>0xa018</td>
 <td>ExposureTime</td>
 <td class=c>rational64u</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0xa019 = 40985'>0xa019</td>
 <td>FNumber</td>
 <td class=c>rational64u</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0xa01a = 40986'>0xa01a</td>
 <td>FocalLengthIn35mmFormat</td>
 <td class=c>int32u</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0xa020 = 40992'>0xa020</td>
 <td>EncryptionKey</td>
 <td class=c title=' ! = Unsafe'>int32u[11]!</td>
 <td><span class=s><span class=n>(key used to decrypt the tags below)</span></span></td></tr>
-<tr class=b>
+<tr>
 <td title='0xa021 = 40993'>0xa021</td>
 <td>WB_RGGBLevelsUncorrected</td>
 <td class=c>int32u[4]</td>
 <td><span class=s><span class=n>(these tags not corrected for WB_RGGBLevelsBlack)</span></span></td></tr>
-<tr>
+<tr class=b>
 <td title='0xa022 = 40994'>0xa022</td>
 <td>WB_RGGBLevelsAuto</td>
 <td class=c>int32u[4]</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0xa023 = 40995'>0xa023</td>
 <td>WB_RGGBLevelsIlluminator1</td>
 <td class=c>int32u[4]</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0xa024 = 40996'>0xa024</td>
 <td>WB_RGGBLevelsIlluminator2</td>
 <td class=c>int32u[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td title='0xa025 = 40997'>0xa025</td>
+<td>HighlightLinearityLimit</td>
+<td class=c>int32u</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td title='0xa028 = 41000'>0xa028</td>
@@ -358,6 +406,30 @@ array of X coordinates then an array of Y coordinates)</span></span></td></tr>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
+<h2><a name='OrientationInfo'>Samsung OrientationInfo Tags</a></h2>
+<p>Camera orientation information written by the Gear 360 (SM-C200).</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index8</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>YawAngle?</td>
+<td class=c>rational64s</td>
+<td><span class=s><span class=n>(always zero)</span></span></td></tr>
+<tr class=b>
+<td class=r title='1 = 0x1'>1</td>
+<td>PitchAngle</td>
+<td class=c>rational64s</td>
+<td><span class=s><span class=n>(upward tilt of rear camera in degrees)</span></span></td></tr>
+<tr>
+<td class=r title='2 = 0x2'>2</td>
+<td>RollAngle</td>
+<td class=c>rational64s</td>
+<td><span class=s><span class=n>(clockwise rotation of rear camera in degrees)</span></span></td></tr>
+</table></td></tr></table></blockquote>
+
 <h2><a name='PictureWizard'>Samsung PictureWizard Tags</a></h2>
 <blockquote>
 <table class=frame><tr><td>
@@ -415,20 +487,62 @@ as the Galaxy S4 and Tab S.</p>
 <tr class=h><th>Tag Name</th>
 <th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
 <tr>
-<td>EmbeddedAudioFile</td>
-<td class=c>N</td>
+<td>DepthMapData</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
-<td>EmbeddedAudioFileName</td>
-<td class=c>N</td>
+<td>DepthMapName</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
-<td>EmbeddedImage</td>
-<td class=c>N</td>
+<td>DualShotInfo</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Samsung.html#DualShotInfo'>Samsung DualShotInfo Tags</a></td></tr>
+<tr class=b>
+<td>EmbeddedAudioFile</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>EmbeddedAudioFileName</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td>EmbeddedImage</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td>EmbeddedImageName</td>
-<td class=c>N</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>EmbeddedVideoFile</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>EmbeddedVideoType</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td>TimeStamp</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='DualShotInfo'>Samsung DualShotInfo Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index4</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='9 = 0x9'>9</td>
+<td>DepthMapWidth</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='10 = 0xa'>10</td>
+<td>DepthMapHeight</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -443,32 +557,32 @@ such as the WB30F.</p>
 <tr>
 <td class=r title='0 = 0x0'>0</td>
 <td>Make</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='32 = 0x20'>32</td>
 <td>Model</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='512 = 0x200'>512</td>
 <td>ThumbnailWidth</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='516 = 0x204'>516</td>
 <td>ThumbnailHeight</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='520 = 0x208'>520</td>
 <td>ThumbnailLength</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='524 = 0x20c'>524</td>
 <td>ThumbnailImage</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s><span class=n>(the THM image, embedded metadata is extracted as the first sub-document)</span></span></td></tr>
 </table></td></tr></table></blockquote>
 
@@ -483,12 +597,12 @@ SMX-C20N.</p>
 <tr>
 <td>'EFCT'</td>
 <td>Effect</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td>'QLTY'</td>
 <td>Quality</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -503,37 +617,37 @@ WP10.</p>
 <tr>
 <td class=r title='0 = 0x0'>0</td>
 <td>Make</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='24 = 0x18'>24</td>
 <td>Model</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='46 = 0x2e'>46</td>
 <td>ExposureTime</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='50 = 0x32'>50</td>
 <td>FNumber</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='58 = 0x3a'>58</td>
 <td>ExposureCompensation</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='106 = 0x6a'>106</td>
 <td>ISO</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='125 = 0x7d'>125</td>
 <td>Software</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='244 = 0xf4'>244</td>
@@ -551,22 +665,22 @@ WP10.</p>
 <tr>
 <td class=r title='1 = 0x1'>1</td>
 <td>ThumbnailWidth</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='2 = 0x2'>2</td>
 <td>ThumbnailHeight</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='3 = 0x3'>3</td>
 <td>ThumbnailLength</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='4 = 0x4'>4</td>
 <td>ThumbnailOffset</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -598,7 +712,7 @@ such as the Galaxy S4.</p>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Mar 17, 2015</i>
+<br><i>Last revised May 1, 2018</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

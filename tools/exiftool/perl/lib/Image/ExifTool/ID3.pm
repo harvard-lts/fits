@@ -16,7 +16,7 @@ use strict;
 use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 
-$VERSION = '1.46';
+$VERSION = '1.50';
 
 sub ProcessID3v2($$$);
 sub ProcessPrivate($$$);
@@ -403,7 +403,7 @@ my %genre = (
         ExifTool extracts mainly text-based tags from ID3v2 information.  The tags
         in the tables below are those extracted by ExifTool, and don't represent a
         complete list of available ID3v2 tags.
-        
+
         ID3 version 2.2 tags.  (These are the tags written by iTunes 5.0.)
     },
     CNT => 'PlayCounter',
@@ -959,7 +959,7 @@ sub PrintGenre($)
         $genre{$1} or $genre{$1} = "Unknown ($1)";
     }
     $val =~ s/\((\d+)\)/\($genre{$1}\)/g;
-    $val =~ s/(^|\/)(\d+)(\/|$)/$1$genre{$2}$3/g;
+    $val =~ s/(^|\/)(\d+)(?=\/|$)/$1$genre{$2}$3/g;
     $val =~ s/^\(([^)]+)\)\1?$/$1/; # clean up by removing brackets and duplicates
     return $val;
 }
@@ -1037,7 +1037,8 @@ sub ProcessID3v2($$$)
     my $verbose = $et->Options('Verbose');
     my $len;    # frame data length
 
-    $verbose and $et->VerboseDir($tagTablePtr->{GROUPS}->{1}, 0, $size);
+    $et->VerboseDir($tagTablePtr->{GROUPS}->{1}, 0, $size);
+    $et->VerboseDump($dataPt, Len => $size, Start => $offset);
 
     for (;;$offset+=$len) {
         my ($id, $flags, $hi);
@@ -1080,7 +1081,7 @@ sub ProcessID3v2($$$)
             my $otherTable = $otherTable{$tagTablePtr};
             $tagInfo = $et->GetTagInfo($otherTable, $id) if $otherTable;
             if ($tagInfo) {
-                $et->WarnOnce("Frame '$id' is not valid for this ID3 version", 1);
+                $et->WarnOnce("Frame '${id}' is not valid for this ID3 version", 1);
             } else {
                 next unless $verbose or $et->Options('Unknown');
                 $id =~ tr/-A-Za-z0-9_//dc;
@@ -1092,7 +1093,7 @@ sub ProcessID3v2($$$)
             }
         }
         # decode v2.3 and v2.4 flags
-        my %flags;
+        my (%flags, %extra);
         if ($flags) {
             if ($vers < 0x0400) {
                 # version 2.3 flags
@@ -1154,13 +1155,16 @@ sub ProcessID3v2($$$)
             $dataLen == length($val) or $et->Warn("Wrong length for $id frame"), next;
         }
         unless ($tagInfo) {
-            $verbose and $et->VerboseInfo($id, $tagInfo,
+            next unless $verbose;
+            %flags and $extra{Extra} = ', Flags=' . join(',', sort keys %flags);
+            $et->VerboseInfo($id, $tagInfo,
                 Table   => $tagTablePtr,
                 Value   => $val,
                 DataPt  => $dataPt,
                 DataPos => $$dirInfo{DataPos},
                 Size    => $len,
                 Start   => $offset,
+                %extra
             );
             next;
         }
@@ -1307,12 +1311,14 @@ sub ProcessID3v2($$$)
         if ($lang and $lang =~ /^[a-z]{3}$/i and $lang ne 'eng') {
             $tagInfo = Image::ExifTool::GetLangInfo($tagInfo, lc $lang);
         }
+        %flags and $extra{Extra} = ', Flags=' . join(',', sort keys %flags);
         $et->HandleTag($tagTablePtr, $id, $val,
             TagInfo => $tagInfo,
             DataPt  => $dataPt,
             DataPos => $$dirInfo{DataPos},
             Size    => $len,
             Start   => $offset,
+            %extra
         );
     }
 }
@@ -1543,7 +1549,7 @@ other types of audio files.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

@@ -19,7 +19,7 @@ use strict;
 use vars qw($VERSION $warnString);
 use Image::ExifTool qw(:DataAccess :Utils);
 
-$VERSION = '1.18';
+$VERSION = '1.21';
 
 sub WarnProc($) { $warnString = $_[0]; }
 
@@ -37,6 +37,12 @@ my %openDocType = (
     'application/epub+zip' => 'EPUB', #PH (not open doc)
 );
 
+# iWork file types based on names of files found in the zip archive
+my %iWorkFile = (
+    'Index/Slide.iwa' => 'KEY',
+    'Index/Tables/DataList.iwa' => 'NUMBERS',
+);
+
 # ZIP metadata blocks
 %Image::ExifTool::ZIP::Main = (
     PROCESS_PROC => \&Image::ExifTool::ProcessBinaryData,
@@ -47,10 +53,10 @@ my %openDocType = (
         additional meta information from compressed documents inside some ZIP-based
         files such Office Open XML (DOCX, PPTX and XLSX), Open Document (ODB, ODC,
         ODF, ODG, ODI, ODP, ODS and ODT), iWork (KEY, PAGES, NUMBERS), Capture One
-        Enhanced Image Package (EIP), Adobe InDesign Markup Language (IDML), and
-        Electronic Publication (EPUB).  The ExifTool family 3 groups may be used to
-        organize ZIP tags by embedded document number (ie. the exiftool C<-g3>
-        option).
+        Enhanced Image Package (EIP), Adobe InDesign Markup Language (IDML),
+        Electronic Publication (EPUB), and Sketch design files (SKETCH).  The
+        ExifTool family 3 groups may be used to organize ZIP tags by embedded
+        document number (ie. the exiftool C<-g3> option).
     },
     2 => 'ZipRequiredVersion',
     3 => {
@@ -92,7 +98,7 @@ my %openDocType = (
                 ($val >> 16) & 0x1f, # day
                 ($val >> 11) & 0x1f, # hour
                 ($val >> 5)  & 0x3f, # minute
-                 $val        & 0x1f  # second
+                ($val        & 0x1f) * 2  # second
             );
         },
         PrintConv => '$self->ConvertDateTime($val)',
@@ -210,7 +216,7 @@ my %openDocType = (
                 ($val >> 16) & 0x1f, # day
                 ($val >> 11) & 0x1f, # hour
                 ($val >> 5)  & 0x3f, # minute
-                 $val        & 0x1f  # second
+                ($val        & 0x1f) * 2  # second
             );
         },
         PrintConv => '$self->ConvertDateTime($val)',
@@ -375,7 +381,7 @@ sub ProcessZIP($$)
     my $raf = $$dirInfo{RAF};
     my ($buff, $buf2, $zip, $docNum);
 
-    return 0 unless $raf->Read($buff, 30) and $buff =~ /^PK\x03\x04/;
+    return 0 unless $raf->Read($buff, 30) == 30 and $buff =~ /^PK\x03\x04/;
 
     my $tagTablePtr = GetTagTable('Image::ExifTool::ZIP::Main');
 
@@ -552,11 +558,40 @@ sub ProcessZIP($$)
         $et->SetFileType();
         @members = $zip->members();
         $docNum = 0;
-        my $member;
+        my ($member, $iWorkType);
+        # special files to extract
+        my %extract = (
+            'meta.json' => 1,
+            'previews/preview.png' => 'PreviewPNG',
+            'preview.jpg' => 'PreviewImage', # (iWork 2013 files)
+            'preview-web.jpg' => 'OtherImage', # (iWork 2013 files)
+            'preview-micro.jpg' => 'ThumbnailImage', # (iWork 2013 files)
+            'QuickLook/Thumbnail.jpg' => 'ThumbnailImage', # (iWork 2009 files)
+            'QuickLook/Preview.pdf' => 'PreviewPDF', # (iWork 2009 files)
+        );
         foreach $member (@members) {
             $$et{DOC_NUM} = ++$docNum;
             HandleMember($et, $member, $tagTablePtr);
+            my $file = $member->fileName();
+            # extract things from Sketch files
+            if ($extract{$file}) {
+                ($buff, $status) = $zip->contents($member);
+                $status and $et->Warn("Error extracting $file"), next;
+                if ($file eq 'meta.json') {
+                    $et->ExtractInfo(\$buff, { ReEntry => 1 });
+                    if ($$et{VALUE}{App} and $$et{VALUE}{App} =~ /sketch/i) {
+                        $et->OverrideFileType('SKETCH');
+                    }
+                } else {
+                    $et->FoundTag($extract{$file} => $buff);
+                }
+            } elsif ($file eq 'Index/Document.iwa' and not $iWorkType) {
+                $iWorkType = 'PAGES';
+            } elsif ($iWorkFile{$file}) {
+                $iWorkType = $iWorkFile{$file};
+            }
         }
+        $et->OverrideFileType($iWorkType) if $iWorkType;
         last;
     }
     # all done if we processed this using Archive::Zip
@@ -635,12 +670,12 @@ This module contains definitions required by Image::ExifTool to extract meta
 information from ZIP, GZIP and RAR archives.  This includes ZIP-based file
 types like Office Open XML (DOCX, PPTX and XLSX), Open Document (ODB, ODC,
 ODF, ODG, ODI, ODP, ODS and ODT), iWork (KEY, PAGES, NUMBERS), Capture One
-Enhanced Image Package (EIP), Adobe InDesign Markup Language (IDML), and
-Electronic Publication (EPUB).
+Enhanced Image Package (EIP), Adobe InDesign Markup Language (IDML),
+Electronic Publication (EPUB), and Sketch design files (SKETCH).
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

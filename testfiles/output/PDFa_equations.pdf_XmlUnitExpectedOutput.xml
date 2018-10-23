@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/7/16 3:01 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.3.1" timestamp="9/18/18 3:35 PM">
   <identification>
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
-      <tool toolname="Droid" toolversion="6.1.5" />
-      <tool toolname="Jhove" toolversion="1.11" />
-      <tool toolname="Exiftool" toolversion="10.00" />
-      <tool toolname="Tika" toolversion="1.10" />
-      <version toolname="Droid" toolversion="6.1.5">1b</version>
-      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/354</externalIdentifier>
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.3.1">
+      <tool toolname="Droid" toolversion="6.4" />
+      <tool toolname="Jhove" toolversion="1.20" />
+      <tool toolname="Exiftool" toolversion="11.01" />
+      <tool toolname="Tika" toolversion="1.18" />
+      <version toolname="Droid" toolversion="6.4">1b</version>
+      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">fmt/354</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.11">105831</size>
-    <creatingApplicationName toolname="Jhove" toolversion="1.11">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 19:13:22-04:00</lastmodified>
-    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T23:13:22Z</lastmodified>
-    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:19 19:12:42-04:00</created>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFa_equations.pdf</filepath>
+    <size toolname="Jhove" toolversion="1.20">105831</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.20">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:08:19 19:13:22-04:00 2015:08:19 19:13:22-04:00</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.18" status="CONFLICT">2015-08-19T23:13:22Z</lastmodified>
+    <created toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2015:08:19 19:12:42-04:00</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/PDFa_equations.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_equations.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">83fa9407b0ddf13a38579a18fe9f7734</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1458852347000</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+    <well-formed toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</valid>
   </filestatus>
   <metadata>
     <document>
-      <author toolname="Jhove" toolversion="1.11">Zakuta, Vitaly</author>
-      <language toolname="Jhove" toolversion="1.11">EN-US</language>
-      <pageCount toolname="Jhove" toolversion="1.11">3</pageCount>
-      <isTagged toolname="Jhove" toolversion="1.11">yes</isTagged>
-      <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
-      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <author toolname="Jhove" toolversion="1.20">Zakuta, Vitaly</author>
+      <language toolname="Jhove" toolversion="1.20">EN-US</language>
+      <pageCount toolname="Jhove" toolversion="1.20">3</pageCount>
+      <isTagged toolname="Jhove" toolversion="1.20">yes</isTagged>
+      <hasOutline toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">no</hasAnnotations>
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>Calibri</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>CambriaMath</fontName>
       </font>
       <standard>
@@ -50,20 +50,20 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="2405">
-    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+  <statistics fitsExecutionTime="208">
+    <tool toolname="MediaInfo" toolversion="18.08.1" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="140" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="1250" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="1264" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="835" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="772" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="133" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="8" />
+    <tool toolname="Jhove" toolversion="1.20" executionTime="110" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="67" />
+    <tool toolname="Exiftool" toolversion="11.01" executionTime="199" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="45" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="5" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="436" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="2283" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="9" />
+    <tool toolname="Tika" toolversion="1.18" executionTime="66" />
   </statistics>
 </fits>
 

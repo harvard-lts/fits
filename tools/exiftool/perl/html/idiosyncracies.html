@@ -21,7 +21,7 @@ information).</p>
 
 <p>The difficulty is that these offsets must be recalculated when a file is
 rewritten, but in general this is not possible (particularly for the maker
-notes) because the format of not all information is known.  Some manufacturers
+notes) because the format of all information is not known.  Some manufacturers
 have attempted to avoid this problem using offsets which are relative to the
 start of the maker note IFD instead of the usual start of EXIF.  This is a good
 idea if implemented properly, but this is not done consistently.  (And some
@@ -92,7 +92,7 @@ start of the maker notes in JPEG images (very reasonable), but relative to
 the end of the maker note header in DNG images.  I think this was a mistake
 because this is changed in M9 DNG images to be the same as JPEG images.</p>
 
-<p>The Leica S2 maker note format is the MOST idiotic I have seen, and has the
+<p>2010-02-20: The Leica S2 maker note format is the MOST idiotic I have seen, and has the
 following peculiarities:</p>
 
 <ul>
@@ -111,7 +111,7 @@ directory is yet another level of idiocy).</li>
 different from the M8 and M9.  Consistency isn't Leica's strong suit.</li>
 </ul>
 
-<p>Strike that.  The most idiotic award now goes to the Leica M (Typ 240), which
+<p>2013-07-27: Strike that.  The most idiotic award now goes to the Leica M (Typ 240), which
 adds these quirks (firmware 1.1.0.2):</p>
 
 <ul>
@@ -120,6 +120,12 @@ although it looks like the data for this tag probably comes after the
 PreviewImage.</li>
 <li>Tag 0x0302 has an invalid offset (0xffffffff).</li>
 </ul>
+
+<p>2015-09-03: OK, I give up on Leica.  The new Leica S (Typ 007) attains a new level of
+stupidity by storing the preview image in the JPG file using a completely
+nonsensical technique (in IFD2 of the EXIF segment, with the data being stored
+outside the EXIF segment after the JPEG EOI), as well as various other brainless
+blunders.  [@Leica: Try reading the MPF specification.]</p>
 
 <p><a name="Minolta"><b>Minolta:</b></a> An obvious bug in the firmware of the Z2 writes an incorrect
 offset for the 'MinoltaCameraSettings2' information -- it writes the offset of
@@ -258,9 +264,15 @@ that the NX100 uses the same base for both, so this is certainly a firmware bug
 for the NX200. <i>[2012-06-21: This problem now also affects the EX1, NX20 and
 WB2000] [2013-07-25: Add the NX2000 to this list]</i>)</p>
 
+<p><a name="GN120">2018-04-30: The Samsung EK-GN120</a> has many
+problems in the makernote offsets. Most of the offsets are based on the start of
+the maker notes, but the PreviewIFD is offset is wrong by 36 bytes, and some
+offsets in the PreviewIFD are based on the start of the maker notes while others
+are absolute.  What a mess!</p>
+
 <hr>
 <i>Created Mar. 25, 2005</i>
-<br><i>Last revised Jul. 21, 2014</i>
+<br><i>Last revised Apr. 30, 2018</i>
 <p class='lf'><a href="index.html">&lt;-- Back to ExifTool home page</a></p>
 </body>
 </html>

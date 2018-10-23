@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.3.0" timestamp="7/26/18 10:55 AM">
+  <identification>
+    <identity format="MPEG 1/2 Audio Layer 3" mimetype="audio/mpeg" toolname="FITS" toolversion="1.3.0">
+      <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
+      <tool toolname="ffident" toolversion="0.2" />
+      <tool toolname="Tika" toolversion="1.10" />
+      <version toolname="NLNZ Metadata Extractor" toolversion="3.6GA">1</version>
+      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">fmt/134</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/Documents/FITS-WP-test/input/Jess26676_Pugua.mp3</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Jess26676_Pugua.mp3</filename>
+    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1720048</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">50ed497b874395b36be63cbe1f82bcc2</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1242226524000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <audio>
+      <duration toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">0:2:23:321</duration>
+      <bitRate toolname="Exiftool" toolversion="10.00" status="CONFLICT">96 kbps</bitRate>
+      <bitRate toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">96000</bitRate>
+      <sampleRate toolname="Exiftool" toolversion="10.00">44100</sampleRate>
+      <channels toolname="Exiftool" toolversion="10.00">2</channels>
+      <milliseconds toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">143321</milliseconds>
+      <sampleRate toolname="Tika" toolversion="1.10" status="SINGLE_RESULT">44100</sampleRate>
+      <standard>
+        <aes:audioObject xmlns:aes="http://www.aes.org/audioObject" xsi:schemaLocation="http://www.aes.org/audioObject http://www.aes.org/standards/schemas/aes57-2011-08-27.xsd" ID="AUDIO_OBJECT_08d9de0f-f7d7-469e-abfc-82b91e7809b3" analogDigitalFlag="FILE_DIGITAL" schemaVersion="1.0.0" disposition="">
+          <aes:format specificationVersion="1">MPEG 1/2 Audio Layer 3</aes:format>
+          <aes:use useType="OTHER" otherType="unknown" />
+          <aes:primaryIdentifier identifierType="FILE_NAME">Jess26676_Pugua.mp3</aes:primaryIdentifier>
+          <aes:face audioObjectRef="AUDIO_OBJECT_c8a1acf9-d308-444b-8f51-d748eb7bcd55" label="face 1" ID="FACE_7c47762a-a854-4855-91df-a8cb681300f0" direction="NONE">
+            <aes:timeline>
+              <aes:startTime editRate="1">0</aes:startTime>
+              <aes:duration editRate="1000">143321</aes:duration>
+            </aes:timeline>
+            <aes:region faceRef="FACE_7c47762a-a854-4855-91df-a8cb681300f0" formatRef="FORMAT_REGION_580f7a46-c1f0-4207-a36c-4b2ba69c6ef2" ID="REGION_b6452f41-23e7-4db2-b09d-6f94c6225141" label="region 1">
+              <aes:timeRange>
+                <aes:startTime editRate="1">0</aes:startTime>
+                <aes:duration editRate="1000">143321</aes:duration>
+              </aes:timeRange>
+              <aes:numChannels>2</aes:numChannels>
+              <aes:stream ID="STREAM_848890c6-2824-4a9f-a543-9f43751b6c84" label="stream 0" faceRegionRef="REGION_13c2d25b-d1cc-42b9-9fbd-f7e297d5b97b">
+                <aes:channelAssignment frontRearPosition="0.0" channelNum="0" leftRightPosition="0.0" />
+              </aes:stream>
+              <aes:stream ID="STREAM_b2acf795-df5a-4068-b923-c2795e4188b8" label="stream 1" faceRegionRef="REGION_13c2d25b-d1cc-42b9-9fbd-f7e297d5b97b">
+                <aes:channelAssignment frontRearPosition="0.0" channelNum="1" leftRightPosition="0.0" />
+              </aes:stream>
+            </aes:region>
+          </aes:face>
+          <aes:formatList>
+            <aes:formatRegion ID="FORMAT_REGION_f40fd99f-83cc-47d2-a078-5c7f9d298bd3" ownerRef="REGION_13c2d25b-d1cc-42b9-9fbd-f7e297d5b97b" label="format region 1" xsi:type="aes:formatRegionType">
+              <aes:sampleRate>44100.0</aes:sampleRate>
+              <aes:soundField>STEREO</aes:soundField>
+              <aes:bitrateReduction>
+                <aes:codecName />
+                <aes:codecNameVersion />
+                <aes:codecCreatorApplication />
+                <aes:codecCreatorApplicationVersion />
+                <aes:codecQuality>LOSSY</aes:codecQuality>
+                <aes:dataRate>96 kbps</aes:dataRate>
+                <aes:dataRateMode>FIXED</aes:dataRateMode>
+              </aes:bitrateReduction>
+            </aes:formatRegion>
+          </aes:formatList>
+        </aes:audioObject>
+      </standard>
+    </audio>
+  </metadata>
+  <statistics fitsExecutionTime="3144">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.3" executionTime="156" />
+    <tool toolname="Jhove" toolversion="1.20" status="did not run" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="187" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="379" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="61" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="13" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="24" />
+    <tool toolname="Tika" toolversion="1.10" executionTime="24" />
+  </statistics>
+</fits>
+

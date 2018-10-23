@@ -15,11 +15,11 @@ use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Exif;
 
-$VERSION = '1.11';
+$VERSION = '1.13';
 
 sub ProcessMPImageList($$$);
 
-# Tags found in MPF APP2 segment in JPEG images
+# Tags found in APP2 MPF segment in JPEG images
 %Image::ExifTool::MPF::Main = (
     GROUPS => { 0 => 'MPF', 1 => 'MPF0', 2 => 'Image'},
     NOTES => q{
@@ -72,7 +72,7 @@ sub ProcessMPImageList($$$);
                 0x40 => 'Zigzag (column start)',
             },
         ],
-    },          
+    },
     0xb202 => 'PanOverlapH',
     0xb203 => 'PanOverlapV',
     0xb204 => 'BaseViewpointNum',
@@ -169,6 +169,7 @@ sub ProcessMPImageList($$$);
         # extract all MPF images (not just one)
         RawConv => q{
             require Image::ExifTool::MPF;
+            @grps = $self->GetGroup($$val{0});  # set groups from input tag
             Image::ExifTool::MPF::ExtractMPImages($self);
         },
     },
@@ -191,8 +192,8 @@ sub ExtractMPImages($)
     for ($i=1; $xtra or not defined $xtra; ++$i) {
         # run through MP images in the same order they were extracted
         $xtra = defined $$et{VALUE}{"MPImageStart ($i)"} ? " ($i)" : '';
-        my $off = $et->GetValue("MPImageStart$xtra");
-        my $len = $et->GetValue("MPImageLength$xtra");
+        my $off = $et->GetValue("MPImageStart$xtra", 'ValueConv');
+        my $len = $et->GetValue("MPImageLength$xtra", 'ValueConv');
         if ($off and $len) {
             my $type = $et->GetValue("MPImageType$xtra", 'ValueConv');
             my $tag = "MPImage$i";
@@ -211,12 +212,7 @@ sub ExtractMPImages($)
                     Groups => { 0 => 'Composite', 1 => 'Composite', 2 => 'Preview'},
                 });
             }
-            my $key = $et->FoundTag($tag, $val);
-            # set groups for PreviewImage
-            if ($tag eq 'PreviewImage') {
-                $et->SetGroup($key, 'Composite', 0);
-                $et->SetGroup($key, 'Composite');
-            }
+            my $key = $et->FoundTag($tag, $val, $et->GetGroup("MPImageStart$xtra"));
             # extract information from MP images if ExtractEmbedded option used
             if ($ee) {
                 my $oldBase = $$et{BASE};
@@ -270,7 +266,7 @@ Format (MPF) information from JPEG images.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

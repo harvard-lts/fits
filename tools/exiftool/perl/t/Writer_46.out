@@ -1,10 +1,10 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 10.99
 [File, System, Image] FileName - File Name: Writer_46_failed.jpg
 [File, System, Image] Directory - Directory: t
-[File, System, Image] FileSize - File Size: 9.2 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:04:18 07:17:53-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:18 07:17:53-04:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:18 07:17:53-04:00
+[File, System, Image] FileSize - File Size: 10 kB
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2018:05:23 11:21:32-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2018:05:23 11:21:32-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2018:05:23 11:21:32-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: JPEG
 [File, File, Image] FileTypeExtension - File Type Extension: jpg
@@ -22,9 +22,11 @@
 [EXIF, IFD0, Image] 296 - Resolution Unit: inches
 [EXIF, IFD0, Author] 315 - Artist: 7
 [EXIF, IFD0, Image] 531 - Y Cb Cr Positioning: Centered
-[EXIF, ExifIFD, Image] 36864 - Exif Version: 0230
+[EXIF, ExifIFD, Image] 36864 - Exif Version: 0231
 [EXIF, ExifIFD, Image] 37121 - Components Configuration: Y, Cb, Cr, -
 [EXIF, ExifIFD, Image] 37378 - Aperture Value: 7.0
+[EXIF, ExifIFD, Image] 37888 - Ambient Temperature: 7 C
+[EXIF, ExifIFD, Image] 37892 - Acceleration: 7
 [EXIF, ExifIFD, Image] 40960 - Flashpix Version: 0100
 [EXIF, ExifIFD, Image] 40961 - Color Space: Uncalibrated
 [IPTC, IPTC, Other] 120 - ARM Identifier: 7
@@ -35,14 +37,16 @@
 [IPTC, IPTC, Other] 152 - Audio Sampling Resolution: 07
 [IPTC, IPTC, Other] 153 - Audio Duration: 000007
 [IPTC, IPTC, Other] 154 - Audio Outcue: 7
-[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 9.93
+[XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 10.99
+[XMP, XMP-GAudio, Audio] Data - Audio Data: (Binary data 1 bytes)
+[XMP, XMP-GAudio, Audio] Mime - Audio Mime Type: 7
+[XMP, XMP-getty, Image] AssetID - Asset ID: 7
 [XMP, XMP-iptcExt, Author] AboutCvTermCvId - About Cv Term Cv Id: 7
 [XMP, XMP-iptcExt, Author] AboutCvTermCvTermId - About Cv Term Id: 7
 [XMP, XMP-iptcExt, Author] AboutCvTermCvTermName - About Cv Term Name: 7
 [XMP, XMP-iptcExt, Author] AboutCvTermCvTermRefinedAbout - About Cv Term Refined About: 7
 [XMP, XMP-iptcExt, Author] AddlModelInfo - Additional Model Information: 7
-[XMP, XMP-iptcExt, Author] ArtworkOrObjectAOCircaDateCreated - Artwork Circa Date Created: 7
-[XMP, XMP-iptcExt, Author] ArtworkOrObjectAOContentDescription - Artwork S Content Description: 7
+[XMP, XMP-iptcExt, Author] ArtworkOrObjectAOContentDescription - Artwork Content Description: 7
 [XMP, XMP-iptcExt, Author] ArtworkOrObjectAOContributionDescription - Artwork Contribution Description: 7
 [XMP, XMP-iptcExt, Author] ArtworkOrObjectAOCopyrightNotice - Artwork Copyright Notice: 7
 [XMP, XMP-iptcExt, Author] ArtworkOrObjectAOCreator - Artwork Creator: 7
@@ -57,6 +61,9 @@
 [XMP, XMP-iptcExt, Author] ArtworkOrObjectAOSourceInvURL - Artwork Source Inv URL: 7
 [XMP, XMP-iptcExt, Author] ArtworkOrObjectAOStylePeriod - Artwork Style Period: 7
 [XMP, XMP-iptcExt, Author] ArtworkOrObjectAOTitle - Artwork Title: 7
+[XMP, XMP-iptcExt, Audio] audioBitRate - Audio Bitrate: 7
+[XMP, XMP-iptcExt, Author] audioBitsPerSample - Audio Bits Per Sample: 7
+[XMP, XMP-iptcExt, Audio] audioChannelCount - Audio Channel Count: 7
 [XMP, XMP-aas, Image] AffineA - Affine A: 7
 [XMP, XMP-aas, Image] AffineB - Affine B: 7
 [XMP, XMP-aas, Image] AffineC - Affine C: 7
@@ -73,11 +80,13 @@
 [XMP, XMP-creatorAtom, Image] aeProjectLinkRenderOutputModuleIndex - Ae Project Link Render Output Module Index: 7
 [XMP, XMP-creatorAtom, Image] aeProjectLinkRenderQueueItemID - Ae Project Link Render Queue Item ID: 7
 [XMP, XMP-creatorAtom, Image] aeProjectLinkRenderTimeStamp - Ae Project Link Render Time Stamp: 7
+[XMP, XMP-drone-dji, Image] AbsoluteAltitude - Absolute Altitude: 7
 [XMP, XMP-extensis, Image] Approved - Approved: True
 [XMP, XMP-extensis, Image] ApprovedBy - Approved By: 7
+[XMP, XMP-ics, Image] AppVersion - App Version: 7
 [XMP, XMP-pdf, Author] Author - Author: 7
 [XMP, XMP-photoshop, Author] AuthorsPosition - Authors Position: 7
-[XMP, XMP-prism, Document] acedemicField - Acedemic Field: 7
+[XMP, XMP-prism, Document] academicField - Academic Field: 7
 [XMP, XMP-prism, Document] aggregateIssueNumber - Aggregate Issue Number: 7
 [XMP, XMP-prism, Document] aggregationType - Aggregation Type: 7
 [XMP, XMP-prism, Document] alternateTitleA-lang - Alternate Title A-lang: 7

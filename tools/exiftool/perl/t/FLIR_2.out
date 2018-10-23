@@ -1,10 +1,10 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.94
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 10.64
 [File, System, Image] FileName - File Name: FLIR.jpg
 [File, System, Image] Directory - Directory: t/images
 [File, System, Image] FileSize - File Size: 7.2 kB
 [File, System, Time] FileModifyDate - File Modification Date/Time: 2013:04:02 10:46:04-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:29 20:10:38-04:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:25 10:57:00-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2017:10:11 12:59:50-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2017:10:04 12:12:33-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: JPEG
 [File, File, Image] FileTypeExtension - File Type Extension: jpg
@@ -49,6 +49,7 @@
 [EXIF, IFD1, Image] 296 - Resolution Unit: inches
 [EXIF, IFD1, Image] 513 - Thumbnail Offset: 872
 [EXIF, IFD1, Image] 514 - Thumbnail Length: 2314
+[EXIF, IFD1, Preview] ThumbnailImage - Thumbnail Image: (Binary data 2314 bytes)
 [MakerNotes, FLIR, Camera] 1 - Image Temperature Max: 308
 [MakerNotes, FLIR, Camera] 2 - Image Temperature Min: 281
 [MakerNotes, FLIR, Camera] 3 - Emissivity: 0.80
@@ -82,6 +83,12 @@
 [APP1, FLIR, Camera] 128 - Atmospheric Trans X: 1.900000
 [APP1, FLIR, Camera] 144 - Camera Temperature Range Max: 250.0 C
 [APP1, FLIR, Camera] 148 - Camera Temperature Range Min: -0.0 C
+[APP1, FLIR, Camera] 152 - Camera Temperature Max Clip: 270.0 C
+[APP1, FLIR, Camera] 156 - Camera Temperature Min Clip: -40.0 C
+[APP1, FLIR, Camera] 160 - Camera Temperature Max Warn: 250.0 C
+[APP1, FLIR, Camera] 164 - Camera Temperature Min Warn: -0.0 C
+[APP1, FLIR, Camera] 168 - Camera Temperature Max Saturated: 270.0 C
+[APP1, FLIR, Camera] 172 - Camera Temperature Min Saturated: -60.0 C
 [APP1, FLIR, Camera] 212 - Camera Model: FLIR_i7
 [APP1, FLIR, Camera] 244 - Camera Part Number: T197600
 [APP1, FLIR, Camera] 260 - Camera Serial Number: 470023842
@@ -100,6 +107,7 @@
 [APP1, FLIR, Time] 900 - Date/Time Original: 2012:02:11 14:17:08.253+01:00
 [APP1, FLIR, Camera] 912 - Focus Step Count: 0
 [APP1, FLIR, Camera] 1116 - Focus Distance: 2.0 m
+[APP1, FLIR, Camera] 1124 - Frame Rate: 9
 [APP1, FLIR, Image] 1 - Raw Thermal Image Width: 120
 [APP1, FLIR, Image] 2 - Raw Thermal Image Height: 120
 [APP1, FLIR, Image] 16 - Raw Thermal Image Type: PNG
@@ -108,5 +116,4 @@
 [Composite, Composite, Image] Megapixels - Megapixels: 0.000064
 [Composite, FLIR, Camera] PeakSpectralSensitivity - Peak Spectral Sensitivity: 10.5 um
 [Composite, Composite, Image] ShutterSpeed - Shutter Speed: 1/32
-[Composite, Composite, Preview] ThumbnailImage - Thumbnail Image: (Binary data 2314 bytes)
 [Composite, Composite, Camera] FocalLength35efl - Focal Length: 6.7 mm

@@ -215,7 +215,7 @@ sub ProcessVCard($$)
     my ($et, $dirInfo) = @_;
     my $raf = $$dirInfo{RAF};
     my ($buff, $val, $ok, $component, %compNum, @count);
-    
+
     return 0 unless $raf->Read($buff, 24) and $raf->Seek(0,0) and $buff=~/^BEGIN:(VCARD|VCALENDAR)\r\n/i;
     my ($type, $lbl, $tbl, $ext) = uc($1) eq 'VCARD' ? qw(VCard vCard Main VCF) : qw(ICS iCalendar VCalendar ICS);
     $et->SetFileType($type, undef, $ext);
@@ -378,7 +378,7 @@ information from vCard VCF and iCalendar ICS files.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

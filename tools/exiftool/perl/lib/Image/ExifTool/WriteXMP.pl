@@ -45,6 +45,7 @@ my $rdfClose = "</rdf:RDF>\n";
 my $xmpClose = "</x:xmpmeta>\n";
 my $pktCloseW =  "<?xpacket end='w'?>"; # writable by default
 my $pktCloseR =  "<?xpacket end='r'?>";
+my $noPad;
 
 #------------------------------------------------------------------------------
 # Get XMP opening tag (and set x:xmptk appropriately)
@@ -56,7 +57,7 @@ sub XMPOpen($)
     my $nv = $$et{NEW_VALUE}{$Image::ExifTool::XMP::x{xmptk}};
     my $tk;
     if (defined $nv) {
-        $tk = $et->GetNewValues($nv);
+        $tk = $et->GetNewValue($nv);
         $et->VerboseValue(($tk ? '+' : '-') . ' XMP-x:XMPToolkit', $tk);
         ++$$et{CHANGED};
     } else {
@@ -130,7 +131,10 @@ sub CheckXMP($$$)
         unless (ref $$valPtr) {
             ($$valPtr, $warn) = InflateStruct($valPtr);
             # expect a structure HASH ref or ARRAY of structures
-            ref $$valPtr or return 'Improperly formed structure';
+            unless (ref $$valPtr) {
+                $$valPtr eq '' and $$valPtr = { }, return undef; # allow empty structures
+                return 'Improperly formed structure';
+            }
         }
         if (ref $$valPtr eq 'ARRAY') {
             return 'Not a list tag' unless $$tagInfo{List};
@@ -180,7 +184,7 @@ sub CheckXMP($$$)
             ($format eq 'rational' and ($$valPtr eq 'inf' or
              $$valPtr eq 'undef' or Image::ExifTool::IsRational($$valPtr))))
         {
-            return 'Not a floating point number' 
+            return 'Not a floating point number';
         }
         if ($format eq 'rational') {
             $$valPtr = join('/', Image::ExifTool::Rationalize($$valPtr));
@@ -263,6 +267,7 @@ sub SetPropertyPath($$;$$$$)
             SetPropertyPath($tagTablePtr, $$tagInfo{RootTagInfo}{TagID});
             return if $$tagInfo{PropertyPath};
             warn "Internal Error: Didn't set path from root for $tagID\n";
+            warn "(Is the Struct NAMESPACE defined?)\n";
         }
     }
     my $ns = $$tagInfo{Namespace} || $$table{NAMESPACE};
@@ -565,10 +570,14 @@ sub LimitXMPSize($$$$$$)
     push @$startPt, length($$dataPt);  # add end offset to list
     my $newData = substr($$dataPt, 0, $$startPt[0]);
     my $guid = '0' x 32;
+    my $sp = $noPad ? '' : ' ';
     # write the required xmpNote:HasExtendedXMP property
-    $newData .= "\n <$rdfDesc rdf:about='$about'\n  xmlns:xmpNote='$nsURI{xmpNote}'>\n" .
-                  "  <xmpNote:HasExtendedXMP>$guid</xmpNote:HasExtendedXMP>\n" .
-                  " </$rdfDesc>\n";
+    $newData .= "\n$sp<$rdfDesc rdf:about='${about}'\n$sp${sp}xmlns:xmpNote='$nsURI{xmpNote}'";
+    if ($et->Options('XMPShorthand')) {
+        $newData .= "\n$sp${sp}xmpNote:HasExtendedXMP='${guid}'/>\n";
+    } else {
+        $newData .= ">\n$sp$sp<xmpNote:HasExtendedXMP>$guid</xmpNote:HasExtendedXMP>\n$sp</$rdfDesc>\n";
+    }
 
     my ($i, %descSize, $start);
     # calculate all description block sizes
@@ -599,12 +608,65 @@ sub LimitXMPSize($$$$$$)
 }
 
 #------------------------------------------------------------------------------
+# Close out bottom-level property
+# Inputs: 0) current property path list ref, 1) longhand properties at each resource
+#         level, 2) shorthand properties at each resource level, 3) resource flag for
+#         each property path level (set only if XMPShorthand is enabled)
+sub CloseProperty($$$$)
+{
+    my ($curPropList, $long, $short, $resFlag) = @_;
+
+    my $prop = pop @$curPropList;
+    $prop =~ s/ .*//;       # remove list index if it exists
+    my $pad = $noPad ? '' : ' ' x (scalar(@$curPropList) + 1);
+    if ($$resFlag[@$curPropList]) {
+        # close this XMP structure with possible shorthand properties
+        if (length $$short[-1]) {
+            if (length $$long[-1]) {
+                # require a new Description if both longhand and shorthand properties
+                $$long[-2] .= ">\n$pad<$rdfDesc";
+                $$short[-1] .= ">\n";
+                $$long[-1] .= "$pad</$rdfDesc>\n";
+            } else {
+                # simply close empty property if all shorthand
+                $$short[-1] .= "/>\n";
+            }
+        } else {
+            # use "parseType" instead of opening a new Description
+            $$long[-2] .= ' rdf:parseType="Resource"';
+            $$short[-1] = length $$long[-1] ? ">\n" : "/>\n";
+        }
+        $$long[-1] .= "$pad</$prop>\n" if length $$long[-1];
+        $$long[-2] .= $$short[-1] . $$long[-1];
+        pop @$short;
+        pop @$long;
+    } elsif (defined $$resFlag[@$curPropList]) {
+        # close this top level Description with possible shorthand values
+        if (length $$long[-1]) {
+            $$long[-2] .= $$short[-1] . ">\n" . $$long[-1] . "$pad</$prop>\n";
+        } else {
+            $$long[-2] .= $$short[-1] . "/>\n"; # empty element (ie. all shorthand)
+        }
+        $$short[-1] = $$long[-1] = '';
+    } else {
+        # close this property (no chance of shorthand)
+        $$long[-1] .= "$pad</$prop>\n";
+        unless (@$curPropList) {
+            # add properties now that this top-level Description is complete
+            $$long[-2] .= ">\n" . $$long[-1];
+            $$long[-1] = '';
+        }
+    }
+    $#$resFlag = $#$curPropList;    # remove expired resource flags
+}
+
+#------------------------------------------------------------------------------
 # Write XMP information
 # Inputs: 0) ExifTool object reference, 1) source dirInfo reference,
 #         2) [optional] tag table reference
 # Returns: with tag table: new XMP data (may be empty if no XMP data) or undef on error
 #          without tag table: 1 on success, 0 if not valid XMP file, -1 on write error
-# Notes: May set dirInfo InPlace flag to rewrite with specified DirLen
+# Notes: May set dirInfo InPlace flag to rewrite with specified DirLen (=2 to allow larger)
 #        May set dirInfo ReadOnly flag to write as read-only XMP ('r' mode and no padding)
 #        May set dirInfo Compact flag to force compact (drops 2kB of padding)
 #        May set dirInfo MaxDataLen to limit output data length -- this causes ExtendedXMP
@@ -614,14 +676,16 @@ sub WriteXMP($$;$)
     my ($et, $dirInfo, $tagTablePtr) = @_;
     $et or return 1;    # allow dummy access to autoload this package
     my $dataPt = $$dirInfo{DataPt};
-    my (%capture, %nsUsed, $xmpErr, $tagInfo, $about);
+    my (%capture, %nsUsed, $xmpErr, $about);
     my $changed = 0;
     my $xmpFile = (not $tagTablePtr);   # this is an XMP data file if no $tagTablePtr
     # prefer XMP over other metadata formats in some types of files
     my $preferred = $xmpFile || ($$et{PreferredGroup} and $$et{PreferredGroup} eq 'XMP');
     my $verbose = $et->Options('Verbose');
+    my $compact = $et->Options('Compact') || 0;
     my $dirLen = $$dirInfo{DirLen};
     $dirLen = length($$dataPt) if not defined $dirLen and $dataPt;
+    $noPad = ($compact > 1);
 #
 # extract existing XMP information into %capture hash
 #
@@ -637,6 +701,12 @@ sub WriteXMP($$;$)
     delete $$et{XMP_NO_XPACKET};
     delete $$et{XMP_IS_XML};
     delete $$et{XMP_IS_SVG};
+
+    # get value for new rdf:about
+    my $tagInfo = $Image::ExifTool::XMP::rdf{about};
+    if (defined $$et{NEW_VALUE}{$tagInfo}) {
+        $about = $et->GetNewValue($$et{NEW_VALUE}{$tagInfo}) || '';
+    }
 
     if ($xmpFile or $dirLen) {
         delete $$et{XMP_ERROR};
@@ -659,15 +729,14 @@ sub WriteXMP($$;$)
                     }
                 }
             } else {
+                $success = 2 if $success and $success eq '1';
                 if ($et->Warn($err, $success)) {
                     delete $$et{XMP_CAPTURE};
                     return undef;
                 }
             }
         }
-        $tagInfo = $Image::ExifTool::XMP::rdf{about};
-        if (defined $$et{NEW_VALUE}{$tagInfo}) {
-            $about = $et->GetNewValues($$et{NEW_VALUE}{$tagInfo}) || '';
+        if (defined $about) {
             if ($verbose > 1) {
                 my $wasAbout = $$et{XMP_ABOUT};
                 $et->VerboseValue('- XMP-rdf:About', UnescapeXML($wasAbout)) if defined $wasAbout;
@@ -680,6 +749,16 @@ sub WriteXMP($$;$)
         }
         delete $$et{XMP_ERROR};
         delete $$et{XMP_ABOUT};
+
+        # call InitWriteDirs to initialize FORCE_WRITE flags if necessary
+        $et->InitWriteDirs({}, 'XMP') if $xmpFile and $et->GetNewValue('ForceWrite');
+        # set changed if we are ForceWrite tag was set to "XMP"
+        ++$changed if $$et{FORCE_WRITE}{XMP};
+
+    } elsif (defined $about) {
+        $et->VerboseValue('+ XMP-rdf:About', $about);
+        $about = EscapeXML($about); # must escape for XML
+        # (don't increment $changed here because we need another tag to be written)
     } else {
         $about = '';
     }
@@ -690,7 +769,7 @@ sub WriteXMP($$;$)
         $tagInfo = $Image::ExifTool::Extra{XMP};
         if ($tagInfo and $$et{NEW_VALUE}{$tagInfo}) {
             my $rtnVal = 1;
-            my $newVal = $et->GetNewValues($$et{NEW_VALUE}{$tagInfo});
+            my $newVal = $et->GetNewValue($$et{NEW_VALUE}{$tagInfo});
             if (defined $newVal and length $newVal) {
                 $et->VPrint(0, "  Writing XMP as a block\n");
                 ++$$et{CHANGED};
@@ -777,7 +856,7 @@ sub WriteXMP($$;$)
         # to the ones used in this file
         $path = ConformPathToNamespace($et, $path);
         # find existing property
-        my $cap = $capture{$path}; 
+        my $cap = $capture{$path};
         # MicrosoftPhoto screws up the case of some tags, and some other software,
         # including Adobe software, has been known to write the wrong list type or
         # not properly enclose properties in a list, so we check for this
@@ -1028,7 +1107,7 @@ sub WriteXMP($$;$)
             (not $cap and $isCreating);
 
         # get list of new values (all done if no new values specified)
-        my @newValues = $et->GetNewValues($nvHash) or next;
+        my @newValues = $et->GetNewValue($nvHash) or next;
 
         # set language attribute for lang-alt lists
         $attrs{'xml:lang'} = $$tagInfo{LangCode} || 'x-default' if $writable eq 'lang-alt';
@@ -1104,6 +1183,7 @@ sub WriteXMP($$;$)
     my $maxDataLen = $$dirInfo{MaxDataLen};
     # get DataPt again because it may have been set by ProcessXMP
     $dataPt = $$dirInfo{DataPt};
+
     # return now if we didn't change anything
     unless ($changed or ($maxDataLen and $dataPt and defined $$dataPt and
         length($$dataPt) > $maxDataLen))
@@ -1116,15 +1196,17 @@ sub WriteXMP($$;$)
 # write out the new XMP information (serialize it)
 #
     # start writing the XMP data
-    my $newData = '';
+    my $useShorthand = $et->Options('XMPShorthand');
+    my (@long, @short, @resFlag);
+    $long[0] = $long[1] = $short[0] = '';
     if ($$et{XMP_NO_XPACKET}) {
         # write BOM if flag is set
-        $newData .= "\xef\xbb\xbf" if $$et{XMP_NO_XPACKET} == 2;
+        $long[-2] .= "\xef\xbb\xbf" if $$et{XMP_NO_XPACKET} == 2;
     } else {
-        $newData .= $pktOpen;
+        $long[-2] .= $pktOpen;
     }
-    $newData .= $xmlOpen if $$et{XMP_IS_XML};
-    $newData .= $xmpOpen . $rdfOpen;
+    $long[-2] .= $xmlOpen if $$et{XMP_IS_XML};
+    $long[-2] .= $xmpOpen . $rdfOpen;
 
     # initialize current property path list
     my (@curPropList, @writeLast, @descStart, $extStart);
@@ -1164,8 +1246,7 @@ sub WriteXMP($$;$)
             last unless @writeLast;
             @pathList = @writeLast;
             undef @writeLast;
-            $extStart = length $newData;
-            $newDesc = 1;   # start with a new description
+            $newDesc = 2;   # start with a new description for the extended data
         }
         $path = shift @pathList;
         my @propList = split('/',$path); # get property list
@@ -1212,82 +1293,103 @@ sub WriteXMP($$;$)
             }
         }
         # close out properties down to the common base path
-        while (@curPropList > $closeTo) {
-            ($prop = pop @curPropList) =~ s/ .*//;
-            $newData .= (' ' x scalar(@curPropList)) . " </$prop>\n";
-        }
+        CloseProperty(\@curPropList, \@long, \@short, \@resFlag) while @curPropList > $closeTo;
+
+        # open new description if necessary
         if ($newDesc) {
+            $extStart = length($long[-2]) if $newDesc == 2; # extended data starts after this
             # save rdf:Description start positions so we can reorder them if necessary
-            push @descStart, length($newData) if $maxDataLen;
+            push @descStart, length($long[-2]) if $maxDataLen;
             # open the new description
             $prop = $rdfDesc;
             %nsCur = %nsNew;            # save current namespaces
-            $newData .= "\n <$prop rdf:about='$about'";
+            my $sp = $noPad ? '' : ' ';
             my @ns = sort keys %nsCur;
+            $long[-2] .= "\n$sp<$prop rdf:about='${about}'";
             # generate et:toolkit attribute if this is an exiftool RDF/XML output file
             if (@ns and $nsCur{$ns[0]} =~ m{^http://ns.exiftool.ca/}) {
-                $newData .= "\n  xmlns:et='http://ns.exiftool.ca/1.0/'" .
+                $long[-2] .= "\n$sp${sp}xmlns:et='http://ns.exiftool.ca/1.0/'" .
                             " et:toolkit='Image::ExifTool $Image::ExifTool::VERSION'";
             }
-            foreach (@ns) {
-                $newData .= "\n  xmlns:$_='$nsCur{$_}'";
-            }
-            $newData .= ">\n";
+            $long[-2] .= "\n$sp${sp}xmlns:$_='$nsCur{$_}'" foreach @ns;
             push @curPropList, $prop;
+            # set resFlag to 0 to indicate base description when XMPShorthand enabled
+            $resFlag[0] = 0 if $useShorthand;
         }
-        # loop over all values for this new property
         my ($val, $attrs) = @{$capture{$path}};
         $debug and print "$path = $val\n";
-        # open new properties
-        my $attr;
+        # open new properties if necessary
+        my ($attr, $dummy);
         for ($n=@curPropList; $n<$#propList; ++$n) {
             $prop = $propList[$n];
             push @curPropList, $prop;
-            # remove list index if it exists
-            $prop =~ s/ .*//;
-            $attr = '';
+            $prop =~ s/ .*//;       # remove list index if it exists
+            # (we may add parseType and shorthand properties later,
+            #  so leave off the trailing ">" for now)
+            $long[-1] .= ($noPad ? '' : ' ' x scalar(@curPropList)) . "<$prop";
             if ($prop ne $rdfDesc and ($propList[$n+1] !~ /^rdf:/ or
                 ($propList[$n+1] eq 'rdf:type' and $n+1 == $#propList)))
             {
-                # need parseType='Resource' to avoid new 'rdf:Description'
-                $attr = " rdf:parseType='Resource'";
+                # check for empty structure
+                if ($propList[$n+1] =~ /:~dummy~$/) {
+                    $long[-1] .= " rdf:parseType='Resource'/>\n";
+                    pop @curPropList;
+                    $dummy = 1;
+                    last;
+                }
+                if ($useShorthand) {
+                    $resFlag[$#curPropList] = 1;
+                    push @long, '';
+                    push @short, '';
+                } else {
+                    # use rdf:parseType='Resource' to avoid new 'rdf:Description'
+                    $long[-1] .= " rdf:parseType='Resource'>\n";
+                }
+            } else {
+                $long[-1] .= ">\n"; # (will be no shorthand properties)
             }
-            $newData .= (' ' x scalar(@curPropList)) . "<$prop$attr>\n";
         }
         my $prop2 = pop @propList;  # get new property name
-        $prop2 =~ s/ .*//;          # remove list index if it exists
-        $newData .= (' ' x scalar(@curPropList)) . " <$prop2";
-        # write out attributes
-        foreach $attr (sort keys %$attrs) {
-            my $attrVal = $$attrs{$attr};
-            my $quot = ($attrVal =~ /'/) ? '"' : "'";
-            $newData .= " $attr=$quot$attrVal$quot";
+        # add element unless it was a dummy structure field
+        unless ($dummy or ($val eq '' and $prop2 =~ /:~dummy~$/)) {
+            $prop2 =~ s/ .*//;      # remove list index if it exists
+            my $pad = $noPad ? '' : ' ' x (scalar(@curPropList) + 1);
+            # (can't write as shortcut if it has attributes or CDATA)
+            if (defined $resFlag[$#curPropList] and not %$attrs and $val !~ /<!\[CDATA\[/) {
+                $short[-1] .= "\n$pad$prop2='${val}'";
+            } else {
+                $long[-1] .= "$pad<$prop2";
+                # write out attributes
+                foreach $attr (sort keys %$attrs) {
+                    my $attrVal = $$attrs{$attr};
+                    my $quot = ($attrVal =~ /'/) ? '"' : "'";
+                    $long[-1] .= " $attr=$quot$attrVal$quot";
+                }
+                $long[-1] .= length $val ? ">$val</$prop2>\n" : "/>\n";
+            }
         }
-        $newData .= length $val ? ">$val</$prop2>\n" : "/>\n";
     }
-    # close off any open elements
-    while ($prop = pop @curPropList) {
-        $prop =~ s/ .*//;   # remove list index if it exists
-        $newData .= (' ' x scalar(@curPropList)) . " </$prop>\n";
-    }
+    # close out all open properties
+    CloseProperty(\@curPropList, \@long, \@short, \@resFlag) while @curPropList;
+
     # limit XMP length and re-arrange if necessary to fit inside specified size
-    my $compact = $$dirInfo{Compact} || $et->Options('Compact');
     if ($maxDataLen) {
         # adjust maxDataLen to allow room for closing elements
         $maxDataLen -= length($rdfClose) + length($xmpClose) + length($pktCloseW);
-        $extStart or $extStart = length $newData;
-        my @rtn = LimitXMPSize($et, \$newData, $maxDataLen, $about, \@descStart, $extStart);
+        $extStart or $extStart = length $long[-2];
+        my @rtn = LimitXMPSize($et, \$long[-2], $maxDataLen, $about, \@descStart, $extStart);
         # return extended XMP information in $dirInfo
         $$dirInfo{ExtendedXMP} = $rtn[0];
         $$dirInfo{ExtendedGUID} = $rtn[1];
         # compact if necessary to fit
-        $compact = 1 if length($newData) + 101 * $numPadLines > $maxDataLen;
+        $compact = 1 if length($long[-2]) + 101 * $numPadLines > $maxDataLen;
     }
+    $compact = 1 if $$dirInfo{Compact};
 #
 # close out the XMP, clean up, and return our data
 #
-    $newData .= $rdfClose;
-    $newData .= $xmpClose unless $$et{XMP_NO_XMPMETA};
+    $long[-2] .= $rdfClose;
+    $long[-2] .= $xmpClose unless $$et{XMP_NO_XMPMETA};
 
     # remove the ExifTool members we created
     delete $$et{XMP_CAPTURE};
@@ -1298,27 +1400,30 @@ sub WriteXMP($$;$)
     # packet trailer, with a newline every 100 characters)
     unless ($$et{XMP_NO_XPACKET}) {
         my $pad = (' ' x 100) . "\n";
-        if ($$dirInfo{InPlace}) {
+        # get current XMP length without padding
+        my $len = length($long[-2]) + length($pktCloseW);
+        if ($$dirInfo{InPlace} and not ($$dirInfo{InPlace} == 2 and $len > $dirLen)) {
             # pad to specified DirLen
-            my $len = length($newData) + length($pktCloseW);
             if ($len > $dirLen) {
-                $et->Warn('Not enough room to edit XMP in place');
+                my $str = 'Not enough room to edit XMP in place';
+                $str .= '. Try XMPShorthand option' unless $$et{OPTIONS}{XMPShorthand};
+                $et->Warn($str);
                 return undef;
             }
             my $num = int(($dirLen - $len) / length($pad));
             if ($num) {
-                $newData .= $pad x $num;
+                $long[-2] .= $pad x $num;
                 $len += length($pad) * $num;
             }
-            $len < $dirLen and $newData .= (' ' x ($dirLen - $len - 1)) . "\n";
+            $len < $dirLen and $long[-2] .= (' ' x ($dirLen - $len - 1)) . "\n";
         } elsif (not $compact and not $xmpFile and not $$dirInfo{ReadOnly}) {
-            $newData .= $pad x $numPadLines;
+            $long[-2] .= $pad x $numPadLines;
         }
-        $newData .= ($$dirInfo{ReadOnly} ? $pktCloseR : $pktCloseW);
+        $long[-2] .= ($$dirInfo{ReadOnly} ? $pktCloseR : $pktCloseW);
     }
     # return empty data if no properties exist and this is allowed
     unless (%capture or $xmpFile or $$dirInfo{InPlace} or $$dirInfo{NoDelete}) {
-        $newData = '';
+        $long[-2] = '';
     }
     if ($xmpErr) {
         if ($xmpFile) {
@@ -1329,9 +1434,9 @@ sub WriteXMP($$;$)
         return undef;
     }
     $$et{CHANGED} += $changed;
-    $debug > 1 and $newData and print $newData,"\n";
-    return $newData unless $xmpFile;
-    Write($$dirInfo{OutFile}, $newData) or return -1;
+    $debug > 1 and $long[-2] and print $long[-2],"\n";
+    return $long[-2] unless $xmpFile;
+    Write($$dirInfo{OutFile}, $long[-2]) or return -1;
     return 1;
 }
 
@@ -1354,7 +1459,7 @@ This file contains routines to write XMP metadata.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

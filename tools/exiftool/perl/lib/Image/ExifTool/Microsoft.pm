@@ -16,7 +16,7 @@ use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::XMP;
 
-$VERSION = '1.16';
+$VERSION = '1.20';
 
 sub ProcessXtra($$$);
 
@@ -74,8 +74,8 @@ sub ProcessXtra($$$);
     NOTES => q{
         Microsoft Photo 1.0 schema XMP tags.  This is likely not a complete list,
         but represents tags which have been observed in sample images.  The actual
-        namespace prefix is "MicrosoftPhoto", but ExifTool shortens this to
-        "XMP-microsoft" in the family 1 group name.
+        namespace prefix is "MicrosoftPhoto", but ExifTool shortens this in the
+        family 1 group name.
     },
     CameraSerialNumber => { },
     DateAcquired       => { Groups => { 2 => 'Time' }, %Image::ExifTool::XMP::dateTimeInfo },
@@ -84,14 +84,17 @@ sub ProcessXtra($$$);
     LastKeywordIPTC    => { List => 'Bag' },
     LastKeywordXMP     => { List => 'Bag' },
     LensManufacturer   => { },
-    LensModel          => { },
+    LensModel          => { Avoid => 1 },
     Rating => {
         Name => 'RatingPercent',
         Notes => q{
-            called Rating by the spec.  XMP-xmp:Rating values of 1,2,3,4 and 5 stars
-            correspond to RatingPercent values of 1,25,50,75 and 99 respectively
+            XMP-xmp:Rating values of 1,2,3,4 and 5 stars correspond to RatingPercent
+            values of 1,25,50,75 and 99 respectively
         },
     },
+    CreatorAppId             => { Name => 'CreatorAppID' },
+    CreatorOpenWithUIOptions => { },
+    ItemSubType              => { },
 );
 
 # Microsoft Photo 1.1 schema properties (MP1 - written as 'prefix0' by MSPhoto) (ref PH)
@@ -125,6 +128,15 @@ sub ProcessXtra($$$);
     PanoramicStitchPhi1   => { Writable => 'real' },
     PanoramicStitchTheta0 => { Writable => 'real' },
     PanoramicStitchTheta1 => { Writable => 'real' },
+    WhiteBalance0         => { Writable => 'real' },
+    WhiteBalance1         => { Writable => 'real' },
+    WhiteBalance2         => { Writable => 'real' },
+    Brightness            => { Avoid => 1 },
+    Contrast              => { Avoid => 1 },
+    CameraModelID         => { Avoid => 1 },
+    ExposureCompensation  => { Avoid => 1 },
+    PipelineVersion       => { },
+    StreamType            => { },
 );
 
 # Microsoft Photo 1.2 schema properties (MP) (ref PH)
@@ -180,7 +192,8 @@ my %sRegions = (
 
 # Xtra tags written in MP4 files written by Microsoft Windows Media Player
 # (ref http://msdn.microsoft.com/en-us/library/windows/desktop/dd562330(v=VS.85).aspx)
-# Note: These tags are closely related to Image::ExifTool::ASF::ExtendedDescr
+# Note: These tags are closely related to tags in Image::ExifTool::ASF::ExtendedDescr
+#       and Image::ExifTool::WTV::Metadata
 %Image::ExifTool::Microsoft::Xtra = (
     PROCESS_PROC => \&ProcessXtra,
     GROUPS => { 0 => 'QuickTime', 2 => 'Video' },
@@ -871,7 +884,7 @@ Microsoft-specific EXIF and XMP tags.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

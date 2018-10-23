@@ -1,8 +1,12 @@
 # Before "make install", this script should be runnable with "make test".
 # After "make install" it should work as "perl t/Geotag.t".
 
+my $numTests;
+
 BEGIN {
-    $| = 1; print "1..10\n"; $Image::ExifTool::noConfig = 1;
+    $numTests = 11;
+    $| = 1; print "1..$numTests\n"; $Image::ExifTool::configFile = '';
+    require './t/TestLib.pm'; t::TestLib->import();
     # must create user-defined tags before loading ExifTool (used in test 8)
     %Image::ExifTool::UserDefined = (
         'Image::ExifTool::GPS::Main' => {
@@ -24,12 +28,18 @@ use Image::ExifTool::Geotag;
 $loaded = 1;
 print "ok 1\n";
 
-use t::TestLib;
-
 my $testname = 'Geotag';
 my $testnum = 1;
 my @testTags = ('Error', 'Warning', 'GPS:*', 'XMP:*');
 my $testfile2;
+
+unless (eval { require Time::Local }) {
+    warn "Install Time::Local to use the Geotag feature\n";
+    while (++$testnum <= $numTests) {
+        print "ok $testnum # skip Requires Time::Local\n";
+    }
+    goto IgnoreAll;
+}
 
 # test 2: Geotag from GPX track log
 {
@@ -168,5 +178,27 @@ my $testfile2;
         print "ok $testnum\n";
     }
 }
+
+# test 11: Geotag date/time only with drift correction
+{
+    ++$testnum;
+    my $exifTool = new Image::ExifTool;
+    my $testfile = "t/${testname}_${testnum}_failed.jpg";
+    unlink $testfile;
+    $exifTool->SetNewValue(Geotag => 'DATETIMEONLY');
+    $exifTool->SetNewValue(Geosync => '2009:01:01 01:00:00Z@2009:01:01 01:00:00Z');
+    $exifTool->SetNewValue(Geosync => '2011:01:01 02:00:00Z@2011:01:01 01:00:00Z');
+    $exifTool->SetNewValue(Geotime => '2010:01:01 01:00:00Z');
+    $exifTool->WriteInfo('t/images/Writer.jpg', $testfile);
+    my $info = $exifTool->ImageInfo($testfile, @testTags);
+    if (check($exifTool, $info, $testname, $testnum)) {
+        unlink $testfile;
+    } else {
+        print 'not ';
+    }
+    print "ok $testnum\n";
+}
+
+IgnoreAll:
 
 # end

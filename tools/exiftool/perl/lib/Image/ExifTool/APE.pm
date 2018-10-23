@@ -15,7 +15,7 @@ use strict;
 use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 
-$VERSION = '1.04';
+$VERSION = '1.05';
 
 # APE metadata blocks
 %Image::ExifTool::APE::Main = (
@@ -32,6 +32,11 @@ $VERSION = '1.04';
     Title   => { },
     Track   => { },
     Year    => { },
+    DURATION => {
+        Name => 'Duration',
+        ValueConv => '$val += 4294967296 if $val < 0 and $val >= -2147483648; $val * 1e-7',
+        PrintConv => 'ConvertDuration($val)',
+    },
     'Tool Version' => { Name => 'ToolVersion' },
     'Tool Name'    => { Name => 'ToolName' },
 );
@@ -71,6 +76,24 @@ $VERSION = '1.04';
     9 => 'Channels',
     10 => { Name => 'SampleRate',      Format => 'int32u' },
 );
+
+# APE Composite tags
+%Image::ExifTool::APE::Composite = (
+    GROUPS => { 2 => 'Audio' },
+    Duration => {
+        Require => {
+            0 => 'APE:SampleRate',
+            1 => 'APE:TotalFrames',
+            2 => 'APE:BlocksPerFrame',
+            3 => 'APE:FinalFrameBlocks',
+        },
+        RawConv => '($val[0] && $val[1]) ? (($val[1] - 1) * $val[2] + $val[3]) / $val[0]: undef',
+        PrintConv => 'ConvertDuration($val)',
+    },
+);
+
+# add our composite tags
+Image::ExifTool::AddCompositeTags('Image::ExifTool::APE');
 
 #------------------------------------------------------------------------------
 # Make tag info hash for specified tag
@@ -240,7 +263,7 @@ Currently doesn't parse MAC header unless it is at the start of the file.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

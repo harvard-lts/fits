@@ -1,7 +1,10 @@
 # Before "make install", this script should be runnable with "make test".
 # After "make install" it should work as "perl t/IPTC.t".
 
-BEGIN { $| = 1; print "1..8\n"; $Image::ExifTool::noConfig = 1; }
+BEGIN {
+    $| = 1; print "1..8\n"; $Image::ExifTool::configFile = '';
+    require './t/TestLib.pm'; t::TestLib->import();
+}
 END {print "not ok 1\n" unless $loaded;}
 
 # test 1: Load the module(s)
@@ -9,8 +12,6 @@ use Image::ExifTool 'ImageInfo';
 use Image::ExifTool::IPTC;
 $loaded = 1;
 print "ok 1\n";
-
-use t::TestLib;
 
 my $testname = 'IPTC';
 my $testnum = 1;
@@ -43,7 +44,7 @@ my $testnum = 1;
 {
     ++$testnum;
     my $exifTool = new Image::ExifTool;
-    $exifTool->Options(Duplicates => 1, Binary => 1, List => 1);
+    $exifTool->Options(Duplicates => 1, Binary => 1, ListJoin => undef);
     my $info = $exifTool->ImageInfo('t/images/IPTC.jpg');
     my $tag;
     foreach $tag (keys %$info) {
@@ -61,7 +62,7 @@ my $testnum = 1;
         } else {
             $val .= '-v2';
         }
-        # eat return values so warning don't get printed
+        # eat return values so warnings don't get printed
         my @x = $exifTool->SetNewValue($tag, $val, Group=>$group, Replace=>1);
     }
     # also try writing a few specific tags
@@ -69,7 +70,7 @@ my $testnum = 1;
     $exifTool->SetNewValue(CodedCharacterSet => 'UTF8', Protected => 1);
     undef $info;
     my $image;
-    my $ok = writeInfo($exifTool,'t/images/IPTC.jpg',\$image);
+    my $ok = writeInfo($exifTool, 't/images/IPTC.jpg', \$image, undef, 1);
     # this is effectively what the RHEL 3 UTF8 LANG problem does:
     # $image = pack("U*", unpack("C*", $image));
 
@@ -114,7 +115,7 @@ my $testnum = 1;
     $exifTool->Options(Charset => 'Cyrillic');
     $exifTool->SetNewValuesFromFile('t/images/MIE.mie', 'Comment-ru_RU>Caption-Abstract');
     $exifTool->Options(IPTCCharset => 'Cyrillic');
-    my $ok = writeInfo($exifTool,'t/images/Writer.jpg',$testfile);
+    my $ok = writeInfo($exifTool, 't/images/Writer.jpg', $testfile);
     $exifTool->Options(Charset => 'UTF8');
     my $info = $exifTool->ImageInfo($testfile, 'IPTC:*');
     if (check($exifTool, $info, $testname, $testnum) and $ok) {
@@ -144,7 +145,7 @@ my $testnum = 1;
     my $testfile = "t/${testname}_${testnum}_failed.jpg";
     unlink $testfile;
     $exifTool->SetNewValuesFromFile('t/images/IPTC.jpg', 'IPTC');
-    my $ok = writeInfo($exifTool,'t/images/Writer.jpg',$testfile);
+    my $ok = writeInfo($exifTool, 't/images/Writer.jpg', $testfile);
     my $info = $exifTool->ImageInfo($testfile, 'IPTC:*');
     if (check($exifTool, $info, $testname, $testnum) and $ok) {
         unlink $testfile;

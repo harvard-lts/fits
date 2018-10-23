@@ -28,10 +28,12 @@ $VERSION = '1.21';
 @ISA = qw(Exporter);
 @EXPORT = qw(check writeCheck writeInfo testCompare binaryCompare testVerbose);
 
+my $noTimeLocal;
+
 sub nearEnough($$);
 sub nearTime($$$$);
 sub formatValue($);
-sub writeInfo($$;$$);
+sub writeInfo($$;$$$);
 
 #------------------------------------------------------------------------------
 # Compare 2 binary files
@@ -135,7 +137,7 @@ sub nearEnough($$)
 
     # allow CurrentIPTCDigest to be zero if Digest::MD5 isn't installed
     return 1 if $line1 =~ /Current IPTC Digest/ and
-                $line2 =~ /Current IPTC Digest: 0{32}/ and
+                $line2 =~ /Current IPTC Digest: (0|#){32}/ and
                 not eval 'require Digest::MD5';
 
     # analyze every token in the line, and allow rounding
@@ -155,8 +157,16 @@ sub nearEnough($$)
             return 1 if $tok1=~ /^[-+]?\d+\./ or $tok2=~/^[-+]?\d+\./;  # check for float
             return $lenChanged
         }
+        if ($tok1 =~ /^(\d{2}|\d{4}):\d{2}:\d{2}/ and $tok2 =~ /^(\d{2}|\d{4}):\d{2}:\d{2}/ and
+            not eval { require Time::Local })
+        {
+            unless ($noTimeLocal) {
+                warn "Ignored time difference(s) because Time::Local is not installed\n";
+                $noTimeLocal = 1;
+            }
+            next;   # ignore times if Time::Local not available
         # account for different timezones
-        if ($tok1 =~ /^(\d{2}:\d{2}:\d{2})(Z|[-+]\d{2}:\d{2})$/i) {
+        } elsif ($tok1 =~ /^(\d{2}:\d{2}:\d{2})(Z|[-+]\d{2}:\d{2})$/i) {
             my $time = $1;  # remove timezone
             # timezone may be wrong if writing date/time value in a different timezone
             next if $tok2 =~ /^(\d{2}:\d{2}:\d{2})(Z|[-+]\d{2}:\d{2})$/i and $time eq $1;
@@ -176,6 +186,10 @@ sub nearEnough($$)
             $tok1 .= ' ' . $toks1[$i];      # add time to give date/time value
             $tok2 .= ' ' . $toks2[$i];
             last unless nearTime($tok1, $tok2, $line1, $line2);
+        # handle floating point numbers filtered by ExifTool test 29
+        } elsif ($tok1 =~ s/(\.#)#*(e[-+]\#+)?/$1/g or $tok2 =~ s/(\.#)#*(e[-+]\#+)?/$1/g) {
+            $tok2 =~ s/(\.#)#*(e[-+]\#+)?/$1/g;
+            last if $tok1 ne $tok2;
         } else {
             # check to see if both tokens are floating point numbers (with decimal points!)
             if ($tok1 =~ s/([^\d.]+)$//) {  # remove trailing units
@@ -300,8 +314,12 @@ sub check($$$;$$$)
     # get a list of found tags
     my @tags;
     if ($exifTool) {
-        # sort tags by group to make it a bit prettier
-        @tags = $exifTool->GetTagList($info, 'Group0');
+        if ($$exifTool{NO_SORT}) {
+            @tags = $exifTool->GetFoundTags();
+        } else {
+            # sort tags by group to make it a bit prettier
+            @tags = $exifTool->GetTagList($info, 'Group0');
+        }
     } else {
         @tags = sort keys %$info;
     }
@@ -365,10 +383,11 @@ sub writeCheck($$$;$$$)
 #------------------------------------------------------------------------------
 # Call Image::ExifTool::WriteInfo with error checking
 # Inputs: 0) ExifTool ref, 1) src file, 2) dst file, 3) true if nothing should change
+#         4) true to ignore warnings
 # Return: true on success
-sub writeInfo($$;$$)
+sub writeInfo($$;$$$)
 {
-    my ($exifTool, $src, $dst, $same) = @_;
+    my ($exifTool, $src, $dst, $same, $ignore) = @_;
     # erase temporary file created by WriteInfo() if no destination file is given
     # (may be left over from previous crashed tests)
     unlink "${src}_exiftool_tmp" if not defined $dst and not ref $src;
@@ -377,6 +396,7 @@ sub writeInfo($$;$$)
     $err .= "  Error: WriteInfo() returned $result\n" if $result != ($same ? 2 : 1);
     my $info = $exifTool->GetInfo('Warning', 'Error');
     foreach (sort keys %$info) {
+        next if $ignore and $_ eq 'Warning';
         my $tag = Image::ExifTool::GetTagName($_);
         $err .= "  $tag: $$info{$_}\n";
     }

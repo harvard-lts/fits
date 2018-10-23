@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/8/16 1:25 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.3.1" timestamp="9/18/18 4:34 PM">
   <identification>
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
-      <tool toolname="Droid" toolversion="6.1.5" />
-      <tool toolname="Jhove" toolversion="1.11" />
-      <tool toolname="Exiftool" toolversion="10.00" />
-      <tool toolname="Tika" toolversion="1.10" />
-      <version toolname="Droid" toolversion="6.1.5">1b</version>
-      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/354</externalIdentifier>
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.3.1">
+      <tool toolname="Droid" toolversion="6.4" />
+      <tool toolname="Jhove" toolversion="1.20" />
+      <tool toolname="Exiftool" toolversion="11.01" />
+      <tool toolname="Tika" toolversion="1.18" />
+      <version toolname="Droid" toolversion="6.4">1b</version>
+      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">fmt/354</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.11">111020</size>
-    <creatingApplicationName toolname="Jhove" toolversion="1.11" status="CONFLICT">JagPDF 1.5.0, http://jagpdf.org            /Pdfcrowd - online HTML to PDF API - http://pdfcrowd.com</creatingApplicationName>
-    <creatingApplicationName toolname="Exiftool" toolversion="10.00" status="CONFLICT">JagPDF 1.5.0, http://jagpdf.org/Pdfcrowd - online HTML to PDF API - http://pdfcrowd.com</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 18:34:33-04:00</lastmodified>
-    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T22:34:33Z</lastmodified>
-    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:19 18:33:55-04:00</created>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFa_has_form.pdf</filepath>
+    <size toolname="Jhove" toolversion="1.20">111020</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.20" status="CONFLICT">JagPDF 1.5.0, http://jagpdf.org            /Pdfcrowd - online HTML to PDF API - http://pdfcrowd.com</creatingApplicationName>
+    <creatingApplicationName toolname="Exiftool" toolversion="11.01" status="CONFLICT">JagPDF 1.5.0, http://jagpdf.org/Pdfcrowd - online HTML to PDF API - http://pdfcrowd.com</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:08:19 18:34:33-04:00</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.18" status="CONFLICT">2015-08-19T22:34:33Z</lastmodified>
+    <created toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2015:08:19 18:33:55-04:00</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/PDFa_has_form.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_has_form.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">553682ae868f787654f5b2da6925861e</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1464898750000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+    <well-formed toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</valid>
   </filestatus>
   <metadata>
     <document>
-      <title toolname="Jhove" toolversion="1.11">DRS Owner Registration and Billing Code Request Form : DRS &amp; Delivery Services : Office for Information Systems</title>
-      <author toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">Pdfcrowd - online HTML to PDF API - http://pdfcrowd.com</author>
-      <pageCount toolname="Jhove" toolversion="1.11">3</pageCount>
-      <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
-      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">yes</hasAnnotations>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <title toolname="Jhove" toolversion="1.20">DRS Owner Registration and Billing Code Request Form : DRS &amp; Delivery Services : Office for Information Systems</title>
+      <author toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">Pdfcrowd - online HTML to PDF API - http://pdfcrowd.com</author>
+      <pageCount toolname="Jhove" toolversion="1.20">3</pageCount>
+      <hasOutline toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">yes</hasAnnotations>
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>Arial</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>Arial,Bold</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>Arimo</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">
         <fontName>Arimo-Bold</fontName>
       </font>
       <standard>
@@ -57,20 +57,20 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="334">
-    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+  <statistics fitsExecutionTime="220">
+    <tool toolname="MediaInfo" toolversion="18.08.1" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="19" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="189" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="100" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="227" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="52" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="13" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="16" />
+    <tool toolname="Jhove" toolversion="1.20" executionTime="139" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="84" />
+    <tool toolname="Exiftool" toolversion="11.01" executionTime="210" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="48" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="6" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="25" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="308" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="12" />
+    <tool toolname="Tika" toolversion="1.18" executionTime="106" />
   </statistics>
 </fits>
 

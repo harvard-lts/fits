@@ -10,6 +10,7 @@
 #               2010/06/18 - PH Support variable-length CustomPictureStyle data
 #               2010/09/14 - PH Added r/w support for XMP in VRD
 #               2015/05/16 - PH Added DR4 support (DPP 4.1.50.0)
+#               2018/03/13 - PH Update to DPP 4.8.20
 #
 # References:   1) Bogdan private communication (Canon DPP v3.4.1.1)
 #               2) Gert Kello private communiation (DPP 3.8)
@@ -22,7 +23,7 @@ use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Canon;
 
-$VERSION = '1.25';
+$VERSION = '1.31';
 
 sub ProcessCanonVRD($$;$);
 sub WriteCanonVRD($$;$);
@@ -486,7 +487,8 @@ my $blankFooter = "CANON OPTIONAL DATA\0" . ("\0" x 42) . "\xff\xd9";
     WRITABLE => 1,
     FIRST_ENTRY => 0,
     FORMAT => 'int16s',
-    DATAMEMBER => [ 0x58, 0xdf, 0xea ], # (required for DataMember and var-format tags)
+    DATAMEMBER => [ 0x58, 0xdc, 0xdf, 0xe0 ], # (required for DataMember and var-format tags)
+    IS_SUBDIR => [ 0xe0 ],
     GROUPS => { 2 => 'Image' },
     NOTES => 'Tags added in DPP version 2.0 and later.',
     0x02 => {
@@ -923,7 +925,12 @@ my $blankFooter = "CANON OPTIONAL DATA\0" . ("\0" x 42) . "\xff\xd9";
     0xd9 => 'CropCircleRadius',
     # 0xda: 0, 1
     # 0xdb: 100
-    0xdc => { Name => 'DLOOn', %noYes },
+    0xdc => {
+        Name => 'DLOOn',
+        DataMember => 'DLOOn',
+        RawConv => '$$self{DLOOn} = $val',
+        %noYes,
+    },
     0xdd => 'DLOSetting',
     # (VRD 3.11.0 edit data ends here: 444 bytes, index 0xde)
     0xde => {
@@ -937,26 +944,53 @@ my $blankFooter = "CANON OPTIONAL DATA\0" . ("\0" x 42) . "\xff\xd9";
     },
     0xdf => {
         Name => 'DLODataLength',
+        DataMember => 'DLODataLength',
         Format => 'int32u',
         Writable => 0,
-        # - have seen 65536 when DLO is Off
-        #   --> this is my only sample where 0xda is 1 -- coincidence?
+        RawConv => '$$self{DLODataLength} = $val',
     },
-    # 0xe1 - 0 without DLO, seen 3112 with DLO
+    0xe0 => { # (yes, this overlaps DLODataLength)
+        Name => 'DLOInfo',
+        # - have seen DLODataLengths of 65536,64869 when DLO is Off, so must test DLOOn flag
+        Condition => '$$self{DLOOn}',
+        SubDirectory => { TagTable => 'Image::ExifTool::CanonVRD::DLOInfo' },
+        Hook => '$varSize += $$self{DLODataLength} + 0x16',
+    },
+    0xe1 => 'CameraRawColorTone',
     # (VRD 3.11.2 edit data ends here: 452 bytes, index 0xe2, unless DLO is on)
-    0xe4 => 'DLOSettingApplied',
-    0xe5 => {
+    0xe2 => 'CameraRawSaturation',
+    0xe3 => 'CameraRawContrast',
+    0xe4 => { Name => 'CameraRawLinear', %noYes },
+    0xe5 => 'CameraRawSharpness',
+    0xe6 => 'CameraRawHighlightPoint',
+    0xe7 => 'CameraRawShadowPoint',
+    0xe8 => 'CameraRawOutputHighlightPoint',
+    0xe9 => 'CameraRawOutputShadowPoint',
+);
+
+# DLO tags (ref PH)
+%Image::ExifTool::CanonVRD::DLOInfo = (
+    PROCESS_PROC => \&Image::ExifTool::ProcessBinaryData,
+    WRITE_PROC => \&Image::ExifTool::WriteBinaryData,
+    CHECK_PROC => \&Image::ExifTool::CheckBinaryData,
+    WRITABLE => 1,
+    FIRST_ENTRY => 1,
+    FORMAT => 'int16s',
+    GROUPS => { 2 => 'Image' },
+    NOTES => 'Tags added when DLO (Digital Lens Optimizer) is on.',
+    # 0x01 - seen 3112,3140
+    0x04 => 'DLOSettingApplied',
+    0x05 => {
         Name => 'DLOVersion', #(NC)
         Format => 'string[10]',
     },
-    0xea => {
+    0x0a => {
         Name => 'DLOData',
         LargeTag => 1, # large tag, so avoid storing unnecessarily
         Notes => 'variable-length Digital Lens Optimizer data, stored in JPEG-like format',
-        Format => 'var_undef[$val{0xdf}]',
+        Format => 'undef[$$self{DLODataLength}]',
         Writable => 0,
         Binary => 1,
-        RawConv => 'length($val) ? \$val : undef', # (don't extract if zero length)
     },
 );
 
@@ -1111,6 +1145,8 @@ my $blankFooter = "CANON OPTIONAL DATA\0" . ("\0" x 42) . "\xff\xd9";
     0x20600 => 'LuminanceNoiseReduction',
     0x20601 => 'ChrominanceNoiseReduction',
     # 0x20650 - fmt=9: 0 (JPG images)
+    0x20670 => 'ColorMoireReduction',
+   '0x20670.0' => { Name => 'ColorMoireReductionOn', %noYes },
     0x20701 => {
         Name => 'ShootingDistance',
         Notes => '100% = infinity',
@@ -1162,13 +1198,14 @@ my $blankFooter = "CANON OPTIONAL DATA\0" . ("\0" x 42) . "\xff\xd9";
     },
     # 0x20800 - fmt=1: 0
     # 0x20801 - fmt=1: 0
+    0x2070b => { Name => 'DiffractionCorrectionOn', %noYes },
     0x20900 => 'ColorHue',
     0x20901 => 'SaturationAdj',
     0x20910 => 'RedHSL',
     0x20911 => 'OrangeHSL',
-    0x20912 => 'GreenHSL',
-    0x20913 => 'AquaHSL',
-    0x20914 => 'BlueHSL',
+    0x20912 => 'YellowHSL',
+    0x20913 => 'GreenHSL',
+    0x20914 => 'AquaHSL',
     0x20915 => 'BlueHSL',
     0x20916 => 'PurpleHSL',
     0x20917 => 'MagentaHSL',
@@ -1247,7 +1284,7 @@ my $blankFooter = "CANON OPTIONAL DATA\0" . ("\0" x 42) . "\xff\xd9";
         Name => 'DR4CameraModel',
         Writable => 'int32u',
         PrintHex => 1,
-        SeparateTable => 'Canon CameraModelID',
+        SeparateTable => 'Canon CanonModelID',
         PrintConv => \%Image::ExifTool::Canon::canonModelID,
     },
     # 4 - value: 3
@@ -1331,26 +1368,38 @@ my $blankFooter = "CANON OPTIONAL DATA\0" . ("\0" x 42) . "\xff\xd9";
     # 0x0b - value: 14
     0x0c => {
         Name => 'GammaBlackPoint',
-        ValueConv => '$val > 0 ? log($val / 4.6875) / log(2) + 1 : 0',
+        ValueConv => q{
+            return 0 if $val <= 0;
+            $val = log($val / 4.6875) / log(2) + 1;
+            return abs($val) > 1e-10 ? $val : 0;
+        },
         ValueConvInv => '$val ? exp(($val - 1) * log(2)) * 4.6876 : 0',
         PrintConv => 'sprintf("%+.3f", $val)',
         PrintConvInv => '$val',
     },
     0x0d => {
-        Name => 'GammeWhitePoint',
-        ValueConv => '$val > 0 ? log($val / 4.6875) / log(2) - 11.77109325169954 : $val',
+        Name => 'GammaWhitePoint',
+        ValueConv => q{
+            return $val if $val <= 0;
+            $val = log($val / 4.6875) / log(2) - 11.77109325169954;
+            return abs($val) > 1e-10 ? $val : 0;
+        },
         ValueConvInv => '$val ? exp(($val + 11.77109325169954) * log(2)) * 4.6875 : 0',
         PrintConv => 'sprintf("%+.3f", $val)',
         PrintConvInv => '$val',
     },
     0x0e => {
         Name => 'GammaMidPoint',
-        ValueConv => '$val > 0 ? log($val / 4.6875) / log(2) - 8 : $val',
+        ValueConv => q{
+            return $val if $val <= 0;
+            $val = log($val / 4.6875) / log(2) - 8;
+            return abs($val) > 1e-10 ? $val : 0;
+        },
         ValueConvInv => '$val ? exp(($val + 8) * log(2)) * 4.6876 : 0',
         PrintConv => 'sprintf("%+.3f", $val)',
         PrintConvInv => '$val',
     },
-    0x0f => { Name => 'GammaCurveOutputRange', Format => 'double[2]', Notes => '16393 max' },
+    0x0f => { Name => 'GammaCurveOutputRange', Format => 'double[2]', Notes => '16383 max' },
 );
 
 # Version 4 crop information (ref PH)
@@ -1497,16 +1546,7 @@ sub ProcessEditData($$$)
         if ($verbose > 1 and not $outfile) {
             printf $out "$$et{INDENT}CanonVRD Edit record ($recLen bytes at offset 0x%x)\n",
                    $pos + $dataPos;
-            if ($recNum and $verbose > 2) {
-                my %parms = (
-                    Start  => $pos,
-                    Addr   => $pos + $dataPos,
-                    Out    => $out,
-                    Prefix => $$et{INDENT},
-                );
-                $parms{MaxLen} = $verbose == 3 ? 96 : 2048 if $verbose < 5;
-                HexDump($dataPt, $recLen, %parms);
-            }
+            $et->VerboseDump($dataPt, Len => $recLen, Start => $pos, Addr => $pos + $dataPos) if $recNum;
         }
 
         # our edit information is the 0th record, so don't process the others
@@ -1686,7 +1726,7 @@ sub ProcessDR4($$;$)
     # write CanonDR4 as a block if specified
     if ($isWriting) {
         my $nvHash;
-        my $newVal = $et->GetNewValues('CanonDR4', \$nvHash);
+        my $newVal = $et->GetNewValue('CanonDR4', \$nvHash);
         if ($newVal) {
             $et->VPrint(0, "  Writing CanonDR4 as a block\n");
             $$et{DidCanonVRD} = 1;  # set flag so we don't add this twice
@@ -1813,7 +1853,7 @@ sub ProcessDR4($$;$)
                     }
                     $val = ReadValue($dataPt, $off, $format, undef, $len) unless defined $val;
                     my $nvHash;
-                    my $newVal = $et->GetNewValues($tagInfo, \$nvHash);
+                    my $newVal = $et->GetNewValue($tagInfo, \$nvHash);
                     if ($et->IsOverwriting($nvHash, $val) and defined $newVal) {
                         my $count = int($len / Image::ExifTool::FormatSize($format));
                         my $rtnVal = WriteValue($newVal, $format, $count, $dataPt, $off);
@@ -1866,7 +1906,7 @@ sub ProcessVRD($$)
 
     if (not $num and $$dirInfo{OutFile}) {
         # create new VRD file from scratch
-        my $newVal = $et->GetNewValues('CanonVRD');
+        my $newVal = $et->GetNewValue('CanonVRD');
         if ($newVal) {
             $et->VPrint(0, "  Writing CanonVRD as a block\n");
             Write($$dirInfo{OutFile}, $newVal) or return -1;
@@ -1906,7 +1946,7 @@ sub WriteCanonVRD($$;$)
     my ($et, $dirInfo, $tagTablePtr) = @_;
     $et or return 1;    # allow dummy access
     my $nvHash = $et->GetNewValueHash($Image::ExifTool::Extra{CanonVRD});
-    my $val = $et->GetNewValues($nvHash);
+    my $val = $et->GetNewValue($nvHash);
     $val = '' unless defined $val;
     return undef unless $et->IsOverwriting($nvHash, $val);
     ++$$et{CHANGED};
@@ -1942,7 +1982,7 @@ sub ProcessCanonVRD($$;$)
             # create blank VRD data from scratch
             my $blank = $blankHeader . $blankFooter;
             $dataPt = \$blank;
-            $verbose and printf $out "  Creating CanonVRD trailer\n";
+            $verbose and print $out "  Creating CanonVRD trailer\n";
             $created = 1;
         }
         $raf = new File::RandomAccess($dataPt);
@@ -1993,7 +2033,7 @@ sub ProcessCanonVRD($$;$)
     my $vrdType = 'VRD';
 
     if ($outfile) {
-        $verbose and not $created and printf $out "  Rewriting CanonVRD trailer\n";
+        $verbose and not $created and print $out "  Rewriting CanonVRD trailer\n";
         # delete CanonVRD information if specified
         my $doDel = $$et{DEL_GROUP}{CanonVRD};
         unless ($doDel) {
@@ -2012,9 +2052,9 @@ sub ProcessCanonVRD($$;$)
         }
         if ($doDel) {
             if ($$et{FILE_TYPE} eq 'VRD') {
-                my $newVal = $et->GetNewValues('CanonVRD');
+                my $newVal = $et->GetNewValue('CanonVRD');
                 if ($newVal) {
-                    $verbose and printf $out "  Writing CanonVRD as a block\n";
+                    $verbose and print $out "  Writing CanonVRD as a block\n";
                     if ($outfile eq $dataPt) {
                         $$outfile = $newVal;
                     } else {
@@ -2026,16 +2066,16 @@ sub ProcessCanonVRD($$;$)
                     $et->Error("Can't delete all CanonVRD information from a VRD file");
                 }
             } else {
-                $verbose and printf $out "  Deleting CanonVRD trailer\n";
+                $verbose and print $out "  Deleting CanonVRD trailer\n";
                 $$outfile = '' if $outfile eq $dataPt;
                 ++$$et{CHANGED};
             }
             return 1;
         }
         # write now and return if CanonVRD was set as a block
-        my $val = $et->GetNewValues('CanonVRD');
+        my $val = $et->GetNewValue('CanonVRD');
         unless ($val) {
-            $val = $et->GetNewValues('CanonDR4');
+            $val = $et->GetNewValue('CanonDR4');
             $vrdType = 'DR4' if $val;
         }
         if ($val) {
@@ -2060,7 +2100,7 @@ sub ProcessCanonVRD($$;$)
     # validate VRD trailer and get position and length of edit record
     SetByteOrder('MM'); # VRD header/footer is big-endian
     my $pos = 0x1c;     # start at end of header
- 
+
     # loop through the VRD blocks
     for (;;) {
         my $end = $dirLen - 0x40;   # end of last VRD block (and start of footer)
@@ -2080,16 +2120,7 @@ sub ProcessCanonVRD($$;$)
         if ($verbose > 1 and not $outfile) {
             printf $out "  CanonVRD block 0x%.8x ($blockLen bytes at offset 0x%x)\n",
                 $blockType, $pos + $$dirInfo{DataPos};
-            if ($verbose > 2) {
-                my %parms = (
-                    Start  => $pos,
-                    Addr   => $pos + $$dirInfo{DataPos},
-                    Out    => $out,
-                    Prefix => $$et{INDENT},
-                );
-                $parms{MaxLen} = $verbose == 3 ? 96 : 2048 if $verbose < 5;
-                HexDump($dataPt, $blockLen, %parms);
-            }
+            $et->VerboseDump($dataPt, Len => $blockLen, Start => $pos, Addr => $pos + $$dirInfo{DataPos});
         }
         my $tagInfo = $$tagTablePtr{$blockType};
         unless ($tagInfo) {
@@ -2126,7 +2157,7 @@ sub ProcessCanonVRD($$;$)
                 if ($$et{NEW_VALUE}{$tagInfo}) {
                     # write as a block
                     $et->VPrint(0, "Writing $$tagInfo{Name} as a block\n");
-                    $dat = $et->GetNewValues($tagInfo);
+                    $dat = $et->GetNewValue($tagInfo);
                     $dat = '' unless defined $dat;
                     ++$$et{CHANGED};
                 } else {
@@ -2177,7 +2208,7 @@ sub ProcessCanonVRD($$;$)
         if (length $$dataPt) {
             Write($outfile, $$dataPt) or $err = 1 unless $outfile eq $dataPt;
         } else {
-            $verbose and printf $out "  Deleting CanonVRD trailer\n";
+            $verbose and print $out "  Deleting CanonVRD trailer\n";
         }
     } elsif ($vrdType eq 'VRD' and (($$et{TAGS_FROM_FILE} and
         not $$et{EXCL_TAG_LOOKUP}{canonvrd}) or $$et{REQ_TAG_LOOKUP}{canonvrd}))
@@ -2210,7 +2241,7 @@ files, and as a trailer in JPEG, CRW, CR2 and TIFF images.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

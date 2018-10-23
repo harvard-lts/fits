@@ -36,8 +36,9 @@ package Image::ExifTool::MXF;
 use strict;
 use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
+use Image::ExifTool::GPS;
 
-$VERSION = '1.07';
+$VERSION = '1.08';
 
 sub ProcessPrimer($$$);
 sub ProcessLocalSet($$$);
@@ -57,7 +58,6 @@ my %knownType = (
     Label => 1,     StrongReferenceBatch => 1,
     Lat => 1,       Timestamp => 1,
     Length => 1,    UID => 1,
-           
 );
 
 # common tag info parameters
@@ -78,16 +78,15 @@ my %timestamp = (
 );
 my %geoLat = (
     Groups => { 2 => 'Location' },
-    PrintConv => 'require Image::ExifTool::GPS; Image::ExifTool::GPS::ToDMS($self, $val, 1, "N")',
+    PrintConv => 'Image::ExifTool::GPS::ToDMS($self, $val, 1, "N")',
 );
 my %geoLon = (
     Groups => { 2 => 'Location' },
-    PrintConv => 'require Image::ExifTool::GPS; Image::ExifTool::GPS::ToDMS($self, $val, 1, "E")',
+    PrintConv => 'Image::ExifTool::GPS::ToDMS($self, $val, 1, "E")',
 );
 my %geoLatLon = (
     Groups => { 2 => 'Location' },
     PrintConv => q{
-        require Image::ExifTool::GPS;
         my ($lat, $lon) = split ' ', $val;
         $lat = Image::ExifTool::GPS::ToDMS($self, $lat, 1, 'N');
         $lon = Image::ExifTool::GPS::ToDMS($self, $lon, 1, 'E');
@@ -2416,7 +2415,7 @@ my %componentDataDef = (
     '060e2b34.0401.0107.0d010401.02010100' => { Name => 'CryptographicFrameworkLabel', Type => 'Label', Unknown => 1 },
 );
 
-# header information 
+# header information
 %Image::ExifTool::MXF::Header = (
     GROUPS => { 2 => 'Video' },
     PROCESS_PROC => \&Image::ExifTool::ProcessBinaryData,
@@ -2592,7 +2591,7 @@ sub ProcessPrimer($$$)
         next unless $verbose;
         my $indx = $i . ')';
         $indx .= ' ' if length($indx) < 3;
-        $et->VPrint(0, sprintf("  | $indx 0x%.4x => '$global'\n", $local));
+        $et->VPrint(0, sprintf("  | $indx 0x%.4x => '${global}'\n", $local));
     }
     return 1;
 }
@@ -2988,7 +2987,7 @@ information from MXF (Material Exchange Format) files.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

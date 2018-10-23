@@ -25,7 +25,7 @@
 <tr>
 <td title='0x0003 = 3'>0x0003</td>
 <td>CanonFlashInfo?</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td title='0x0004 = 4'>0x0004</td>
@@ -84,19 +84,24 @@
   <br>CanonCameraInfo50D
   <br>CanonCameraInfo60D
   <br>CanonCameraInfo70D
+  <br>CanonCameraInfo80D
   <br>CanonCameraInfo450D
   <br>CanonCameraInfo500D
   <br>CanonCameraInfo550D
   <br>CanonCameraInfo600D
   <br>CanonCameraInfo650D
+  <br>CanonCameraInfo700D
+  <br>CanonCameraInfo750D
+  <br>CanonCameraInfo760D
   <br>CanonCameraInfo1000D
   <br>CanonCameraInfo1100D
+  <br>CanonCameraInfo1200D
   <br>CanonCameraInfoPowerShot
   <br>CanonCameraInfoPowerShot2
   <br>CanonCameraInfoUnknown32
   <br>CanonCameraInfoUnknown16
   <br>CanonCameraInfoUnknown</td>
-<td class=c>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-</td>
+<td class=c>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-</td>
 <td>--&gt; <a href='Canon.html#CameraInfo1D'>Canon CameraInfo1D Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfo1DmkII'>Canon CameraInfo1DmkII Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfo1DmkIIN'>Canon CameraInfo1DmkIIN Tags</a>
@@ -112,13 +117,18 @@
   <br>--&gt; <a href='Canon.html#CameraInfo50D'>Canon CameraInfo50D Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfo60D'>Canon CameraInfo60D Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfo70D'>Canon CameraInfo70D Tags</a>
+  <br>--&gt; <a href='Canon.html#CameraInfo80D'>Canon CameraInfo80D Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfo450D'>Canon CameraInfo450D Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfo500D'>Canon CameraInfo500D Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfo550D'>Canon CameraInfo550D Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfo600D'>Canon CameraInfo600D Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfo650D'>Canon CameraInfo650D Tags</a>
+  <br>--&gt; <a href='Canon.html#CameraInfo650D'>Canon CameraInfo650D Tags</a>
+  <br>--&gt; <a href='Canon.html#CameraInfo750D'>Canon CameraInfo750D Tags</a>
+  <br>--&gt; <a href='Canon.html#CameraInfo750D'>Canon CameraInfo750D Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfo1000D'>Canon CameraInfo1000D Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfo600D'>Canon CameraInfo600D Tags</a>
+  <br>--&gt; <a href='Canon.html#CameraInfo60D'>Canon CameraInfo60D Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfoPowerShot'>Canon CameraInfoPowerShot Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfoPowerShot2'>Canon CameraInfoPowerShot2 Tags</a>
   <br>--&gt; <a href='Canon.html#CameraInfoUnknown32'>Canon CameraInfoUnknown32 Tags</a>
@@ -253,158 +263,163 @@
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#TimeInfo'>Canon TimeInfo Tags</a></td></tr>
 <tr class=b>
+<td title='0x0038 = 56'>0x0038</td>
+<td>BatteryType</td>
+<td class=c>undef</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td title='0x003c = 60'>0x003c</td>
 <td>AFInfo3</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#AFInfo2'>Canon AFInfo2 Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td title='0x0081 = 129'>0x0081</td>
 <td>RawDataOffset</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0x0083 = 131'>0x0083</td>
 <td>OriginalDecisionDataOffset</td>
 <td class=c title=' * = Protected'>int32u*</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0x0090 = 144'>0x0090</td>
 <td>CustomFunctions1D</td>
 <td class=c>-</td>
 <td>--&gt; <a href='CanonCustom.html#Functions1D'>CanonCustom Functions1D Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td title='0x0091 = 145'>0x0091</td>
 <td>PersonalFunctions</td>
 <td class=c>-</td>
 <td>--&gt; <a href='CanonCustom.html#PersonalFuncs'>CanonCustom PersonalFuncs Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td title='0x0092 = 146'>0x0092</td>
 <td>PersonalFunctionValues</td>
 <td class=c>-</td>
 <td>--&gt; <a href='CanonCustom.html#PersonalFuncValues'>CanonCustom PersonalFuncValues Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td title='0x0093 = 147'>0x0093</td>
 <td>CanonFileInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#FileInfo'>Canon FileInfo Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td title='0x0094 = 148'>0x0094</td>
 <td>AFPointsInFocus1D</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s><span class=n>(EOS 1D -- 5 rows: A1-7, B1-10, C1-11, D1-10, E1-7, center point is C6)</span></span></td></tr>
-<tr class=b>
+<tr>
 <td title='0x0095 = 149'>0x0095</td>
 <td>LensModel</td>
 <td class=c>string</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0x0096 = 150'>0x0096</td>
 <td>SerialInfo
   <br>InternalSerialNumber</td>
 <td class=c>-<br>string</td>
 <td>--&gt; <a href='Canon.html#SerialInfo'>Canon SerialInfo Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td title='0x0097 = 151'>0x0097</td>
 <td>DustRemovalData</td>
 <td class=c title=' ! = Unsafe'>undef!</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td title='0x0098 = 152'>0x0098</td>
 <td>CropInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#CropInfo'>Canon CropInfo Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td title='0x0099 = 153'>0x0099</td>
 <td>CustomFunctions2</td>
 <td class=c>-</td>
 <td>--&gt; <a href='CanonCustom.html#Functions2'>CanonCustom Functions2 Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td title='0x009a = 154'>0x009a</td>
 <td>AspectInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#AspectInfo'>Canon AspectInfo Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td title='0x00a0 = 160'>0x00a0</td>
 <td>ProcessingInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#Processing'>Canon Processing Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td title='0x00a1 = 161'>0x00a1</td>
 <td>ToneCurveTable</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0x00a2 = 162'>0x00a2</td>
 <td>SharpnessTable</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td title='0x00a3 = 163'>0x00a3</td>
-<td>SharpnessFreqTable</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
-<td title='0x00a4 = 164'>0x00a4</td>
-<td>WhiteBalanceTable</td>
-<td class=c>N</td>
+<td title='0x00a3 = 163'>0x00a3</td>
+<td>SharpnessFreqTable</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
+<td title='0x00a4 = 164'>0x00a4</td>
+<td>WhiteBalanceTable</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td title='0x00a9 = 169'>0x00a9</td>
 <td>ColorBalance</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#ColorBalance'>Canon ColorBalance Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td title='0x00aa = 170'>0x00aa</td>
 <td>MeasuredColor</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#MeasuredColor'>Canon MeasuredColor Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td title='0x00ae = 174'>0x00ae</td>
 <td>ColorTemperature</td>
 <td class=c>int16u</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0x00b0 = 176'>0x00b0</td>
 <td>CanonFlags</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#Flags'>Canon Flags Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td title='0x00b1 = 177'>0x00b1</td>
 <td>ModifiedInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#ModifiedInfo'>Canon ModifiedInfo Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td title='0x00b2 = 178'>0x00b2</td>
 <td>ToneCurveMatching</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td title='0x00b3 = 179'>0x00b3</td>
-<td>WhiteBalanceMatching</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td title='0x00b3 = 179'>0x00b3</td>
+<td>WhiteBalanceMatching</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td title='0x00b4 = 180'>0x00b4</td>
 <td>ColorSpace</td>
 <td class=c>int16u</td>
 <td><span class=s>1 = sRGB
   <br>2 = Adobe RGB</span></td></tr>
-<tr>
+<tr class=b>
 <td title='0x00b6 = 182'>0x00b6</td>
 <td>PreviewImageInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#PreviewImageInfo'>Canon PreviewImageInfo Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td title='0x00d0 = 208'>0x00d0</td>
 <td>VRDOffset</td>
 <td class=c title=' * = Protected'>int32u*</td>
 <td><span class=s><span class=n>(offset of VRD &quot;recipe data&quot; if it exists)</span></span></td></tr>
-<tr>
+<tr class=b>
 <td title='0x00e0 = 224'>0x00e0</td>
 <td>SensorInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#SensorInfo'>Canon SensorInfo Tags</a></td></tr>
-<tr class=b>
+<tr>
 <td title='0x4001 = 16385'>0x4001</td>
 <td>ColorData1
   <br>ColorData2
@@ -414,8 +429,9 @@
   <br>ColorData6
   <br>ColorData7
   <br>ColorData8
+  <br>ColorData9
   <br>ColorDataUnknown</td>
-<td class=c>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-</td>
+<td class=c>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-<br>-</td>
 <td>--&gt; <a href='Canon.html#ColorData1'>Canon ColorData1 Tags</a>
   <br>--&gt; <a href='Canon.html#ColorData2'>Canon ColorData2 Tags</a>
   <br>--&gt; <a href='Canon.html#ColorData3'>Canon ColorData3 Tags</a>
@@ -424,27 +440,35 @@
   <br>--&gt; <a href='Canon.html#ColorData6'>Canon ColorData6 Tags</a>
   <br>--&gt; <a href='Canon.html#ColorData7'>Canon ColorData7 Tags</a>
   <br>--&gt; <a href='Canon.html#ColorData8'>Canon ColorData8 Tags</a>
+  <br>--&gt; <a href='Canon.html#ColorData9'>Canon ColorData9 Tags</a>
   <br>--&gt; <a href='Canon.html#ColorDataUnknown'>Canon ColorDataUnknown Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td title='0x4002 = 16386'>0x4002</td>
 <td>CRWParam?</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td title='0x4003 = 16387'>0x4003</td>
 <td>ColorInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#ColorInfo'>Canon ColorInfo Tags</a></td></tr>
-<tr>
+<tr class=b>
 <td title='0x4005 = 16389'>0x4005</td>
 <td>Flavor?</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s><span class=n>(unknown 49kB block, not copied to JPEG images)</span></span></td></tr>
-<tr class=b>
+<tr>
 <td title='0x4008 = 16392'>0x4008</td>
-<td>BlackLevel?</td>
-<td class=c>N</td>
-<td>&nbsp;</td></tr>
+<td>PictureStyleUserDef</td>
+<td class=c>no</td>
+<td><span class=s>[Values 0-2]</span>
+  <br>--&gt; <a href='Canon.html#PictureStyle'>Canon PictureStyle Values</a></td></tr>
+<tr class=b>
+<td title='0x4009 = 16393'>0x4009</td>
+<td>PictureStylePC</td>
+<td class=c>no</td>
+<td><span class=s>[Values 0-2]</span>
+  <br>--&gt; <a href='Canon.html#PictureStyle'>Canon PictureStyle Values</a></td></tr>
 <tr>
 <td title='0x4010 = 16400'>0x4010</td>
 <td>CustomPictureStyleFileName</td>
@@ -511,7 +535,8 @@
 <table class=frame><tr><td>
 <table class='inner sep' cellspacing=1>
 <tr class=h><th>Value</th><th>CanonModelID</th></tr>
-<tr><td class=r>0x1010000</td><td>= PowerShot A30</td>
+<tr><td class=r>0x412</td><td>= EOS M50 / Kiss M</td>
+</tr><tr><td class=r>0x1010000</td><td>= PowerShot A30</td>
 </tr><tr><td class=r>0x1040000</td><td>= PowerShot S300 / Digital IXUS 300 / IXY Digital 300</td>
 </tr><tr><td class=r>0x1060000</td><td>= PowerShot A20</td>
 </tr><tr><td class=r>0x1080000</td><td>= PowerShot A10</td>
@@ -632,7 +657,7 @@
 </tr><tr><td class=r>0x2770000</td><td>= PowerShot SD940 IS / Digital IXUS 120 IS / IXY Digital 220 IS</td>
 </tr><tr><td class=r>0x2800000</td><td>= PowerShot A495</td>
 </tr><tr><td class=r>0x2810000</td><td>= PowerShot A490</td>
-</tr><tr><td class=r>0x2820000</td><td>= PowerShot A3100 IS / A3150 IS</td>
+</tr><tr><td class=r>0x2820000</td><td>= PowerShot A3100/A3150 IS</td>
 </tr><tr><td class=r>0x2830000</td><td>= PowerShot A3000 IS</td>
 </tr><tr><td class=r>0x2840000</td><td>= PowerShot SD1400 IS / IXUS 130 / IXY 400F</td>
 </tr><tr><td class=r>0x2850000</td><td>= PowerShot SD1300 IS / IXUS 105 / IXY 200F</td>
@@ -676,7 +701,7 @@
 </tr><tr><td class=r>0x3270000</td><td>= PowerShot A2400 IS</td>
 </tr><tr><td class=r>0x3280000</td><td>= PowerShot A2300</td>
 </tr><tr><td class=r>0x3330000</td><td>= PowerShot G15</td>
-</tr><tr><td class=r>0x3340000</td><td>= PowerShot SX50</td>
+</tr><tr><td class=r>0x3340000</td><td>= PowerShot SX50 HS</td>
 </tr><tr><td class=r>0x3350000</td><td>= PowerShot SX160 IS</td>
 </tr><tr><td class=r>0x3360000</td><td>= PowerShot S110 (new)</td>
 </tr><tr><td class=r>0x3370000</td><td>= PowerShot SX500 IS</td>
@@ -686,6 +711,7 @@
 </tr><tr><td class=r>0x3410000</td><td>= PowerShot SX270 HS</td>
 </tr><tr><td class=r>0x3420000</td><td>= PowerShot A3500 IS</td>
 </tr><tr><td class=r>0x3430000</td><td>= PowerShot A2600</td>
+</tr><tr><td class=r>0x3440000</td><td>= PowerShot SX275 HS</td>
 </tr><tr><td class=r>0x3450000</td><td>= PowerShot A1400</td>
 </tr><tr><td class=r>0x3460000</td><td>= PowerShot ELPH 130 IS / IXUS 140 / IXY 110F</td>
 </tr><tr><td class=r>0x3470000</td><td>= PowerShot ELPH 115/120 IS / IXUS 132/135 / IXY 90F/100F</td>
@@ -715,13 +741,32 @@
 </tr><tr><td class=r>0x3800000</td><td>= PowerShot SX530 HS</td>
 </tr><tr><td class=r>0x3820000</td><td>= PowerShot SX710 HS</td>
 </tr><tr><td class=r>0x3830000</td><td>= PowerShot SX610 HS</td>
+</tr><tr><td class=r>0x3840000</td><td>= EOS M10</td>
 </tr><tr><td class=r>0x3850000</td><td>= PowerShot G3 X</td>
 </tr><tr><td class=r>0x3860000</td><td>= PowerShot ELPH 165 HS / IXUS 165 / IXY 160</td>
 </tr><tr><td class=r>0x3870000</td><td>= PowerShot ELPH 160 / IXUS 160</td>
 </tr><tr><td class=r>0x3880000</td><td>= PowerShot ELPH 350 HS / IXUS 275 HS / IXY 640</td>
 </tr><tr><td class=r>0x3890000</td><td>= PowerShot ELPH 170 IS / IXUS 170</td>
 </tr><tr><td class=r>0x3910000</td><td>= PowerShot SX410 IS</td>
+</tr><tr><td class=r>0x3930000</td><td>= PowerShot G9 X</td>
+</tr><tr><td class=r>0x3940000</td><td>= EOS M5</td>
+</tr><tr><td class=r>0x3950000</td><td>= PowerShot G5 X</td>
+</tr><tr><td class=r>0x3970000</td><td>= PowerShot G7 X Mark II</td>
+</tr><tr><td class=r>0x3980000</td><td>= EOS M100</td>
+</tr><tr><td class=r>0x3990000</td><td>= PowerShot ELPH 360 HS / IXUS 285 HS / IXY 650</td>
+</tr><tr><td class=r>0x4010000</td><td>= PowerShot SX540 HS</td>
+</tr><tr><td class=r>0x4020000</td><td>= PowerShot SX420 IS</td>
+</tr><tr><td class=r>0x4030000</td><td>= PowerShot ELPH 190 IS / IXUS 180 / IXY 190</td>
 </tr><tr><td class=r>0x4040000</td><td>= PowerShot G1</td>
+</tr><tr><td class=r>0x4040001</td><td>= IXY 180</td>
+</tr><tr><td class=r>0x4050000</td><td>= PowerShot SX720 HS</td>
+</tr><tr><td class=r>0x4060000</td><td>= PowerShot SX620 HS</td>
+</tr><tr><td class=r>0x4070000</td><td>= EOS M6</td>
+</tr><tr><td class=r>0x4100000</td><td>= PowerShot G9 X Mark II</td>
+</tr><tr><td class=r>0x4150000</td><td>= PowerShot ELPH 185 / IXUS 185 / IXY 200</td>
+</tr><tr><td class=r>0x4160000</td><td>= PowerShot SX430 IS</td>
+</tr><tr><td class=r>0x4170000</td><td>= PowerShot SX730 HS</td>
+</tr><tr><td class=r>0x4180000</td><td>= PowerShot G1 X Mark III</td>
 </tr><tr><td class=r>0x6040000</td><td>= PowerShot S100 / Digital IXUS / IXY Digital</td>
 </tr><tr><td class=r>0x4007d673</td><td>= DC19/DC21/DC22</td>
 </tr><tr><td class=r>0x4007d674</td><td>= XH A1</td>
@@ -751,7 +796,10 @@
 </tr><tr><td class=r>0x4007da8f</td><td>= HF M30/M31/M36/M300/M306</td>
 </tr><tr><td class=r>0x4007da90</td><td>= HF S20/S21/S200</td>
 </tr><tr><td class=r>0x4007da92</td><td>= FS31/FS36/FS37/FS300/FS305/FS306/FS307</td>
+</tr><tr><td class=r>0x4007dca0</td><td>= EOS C300</td>
 </tr><tr><td class=r>0x4007dda9</td><td>= HF G25</td>
+</tr><tr><td class=r>0x4007dfb4</td><td>= XC10</td>
+</tr><tr><td class=r>0x4007e1c3</td><td>= EOS C200</td>
 </tr><tr><td class=r>0x80000001</td><td>= EOS-1D</td>
 </tr><tr><td class=r>0x80000167</td><td>= EOS-1DS</td>
 </tr><tr><td class=r>0x80000168</td><td>= EOS 10D</td>
@@ -793,14 +841,55 @@
 </tr><tr><td class=r>0x80000324</td><td>= EOS-1D C</td>
 </tr><tr><td class=r>0x80000325</td><td>= EOS 70D</td>
 </tr><tr><td class=r>0x80000326</td><td>= EOS Rebel T5i / 700D / Kiss X7i</td>
-</tr><tr><td class=r>0x80000327</td><td>= EOS Rebel T5 / 1200D / Kiss X70</td>
+</tr><tr><td class=r>0x80000327</td><td>= EOS Rebel T5 / 1200D / Kiss X70 / Hi</td>
+</tr><tr><td class=r>0x80000328</td><td>= EOS-1D X MARK II</td>
 </tr><tr><td class=r>0x80000331</td><td>= EOS M</td>
 </tr><tr><td class=r>0x80000346</td><td>= EOS Rebel SL1 / 100D / Kiss X7</td>
 </tr><tr><td class=r>0x80000347</td><td>= EOS Rebel T6s / 760D / 8000D</td>
+</tr><tr><td class=r>0x80000349</td><td>= EOS 5D Mark IV</td>
+</tr><tr><td class=r>0x80000350</td><td>= EOS 80D</td>
 </tr><tr><td class=r>0x80000355</td><td>= EOS M2</td>
 </tr><tr><td class=r>0x80000382</td><td>= EOS 5DS</td>
 </tr><tr><td class=r>0x80000393</td><td>= EOS Rebel T6i / 750D / Kiss X8i</td>
 </tr><tr><td class=r>0x80000401</td><td>= EOS 5DS R</td>
+</tr><tr><td class=r>0x80000404</td><td>= EOS Rebel T6 / 1300D / Kiss X80</td>
+</tr><tr><td class=r>0x80000405</td><td>= EOS Rebel T7i / 800D / Kiss X9i</td>
+</tr><tr><td class=r>0x80000406</td><td>= EOS 6D Mark II</td>
+</tr><tr><td class=r>0x80000408</td><td>= EOS 77D / 9000D</td>
+</tr><tr><td class=r>0x80000417</td><td>= EOS Rebel SL2 / 200D / Kiss X9</td>
+</tr><tr><td class=r>0x80000422</td><td>= EOS Rebel T100 / 4000D / 3000D</td>
+</tr><tr><td class=r>0x80000432</td><td>= EOS Rebel T7 / 2000D / 1500D / Kiss X90</td>
+</tr></table></td></tr></table></blockquote>
+
+<h2><a name='PictureStyle'>Canon PictureStyle Values</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class='inner sep' cellspacing=1>
+<tr class=h><th>Value</th><th>PictureStyle</th><th>Value</th><th>PictureStyle</th><th>Value</th><th>PictureStyle</th></tr>
+<tr><td class=r>0x0</td><td>= None</td>
+<td class='r b'>0x21</td><td class=b>= User Def. 1</td>
+<td class=r>0x83</td><td>= Landscape</td>
+</tr><tr><td class=r>0x1</td><td>= Standard</td>
+<td class='r b'>0x22</td><td class=b>= User Def. 2</td>
+<td class=r>0x84</td><td>= Neutral</td>
+</tr><tr><td class=r>0x2</td><td>= Portrait</td>
+<td class='r b'>0x23</td><td class=b>= User Def. 3</td>
+<td class=r>0x85</td><td>= Faithful</td>
+</tr><tr><td class=r>0x3</td><td>= High Saturation</td>
+<td class='r b'>0x41</td><td class=b>= PC 1</td>
+<td class=r>0x86</td><td>= Monochrome</td>
+</tr><tr><td class=r>0x4</td><td>= Adobe RGB</td>
+<td class='r b'>0x42</td><td class=b>= PC 2</td>
+<td class=r>0x87</td><td>= Auto</td>
+</tr><tr><td class=r>0x5</td><td>= Low Saturation</td>
+<td class='r b'>0x43</td><td class=b>= PC 3</td>
+<td class=r>0x88</td><td>= Fine Detail</td>
+</tr><tr><td class=r>0x6</td><td>= CM Set 1</td>
+<td class='r b'>0x81</td><td class=b>= Standard</td>
+<td class=r>0xff</td><td>= n/a</td>
+</tr><tr><td class=r>0x7</td><td>= CM Set 2</td>
+<td class='r b'>0x82</td><td class=b>= Portrait</td>
+<td class=r>0xffff</td><td>= n/a</td>
 </tr></table></td></tr></table></blockquote>
 
 <h2><a name='CameraSettings'>Canon CameraSettings Tags</a></h2>
@@ -828,9 +917,10 @@
   <td>-1 = n/a
   <br>1 = Economy
   <br>2 = Normal
-  <br>3 = Fine</td><td>&nbsp;&nbsp;</td>
-  <td>4 = RAW
-  <br>5 = Superfine
+  <br>3 = Fine
+  <br>4 = RAW</td><td>&nbsp;&nbsp;</td>
+  <td>5 = Superfine
+  <br>7 = CRAW
   <br>130 = Normal Movie
   <br>131 = Movie (2)</td></tr></table>
 </td></tr>
@@ -888,13 +978,15 @@
 <td><table class=cols><tr>
   <td>1 = JPEG
   <br>2 = CRW+THM
-  <br>3 = AVI+THM</td><td>&nbsp;&nbsp;</td>
-  <td>4 = TIF
-  <br>5 = TIF+JPEG
-  <br>6 = CR2</td><td>&nbsp;&nbsp;</td>
-  <td>7 = CR2+JPEG
-  <br>9 = MOV
-  <br>10 = MP4</td></tr></table>
+  <br>3 = AVI+THM
+  <br>4 = TIF</td><td>&nbsp;&nbsp;</td>
+  <td>5 = TIF+JPEG
+  <br>6 = CR2
+  <br>7 = CR2+JPEG
+  <br>9 = MOV</td><td>&nbsp;&nbsp;</td>
+  <td>10 = MP4
+  <br>11 = CRM
+  <br>13 = CR3</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='10 = 0xa'>10</td>
@@ -909,16 +1001,17 @@
   <br>6 = Medium 2
   <br>7 = Medium 3
   <br>8 = Postcard
-  <br>9 = Widescreen</td><td>&nbsp;&nbsp;</td>
-  <td>10 = Medium Widescreen
-  <br>14 = Small 1
+  <br>9 = Widescreen
+  <br>10 = Medium Widescreen</td><td>&nbsp;&nbsp;</td>
+  <td>14 = Small 1
   <br>15 = Small 2
   <br>16 = Small 3
   <br>128 = 640x480 Movie
   <br>129 = Medium Movie
   <br>130 = Small Movie
   <br>137 = 1280x720 Movie
-  <br>142 = 1920x1080 Movie</td></tr></table>
+  <br>142 = 1920x1080 Movie
+  <br>143 = 4096x2160 Movie</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='11 = 0xb'>11</td>
@@ -1086,7 +1179,7 @@ others use a range of 0 to 7 where 0 is no sharpening)</span></span></td></tr>
 <tr>
 <td class=r title='22 = 0x16'>22</td>
 <td>LensType</td>
-<td class=c>int16s</td>
+<td class=c>int16u</td>
 <td>--&gt; <a href='Canon.html#LensType'>Canon LensType Values</a>
   <br><span class='n s'>(this value is incorrect for EOS 7D images with lenses of type 256 or greater)</span></td></tr>
 <tr class=b>
@@ -1245,6 +1338,7 @@ attempting to identify the specific lens model.</p>
 </tr><tr><td>6.2</td><td>= Sigma 18-125mm f/3.5-5.6 DC IF ASP</td>
 </tr><tr><td>6.3</td><td>= Tokina AF 193-2 19-35mm f/3.5-4.5</td>
 </tr><tr><td>6.4</td><td>= Sigma 28-80mm f/3.5-5.6 II Macro</td>
+</tr><tr><td>6.5</td><td>= Sigma 28-300mm f/3.5-6.3 DG Macro</td>
 </tr><tr><td>7</td><td>= Canon EF 100-300mm f/5.6L</td>
 </tr><tr><td>8</td><td>= Canon EF 100-300mm f/5.6 or Sigma or Tokina Lens</td>
 </tr><tr><td>8.1</td><td>= Sigma 70-300mm f/4-5.6 [APO] DG Macro</td>
@@ -1319,6 +1413,8 @@ attempting to identify the specific lens model.</p>
 </tr><tr><td>44</td><td>= Canon EF 90-300mm f/4.5-5.6</td>
 </tr><tr><td>45</td><td>= Canon EF-S 18-55mm f/3.5-5.6 [II]</td>
 </tr><tr><td>46</td><td>= Canon EF 28-90mm f/4-5.6</td>
+</tr><tr><td>47</td><td>= Zeiss Milvus 35mm f/2 or 50mm f/2</td>
+</tr><tr><td>47.1</td><td>= Zeiss Milvus 50mm f/2 Makro</td>
 </tr><tr><td>48</td><td>= Canon EF-S 18-55mm f/3.5-5.6 IS</td>
 </tr><tr><td>49</td><td>= Canon EF-S 55-250mm f/4-5.6 IS</td>
 </tr><tr><td>50</td><td>= Canon EF-S 18-200mm f/3.5-5.6 IS</td>
@@ -1326,15 +1422,22 @@ attempting to identify the specific lens model.</p>
 </tr><tr><td>52</td><td>= Canon EF-S 18-55mm f/3.5-5.6 IS II</td>
 </tr><tr><td>53</td><td>= Canon EF-S 18-55mm f/3.5-5.6 III</td>
 </tr><tr><td>54</td><td>= Canon EF-S 55-250mm f/4-5.6 IS II</td>
+</tr><tr><td>60</td><td>= Irix 11mm f/4</td>
+</tr><tr><td>80</td><td>= Canon TS-E 50mm f/2.8L Macro</td>
+</tr><tr><td>81</td><td>= Canon TS-E 90mm f/2.8L Macro</td>
+</tr><tr><td>82</td><td>= Canon TS-E 135mm f/4L Macro</td>
 </tr><tr><td>94</td><td>= Canon TS-E 17mm f/4L</td>
-</tr><tr><td>95</td><td>= Canon TS-E 24.0mm f/3.5 L II</td>
+</tr><tr><td>95</td><td>= Canon TS-E 24mm f/3.5L II</td>
+</tr><tr><td>103</td><td>= Samyang AF 14mm f/2.8 EF or Rokinon Lens</td>
+</tr><tr><td>103.1</td><td>= Rokinon SP 14mm f/2.4</td>
+</tr><tr><td>103.2</td><td>= Rokinon AF 14mm f/2.8 EF</td>
 </tr><tr><td>124</td><td>= Canon MP-E 65mm f/2.8 1-5x Macro Photo</td>
 </tr><tr><td>125</td><td>= Canon TS-E 24mm f/3.5L</td>
 </tr><tr><td>126</td><td>= Canon TS-E 45mm f/2.8</td>
 </tr><tr><td>127</td><td>= Canon TS-E 90mm f/2.8</td>
-</tr><tr><td>129</td><td>= Canon EF 300mm f/2.8L</td>
-</tr><tr><td>130</td><td>= Canon EF 50mm f/1.0L</td>
-</tr><tr><td>131</td><td>= Canon EF 28-80mm f/2.8-4L or Sigma Lens</td>
+</tr><tr><td>129</td><td>= Canon EF 300mm f/2.8L USM</td>
+</tr><tr><td>130</td><td>= Canon EF 50mm f/1.0L USM</td>
+</tr><tr><td>131</td><td>= Canon EF 28-80mm f/2.8-4L USM or Sigma Lens</td>
 </tr><tr><td>131.1</td><td>= Sigma 8mm f/3.5 EX DG Circular Fisheye</td>
 </tr><tr><td>131.2</td><td>= Sigma 17-35mm f/2.8-4 EX DG Aspherical HSM</td>
 </tr><tr><td>131.3</td><td>= Sigma 17-70mm f/2.8-4.5 DC Macro</td>
@@ -1342,19 +1445,19 @@ attempting to identify the specific lens model.</p>
 </tr><tr><td>131.5</td><td>= Sigma APO 120-300mm f/2.8 EX DG HSM</td>
 </tr><tr><td>131.6</td><td>= Sigma 4.5mm f/2.8 EX DC HSM Circular Fisheye</td>
 </tr><tr><td>131.7</td><td>= Sigma 70-200mm f/2.8 APO EX HSM</td>
-</tr><tr><td>132</td><td>= Canon EF 1200mm f/5.6L</td>
-</tr><tr><td>134</td><td>= Canon EF 600mm f/4L IS</td>
-</tr><tr><td>135</td><td>= Canon EF 200mm f/1.8L</td>
-</tr><tr><td>136</td><td>= Canon EF 300mm f/2.8L</td>
-</tr><tr><td>137</td><td>= Canon EF 85mm f/1.2L or Sigma or Tamron Lens</td>
+</tr><tr><td>132</td><td>= Canon EF 1200mm f/5.6L USM</td>
+</tr><tr><td>134</td><td>= Canon EF 600mm f/4L IS USM</td>
+</tr><tr><td>135</td><td>= Canon EF 200mm f/1.8L USM</td>
+</tr><tr><td>136</td><td>= Canon EF 300mm f/2.8L USM</td>
+</tr><tr><td>137</td><td>= Canon EF 85mm f/1.2L USM or Sigma or Tamron Lens</td>
 </tr><tr><td>137.1</td><td>= Sigma 18-50mm f/2.8-4.5 DC OS HSM</td>
 </tr><tr><td>137.2</td><td>= Sigma 50-200mm f/4-5.6 DC OS HSM</td>
 </tr><tr><td>137.3</td><td>= Sigma 18-250mm f/3.5-6.3 DC OS HSM</td>
 </tr><tr><td>137.4</td><td>= Sigma 24-70mm f/2.8 IF EX DG HSM</td>
 </tr><tr><td>137.5</td><td>= Sigma 18-125mm f/3.8-5.6 DC OS HSM</td>
-</tr><tr><td>137.6</td><td>= Sigma 17-70mm f/2.8-4 DC Macro OS HSM</td>
+</tr><tr><td>137.6</td><td>= Sigma 17-70mm f/2.8-4 DC Macro OS HSM | C</td>
 </tr><tr><td>137.7</td><td>= Sigma 17-50mm f/2.8 OS HSM</td>
-</tr><tr><td>137.8</td><td>= Sigma 18-200mm f/3.5-6.3 II DC OS HSM</td>
+</tr><tr><td>137.8</td><td>= Sigma 18-200mm f/3.5-6.3 DC OS HSM [II]</td>
 </tr><tr><td>137.9</td><td>= Tamron AF 18-270mm f/3.5-6.3 Di II VC PZD</td>
 </tr><tr><td>137.10</td><td>= Sigma 8-16mm f/4.5-5.6 DC HSM</td>
 </tr><tr><td>137.11</td><td>= Tamron SP 17-50mm f/2.8 XR Di II VC</td>
@@ -1364,43 +1467,47 @@ attempting to identify the specific lens model.</p>
 </tr><tr><td>137.15</td><td>= Sigma 18-35mm f/1.8 DC HSM</td>
 </tr><tr><td>137.16</td><td>= Sigma 12-24mm f/4.5-5.6 DG HSM II</td>
 </tr><tr><td>138</td><td>= Canon EF 28-80mm f/2.8-4L</td>
-</tr><tr><td>139</td><td>= Canon EF 400mm f/2.8L</td>
-</tr><tr><td>140</td><td>= Canon EF 500mm f/4.5L</td>
-</tr><tr><td>141</td><td>= Canon EF 500mm f/4.5L</td>
-</tr><tr><td>142</td><td>= Canon EF 300mm f/2.8L IS</td>
-</tr><tr><td>143</td><td>= Canon EF 500mm f/4L IS</td>
+</tr><tr><td>139</td><td>= Canon EF 400mm f/2.8L USM</td>
+</tr><tr><td>140</td><td>= Canon EF 500mm f/4.5L USM</td>
+</tr><tr><td>141</td><td>= Canon EF 500mm f/4.5L USM</td>
+</tr><tr><td>142</td><td>= Canon EF 300mm f/2.8L IS USM</td>
+</tr><tr><td>143</td><td>= Canon EF 500mm f/4L IS USM or Sigma Lens</td>
+</tr><tr><td>143.1</td><td>= Sigma 17-70mm f/2.8-4 DC Macro OS HSM</td>
 </tr><tr><td>144</td><td>= Canon EF 35-135mm f/4-5.6 USM</td>
 </tr><tr><td>145</td><td>= Canon EF 100-300mm f/4.5-5.6 USM</td>
 </tr><tr><td>146</td><td>= Canon EF 70-210mm f/3.5-4.5 USM</td>
 </tr><tr><td>147</td><td>= Canon EF 35-135mm f/4-5.6 USM</td>
 </tr><tr><td>148</td><td>= Canon EF 28-80mm f/3.5-5.6 USM</td>
 </tr><tr><td>149</td><td>= Canon EF 100mm f/2 USM</td>
-</tr><tr><td>150</td><td>= Canon EF 14mm f/2.8L or Sigma Lens</td>
+</tr><tr><td>150</td><td>= Canon EF 14mm f/2.8L USM or Sigma Lens</td>
 </tr><tr><td>150.1</td><td>= Sigma 20mm EX f/1.8</td>
 </tr><tr><td>150.2</td><td>= Sigma 30mm f/1.4 DC HSM</td>
 </tr><tr><td>150.3</td><td>= Sigma 24mm f/1.8 DG Macro EX</td>
 </tr><tr><td>150.4</td><td>= Sigma 28mm f/1.8 DG Macro EX</td>
-</tr><tr><td>151</td><td>= Canon EF 200mm f/2.8L</td>
-</tr><tr><td>152</td><td>= Canon EF 300mm f/4L IS or Sigma Lens</td>
+</tr><tr><td>151</td><td>= Canon EF 200mm f/2.8L USM</td>
+</tr><tr><td>152</td><td>= Canon EF 300mm f/4L IS USM or Sigma Lens</td>
 </tr><tr><td>152.1</td><td>= Sigma 12-24mm f/4.5-5.6 EX DG ASPHERICAL HSM</td>
 </tr><tr><td>152.2</td><td>= Sigma 14mm f/2.8 EX Aspherical HSM</td>
 </tr><tr><td>152.3</td><td>= Sigma 10-20mm f/4-5.6</td>
 </tr><tr><td>152.4</td><td>= Sigma 100-300mm f/4</td>
-</tr><tr><td>153</td><td>= Canon EF 35-350mm f/3.5-5.6L or Sigma or Tamron Lens</td>
+</tr><tr><td>153</td><td>= Canon EF 35-350mm f/3.5-5.6L USM or Sigma or Tamron Lens</td>
 </tr><tr><td>153.1</td><td>= Sigma 50-500mm f/4-6.3 APO HSM EX</td>
 </tr><tr><td>153.2</td><td>= Tamron AF 28-300mm f/3.5-6.3 XR LD Aspherical [IF] Macro</td>
 </tr><tr><td>153.3</td><td>= Tamron AF 18-200mm f/3.5-6.3 XR Di II LD Aspherical [IF] Macro Model A14</td>
 </tr><tr><td>153.4</td><td>= Tamron 18-250mm f/3.5-6.3 Di II LD Aspherical [IF] Macro</td>
-</tr><tr><td>154</td><td>= Canon EF 20mm f/2.8 USM</td>
+</tr><tr><td>154</td><td>= Canon EF 20mm f/2.8 USM or Zeiss Lens</td>
+</tr><tr><td>154.1</td><td>= Zeiss Milvus 21mm f/2.8</td>
 </tr><tr><td>155</td><td>= Canon EF 85mm f/1.8 USM</td>
 </tr><tr><td>156</td><td>= Canon EF 28-105mm f/3.5-4.5 USM or Tamron Lens</td>
-</tr><tr><td>156.1</td><td>= Tamron SP 70-300mm f/4.0-5.6 Di VC USD</td>
+</tr><tr><td>156.1</td><td>= Tamron SP 70-300mm f/4-5.6 Di VC USD</td>
+</tr><tr><td>156.2</td><td>= Tamron SP AF 28-105mm f/2.8 LD Aspherical IF</td>
 </tr><tr><td>160</td><td>= Canon EF 20-35mm f/3.5-4.5 USM or Tamron or Tokina Lens</td>
 </tr><tr><td>160.1</td><td>= Tamron AF 19-35mm f/3.5-4.5</td>
 </tr><tr><td>160.2</td><td>= Tokina AT-X 124 AF Pro DX 12-24mm f/4</td>
 </tr><tr><td>160.3</td><td>= Tokina AT-X 107 AF DX 10-17mm f/3.5-4.5 Fisheye</td>
 </tr><tr><td>160.4</td><td>= Tokina AT-X 116 AF Pro DX 11-16mm f/2.8</td>
-</tr><tr><td>161</td><td>= Canon EF 28-70mm f/2.8L or Sigma or Tamron Lens</td>
+</tr><tr><td>160.5</td><td>= Tokina AT-X 11-20 F2.8 PRO DX Aspherical 11-20mm f/2.8</td>
+</tr><tr><td>161</td><td>= Canon EF 28-70mm f/2.8L USM or Other Lens</td>
 </tr><tr><td>161.1</td><td>= Sigma 24-70mm f/2.8 EX</td>
 </tr><tr><td>161.2</td><td>= Sigma 28-70mm f/2.8 EX</td>
 </tr><tr><td>161.3</td><td>= Sigma 24-60mm f/2.8 EX DG</td>
@@ -1408,14 +1515,16 @@ attempting to identify the specific lens model.</p>
 </tr><tr><td>161.5</td><td>= Tamron 90mm f/2.8</td>
 </tr><tr><td>161.6</td><td>= Tamron SP AF 17-35mm f/2.8-4 Di LD Aspherical IF</td>
 </tr><tr><td>161.7</td><td>= Tamron SP AF 28-75mm f/2.8 XR Di LD Aspherical [IF] Macro</td>
-</tr><tr><td>162</td><td>= Canon EF 200mm f/2.8L</td>
+</tr><tr><td>161.8</td><td>= Tokina AT-X 24-70mm f/2.8 PRO FX (IF)</td>
+</tr><tr><td>162</td><td>= Canon EF 200mm f/2.8L USM</td>
 </tr><tr><td>163</td><td>= Canon EF 300mm f/4L</td>
 </tr><tr><td>164</td><td>= Canon EF 400mm f/5.6L</td>
-</tr><tr><td>165</td><td>= Canon EF 70-200mm f/2.8 L</td>
-</tr><tr><td>166</td><td>= Canon EF 70-200mm f/2.8 L + 1.4x</td>
-</tr><tr><td>167</td><td>= Canon EF 70-200mm f/2.8 L + 2x</td>
-</tr><tr><td>168</td><td>= Canon EF 28mm f/1.8 USM</td>
-</tr><tr><td>169</td><td>= Canon EF 17-35mm f/2.8L or Sigma Lens</td>
+</tr><tr><td>165</td><td>= Canon EF 70-200mm f/2.8L USM</td>
+</tr><tr><td>166</td><td>= Canon EF 70-200mm f/2.8L USM + 1.4x</td>
+</tr><tr><td>167</td><td>= Canon EF 70-200mm f/2.8L USM + 2x</td>
+</tr><tr><td>168</td><td>= Canon EF 28mm f/1.8 USM or Sigma Lens</td>
+</tr><tr><td>168.1</td><td>= Sigma 50-100mm f/1.8 DC HSM | A</td>
+</tr><tr><td>169</td><td>= Canon EF 17-35mm f/2.8L USM or Sigma Lens</td>
 </tr><tr><td>169.1</td><td>= Sigma 18-200mm f/3.5-6.3 DC OS</td>
 </tr><tr><td>169.2</td><td>= Sigma 15-30mm f/3.5-4.5 EX DG Aspherical</td>
 </tr><tr><td>169.3</td><td>= Sigma 18-50mm f/2.8 Macro</td>
@@ -1423,48 +1532,63 @@ attempting to identify the specific lens model.</p>
 </tr><tr><td>169.5</td><td>= Sigma 85mm f/1.4 EX DG HSM</td>
 </tr><tr><td>169.6</td><td>= Sigma 30mm f/1.4 EX DC HSM</td>
 </tr><tr><td>169.7</td><td>= Sigma 35mm f/1.4 DG HSM</td>
-</tr><tr><td>170</td><td>= Canon EF 200mm f/2.8L II</td>
-</tr><tr><td>171</td><td>= Canon EF 300mm f/4L</td>
-</tr><tr><td>172</td><td>= Canon EF 400mm f/5.6L or Sigma Lens</td>
+</tr><tr><td>169.8</td><td>= Sigma 35mm f/1.5 FF High-Speed Prime | 017</td>
+</tr><tr><td>170</td><td>= Canon EF 200mm f/2.8L II USM</td>
+</tr><tr><td>171</td><td>= Canon EF 300mm f/4L USM</td>
+</tr><tr><td>172</td><td>= Canon EF 400mm f/5.6L USM or Sigma Lens</td>
 </tr><tr><td>172.1</td><td>= Sigma 150-600mm f/5-6.3 DG OS HSM | S</td>
-</tr><tr><td>173</td><td>= Canon EF 180mm Macro f/3.5L or Sigma Lens</td>
+</tr><tr><td>173</td><td>= Canon EF 180mm Macro f/3.5L USM or Sigma Lens</td>
 </tr><tr><td>173.1</td><td>= Sigma 180mm EX HSM Macro f/3.5</td>
 </tr><tr><td>173.2</td><td>= Sigma APO Macro 150mm f/2.8 EX DG HSM</td>
-</tr><tr><td>174</td><td>= Canon EF 135mm f/2L or Sigma Lens</td>
+</tr><tr><td>174</td><td>= Canon EF 135mm f/2L USM or Other Lens</td>
 </tr><tr><td>174.1</td><td>= Sigma 70-200mm f/2.8 EX DG APO OS HSM</td>
 </tr><tr><td>174.2</td><td>= Sigma 50-500mm f/4.5-6.3 APO DG OS HSM</td>
 </tr><tr><td>174.3</td><td>= Sigma 150-500mm f/5-6.3 APO DG OS HSM</td>
-</tr><tr><td>175</td><td>= Canon EF 400mm f/2.8L</td>
+</tr><tr><td>174.4</td><td>= Zeiss Milvus 100mm f/2 Makro</td>
+</tr><tr><td>175</td><td>= Canon EF 400mm f/2.8L USM</td>
 </tr><tr><td>176</td><td>= Canon EF 24-85mm f/3.5-4.5 USM</td>
-</tr><tr><td>177</td><td>= Canon EF 300mm f/4L IS</td>
+</tr><tr><td>177</td><td>= Canon EF 300mm f/4L IS USM</td>
 </tr><tr><td>178</td><td>= Canon EF 28-135mm f/3.5-5.6 IS</td>
-</tr><tr><td>179</td><td>= Canon EF 24mm f/1.4L</td>
-</tr><tr><td>180</td><td>= Canon EF 35mm f/1.4L or Sigma Lens</td>
+</tr><tr><td>179</td><td>= Canon EF 24mm f/1.4L USM</td>
+</tr><tr><td>180</td><td>= Canon EF 35mm f/1.4L USM or Other Lens</td>
 </tr><tr><td>180.1</td><td>= Sigma 50mm f/1.4 DG HSM | A</td>
 </tr><tr><td>180.2</td><td>= Sigma 24mm f/1.4 DG HSM | A</td>
-</tr><tr><td>181</td><td>= Canon EF 100-400mm f/4.5-5.6L IS + 1.4x</td>
-</tr><tr><td>182</td><td>= Canon EF 100-400mm f/4.5-5.6L IS + 2x</td>
-</tr><tr><td>183</td><td>= Canon EF 100-400mm f/4.5-5.6L IS or Sigma Lens</td>
+</tr><tr><td>180.3</td><td>= Zeiss Milvus 50mm f/1.4</td>
+</tr><tr><td>180.4</td><td>= Zeiss Milvus 85mm f/1.4</td>
+</tr><tr><td>180.5</td><td>= Zeiss Otus 28mm f/1.4 ZE</td>
+</tr><tr><td>180.6</td><td>= Sigma 24mm f/1.5 FF High-Speed Prime | 017</td>
+</tr><tr><td>180.7</td><td>= Sigma 50mm f/1.5 FF High-Speed Prime | 017</td>
+</tr><tr><td>180.8</td><td>= Sigma 85mm f/1.5 FF High-Speed Prime | 017</td>
+</tr><tr><td>181</td><td>= Canon EF 100-400mm f/4.5-5.6L IS USM + 1.4x or Sigma Lens</td>
+</tr><tr><td>181.1</td><td>= Sigma 150-600mm f/5-6.3 DG OS HSM | S + 1.4x</td>
+</tr><tr><td>182</td><td>= Canon EF 100-400mm f/4.5-5.6L IS USM + 2x or Sigma Lens</td>
+</tr><tr><td>182.1</td><td>= Sigma 150-600mm f/5-6.3 DG OS HSM | S + 2x</td>
+</tr><tr><td>183</td><td>= Canon EF 100-400mm f/4.5-5.6L IS USM or Sigma Lens</td>
 </tr><tr><td>183.1</td><td>= Sigma 150mm f/2.8 EX DG OS HSM APO Macro</td>
 </tr><tr><td>183.2</td><td>= Sigma 105mm f/2.8 EX DG OS HSM Macro</td>
 </tr><tr><td>183.3</td><td>= Sigma 180mm f/2.8 EX DG OS HSM APO Macro</td>
 </tr><tr><td>183.4</td><td>= Sigma 150-600mm f/5-6.3 DG OS HSM | C</td>
-</tr><tr><td>184</td><td>= Canon EF 400mm f/2.8L + 2x</td>
-</tr><tr><td>185</td><td>= Canon EF 600mm f/4L IS</td>
-</tr><tr><td>186</td><td>= Canon EF 70-200mm f/4L</td>
-</tr><tr><td>187</td><td>= Canon EF 70-200mm f/4L + 1.4x</td>
-</tr><tr><td>188</td><td>= Canon EF 70-200mm f/4L + 2x</td>
-</tr><tr><td>189</td><td>= Canon EF 70-200mm f/4L + 2.8x</td>
+</tr><tr><td>183.5</td><td>= Sigma 150-600mm f/5-6.3 DG OS HSM | S</td>
+</tr><tr><td>183.6</td><td>= Sigma 100-400mm f/5-6.3 DG OS HSM</td>
+</tr><tr><td>183.7</td><td>= Sigma 180mm f/3.5 APO Macro EX DG IF HSM</td>
+</tr><tr><td>184</td><td>= Canon EF 400mm f/2.8L USM + 2x</td>
+</tr><tr><td>185</td><td>= Canon EF 600mm f/4L IS USM</td>
+</tr><tr><td>186</td><td>= Canon EF 70-200mm f/4L USM</td>
+</tr><tr><td>187</td><td>= Canon EF 70-200mm f/4L USM + 1.4x</td>
+</tr><tr><td>188</td><td>= Canon EF 70-200mm f/4L USM + 2x</td>
+</tr><tr><td>189</td><td>= Canon EF 70-200mm f/4L USM + 2.8x</td>
 </tr><tr><td>190</td><td>= Canon EF 100mm f/2.8 Macro USM</td>
 </tr><tr><td>191</td><td>= Canon EF 400mm f/4 DO IS</td>
 </tr><tr><td>193</td><td>= Canon EF 35-80mm f/4-5.6 USM</td>
 </tr><tr><td>194</td><td>= Canon EF 80-200mm f/4.5-5.6 USM</td>
 </tr><tr><td>195</td><td>= Canon EF 35-105mm f/4.5-5.6 USM</td>
 </tr><tr><td>196</td><td>= Canon EF 75-300mm f/4-5.6 USM</td>
-</tr><tr><td>197</td><td>= Canon EF 75-300mm f/4-5.6 IS USM</td>
+</tr><tr><td>197</td><td>= Canon EF 75-300mm f/4-5.6 IS USM or Sigma Lens</td>
+</tr><tr><td>197.1</td><td>= Sigma 18-300mm f/3.5-6.3 DC Macro OS HS</td>
 </tr><tr><td>198</td><td>= Canon EF 50mm f/1.4 USM or Zeiss Lens</td>
 </tr><tr><td>198.1</td><td>= Zeiss Otus 55mm f/1.4 ZE</td>
 </tr><tr><td>198.2</td><td>= Zeiss Otus 85mm f/1.4 ZE</td>
+</tr><tr><td>198.3</td><td>= Zeiss Milvus 25mm f/1.4</td>
 </tr><tr><td>199</td><td>= Canon EF 28-80mm f/3.5-5.6 USM</td>
 </tr><tr><td>200</td><td>= Canon EF 75-300mm f/4-5.6 USM</td>
 </tr><tr><td>201</td><td>= Canon EF 28-80mm f/3.5-5.6 USM</td>
@@ -1477,52 +1601,68 @@ attempting to identify the specific lens model.</p>
 </tr><tr><td>213</td><td>= Canon EF 90-300mm f/4.5-5.6 USM or Tamron Lens</td>
 </tr><tr><td>213.1</td><td>= Tamron SP 150-600mm f/5-6.3 Di VC USD</td>
 </tr><tr><td>213.2</td><td>= Tamron 16-300mm f/3.5-6.3 Di II VC PZD Macro</td>
+</tr><tr><td>213.3</td><td>= Tamron SP 35mm f/1.8 Di VC USD</td>
+</tr><tr><td>213.4</td><td>= Tamron SP 45mm f/1.8 Di VC USD</td>
 </tr><tr><td>214</td><td>= Canon EF-S 18-55mm f/3.5-5.6 USM</td>
 </tr><tr><td>215</td><td>= Canon EF 55-200mm f/4.5-5.6 II USM</td>
 </tr><tr><td>217</td><td>= Tamron AF 18-270mm f/3.5-6.3 Di II VC PZD</td>
-</tr><tr><td>224</td><td>= Canon EF 70-200mm f/2.8L IS</td>
-</tr><tr><td>225</td><td>= Canon EF 70-200mm f/2.8L IS + 1.4x</td>
-</tr><tr><td>226</td><td>= Canon EF 70-200mm f/2.8L IS + 2x</td>
-</tr><tr><td>227</td><td>= Canon EF 70-200mm f/2.8L IS + 2.8x</td>
+</tr><tr><td>224</td><td>= Canon EF 70-200mm f/2.8L IS USM</td>
+</tr><tr><td>225</td><td>= Canon EF 70-200mm f/2.8L IS USM + 1.4x</td>
+</tr><tr><td>226</td><td>= Canon EF 70-200mm f/2.8L IS USM + 2x</td>
+</tr><tr><td>227</td><td>= Canon EF 70-200mm f/2.8L IS USM + 2.8x</td>
 </tr><tr><td>228</td><td>= Canon EF 28-105mm f/3.5-4.5 USM</td>
-</tr><tr><td>229</td><td>= Canon EF 16-35mm f/2.8L</td>
-</tr><tr><td>230</td><td>= Canon EF 24-70mm f/2.8L</td>
-</tr><tr><td>231</td><td>= Canon EF 17-40mm f/4L</td>
+</tr><tr><td>229</td><td>= Canon EF 16-35mm f/2.8L USM</td>
+</tr><tr><td>230</td><td>= Canon EF 24-70mm f/2.8L USM</td>
+</tr><tr><td>231</td><td>= Canon EF 17-40mm f/4L USM</td>
 </tr><tr><td>232</td><td>= Canon EF 70-300mm f/4.5-5.6 DO IS USM</td>
-</tr><tr><td>233</td><td>= Canon EF 28-300mm f/3.5-5.6L IS</td>
+</tr><tr><td>233</td><td>= Canon EF 28-300mm f/3.5-5.6L IS USM</td>
 </tr><tr><td>234</td><td>= Canon EF-S 17-85mm f/4-5.6 IS USM or Tokina Lens</td>
-</tr><tr><td>234.1</td><td>= Tokina AT-X 12-28mm f/4 PRO DX</td>
+</tr><tr><td>234.1</td><td>= Tokina AT-X 12-28 PRO DX 12-28mm f/4</td>
 </tr><tr><td>235</td><td>= Canon EF-S 10-22mm f/3.5-4.5 USM</td>
 </tr><tr><td>236</td><td>= Canon EF-S 60mm f/2.8 Macro USM</td>
-</tr><tr><td>237</td><td>= Canon EF 24-105mm f/4L IS</td>
+</tr><tr><td>237</td><td>= Canon EF 24-105mm f/4L IS USM</td>
 </tr><tr><td>238</td><td>= Canon EF 70-300mm f/4-5.6 IS USM</td>
-</tr><tr><td>239</td><td>= Canon EF 85mm f/1.2L II</td>
+</tr><tr><td>239</td><td>= Canon EF 85mm f/1.2L II USM or Rokinon Lens</td>
+</tr><tr><td>239.1</td><td>= Rokinon SP 85mm f/1.2</td>
 </tr><tr><td>240</td><td>= Canon EF-S 17-55mm f/2.8 IS USM</td>
-</tr><tr><td>241</td><td>= Canon EF 50mm f/1.2L</td>
-</tr><tr><td>242</td><td>= Canon EF 70-200mm f/4L IS</td>
-</tr><tr><td>243</td><td>= Canon EF 70-200mm f/4L IS + 1.4x</td>
-</tr><tr><td>244</td><td>= Canon EF 70-200mm f/4L IS + 2x</td>
-</tr><tr><td>245</td><td>= Canon EF 70-200mm f/4L IS + 2.8x</td>
-</tr><tr><td>246</td><td>= Canon EF 16-35mm f/2.8L II</td>
+</tr><tr><td>241</td><td>= Canon EF 50mm f/1.2L USM</td>
+</tr><tr><td>242</td><td>= Canon EF 70-200mm f/4L IS USM</td>
+</tr><tr><td>243</td><td>= Canon EF 70-200mm f/4L IS USM + 1.4x</td>
+</tr><tr><td>244</td><td>= Canon EF 70-200mm f/4L IS USM + 2x</td>
+</tr><tr><td>245</td><td>= Canon EF 70-200mm f/4L IS USM + 2.8x</td>
+</tr><tr><td>246</td><td>= Canon EF 16-35mm f/2.8L II USM</td>
 </tr><tr><td>247</td><td>= Canon EF 14mm f/2.8L II USM</td>
-</tr><tr><td>248</td><td>= Canon EF 200mm f/2L IS</td>
-</tr><tr><td>249</td><td>= Canon EF 800mm f/5.6L IS</td>
-</tr><tr><td>250</td><td>= Canon EF 24 f/1.4L II</td>
+</tr><tr><td>248</td><td>= Canon EF 200mm f/2L IS USM or Sigma Lens</td>
+</tr><tr><td>248.1</td><td>= Sigma 24-35mm f/2 DG HSM | A</td>
+</tr><tr><td>248.2</td><td>= Sigma 135mm f/2 FF High-Speed Prime | 017</td>
+</tr><tr><td>248.3</td><td>= Sigma 24-35mm f/2.2 FF Zoom | 017</td>
+</tr><tr><td>249</td><td>= Canon EF 800mm f/5.6L IS USM</td>
+</tr><tr><td>250</td><td>= Canon EF 24mm f/1.4L II USM or Sigma Lens</td>
+</tr><tr><td>250.1</td><td>= Sigma 20mm f/1.4 DG HSM | A</td>
+</tr><tr><td>250.2</td><td>= Sigma 20mm f/1.5 FF High-Speed Prime | 017</td>
 </tr><tr><td>251</td><td>= Canon EF 70-200mm f/2.8L IS II USM</td>
 </tr><tr><td>252</td><td>= Canon EF 70-200mm f/2.8L IS II USM + 1.4x</td>
 </tr><tr><td>253</td><td>= Canon EF 70-200mm f/2.8L IS II USM + 2x</td>
 </tr><tr><td>254</td><td>= Canon EF 100mm f/2.8L Macro IS USM</td>
 </tr><tr><td>255</td><td>= Sigma 24-105mm f/4 DG OS HSM | A or Other Sigma Lens</td>
 </tr><tr><td>255.1</td><td>= Sigma 180mm f/2.8 EX DG OS HSM APO Macro</td>
+</tr><tr><td>368</td><td>= Sigma 14-24mm f/2.8 DG HSM | A</td>
 </tr><tr><td>488</td><td>= Canon EF-S 15-85mm f/3.5-5.6 IS USM</td>
 </tr><tr><td>489</td><td>= Canon EF 70-300mm f/4-5.6L IS USM</td>
 </tr><tr><td>490</td><td>= Canon EF 8-15mm f/4L Fisheye USM</td>
-</tr><tr><td>491</td><td>= Canon EF 300mm f/2.8L IS II USM</td>
+</tr><tr><td>491</td><td>= Canon EF 300mm f/2.8L IS II USM or Tamron Lens</td>
+</tr><tr><td>491.1</td><td>= Tamron SP 70-200mm f/2.8 Di VC USD G2 (A025)</td>
+</tr><tr><td>491.2</td><td>= Tamron 18-400mm f/3.5-6.3 Di II VC HLD (B028)</td>
+</tr><tr><td>491.3</td><td>= Tamron 100-400mm f/4.5-6.3 Di VC USD (A035)</td>
+</tr><tr><td>491.4</td><td>= Tamron 70-210mm F/4 Di VC USD (A034)</td>
+</tr><tr><td>491.5</td><td>= Tamron 70-210mm F/4 Di VC USD (A034) + 1.4x</td>
+</tr><tr><td>491.6</td><td>= Tamron SP 24-70mm F/2.8 Di VC USD G2 (A032)</td>
 </tr><tr><td>492</td><td>= Canon EF 400mm f/2.8L IS II USM</td>
 </tr><tr><td>493</td><td>= Canon EF 500mm f/4L IS II USM or EF 24-105mm f4L IS USM</td>
 </tr><tr><td>493.1</td><td>= Canon EF 24-105mm f/4L IS USM</td>
-</tr><tr><td>494</td><td>= Canon EF 600mm f/4.0L IS II USM</td>
-</tr><tr><td>495</td><td>= Canon EF 24-70mm f/2.8L II USM</td>
+</tr><tr><td>494</td><td>= Canon EF 600mm f/4L IS II USM</td>
+</tr><tr><td>495</td><td>= Canon EF 24-70mm f/2.8L II USM or Sigma Lens</td>
+</tr><tr><td>495.1</td><td>= Sigma 24-70mm F2.8 DG OS HSM | A</td>
 </tr><tr><td>496</td><td>= Canon EF 200-400mm f/4L IS USM</td>
 </tr><tr><td>499</td><td>= Canon EF 200-400mm f/4L IS USM + 1.4x</td>
 </tr><tr><td>502</td><td>= Canon EF 28mm f/2.8 IS USM</td>
@@ -1531,11 +1671,22 @@ attempting to identify the specific lens model.</p>
 </tr><tr><td>505</td><td>= Canon EF 35mm f/2 IS USM</td>
 </tr><tr><td>506</td><td>= Canon EF 400mm f/4 DO IS II USM</td>
 </tr><tr><td>507</td><td>= Canon EF 16-35mm f/4L IS USM</td>
-</tr><tr><td>508</td><td>= Canon EF 11-24mm f/4L USM</td>
-</tr><tr><td>747</td><td>= Canon EF 100-400mm f/4.5-5.6L IS II USM</td>
+</tr><tr><td>508</td><td>= Canon EF 11-24mm f/4L USM or Tamron Lens</td>
+</tr><tr><td>508.1</td><td>= Tamron 10-24mm f/3.5-4.5 Di II VC HLD</td>
+</tr><tr><td>747</td><td>= Canon EF 100-400mm f/4.5-5.6L IS II USM or Tamron Lens</td>
+</tr><tr><td>747.1</td><td>= Tamron SP 150-600mm f/5-6.3 Di VC USD G2</td>
+</tr><tr><td>748</td><td>= Canon EF 100-400mm f/4.5-5.6L IS II USM + 1.4x or Tamron Lens</td>
+</tr><tr><td>748.1</td><td>= Tamron 100-400mm f/4.5-6.3 Di VC USD A035E + 1.4x</td>
+</tr><tr><td>748.2</td><td>= Tamron 70-210mm f/4 Di VC USD (A034) + 2x</td>
+</tr><tr><td>749</td><td>= Tamron 100-400mm f/4.5-6.3 Di VC USD A035E + 2x</td>
+</tr><tr><td>750</td><td>= Canon EF 35mm f/1.4L II USM</td>
+</tr><tr><td>751</td><td>= Canon EF 16-35mm f/2.8L III USM</td>
+</tr><tr><td>752</td><td>= Canon EF 24-105mm f/4L IS II USM</td>
+</tr><tr><td>753</td><td>= Canon EF 85mm f/1.4L IS USM</td>
+</tr><tr><td>1136</td><td>= Sigma 24-70mm f/2.8 DG OS HSM | Art 017</td>
 </tr><tr><td>4142</td><td>= Canon EF-S 18-135mm f/3.5-5.6 IS STM</td>
 </tr><tr><td>4143</td><td>= Canon EF-M 18-55mm f/3.5-5.6 IS STM or Tamron Lens</td>
-</tr><tr><td>4143.1</td><td>= Tamron 18-200mm F/3.5-6.3 Di III VC</td>
+</tr><tr><td>4143.1</td><td>= Tamron 18-200mm f/3.5-6.3 Di III VC</td>
 </tr><tr><td>4144</td><td>= Canon EF 40mm f/2.8 STM</td>
 </tr><tr><td>4145</td><td>= Canon EF-M 22mm f/2 STM</td>
 </tr><tr><td>4146</td><td>= Canon EF-S 18-55mm f/3.5-5.6 IS STM</td>
@@ -1544,8 +1695,21 @@ attempting to identify the specific lens model.</p>
 </tr><tr><td>4149</td><td>= Canon EF-M 55-200mm f/4.5-6.3 IS STM</td>
 </tr><tr><td>4150</td><td>= Canon EF-S 10-18mm f/4.5-5.6 IS STM</td>
 </tr><tr><td>4152</td><td>= Canon EF 24-105mm f/3.5-5.6 IS STM</td>
+</tr><tr><td>4153</td><td>= Canon EF-M 15-45mm f/3.5-6.3 IS STM</td>
 </tr><tr><td>4154</td><td>= Canon EF-S 24mm f/2.8 STM</td>
+</tr><tr><td>4155</td><td>= Canon EF-M 28mm f/3.5 Macro IS STM</td>
 </tr><tr><td>4156</td><td>= Canon EF 50mm f/1.8 STM</td>
+</tr><tr><td>4157</td><td>= Canon EF-M 18-150mm 1:3.5-6.3 IS STM</td>
+</tr><tr><td>4158</td><td>= Canon EF-S 18-55mm f/4-5.6 IS STM</td>
+</tr><tr><td>4160</td><td>= Canon EF-S 35mm f/2.8 Macro IS STM</td>
+</tr><tr><td>36910</td><td>= Canon EF 70-300mm f/4-5.6 IS II USM</td>
+</tr><tr><td>36912</td><td>= Canon EF-S 18-135mm f/3.5-5.6 IS USM</td>
+</tr><tr><td>61491</td><td>= Canon CN-E 14mm T3.1 L F</td>
+</tr><tr><td>61492</td><td>= Canon CN-E 24mm T1.5 L F</td>
+</tr><tr><td>61494</td><td>= Canon CN-E 85mm T1.3 L F</td>
+</tr><tr><td>61495</td><td>= Canon CN-E 135mm T2.2 L F</td>
+</tr><tr><td>61496</td><td>= Canon CN-E 35mm T1.5 L F</td>
+</tr><tr><td>65535</td><td>= n/a</td>
 </tr></table></td></tr></table></blockquote>
 
 <h2><a name='FocalLength'>Canon FocalLength Tags</a></h2>
@@ -1925,37 +2089,6 @@ lists CameraInfo tags for the 1D and 1DS.</p>
   <br><span class='n s'>(1DS only)</span></td></tr>
 </table></td></tr></table></blockquote>
 
-<h2><a name='PictureStyle'>Canon PictureStyle Values</a></h2>
-<blockquote>
-<table class=frame><tr><td>
-<table class='inner sep' cellspacing=1>
-<tr class=h><th>Value</th><th>PictureStyle</th><th>Value</th><th>PictureStyle</th><th>Value</th><th>PictureStyle</th></tr>
-<tr><td class=r>0x0</td><td>= None</td>
-<td class='r b'>0x21</td><td class=b>= User Def. 1</td>
-<td class=r>0x83</td><td>= Landscape</td>
-</tr><tr><td class=r>0x1</td><td>= Standard</td>
-<td class='r b'>0x22</td><td class=b>= User Def. 2</td>
-<td class=r>0x84</td><td>= Neutral</td>
-</tr><tr><td class=r>0x2</td><td>= Portrait</td>
-<td class='r b'>0x23</td><td class=b>= User Def. 3</td>
-<td class=r>0x85</td><td>= Faithful</td>
-</tr><tr><td class=r>0x3</td><td>= High Saturation</td>
-<td class='r b'>0x41</td><td class=b>= PC 1</td>
-<td class=r>0x86</td><td>= Monochrome</td>
-</tr><tr><td class=r>0x4</td><td>= Adobe RGB</td>
-<td class='r b'>0x42</td><td class=b>= PC 2</td>
-<td class=r>0x87</td><td>= Auto</td>
-</tr><tr><td class=r>0x5</td><td>= Low Saturation</td>
-<td class='r b'>0x43</td><td class=b>= PC 3</td>
-<td class=r>0x88</td><td>= Fine Detail</td>
-</tr><tr><td class=r>0x6</td><td>= CM Set 1</td>
-<td class='r b'>0x81</td><td class=b>= Standard</td>
-<td class=r>&nbsp;</td><td>&nbsp;</td>
-</tr><tr><td class=r>0x7</td><td>= CM Set 2</td>
-<td class='r b'>0x82</td><td class=b>= Portrait</td>
-<td class=r>&nbsp;</td><td>&nbsp;</td>
-</tr></table></td></tr></table></blockquote>
-
 <h2><a name='CameraInfo1DmkII'>Canon CameraInfo1DmkII Tags</a></h2>
 <p>CameraInfo tags for the 1DmkII and 1DSmkII.</p>
 <blockquote>
@@ -2017,16 +2150,17 @@ lists CameraInfo tags for the 1D and 1DS.</p>
   <br>6 = Medium 2
   <br>7 = Medium 3
   <br>8 = Postcard
-  <br>9 = Widescreen</td><td>&nbsp;&nbsp;</td>
-  <td>10 = Medium Widescreen
-  <br>14 = Small 1
+  <br>9 = Widescreen
+  <br>10 = Medium Widescreen</td><td>&nbsp;&nbsp;</td>
+  <td>14 = Small 1
   <br>15 = Small 2
   <br>16 = Small 3
   <br>128 = 640x480 Movie
   <br>129 = Medium Movie
   <br>130 = Small Movie
   <br>137 = 1280x720 Movie
-  <br>142 = 1920x1080 Movie</td></tr></table>
+  <br>142 = 1920x1080 Movie
+  <br>143 = 4096x2160 Movie</td></tr></table>
 </td></tr>
 <tr class=b>
 <td class=r title='102 = 0x66'>102</td>
@@ -2735,7 +2869,7 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <tr class=b>
 <td class=r title='493 = 0x1ed'>493</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='556 = 0x22c'>556</td>
@@ -2837,7 +2971,7 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <tr>
 <td class=r title='640 = 0x280'>640</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='720 = 0x2d0'>720</td>
@@ -3706,7 +3840,7 @@ version 1.0.6, but they may be different for other firmware versions.</p>
 <tr class=b>
 <td class=r title='382 = 0x17e'>382</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='443 = 0x1bb'>443</td>
@@ -3806,31 +3940,36 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <td class=c>int16uRev</td>
 <td>&nbsp;</td></tr>
 <tr>
-<td class=r title='572 = 0x23c'>572</td>
-<td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=r title='356 = 0x164'>356</td>
+<td>LensSerialNumber</td>
+<td class=c>undef[5]</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td class=r title='572 = 0x23c'>572</td>
+<td>FirmwareVersion</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td class=r title='652 = 0x28c'>652</td>
 <td>FileIndex</td>
 <td class=c>int32u</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td class=r title='656 = 0x290'>656</td>
 <td>FileIndex2</td>
 <td class=c>int32u</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td class=r title='664 = 0x298'>664</td>
 <td>DirectoryIndex</td>
 <td class=c>int32u</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td class=r title='668 = 0x29c'>668</td>
 <td>DirectoryIndex2</td>
 <td class=c>int32u</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td class=r title='944 = 0x3b0'>944</td>
 <td>PictureStyleInfo</td>
 <td class=c>-</td>
@@ -3919,7 +4058,7 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <tr>
 <td class=r title='598 = 0x256'>598</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='682 = 0x2aa'>682</td>
@@ -4024,6 +4163,21 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <td class=c>int16u</td>
 <td>&nbsp;</td></tr>
 <tr>
+<td class=r title='175 = 0xaf'>175</td>
+<td>CameraPictureStyle</td>
+<td class=c>int8u</td>
+<td><table class=cols><tr>
+  <td>0x21 = User Defined 1
+  <br>0x22 = User Defined 2
+  <br>0x23 = User Defined 3
+  <br>0x81 = Standard
+  <br>0x82 = Portrait</td><td>&nbsp;&nbsp;</td>
+  <td>0x83 = Landscape
+  <br>0x84 = Neutral
+  <br>0x85 = Faithful
+  <br>0x86 = Monochrome</td></tr></table>
+</td></tr>
+<tr class=b>
 <td class=r title='201 = 0xc9'>201</td>
 <td>HighISONoiseReduction</td>
 <td class=c>int8u</td>
@@ -4031,37 +4185,37 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
   <br>1 = Low
   <br>2 = Strong
   <br>3 = Off</span></td></tr>
-<tr class=b>
+<tr>
 <td class=r title='274 = 0x112'>274</td>
 <td>LensType</td>
 <td class=c>int16uRev</td>
 <td>--&gt; <a href='Canon.html#LensType'>Canon LensType Values</a></td></tr>
-<tr>
+<tr class=b>
 <td class=r title='276 = 0x114'>276</td>
 <td>MinFocalLength</td>
 <td class=c>int16uRev</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td class=r title='278 = 0x116'>278</td>
 <td>MaxFocalLength</td>
 <td class=c>int16uRev</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td class=r title='428 = 0x1ac'>428</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td class=r title='491 = 0x1eb'>491</td>
 <td>FileIndex</td>
 <td class=c>int32u</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td class=r title='503 = 0x1f7'>503</td>
 <td>DirectoryIndex</td>
 <td class=c>int32u</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td class=r title='807 = 0x327'>807</td>
 <td>PictureStyleInfo</td>
 <td class=c>-</td>
@@ -4297,7 +4451,7 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <tr>
 <td class=r title='350 = 0x15e'>350</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='411 = 0x19b'>411</td>
@@ -4317,7 +4471,7 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 </table></td></tr></table></blockquote>
 
 <h2><a name='CameraInfo60D'>Canon CameraInfo60D Tags</a></h2>
-<p>CameraInfo tags for the EOS 60D.</p>
+<p>CameraInfo tags for the EOS 60D and 1200D.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class=inner cellspacing=1>
@@ -4352,24 +4506,25 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <td class=r title='54 = 0x36'>54</td>
 <td>CameraOrientation</td>
 <td class=c>int8u</td>
-<td><span class=s>0 = Horizontal (normal)
+<td><span class=s><span class=n>(60D only)</span>
+  <br>0 = Horizontal (normal)
   <br>1 = Rotate 90 CW
   <br>2 = Rotate 270 CW</span></td></tr>
 <tr>
 <td class=r title='85 = 0x55'>85</td>
 <td>FocusDistanceUpper</td>
 <td class=c>int16uRev</td>
-<td>&nbsp;</td></tr>
+<td><span class=s><span class=n>(60D only)</span></span></td></tr>
 <tr class=b>
 <td class=r title='87 = 0x57'>87</td>
 <td>FocusDistanceLower</td>
 <td class=c>int16uRev</td>
-<td>&nbsp;</td></tr>
+<td><span class=s><span class=n>(60D only)</span></span></td></tr>
 <tr>
 <td class=r title='125 = 0x7d'>125</td>
 <td>ColorTemperature</td>
 <td class=c>int16u</td>
-<td>&nbsp;</td></tr>
+<td><span class=s><span class=n>(60D only)</span></span></td></tr>
 <tr class=b>
 <td class=r title='232 = 0xe8'>232</td>
 <td>LensType</td>
@@ -4388,23 +4543,30 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <tr>
 <td class=r title='409 = 0x199'>409</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='473 = 0x1d9'>473</td>
 <td>FileIndex</td>
 <td class=c>int32u</td>
-<td>&nbsp;</td></tr>
+<td><span class=s><span class=n>(60D only)</span></span></td></tr>
 <tr>
 <td class=r title='485 = 0x1e5'>485</td>
 <td>DirectoryIndex</td>
 <td class=c>int32u</td>
-<td>&nbsp;</td></tr>
+<td><span class=s><span class=n>(60D only)</span></span></td></tr>
 <tr class=b>
+<td class=r title='761 = 0x2f9'>761</td>
+<td>PictureStyleInfo</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html#PSInfo2'>Canon PSInfo2 Tags</a>
+  <br><span class='n s'>(1200D)</span></td></tr>
+<tr>
 <td class=r title='801 = 0x321'>801</td>
 <td>PictureStyleInfo</td>
 <td class=c>-</td>
-<td>--&gt; <a href='Canon.html#PSInfo2'>Canon PSInfo2 Tags</a></td></tr>
+<td>--&gt; <a href='Canon.html#PSInfo2'>Canon PSInfo2 Tags</a>
+  <br><span class='n s'>(60D)</span></td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='CameraInfo70D'>Canon CameraInfo70D Tags</a></h2>
@@ -4479,7 +4641,7 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <tr>
 <td class=r title='606 = 0x25e'>606</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='691 = 0x2b3'>691</td>
@@ -4496,6 +4658,92 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <td>PictureStyleInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#PSInfo2'>Canon PSInfo2 Tags</a></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='CameraInfo80D'>Canon CameraInfo80D Tags</a></h2>
+<p>CameraInfo tags for the EOS 70D.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index1</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='3 = 0x3'>3</td>
+<td>FNumber</td>
+<td class=c>int8u</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='4 = 0x4'>4</td>
+<td>ExposureTime</td>
+<td class=c>int8u</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='6 = 0x6'>6</td>
+<td>ISO</td>
+<td class=c>int8u</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='27 = 0x1b'>27</td>
+<td>CameraTemperature</td>
+<td class=c>int8u</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='35 = 0x23'>35</td>
+<td>FocalLength</td>
+<td class=c>int16uRev</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='150 = 0x96'>150</td>
+<td>CameraOrientation</td>
+<td class=c>int8u</td>
+<td><span class=s>0 = Horizontal (normal)
+  <br>1 = Rotate 90 CW
+  <br>2 = Rotate 270 CW</span></td></tr>
+<tr>
+<td class=r title='165 = 0xa5'>165</td>
+<td>FocusDistanceUpper</td>
+<td class=c>int16uRev</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='167 = 0xa7'>167</td>
+<td>FocusDistanceLower</td>
+<td class=c>int16uRev</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='314 = 0x13a'>314</td>
+<td>ColorTemperature</td>
+<td class=c>int16u</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='393 = 0x189'>393</td>
+<td>LensType</td>
+<td class=c>int16uRev</td>
+<td>--&gt; <a href='Canon.html#LensType'>Canon LensType Values</a></td></tr>
+<tr>
+<td class=r title='395 = 0x18b'>395</td>
+<td>MinFocalLength</td>
+<td class=c>int16uRev</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='397 = 0x18d'>397</td>
+<td>MaxFocalLength</td>
+<td class=c>int16uRev</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='1114 = 0x45a'>1114</td>
+<td>FirmwareVersion</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='1198 = 0x4ae'>1198</td>
+<td>FileIndex</td>
+<td class=c>int32u</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='1210 = 0x4ba'>1210</td>
+<td>DirectoryIndex</td>
+<td class=c>int32u</td>
+<td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='CameraInfo450D'>Canon CameraInfo450D Tags</a></h2>
@@ -4721,7 +4969,7 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <tr>
 <td class=r title='400 = 0x190'>400</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='467 = 0x1d3'>467</td>
@@ -4837,7 +5085,7 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <tr>
 <td class=r title='420 = 0x1a4'>420</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='484 = 0x1e4'>484</td>
@@ -4953,7 +5201,7 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <tr>
 <td class=r title='411 = 0x19b'>411</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='475 = 0x1db'>475</td>
@@ -5054,12 +5302,12 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <tr>
 <td class=r title='539 = 0x21b'>539</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s><span class=n>(650D)</span></span></td></tr>
 <tr class=b>
 <td class=r title='544 = 0x220'>544</td>
 <td>FirmwareVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s><span class=n>(700D)</span></span></td></tr>
 <tr>
 <td class=r title='624 = 0x270'>624</td>
@@ -5086,6 +5334,90 @@ versions 1.0.x, but they may be different for other firmware versions.</p>
 <td>PictureStyleInfo</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#PSInfo2'>Canon PSInfo2 Tags</a></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='CameraInfo750D'>Canon CameraInfo750D Tags</a></h2>
+<p>CameraInfo tags for the EOS 750D and 760D.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index1</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='3 = 0x3'>3</td>
+<td>FNumber</td>
+<td class=c>int8u</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='4 = 0x4'>4</td>
+<td>ExposureTime</td>
+<td class=c>int8u</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='6 = 0x6'>6</td>
+<td>ISO</td>
+<td class=c>int8u</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='27 = 0x1b'>27</td>
+<td>CameraTemperature</td>
+<td class=c>int8u</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='35 = 0x23'>35</td>
+<td>FocalLength</td>
+<td class=c>int16uRev</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='165 = 0xa5'>165</td>
+<td>FocusDistanceUpper</td>
+<td class=c>int16uRev</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='167 = 0xa7'>167</td>
+<td>FocusDistanceLower</td>
+<td class=c>int16uRev</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='305 = 0x131'>305</td>
+<td>WhiteBalance</td>
+<td class=c>int16u</td>
+<td>--&gt; <a href='Canon.html#WhiteBalance'>Canon WhiteBalance Values</a></td></tr>
+<tr>
+<td class=r title='309 = 0x135'>309</td>
+<td>ColorTemperature</td>
+<td class=c>int16u</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='361 = 0x169'>361</td>
+<td>PictureStyle</td>
+<td class=c>int8u</td>
+<td>--&gt; <a href='Canon.html#PictureStyle'>Canon PictureStyle Values</a></td></tr>
+<tr>
+<td class=r title='388 = 0x184'>388</td>
+<td>LensType</td>
+<td class=c>int16uRev</td>
+<td>--&gt; <a href='Canon.html#LensType'>Canon LensType Values</a></td></tr>
+<tr class=b>
+<td class=r title='390 = 0x186'>390</td>
+<td>MinFocalLength</td>
+<td class=c>int16uRev</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='392 = 0x188'>392</td>
+<td>MaxFocalLength</td>
+<td class=c>int16uRev</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='1085 = 0x43d'>1085</td>
+<td>FirmwareVersion</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='1097 = 0x449'>1097</td>
+<td>FirmwareVersion</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='CameraInfo1000D'>Canon CameraInfo1000D Tags</a></h2>
@@ -5358,7 +5690,11 @@ SD4000, SX20, SX120 and SX210)</span></span></td></tr>
 <table class=inner cellspacing=1>
 <tr class=h><th>Index1</th><th>Tag Name</th>
 <th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
-<tr><td colspan=4 class=c><i>[no tags known]</i></td></tr>
+<tr>
+<td class=r title='363 = 0x16b'>363</td>
+<td>LensSerialNumber</td>
+<td class=c>undef[5]</td>
+<td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='MovieInfo'>Canon MovieInfo Tags</a></h2>
@@ -5431,68 +5767,68 @@ apparently downwards for PowerShot models.</p>
 <tr>
 <td class=r title='0 = 0x0'>0</td>
 <td>NumAFPoints</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='1 = 0x1'>1</td>
 <td>ValidAFPoints</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s><span class=n>(number of AF points valid in the following information)</span></span></td></tr>
 <tr>
 <td class=r title='2 = 0x2'>2</td>
 <td>CanonImageWidth</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='3 = 0x3'>3</td>
 <td>CanonImageHeight</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='4 = 0x4'>4</td>
 <td>AFImageWidth</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s><span class=n>(size of image in AF coordinates)</span></span></td></tr>
 <tr class=b>
 <td class=r title='5 = 0x5'>5</td>
 <td>AFImageHeight</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='6 = 0x6'>6</td>
 <td>AFAreaWidth</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='7 = 0x7'>7</td>
 <td>AFAreaHeight</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='8 = 0x8'>8</td>
 <td>AFAreaXPositions</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='9 = 0x9'>9</td>
 <td>AFAreaYPositions</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='10 = 0xa'>10</td>
 <td>AFPointsInFocus</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='11 = 0xb'>11</td>
 <td>PrimaryAFPoint
   <br>Canon_AFInfo_0x000b?</td>
-<td class=c>N<br>N</td>
+<td class=c>no<br>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='12 = 0xc'>12</td>
 <td>PrimaryAFPoint</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -5619,12 +5955,12 @@ may be 7, 9, 11, 19, 31, 45 or 61, depending on the camera model.</p>
 <tr>
 <td class=r title='0 = 0x0'>0</td>
 <td>AFInfoSize?</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='1 = 0x1'>1</td>
 <td>AFAreaMode</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><table class=cols><tr>
   <td>0 = Off (Manual Focus)
   <br>1 = AF Point Expansion (surround)
@@ -5643,68 +5979,68 @@ may be 7, 9, 11, 19, 31, 45 or 61, depending on the camera model.</p>
 <tr>
 <td class=r title='2 = 0x2'>2</td>
 <td>NumAFPoints</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='3 = 0x3'>3</td>
 <td>ValidAFPoints</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s><span class=n>(number of AF points valid in the following information)</span></span></td></tr>
 <tr>
 <td class=r title='4 = 0x4'>4</td>
 <td>CanonImageWidth</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='5 = 0x5'>5</td>
 <td>CanonImageHeight</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='6 = 0x6'>6</td>
 <td>AFImageWidth</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s><span class=n>(size of image in AF coordinates)</span></span></td></tr>
 <tr class=b>
 <td class=r title='7 = 0x7'>7</td>
 <td>AFImageHeight</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='8 = 0x8'>8</td>
 <td>AFAreaWidths</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='9 = 0x9'>9</td>
 <td>AFAreaHeights</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='10 = 0xa'>10</td>
 <td>AFAreaXPositions</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='11 = 0xb'>11</td>
 <td>AFAreaYPositions</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='12 = 0xc'>12</td>
 <td>AFPointsInFocus</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='13 = 0xd'>13</td>
 <td>AFPointsSelected
   <br>Canon_AFInfo2_0x000d?</td>
-<td class=c>N<br>N</td>
+<td class=c>no<br>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='14 = 0xe'>14</td>
 <td>PrimaryAFPoint</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -5839,9 +6175,10 @@ on the 1DSmkII)</span></span></td></tr>
   <td>-1 = n/a
   <br>1 = Economy
   <br>2 = Normal
-  <br>3 = Fine</td><td>&nbsp;&nbsp;</td>
-  <td>4 = RAW
-  <br>5 = Superfine
+  <br>3 = Fine
+  <br>4 = RAW</td><td>&nbsp;&nbsp;</td>
+  <td>5 = Superfine
+  <br>7 = CRAW
   <br>130 = Normal Movie
   <br>131 = Movie (2)</td></tr></table>
 </td></tr>
@@ -5858,16 +6195,17 @@ on the 1DSmkII)</span></span></td></tr>
   <br>6 = Medium 2
   <br>7 = Medium 3
   <br>8 = Postcard
-  <br>9 = Widescreen</td><td>&nbsp;&nbsp;</td>
-  <td>10 = Medium Widescreen
-  <br>14 = Small 1
+  <br>9 = Widescreen
+  <br>10 = Medium Widescreen</td><td>&nbsp;&nbsp;</td>
+  <td>14 = Small 1
   <br>15 = Small 2
   <br>16 = Small 3
   <br>128 = 640x480 Movie
   <br>129 = Medium Movie
   <br>130 = Small Movie
   <br>137 = 1280x720 Movie
-  <br>142 = 1920x1080 Movie</td></tr></table>
+  <br>142 = 1920x1080 Movie
+  <br>143 = 4096x2160 Movie</td></tr></table>
 </td></tr>
 <tr>
 <td class=r title='8 = 0x8'>8</td>
@@ -6276,9 +6614,10 @@ valid for all camera models)</span></span></td></tr>
   <td>-1 = n/a
   <br>1 = Economy
   <br>2 = Normal
-  <br>3 = Fine</td><td>&nbsp;&nbsp;</td>
-  <td>4 = RAW
-  <br>5 = Superfine
+  <br>3 = Fine
+  <br>4 = RAW</td><td>&nbsp;&nbsp;</td>
+  <td>5 = Superfine
+  <br>7 = CRAW
   <br>130 = Normal Movie
   <br>131 = Movie (2)</td></tr></table>
 </td></tr>
@@ -6313,53 +6652,53 @@ valid for all camera models)</span></span></td></tr>
 <tr>
 <td class=r title='1 = 0x1'>1</td>
 <td>SensorWidth</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='2 = 0x2'>2</td>
 <td>SensorHeight</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='5 = 0x5'>5</td>
 <td>SensorLeftBorder</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='6 = 0x6'>6</td>
 <td>SensorTopBorder</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='7 = 0x7'>7</td>
 <td>SensorRightBorder</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='8 = 0x8'>8</td>
 <td>SensorBottomBorder</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='9 = 0x9'>9</td>
 <td>BlackMaskLeftBorder</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s><span class=n>(coordinates for the area to the left or right of the image used to calculate
 the average black level)</span></span></td></tr>
 <tr class=b>
 <td class=r title='10 = 0xa'>10</td>
 <td>BlackMaskTopBorder</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td class=r title='11 = 0xb'>11</td>
 <td>BlackMaskRightBorder</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='12 = 0xc'>12</td>
 <td>BlackMaskBottomBorder</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -7389,96 +7728,366 @@ option is used.</p>
 </table></td></tr></table></blockquote>
 
 <h2><a name='ColorData5'>Canon ColorData5 Tags</a></h2>
-<p>These tags are used by the PowerShot G10.</p>
+<p>These tags are used by many EOS M and PowerShot models.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class=inner cellspacing=1>
 <tr class=h><th>Index2</th><th>Tag Name</th>
 <th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
 <tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>ColorDataVersion</td>
+<td class=c>int16s</td>
+<td><span class=s>-4 = -4 (M100/M5/M6)
+  <br>-3 = -3 (M10/M3)</span></td></tr>
+<tr class=b>
 <td class=r title='71 = 0x47'>71</td>
-<td>ColorCoefs</td>
-<td class=c>-</td>
-<td>--&gt; <a href='Canon.html#ColorCoefs'>Canon ColorCoefs Tags</a></td></tr>
-<tr class=b>
+<td>ColorCoefs
+  <br>ColorCoefs2</td>
+<td class=c>-<br>-</td>
+<td>--&gt; <a href='Canon.html#ColorCoefs'>Canon ColorCoefs Tags</a>
+  <br>--&gt; <a href='Canon.html#ColorCoefs2'>Canon ColorCoefs2 Tags</a></td></tr>
+<tr>
 <td class=r title='186 = 0xba'>186</td>
-<td>CameraColorCalibration01?</td>
-<td class=c>int16s[5]</td>
-<td><span class=s><span class=n>(B, C, A, D, Temperature)</span></span></td></tr>
-<tr>
-<td class=r title='191 = 0xbf'>191</td>
-<td>CameraColorCalibration02?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
+<td>ColorCalib2?</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html#ColorCalib2'>Canon ColorCalib2 Tags</a></td></tr>
 <tr class=b>
-<td class=r title='196 = 0xc4'>196</td>
-<td>CameraColorCalibration03?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='201 = 0xc9'>201</td>
-<td>CameraColorCalibration04?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='206 = 0xce'>206</td>
-<td>CameraColorCalibration05?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='211 = 0xd3'>211</td>
-<td>CameraColorCalibration06?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='216 = 0xd8'>216</td>
-<td>CameraColorCalibration07?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='221 = 0xdd'>221</td>
-<td>CameraColorCalibration08?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='226 = 0xe2'>226</td>
-<td>CameraColorCalibration09?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='231 = 0xe7'>231</td>
-<td>CameraColorCalibration10?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='236 = 0xec'>236</td>
-<td>CameraColorCalibration11?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='241 = 0xf1'>241</td>
-<td>CameraColorCalibration12?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='246 = 0xf6'>246</td>
-<td>CameraColorCalibration13?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td class=r title='251 = 0xfb'>251</td>
-<td>CameraColorCalibration14?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
-<tr class=b>
-<td class=r title='256 = 0x100'>256</td>
-<td>CameraColorCalibration15?</td>
-<td class=c>int16s[5]</td>
-<td>&nbsp;</td></tr>
+<td class=r title='255 = 0xff'>255</td>
+<td>ColorCalib2?</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html#ColorCalib2'>Canon ColorCalib2 Tags</a></td></tr>
 <tr>
 <td class=r title='264 = 0x108'>264</td>
 <td>PerChannelBlackLevel</td>
 <td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='333 = 0x14d'>333</td>
+<td>PerChannelBlackLevel</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='ColorCoefs2'>Canon ColorCoefs2 Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index2</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>WB_RGGBLevelsAsShot</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='7 = 0x7'>7</td>
+<td>ColorTempAsShot</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='8 = 0x8'>8</td>
+<td>WB_RGGBLevelsAuto</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='15 = 0xf'>15</td>
+<td>ColorTempAuto</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='16 = 0x10'>16</td>
+<td>WB_RGGBLevelsMeasured</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='23 = 0x17'>23</td>
+<td>ColorTempMeasured</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='24 = 0x18'>24</td>
+<td>WB_RGGBLevelsUnknown?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='31 = 0x1f'>31</td>
+<td>ColorTempUnknown?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='32 = 0x20'>32</td>
+<td>WB_RGGBLevelsDaylight</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='39 = 0x27'>39</td>
+<td>ColorTempDaylight</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='40 = 0x28'>40</td>
+<td>WB_RGGBLevelsShade</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='47 = 0x2f'>47</td>
+<td>ColorTempShade</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='48 = 0x30'>48</td>
+<td>WB_RGGBLevelsCloudy</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='55 = 0x37'>55</td>
+<td>ColorTempCloudy</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='56 = 0x38'>56</td>
+<td>WB_RGGBLevelsTungsten</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='63 = 0x3f'>63</td>
+<td>ColorTempTungsten</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='64 = 0x40'>64</td>
+<td>WB_RGGBLevelsFluorescent</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='71 = 0x47'>71</td>
+<td>ColorTempFluorescent</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='72 = 0x48'>72</td>
+<td>WB_RGGBLevelsKelvin</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='79 = 0x4f'>79</td>
+<td>ColorTempKelvin</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='80 = 0x50'>80</td>
+<td>WB_RGGBLevelsFlash</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='87 = 0x57'>87</td>
+<td>ColorTempFlash</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='88 = 0x58'>88</td>
+<td>WB_RGGBLevelsUnknown2?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='95 = 0x5f'>95</td>
+<td>ColorTempUnknown2?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='96 = 0x60'>96</td>
+<td>WB_RGGBLevelsUnknown3?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='103 = 0x67'>103</td>
+<td>ColorTempUnknown3?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='104 = 0x68'>104</td>
+<td>WB_RGGBLevelsUnknown4?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='111 = 0x6f'>111</td>
+<td>ColorTempUnknown4?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='112 = 0x70'>112</td>
+<td>WB_RGGBLevelsUnknown5?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='119 = 0x77'>119</td>
+<td>ColorTempUnknown5?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='120 = 0x78'>120</td>
+<td>WB_RGGBLevelsUnknown6?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='127 = 0x7f'>127</td>
+<td>ColorTempUnknown6?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='128 = 0x80'>128</td>
+<td>WB_RGGBLevelsUnknown7?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='135 = 0x87'>135</td>
+<td>ColorTempUnknown7?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='136 = 0x88'>136</td>
+<td>WB_RGGBLevelsUnknown8?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='143 = 0x8f'>143</td>
+<td>ColorTempUnknown8?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='144 = 0x90'>144</td>
+<td>WB_RGGBLevelsUnknown9?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='151 = 0x97'>151</td>
+<td>ColorTempUnknown9?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='152 = 0x98'>152</td>
+<td>WB_RGGBLevelsUnknown10?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='159 = 0x9f'>159</td>
+<td>ColorTempUnknown10?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='160 = 0xa0'>160</td>
+<td>WB_RGGBLevelsUnknown11?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='167 = 0xa7'>167</td>
+<td>ColorTempUnknown11?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='168 = 0xa8'>168</td>
+<td>WB_RGGBLevelsUnknown12?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='175 = 0xaf'>175</td>
+<td>ColorTempUnknown12?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='176 = 0xb0'>176</td>
+<td>WB_RGGBLevelsUnknown13?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='183 = 0xb7'>183</td>
+<td>ColorTempUnknown13?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='ColorCalib2'>Canon ColorCalib2 Tags</a></h2>
+<p>B, C, A, D, Temperature.</p>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index2</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>CameraColorCalibration01?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='5 = 0x5'>5</td>
+<td>CameraColorCalibration02?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='10 = 0xa'>10</td>
+<td>CameraColorCalibration03?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='15 = 0xf'>15</td>
+<td>CameraColorCalibration04?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='20 = 0x14'>20</td>
+<td>CameraColorCalibration05?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='25 = 0x19'>25</td>
+<td>CameraColorCalibration06?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='30 = 0x1e'>30</td>
+<td>CameraColorCalibration07?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='35 = 0x23'>35</td>
+<td>CameraColorCalibration08?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='40 = 0x28'>40</td>
+<td>CameraColorCalibration09?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='45 = 0x2d'>45</td>
+<td>CameraColorCalibration10?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='50 = 0x32'>50</td>
+<td>CameraColorCalibration11?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='55 = 0x37'>55</td>
+<td>CameraColorCalibration12?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='60 = 0x3c'>60</td>
+<td>CameraColorCalibration13?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='65 = 0x41'>65</td>
+<td>CameraColorCalibration14?</td>
+<td class=c>int16s[5]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='70 = 0x46'>70</td>
+<td>CameraColorCalibration15?</td>
+<td class=c>int16s[5]</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -8159,7 +8768,6 @@ option is used.</p>
 </table></td></tr></table></blockquote>
 
 <h2><a name='ColorData8'>Canon ColorData8 Tags</a></h2>
-<p>These tags are used by the EOS 5DS and EOS 5DS R.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class=inner cellspacing=1>
@@ -8169,7 +8777,10 @@ option is used.</p>
 <td class=r title='0 = 0x0'>0</td>
 <td>ColorDataVersion</td>
 <td class=c>int16s</td>
-<td><span class=s>12 = 12 (5DS/5DSR)</span></td></tr>
+<td><span class=s>12 = 12 (5DS/5DSR)
+  <br>13 = 13 (80D)
+  <br>14 = 14 (1300D/2000D/4000D)
+  <br>15 = 15 (6DmkII/77D/200D/800D)</span></td></tr>
 <tr class=b>
 <td class=r title='63 = 0x3f'>63</td>
 <td>WB_RGGBLevelsAsShot</td>
@@ -8582,22 +9193,470 @@ option is used.</p>
 <td class=c>int16u[4]</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td class=r title='556 = 0x22c'>556</td>
+<td>PerChannelBlackLevel</td>
+<td class=c>int16u[4]</td>
+<td><span class=s><span class=n>(1300D)</span></span></td></tr>
+<tr>
+<td class=r title='560 = 0x230'>560</td>
+<td>NormalWhiteLevel</td>
+<td class=c>int16u</td>
+<td><span class=s><span class=n>(1300D)</span></span></td></tr>
+<tr class=b>
+<td class=r title='561 = 0x231'>561</td>
+<td>SpecularWhiteLevel</td>
+<td class=c>int16u</td>
+<td><span class=s><span class=n>(1300D)</span></span></td></tr>
+<tr>
+<td class=r title='562 = 0x232'>562</td>
+<td>LinearityUpperMargin</td>
+<td class=c>int16u</td>
+<td><span class=s><span class=n>(1300D)</span></span></td></tr>
+<tr class=b>
 <td class=r title='778 = 0x30a'>778</td>
 <td>PerChannelBlackLevel</td>
 <td class=c>int16u[4]</td>
-<td>&nbsp;</td></tr>
+<td><span class=s><span class=n>(5DS, 5DS R, 77D, 80D and 800D)</span></span></td></tr>
 <tr>
 <td class=r title='782 = 0x30e'>782</td>
 <td>NormalWhiteLevel</td>
 <td class=c>int16u</td>
-<td>&nbsp;</td></tr>
+<td><span class=s><span class=n>(5DS, 5DS R, 77D, 80D and 800D)</span></span></td></tr>
 <tr class=b>
 <td class=r title='783 = 0x30f'>783</td>
 <td>SpecularWhiteLevel</td>
 <td class=c>int16u</td>
-<td>&nbsp;</td></tr>
+<td><span class=s><span class=n>(5DS, 5DS R, 77D, 80D and 800D)</span></span></td></tr>
 <tr>
 <td class=r title='784 = 0x310'>784</td>
+<td>LinearityUpperMargin</td>
+<td class=c>int16u</td>
+<td><span class=s><span class=n>(5DS, 5DS R, 77D, 80D and 800D)</span></span></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='ColorData9'>Canon ColorData9 Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index2</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>ColorDataVersion</td>
+<td class=c>int16s</td>
+<td><span class=s>16 = 16 (M50)</span></td></tr>
+<tr class=b>
+<td class=r title='71 = 0x47'>71</td>
+<td>WB_RGGBLevelsAsShot</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='75 = 0x4b'>75</td>
+<td>ColorTempAsShot</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='76 = 0x4c'>76</td>
+<td>WB_RGGBLevelsAuto</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='80 = 0x50'>80</td>
+<td>ColorTempAuto</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='81 = 0x51'>81</td>
+<td>WB_RGGBLevelsMeasured</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='85 = 0x55'>85</td>
+<td>ColorTempMeasured</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='86 = 0x56'>86</td>
+<td>WB_RGGBLevelsUnknown?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='90 = 0x5a'>90</td>
+<td>ColorTempUnknown?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='91 = 0x5b'>91</td>
+<td>WB_RGGBLevelsUnknown2?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='95 = 0x5f'>95</td>
+<td>ColorTempUnknown2?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='96 = 0x60'>96</td>
+<td>WB_RGGBLevelsUnknown3?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='100 = 0x64'>100</td>
+<td>ColorTempUnknown3?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='101 = 0x65'>101</td>
+<td>WB_RGGBLevelsUnknown4?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='105 = 0x69'>105</td>
+<td>ColorTempUnknown4?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='106 = 0x6a'>106</td>
+<td>WB_RGGBLevelsUnknown5?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='110 = 0x6e'>110</td>
+<td>ColorTempUnknown5?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='111 = 0x6f'>111</td>
+<td>WB_RGGBLevelsUnknown6?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='115 = 0x73'>115</td>
+<td>ColorTempUnknown6?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='116 = 0x74'>116</td>
+<td>WB_RGGBLevelsUnknown7?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='120 = 0x78'>120</td>
+<td>ColorTempUnknown7?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='121 = 0x79'>121</td>
+<td>WB_RGGBLevelsUnknown8?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='125 = 0x7d'>125</td>
+<td>ColorTempUnknown8?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='126 = 0x7e'>126</td>
+<td>WB_RGGBLevelsUnknown9?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='130 = 0x82'>130</td>
+<td>ColorTempUnknown9?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='131 = 0x83'>131</td>
+<td>WB_RGGBLevelsUnknown10?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='135 = 0x87'>135</td>
+<td>ColorTempUnknown10?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='136 = 0x88'>136</td>
+<td>WB_RGGBLevelsDaylight</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='140 = 0x8c'>140</td>
+<td>ColorTempDaylight</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='141 = 0x8d'>141</td>
+<td>WB_RGGBLevelsShade</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='145 = 0x91'>145</td>
+<td>ColorTempShade</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='146 = 0x92'>146</td>
+<td>WB_RGGBLevelsCloudy</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='150 = 0x96'>150</td>
+<td>ColorTempCloudy</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='151 = 0x97'>151</td>
+<td>WB_RGGBLevelsTungsten</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='155 = 0x9b'>155</td>
+<td>ColorTempTungsten</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='156 = 0x9c'>156</td>
+<td>WB_RGGBLevelsFluorescent</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='160 = 0xa0'>160</td>
+<td>ColorTempFluorescent</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='161 = 0xa1'>161</td>
+<td>WB_RGGBLevelsKelvin</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='165 = 0xa5'>165</td>
+<td>ColorTempKelvin</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='166 = 0xa6'>166</td>
+<td>WB_RGGBLevelsFlash</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='170 = 0xaa'>170</td>
+<td>ColorTempFlash</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='171 = 0xab'>171</td>
+<td>WB_RGGBLevelsUnknown11?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='175 = 0xaf'>175</td>
+<td>ColorTempUnknown11?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='176 = 0xb0'>176</td>
+<td>WB_RGGBLevelsUnknown12?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='180 = 0xb4'>180</td>
+<td>ColorTempUnknown12?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='181 = 0xb5'>181</td>
+<td>WB_RGGBLevelsUnknown13?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='185 = 0xb9'>185</td>
+<td>ColorTempUnknown13?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='186 = 0xba'>186</td>
+<td>WB_RGGBLevelsUnknown14?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='190 = 0xbe'>190</td>
+<td>ColorTempUnknown14?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='191 = 0xbf'>191</td>
+<td>WB_RGGBLevelsUnknown15?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='195 = 0xc3'>195</td>
+<td>ColorTempUnknown15?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='196 = 0xc4'>196</td>
+<td>WB_RGGBLevelsUnknown16?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='200 = 0xc8'>200</td>
+<td>ColorTempUnknown16?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='201 = 0xc9'>201</td>
+<td>WB_RGGBLevelsUnknown17?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='205 = 0xcd'>205</td>
+<td>ColorTempUnknown17?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='206 = 0xce'>206</td>
+<td>WB_RGGBLevelsUnknown18?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='210 = 0xd2'>210</td>
+<td>ColorTempUnknown18?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='211 = 0xd3'>211</td>
+<td>WB_RGGBLevelsUnknown19?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='215 = 0xd7'>215</td>
+<td>ColorTempUnknown19?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='216 = 0xd8'>216</td>
+<td>WB_RGGBLevelsUnknown20?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='220 = 0xdc'>220</td>
+<td>ColorTempUnknown20?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='221 = 0xdd'>221</td>
+<td>WB_RGGBLevelsUnknown21?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='225 = 0xe1'>225</td>
+<td>ColorTempUnknown21?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='226 = 0xe2'>226</td>
+<td>WB_RGGBLevelsUnknown22?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='230 = 0xe6'>230</td>
+<td>ColorTempUnknown22?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='231 = 0xe7'>231</td>
+<td>WB_RGGBLevelsUnknown23?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='235 = 0xeb'>235</td>
+<td>ColorTempUnknown23?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='236 = 0xec'>236</td>
+<td>WB_RGGBLevelsUnknown24?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='240 = 0xf0'>240</td>
+<td>ColorTempUnknown24?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='241 = 0xf1'>241</td>
+<td>WB_RGGBLevelsUnknown25?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='245 = 0xf5'>245</td>
+<td>ColorTempUnknown25?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='246 = 0xf6'>246</td>
+<td>WB_RGGBLevelsUnknown26?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='250 = 0xfa'>250</td>
+<td>ColorTempUnknown26?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='251 = 0xfb'>251</td>
+<td>WB_RGGBLevelsUnknown27?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='255 = 0xff'>255</td>
+<td>ColorTempUnknown27?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='256 = 0x100'>256</td>
+<td>WB_RGGBLevelsUnknown28?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='260 = 0x104'>260</td>
+<td>ColorTempUnknown28?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='261 = 0x105'>261</td>
+<td>WB_RGGBLevelsUnknown29?</td>
+<td class=c>int16s[4]</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='265 = 0x109'>265</td>
+<td>ColorTempUnknown29?</td>
+<td class=c>int16s</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='266 = 0x10a'>266</td>
+<td>ColorCalib?</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html#ColorCalib'>Canon ColorCalib Tags</a></td></tr>
+<tr>
+<td class=r title='329 = 0x149'>329</td>
+<td>PerChannelBlackLevel</td>
+<td class=c>int16u[4]</td>
+<td><span class=s><span class=n>(1300D)</span></span></td></tr>
+<tr class=b>
+<td class=r title='796 = 0x31c'>796</td>
+<td>NormalWhiteLevel</td>
+<td class=c>int16u</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='797 = 0x31d'>797</td>
+<td>SpecularWhiteLevel</td>
+<td class=c>int16u</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='798 = 0x31e'>798</td>
 <td>LinearityUpperMargin</td>
 <td class=c>int16u</td>
 <td>&nbsp;</td></tr>
@@ -8612,7 +9671,7 @@ option is used.</p>
 <tr>
 <td class=r title='0 = 0x0'>0</td>
 <td>ColorDataVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -8670,7 +9729,7 @@ option is used.</p>
 <tr>
 <td class=r title='0 = 0x0'>0</td>
 <td>VignettingCorrVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td class=r title='2 = 0x2'>2</td>
@@ -8717,7 +9776,7 @@ option is used.</p>
 <tr>
 <td class=r title='0 = 0x0'>0</td>
 <td>VignettingCorrVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
@@ -8860,53 +9919,53 @@ to the one printed on the lens)</span></span></td></tr>
 <tr>
 <td title='0x0101 = 257'>0x0101</td>
 <td>GrainyBWFilter</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s>-1 = Off</span></td></tr>
 <tr class=b>
 <td title='0x0201 = 513'>0x0201</td>
 <td>SoftFocusFilter</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s>-1 = Off</span></td></tr>
 <tr>
 <td title='0x0301 = 769'>0x0301</td>
 <td>ToyCameraFilter</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s>-1 = Off</span></td></tr>
 <tr class=b>
 <td title='0x0401 = 1025'>0x0401</td>
 <td>MiniatureFilter</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s>-1 = Off</span></td></tr>
 <tr>
 <td title='0x0402 = 1026'>0x0402</td>
 <td>MiniatureFilterOrientation</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s>0 = Horizontal
   <br>1 = Vertical</span></td></tr>
 <tr class=b>
 <td title='0x0403 = 1027'>0x0403</td>
 <td>MiniatureFilterPosition</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td title='0x0404 = 1028'>0x0404</td>
 <td>MiniatureFilterParameter</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td title='0x0501 = 1281'>0x0501</td>
 <td>FisheyeFilter</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s>-1 = Off</span></td></tr>
 <tr>
 <td title='0x0601 = 1537'>0x0601</td>
 <td>PaintingFilter</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s>-1 = Off</span></td></tr>
 <tr class=b>
 <td title='0x0701 = 1793'>0x0701</td>
 <td>WatercolorFilter</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s>-1 = Off</span></td></tr>
 </table></td></tr></table></blockquote>
 
@@ -8960,6 +10019,126 @@ to the one printed on the lens)</span></span></td></tr>
 <td>AFPointSwitching</td>
 <td class=c>int32s</td>
 <td>&nbsp;</td></tr>
+<tr>
+<td class=r title='5 = 0x5'>5</td>
+<td>AIServoFirstImage</td>
+<td class=c>int32s</td>
+<td><span class=s>0 = Equal Priority
+  <br>1 = Release Priority
+  <br>2 = Focus Priority</span></td></tr>
+<tr class=b>
+<td class=r title='6 = 0x6'>6</td>
+<td>AIServoSecondImage</td>
+<td class=c>int32s</td>
+<td><span class=s>0 = Equal Priority
+  <br>1 = Release Priority
+  <br>2 = Focus Priority
+  <br>3 = Release High Priority
+  <br>4 = Focus High Priority</span></td></tr>
+<tr>
+<td class=r title='7 = 0x7'>7</td>
+<td>USMLensElectronicMF</td>
+<td class=c>int32s</td>
+<td><span class=s>0 = Enable After AF
+  <br>1 = Disable After AF
+  <br>2 = Disable in AF Mode</span></td></tr>
+<tr class=b>
+<td class=r title='8 = 0x8'>8</td>
+<td>AFAssistBeam</td>
+<td class=c>int32s</td>
+<td><span class=s>0 = Enable
+  <br>1 = Disable
+  <br>2 = IR AF Assist Beam Only</span></td></tr>
+<tr>
+<td class=r title='9 = 0x9'>9</td>
+<td>OneShotAFRelease</td>
+<td class=c>int32s</td>
+<td><span class=s>0 = Focus Priority
+  <br>1 = Release Priority</span></td></tr>
+<tr class=b>
+<td class=r title='10 = 0xa'>10</td>
+<td>AutoAFPointSelEOSiTRAF</td>
+<td class=c>int32s</td>
+<td><span class=s><span class=n>(only valid for some models)</span>
+  <br>0 = Enable
+  <br>1 = Disable</span></td></tr>
+<tr>
+<td class=r title='11 = 0xb'>11</td>
+<td>LensDriveWhenAFImpossible</td>
+<td class=c>int32s</td>
+<td><span class=s>0 = Continue Focus Search
+  <br>1 = Stop Focus Search</span></td></tr>
+<tr class=b>
+<td class=r title='12 = 0xc'>12</td>
+<td>SelectAFAreaSelectionMode</td>
+<td class=c>int32s</td>
+<td><table class=cols><tr>
+  <td>Bit 0 = Single-point AF
+  <br>Bit 1 = Auto
+  <br>Bit 2 = Zone AF
+  <br>Bit 3 = AF Point Expansion (4 point)
+  <br>Bit 4 = Spot AF
+  <br>Bit 5 = AF Point Expansion (8 point)</td></tr></table>
+</td></tr>
+<tr>
+<td class=r title='13 = 0xd'>13</td>
+<td>AFAreaSelectionMethod</td>
+<td class=c>int32s</td>
+<td><span class=s>0 = M-Fn Button
+  <br>1 = Main Dial</span></td></tr>
+<tr class=b>
+<td class=r title='14 = 0xe'>14</td>
+<td>OrientationLinkedAF</td>
+<td class=c>int32s</td>
+<td><span class=s>0 = Same for Vert/Horiz Points
+  <br>1 = Separate Vert/Horiz Points
+  <br>2 = Separate Area+Points</span></td></tr>
+<tr>
+<td class=r title='15 = 0xf'>15</td>
+<td>ManualAFPointSelPattern</td>
+<td class=c>int32s</td>
+<td><span class=s>0 = Stops at AF Area Edges
+  <br>1 = Continuous</span></td></tr>
+<tr class=b>
+<td class=r title='16 = 0x10'>16</td>
+<td>AFPointDisplayDuringFocus</td>
+<td class=c>int32s</td>
+<td><span class=s>0 = Selected (constant)
+  <br>1 = All (constant)
+  <br>2 = Selected (pre-AF, focused)
+  <br>3 = Selected (focused)
+  <br>4 = Disabled</span></td></tr>
+<tr>
+<td class=r title='17 = 0x11'>17</td>
+<td>VFDisplayIllumination</td>
+<td class=c>int32s</td>
+<td><span class=s>0 = Auto
+  <br>1 = Enable
+  <br>2 = Disable</span></td></tr>
+<tr class=b>
+<td class=r title='18 = 0x12'>18</td>
+<td>AFStatusViewfinder</td>
+<td class=c>int32s</td>
+<td><span class=s><span class=n>(1D X only)</span>
+  <br>0 = Show in Field of View
+  <br>1 = Show Outside View</span></td></tr>
+<tr>
+<td class=r title='19 = 0x13'>19</td>
+<td>InitialAFPointInServo</td>
+<td class=c>int32s</td>
+<td><span class=s><span class=n>(1D X only)</span>
+  <br>0 = Initial AF Point Selected
+  <br>1 = Manual AF Point
+  <br>2 = Auto</span></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='CDI1'>Canon CDI1 Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr><td colspan=4 class=c><i>[no tags known]</i></td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='CNOP'>Canon CNOP Tags</a></h2>
@@ -8982,28 +10161,72 @@ cameras such as the PowerShot S95.</p>
 <tr>
 <td>'CNDA'</td>
 <td>ThumbnailImage</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td><span class=s><span class=n>(the full THM image, embedded metadata is extracted as the first sub-document)</span></span></td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='uuid'>Canon uuid Tags</a></h2>
 <p>Tags extracted from the uuid atom of MP4 videos from cameras such as the
-SX280.</p>
+SX280, and CR3 images from cameras such as the EOS M50.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class=inner cellspacing=1>
 <tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
 <th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
 <tr>
+<td>'CCTP'</td>
+<td>CanonCCTP</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html#CCTP'>Canon CCTP Tags</a></td></tr>
+<tr class=b>
+<td>'CMT1'</td>
+<td>IFD0</td>
+<td class=c>-</td>
+<td>--&gt; <a href='EXIF.html'>EXIF Tags</a></td></tr>
+<tr>
+<td>'CMT2'</td>
+<td>ExifIFD</td>
+<td class=c>-</td>
+<td>--&gt; <a href='EXIF.html'>EXIF Tags</a></td></tr>
+<tr class=b>
+<td>'CMT3'</td>
+<td>MakerNoteCanon</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html'>Canon Tags</a></td></tr>
+<tr>
+<td>'CMT4'</td>
+<td>GPSInfo</td>
+<td class=c>-</td>
+<td>--&gt; <a href='GPS.html'>GPS Tags</a></td></tr>
+<tr class=b>
 <td>'CNCV'</td>
 <td>CompressorVersion</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
+<tr>
+<td>'CNOP'</td>
+<td>CanonCNOP</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html#CNOP'>Canon CNOP Tags</a></td></tr>
 <tr class=b>
 <td>'CNTH'</td>
 <td>CanonCNTH</td>
 <td class=c>-</td>
 <td>--&gt; <a href='Canon.html#CNTH'>Canon CNTH Tags</a></td></tr>
+<tr>
+<td>'THMB'</td>
+<td>ThumbnailImage</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='CCTP'>Canon CCTP Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr><td colspan=4 class=c><i>[no tags known]</i></td></tr>
 </table></td></tr></table></blockquote>
 
 <h2><a name='Skip'>Canon Skip Tags</a></h2>
@@ -9016,310 +10239,108 @@ SX280.</p>
 <tr>
 <td>'CNDB'</td>
 <td>Unknown_CNDB?</td>
-<td class=c>N</td>
+<td class=c>no</td>
 <td>&nbsp;</td></tr>
 </table></td></tr></table></blockquote>
 
-<h2><a name='CameraModelID'>Canon CameraModelID Values</a></h2>
+<h2><a name='CTMD'>Canon CTMD Tags</a></h2>
+<p>Canon Timed MetaData tags found in CR3 images.  The ExtractEmbedded option
+is automatically applied when reading CR3 files to be able to extract this
+information.</p>
 <blockquote>
 <table class=frame><tr><td>
-<table class='inner sep' cellspacing=1>
-<tr class=h><th>Value</th><th>CameraModelID</th></tr>
-<tr><td class=r>0x1010000</td><td>= PowerShot A30</td>
-</tr><tr><td class=r>0x1040000</td><td>= PowerShot S300 / Digital IXUS 300 / IXY Digital 300</td>
-</tr><tr><td class=r>0x1060000</td><td>= PowerShot A20</td>
-</tr><tr><td class=r>0x1080000</td><td>= PowerShot A10</td>
-</tr><tr><td class=r>0x1090000</td><td>= PowerShot S110 / Digital IXUS v / IXY Digital 200</td>
-</tr><tr><td class=r>0x1100000</td><td>= PowerShot G2</td>
-</tr><tr><td class=r>0x1110000</td><td>= PowerShot S40</td>
-</tr><tr><td class=r>0x1120000</td><td>= PowerShot S30</td>
-</tr><tr><td class=r>0x1130000</td><td>= PowerShot A40</td>
-</tr><tr><td class=r>0x1140000</td><td>= EOS D30</td>
-</tr><tr><td class=r>0x1150000</td><td>= PowerShot A100</td>
-</tr><tr><td class=r>0x1160000</td><td>= PowerShot S200 / Digital IXUS v2 / IXY Digital 200a</td>
-</tr><tr><td class=r>0x1170000</td><td>= PowerShot A200</td>
-</tr><tr><td class=r>0x1180000</td><td>= PowerShot S330 / Digital IXUS 330 / IXY Digital 300a</td>
-</tr><tr><td class=r>0x1190000</td><td>= PowerShot G3</td>
-</tr><tr><td class=r>0x1210000</td><td>= PowerShot S45</td>
-</tr><tr><td class=r>0x1230000</td><td>= PowerShot SD100 / Digital IXUS II / IXY Digital 30</td>
-</tr><tr><td class=r>0x1240000</td><td>= PowerShot S230 / Digital IXUS v3 / IXY Digital 320</td>
-</tr><tr><td class=r>0x1250000</td><td>= PowerShot A70</td>
-</tr><tr><td class=r>0x1260000</td><td>= PowerShot A60</td>
-</tr><tr><td class=r>0x1270000</td><td>= PowerShot S400 / Digital IXUS 400 / IXY Digital 400</td>
-</tr><tr><td class=r>0x1290000</td><td>= PowerShot G5</td>
-</tr><tr><td class=r>0x1300000</td><td>= PowerShot A300</td>
-</tr><tr><td class=r>0x1310000</td><td>= PowerShot S50</td>
-</tr><tr><td class=r>0x1340000</td><td>= PowerShot A80</td>
-</tr><tr><td class=r>0x1350000</td><td>= PowerShot SD10 / Digital IXUS i / IXY Digital L</td>
-</tr><tr><td class=r>0x1360000</td><td>= PowerShot S1 IS</td>
-</tr><tr><td class=r>0x1370000</td><td>= PowerShot Pro1</td>
-</tr><tr><td class=r>0x1380000</td><td>= PowerShot S70</td>
-</tr><tr><td class=r>0x1390000</td><td>= PowerShot S60</td>
-</tr><tr><td class=r>0x1400000</td><td>= PowerShot G6</td>
-</tr><tr><td class=r>0x1410000</td><td>= PowerShot S500 / Digital IXUS 500 / IXY Digital 500</td>
-</tr><tr><td class=r>0x1420000</td><td>= PowerShot A75</td>
-</tr><tr><td class=r>0x1440000</td><td>= PowerShot SD110 / Digital IXUS IIs / IXY Digital 30a</td>
-</tr><tr><td class=r>0x1450000</td><td>= PowerShot A400</td>
-</tr><tr><td class=r>0x1470000</td><td>= PowerShot A310</td>
-</tr><tr><td class=r>0x1490000</td><td>= PowerShot A85</td>
-</tr><tr><td class=r>0x1520000</td><td>= PowerShot S410 / Digital IXUS 430 / IXY Digital 450</td>
-</tr><tr><td class=r>0x1530000</td><td>= PowerShot A95</td>
-</tr><tr><td class=r>0x1540000</td><td>= PowerShot SD300 / Digital IXUS 40 / IXY Digital 50</td>
-</tr><tr><td class=r>0x1550000</td><td>= PowerShot SD200 / Digital IXUS 30 / IXY Digital 40</td>
-</tr><tr><td class=r>0x1560000</td><td>= PowerShot A520</td>
-</tr><tr><td class=r>0x1570000</td><td>= PowerShot A510</td>
-</tr><tr><td class=r>0x1590000</td><td>= PowerShot SD20 / Digital IXUS i5 / IXY Digital L2</td>
-</tr><tr><td class=r>0x1640000</td><td>= PowerShot S2 IS</td>
-</tr><tr><td class=r>0x1650000</td><td>= PowerShot SD430 / Digital IXUS Wireless / IXY Digital Wireless</td>
-</tr><tr><td class=r>0x1660000</td><td>= PowerShot SD500 / Digital IXUS 700 / IXY Digital 600</td>
-</tr><tr><td class=r>0x1668000</td><td>= EOS D60</td>
-</tr><tr><td class=r>0x1700000</td><td>= PowerShot SD30 / Digital IXUS i Zoom / IXY Digital L3</td>
-</tr><tr><td class=r>0x1740000</td><td>= PowerShot A430</td>
-</tr><tr><td class=r>0x1750000</td><td>= PowerShot A410</td>
-</tr><tr><td class=r>0x1760000</td><td>= PowerShot S80</td>
-</tr><tr><td class=r>0x1780000</td><td>= PowerShot A620</td>
-</tr><tr><td class=r>0x1790000</td><td>= PowerShot A610</td>
-</tr><tr><td class=r>0x1800000</td><td>= PowerShot SD630 / Digital IXUS 65 / IXY Digital 80</td>
-</tr><tr><td class=r>0x1810000</td><td>= PowerShot SD450 / Digital IXUS 55 / IXY Digital 60</td>
-</tr><tr><td class=r>0x1820000</td><td>= PowerShot TX1</td>
-</tr><tr><td class=r>0x1870000</td><td>= PowerShot SD400 / Digital IXUS 50 / IXY Digital 55</td>
-</tr><tr><td class=r>0x1880000</td><td>= PowerShot A420</td>
-</tr><tr><td class=r>0x1890000</td><td>= PowerShot SD900 / Digital IXUS 900 Ti / IXY Digital 1000</td>
-</tr><tr><td class=r>0x1900000</td><td>= PowerShot SD550 / Digital IXUS 750 / IXY Digital 700</td>
-</tr><tr><td class=r>0x1920000</td><td>= PowerShot A700</td>
-</tr><tr><td class=r>0x1940000</td><td>= PowerShot SD700 IS / Digital IXUS 800 IS / IXY Digital 800 IS</td>
-</tr><tr><td class=r>0x1950000</td><td>= PowerShot S3 IS</td>
-</tr><tr><td class=r>0x1960000</td><td>= PowerShot A540</td>
-</tr><tr><td class=r>0x1970000</td><td>= PowerShot SD600 / Digital IXUS 60 / IXY Digital 70</td>
-</tr><tr><td class=r>0x1980000</td><td>= PowerShot G7</td>
-</tr><tr><td class=r>0x1990000</td><td>= PowerShot A530</td>
-</tr><tr><td class=r>0x2000000</td><td>= PowerShot SD800 IS / Digital IXUS 850 IS / IXY Digital 900 IS</td>
-</tr><tr><td class=r>0x2010000</td><td>= PowerShot SD40 / Digital IXUS i7 / IXY Digital L4</td>
-</tr><tr><td class=r>0x2020000</td><td>= PowerShot A710 IS</td>
-</tr><tr><td class=r>0x2030000</td><td>= PowerShot A640</td>
-</tr><tr><td class=r>0x2040000</td><td>= PowerShot A630</td>
-</tr><tr><td class=r>0x2090000</td><td>= PowerShot S5 IS</td>
-</tr><tr><td class=r>0x2100000</td><td>= PowerShot A460</td>
-</tr><tr><td class=r>0x2120000</td><td>= PowerShot SD850 IS / Digital IXUS 950 IS / IXY Digital 810 IS</td>
-</tr><tr><td class=r>0x2130000</td><td>= PowerShot A570 IS</td>
-</tr><tr><td class=r>0x2140000</td><td>= PowerShot A560</td>
-</tr><tr><td class=r>0x2150000</td><td>= PowerShot SD750 / Digital IXUS 75 / IXY Digital 90</td>
-</tr><tr><td class=r>0x2160000</td><td>= PowerShot SD1000 / Digital IXUS 70 / IXY Digital 10</td>
-</tr><tr><td class=r>0x2180000</td><td>= PowerShot A550</td>
-</tr><tr><td class=r>0x2190000</td><td>= PowerShot A450</td>
-</tr><tr><td class=r>0x2230000</td><td>= PowerShot G9</td>
-</tr><tr><td class=r>0x2240000</td><td>= PowerShot A650 IS</td>
-</tr><tr><td class=r>0x2260000</td><td>= PowerShot A720 IS</td>
-</tr><tr><td class=r>0x2290000</td><td>= PowerShot SX100 IS</td>
-</tr><tr><td class=r>0x2300000</td><td>= PowerShot SD950 IS / Digital IXUS 960 IS / IXY Digital 2000 IS</td>
-</tr><tr><td class=r>0x2310000</td><td>= PowerShot SD870 IS / Digital IXUS 860 IS / IXY Digital 910 IS</td>
-</tr><tr><td class=r>0x2320000</td><td>= PowerShot SD890 IS / Digital IXUS 970 IS / IXY Digital 820 IS</td>
-</tr><tr><td class=r>0x2360000</td><td>= PowerShot SD790 IS / Digital IXUS 90 IS / IXY Digital 95 IS</td>
-</tr><tr><td class=r>0x2370000</td><td>= PowerShot SD770 IS / Digital IXUS 85 IS / IXY Digital 25 IS</td>
-</tr><tr><td class=r>0x2380000</td><td>= PowerShot A590 IS</td>
-</tr><tr><td class=r>0x2390000</td><td>= PowerShot A580</td>
-</tr><tr><td class=r>0x2420000</td><td>= PowerShot A470</td>
-</tr><tr><td class=r>0x2430000</td><td>= PowerShot SD1100 IS / Digital IXUS 80 IS / IXY Digital 20 IS</td>
-</tr><tr><td class=r>0x2460000</td><td>= PowerShot SX1 IS</td>
-</tr><tr><td class=r>0x2470000</td><td>= PowerShot SX10 IS</td>
-</tr><tr><td class=r>0x2480000</td><td>= PowerShot A1000 IS</td>
-</tr><tr><td class=r>0x2490000</td><td>= PowerShot G10</td>
-</tr><tr><td class=r>0x2510000</td><td>= PowerShot A2000 IS</td>
-</tr><tr><td class=r>0x2520000</td><td>= PowerShot SX110 IS</td>
-</tr><tr><td class=r>0x2530000</td><td>= PowerShot SD990 IS / Digital IXUS 980 IS / IXY Digital 3000 IS</td>
-</tr><tr><td class=r>0x2540000</td><td>= PowerShot SD880 IS / Digital IXUS 870 IS / IXY Digital 920 IS</td>
-</tr><tr><td class=r>0x2550000</td><td>= PowerShot E1</td>
-</tr><tr><td class=r>0x2560000</td><td>= PowerShot D10</td>
-</tr><tr><td class=r>0x2570000</td><td>= PowerShot SD960 IS / Digital IXUS 110 IS / IXY Digital 510 IS</td>
-</tr><tr><td class=r>0x2580000</td><td>= PowerShot A2100 IS</td>
-</tr><tr><td class=r>0x2590000</td><td>= PowerShot A480</td>
-</tr><tr><td class=r>0x2600000</td><td>= PowerShot SX200 IS</td>
-</tr><tr><td class=r>0x2610000</td><td>= PowerShot SD970 IS / Digital IXUS 990 IS / IXY Digital 830 IS</td>
-</tr><tr><td class=r>0x2620000</td><td>= PowerShot SD780 IS / Digital IXUS 100 IS / IXY Digital 210 IS</td>
-</tr><tr><td class=r>0x2630000</td><td>= PowerShot A1100 IS</td>
-</tr><tr><td class=r>0x2640000</td><td>= PowerShot SD1200 IS / Digital IXUS 95 IS / IXY Digital 110 IS</td>
-</tr><tr><td class=r>0x2700000</td><td>= PowerShot G11</td>
-</tr><tr><td class=r>0x2710000</td><td>= PowerShot SX120 IS</td>
-</tr><tr><td class=r>0x2720000</td><td>= PowerShot S90</td>
-</tr><tr><td class=r>0x2750000</td><td>= PowerShot SX20 IS</td>
-</tr><tr><td class=r>0x2760000</td><td>= PowerShot SD980 IS / Digital IXUS 200 IS / IXY Digital 930 IS</td>
-</tr><tr><td class=r>0x2770000</td><td>= PowerShot SD940 IS / Digital IXUS 120 IS / IXY Digital 220 IS</td>
-</tr><tr><td class=r>0x2800000</td><td>= PowerShot A495</td>
-</tr><tr><td class=r>0x2810000</td><td>= PowerShot A490</td>
-</tr><tr><td class=r>0x2820000</td><td>= PowerShot A3100 IS / A3150 IS</td>
-</tr><tr><td class=r>0x2830000</td><td>= PowerShot A3000 IS</td>
-</tr><tr><td class=r>0x2840000</td><td>= PowerShot SD1400 IS / IXUS 130 / IXY 400F</td>
-</tr><tr><td class=r>0x2850000</td><td>= PowerShot SD1300 IS / IXUS 105 / IXY 200F</td>
-</tr><tr><td class=r>0x2860000</td><td>= PowerShot SD3500 IS / IXUS 210 / IXY 10S</td>
-</tr><tr><td class=r>0x2870000</td><td>= PowerShot SX210 IS</td>
-</tr><tr><td class=r>0x2880000</td><td>= PowerShot SD4000 IS / IXUS 300 HS / IXY 30S</td>
-</tr><tr><td class=r>0x2890000</td><td>= PowerShot SD4500 IS / IXUS 1000 HS / IXY 50S</td>
-</tr><tr><td class=r>0x2920000</td><td>= PowerShot G12</td>
-</tr><tr><td class=r>0x2930000</td><td>= PowerShot SX30 IS</td>
-</tr><tr><td class=r>0x2940000</td><td>= PowerShot SX130 IS</td>
-</tr><tr><td class=r>0x2950000</td><td>= PowerShot S95</td>
-</tr><tr><td class=r>0x2980000</td><td>= PowerShot A3300 IS</td>
-</tr><tr><td class=r>0x2990000</td><td>= PowerShot A3200 IS</td>
-</tr><tr><td class=r>0x3000000</td><td>= PowerShot ELPH 500 HS / IXUS 310 HS / IXY 31S</td>
-</tr><tr><td class=r>0x3010000</td><td>= PowerShot Pro90 IS</td>
-</tr><tr><td class=r>0x3010001</td><td>= PowerShot A800</td>
-</tr><tr><td class=r>0x3020000</td><td>= PowerShot ELPH 100 HS / IXUS 115 HS / IXY 210F</td>
-</tr><tr><td class=r>0x3030000</td><td>= PowerShot SX230 HS</td>
-</tr><tr><td class=r>0x3040000</td><td>= PowerShot ELPH 300 HS / IXUS 220 HS / IXY 410F</td>
-</tr><tr><td class=r>0x3050000</td><td>= PowerShot A2200</td>
-</tr><tr><td class=r>0x3060000</td><td>= PowerShot A1200</td>
-</tr><tr><td class=r>0x3070000</td><td>= PowerShot SX220 HS</td>
-</tr><tr><td class=r>0x3080000</td><td>= PowerShot G1 X</td>
-</tr><tr><td class=r>0x3090000</td><td>= PowerShot SX150 IS</td>
-</tr><tr><td class=r>0x3100000</td><td>= PowerShot ELPH 510 HS / IXUS 1100 HS / IXY 51S</td>
-</tr><tr><td class=r>0x3110000</td><td>= PowerShot S100 (new)</td>
-</tr><tr><td class=r>0x3120000</td><td>= PowerShot ELPH 310 HS / IXUS 230 HS / IXY 600F</td>
-</tr><tr><td class=r>0x3130000</td><td>= PowerShot SX40 HS</td>
-</tr><tr><td class=r>0x3140000</td><td>= IXY 32S</td>
-</tr><tr><td class=r>0x3160000</td><td>= PowerShot A1300</td>
-</tr><tr><td class=r>0x3170000</td><td>= PowerShot A810</td>
-</tr><tr><td class=r>0x3180000</td><td>= PowerShot ELPH 320 HS / IXUS 240 HS / IXY 420F</td>
-</tr><tr><td class=r>0x3190000</td><td>= PowerShot ELPH 110 HS / IXUS 125 HS / IXY 220F</td>
-</tr><tr><td class=r>0x3200000</td><td>= PowerShot D20</td>
-</tr><tr><td class=r>0x3210000</td><td>= PowerShot A4000 IS</td>
-</tr><tr><td class=r>0x3220000</td><td>= PowerShot SX260 HS</td>
-</tr><tr><td class=r>0x3230000</td><td>= PowerShot SX240 HS</td>
-</tr><tr><td class=r>0x3240000</td><td>= PowerShot ELPH 530 HS / IXUS 510 HS / IXY 1</td>
-</tr><tr><td class=r>0x3250000</td><td>= PowerShot ELPH 520 HS / IXUS 500 HS / IXY 3</td>
-</tr><tr><td class=r>0x3260000</td><td>= PowerShot A3400 IS</td>
-</tr><tr><td class=r>0x3270000</td><td>= PowerShot A2400 IS</td>
-</tr><tr><td class=r>0x3280000</td><td>= PowerShot A2300</td>
-</tr><tr><td class=r>0x3330000</td><td>= PowerShot G15</td>
-</tr><tr><td class=r>0x3340000</td><td>= PowerShot SX50</td>
-</tr><tr><td class=r>0x3350000</td><td>= PowerShot SX160 IS</td>
-</tr><tr><td class=r>0x3360000</td><td>= PowerShot S110 (new)</td>
-</tr><tr><td class=r>0x3370000</td><td>= PowerShot SX500 IS</td>
-</tr><tr><td class=r>0x3380000</td><td>= PowerShot N</td>
-</tr><tr><td class=r>0x3390000</td><td>= IXUS 245 HS / IXY 430F</td>
-</tr><tr><td class=r>0x3400000</td><td>= PowerShot SX280 HS</td>
-</tr><tr><td class=r>0x3410000</td><td>= PowerShot SX270 HS</td>
-</tr><tr><td class=r>0x3420000</td><td>= PowerShot A3500 IS</td>
-</tr><tr><td class=r>0x3430000</td><td>= PowerShot A2600</td>
-</tr><tr><td class=r>0x3450000</td><td>= PowerShot A1400</td>
-</tr><tr><td class=r>0x3460000</td><td>= PowerShot ELPH 130 IS / IXUS 140 / IXY 110F</td>
-</tr><tr><td class=r>0x3470000</td><td>= PowerShot ELPH 115/120 IS / IXUS 132/135 / IXY 90F/100F</td>
-</tr><tr><td class=r>0x3490000</td><td>= PowerShot ELPH 330 HS / IXUS 255 HS / IXY 610F</td>
-</tr><tr><td class=r>0x3510000</td><td>= PowerShot A2500</td>
-</tr><tr><td class=r>0x3540000</td><td>= PowerShot G16</td>
-</tr><tr><td class=r>0x3550000</td><td>= PowerShot S120</td>
-</tr><tr><td class=r>0x3560000</td><td>= PowerShot SX170 IS</td>
-</tr><tr><td class=r>0x3580000</td><td>= PowerShot SX510 HS</td>
-</tr><tr><td class=r>0x3590000</td><td>= PowerShot S200 (new)</td>
-</tr><tr><td class=r>0x3600000</td><td>= IXY 620F</td>
-</tr><tr><td class=r>0x3610000</td><td>= PowerShot N100</td>
-</tr><tr><td class=r>0x3640000</td><td>= PowerShot G1 X Mark II</td>
-</tr><tr><td class=r>0x3650000</td><td>= PowerShot D30</td>
-</tr><tr><td class=r>0x3660000</td><td>= PowerShot SX700 HS</td>
-</tr><tr><td class=r>0x3670000</td><td>= PowerShot SX600 HS</td>
-</tr><tr><td class=r>0x3680000</td><td>= PowerShot ELPH 140 IS / IXUS 150 / IXY 130</td>
-</tr><tr><td class=r>0x3690000</td><td>= PowerShot ELPH 135 / IXUS 145 / IXY 120</td>
-</tr><tr><td class=r>0x3700000</td><td>= PowerShot ELPH 340 HS / IXUS 265 HS / IXY 630</td>
-</tr><tr><td class=r>0x3710000</td><td>= PowerShot ELPH 150 IS / IXUS 155 / IXY 140</td>
-</tr><tr><td class=r>0x3740000</td><td>= EOS M3</td>
-</tr><tr><td class=r>0x3750000</td><td>= PowerShot SX60 HS</td>
-</tr><tr><td class=r>0x3760000</td><td>= PowerShot SX520 HS</td>
-</tr><tr><td class=r>0x3770000</td><td>= PowerShot SX400 IS</td>
-</tr><tr><td class=r>0x3780000</td><td>= PowerShot G7 X</td>
-</tr><tr><td class=r>0x3790000</td><td>= PowerShot N2</td>
-</tr><tr><td class=r>0x3800000</td><td>= PowerShot SX530 HS</td>
-</tr><tr><td class=r>0x3820000</td><td>= PowerShot SX710 HS</td>
-</tr><tr><td class=r>0x3830000</td><td>= PowerShot SX610 HS</td>
-</tr><tr><td class=r>0x3850000</td><td>= PowerShot G3 X</td>
-</tr><tr><td class=r>0x3860000</td><td>= PowerShot ELPH 165 HS / IXUS 165 / IXY 160</td>
-</tr><tr><td class=r>0x3870000</td><td>= PowerShot ELPH 160 / IXUS 160</td>
-</tr><tr><td class=r>0x3880000</td><td>= PowerShot ELPH 350 HS / IXUS 275 HS / IXY 640</td>
-</tr><tr><td class=r>0x3890000</td><td>= PowerShot ELPH 170 IS / IXUS 170</td>
-</tr><tr><td class=r>0x3910000</td><td>= PowerShot SX410 IS</td>
-</tr><tr><td class=r>0x4040000</td><td>= PowerShot G1</td>
-</tr><tr><td class=r>0x6040000</td><td>= PowerShot S100 / Digital IXUS / IXY Digital</td>
-</tr><tr><td class=r>0x4007d673</td><td>= DC19/DC21/DC22</td>
-</tr><tr><td class=r>0x4007d674</td><td>= XH A1</td>
-</tr><tr><td class=r>0x4007d675</td><td>= HV10</td>
-</tr><tr><td class=r>0x4007d676</td><td>= MD130/MD140/MD150/MD160/ZR850</td>
-</tr><tr><td class=r>0x4007d777</td><td>= DC50</td>
-</tr><tr><td class=r>0x4007d778</td><td>= HV20</td>
-</tr><tr><td class=r>0x4007d779</td><td>= DC211</td>
-</tr><tr><td class=r>0x4007d77a</td><td>= HG10</td>
-</tr><tr><td class=r>0x4007d77b</td><td>= HR10</td>
-</tr><tr><td class=r>0x4007d77d</td><td>= MD255/ZR950</td>
-</tr><tr><td class=r>0x4007d81c</td><td>= HF11</td>
-</tr><tr><td class=r>0x4007d878</td><td>= HV30</td>
-</tr><tr><td class=r>0x4007d87c</td><td>= XH A1S</td>
-</tr><tr><td class=r>0x4007d87e</td><td>= DC301/DC310/DC311/DC320/DC330</td>
-</tr><tr><td class=r>0x4007d87f</td><td>= FS100</td>
-</tr><tr><td class=r>0x4007d880</td><td>= HF10</td>
-</tr><tr><td class=r>0x4007d882</td><td>= HG20/HG21</td>
-</tr><tr><td class=r>0x4007d925</td><td>= HF21</td>
-</tr><tr><td class=r>0x4007d926</td><td>= HF S11</td>
-</tr><tr><td class=r>0x4007d978</td><td>= HV40</td>
-</tr><tr><td class=r>0x4007d987</td><td>= DC410/DC411/DC420</td>
-</tr><tr><td class=r>0x4007d988</td><td>= FS19/FS20/FS21/FS22/FS200</td>
-</tr><tr><td class=r>0x4007d989</td><td>= HF20/HF200</td>
-</tr><tr><td class=r>0x4007d98a</td><td>= HF S10/S100</td>
-</tr><tr><td class=r>0x4007da8e</td><td>= HF R10/R16/R17/R18/R100/R106</td>
-</tr><tr><td class=r>0x4007da8f</td><td>= HF M30/M31/M36/M300/M306</td>
-</tr><tr><td class=r>0x4007da90</td><td>= HF S20/S21/S200</td>
-</tr><tr><td class=r>0x4007da92</td><td>= FS31/FS36/FS37/FS300/FS305/FS306/FS307</td>
-</tr><tr><td class=r>0x4007dda9</td><td>= HF G25</td>
-</tr><tr><td class=r>0x80000001</td><td>= EOS-1D</td>
-</tr><tr><td class=r>0x80000167</td><td>= EOS-1DS</td>
-</tr><tr><td class=r>0x80000168</td><td>= EOS 10D</td>
-</tr><tr><td class=r>0x80000169</td><td>= EOS-1D Mark III</td>
-</tr><tr><td class=r>0x80000170</td><td>= EOS Digital Rebel / 300D / Kiss Digital</td>
-</tr><tr><td class=r>0x80000174</td><td>= EOS-1D Mark II</td>
-</tr><tr><td class=r>0x80000175</td><td>= EOS 20D</td>
-</tr><tr><td class=r>0x80000176</td><td>= EOS Digital Rebel XSi / 450D / Kiss X2</td>
-</tr><tr><td class=r>0x80000188</td><td>= EOS-1Ds Mark II</td>
-</tr><tr><td class=r>0x80000189</td><td>= EOS Digital Rebel XT / 350D / Kiss Digital N</td>
-</tr><tr><td class=r>0x80000190</td><td>= EOS 40D</td>
-</tr><tr><td class=r>0x80000213</td><td>= EOS 5D</td>
-</tr><tr><td class=r>0x80000215</td><td>= EOS-1Ds Mark III</td>
-</tr><tr><td class=r>0x80000218</td><td>= EOS 5D Mark II</td>
-</tr><tr><td class=r>0x80000219</td><td>= WFT-E1</td>
-</tr><tr><td class=r>0x80000232</td><td>= EOS-1D Mark II N</td>
-</tr><tr><td class=r>0x80000234</td><td>= EOS 30D</td>
-</tr><tr><td class=r>0x80000236</td><td>= EOS Digital Rebel XTi / 400D / Kiss Digital X</td>
-</tr><tr><td class=r>0x80000241</td><td>= WFT-E2</td>
-</tr><tr><td class=r>0x80000246</td><td>= WFT-E3</td>
-</tr><tr><td class=r>0x80000250</td><td>= EOS 7D</td>
-</tr><tr><td class=r>0x80000252</td><td>= EOS Rebel T1i / 500D / Kiss X3</td>
-</tr><tr><td class=r>0x80000254</td><td>= EOS Rebel XS / 1000D / Kiss F</td>
-</tr><tr><td class=r>0x80000261</td><td>= EOS 50D</td>
-</tr><tr><td class=r>0x80000269</td><td>= EOS-1D X</td>
-</tr><tr><td class=r>0x80000270</td><td>= EOS Rebel T2i / 550D / Kiss X4</td>
-</tr><tr><td class=r>0x80000271</td><td>= WFT-E4</td>
-</tr><tr><td class=r>0x80000273</td><td>= WFT-E5</td>
-</tr><tr><td class=r>0x80000281</td><td>= EOS-1D Mark IV</td>
-</tr><tr><td class=r>0x80000285</td><td>= EOS 5D Mark III</td>
-</tr><tr><td class=r>0x80000286</td><td>= EOS Rebel T3i / 600D / Kiss X5</td>
-</tr><tr><td class=r>0x80000287</td><td>= EOS 60D</td>
-</tr><tr><td class=r>0x80000288</td><td>= EOS Rebel T3 / 1100D / Kiss X50</td>
-</tr><tr><td class=r>0x80000289</td><td>= EOS 7D Mark II</td>
-</tr><tr><td class=r>0x80000297</td><td>= WFT-E2 II</td>
-</tr><tr><td class=r>0x80000298</td><td>= WFT-E4 II</td>
-</tr><tr><td class=r>0x80000301</td><td>= EOS Rebel T4i / 650D / Kiss X6i</td>
-</tr><tr><td class=r>0x80000302</td><td>= EOS 6D</td>
-</tr><tr><td class=r>0x80000324</td><td>= EOS-1D C</td>
-</tr><tr><td class=r>0x80000325</td><td>= EOS 70D</td>
-</tr><tr><td class=r>0x80000326</td><td>= EOS Rebel T5i / 700D / Kiss X7i</td>
-</tr><tr><td class=r>0x80000327</td><td>= EOS Rebel T5 / 1200D / Kiss X70</td>
-</tr><tr><td class=r>0x80000331</td><td>= EOS M</td>
-</tr><tr><td class=r>0x80000346</td><td>= EOS Rebel SL1 / 100D / Kiss X7</td>
-</tr><tr><td class=r>0x80000347</td><td>= EOS Rebel T6s / 760D / 8000D</td>
-</tr><tr><td class=r>0x80000355</td><td>= EOS M2</td>
-</tr><tr><td class=r>0x80000382</td><td>= EOS 5DS</td>
-</tr><tr><td class=r>0x80000393</td><td>= EOS Rebel T6i / 750D / Kiss X8i</td>
-</tr><tr><td class=r>0x80000401</td><td>= EOS 5DS R</td>
-</tr></table></td></tr></table></blockquote>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td title='0x0001 = 1'>0x0001</td>
+<td>TimeStamp</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td title='0x0004 = 4'>0x0004</td>
+<td>FocalInfo</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html#FocalInfo'>Canon FocalInfo Tags</a></td></tr>
+<tr>
+<td title='0x0005 = 5'>0x0005</td>
+<td>ExposureInfo</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html#ExposureInfo'>Canon ExposureInfo Tags</a></td></tr>
+<tr class=b>
+<td title='0x0007 = 7'>0x0007</td>
+<td>ExifInfo7</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html#ExifInfo'>Canon ExifInfo Tags</a></td></tr>
+<tr>
+<td title='0x0008 = 8'>0x0008</td>
+<td>ExifInfo8</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html#ExifInfo'>Canon ExifInfo Tags</a></td></tr>
+<tr class=b>
+<td title='0x0009 = 9'>0x0009</td>
+<td>ExifInfo9</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html#ExifInfo'>Canon ExifInfo Tags</a></td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='FocalInfo'>Canon FocalInfo Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index4</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>FocalLength</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='ExposureInfo'>Canon ExposureInfo Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Index4</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td class=r title='0 = 0x0'>0</td>
+<td>FNumber</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='1 = 0x1'>1</td>
+<td>ExposureTime</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td class=r title='2 = 0x2'>2</td>
+<td>ISO</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+</table></td></tr></table></blockquote>
+
+<h2><a name='ExifInfo'>Canon ExifInfo Tags</a></h2>
+<blockquote>
+<table class=frame><tr><td>
+<table class=inner cellspacing=1>
+<tr class=h><th>Tag&nbsp;ID</th><th>Tag Name</th>
+<th>Writable</th><th>Values / <span class=n>Notes</span></th></tr>
+<tr>
+<td title='0x8769 = 34665'>0x8769</td>
+<td>ExifIFD</td>
+<td class=c>-</td>
+<td>--&gt; <a href='EXIF.html'>EXIF Tags</a></td></tr>
+<tr class=b>
+<td title='0x927c = 37500'>0x927c</td>
+<td>MakerNoteCanon</td>
+<td class=c>-</td>
+<td>--&gt; <a href='Canon.html'>Canon Tags</a></td></tr>
+</table></td></tr></table></blockquote>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Aug 18, 2015</i>
+<br><i>Last revised Jun 11, 2018</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+	<!-- valid values: IGNORE, INFO, WARN, THROW -->
+	<service-loader initializableProblemHandler="IGNORE"/>
+	<!--
+		9/12/2018 - this hides a warning that a class to process JPEG2000 cannot be loaded.
+		This is because the code dependency that processes these images in not compatible with the Apache 2.0 license.
+		See: https://pdfbox.apache.org/2.0/dependencies.html#jai-image-io
+	-->
+</properties>
+<!-- For more information on customizing Tika see: https://tika.apache.org/1.18/configuring.html -->

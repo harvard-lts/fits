@@ -18,7 +18,7 @@ use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::ID3;
 
-$VERSION = '1.07';
+$VERSION = '1.08';
 
 # information for time/date-based tags (time zero is Jan 1, 1904)
 my %timeInfo = (
@@ -214,7 +214,7 @@ sub ProcessAIFF($$)
         $pos += 8;
         my ($tag, $len) = unpack('a4N', $buff);
         my $tagInfo = $et->GetTagInfo($tagTablePtr, $tag);
-        $et->VPrint(0, "AIFF '$tag' chunk ($len bytes of data):\n");
+        $et->VPrint(0, "AIFF '${tag}' chunk ($len bytes of data):\n");
         # AIFF chunks are padded to an even number of bytes
         my $len2 = $len + ($len & 0x01);
         if ($tagInfo) {
@@ -235,7 +235,7 @@ sub ProcessAIFF($$)
             );
         } elsif ($verbose > 2 and $len2 < 1024000) {
             $raf->Read($buff, $len2) == $len2 or $err = 1, last;
-            HexDump(\$buff, undef, MaxLen => 512);
+            $et->VerboseDump(\$buff);
         } else {
             $raf->Seek($len2, 1) or $err=1, last;
         }
@@ -264,7 +264,7 @@ information from AIFF (Audio Interchange File Format) audio files.
 
 =head1 AUTHOR
 
-Copyright 2003-2015, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
