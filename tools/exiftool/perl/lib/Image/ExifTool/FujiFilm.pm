@@ -29,15 +29,15 @@ use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Exif;
 
-$VERSION = '1.61';
+$VERSION = '1.62';
 
 sub ProcessFujiDir($$$);
 sub ProcessFaceRec($$$);
 
 # the following RAF version numbers have been tested for writing:
 my %testedRAF = (
-    '0100' => 'E550, E900, F770, S5600, S6000fd, S6500fd, HS10/HS11, HS30, S200EXR, X100, XF1, X-Pro1, X-S1, XQ2 Ver1.00',
-    '0101' => 'X-E1, X20 Ver1.01',
+    '0100' => 'E550, E900, F770, S5600, S6000fd, S6500fd, HS10/HS11, HS30, S200EXR, X100, XF1, X-Pro1, X-S1, XQ2 Ver1.00, X-T100, GFX 50R, XF10',
+    '0101' => 'X-E1, X20 Ver1.01, X-T3',
     '0102' => 'S100FS, X10 Ver1.02',
     '0103' => 'IS Pro Ver1.03',
     '0104' => 'S5Pro Ver1.04',
@@ -56,6 +56,8 @@ my %testedRAF = (
     '0269' => 'S9500 Ver1.02',
     '0271' => 'S3Pro Ver2.71', # UV/IR model?
     '0300' => 'X-E2',
+   # 0400  - expect to see this for X-T1
+    '0540' => 'X-T1 Ver5.40',
     '0712' => 'S5000 Ver3.00',
     '0716' => 'S5000 Ver3.00', # (yes, 2 RAF versions with the same Software version)
     '0Dgi' => 'X-A10 Ver1.01 and X-A3 Ver1.02', # (yes, non-digits in the firmware number)

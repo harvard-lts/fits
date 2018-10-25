@@ -12,7 +12,7 @@
 use strict;
 require 5.004;
 
-my $version = '11.01';
+my $version = '11.14';
 
 # add our 'lib' directory to the include list BEFORE 'use Image::ExifTool'
 my $exeDir;
@@ -65,6 +65,7 @@ sub CreateDirectory($);
 sub OpenOutputFile($;@);
 sub AcceptFile($);
 sub SlurpFile($$);
+sub FilterArgfileLine($);
 sub ReadStayOpen($);
 sub PrintTagList($@);
 sub PrintErrors($$$);
@@ -721,11 +722,8 @@ for (;;) {
                 s/^\xef\xbb\xbf//;
                 $didBOM = 1;
             }
-            next if /^#/;   # ignore lines beginning with '#'
-            s/^\s+//; s/[\x0d\x0a]+$//s; # remove leading white space and trailing newline
-            # remove white space before, and single space after '=', '+=', '-=' or '<='
-            s/^(-[-:\w]+#?)\s*([-+<]?=) ?/$1$2/;
-            push @newArgs, $_ unless $_ eq '';
+            $_ = FilterArgfileLine($_);
+            push @newArgs, $_ if defined $_;
         }
         close ARGFILE;
         unshift @ARGV, @newArgs;
@@ -1020,7 +1018,7 @@ for (;;) {
     }
     (/^P$/ or $a eq 'preserve') and $preserveTime = 1, next;
     /^password$/i and $mt->Options(Password => shift), next;
-    if (/^progress(:.*)?/i) {
+    if (/^progress(:.*)?$/i) {
         if ($1) {
             $windowTitle = substr $1, 1;
             $windowTitle = 'ExifTool %p%%' unless length $windowTitle;
@@ -1847,7 +1845,7 @@ sub GetImageInfo($$)
     # evaluate -if expression for conditional processing
     if (defined $condition) {
         unless ($file eq '-' or $et->Exists($file)) {
-            Warn "File not found: $file\n";
+            Warn "Error: File not found - $file\n";
             FileNotFound($file);
             ++$countBad;
             return;
@@ -1943,7 +1941,7 @@ sub GetImageInfo($$)
 
     # extract information from this file
     unless ($file eq '-' or $et->Exists($file)) {
-        Warn "File not found: $file\n";
+        Warn "Error: File not found - $file\n";
         FileNotFound($file);
         $outfile and close($fp), undef($tmpText), $et->Unlink($outfile);
         ++$countBad;
@@ -2276,9 +2274,6 @@ TAG:    foreach $tag (@foundTags) {
             if ($xml) {
                 # RDF/XML output format
                 my $tok = "$group:$tagName";
-                # manually un-do CR/LF conversion in Windows because output
-                # is in text mode, which will re-convert newlines to CR/LF
-                $isCRLF and $val =~ s/\x0d\x0a/\x0a/g;
                 if ($outFormat > 0) {
                     if ($structOpt and ref $val) {
                         $val = Image::ExifTool::XMP::SerializeStruct($val);
@@ -2291,6 +2286,9 @@ TAG:    foreach $tag (@foundTags) {
                         CleanXML(\$val);
                     }
                     unless ($noDups{$tok}) {
+                        # manually un-do CR/LF conversion in Windows because output
+                        # is in text mode, which will re-convert newlines to CR/LF
+                        $isCRLF and $val =~ s/\x0d\x0a/\x0a/g;
                         print $fp "\n $tok='${val}'";
                         # XML does not allow duplicate attributes
                         $noDups{$tok} = 1;
@@ -2319,6 +2317,9 @@ TAG:    foreach $tag (@foundTags) {
                 my $lastVal = $val;
                 for ($valNum=0; $valNum<2; ++$valNum) {
                     $val = FormatXML($val, $ind, $group);
+                    # manually un-do CR/LF conversion in Windows because output
+                    # is in text mode, which will re-convert newlines to CR/LF
+                    $isCRLF and $val =~ s/\x0d\x0a/\x0a/g;
                     if ($outFormat >= 0) {
                         # normal output format (note: this will give
                         # non-standard RDF/XML if there are any attributes)
@@ -2553,7 +2554,7 @@ sub SetImageInfo($$$)
         } else {
             $outfile = FilenameSPrintf($outOpt, $orig);
             if ($outfile eq '') {
-                Warn "Can't create file with zero-length name from $orig\n";
+                Warn "Error: Can't create file with zero-length name from $orig\n";
                 ++$countBadCr;
                 return 0;
             }
@@ -2765,7 +2766,7 @@ sub SetImageInfo($$$)
                 }
             } else {
                 # file doesn't exist, and we can't create it
-                Warn("Error: File not found - $file\n");
+                Warn "Error: File not found - $file\n";
                 FileNotFound($file);
                 ++$countBadWr;
                 return 0;
@@ -2969,11 +2970,12 @@ sub DoHardLink($$$$)
         }
     }
     if (defined $testName) {
-        $testName = NextUnusedFilename($testName, undef, 1);
+        $testName = NextUnusedFilename($testName, $src, 1);
         if ($usedFileName{$testName}) {
             $et->Warn("File '${testName}' would exist");
-        } elsif ($et->SetFileName($src, $testName, 'Test') == 1) {
+        } elsif ($et->SetFileName($src, $testName, 'Test', $usedFileName{$testName}) == 1) {
             $usedFileName{$testName} = 1;
+            $usedFileName{$src} = 0;
         }
     }
 }
@@ -3391,7 +3393,7 @@ sub ProcessFiles($;$)
                 $filtered = 1;
                 $verbose and print $vout "-------- $file (wrong extension)$progStr\n";
             } else {
-                Warn "File not found: $file\n";
+                Warn "Error: File not found - $file\n";
                 FileNotFound($file);
                 $rtnVal = 1;
             }
@@ -3651,10 +3653,17 @@ sub SuggestedExtension($$$)
         $ext = 'icc';
     } elsif ($$valPt =~ /^(MM\0\x2a|II\x2a\0)/) {
         $ext = 'tiff';
+    } elsif ($$valPt =~ /^.{4}ftyp(3gp|mp4|f4v|qt  )/s) {
+        my %movType = ( 'qt  ' => 'mov' );
+        $ext = $movType{$1} || $1;
     } elsif ($$valPt !~ /^.{0,4096}\0/s) {
         $ext = 'txt';
     } elsif ($$valPt =~ /^BM/) {
         $ext = 'bmp';
+    } elsif ($$valPt =~ /^CANON OPTIONAL DATA\0/) {
+        $ext = 'vrd';
+    } elsif ($$valPt =~ /^IIII\x04\0\x04\0/) {
+        $ext = 'dr4';
     } else {
         $ext = 'dat';
     }
@@ -3802,8 +3811,12 @@ sub NextUnusedFilename($;$$)
         }
         $filename .= substr($fmt, $pos); # add rest of file name
         # return now with filename unless file exists
-        return $filename unless $mt->Exists($filename) or $usedFileName{$filename};
-        return $filename if defined $okfile and $filename eq $okfile;
+        return $filename unless ($mt->Exists($filename) and not defined $usedFileName{$filename}) or $usedFileName{$filename};
+        if (defined $okfile) {
+            return $filename if $filename eq $okfile;
+            my ($fn, $ok) = (AbsPath($filename), AbsPath($okfile));
+            return $okfile if defined $fn and defined $ok and $fn eq $ok;
+        }
         ++$copy;
         ++$alpha;
     }
@@ -3947,6 +3960,32 @@ sub SlurpFile($$)
     return 1;
 }
 
+
+#------------------------------------------------------------------------------
+# Filter argfile line
+# Inputs: 0) line of argfile
+# Returns: filtered line or undef to ignore
+sub FilterArgfileLine($)
+{
+    my $arg = shift;
+    if ($arg =~ /^#/) {             # comment lines begin with '#'
+        return undef unless $arg =~ s/^#\[CSTR\]//;
+        $arg =~ s/[\x0d\x0a]+$//s;  # remove trailing newline
+        # escape double quotes, dollar signs and ampersands if they aren't already
+        # escaped by an odd number of backslashes, and escape a single backslash
+        # if it occurs at the end of the string
+        $arg =~ s{\\(.)|(["\$\@]|\\$)}{'\\'.($2 || $1)}sge;
+        $arg = eval qq{"$arg"};     # un-escape characters in C string
+    } else {
+        $arg =~ s/^\s+//;           # remove leading white space
+        $arg =~ s/[\x0d\x0a]+$//s;  # remove trailing newline
+        # remove white space before, and single space after '=', '+=', '-=' or '<='
+        $arg =~ s/^(-[-:\w]+#?)\s*([-+<]?=) ?/$1$2/;
+        return undef if $arg eq '';
+    }
+    return $arg;
+}
+
 #------------------------------------------------------------------------------
 # Read arguments from -stay_open argfile
 # Inputs: 0) argument list ref
@@ -3974,11 +4013,8 @@ sub ReadStayOpen($)
                 my $len = pos($stayOpenBuff) - $pos;
                 my $arg = substr($stayOpenBuff, $pos, $len);
                 $pos += $len;
-                $arg =~ s/^\s+//;           # remove leading white space
-                $arg =~ s/[\x0d\x0a]+$//s;  # remove trailing newline
-                # remove white space before, and single space after '=', '+=', '-=' or '<='
-                $arg =~ s/^(-[-:\w]+#?)\s*([-+<]?=) ?/$1$2/;
-                next if $arg eq '' or $arg =~ /^#/; # ignore empty/comment lines
+                $arg = FilterArgfileLine($arg);
+                next unless defined $arg;
                 push @newArgs, $arg;
                 if ($optArgs) {
                     # this is an argument for the last option
@@ -4122,17 +4158,19 @@ supported by ExifTool (r = read, w = write, c = create):
 
   File Types
   ------------+-------------+-------------+-------------+------------
-  3FR   r     | DV    r     | JP2   r/w   | ODT   r     | RSRC  r
-  3G2   r/w   | DVB   r/w   | JPEG  r/w   | OFR   r     | RTF   r
-  3GP   r/w   | DVR-MS r    | JSON  r     | OGG   r     | RW2   r/w
-  A     r     | DYLIB r     | K25   r     | OGV   r     | RWL   r/w
-  AA    r     | EIP   r     | KDC   r     | OPUS  r     | RWZ   r
-  AAX   r/w   | EPS   r/w   | KEY   r     | ORF   r/w   | RM    r
-  ACR   r     | EPUB  r     | LA    r     | OTF   r     | SEQ   r
-  AFM   r     | ERF   r/w   | LFP   r     | PAC   r     | SKETCH r
-  AI    r/w   | EXE   r     | LNK   r     | PAGES r     | SO    r
-  AIFF  r     | EXIF  r/w/c | M2TS  r     | PBM   r/w   | SR2   r/w
-  APE   r     | EXR   r     | M4A/V r/w   | PCD   r     | SRF   r
+  3FR   r     | DR4   r/w/c | J2C   r     | ODP   r     | RAW   r/w
+  3G2   r/w   | DSS   r     | JNG   r/w   | ODS   r     | RIFF  r
+  3GP   r/w   | DV    r     | JP2   r/w   | ODT   r     | RSRC  r
+  A     r     | DVB   r/w   | JPEG  r/w   | OFR   r     | RTF   r
+  AA    r     | DVR-MS r    | JSON  r     | OGG   r     | RW2   r/w
+  AAE   r     | DYLIB r     | K25   r     | OGV   r     | RWL   r/w
+  AAX   r/w   | EIP   r     | KDC   r     | OPUS  r     | RWZ   r
+  ACR   r     | EPS   r/w   | KEY   r     | ORF   r/w   | RM    r
+  AFM   r     | EPUB  r     | LA    r     | OTF   r     | SEQ   r
+  AI    r/w   | ERF   r/w   | LFP   r     | PAC   r     | SKETCH r
+  AIFF  r     | EXE   r     | LNK   r     | PAGES r     | SO    r
+  APE   r     | EXIF  r/w/c | M2TS  r     | PBM   r/w   | SR2   r/w
+  ARQ   r/w   | EXR   r     | M4A/V r/w   | PCD   r     | SRF   r
   ARW   r/w   | EXV   r/w/c | MAX   r     | PDB   r     | SRW   r/w
   ASF   r     | F4A/V r/w   | MEF   r/w   | PDF   r/w   | SVG   r
   AVI   r     | FFF   r/w   | MIE   r/w/c | PEF   r/w   | SWF   r
@@ -4158,8 +4196,6 @@ supported by ExifTool (r = read, w = write, c = create):
   DOC   r     | INX   r     | NRW   r/w   | RAF   r/w   | XLSX  r
   DOCX  r     | ISO   r     | NUMBERS r   | RAM   r     | XMP   r/w/c
   DPX   r     | ITC   r     | O     r     | RAR   r     | ZIP   r
-  DR4   r/w/c | J2C   r     | ODP   r     | RAW   r/w   |
-  DSS   r     | JNG   r/w   | ODS   r     | RIFF  r     |
 
   Meta Information
   ----------------------+----------------------+---------------------
@@ -4842,14 +4878,15 @@ into individual tags in the JSON output, but the original structure may be
 preserved with the B<-struct> option (this also causes all list-type XMP
 tags to be output as JSON arrays, otherwise single-item lists would be
 output as simple strings).  The B<-a> option is implied if the B<-g> or
-B<-G> options are used, otherwise it is ignored and duplicate tags are
-suppressed.  Adding the B<-D> or B<-H> option changes tag values to JSON
-objects with "val" and "id" fields, and adding B<-l> adds a "desc" field,
-and a "num" field if the numerical value is different from the converted
-"val".  The B<-b> option may be added to output binary data, encoded in
-base64 if necessary (indicated by "base64:" as the first 7 bytes of the
-value), and B<-t> may be added to include tag table information (see B<-t>
-for details).  The JSON output is UTF-8 regardless of any B<-L> or
+B<-G> options are used, otherwise it is ignored and tags with identical
+JSON names are suppressed. (B<-g4> may be used to ensure that all tags have
+unique JSON names.)  Adding the B<-D> or B<-H> option changes tag values to
+JSON objects with "val" and "id" fields, and adding B<-l> adds a "desc"
+field, and a "num" field if the numerical value is different from the
+converted "val".  The B<-b> option may be added to output binary data,
+encoded in base64 if necessary (indicated by "base64:" as the first 7 bytes
+of the value), and B<-t> may be added to include tag table information (see
+B<-t> for details).  The JSON output is UTF-8 regardless of any B<-L> or
 B<-charset> option setting, but the UTF-8 validation is disabled if a
 character set other than UTF-8 is specified.
 
@@ -4959,8 +4996,8 @@ around each section of files.  A section is defined as a group of
 consecutive files with the same section header (eg. files are grouped by
 directory if C<#[SECT]> contains C<$directory>).  Lines beginning with
 C<#[BODY]> and lines not beginning with C<#> are output for each processed
-file.  Lines beginning with C<#[IF]> are not output, but the BODY lines are
-skipped if any tag on an IF line doesn't exist. Other lines beginning with
+file.  Lines beginning with C<#[IF]> are not output, but all BODY lines are
+skipped if any tag on an IF line doesn't exist.  Other lines beginning with
 C<#> are ignored.  For example, this format file:
 
     # this is a comment line
@@ -4975,7 +5012,7 @@ with this command:
 
 produces output like this:
 
-    -- Generated by ExifTool 11.01 --
+    -- Generated by ExifTool 11.14 --
     File: a.jpg - 2003:10:31 15:44:19
     (f/5.6, 1/60s, ISO 100)
     File: b.jpg - 2006:05:23 11:57:38
@@ -5077,8 +5114,8 @@ Output a tab-delimited list of description/values (useful for database
 import).  May be combined with B<-s> to print tag names instead of
 descriptions, or B<-S> to print tag values only, tab-delimited on a single
 line.  The B<-t> option may be combined with B<-j>, B<-php> or B<-X> to add
-tag table information (table C<name>, decimal tag C<id>, and C<index> for
-cases where multiple conditional tags exist with the same ID).
+tag table information (C<table>, tag C<id>, and C<index> for cases where
+multiple conditional tags exist with the same ID).
 
 =item B<-T> (B<-table>)
 
@@ -5460,9 +5497,11 @@ errors and disables some validation checks which could result in minor
 warnings.  Generally, minor errors/warnings indicate a problem which usually
 won't result in loss of metadata if ignored.  However, there are exceptions,
 so ExifTool leaves it up to you to make the final decision.  Minor errors
-and warnings are indicated by "[minor]" at the start of the message. 
+and warnings are indicated by "[minor]" at the start of the message.
 Warnings which affect processing when ignored are indicated by "[Minor]"
-(with a capital "M").
+(with a capital "M").  Note that this causes missing values in
+B<-tagsFromFile>, B<-p> and B<-if> strings to be set to an empty string
+rather than an undefined value.
 
 =item B<-o> I<OUTFILE> or I<FMT> (B<-out>)
 
@@ -5633,12 +5672,14 @@ of setting the API Compress, Compact and XMPShorthand options to 1.
 Read command-line arguments from the specified file.  The file contains one
 argument per line (NOT one option per line -- some options require
 additional arguments, and all arguments must be placed on separate lines).
-Blank lines and lines beginning with C<#> are ignored.  White space at the
-start of a line is removed.  Normal shell processing of arguments is not
-performed, which among other things means that arguments should not be
-quoted and spaces are treated as any other character.  I<ARGFILE> may exist
-relative to either the current directory or the exiftool directory unless an
-absolute pathname is given.
+Blank lines and lines beginning with C<#> are ignored (unless they start
+with C<#[CSTR]>, in which case the rest of the line is treated as a C
+string, allowing standard C escape sequences such as "\n" for a newline). 
+White space at the start of a line is removed.  Normal shell processing of
+arguments is not performed, which among other things means that arguments
+should not be quoted and spaces are treated as any other character.
+I<ARGFILE> may exist relative to either the current directory or the
+exiftool directory unless an absolute pathname is given.
 
 For example, the following I<ARGFILE> will set the value of Copyright to
 "Copyright YYYY, Phil Harvey", where "YYYY" is the year of CreateDate:
@@ -5985,10 +6026,10 @@ underlines replaced by a single underline:
 
     exiftool -p '${make;tr/ /_/;s/__+/_/g}' image.jpg
 
-A C<@> may be added after the tag name to make the expression act on
-individual list items for list-type tags, simplifying list processing.  As
-an example, the following command returns all subjects not containing the
-string "xxx":
+An C<@> may be added after the tag name to make the expression act on
+individual list items for list-type tags, simplifying list processing.  Set
+C<$_> to undef to remove an item from the list.  As an example, the
+following command returns all subjects not containing the string "xxx":
 
     exiftool -p '${subject@;$_=undef if /xxx/}' image.jpg
 

@@ -32,7 +32,7 @@ use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Exif;
 use Image::ExifTool::Minolta;
 
-$VERSION = '2.86';
+$VERSION = '2.92';
 
 sub ProcessSRF($$$);
 sub ProcessSR2($$$);
@@ -77,7 +77,8 @@ my %sonyLensTypes2 = (
     32791 => 'Sony E 16-70mm F4 ZA OSS',        # VX9107
     32792 => 'Sony E 10-18mm F4 OSS',           # VX9108
     32793 => 'Sony E PZ 16-50mm F3.5-5.6 OSS',  # VX9109
-    32794 => 'Sony FE 35mm F2.8 ZA',            # VX9110
+    32794 => 'Sony FE 35mm F2.8 ZA or Samyang AF 24mm F2.8 FE', # VX9110
+    32794.1 => 'Samyang AF 24mm F2.8 FE', #JR
     32795 => 'Sony FE 24-70mm F4 ZA OSS',       # VX9111
     32796 => 'Sony FE 85mm F1.8', #JR
     32797 => 'Sony E 18-200mm F3.5-6.3 OSS LE', # VX9113
@@ -87,6 +88,7 @@ my %sonyLensTypes2 = (
     32801 => 'Sony FE 12-24mm F4 G', #JR
     32802 => 'Sony FE 90mm F2.8 Macro G OSS',   # VX?
     32803 => 'Sony E 18-50mm F4-5.6',
+    32804 => 'Sony FE 24mm F1.4 GM', #IB
     32805 => 'Sony FE 24-105mm F4 G OSS', #IB   # VX9121
 
     32807 => 'Sony E PZ 18-200mm F3.5-6.3 OSS', # VX9123
@@ -114,6 +116,7 @@ my %sonyLensTypes2 = (
     32829 => 'Sony FE 100-400mm F4.5-5.6 GM OSS', #JR
     32830 => 'Sony FE 70-200mm F2.8 GM OSS', #JR
     32831 => 'Sony FE 16-35mm F2.8 GM', #JR
+    32848 => 'Sony FE 400mm F2.8 GM OSS', #IB
     32849 => 'Sony E 18-135mm F3.5-5.6 OSS', #JR
 
   # (comment this out so LensID will report the LensModel, which is more useful)
@@ -124,6 +127,8 @@ my %sonyLensTypes2 = (
     33076 => 'Sony FE 100mm F2.8 STF GM OSS (macro mode)', #JR (with macro switching ring set to "0.57m - 1.0m")
     33077 => 'Sony FE 100-400mm F4.5-5.6 GM OSS + 1.4X Teleconverter', #JR
     33078 => 'Sony FE 100-400mm F4.5-5.6 GM OSS + 2X Teleconverter', #JR
+    33079 => 'Sony FE 400mm F2.8 GM OSS + 1.4X Teleconverter', #IB
+    33080 => 'Sony FE 400mm F2.8 GM OSS + 2X Teleconverter', #JR
 
     49201 => 'Zeiss Touit 12mm F2.8', #JR (lens firmware Ver.02)
     49202 => 'Zeiss Touit 32mm F1.8', #JR (lens firmware Ver.02)
@@ -132,6 +137,7 @@ my %sonyLensTypes2 = (
     49217 => 'Zeiss Batis 85mm F1.8', #JR
     49218 => 'Zeiss Batis 18mm F2.8', #IB
     49219 => 'Zeiss Batis 135mm F2.8', #IB
+    49220 => 'Zeiss Batis 40mm F2 CF', #IB
     49232 => 'Zeiss Loxia 50mm F2', #JR (lens firmware Ver.02)
     49233 => 'Zeiss Loxia 35mm F2', #JR (lens firmware Ver.02)
     49234 => 'Zeiss Loxia 21mm F2.8', #PH
@@ -153,8 +159,10 @@ my %sonyLensTypes2 = (
     50492 => 'Sigma 24-105mm F4 DG OS HSM | A + MC-11', #JR (013)
     50493 => 'Sigma 17-70mm F2.8-4 DC MACRO OS HSM | C + MC-11', #JR (013)
     50495 => 'Sigma 50-100mm F1.8 DC HSM | A + MC-11', #JR (016)
+    50499 => 'Sigma 85mm F1.4 DG HSM | A', #JR (018)
     50501 => 'Sigma 100-400mm F5-6.3 DG OS HSM | C + MC-11', #JR (017)
     50503 => 'Sigma 16mm F1.4 DC DN | C', #JR (017)
+    50513 => 'Sigma 70mm F2.8 DG MACRO | A', #JR (018)
 
     50992 => 'Voigtlander SUPER WIDE-HELIAR 15mm F4.5 III', #JR
     50993 => 'Voigtlander HELIAR-HYPER WIDE 10mm F5.6', #IB
@@ -888,9 +896,9 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
         #   a4 c3 - NEX-3N/5R/5T, ILCE-3000/3500
         # unknown offsets or values for DSC-TX20/TX55/WX30
         # unknown offsets or values for DSC-HX60V/HX350/HX400V/QX10/QX30/QX100/RX10/RX100M2/RX100M3/WX220/WX350,
-        #                               ILCA-68/77M2, ILCE-5000/5100/6000/7/7M2/7R/7S/QX1
+        #                               ILCA-68/77M2, ILCE-5000/5100/6000/7/7M2/7R/7S/QX1, Stellar2, Lusso
         # unknown offsets or values for DSC-HX90V/RX0/RX1RM2/RX10M2/RX10M3/RX100M4/RX100M5/WX500, ILCE-6300/6500/7RM2/7SM2, ILCA-99M2
-        # unknown offsets or values for ILCE-7M3/7RM3/9, DSC-RX10M4/RX100M6
+        # unknown offsets or values for ILCE-7M3/7RM3/9, DSC-RX10M4/RX100M6/RX100M5A
     {
         Name => 'Tag2010a', # ad
         Condition => '$$self{Model} =~ /^NEX-5N$/',
@@ -931,7 +939,7 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
         SubDirectory => { TagTable => 'Image::ExifTool::Sony::Tag2010h' },
     },{
         Name => 'Tag2010i', # ?
-        Condition => '$$self{Model} =~ /^(ILCE-(7M3|7RM3|9)|DSC-(RX10M4|RX100M6))\b/',
+        Condition => '$$self{Model} =~ /^(ILCE-(7M3|7RM3|9)|DSC-(RX10M4|RX100M6|RX100M5A))\b/',
         SubDirectory => { TagTable => 'Image::ExifTool::Sony::Tag2010i' },
     },{
         Name => 'Tag_0x2010',
@@ -1004,8 +1012,9 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
     },
     0x201b => { #PH
         # FocusMode for SLT/HV/ILCA and NEX/ILCE; doesn't seem to apply to DSC models (always 0)
+        #    from 2018: at least DSC-RX10M4 and RX100M6 also use this tag
         Name => 'FocusMode',
-        Condition => '$$self{Model} !~ /^DSC-/',
+        Condition => '($$self{Model} !~ /^DSC-/) or ($$self{Model} =~ /^DSC-(RX10M4|RX100M6|RX100M5A)/)',
         Writable => 'int8u',
         Priority => 0,
         PrintConv => {
@@ -1019,6 +1028,7 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
     },
     0x201c => [ #JR
         # AFAreaModeSetting for SLT/HV/ILCA and NEX/ILCE; doesn't seem to apply to DSC models (always 0)
+        #    from 2018: at least DSC-RX10M4 and RX100M6 also use this tag
         # all DSLR/SLT/HV         Wide  Zone Spot   Local
         # all NEX and ILCE-3000   Multi      Center FlexibleSpot
         # all ILCE and ILCA       Wide  Zone Center FlexibleSpot  ExpandedFlexibleSpot
@@ -1036,8 +1046,8 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
             },
         },{
             Name => 'AFAreaModeSetting',
-            Condition => '$$self{Model} =~ /^(NEX-|ILCE-)/',
-            Notes => 'NEX and ILCE models',
+            Condition => '$$self{Model} =~ /^(NEX-|ILCE-|DSC-(RX10M4|RX100M6|RX100M5A))/',
+            Notes => 'NEX, ILCE and some DSC models',
             RawConv => '$$self{AFAreaILCE} = $val',
             DataMember => 'AFAreaILCE',
             Writable => 'int8u',
@@ -1068,10 +1078,11 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
     ],
     0x201d => { #JR
         # Flexible Spot position for NEX/ILCE, non-zero only when AFAreaMode='Flexible Spot'
+        #    from 2018: at least DSC-RX10M4 and RX100M6 also use this tag
         # observed values in range (0 0) to (640 480), with center (320 240) often seen
         # for NEX-5R/6, positions appear to be in an 11x9 grid
         Name => 'FlexibleSpotPosition',
-        Condition => '$$self{Model} =~ /^(NEX-|ILCE-)/',
+        Condition => '$$self{Model} =~ /^(NEX-|ILCE-|DSC-(RX10M4|RX100M6|RX100M5A))/',
         Writable => 'int16u',
         Count => 2,
         Notes => q{
@@ -1228,9 +1239,10 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
         },
     }],
     # 0x2021 - 0 for DSC; 0, 1 or 2 for SLT/ILCA and NEX/ILCE: 1=Face, 2=object-tracking ?
+    #    from 2018: at least DSC-RX10M4 and RX100M6 also use this tag
     0x2021 => { #JR
         Name => 'AFTracking',
-        Condition => '$$self{Model} !~ /^DSC-/', # (doesn't seem to apply to DSC-models)
+        Condition => '($$self{Model} !~ /^DSC-/) or ($$self{Model} =~ /^DSC-(RX10M4|RX100M6|RX100M5A)/)',
         Writable => 'int8u',
         PrintConv => {
             0 => 'Off',
@@ -1413,6 +1425,8 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
         Writable => 'string',
         ValueConv => '$val=~s/(\d{2})(\d{2})(\d{2})(\d{2})/$4$3$2$1/; $val=~s/^0//; $val', # (NC)
         ValueConvInv => '$val="0$val" if length($val)==7; $val=~s/(\d{2})(\d{2})(\d{2})(\d{2})/$4$3$2$1/; $val',
+        PrintConv => 'sprintf("%.8d",$val)',
+        PrintConvInv => '$val',
     },
     0x3000 => {
         Name => 'ShotInfo',
@@ -1513,7 +1527,7 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
         #   33 41 0d 0e    0x09d7    (k)  DSC-RX1, DSC-RX1R
         #   38 00 32 0e    0x09fc    (l)  SLT-A58, ILCE-3000/3500, NEX-3N, DSC-HX300/HX50V/WX200/WX300/WX60/WX80/TX30
         #   3a 10 3a 0e    0x0a01    (m)  DSC-QX10/QX100
-        #   3a 20 47 0e    0x0a01    (m)  DSC-RX100M2
+        #   3a 20 47 0e    0x0a01    (m)  DSC-RX100M2, 
         #   43 00 66 0e    0x0a1b    (n)  ILCE-7/7R v0.xx/v1.00/v1.01, ILCE-5000, DSC-RX10
         #   43 10 66 0e    0x0a1b    (n)  ILCE-7/7R v1.02/v1.10
         #   43 30 6c 0e    0x0a1b    (n)  ILCE-7/7R v1.20-v3.20
@@ -1735,7 +1749,7 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
             '3 1 0 0' => 'ARW 2.1',
             '3 2 0 0' => 'ARW 2.2', #PH (NEX-5)
             '3 3 0 0' => 'ARW 2.3', #PH (SLT-A65,SLT-A77)
-            '3 3 1 0' => 'ARW 2.3.1', #PH/JR (DSC-RX1R/RX100M2)
+            '3 3 1 0' => 'ARW 2.3.1', #PH/JR (DSC-RX1R/RX100M2/Stellar2)
             '3 3 2 0' => 'ARW 2.3.2', #JR (DSC-RX1RM2,ILCE-7SM2 - support for uncompressed 14-bit RAW)
             '3 3 3 0' => 'ARW 2.3.3', #JR (ILCE-9)
             # what about cRAW images?
@@ -1747,6 +1761,7 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
         Writable => 'int16u',
         PrintConvColumns => 2,
         PrintConv => {
+            0 => 'DSC-HX80', #PH
             2 => 'DSC-R1',
             256 => 'DSLR-A100',
             257 => 'DSLR-A900',
@@ -1821,6 +1836,7 @@ my %hidUnk = ( Hidden => 1, Unknown => 1 );
             364 => 'DSC-RX0', #PH
             365 => 'DSC-RX10M4', #JR
             366 => 'DSC-RX100M6', #IB
+            369 => 'DSC-RX100M5A', #JR
         },
     },
     0xb020 => { #2
@@ -6667,7 +6683,7 @@ my %pictureProfile2010 = (
     CHECK_PROC => \&Image::ExifTool::CheckBinaryData,
     FORMAT => 'int8u',
     NOTES => q{
-        Valid for ILCE-7M3/7RM3/9, DSC-RX10M4/RX100M6.
+        Valid for ILCE-7M3/7RM3/9, DSC-RX10M4/RX100M6/RX100M5A.
     },
     WRITABLE => 1,
     FIRST_ENTRY => 0,
@@ -7629,7 +7645,7 @@ my %pictureProfile2010 = (
     GROUPS => { 0 => 'MakerNotes', 2 => 'Image' },
     0x0009 => { %releaseMode2 },
     0x000a => [{
-        Condition => '$$self{Model} =~ /^(ILCE-(7M3|7RM3|9)|DSC-(RX10M4|RX100M6))\b/',
+        Condition => '$$self{Model} =~ /^(ILCE-(7M3|7RM3|9)|DSC-(RX10M4|RX100M6|RX100M5A))\b/',
         Name => 'ShotNumberSincePowerUp',
         Format => 'int8u',
     },{
@@ -7752,7 +7768,7 @@ my %pictureProfile2010 = (
     # 0x24, 0x26: factor 10 for NEX and ILCE, factor 100 for DSC
     # 0x24, 0x26, 0x28, 0x2a: inconsistent for A-mount lenses on NEX/ILCE: some correct, some 0, some incorrect ...
     # 0x28 - not valid for DSC-[HTW]X models, or DSC-RX100
-#    0x24 => { # same values as Exif FocalLength
+#    0x24 => { # same values as Exif FocalLength (but have seen FocalLength for previous shot, ref IB, RX100M5)
 #        Name => 'FocalLength',
 #        Format => 'int16u',
 #        RawConv => '$val || undef',
@@ -8139,7 +8155,7 @@ my %pictureProfile2010 = (
     },
     0x034a => {
         Name => 'VignettingCorrParams',
-        Condition => '$$self{Model} =~ /^(ILCA-(68|77M2)|ILCE-(5000|5100|6000|7|7R|7S|QX1))\b/',
+        Condition => '$$self{Model} =~ /^(ILCA-(68|77M2)|ILCE-(5000|5100|6000|7|7R|7S|QX1)|Lusso)\b/',
         Format => 'int16s[16]',
     },
     0x0350 => {
@@ -8166,7 +8182,7 @@ my %pictureProfile2010 = (
     },
     0x037c => {
         Name => 'ChromaticAberrationCorrParams',
-        Condition => '$$self{Model} =~ /^(ILCA-(68|77M2)|ILCE-(5000|5100|6000|7|7R|7S|QX1))\b/',
+        Condition => '$$self{Model} =~ /^(ILCA-(68|77M2)|ILCE-(5000|5100|6000|7|7R|7S|QX1)|Lusso)\b/',
         Format => 'int16s[32]',
     },
     0x0384 => {
@@ -8230,7 +8246,7 @@ my %pictureProfile2010 = (
     #         but ILCE-7/7R with grip can have max 2, and as all ILCE-7/7R samples give >100 values, exclude...
     0x0008 => {
         Name => 'BatteryLevelGrip2',
-        Condition => '$$valPt !~ /^[\x00\xff]/ and $$self{Model} !~ /^(ILCE-(7|7R))$/', # only when not 0 or 255 and not for ILCE-7/7R
+        Condition => '$$valPt !~ /^[\x00\xff]/ and $$self{Model} !~ /^(ILCE-(7|7R)|Lusso)$/', # only when not 0 or 255 and not for ILCE-7/7R
         PrintConv => '"$val%"',
         PrintConvInv => '$val=~s/\s*\%//; $val',
     },
@@ -9105,6 +9121,9 @@ my %pictureProfile2010 = (
     0x00c3 => 'WBRedCloudy', #IB
     0x00c4 => 'WBGreenCloudy', #IB
     0x00c5 => 'WBBlueCloudy', #IB
+    0x00c6 => 'WBRedFluorescent', #IB
+    0x00c7 => 'WBGreenFluorescent', #IB
+    0x00c8 => 'WBBlueFluorescent', #IB
     0x00c9 => 'WBRedTungsten', #IB
     0x00ca => 'WBGreenTungsten', #IB
     0x00cb => 'WBBlueTungsten', #IB

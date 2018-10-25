@@ -17,7 +17,7 @@ package Image::ExifTool::Validate;
 use strict;
 use vars qw($VERSION %exifSpec);
 
-$VERSION = '1.10';
+$VERSION = '1.12';
 
 use Image::ExifTool qw(:Utils);
 use Image::ExifTool::Exif;
@@ -412,8 +412,20 @@ sub ValidateExif($$$$$$$$)
                 $et->Warn(sprintf('Non-standard %s tag 0x%.4x %s', $ifd, $tag, $$ti{Name}), 1);
             }
         }
-        if ($$ti{Count} and $$ti{Count} > 0 and $count != $$ti{Count}) {
-            $et->Warn(sprintf('Non-standard count (%d) for %s 0x%.4x %s', $count, $ifd, $tag, $$ti{Name}));
+        # change expected count from read Format to Writable size
+        my $tiCount = $$ti{Count};
+        if ($tiCount) {
+            if ($$ti{Format} and $$ti{Writable} and
+                $Image::ExifTool::Exif::formatNumber{$$ti{Format}} and
+                $Image::ExifTool::Exif::formatNumber{$$ti{Writable}})
+            {
+                my $s1 = $Image::ExifTool::Exif::formatSize[$Image::ExifTool::Exif::formatNumber{$$ti{Format}}];
+                my $s2 = $Image::ExifTool::Exif::formatSize[$Image::ExifTool::Exif::formatNumber{$$ti{Writable}}];
+                $tiCount = int($tiCount * $s1 / $s2);
+            }
+            if ($tiCount > 0 and $count != $tiCount) {
+                $et->Warn(sprintf('Non-standard count (%d) for %s 0x%.4x %s', $count, $ifd, $tag, $$ti{Name}));
+            }
         }
     } elsif (not $otherSpec{$$et{VALUE}{FileType}} or
         (not $otherSpec{$$et{VALUE}{FileType}}{$tag} and not $otherSpec{$$et{VALUE}{FileType}}{All}))
@@ -428,6 +440,7 @@ sub ValidateExif($$$$$$$$)
 #         2) directory name, 3) optional flag for minor warning
 sub ValidateOffsetInfo($$$;$)
 {
+    local $_;
     my ($et, $offsetInfo, $dirName, $minor) = @_;
 
     my $fileSize = $$et{VALUE}{FileSize} or return;
@@ -439,10 +452,14 @@ sub ValidateOffsetInfo($$$;$)
     # (don't test 3FR, RWL or RW2 files)
     return if $$et{TIFF_TYPE} =~ /^(3FR|RWL|RW2)$/;
 
+    Image::ExifTool::Exif::ValidateImageData($et, $offsetInfo, $dirName);
+
+    # loop through all offsets
     while (%$offsetInfo) {
         my ($id1) = sort keys %$offsetInfo;
         my $offsets = $$offsetInfo{$id1};
         delete $$offsetInfo{$id1};
+        next unless ref $offsets eq 'ARRAY';
         my $id2 = $$offsets[0]{OffsetPair};
         unless (defined $id2 and $$offsetInfo{$id2}) {
             unless ($$offsets[0]{NotRealPair} or (defined $id2 and $id2 == -1)) {
@@ -500,6 +517,7 @@ sub FinishValidate($$)
             my ($key, %val, %info, $minor);
             foreach $key (keys %{$$et{VALUE}}) {
                 next unless $et->GetGroup($key, 1) eq $grp;
+                next if $$et{TAG_EXTRA}{$key} and $$et{TAG_EXTRA}{$key}{G3}; # ignore sub-documents
                 # fill in %val lookup with values based on tag ID
                 my $tag = $$et{TAG_INFO}{$key}{TagID};
                 $val{$tag} = $$et{VALUE}{$key};

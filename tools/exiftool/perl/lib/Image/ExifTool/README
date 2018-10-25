@@ -66,8 +66,9 @@ with tag keys.  Below is an explanation of the meaning of each special key:
   problem.  May set ExifTool CHECK_WARN datamember for success with a warning.
 
   GROUPS : A hash lookup for the default group names for all entries in this
-  table. If not specified, the Group 0 and 1 names will be set automatically
-  according to the name of the module.
+  table.  If not specified, the default Group 0 and 1 names will be set
+  automatically according to the name of the module, and the default Group 2
+  name will be set to 'Other'.
 
   FORMAT : Specifies the default tag Format, and corresponding pointer increment
   for entries in a BinaryData table.  Defaults to 'int8u' for BinaryData tables
@@ -264,7 +265,8 @@ numerical.
 
   Notes         : Notes for this tag in the HTML TagNames documentation.
 
-  Groups        : Hash lookup for group names for this tag.
+  Groups        : Hash lookup for group names for this tag.  If not specified,
+                  defaults to the GROUPS specified in the table definition.
 
   Format        : Only valid for BinaryData, EXIF and IPTC tables.  For a Binary
                   or EXIF table, this gives the format that is used to convert
@@ -347,10 +349,11 @@ numerical.
                   'DataTag' - associated tag name containing data for offset or
                   byte count tags.
 
-                  'Drop' - set to 1 for tags that should be excluded when
-                  rebuilding maker notes when copying all tags.  Set to a number
-                  larger than 1 to drop only if data is larger than this size.
-                  Works for SubDirectory tags too.
+                  'Drop' - [IFD-format and PhaseOne makernote tags only] set to
+                  1 for tags that should be excluded when rebuilding maker notes
+                  when copying all tags.  Set to a number larger than 1 to drop
+                  only if data is larger than this size. Works for SubDirectory
+                  tags too.
 
                   'EntryBased' - set to 1 if the offset for this value is based
                   on the IFD entry position.  This allows individual values to
@@ -561,7 +564,7 @@ numerical.
                   key.  The subroutine takes 2 arguments: the Raw value and a
                   reference to the current ExifTool object.  The advanced
                   formatting expression (if any) may be accessed via the
-                  ExifTool "FMT_EXPR" member variable. The expression or
+                  ExifTool "FMT_EXPR" member variable.  The expression or
                   subroutine is evaluated if and when the tag value is requested
                   (ie. only after all extraction is complete), so if necessary
                   at this time the values of all other tags are available via
