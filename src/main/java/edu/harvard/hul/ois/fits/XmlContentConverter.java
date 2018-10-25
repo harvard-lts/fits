@@ -587,6 +587,18 @@ public class XmlContentConverter {
      * @param  fitsDoc   a document element in the FITS schema
      */
     public XmlContent toDocumentMD(Element fitsDoc) {
+    	
+    	// The following values will only be set with the first value
+    	// in the case where there is more than one. That is,
+    	// the tool earlier in the list takes precedence.
+    	boolean isPageCountSet = false;
+    	boolean isWordCountSet = false;
+    	boolean isCharacterCountSet = false;
+    	boolean isParagraphCountSet = false;
+    	boolean isLineCountSet = false;
+    	boolean isGraphicsCountSet = false;
+    	boolean isTableCountSet = false;
+    	
         DocumentMDModel dm = new DocumentMDModel();
         @SuppressWarnings("unchecked")
 		List<Element> dataElements = fitsDoc.getChildren();
@@ -606,43 +618,64 @@ public class XmlContentConverter {
                 case pageCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
-                        dm.docMD.setPageCount(intValue);
+                    	if (!isPageCountSet) {
+                    		dm.docMD.setPageCount(intValue);
+                    		isPageCountSet = true;
+                    	}
                     }
                     break;
                 case wordCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
-                    	dm.docMD.setWordCount(intValue);
+                    	if (!isWordCountSet) {
+                    		dm.docMD.setWordCount(intValue);
+                    		isWordCountSet = true;
+                    	}
                     }
                     break;
                 case characterCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
-                        dm.docMD.setCharacterCount(intValue);
+                    	if (!isCharacterCountSet) {
+                    		dm.docMD.setCharacterCount(intValue);
+                    		isCharacterCountSet = true;
+                    	}
                     }
                     break;
                 case paragraphCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
-                        dm.docMD.setParagraphCount(intValue);
+                    	if (!isParagraphCountSet) {
+                    		dm.docMD.setParagraphCount(intValue);
+                    		isParagraphCountSet = true;
+                    	}
                     }
                     break;
                 case lineCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
-                        dm.docMD.setLineCount(intValue);
+                    	if (!isLineCountSet) {
+                    		dm.docMD.setLineCount(intValue);
+                    		isLineCountSet = true;
+                    	}
                     }
                     break;
                 case graphicsCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
-                        dm.docMD.setGraphicsCount(intValue);
+                    	if (!isGraphicsCountSet) {
+                    		dm.docMD.setGraphicsCount(intValue);
+                    		isGraphicsCountSet = true;
+                    	}
                     }
                     break;
                 case tableCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
                     if(intValue != null) {
-                        dm.docMD.setTableCount(intValue);
+                    	if (!isTableCountSet) {
+                    		dm.docMD.setTableCount(intValue);
+                    		isTableCountSet = true;
+                    	}
                     }
                     break;
                 case language:

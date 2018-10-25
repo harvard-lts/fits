@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<xsl:stylesheet version="2.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<?xml version="1.0" ?>
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:import href="exiftool_common_to_fits.xslt"/>
 <xsl:template match="/">
@@ -16,13 +15,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<xsl:choose>
 					<!-- different file types will output a different element name -->
 					<xsl:when test="exiftool/Pages">
-						<xsl:value-of select="exiftool/Pages"/>
+						<xsl:value-of select="exiftool/Pages[1]"/>
 					</xsl:when>
 					<xsl:when test="exiftool/PageCount">
-						<xsl:value-of select="exiftool/PageCount"/>
+						<xsl:value-of select="exiftool/PageCount[1]"/>
 					</xsl:when>
                     <xsl:when test="exiftool/Document-statisticPage-count">
-                        <xsl:value-of select="exiftool/Document-statisticPage-count"/>
+                        <xsl:value-of select="exiftool/Document-statisticPage-count[1]"/>
                     </xsl:when>
 				</xsl:choose>
 			</pageCount>
@@ -31,10 +30,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                 <xsl:choose>
 	                <!-- different file types will output a different element name -->
 	                <xsl:when test="exiftool/Words">
-						<xsl:value-of select="exiftool/Words"/>
+						<xsl:value-of select="exiftool/Words[1]"/>
 	                </xsl:when>
                     <xsl:when test="exiftool/Document-statisticWord-count">
-		                <xsl:value-of select="exiftool/Document-statisticWord-count"/>
+		                <xsl:value-of select="exiftool/Document-statisticWord-count[1]"/>
                     </xsl:when>
                 </xsl:choose>
 			</wordCount>
@@ -43,10 +42,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                 <xsl:choose>
                     <!-- different file types will output a different element name -->
                     <xsl:when test="exiftool/Characters">
-						<xsl:value-of select="exiftool/Characters"/>
+						<xsl:value-of select="exiftool/Characters[1]"/>
                     </xsl:when>
                     <xsl:when test="exiftool/Document-statisticCharacter-count">
-                        <xsl:value-of select="exiftool/Document-statisticCharacter-count"/>
+                        <xsl:value-of select="exiftool/Document-statisticCharacter-count[1]"/>
                     </xsl:when>
                 </xsl:choose>
 			</characterCount>
@@ -70,18 +69,20 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				</author>
 			</xsl:if>
 			
-			<lineCount>
-				<xsl:value-of select="exiftool/Lines"/>
-			</lineCount>
+			<xsl:if test="exiftool/Lines">
+				<lineCount>
+					<xsl:value-of select="exiftool/Lines[1]"/>
+				</lineCount>
+			</xsl:if>
 			
 			<paragraphCount>
                 <xsl:choose>
                     <!-- different file types will output a different element name -->
                     <xsl:when test="exiftool/Paragraphs">
-                        <xsl:value-of select="exiftool/Paragraphs"/>
+                        <xsl:value-of select="exiftool/Paragraphs[1]"/>
                     </xsl:when>
                     <xsl:when test="exiftool/Document-statisticParagraph-count">
-                        <xsl:value-of select="exiftool/Document-statisticParagraph-count"/>
+                        <xsl:value-of select="exiftool/Document-statisticParagraph-count[1]"/>
                     </xsl:when>
                 </xsl:choose>
 			</paragraphCount>
@@ -149,7 +150,36 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
             </source>
             
             <language>
-                <xsl:value-of select="exiftool/Language" />
+            	<xsl:if test="exiftool/Language or exiftool/LanguageCode">
+            		<xsl:variable name="lang">
+		                <xsl:choose>
+		                    <!-- different file types will output a different element name -->
+		                    <xsl:when test="exiftool/Language">
+		                    	<xsl:value-of select="exiftool/Language[1]"/>
+		                    </xsl:when>
+		                    <xsl:when test="exiftool/LanguageCode">
+		                    	<xsl:value-of select="exiftool/LanguageCode[1]"/>
+		                    </xsl:when>
+		                    <xsl:otherwise>
+		                    	<xsl:value-of select="string('')"/>
+		                    </xsl:otherwise>
+		                </xsl:choose>
+            		</xsl:variable>
+	                
+	                <xsl:if test="$lang != ''">
+	                	<xsl:choose>
+	                		<xsl:when test="$lang = 'English (US)'">
+	                			<xsl:value-of select="string('U.S. English')"/>
+	                		</xsl:when>
+	                		<xsl:when test="$lang = 'English (UK)'">
+	                			<xsl:value-of select="string('U.K. English')"/>
+	                		</xsl:when>
+	                		<xsl:otherwise>
+	                			<xsl:value-of select="$lang"/>
+	                		</xsl:otherwise>
+	                	</xsl:choose>
+	                </xsl:if>
+            	</xsl:if>
             </language>
             
             <isTagged>

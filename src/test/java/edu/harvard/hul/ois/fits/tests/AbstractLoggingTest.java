@@ -30,6 +30,9 @@ import java.io.File;
  */
 public abstract class AbstractLoggingTest {
 	
+	// Suffix added to input file name for actual FITS output file NOT used for test comparison.
+	protected static final String OUTPUT_FILE_SUFFIX = "_Output.xml";
+
 	/**
 	 * Configure logging with the test logging configuration file by setting a system property.
 	 * See "Default Initialization Procedure" here: https://logging.apache.org/log4j/1.2/manual.html
