@@ -108,7 +108,7 @@
             
             <subject>
                 <!-- sometimes for PDF files Exiftool will spit out an integer value which is not a real Subject -->
-                <xsl:if test="exiftool/Subject and string-length(exiftool/Subject) > 1">
+                <xsl:if test="exiftool/Subject and string-length(exiftool/Subject[1]) > 1">
 	                <xsl:value-of select="exiftool/Subject"/>
                 </xsl:if>
             </subject>
