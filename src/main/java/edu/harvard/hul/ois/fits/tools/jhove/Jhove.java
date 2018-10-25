@@ -13,12 +13,9 @@ package edu.harvard.hul.ois.fits.tools.jhove;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import org.jdom.Document;
 import org.apache.log4j.Logger;
@@ -48,7 +45,6 @@ public class Jhove extends ToolBase {
     private boolean enabled = true;
     private Fits fits;
 
-    private final static Calendar calendar = GregorianCalendar.getInstance();
     private final static String jhoveFitsConfig = Fits.FITS_XML_DIR + "jhove" + File.separator;
     private static final Logger logger = Logger.getLogger(Jhove.class);
 
@@ -68,7 +64,7 @@ public class Jhove extends ToolBase {
             jhove.setSignatureFlag(false);
             jhove.setShowRawFlag(false);
       	    xh = new XmlHandler();
-      	    jhoveApp = new App ("Jhove","1.20", new int[] {2018, 03, 29}, "","");
+            jhoveApp = new App ("Jhove","1.20.1", new int[] {2018, 03, 29}, "","");
             xh.setApp(jhoveApp);
             xh.setBase(jhove);
 		}
