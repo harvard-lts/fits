@@ -22,7 +22,7 @@ use vars qw($VERSION %samsungLensTypes);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Exif;
 
-$VERSION = '1.41';
+$VERSION = '1.43';
 
 sub WriteSTMN($$$);
 sub ProcessINFO($$$);
@@ -933,18 +933,23 @@ my %formatMinMax = (
         features (such as "Sound & Shot" or "Shot & More") from Samsung models such
         as the Galaxy S4 and Tab S.
     },
-    # stuff written with "Shot & More" feature
-    '0x0001-name' => 'EmbeddedImageName',
+    '0x0001-name' => 'EmbeddedImageName', # ("DualShot_1","DualShot_2")
     '0x0001' => { Name => 'EmbeddedImage', Groups => { 2 => 'Preview' }, Binary => 1 },
-    # stuff written with "Sound & Shot" feature
-    '0x0100-name' => 'EmbeddedAudioFileName',
-    '0x0100' => { Name => 'EmbeddedAudioFile', Binary => 1 },
+    '0x0100-name' => 'EmbeddedAudioFileName', # ("SoundShot_000")
+    '0x0100' => { Name => 'EmbeddedAudioFile', Groups => { 2 => 'Audio' }, Binary => 1 },
+    '0x0201-name' => 'SurroundShotVideoName', # ("Interactive_Panorama_000")
+    '0x0201' => { Name => 'SurroundShotVideo', Groups => { 2 => 'Video' }, Binary => 1 },
    # 0x0800-name - seen 'SoundShot_Meta_Info'
-   # 0x0800 - (contains only already-extracted sound shot name)
+   # 0x0800 - unknown (29 bytes) (contains already-extracted EmbeddedAudioFileName)
    # 0x0830-name - seen '1165724808.pre'
    # 0x0830 - unknown (164004 bytes)
+   # 0x08d0-name - seen 'Interactive_Panorama_Info'
+   # 0x08d0 - unknown (7984 bytes)
+   # 0x08e0-name - seen 'Panorama_Shot_Info'
+   # 0x08e0 - string, seen 'PanoramaShot'
+   # 0x08e1-name - seen 'Motion_Panorama_Info'
    # 0x09e0-name - seen 'Burst_Shot_Info'
-   # 0x09e0 - seen '489489125'
+   # 0x09e0 - string, seen '489489125'
    # 0x0a01-name - seen 'Image_UTC_Data'
     '0x0a01' => { #forum7161
         Name => 'TimeStamp',
@@ -952,10 +957,12 @@ my %formatMinMax = (
         ValueConv => 'ConvertUnixTime($val / 1e3, 1)',
         PrintConv => '$self->ConvertDateTime($val)',
     },
+    '0x0a20-name' => 'DualCameraImageName', # ("FlipPhoto_002")
+    '0x0a20' => { Name => 'DualCameraImage', Groups => { 2 => 'Preview' }, Binary => 1 },
     '0x0a30-name' => 'EmbeddedVideoType', # ("MotionPhoto_Data")
-    '0x0a30' => { Name => 'EmbeddedVideoFile', Binary => 1 }, #forum7161
+    '0x0a30' => { Name => 'EmbeddedVideoFile', Groups => { 2 => 'Video' }, Binary => 1 }, #forum7161
    # 0x0aa1-name - seen 'MCC_Data'
-   # 0x0aa1 - seen '234'
+   # 0x0aa1 - seen '234','222'
     '0x0ab1-name' => 'DepthMapName', # seen 'DualShot_DepthMap_1' (SM-N950U)
     '0x0ab1' => { Name => 'DepthMapData', Binary => 1 },
    # 0x0ab3-name - seen 'DualShot_Extra_Info' (SM-N950U)
@@ -1211,6 +1218,8 @@ SamBlock:
                     Binary      => 1,
                 );
                 AddTagToTable($tagTablePtr, $tag, \%tagInfo);
+            }
+            unless ($$tagTablePtr{"$tag-name"}) {
                 my %tagInfo2 = (
                     Name        => "SamsungTrailer_${tag}Name",
                     Description => "Samsung Trailer $tag Name",

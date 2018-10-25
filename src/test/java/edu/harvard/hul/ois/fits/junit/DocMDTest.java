@@ -19,7 +19,10 @@
 package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
+import java.util.Scanner;
 
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -57,7 +60,8 @@ public class DocMDTest extends AbstractLoggingTest {
 	@Test
 	public void testWordDocUrlEmbeddedResources() throws Exception {	
 
-    	File input = new File("testfiles/Word2003_has_URLs_has_embedded_resources.doc");
+    	String inputFilename = "Word2003_has_URLs_has_embedded_resources.doc";
+    	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/Word2003_has_URLs_has_embedded_resources.doc_Output.xml");
@@ -66,7 +70,8 @@ public class DocMDTest extends AbstractLoggingTest {
 	@Test
 	public void testWordDocGraphics() throws Exception {	
 
-		File input = new File("testfiles/Word2003_many_graphics.doc");
+    	String inputFilename = "Word2003_many_graphics.doc";
+    	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
 		fitsOut.saveToDisk("test-generated-output/Word2003_many_graphics.doc_Output.xml");
@@ -75,7 +80,8 @@ public class DocMDTest extends AbstractLoggingTest {
 	@Test
 	public void testWordDocPasswordProtected() throws Exception {	
 
-		File input = new File("testfiles/Word2003PasswordProtected.doc");
+    	String inputFilename = "Word2003PasswordProtected.doc";
+    	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/Word2003PasswordProtected.doc_Output.xml");
@@ -84,7 +90,8 @@ public class DocMDTest extends AbstractLoggingTest {
 	@Test
 	public void testWordDoc2011() throws Exception {	
 
-    	File input = new File("testfiles/Word2011_Has_Outline.doc");
+    	String inputFilename = "Word2011_Has_Outline.doc";
+    	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();		
     	fitsOut.saveToDisk("test-generated-output/Word2011_Has_Outline.doc_Output.xml");
@@ -93,7 +100,8 @@ public class DocMDTest extends AbstractLoggingTest {
 	@Test
 	public void testWordDocLibreOffice() throws Exception {	
 
-    	File input = new File("testfiles/LibreOffice.doc");
+    	String inputFilename = "LibreOffice.doc";
+    	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/LibreOffice.doc_Output.xml");
@@ -102,7 +110,8 @@ public class DocMDTest extends AbstractLoggingTest {
 	@Test
 	public void testWordDocHyperlinks() throws Exception {	
 
-    	File input = new File("testfiles/Word2003_has_table_of_contents.doc");
+    	String inputFilename = "Word2003_has_table_of_contents.doc";
+    	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/Word2003_has_table_of_contents.doc_Output.xml");
@@ -111,10 +120,21 @@ public class DocMDTest extends AbstractLoggingTest {
 	@Test
 	public void testWordDocPasswordAndEncrypted() throws Exception {	
 
-    	File input = new File("testfiles/Word_protected_encrypted.doc");
+    	String inputFilename = "Word_protected_encrypted.doc";
+    	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/Word_protected_encrypted.doc_Output.xml");
+	}
+    
+	@Test
+	public void testWordDocV2() throws Exception {
+
+    	String inputFilename = "NEWSSLID_Word2_0.DOC";
+    	File input = new File("testfiles/" + inputFilename);
+    	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -124,7 +144,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -134,7 +154,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -144,7 +164,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -154,7 +174,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 	
 	@Test
@@ -164,7 +184,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 	
 	@Test
@@ -174,7 +194,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 	
 	@Test
@@ -184,7 +204,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 	
 	@Test
@@ -199,7 +219,7 @@ public class DocMDTest extends AbstractLoggingTest {
 
     	for (String inputFilename : inputFilenames) {
     		
-    		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
+    		String outputFilename = "test-generated-output/"+ inputFilename + OUTPUT_FILE_SUFFIX;
     		File input = new File("testfiles/" + inputFilename);
     		FitsOutput fitsOut = fits.examine(input);
     		fitsOut.addStandardCombinedFormat();
@@ -218,7 +238,7 @@ public class DocMDTest extends AbstractLoggingTest {
 //    			"WordPerfectCompoundFile.wpd"};  // (not identified as a WordPerfect document)
 
     	for (String inputFilename : inputFilenames) {
-    		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
+    		String outputFilename = "test-generated-output/"+ inputFilename + OUTPUT_FILE_SUFFIX;
     		File input = new File("testfiles/" + inputFilename);
     		FitsOutput fitsOut = fits.examine(input);
     		fitsOut.addStandardCombinedFormat();
@@ -233,7 +253,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 	
 	@Test
@@ -243,7 +263,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -255,7 +275,7 @@ public class DocMDTest extends AbstractLoggingTest {
     			"HasAnnotations.pdf"};
 
     	for (String inputFilename : inputFilenames) {
-    		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
+    		String outputFilename = "test-generated-output/"+ inputFilename + OUTPUT_FILE_SUFFIX;
     		File input = new File("testfiles/" + inputFilename);
     		FitsOutput fitsOut = fits.examine(input);
         	fitsOut.addStandardCombinedFormat();
@@ -275,7 +295,7 @@ public class DocMDTest extends AbstractLoggingTest {
     			"PDFa_embedded_resources.pdf"};
 
     	for (String inputFilename : inputFilenames) {
-    		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
+    		String outputFilename = "test-generated-output/"+ inputFilename + OUTPUT_FILE_SUFFIX;
     		File input = new File("testfiles/" + inputFilename);
     		FitsOutput fitsOut = fits.examine(input);
         	fitsOut.addStandardCombinedFormat();
@@ -291,7 +311,7 @@ public class DocMDTest extends AbstractLoggingTest {
     			"PDFx3.pdf"}; // converts to PDF/A
 
     	for (String inputFilename : inputFilenames) {
-    		String outputFilename = "test-generated-output/"+ inputFilename + "_Output.xml";
+    		String outputFilename = "test-generated-output/"+ inputFilename + OUTPUT_FILE_SUFFIX;
     		File input = new File("testfiles/" + inputFilename);
     		FitsOutput fitsOut = fits.examine(input);
         	fitsOut.addStandardCombinedFormat();

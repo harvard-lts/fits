@@ -21,7 +21,7 @@ use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Exif;
 
-$VERSION = '1.18';
+$VERSION = '1.23';
 
 sub ProcessJpgFromRaw($$$);
 sub WriteJpgFromRaw($$$);
@@ -46,6 +46,24 @@ my %jpgFromRawMap = (
 my %wbTypeInfo = (
     PrintConv => \%Image::ExifTool::Exif::lightSource,
     SeparateTable => 'EXIF LightSource',
+);
+
+my %panasonicWhiteBalance = ( #forum9396
+    0 => 'Auto',
+    1 => 'Daylight',
+    2 => 'Cloudy',
+    3 => 'Tungsten',
+    4 => 'n/a',
+    5 => 'Flash',
+    6 => 'n/a',
+    7 => 'n/a',
+    8 => 'Custom#1',
+    9 => 'Custom#2',
+    10 => 'Custom#3',
+    11 => 'Custom#4',
+    12 => 'Shade',
+    13 => 'Kelvin',
+    16 => 'AWBc', # GH5 and G9 (Makernotes WB==19)
 );
 
 # Tags found in Panasonic RAW/RW2/RWL images (ref PH)
@@ -249,7 +267,13 @@ my %wbTypeInfo = (
         Name => 'DistortionInfo',
         SubDirectory => { TagTable => 'Image::ExifTool::PanasonicRaw::DistortionInfo' },
     },
-    # 0x11b - chromatic aberration correction (ref 3)
+    # 0x11b - chromatic aberration correction (ref 3) (also see forum9366)
+    0x11c => { #forum9373
+        Name => 'Gamma',
+        Writable => 'int16u',
+        ValueConv => '$val / ($val >= 1024 ? 1024 : ($val >= 256 ? 256 : 100))',
+        ValueConvInv => 'int($val * 256 + 0.5)',
+    },
     0x120 => {
         Name => 'CameraIFD',
         SubDirectory => {
@@ -258,6 +282,15 @@ my %wbTypeInfo = (
             ProcessProc => \&Image::ExifTool::ProcessTIFF,
         },
     },
+    0x121 => { #forum9295
+        Name => 'Multishot',
+        Writable => 'int32u',
+        PrintConv => {
+            0 => 'Off',
+            65536 => 'Pixel Shift',
+        },
+    },
+    # 0x122 - int32u: RAWDataOffset for the GH5s/GX9, or pointer to end of raw data for G9 (forum9295)
     0x2bc => { # PH Extension!!
         Name => 'ApplicationNotes', # (writable directory!)
         Writable => 'int8u',
@@ -433,22 +466,117 @@ my %wbTypeInfo = (
     # (don't know what format codes 0x101 and 0x102 are for, so just
     #  map them into 4 = int32u for now)
     VARS => { MAP_FORMAT => { 0x101 => 4, 0x102 => 4 } },
-    0x1101 => { #forum8484 (Metabones EF-M43-BT2 adapter with Canon lenses)
-        Name => 'FocusDistance',
-        Writable => 'int16u',
-        ValueConv => '$val / 200',
-        PrintConv => '$val > 65534.5/200 ? "inf" : "$val m"',
+    0x1001 => { #forum9388
+        Name => 'MultishotOn',
+        Writable => 'int32u',
+        PrintConv => { 0 => 'No', 1 => 'Yes' },
     },
+    0x1100 => { #forum9274
+        Name => 'FocusStepNear',
+        Writable => 'int16s',
+    },
+    0x1101 => { #forum9274 (was forum8484)
+        Name => 'FocusStepCount',
+        Writable => 'int16s',
+    },
+    0x1102 => { #forum9417
+        Name => 'FlashFired',
+        Writable => 'int32u',
+        PrintConv => { 0 => 'No', 1 => 'Yes' },
+    },
+    # 0x1104 - set when camera shoots on lowest possible Extended-ISO (forum9290)
+    0x1105 => { #forum9392
+        Name => 'ZoomPosition',
+        Notes => 'in the range 0-255 for most cameras',
+        Writable => 'int32u',
+    },
+    0x1200 => { #forum9278
+        Name => 'LensAttached',
+        Notes => 'many CameraIFD tags are invalid if there is no lens attached',
+        Writable => 'int32u',
+        PrintConv => { 0 => 'No', 1 => 'Yes' },
+    },
+    # 1201 - LensStyle? ref forum9394
     0x1203 => { #4
         Name => 'FocalLengthIn35mmFormat',
         Writable => 'int16u',
         PrintConv => '"$val mm"',
         PrintConvInv => '$val=~s/\s*mm$//;$val',
     },
+    0x1305 => { #forum9384
+        Name => 'HighISOMode',
+        Writable => 'int16u',
+        RawConv => '$val || undef',
+        PrintConv => { 1 => 'On', 2 => 'Off' },
+    },
+    # 0x140b - scaled overall black level? (ref forum9281)
+    # 0x1411 - scaled black level per channel difference (ref forum9281)
+    # 0x2000 - WB tungsten=3, daylight=4 (ref forum9467)
+    # 0x2009 - scaled black level per channel (ref forum9281)
+    # 0x3000-0x310b - red/blue balances * 1024 (ref forum9467)
+    #  0x3000 modifiedTungsten-Red (-2?)
+    #  0x3001 modifiedTungsten-Blue (-2?)
+    #  0x3002 modifiedDaylight-Red (-2?)
+    #  0x3003 modifiedDaylight-Blue (-2?)
+    #  0x3004 modifiedTungsten-Red (-1?)
+    #  0x3005 modifiedTungsten-Blue (-1?)
+    #  0x3006 modifiedDaylight-Red (-1?)
+    #  0x3007 modifiedDaylight-Blue (-1?)
+    #  0x3100 DefaultTungsten-Red
+    #  0x3101 DefaultTungsten-Blue
+    #  0x3102 DefaultDaylight-Red
+    #  0x3103 DefaultDaylight-Blue
+    #  0x3104 modifiedTungsten-Red (+1?)
+    #  0x3105 modifiedTungsten-Blue (+1?)
+    #  0x3106 modifiedDaylight-Red (+1?)
+    #  0x3107 modifiedDaylight-Blue (+1?)
+    #  0x3108 modifiedTungsten-Red (+2?)
+    #  0x3109 modifiedTungsten-Blue (+2?)
+    #  0x310a modifiedDaylight-Red (+2?)
+    #  0x310b modifiedDaylight-Blue (+2?)
+    0x3200 => { #forum9275
+        Name => 'WB_CFA0_LevelDaylight',
+        Writable => 'int16u',
+    },
+    0x3201 => { #forum9275
+        Name => 'WB_CFA1_LevelDaylight',
+        Writable => 'int16u',
+    },
+    0x3202 => { #forum9275
+        Name => 'WB_CFA2_LevelDaylight',
+        Writable => 'int16u',
+    },
+    0x3203 => { #forum9275
+        Name => 'WB_CFA3_LevelDaylight',
+        Writable => 'int16u',
+    },
+    # 0x3204-0x3207 - user multipliers * 1024 ? (ref forum9275)
+    # 0x320a - scaled maximum value of raw data (scaling = 4x) (ref forum9281)
+    # 0x3209 - gamma (x256) (ref forum9281)
+    0x3300 => { #forum9296/9396
+        Name => 'WhiteBalanceSet',
+        Writable => 'int8u',
+        PrintConv => \%panasonicWhiteBalance,
+        SeparateTable => 'WhiteBalance',
+    },
+    0x3420 => { #forum9276
+        Name => 'WB_RedLevelAuto',
+        Writable => 'int16u',
+    },
+    0x3421 => { #forum9276
+        Name => 'WB_BlueLevelAuto',
+        Writable => 'int16u',
+    },
     0x3501 => { #4
         Name => 'Orientation',
         Writable => 'int8u',
         PrintConv => \%Image::ExifTool::Exif::orientation,
+    },
+    0x3600 => { #forum9396
+        Name => 'WhiteBalanceDetected',
+        Writable => 'int8u',
+        PrintConv => \%panasonicWhiteBalance,
+        SeparateTable => 'WhiteBalance',
     },
 );
 

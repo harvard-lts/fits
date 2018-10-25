@@ -27,7 +27,7 @@ use vars qw($VERSION $RELEASE @ISA @EXPORT_OK %EXPORT_TAGS $AUTOLOAD @fileTypes
             %mimeType $swapBytes $swapWords $currentByteOrder %unpackStd
             %jpegMarker %specialTags %fileTypeLookup);
 
-$VERSION = '11.01';
+$VERSION = '11.14';
 $RELEASE = '';
 @ISA = qw(Exporter);
 %EXPORT_TAGS = (
@@ -65,7 +65,7 @@ sub SaveNewValues($);
 sub RestoreNewValues($);
 sub WriteInfo($$;$$);
 sub SetFileModifyDate($$;$$$);
-sub SetFileName($$;$$);
+sub SetFileName($$;$$$);
 sub SetSystemTags($$);
 sub GetAllTags(;$);
 sub GetWritableTags(;$);
@@ -141,7 +141,7 @@ sub ReadValue($$$$$;$);
     XMP::SVG Palm Palm::MOBI Palm::EXTH Torrent EXE EXE::PEVersion EXE::PEString
     EXE::MachO EXE::PEF EXE::ELF EXE::AR EXE::CHM LNK Font VCard
     VCard::VCalendar RSRC Rawzor ZIP ZIP::GZIP ZIP::RAR RTF OOXML iWork ISO
-    FLIR::AFF FLIR::FPF MacOS::MDItem MacOS::XAttr
+    FLIR::AFF FLIR::FPF MacOS::MDItem MacOS::XAttr FlashPix::DocTable
 );
 
 # alphabetical list of current Lang modules
@@ -211,6 +211,7 @@ my %createTypes = map { $_ => 1 } qw(XMP ICC MIE VRD DR4 EXIF EXV);
    '3GPP'=>  '3GP',
     A    => ['EXE',  'Static library'],
     AA   => ['AA',   'Audible Audiobook'],
+    AAE  => ['PLIST','Apple edit information'],
     AAX  => ['MOV',  'Audible Enhanced Audiobook'],
     ACR  => ['DICOM','American College of Radiology ACR-NEMA'],
     ACFM => ['Font', 'Adobe Composite Font Metrics'],
@@ -224,6 +225,7 @@ my %createTypes = map { $_ => 1 } qw(XMP ICC MIE VRD DR4 EXIF EXV);
     APE  => ['APE',  "Monkey's Audio format"],
     APNG => ['PNG',  'Animated Portable Network Graphics'],
     ARW  => ['TIFF', 'Sony Alpha RAW format'],
+    ARQ  => ['TIFF', 'Sony Alpha Pixel-Shift RAW format'],
     ASF  => ['ASF',  'Microsoft Advanced Systems Format'],
     AVC  => ['AVC',  'Advanced Video Connection'], # (extensions are actually _AU,_AD,_IM,_ID)
     AVI  => ['RIFF', 'Audio Video Interleaved'],
@@ -536,6 +538,7 @@ my %fileDescription = (
 %mimeType = (
    '3FR' => 'image/x-hasselblad-3fr',
     AA   => 'audio/audible',
+    AAE  => 'application/vnd.apple.photos',
     AI   => 'application/vnd.adobe.illustrator',
     AIFF => 'audio/x-aiff',
     APE  => 'audio/x-monkeys-audio',
@@ -5630,7 +5633,7 @@ sub ProcessTrailers($$)
     0xc4 => 'DHT',
     0xc8 => 'JPGA',
     0xcc => 'DAC',
-    0xd0 => 'RST0',
+    0xd0 => 'RST0', # to RST7
     0xd8 => 'SOI',
     0xd9 => 'EOI',
     0xda => 'SOS',
@@ -5723,6 +5726,8 @@ sub ProcessJPEG($$)
         return 1 if $fast and $fast == 3;   # don't process file when FastScan == 3
         $$self{LOW_PRIORITY_DIR}{IFD1} = 1; # lower priority of IFD1 tags
     }
+    $$raf{NoBuffer} = 1 if $self->Options('FastScan'); # disable buffering in FastScan mode
+
     $dumpParms{MaxLen} = 128 if $verbose < 4;
     if ($htmlDump) {
         $dumpEnd = $raf->Tell();
@@ -6565,8 +6570,9 @@ sub ProcessJPEG($$)
                 $buff .= $$extXMP{$_} foreach @offsets;
                 my $tagTablePtr = GetTagTable('Image::ExifTool::XMP::Main');
                 my %dirInfo = (
-                    DataPt   => \$buff,
-                    Parent   => 'APP1',
+                    DataPt      => \$buff,
+                    Parent      => 'APP1',
+                    IsExtended  => 1,
                 );
                 $$path[$pn] = 'APP1';
                 $self->ProcessDirectory(\%dirInfo, $tagTablePtr);

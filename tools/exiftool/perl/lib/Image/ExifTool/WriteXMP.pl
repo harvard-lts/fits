@@ -89,6 +89,40 @@ sub ValidateXMP($;$)
 }
 
 #------------------------------------------------------------------------------
+# Validate XMP property
+# Inputs: 0) ExifTool ref, 1) validate hash ref
+# - issues warnings if problems detected
+sub ValidateProperty($$)
+{
+    my ($et, $propList) = @_;
+
+    if ($$et{XmpValidate} and @$propList > 2) {
+        if ($$propList[0] =~ /^x:x[ma]pmeta$/ and
+            $$propList[1] eq 'rdf:RDF' and
+            $$propList[2] =~ /rdf:Description( |$)/)
+        {
+            if (@$propList > 3) {
+                if ($$propList[-1] =~ /^rdf:(Bag|Seq|Alt)$/) {
+                    $et->Warn("Ignored empty $$propList[-1] list for $$propList[-2]", 1);
+                } else {
+                    my $xmpValidate = $$et{XmpValidate};
+                    my $path = join('/', @$propList[3..$#$propList]);
+                    if (defined $$xmpValidate{$path}) {
+                        $et->Warn("Duplicate XMP property: $path") if defined $$xmpValidate{$path};
+                    } else {
+                        $$xmpValidate{$path} = 1;
+                    }
+                }
+            }
+        } elsif ($$propList[0] ne 'rdf:RDF' or
+                 $$propList[1] !~ /rdf:Description( |$)/)
+        {
+            $et->Warn('Improperly enclosed XMP property: ' . join('/',@$propList));
+        }
+    }
+}
+
+#------------------------------------------------------------------------------
 # Check XMP date values for validity and format accordingly
 # Inputs: 1) date string
 # Returns: XMP date/time string (or undef on error)
@@ -710,7 +744,6 @@ sub WriteXMP($$;$)
 
     if ($xmpFile or $dirLen) {
         delete $$et{XMP_ERROR};
-        delete $$et{XMP_ABOUT};
         # extract all existing XMP information (to the XMP_CAPTURE hash)
         my $success = ProcessXMP($et, $dirInfo, $tagTablePtr);
         # don't continue if there is nothing to parse or if we had a parsing error
@@ -738,17 +771,16 @@ sub WriteXMP($$;$)
         }
         if (defined $about) {
             if ($verbose > 1) {
-                my $wasAbout = $$et{XMP_ABOUT};
+                my $wasAbout = $$et{XmpAbout};
                 $et->VerboseValue('- XMP-rdf:About', UnescapeXML($wasAbout)) if defined $wasAbout;
                 $et->VerboseValue('+ XMP-rdf:About', $about);
             }
             $about = EscapeXML($about); # must escape for XML
             ++$changed;
         } else {
-            $about = $$et{XMP_ABOUT} || '';
+            $about = $$et{XmpAbout} || '';
         }
         delete $$et{XMP_ERROR};
-        delete $$et{XMP_ABOUT};
 
         # call InitWriteDirs to initialize FORCE_WRITE flags if necessary
         $et->InitWriteDirs({}, 'XMP') if $xmpFile and $et->GetNewValue('ForceWrite');

@@ -1762,12 +1762,13 @@ sub SetFileModifyDate($$;$$$)
 #         2) new name (or undef to build from FileName and Directory tags)
 #         3) option: 'Link' to create link instead of renaming file
 #                    'Test' to only print new file name
+#         4) 0 to indicate that a file will no longer exist (used for 'Test' only)
 # Returns: 1=name changed OK, 0=nothing changed, -1=error changing name
 #          (and increments CHANGED flag if filename changed)
 # Notes: Will not overwrite existing file.  Creates directories as necessary.
-sub SetFileName($$;$$)
+sub SetFileName($$;$$$)
 {
-    my ($self, $file, $newName, $opt) = @_;
+    my ($self, $file, $newName, $opt, $usedFlag) = @_;
     my ($nvHash, $doName, $doDir);
 
     $opt or $opt = '';
@@ -1824,7 +1825,7 @@ sub SetFileName($$;$$)
     # protect against empty file name
     length $newName or $self->Warn('New file name is empty'), return -1;
     # don't replace existing file
-    if ($self->Exists($newName)) {
+    if ($self->Exists($newName) and (not defined $usedFlag or $usedFlag)) {
         if ($file ne $newName or $opt eq 'Link') {
             $self->Warn("File '${newName}' already exists");
             return -1;
@@ -3073,7 +3074,7 @@ sub NoDups
 {
     my %seen;
     my $sep = $advFmtSelf ? $$advFmtSelf{OPTIONS}{ListSep} : ', ';
-    my $new = join $sep, grep { !$seen{$_}++ } split /$sep/, $_;
+    my $new = join $sep, grep { !$seen{$_}++ } split /\Q$sep\E/, $_;
     $_ = ($_[0] and $new eq $_) ? undef : $new;
 }
 
@@ -4147,7 +4148,7 @@ sub VerboseInfo($$$%)
     }
 
     # Level 3: do hex dump of value
-    if ($verbose > 2 and $parms{DataPt}) {
+    if ($verbose > 2 and $parms{DataPt} and (not $tagInfo or not $$tagInfo{ReadFromRAF})) {
         $parms{Out} = $out;
         $parms{Prefix} = $indent;
         # limit dump length if Verbose < 5
@@ -5294,7 +5295,7 @@ sub WriteJPEG($$)
                 }
             }
             # don't create anything before APP0 or APP1 EXIF (containing IFD0)
-            last if $markerName eq 'APP0' or $dirCount{IFD0};
+            last if $markerName eq 'APP0' or $dirCount{IFD0} or $dirCount{ExtendedEXIF};
             # EXIF information must come immediately after APP0
             if (exists $$addDirs{IFD0} and not defined $doneDir{IFD0}) {
                 $doneDir{IFD0} = 1;
@@ -5321,7 +5322,14 @@ sub WriteJPEG($$)
                         $$self{PREVIEW_INFO}{Fixup}{Start} += 18 if $$self{PREVIEW_INFO};
                         $$self{LeicaTrailer}{Fixup}{Start} += 18 if $$self{LeicaTrailer};
                     }
-                    WriteMultiSegment($outfile, 0xe1, $exifAPP1hdr, \$buff, 'EXIF') or $err = 1;
+                    # write as multi-segment
+                    my $n = WriteMultiSegment($outfile, 0xe1, $exifAPP1hdr, \$buff, 'EXIF');
+                    if (not $n) {
+                        $err = 1;
+                    } elsif ($n > 1 and $oldOutfile) {
+                        # (punt on this because updating the pointers would be a real pain)
+                        $self->Error("Can't write multi-segment EXIF with external pointers");
+                    }
                     ++$$self{CHANGED};
                 }
             }
@@ -5714,6 +5722,7 @@ sub WriteJPEG($$)
                         $self->Error('Incorrect EXIF segment identifier',1);
                     }
                     $segType = 'EXIF';
+                    last unless $$editDirs{IFD0};
                     # add this data to the combined data if it exists
                     if (defined $combinedSegData) {
                         $combinedSegData .= substr($$segDataPt,$hdrLen);
@@ -5733,7 +5742,6 @@ sub WriteJPEG($$)
                     }
                     $doneDir{IFD0} and $self->Warn('Multiple APP1 EXIF records');
                     $doneDir{IFD0} = 1;
-                    last unless $$editDirs{IFD0};
                     # check del groups now so we can change byte order in one step
                     if ($$delGroup{IFD0} or $$delGroup{EXIF}) {
                         delete $doneDir{IFD0};  # delete so we will create a new one
@@ -5758,6 +5766,11 @@ sub WriteJPEG($$)
                     } else {
                         last Marker unless $self->Options('IgnoreMinorErrors');
                     }
+                    # delete segment if IFD contains no entries
+                    length $$segDataPt or $del = 1, last;
+                    if (length($$segDataPt) + length($exifAPP1hdr) > $maxSegmentLen) {
+                        $self->Warn('Writing multi-segment EXIF',1);
+                    }
                     # switch to buffered output if required
                     if (($$self{PREVIEW_INFO} or $$self{LeicaTrailer}) and not $oldOutfile) {
                         $writeBuffer = '';
@@ -5767,13 +5780,14 @@ sub WriteJPEG($$)
                         $$self{PREVIEW_INFO}{Fixup}{Start} += 18 if $$self{PREVIEW_INFO};
                         $$self{LeicaTrailer}{Fixup}{Start} += 18 if $$self{LeicaTrailer};
                     }
-                    # delete segment if IFD contains no entries
-                    length $$segDataPt or $del = 1, last;
-                    if (length($$segDataPt) + length($exifAPP1hdr) > $maxSegmentLen) {
-                        $self->Warn('Writing multi-segment EXIF',1);
-                    }
                     # write as multi-segment
-                    WriteMultiSegment($outfile, $marker, $exifAPP1hdr, $segDataPt, 'EXIF') or $err = 1;
+                    my $n = WriteMultiSegment($outfile, $marker, $exifAPP1hdr, $segDataPt, 'EXIF');
+                    if (not $n) {
+                        $err = 1;
+                    } elsif ($n > 1 and $oldOutfile) {
+                        # (punt on this because updating the pointers would be a real pain)
+                        $self->Error("Can't write multi-segment EXIF with external pointers");
+                    }
                     undef $combinedSegData;
                     undef $$segDataPt;
                     next Marker;
