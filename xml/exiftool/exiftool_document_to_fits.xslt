@@ -114,7 +114,7 @@
             </subject>
             
             <category>
-                <xsl:value-of select="exiftool/Category"/>
+                <xsl:value-of select="exiftool/Category[1]"/>
             </category>
             
             <xsl:if test="exiftool/Hyperlinks">
@@ -130,15 +130,15 @@
 			</xsl:if>
 			
 			<tableCount>
-			    <xsl:value-of select="exiftool/Document-statisticTable-count" />
+			    <xsl:value-of select="exiftool/Document-statisticTable-count[1]" />
 			</tableCount>
 
 			<graphicsCount>
-			    <xsl:value-of select="exiftool/Document-statisticImage-count" />
+			    <xsl:value-of select="exiftool/Document-statisticImage-count[1]" />
 			</graphicsCount>
             
             <description>
-                <xsl:value-of select="exiftool/Description" />
+                <xsl:value-of select="exiftool/Description[1]" />
             </description>
             
             <identifier>
@@ -146,7 +146,7 @@
             </identifier>
             
             <source>
-                <xsl:value-of select="exiftool/Source" />
+                <xsl:value-of select="exiftool/Source[1]" />
             </source>
             
             <language>
