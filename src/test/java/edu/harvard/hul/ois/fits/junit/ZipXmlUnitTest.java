@@ -163,5 +163,27 @@ public class ZipXmlUnitTest extends AbstractXmlUnitTest {
 
 		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
+	
+	@Test
+	public void testEmbeddedDirectoriesZipFile() throws Exception {
+
+    	String inputFilename = "multiple-file-types-and-folders.zip";
+    	File input = new File("testfiles/" + inputFilename);
+    	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
 
 }

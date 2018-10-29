@@ -168,7 +168,8 @@ public class ResultPrinter {
                 aggregator.addFormat(normalizedFormat);
             }   
         } else {
-            logger.warn(fileName + ",Unknown");
+            aggregator.incrementUnknownFormat();
+            logger.debug(fileName + " -- Unknown filetype");
         }
     }
 
