@@ -99,7 +99,7 @@
 						<xsl:value-of select="string('PDF/A')" />
 	   				</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="exiftool/FileType" />
+						<xsl:value-of select="exiftool/FileType[1]" />
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:variable>
@@ -333,7 +333,7 @@
 							<xsl:value-of select="exiftool/Model[1]"/>	
 						</xsl:when>
 						<xsl:when test="exiftool/Comment">
-							<xsl:value-of select="exiftool/Comment"/>	
+							<xsl:value-of select="exiftool/Comment[1]"/>
 						</xsl:when>
 					</xsl:choose>				
 				</xsl:when>
@@ -372,14 +372,14 @@
 		<inhibitorType>
 			<xsl:choose>
 				<xsl:when test="$mime='application/pdf'">
-					<xsl:value-of select="exiftool/Encryption"/>		
+					<xsl:value-of select="exiftool/Encryption[1]"/>
 				</xsl:when>		
 			</xsl:choose>		
 		</inhibitorType>
 		<copyrightNote>
 			<xsl:choose>
 				<xsl:when test="$mime='application/pdf'">
-					<xsl:value-of select="exiftool/Rights"/>		
+					<xsl:value-of select="exiftool/Rights[1]"/>
 				</xsl:when>		
 			</xsl:choose>		
 		</copyrightNote>

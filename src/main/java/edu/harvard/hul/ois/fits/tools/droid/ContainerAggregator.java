@@ -34,6 +34,8 @@ public class ContainerAggregator {
 	private long compressedSize;
 	
 	private boolean isEncrypted = false;
+	
+	private static final String UNKNOWN_FORMAT = "Unknown";
 
 	public ContainerAggregator() {
 		formatToCount = new TreeMap<>(); // order entries by key for the sake of XMLUnit tests
@@ -83,6 +85,16 @@ public class ContainerAggregator {
 				cnt++;
 				formatToCount.put(format, cnt);
 			}
+		}
+	}
+	
+	public void incrementUnknownFormat() {
+		Integer cnt = formatToCount.get(UNKNOWN_FORMAT);
+		if (cnt == null) {
+			formatToCount.put(UNKNOWN_FORMAT, 1);
+		} else {
+			cnt++;
+			formatToCount.put(UNKNOWN_FORMAT, cnt);
 		}
 	}
 	

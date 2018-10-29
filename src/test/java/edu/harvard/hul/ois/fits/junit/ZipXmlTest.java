@@ -92,5 +92,15 @@ public class ZipXmlTest extends AbstractXmlUnitTest {
     	fitsOut.addStandardCombinedFormat();
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
 	}
+	
+	@Test
+	public void testEmbeddedDirectoriesZipFile() throws Exception {
+
+    	String inputFilename = "multiple-file-types-and-folders.zip";
+    	File input = new File("testfiles/" + inputFilename);
+    	FitsOutput fitsOut = fits.examine(input);
+    	fitsOut.addStandardCombinedFormat();
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+	}
 
 }
