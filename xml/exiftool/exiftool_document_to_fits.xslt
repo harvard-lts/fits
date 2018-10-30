@@ -142,7 +142,7 @@
             </description>
             
             <identifier>
-                <xsl:value-of select="exiftool/Identifier" />
+                <xsl:value-of select="exiftool/Identifier[1]" />
             </identifier>
             
             <source>
