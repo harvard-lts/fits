@@ -451,6 +451,9 @@ public class FitsOutput {
 			else if (t.getRunStatus() == RunStatus.SHOULDNOTRUN){
 				tool.setAttribute("status","did not run");
 			}
+			else if (t.getRunStatus() == RunStatus.FAILED){
+				tool.setAttribute("status","failed");
+			}
 
 			statistics.addContent(tool);
 
