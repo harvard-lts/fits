@@ -14,18 +14,10 @@ package edu.harvard.hul.ois.fits.tools;
  */
 public class ToolInfo {
 
-	public String name;
-	public String version;
-	public String date;
-	public String note;
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
+	private String name;
+	private String version;
+	private String date;
+	private String note;
 
 	public ToolInfo() {
 
@@ -72,6 +64,14 @@ public class ToolInfo {
 			value = value +"Note= " + note + "\n";
 		}
 		return value;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 	@Override

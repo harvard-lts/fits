@@ -23,6 +23,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
+import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 import edu.harvard.hul.ois.fits.tools.utils.ParentLastClassLoader;
 
 public class ToolBelt {
@@ -131,15 +133,21 @@ public class ToolBelt {
 					t.applyToolsUsed (toolsUsedList);
 					tools.add(t);
 				}
-			} catch(ReflectiveOperationException |
-					MalformedURLException ex) {
+			} catch(Exception ex) {
+				// Catch and report any exception during tool instantiation, otherwise
+				// exception might be lost on thread creation.
 			    // Can't use this tool, but continue anyway.
-				//throw new FitsConfigurationException("Error initializing "+tClass,e);
 			    logger.error ("Thread "+Thread.currentThread().getId() +
 			    				" error initializing " + tClass +
 			    				": " + ex.getClass().getName() +
 			    				"  Message: " + ex.getMessage(), ex);
-			    continue;
+
+				// Capture tool error so failure can be reported for tool, then move on to next tool
+				ToolInfo info = new ToolInfo(bareClassName(tClass), "[unknown]", null);
+				Tool tool = getFailedTool(info);
+				tools.add(tool);
+				continue;
+
 			} finally {
 				// ***** IMPORTANT: set back original ClassLoader if changed *****
 				if (Thread.currentThread().getContextClassLoader() != savedClassLoader) {
@@ -293,5 +301,121 @@ public class ToolBelt {
 		String fullPathPrefix = StringUtils.isEmpty(Fits.FITS_HOME) ? "" : Fits.FITS_HOME + File.separator;
 		File dirFile = new File(fullPathPrefix + dirName);
 		return dirFile;
+	}
+	
+	/*
+	 * Creates a skeletal instance of Tool that indicates a 'failed' state that is not enabled to run.
+	 *  
+	 * @param toolInfo Contains tool name and version (which is unknown in this situation).
+	 * 
+	 * @return Tool which indicates a failed state and not enabled.
+	 */
+	private Tool getFailedTool(final ToolInfo toolInfo) {
+
+		Tool failedTool = new Tool() {
+			
+			@Override
+			public void run() {}
+
+			@Override
+			public ToolOutput extractInfo(File file) throws FitsToolException {
+				return null;
+			}
+
+			@Override
+			public boolean isIdentityKnown(ToolIdentity identity) {
+				return false;
+			}
+
+			@Override
+			public ToolInfo getToolInfo() {
+				return toolInfo;
+			}
+
+			@Override
+			public Boolean canIdentify() {
+				return false;
+			}
+
+			@Override
+			public String getName() {
+				return toolInfo.getName();
+			}
+
+			@Override
+			public void setName(String name) {}
+
+			@Override
+			public void addExcludedExtension(String ext) {}
+
+			@Override
+			public void addIncludedExtension(String ext) {}
+
+			@Override
+			public boolean hasExcludedExtension(String ext) {
+				return true;
+			}
+
+			@Override
+			public boolean hasIncludedExtension(String ext) {
+				return false;
+			}
+
+			@Override
+			public boolean hasIncludedExtensions() {
+				return false;
+			}
+
+			@Override
+			public boolean hasExcludedExtensions() {
+				return false;
+			}
+
+			@Override
+			public void applyToolsUsed(List<ToolsUsedItem> toolsUsedItems) {}
+
+			@Override
+			public void resetOutput() {}
+
+			/**
+			 * Indicates that the tool is not enabled so should be no attempt to run tool.
+			 */
+			@Override
+			public boolean isEnabled() {
+				return false;
+			}
+
+			@Override
+			public void setEnabled(boolean value) {}
+
+			@Override
+			public void setInputFile(File file) {}
+
+			@Override
+			public ToolOutput getOutput() {
+				return null;
+			}
+
+			@Override
+			public long getDuration() {
+				return 0;
+			}
+
+			/**
+			 * Return status that shows the tool failed.
+			 */
+			@Override
+			public RunStatus getRunStatus() {
+				return RunStatus.FAILED;
+			}
+
+			@Override
+			public void setRunStatus(RunStatus runStatus) {}
+
+			@Override
+			public void addExceptions(List<Throwable> exceptions) {}
+		};
+
+		return failedTool;
 	}
 }
