@@ -420,7 +420,7 @@ public class TikaTool extends ToolBase {
     public TikaTool(Fits fits) throws FitsToolException {
 		super();
 		try {
-			TikaConfig config = new TikaConfig("xml/tika/tika-config.xml");
+			TikaConfig config = new TikaConfig(Fits.FITS_XML_DIR + "tika" + File.separator + "tika-config.xml");
 			tika = new Tika (config);
 		} catch (Exception e) {
 			throw new FitsToolException("Problem loading tika-config.xml", e);
