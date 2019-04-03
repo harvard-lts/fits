@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.x" timestamp="2/13/18 2:58 PM">
   <identification>
-    <identity format="JPEG 2000 JP2" mimetype="image/jp2" toolname="FITS" toolversion="1.2.x">
-      <tool toolname="Droid" toolversion="6.3" />
-      <tool toolname="Jhove" toolversion="1.16" />
-      <tool toolname="Exiftool" toolversion="10.00" />
-      <tool toolname="Tika" toolversion="1.10" />
-      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/392</externalIdentifier>
+    <identity format="JPEG 2000 JP2" mimetype="image/jp2" toolname="FITS" toolversion="1.4.1">
+      <tool toolname="Droid" toolversion="6.4" />
+      <tool toolname="Jhove" toolversion="1.20.1" />
+      <tool toolname="file utility" toolversion="5.31" />
+      <tool toolname="Exiftool" toolversion="11.14" />
+      <tool toolname="Tika" toolversion="1.19.1" />
+      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">x-fmt/392</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>

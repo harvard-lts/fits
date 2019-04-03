@@ -271,7 +271,7 @@
 					<!--  JPEG 2000 image data -->
 					<xsl:when test="$mime='image/jp2'">
 						<xsl:attribute name="format">
-							<xsl:value-of select="string('JPEG 2000')"/>
+							<xsl:value-of select="string('JPEG 2000 JP2')"/>
 						</xsl:attribute>				
 					</xsl:when>							
 					<!-- RIFF (little-endian) data, WAVE audio, Microsoft PCM, 24 bit, mono 96000 Hz -->

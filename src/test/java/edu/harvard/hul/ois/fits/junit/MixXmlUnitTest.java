@@ -269,5 +269,29 @@ public class MixXmlUnitTest extends AbstractXmlUnitTest {
 
 		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
+	
+	@Test
+	public void testNotWellFormedJp2() throws Exception {
+
+		String inputFilename = "2339337_not_well_formed.jp2";
+    	File input = new File("testfiles/" + inputFilename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+		
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
 
 }
