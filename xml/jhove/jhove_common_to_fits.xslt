@@ -34,17 +34,17 @@
 			<!-- profile and format format attributes-->
 			<xsl:attribute name="format">
 				<xsl:variable name="format">
-				<xsl:choose>
-			  		<xsl:when test='string((repInfo/profiles/profile)[1])'>
-			  			<xsl:value-of select="concat(repInfo/format, ' ', (repInfo/profiles/profile)[1])"/>
-			  		</xsl:when>		
-			  		<xsl:when test="not(string-length($exif) = 0)">
-						<xsl:value-of select="concat(repInfo/format, ' ','EXIF')" />
-					</xsl:when>  		
-			  		<xsl:otherwise>
-			  			<xsl:value-of select="repInfo/format"/>
-					</xsl:otherwise>
-				</xsl:choose>
+					<xsl:choose>
+						<xsl:when test='string((repInfo/profiles/profile)[1])'>
+							<xsl:value-of select="concat(repInfo/format, ' ', (repInfo/profiles/profile)[1])"/>
+						</xsl:when>
+						<xsl:when test="not(string-length($exif) = 0)">
+							<xsl:value-of select="concat(repInfo/format, ' ','EXIF')" />
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="repInfo/format"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:variable>
 				<xsl:choose>
 					<xsl:when test="$format='JPEG JFIF'">
@@ -87,13 +87,20 @@
                         <xsl:value-of select="string('JPEG EXIF')"/>
                     </xsl:when>
 					<xsl:when test="starts-with($format,'JPEG 2000')">
-						<xsl:choose>			
+						<xsl:choose>
 							<xsl:when test="//profiles[profile='JP2']">
 								<xsl:value-of select="string('JPEG 2000 JP2')"/>
 							</xsl:when>
-							<xsl:when test="//property[name='Brand']/values/value">		
+							<xsl:when test="//property[name='Brand']/values/value">
 								<xsl:value-of select="concat('JPEG 2000 ',normalize-space(upper-case(//property[name='Brand']/values/value)))"/>
 							</xsl:when>
+							<!-- not well-formed JP2 files will not have the above elements so using mimetype -->
+							<xsl:when test="$mime='image/jp2'">
+								<xsl:value-of select="string('JPEG 2000 JP2')"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="string($format)"/>
+							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>		
 					<xsl:when test="starts-with($format,'TIFF DNG')">

@@ -19,7 +19,10 @@
 package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
+import java.util.Scanner;
 
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -146,6 +149,18 @@ public class MixTest extends AbstractLoggingTest {
 	public void testJp2_2() throws Exception {
 
 		String inputFilename = "006607203_00018.jp2";
+    	File input = new File("testfiles/" + inputFilename);
+    	
+    	FitsOutput fitsOut = fits.examine(input);
+		
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+	}
+	
+	@Test
+	public void testNotWellFormedJp2() throws Exception {
+
+		String inputFilename = "2339337_not_well_formed.jp2";
     	File input = new File("testfiles/" + inputFilename);
     	
     	FitsOutput fitsOut = fits.examine(input);
