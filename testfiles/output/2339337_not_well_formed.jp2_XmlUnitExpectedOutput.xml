@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.4.0-SNAPSHOT" timestamp="4/2/19 4:22 PM">
+  <identification>
+    <identity format="JPEG 2000 JP2" mimetype="image/jp2" toolname="FITS" toolversion="1.4.1">
+      <tool toolname="Droid" toolversion="6.4" />
+      <tool toolname="Jhove" toolversion="1.20.1" />
+      <tool toolname="file utility" toolversion="5.31" />
+      <tool toolname="Exiftool" toolversion="11.14" />
+      <tool toolname="Tika" toolversion="1.19.1" />
+      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">x-fmt/392</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.20.1">120521</size>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/2339337_not_well_formed.jp2</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">2339337_not_well_formed.jp2</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1c9c7abb1cf187de78f550ec474f9952</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1554236769000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">false</well-formed>
+    <valid toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">false</valid>
+    <message toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">First box of JP2 header must be image header severity=error offset=48</message>
+  </filestatus>
+  <metadata>
+    <image>
+      <compressionScheme toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">JPEG 2000</compressionScheme>
+      <imageWidth toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">3039</imageWidth>
+      <imageHeight toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">2490</imageHeight>
+      <iccProfileName toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">Adobe RGB (1998)</iccProfileName>
+      <samplingFrequencyUnit toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">cm</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">3</xSamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">3</ySamplingFrequency>
+      <iccProfileVersion toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
+      <standard>
+        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
+          <mix:BasicDigitalObjectInformation>
+            <mix:Compression>
+              <mix:compressionScheme>JPEG 2000</mix:compressionScheme>
+            </mix:Compression>
+          </mix:BasicDigitalObjectInformation>
+          <mix:BasicImageInformation>
+            <mix:BasicImageCharacteristics>
+              <mix:imageWidth>3039</mix:imageWidth>
+              <mix:imageHeight>2490</mix:imageHeight>
+              <mix:PhotometricInterpretation>
+                <mix:ColorProfile>
+                  <mix:IccProfile>
+                    <mix:iccProfileName>Adobe RGB (1998)</mix:iccProfileName>
+                    <mix:iccProfileVersion>2.1.0</mix:iccProfileVersion>
+                  </mix:IccProfile>
+                </mix:ColorProfile>
+              </mix:PhotometricInterpretation>
+            </mix:BasicImageCharacteristics>
+          </mix:BasicImageInformation>
+          <mix:ImageCaptureMetadata>
+            <mix:GeneralCaptureInformation />
+          </mix:ImageCaptureMetadata>
+          <mix:ImageAssessmentMetadata>
+            <mix:SpatialMetrics>
+              <mix:samplingFrequencyUnit>cm</mix:samplingFrequencyUnit>
+              <mix:xSamplingFrequency>
+                <mix:numerator>3</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:xSamplingFrequency>
+              <mix:ySamplingFrequency>
+                <mix:numerator>3</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:ySamplingFrequency>
+            </mix:SpatialMetrics>
+            <mix:ImageColorEncoding />
+          </mix:ImageAssessmentMetadata>
+        </mix:mix>
+      </standard>
+    </image>
+  </metadata>
+  <statistics fitsExecutionTime="713">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="145" />
+    <tool toolname="Jhove" toolversion="1.20.1" executionTime="583" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="643" />
+    <tool toolname="Exiftool" toolversion="11.14" executionTime="660" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="145" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="497" />
+    <tool toolname="Tika" toolversion="1.19.1" executionTime="185" />
+  </statistics>
+</fits>
+

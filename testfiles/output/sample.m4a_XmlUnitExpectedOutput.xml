@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.4.1-SNAPSHOT" timestamp="2/5/19 11:05 AM">
+  <identification status="SINGLE_RESULT">
+    <identity format="MPEG-4 Audio" mimetype="audio/mp4" toolname="FITS" toolversion="1.4.1-SNAPSHOT">
+      <tool toolname="Exiftool" toolversion="11.14" />
+    </identity>
+  </identification>
+  <fileinfo>
+    <lastmodified toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">0000:00:00 00:00:00</lastmodified>
+    <created toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">0000:00:00 00:00:00</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/sample.m4a</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">sample.m4a</filename>
+    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">34535</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">ece7c8360447c620faf055b20279f483</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1549382585000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <audio>
+      <duration toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">3.41 s</duration>
+      <bitDepth toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">16</bitDepth>
+      <sampleRate toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">44100</sampleRate>
+      <channels toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">2</channels>
+      <standard>
+        <aes:audioObject xmlns:aes="http://www.aes.org/audioObject" xsi:schemaLocation="http://www.aes.org/audioObject http://www.aes.org/standards/schemas/aes57-2011-08-27.xsd" disposition="" schemaVersion="1.0.0" analogDigitalFlag="FILE_DIGITAL" ID="AUDIO_OBJECT_38694746-aa2d-425a-a54e-265fd0489bc0">
+          <aes:format>MPEG-4 Audio</aes:format>
+          <aes:use useType="OTHER" otherType="unknown" />
+          <aes:primaryIdentifier identifierType="FILE_NAME">sample.m4a</aes:primaryIdentifier>
+          <aes:face audioObjectRef="AUDIO_OBJECT_38694746-aa2d-425a-a54e-265fd0489bc0" label="face 1" ID="FACE_0a4244fb-583d-46fa-a201-650d9bc1dfcc" direction="NONE">
+            <aes:timeline>
+              <aes:startTime editRate="1">0</aes:startTime>
+              <aes:duration editRate="1">0</aes:duration>
+            </aes:timeline>
+            <aes:region faceRef="FACE_0a4244fb-583d-46fa-a201-650d9bc1dfcc" formatRef="FORMAT_REGION_b946c7b7-f856-430d-9389-b9d7c8bfa31e" ID="REGION_b8d8bfc2-90c1-4632-9566-8d222339e902" label="region 1">
+              <aes:timeRange>
+                <aes:startTime editRate="1">0</aes:startTime>
+                <aes:duration editRate="1">0</aes:duration>
+              </aes:timeRange>
+              <aes:numChannels>2</aes:numChannels>
+              <aes:stream ID="STREAM_c4562d04-79ba-4f58-9251-406d8259f712" label="stream 0" faceRegionRef="REGION_b8d8bfc2-90c1-4632-9566-8d222339e902">
+                <aes:channelAssignment leftRightPosition="0.0" channelNum="0" frontRearPosition="0.0" />
+              </aes:stream>
+              <aes:stream ID="STREAM_1edaadb9-4966-4048-a72e-cce462d79d95" label="stream 1" faceRegionRef="REGION_b8d8bfc2-90c1-4632-9566-8d222339e902">
+                <aes:channelAssignment leftRightPosition="0.0" channelNum="1" frontRearPosition="0.0" />
+              </aes:stream>
+            </aes:region>
+          </aes:face>
+          <aes:formatList>
+            <aes:formatRegion ownerRef="REGION_b8d8bfc2-90c1-4632-9566-8d222339e902" xsi:type="aes:formatRegionType" ID="FORMAT_REGION_b946c7b7-f856-430d-9389-b9d7c8bfa31e" label="format region 1">
+              <aes:bitDepth>16</aes:bitDepth>
+              <aes:sampleRate>44100.0</aes:sampleRate>
+              <aes:soundField>STEREO</aes:soundField>
+            </aes:formatRegion>
+          </aes:formatList>
+        </aes:audioObject>
+      </standard>
+    </audio>
+  </metadata>
+  <statistics fitsExecutionTime="696">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.4" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.20.1" executionTime="679" />
+    <tool toolname="file utility" toolversion="5.31" status="did not run" />
+    <tool toolname="Exiftool" toolversion="11.14" executionTime="680" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="189" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="677" />
+    <tool toolname="Tika" toolversion="1.19.1" executionTime="268" />
+  </statistics>
+</fits>
+
