@@ -23,7 +23,7 @@ Installation
 ------------
 Download the latest official binary release from our [Downloads](http://fitstool.org/downloads) page.
 
-**IMPORTANT NOTE**: The code on this GitHub site is not meant for direct installation since it does NOT include the necessary fits.jar file (which is a primary build artifact of this project). If you want to use this GitHub site for installing FITS, you must first download (or Git clone) the code then build the project using the Ant 'release' target.
+**IMPORTANT NOTE**: The code on this GitHub site is not meant for direct installation since it does NOT include the necessary fits.jar file (which is a primary build artifact of this project). If you want to use this GitHub site for installing FITS, you must first download (or Git clone) the code then build the project using Maven. (See above.)
 
 If this is your first time downloading FITS, create a directory for FITS, for example:
 
@@ -33,7 +33,7 @@ If this is your first time downloading FITS, create a directory for FITS, for ex
 
 Extract the contents of your ZIP file to your FITS directory. You should end up with a another directory under your top-level FITS directory that has a version number embedded in it, for example on Windows:
 
-    C:\Program Files\Fits\fits-1.3.0
+    C:\Program Files\Fits\fits-1.4.1 (or whatever the current version is)
 
 Running FITS
 ------------
@@ -60,10 +60,10 @@ For example on *nix:
 
 Here are a couple examples of running FITS to get you started. These are relatively simple examples assuming Windows - more complex examples can be found in the on-line user manual. 
 
-    Run FITS against its release text file printing the FITS output to the terminal: fits.bat -i RELEASE.txt
-    Run FITS against its release text file saving the FITS output to a file: fits.bat -i RELEASE.txt -o myoutput.txt
-    Output the technical metadata for FITS' release text file in the TextMD format to the terminal: fits.bat -i RELEASE.txt -x
-    Output the FITS output plus technical metadata for FITS' release text file in the TextMD format to the terminal: fits.bat -i RELEASE.txt -xc
+    Run FITS against its release text file printing the FITS output to the terminal: fits.bat -i version.properties (or, on Linux, ./fits.sh -i version.properties)
+    Run FITS against its release text file saving the FITS output to a file: fits.bat -i version.properties -o myoutput.txt
+    Output the technical metadata only (in the TextMD format) for the file to the terminal: fits.bat -x -i version.properties
+    Output the FITS output plus technical metadata (in the TextMD format) for the text file to the terminal: fits.bat -xc -i version.properties
 
 Logging
 -------
