@@ -1,57 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.3.1" timestamp="9/20/18 1:04 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.4.2-SNAPSHOT" timestamp="5/1/19 10:50 AM">
   <identification>
-    <identity format="TIFF EXIF" mimetype="image/tiff" toolname="FITS" toolversion="1.3.1">
+    <identity format="TIFF EXIF" mimetype="image/tiff" toolname="FITS" toolversion="1.4.2-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.4" />
-      <tool toolname="Exiftool" toolversion="11.01" />
-      <version toolname="Droid" toolversion="6.4">2.2</version>
+      <tool toolname="Jhove" toolversion="1.20.1" />
+      <tool toolname="Exiftool" toolversion="11.14" />
+      <version toolname="Droid" toolversion="6.4" status="CONFLICT">2.2</version>
+      <version toolname="Jhove" toolversion="1.20.1" status="CONFLICT">6.0</version>
       <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">x-fmt/387</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.20">13941032</size>
-    <creatingApplicationName toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">Adobe Photoshop CS Macintosh</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="11.01" status="CONFLICT">2005:12:15 12:46:50</lastmodified>
-    <lastmodified toolname="Tika" toolversion="1.18" status="CONFLICT">2005-12-15T07:46:50</lastmodified>
-    <created toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2005:12:15 10:56:19-05:00</created>
+    <size toolname="Jhove" toolversion="1.20.1">13941032</size>
+    <creatingApplicationName toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">Adobe Photoshop CS Macintosh</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="11.14" status="CONFLICT">2005:12:15 12:46:50</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.20" status="CONFLICT">2005-12-15T07:46:50</lastmodified>
+    <created toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">2005:12:15 10:56:19-05:00</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/4072820.tif</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">4072820.tif</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">4a333061a5619b94aa5afc3bb106eb54</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117982000</fslastmodified>
   </fileinfo>
-  <filestatus />
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">true</valid>
+    <message toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">Value offset not word-aligned: 13941015 severity=info offset=13940738</message>
+    <message toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">Value offset not word-aligned: 13941023 severity=info offset=13940786</message>
+  </filestatus>
   <metadata>
     <image>
-      <compressionScheme toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">Uncompressed</compressionScheme>
-      <imageWidth toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">1867</imageWidth>
-      <imageHeight toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2484</imageHeight>
-      <colorSpace toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">RGB</colorSpace>
-      <iccProfileName toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">sRGB IEC61966-2.1</iccProfileName>
-      <iccProfileVersion toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
-      <samplingFrequencyUnit toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">in.</samplingFrequencyUnit>
-      <xSamplingFrequency toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">300</xSamplingFrequency>
-      <ySamplingFrequency toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">300</ySamplingFrequency>
-      <bitsPerSample toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">8 8 8</bitsPerSample>
-      <samplesPerPixel toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">3</samplesPerPixel>
-      <captureDevice toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">digital still camera</captureDevice>
-      <digitalCameraManufacturer toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">NIKON CORPORATION</digitalCameraManufacturer>
-      <digitalCameraModelName toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">NIKON D100</digitalCameraModelName>
-      <scanningSoftwareName toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">Adobe Photoshop CS Macintosh</scanningSoftwareName>
-      <fNumber toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">8.0</fNumber>
-      <exposureTime toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">0.0333</exposureTime>
-      <exposureProgram toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">Manual</exposureProgram>
-      <exifVersion toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">0220</exifVersion>
-      <exposureBiasValue toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">0</exposureBiasValue>
-      <maxApertureValue toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2.8</maxApertureValue>
-      <meteringMode toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">Pattern</meteringMode>
-      <lightSource toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">unknown</lightSource>
-      <flash toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">Flash did not fire</flash>
-      <focalLength toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">28.0</focalLength>
-      <sensingMethod toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">One-chip color area sensor</sensingMethod>
-      <cfaPattern toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">[Green,Red][Blue,Green]</cfaPattern>
+      <byteOrder toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">big endian</byteOrder>
+      <compressionScheme toolname="Jhove" toolversion="1.20.1">Uncompressed</compressionScheme>
+      <imageWidth toolname="Jhove" toolversion="1.20.1">1867</imageWidth>
+      <imageHeight toolname="Jhove" toolversion="1.20.1">2484</imageHeight>
+      <colorSpace toolname="Jhove" toolversion="1.20.1">RGB</colorSpace>
+      <referenceBlackWhite toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">0 255 0 255 0 255</referenceBlackWhite>
+      <iccProfileName toolname="Jhove" toolversion="1.20.1">sRGB IEC61966-2.1</iccProfileName>
+      <orientation toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">normal*</orientation>
+      <samplingFrequencyUnit toolname="Jhove" toolversion="1.20.1">in.</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Jhove" toolversion="1.20.1">300</xSamplingFrequency>
+      <ySamplingFrequency toolname="Jhove" toolversion="1.20.1">300</ySamplingFrequency>
+      <bitsPerSample toolname="Jhove" toolversion="1.20.1">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Jhove" toolversion="1.20.1">3</samplesPerPixel>
+      <scanningSoftwareName toolname="Jhove" toolversion="1.20.1">Adobe Photoshop CS Macintosh</scanningSoftwareName>
+      <digitalCameraModelName toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">NIKON D100</digitalCameraModelName>
+      <fNumber toolname="Jhove" toolversion="1.20.1">8</fNumber>
+      <exposureTime toolname="Jhove" toolversion="1.20.1" status="CONFLICT">0.033</exposureTime>
+      <exposureTime toolname="Exiftool" toolversion="11.14" status="CONFLICT">0.0333</exposureTime>
+      <exposureBiasValue toolname="Jhove" toolversion="1.20.1">0</exposureBiasValue>
+      <lightSource toolname="Jhove" toolversion="1.20.1">unknown</lightSource>
+      <meteringMode toolname="Jhove" toolversion="1.20.1">Pattern</meteringMode>
+      <flash toolname="Jhove" toolversion="1.20.1">Flash did not fire</flash>
+      <focalLength toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">28.0</focalLength>
+      <iccProfileVersion toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
+      <captureDevice toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">digital still camera</captureDevice>
+      <digitalCameraManufacturer toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">NIKON CORPORATION</digitalCameraManufacturer>
+      <exposureProgram toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">Manual</exposureProgram>
+      <exifVersion toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">0220</exifVersion>
+      <maxApertureValue toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">2.8</maxApertureValue>
+      <sensingMethod toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">One-chip color area sensor</sensingMethod>
+      <cfaPattern toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">[Green,Red][Blue,Green]</cfaPattern>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
+            <mix:byteOrder>big endian</mix:byteOrder>
             <mix:Compression>
               <mix:compressionScheme>Uncompressed</mix:compressionScheme>
             </mix:Compression>
@@ -68,6 +80,41 @@
                     <mix:iccProfileVersion>2.1.0</mix:iccProfileVersion>
                   </mix:IccProfile>
                 </mix:ColorProfile>
+                <mix:ReferenceBlackWhite>
+                  <mix:Component>
+                    <mix:componentPhotometricInterpretation>R</mix:componentPhotometricInterpretation>
+                    <mix:footroom>
+                      <mix:numerator>25500</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:footroom>
+                    <mix:headroom>
+                      <mix:numerator>0</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:headroom>
+                  </mix:Component>
+                  <mix:Component>
+                    <mix:componentPhotometricInterpretation>G</mix:componentPhotometricInterpretation>
+                    <mix:footroom>
+                      <mix:numerator>25500</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:footroom>
+                    <mix:headroom>
+                      <mix:numerator>0</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:headroom>
+                  </mix:Component>
+                  <mix:Component>
+                    <mix:componentPhotometricInterpretation>B</mix:componentPhotometricInterpretation>
+                    <mix:footroom>
+                      <mix:numerator>25500</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:footroom>
+                    <mix:headroom>
+                      <mix:numerator>0</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:headroom>
+                  </mix:Component>
+                </mix:ReferenceBlackWhite>
               </mix:PhotometricInterpretation>
             </mix:BasicImageCharacteristics>
           </mix:BasicImageInformation>
@@ -89,7 +136,7 @@
               <mix:CameraCaptureSettings>
                 <mix:ImageData>
                   <mix:fNumber>8.0</mix:fNumber>
-                  <mix:exposureTime>0.0333</mix:exposureTime>
+                  <mix:exposureTime>0.033</mix:exposureTime>
                   <mix:exposureProgram>Manual</mix:exposureProgram>
                   <mix:exifVersion>0220</mix:exifVersion>
                   <mix:exposureBiasValue>
@@ -108,6 +155,7 @@
                 </mix:ImageData>
               </mix:CameraCaptureSettings>
             </mix:DigitalCameraCapture>
+            <mix:orientation>normal*</mix:orientation>
           </mix:ImageCaptureMetadata>
           <mix:ImageAssessmentMetadata>
             <mix:SpatialMetrics>
@@ -135,20 +183,20 @@
       </standard>
     </image>
   </metadata>
-  <statistics fitsExecutionTime="1272">
-    <tool toolname="MediaInfo" toolversion="18.08.1" status="did not run" />
+  <statistics fitsExecutionTime="380">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.4" executionTime="301" />
-    <tool toolname="Jhove" toolversion="1.20" executionTime="1236" />
-    <tool toolname="file utility" toolversion="5.31" executionTime="937" />
-    <tool toolname="Exiftool" toolversion="11.01" executionTime="956" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="180" />
+    <tool toolname="Jhove" toolversion="1.20.1" executionTime="369" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="64" />
+    <tool toolname="Exiftool" toolversion="11.14" executionTime="246" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="228" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="100" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="865" />
-    <tool toolname="Tika" toolversion="1.18" executionTime="634" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="7" />
+    <tool toolname="Tika" toolversion="1.20" executionTime="157" />
   </statistics>
 </fits>
 
