@@ -53,16 +53,16 @@ import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 
 
 /**
- * This class acts as a wrapper aroudn the fitsXML JDOM Document and provides
+ * This class acts as a wrapper around the fitsXML JDOM Document and provides
  * convenience methods for converting the FITS XML format to standard technical
- * metdata schemas, accessing identification, file info, and metadata elements
+ * metadata schemas, accessing identification, file info, and metadata elements
  * @author spencer
  *
  */
 public class FitsOutput {
 
 	private Document fitsXml;          // This is in the FITS XML format
-	private List<Exception> caughtExceptions = new ArrayList<Exception>();
+	private List<Throwable> caughtThrowables = new ArrayList<Throwable>();
 	private Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 
@@ -87,12 +87,12 @@ public class FitsOutput {
 		return fitsXml;
 	}
 
-	public List<Exception> getCaughtExceptions() {
-		return caughtExceptions;
+	public List<Throwable> getCaughtThrowables() {
+		return caughtThrowables;
 	}
 
-	public void setCaughtExceptions(List<Exception> caughtExceptions) {
-		this.caughtExceptions = caughtExceptions;
+	public void setCaughtThrowables(List<Throwable> caughtThrowables) {
+		this.caughtThrowables = caughtThrowables;
 	}
 
 	@SuppressWarnings("unchecked")

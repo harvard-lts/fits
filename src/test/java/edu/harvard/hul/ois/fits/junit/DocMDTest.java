@@ -19,10 +19,7 @@
 package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
-import java.util.Scanner;
 
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
