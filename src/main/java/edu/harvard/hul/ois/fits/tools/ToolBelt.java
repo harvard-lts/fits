@@ -133,20 +133,18 @@ public class ToolBelt {
 					t.applyToolsUsed (toolsUsedList);
 					tools.add(t);
 				}
-			} catch(Exception ex) {
-				// Catch and report any exception during tool instantiation, otherwise
-				// exception might be lost on thread creation.
-			    // Can't use this tool, but continue anyway.
-			    logger.error ("Thread "+Thread.currentThread().getId() +
-			    				" error initializing " + tClass +
-			    				": " + ex.getClass().getName() +
-			    				"  Message: " + ex.getMessage(), ex);
+			} catch(MalformedURLException | ReflectiveOperationException ex) {
+				// Catch and report any exception during tool instantiation.
+			    // Cannot use this particular tool, but continue with other tools.
+			    logger.error ("Thread ["+Thread.currentThread().getId() +
+			    				"] Error instantiating class: " + tClass +
+			    				" -- Exception thrown " + ex.getClass().getName() +
+			    				" -- Error message: " + ex.getMessage());
 
-				// Capture tool error so failure can be reported for tool, then move on to next tool
-				ToolInfo info = new ToolInfo(bareClassName(tClass), "[unknown]", null);
-				Tool tool = getFailedTool(info);
+				// Capture exception so the failure can be reported later for this tool, then move on to next tool
+				ToolInfo info = new ToolInfo(bareClassName(tClass), "[could not launch tool]", null);
+				Tool tool = getFailedTool(info, ex);
 				tools.add(tool);
-				continue;
 
 			} finally {
 				// ***** IMPORTANT: set back original ClassLoader if changed *****
@@ -304,15 +302,19 @@ public class ToolBelt {
 	}
 	
 	/*
-	 * Creates a skeletal instance of Tool that indicates a 'failed' state that is not enabled to run.
+	 * Creates a skeletal instance of Tool when a tool's class cannot even be instantiated.
+	 * Minimal information about the tool is contained here.
 	 *  
 	 * @param toolInfo Contains tool name and version (which is unknown in this situation).
-	 * 
+	 * @param throwable The Throwable resulting from the inability to instantiate the tool.
 	 * @return Tool which indicates a failed state and not enabled.
 	 */
-	private Tool getFailedTool(final ToolInfo toolInfo) {
+	private Tool getFailedTool(final ToolInfo toolInfo, Throwable throwable) {
+
+		final Throwable t = throwable;
 
 		Tool failedTool = new Tool() {
+			
 			
 			@Override
 			public void run() {}
@@ -413,7 +415,9 @@ public class ToolBelt {
 			public void setRunStatus(RunStatus runStatus) {}
 
 			@Override
-			public void addExceptions(List<Throwable> exceptions) {}
+			public Throwable getCaughtThrowable() {
+				return t;
+			}
 		};
 
 		return failedTool;

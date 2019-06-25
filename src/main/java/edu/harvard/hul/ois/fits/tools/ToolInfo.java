@@ -29,27 +29,40 @@ public class ToolInfo {
 		this.date = date;
 	}
 
-	/** Returns the name of the software, not to be confused with
-	 *  the name of the Tool object. */
+	/**
+	 * Returns the name of the software, not to be confused with
+	 * the name of the Tool object.
+	 */
 	public String getName() {
 		return name;
 	}
 
 
-    /** Sets the name of the software, not to be confused with
-     *  the name of the Tool object. */
+    /**
+     * Sets the name of the software, not to be confused with
+     * the name of the Tool object.
+     */
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getVersion() {
 		return version;
 	}
+	
+	/**
+	 * Sets the current version of the tool.
+	 * 
+	 * @param version The current version of the tool.
+	 */
 	public void setVersion(String version) {
 		this.version = version;
 	}
 
-	/** Returns the publication date reported by the software (or
-	 *  which FITS has hard-coded based on available information). */
+	/**
+	 * Returns the publication date reported by the software (or
+	 * which FITS has hard-coded based on available information).
+	 */
 	public String getDate() {
 		return date;
 	}
@@ -57,7 +70,9 @@ public class ToolInfo {
 		this.date = date;
 	}
 
-	/** Returns a String with human-readable information about the tool. */
+	/**
+	 * Returns a String with human-readable information about the tool.
+	 */
 	public String print() {
 		String value = "Name= "+name+"\nVersion= "+version+"\nDate= "+date+"\n";
 		if(note != null && note.length() > 0) {
@@ -70,6 +85,11 @@ public class ToolInfo {
 		return note;
 	}
 
+	/**
+	 * Set any optional additional information for a given tool.
+	 * 
+	 * @param note The information
+	 */
 	public void setNote(String note) {
 		this.note = note;
 	}

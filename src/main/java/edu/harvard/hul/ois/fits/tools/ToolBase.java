@@ -262,32 +262,28 @@ public abstract class ToolBase implements Tool {
 		this.runStatus = runStatus;
 	}
 
-	/** Save an exception for reporting. */
-	public void setCaughtException (Throwable e) {
+	/*
+	 * Save an exception for reporting.
+	 */
+	private void setCaughtThrowable (Throwable e) {
 	    caughtThrowable = e;
 	}
+	
+	public Throwable getCaughtThrowable() {
+		return caughtThrowable;
+	}
 
-	/** Append any reported exceptions to a master list.
-	 *  This is called after the tool has finished running.
-	 *
-	 *  @param exceptions   List of Exceptions. Exceptions may be appended
-	 *         to it by this call.
+	/**
+	 * Called to extract metadata when this tool's thread is kicked off.
+	 * We capture any error (Throwable) so that it can be reported later.
+	 * 
+	 * @see java.lang.Runnable#run()
 	 */
-    public void addExceptions(List<Throwable> exceptions) {
-        if (caughtThrowable != null) {
-            exceptions.add (caughtThrowable);
-        }
-    }
-
 	public void run() {
 		try {
 			output = extractInfo(inputFile);
-		} catch (FitsToolException e) {
-		    setCaughtException (e);
-		    logger.error("Caught exception running tool: " + this.getName(), e);
 		} catch (Throwable e) {
-			setCaughtException (e);
-		    logger.error("Caught Throwable running tool: " + this.getName(), e);
+			setCaughtThrowable(e);
 		}
 	}
 

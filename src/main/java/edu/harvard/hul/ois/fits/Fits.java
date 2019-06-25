@@ -430,9 +430,9 @@ public class Fits {
 
     logger.debug( "Processing file " + inputFile.getAbsolutePath() );
     FitsOutput result = this.examine( inputFile );
-    if (result.getCaughtExceptions().size() > 0) {
-      for (Exception e : result.getCaughtExceptions()) {
-        logger.error( "Warning: " + e.getMessage(), e );
+    if (result.getCaughtThrowables().size() > 0) {
+      for (Throwable e : result.getCaughtThrowables()) {
+        logger.error( "Tool error processing file: " + inputFile.getName() + "\n" + e.getMessage(), e );
       }
     }
     return result;
@@ -560,7 +560,7 @@ public class Fits {
     List<ToolOutput> toolResults = new ArrayList<ToolOutput>();
 
     // run file through each tool, catching exceptions thrown by tools
-    List<Exception> caughtExceptions = new ArrayList<Exception>();
+    List<Throwable> caughtThrowables = new ArrayList<Throwable>();
     String path = input.getPath().toLowerCase();
     String ext = path.substring( path.lastIndexOf( "." ) + 1 );
 
@@ -625,11 +625,14 @@ public class Fits {
     // get all output from the tools
     for (Tool t : toolbelt.getTools()) {
       toolResults.add( t.getOutput() );
+      if (t.getCaughtThrowable() != null) {
+    	  caughtThrowables.add( t.getCaughtThrowable() );
+      }
     }
 
     // consolidate the results into a single DOM
     FitsOutput result = consolidator.processResults( toolResults );
-    result.setCaughtExceptions( caughtExceptions );
+    result.setCaughtThrowables( caughtThrowables );
 
     long t2 = System.currentTimeMillis();
     if (enableStatistics) {

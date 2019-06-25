@@ -35,11 +35,11 @@
 			<xsl:attribute name="format">
 				<xsl:variable name="format">
 					<xsl:choose>
-						<xsl:when test='string((repInfo/profiles/profile)[1])'>
-							<xsl:value-of select="concat(repInfo/format, ' ', (repInfo/profiles/profile)[1])"/>
-						</xsl:when>
 						<xsl:when test="not(string-length($exif) = 0)">
 							<xsl:value-of select="concat(repInfo/format, ' ','EXIF')" />
+						</xsl:when>
+						<xsl:when test='string((repInfo/profiles/profile)[1])'>
+							<xsl:value-of select="concat(repInfo/format, ' ', (repInfo/profiles/profile)[1])"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:value-of select="repInfo/format"/>
