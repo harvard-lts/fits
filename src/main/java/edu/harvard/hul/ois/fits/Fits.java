@@ -75,6 +75,7 @@ public class Fits {
   public static final String XML_NAMESPACE = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output";
   
   private static boolean traverseDirs;
+  private static boolean nestDirs; // whether traversing nested directories of input files creates nest output directories - if false, all output goes in same output directory
   private static XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 
   private static final String FITS_CONFIG_FILE_NAME = "fits.xml";
@@ -251,6 +252,7 @@ public class Fits {
     Options options = new Options();
     options.addOption( "i", true, "input file or directory" );
     options.addOption( "r", false, "process directories recursively when -i is a directory " );
+    options.addOption( "n", false, "when processing nested directories recursively when -i is a directory and -r is set, output directories are also nested (optional)" );
     options.addOption( "o", true, "output file or directory if -i is a directory" );
     options.addOption( "h", false, "print this message" );
     options.addOption( "v", false, "print version information" );
@@ -278,6 +280,11 @@ public class Fits {
     } else {
       traverseDirs = false;
     }
+    if (cmd.hasOption( "n") ) {
+      nestDirs = true;
+    } else {
+      nestDirs = false;
+    }
     
     File fitsConfigFile = null;
     if (cmd.hasOption( 'f' )) {
@@ -299,11 +306,16 @@ public class Fits {
         String outputDir = cmd.getOptionValue( "o" );
         if (outputDir == null || !(new File( outputDir ).isDirectory())) {
           throw new FitsException(
-              "When FITS is run in directory processing mode the output location must be a directory" );
+              "When FITS is run in directory processing mode the output location must be a directory." );
         }
         Fits fits = constructFits(fitsConfigFile);
         fits.doDirectory( inputFile, new File( outputDir ), cmd.hasOption( "x" ), cmd.hasOption( "xc" ) );
-      } else {
+      } else { // inputFile is a file so output -o must either be a file or not set at all
+          String outputFile = cmd.getOptionValue( "o" );
+          if (outputFile != null && (new File( outputFile ).isDirectory())) {
+            throw new FitsException(
+                    "When FITS is processing a single file the output location must also be a file." );
+          }
         Fits fits = constructFits(fitsConfigFile);
         FitsOutput result = fits.doSingleFile( inputFile );
         fits.outputResults( result, cmd.getOptionValue( "o" ), cmd.hasOption( "x" ), cmd.hasOption( "xc" ), false );
@@ -371,7 +383,7 @@ public class Fits {
    * @throws XMLStreamException
    * @throws FitsException
    */
-	private void doDirectory(File inputDir, File outputDir,boolean useStandardSchemas, boolean standardCombinedFormat) throws FitsException, XMLStreamException, IOException {
+	private void doDirectory(File inputDir, File outputDir, boolean useStandardSchemas, boolean standardCombinedFormat) throws FitsException, XMLStreamException, IOException {
 		if(inputDir.listFiles() == null) {
 			return;
 		}
@@ -387,7 +399,16 @@ public class Fits {
 			logger.info("processing " + f.getPath());
 
 			if (f.isDirectory() && traverseDirs) {
+				// need to reset original directory after return from recursive call when nesting output
+				File savedDir = outputDir;
+				if (nestDirs) {
+					outputDir = new File(outputDir, f.getName());
+					if ( !outputDir.exists()) {
+						outputDir.mkdir();
+					}
+				}
 				doDirectory(f, outputDir, useStandardSchemas, standardCombinedFormat);
+				outputDir = savedDir;
 			} else if (f.isFile()) {
 				if (".DS_Store".equals(f.getName())) {
 					// Mac hidden directory services file, ignore
