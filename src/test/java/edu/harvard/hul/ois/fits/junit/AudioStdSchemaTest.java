@@ -1,5 +1,5 @@
 /* 
- * Copyright 2015 Harvard University Library
+ * Copyright 2019 Harvard University Library
  * 
  * This file is part of FITS (File Information Tool Set).
  * 
@@ -19,10 +19,7 @@
 package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
-import java.util.Scanner;
 
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,7 +28,7 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
 
-public class AudioStdSchemaTestXmlUnit_NoMD5 extends AbstractXmlUnitTest {
+public class AudioStdSchemaTest extends AbstractXmlUnitTest {
 
 	/*
 	 *  Only one Fits instance is needed to run all tests.
@@ -42,7 +39,8 @@ public class AudioStdSchemaTestXmlUnit_NoMD5 extends AbstractXmlUnitTest {
 	@BeforeClass
 	public static void beforeClass() throws Exception {
 		// Set up FITS for entire class.
-		fits = new Fits();
+		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
+		fits = new Fits(null, fitsConfigFile);
 	}
 	
 	@AfterClass
@@ -56,45 +54,19 @@ public class AudioStdSchemaTestXmlUnit_NoMD5 extends AbstractXmlUnitTest {
 		String inputFilename = "testchunk.wav";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-    	
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-		// Read in the expected XML file
-		Scanner scan = new Scanner(new File(
-				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-		String expectedXmlStr = scan.
-				useDelimiter("\\Z").next();
-		scan.close();
-
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+				
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
-
-	
+    
 	@Test  
-	public void testAudioMD_noMD5() throws Exception {
+	public void testAudioMD_() throws Exception {
 		
-		// use an alternate fits.xml file where a MD5 checksum is not generated
-		File fitsConfigFile = new File("testfiles/properties/fits_no_md5_audio.xml");
-    	Fits fits = new Fits(null, fitsConfigFile);
-		
-		// First generate the FITS output
 		String inputFilename = "test.wav";
     	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-		// Read in the expected XML file
-		Scanner scan = new Scanner(new File(
-				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-		String expectedXmlStr = scan.
-				useDelimiter("\\Z").next();
-		scan.close();
-
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+		fitsOut.addStandardCombinedFormat(); // output all data to file
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 }

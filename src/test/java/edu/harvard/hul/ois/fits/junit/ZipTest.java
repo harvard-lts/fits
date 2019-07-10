@@ -33,7 +33,7 @@ import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
  * 
  * @author dan179
  */
-public class ZipXmlTest extends AbstractXmlUnitTest {
+public class ZipTest extends AbstractXmlUnitTest {
 	
 	/*
 	 *  Only one Fits instance is needed to run all tests.
@@ -60,7 +60,7 @@ public class ZipXmlTest extends AbstractXmlUnitTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 	
 	@Test
@@ -70,17 +70,17 @@ public class ZipXmlTest extends AbstractXmlUnitTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 	
 	@Test
 	public void testCompressedEncryptedZipFile() throws Exception {
 
-    	String inputFilename = "compressed-encrypted.zip"; // 0sample1-compressed
+    	String inputFilename = "compressed-encrypted.zip";
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 	
 	@Test
@@ -90,7 +90,7 @@ public class ZipXmlTest extends AbstractXmlUnitTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 	
 	@Test
@@ -100,7 +100,7 @@ public class ZipXmlTest extends AbstractXmlUnitTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
     	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 
 }

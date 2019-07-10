@@ -167,7 +167,7 @@ public class ZipXmlUnitServiceTest extends AbstractXmlUnitTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = super.examine(input);
     	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
     	
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
