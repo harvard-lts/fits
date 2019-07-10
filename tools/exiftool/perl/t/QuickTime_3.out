@@ -1,10 +1,10 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.94
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 11.39
 [File, System, Image] FileName - File Name: QuickTime.m4a
 [File, System, Image] Directory - Directory: t/images
 [File, System, Image] FileSize - File Size: 5.1 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2013:11:05 10:27:28-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:29 20:10:39-04:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:25 10:57:00-04:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2019:03:22 12:15:37-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2019:05:03 08:53:23-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2019:04:24 09:58:02-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: M4A
 [File, File, Image] FileTypeExtension - File Type Extension: m4a
@@ -49,25 +49,25 @@
 [QuickTime, Track1, Audio] 32 - Audio Sample Rate: 44100
 [QuickTime, QuickTime, Video] 8 - Handler Type: Metadata
 [QuickTime, QuickTime, Video] 12 - Handler Vendor ID: Apple
-[QuickTime, QuickTime, Audio] ©nam - Title: Sample
-[QuickTime, QuickTime, Audio] cpil - Compilation: No
-[QuickTime, QuickTime, Audio] tmpo - Beats Per Minute: 120
-[QuickTime, QuickTime, Audio] ©too - Encoder: iTunes v4.9, QuickTime 7.0.1
+[QuickTime, ItemList, Audio] ©nam - Title: Sample
+[QuickTime, ItemList, Audio] cpil - Compilation: No
+[QuickTime, ItemList, Audio] tmpo - Beats Per Minute: 120
+[QuickTime, ItemList, Audio] ©too - Encoder: iTunes v4.9, QuickTime 7.0.1
 [QuickTime, QuickTime, Audio] iTunNORM - Volume Normalization: 80 0 610 0 289C 0 0 0 0 0
-[QuickTime, QuickTime, Audio] ©lyr - Lyrics: these are lyrics
-[QuickTime, QuickTime, Audio] ©ART - Artist: Phil Harvey
-[QuickTime, QuickTime, Author] aART - Album Artist: album artist
-[QuickTime, QuickTime, Audio] ©wrt - Composer: Composer
-[QuickTime, QuickTime, Audio] ©alb - Album: album
-[QuickTime, QuickTime, Audio] ©grp - Grouping: grouping
-[QuickTime, QuickTime, Audio] ©gen - Genre: Childrenâ€™s Music
-[QuickTime, QuickTime, Audio] trkn - Track Number: 1 of 2
-[QuickTime, QuickTime, Audio] disk - Disk Number: 1 of 3
-[QuickTime, QuickTime, Time] ©day - Content Create Date: 2006
-[QuickTime, QuickTime, Audio] ©cmt - Comment: comments
-[QuickTime, QuickTime, Audio] pgap - Play Gap: No Gap
-[QuickTime, QuickTime, Preview] covr - Cover Art: (Binary data 19 bytes)
-[QuickTime, QuickTime, Preview] covr - Cover Art: (Binary data 19 bytes)
+[QuickTime, ItemList, Audio] ©lyr - Lyrics: these are lyrics
+[QuickTime, ItemList, Audio] ©ART - Artist: Phil Harvey
+[QuickTime, ItemList, Author] aART - Album Artist: album artist
+[QuickTime, ItemList, Audio] ©wrt - Composer: Composer
+[QuickTime, ItemList, Audio] ©alb - Album: album
+[QuickTime, ItemList, Audio] ©grp - Grouping: grouping
+[QuickTime, ItemList, Audio] ©gen - Genre: Childrenâ€™s Music
+[QuickTime, ItemList, Audio] trkn - Track Number: 1 of 2
+[QuickTime, ItemList, Audio] disk - Disk Number: 1 of 3
+[QuickTime, ItemList, Time] ©day - Content Create Date: 2006
+[QuickTime, ItemList, Audio] ©cmt - Comment: comments
+[QuickTime, ItemList, Audio] pgap - Play Gap: No Gap
+[QuickTime, ItemList, Preview] covr - Cover Art: (Binary data 19 bytes)
+[QuickTime, ItemList, Preview] covr - Cover Art: (Binary data 19 bytes)
 [QuickTime, QuickTime, Video] mdat-size - Movie Data Size: 0
 [QuickTime, QuickTime, Video] mdat-offset - Movie Data Offset: 5237
 [Composite, Composite, Video] AvgBitrate - Avg Bitrate: 0 bps

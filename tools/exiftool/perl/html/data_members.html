@@ -75,7 +75,7 @@ value.</p>
 <tr><td>DoneID3</td><td>Set to 1 if audio file was scanned for ID3,
     or 2 if there was an ID3v1 trailer found</td></tr>
 
-<tr><td>DROP_TAGS</td><td>Flag to exclude "Drop" tags when writing</td></tr>
+<tr><td>DropTags</td><td>Flag to exclude "Drop" tags when writing</td></tr>
 
 <tr><td>DUPL_TAG</td><td>Hash of last used tag key index numbers for each duplicate tag.</td></tr>
 
@@ -96,12 +96,14 @@ value.</p>
 <tr><td>FILE_ORDER</td><td>Hash of numbers to give the sequence the tags were
     extracted from file, keyed by tag key</td></tr>
 
-<tr><td>FILE_EXT</td><td>File extension (JPG, PEF, AVI, etc...) May be undefined if
+<tr><td>FILE_EXT</td><td>Upper-case file extension (JPG, PEF, AVI, etc...) May be undefined if
     file has no extension.</td></tr>
 
 <tr><td>FILE_SEQUENCE</td><td>File sequence number when extracting information</td></tr>
 
 <tr><td>FILE_TYPE</td><td>Root file format type (JPEG, TIFF, RIFF, etc...)</td></tr>
+
+<tr><td>FileType</td><td>Actual identified file type</td></tr>
 
 <tr><td>FIRST_EXIF_POS</td><td>Position of first EXIF in file</td></tr>
 
@@ -127,6 +129,8 @@ value.</p>
 
 <tr><td>IO_TAG_LIST</td><td>List for output of requested tags in proper case and order</td></tr>
 
+<tr><td>IsWriting</td><td>Flag set to indicate that metadata is being written to this file</td></tr>
+
 <tr><td>LIST_TAGS</td><td>Hash of tag keys by tagInfo reference for active list-type
     tags.  This hash is cleared at the start of processing for each directory.
     Not used during when writing.</td></tr>
@@ -134,7 +138,8 @@ value.</p>
 <tr><td>LOW_PRIORITY_DIR</td><td>Lookup based on directory name for directories where
     undefined Priority tags get set to Priority 0 (eg. PreviewIFD in all images,
     and IFD1 in JPEG images).  This is equivalent to setting PRIORITY to 0 for
-    the tag table only for a specific directory name.</td></tr>
+    the tag table only for a specific directory name.  A '*' entry in the lookup
+    causes the priority of tags in any directory to be lowered.</td></tr>
 
 <tr><td>Make</td><td>Camera make set during reading and writing</td></tr>
 
@@ -243,6 +248,9 @@ value.</p>
 <tr><td>SAVE_NEW_VALUE</td><td>Hash of new value information which was overwritten after
     a call to SaveNewValues()</td></tr>
 
+<tr><td>SaveFormat</td><td>Hash reference to check which TIFF format types were used
+    in the file.  Valid only if the (undocumented) SaveFormat option is used.</td></tr>
+    
 <tr><td>SET_GROUP0</td><td>Value to use for family 0 group name when new tags
     are found</td></tr>
 

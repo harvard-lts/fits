@@ -38,7 +38,7 @@ my %mandatory = (
         0x0128 => 2,        # ResolutionUnit (inches)
     },
     ExifIFD => {
-        0x9000 => '0231',   # ExifVersion
+        0x9000 => '0232',   # ExifVersion
         0x9101 => "1 2 3 0",# ComponentsConfiguration
         0xa000 => '0100',   # FlashpixVersion
         0xa001 => 0xffff,   # ColorSpace (uncalibrated)
@@ -344,7 +344,8 @@ sub UpdateTiffEnd($$)
 
 #------------------------------------------------------------------------------
 # Validate image data size
-# Inputs: 0) ExifTool ref, 1) validate info hash ref, 2) flag to issue error
+# Inputs: 0) ExifTool ref, 1) validate info hash ref,
+#         2) flag to issue error (ie. we're writing)
 # - issues warning or error if problems found
 sub ValidateImageData($$$;$)
 {
@@ -366,9 +367,11 @@ sub ValidateImageData($$$;$)
         my $minor;
         $minor = 1 if $$et{DOC_NUM} or $$et{FILE_TYPE} ne 'TIFF';
         unless (@bitsPerSample == $samplesPerPix) {
-            # (just a warning for this problem)
-            my $s = $samplesPerPix eq '1' ? '' : 's';
-            $et->Warn("$dirName BitsPerSample should have $samplesPerPix value$s", $minor);
+            unless ($$et{FILE_TYPE} eq 'EPS' and @bitsPerSample == 1) {
+                # (just a warning for this problem)
+                my $s = $samplesPerPix eq '1' ? '' : 's';
+                $et->Warn("$dirName BitsPerSample should have $samplesPerPix value$s", $minor);
+            }
             push @bitsPerSample, $bitsPerSample[0] while @bitsPerSample < $samplesPerPix;
             foreach (@bitsPerSample) {
                 $et->WarnOnce("$dirName BitsPerSample values are different", $minor) if $_ ne $bitsPerSample[0];
@@ -378,7 +381,10 @@ sub ValidateImageData($$$;$)
         my $bitsPerPixel = 0;
         $bitsPerPixel += $_ foreach @bitsPerSample;
         my $expectedBytes = int(($$vInfo{0x100} * $$vInfo{0x101} * $bitsPerPixel + 7) / 8);
-        if ($expectedBytes != $totalBytes) {
+        if ($expectedBytes != $totalBytes and
+            # (this problem seems normal for certain types of RAW files...)
+            $$et{TIFF_TYPE} !~ /^(K25|KDC|MEF|ORF|SRF)$/)
+        {
             my ($adj, $minor);
             if ($expectedBytes > $totalBytes) {
                 $adj = 'Under'; # undersized is a bigger problem because we may lose data
@@ -388,8 +394,6 @@ sub ValidateImageData($$$;$)
                 $minor = 1;
             }
             my $msg = "${adj}sized $dirName $$byteCountInfo[0]{Name} ($totalBytes bytes, but expected $expectedBytes)";
-            # this problem seems normal for certain types of RAW files...
-            $minor = 1 if $$et{TIFF_TYPE} =~ /^(K25|KDC|MEF|ORF|SRF)$/;
             if (not defined $minor) {
                 # this is a serious error if we are writing the file and there
                 # is a chance that we may not copy all of the image data
@@ -410,7 +414,7 @@ sub ExifErr($$$)
 {
     my ($et, $errStr, $tagTablePtr) = @_;
     # MakerNote errors are minor by default
-    my $minor = ($$tagTablePtr{GROUPS}{0} eq 'MakerNotes');
+    my $minor = ($$tagTablePtr{GROUPS}{0} eq 'MakerNotes' or $$et{FILE_TYPE} eq 'MOV');
     if ($$tagTablePtr{VARS} and $$tagTablePtr{VARS}{MINOR_ERRORS}) {
         $et->Warn("$errStr. IFD dropped.") and return '' if $minor;
         $minor = 1;
@@ -572,7 +576,7 @@ sub WriteExif($$$)
                 # only account for nextIFD pointer if we are going to use it
                 $len += 4 if $dataLen==$len+6 and ($$dirInfo{Multi} or $buff =~ /\0{4}$/);
                 UpdateTiffEnd($et, $offset+$base+2+$len);
-            } elsif ($dirLen) {
+            } elsif ($dirLen and $dirStart + 4 >= $dataLen) {
                 # error if we can't load IFD (unless we are creating
                 # from scratch, in which case dirLen will be zero)
                 my $str = $et->Options('IgnoreMinorErrors') ? 'Deleted bad' : 'Bad';
@@ -584,7 +588,10 @@ sub WriteExif($$$)
             $numEntries = Get16u($dataPt, $dirStart);
             $dirEnd = $dirStart + 2 + 12 * $numEntries;
             if ($dirEnd > $dataLen) {
-                return ExifErr($et, "Truncated $name directory", $tagTablePtr);
+                my $n = int(($dataLen - $dirStart - 2) / 12);
+                my $rtn = ExifErr($et, "Truncated $name directory", $tagTablePtr);
+                return undef unless $n and defined $rtn;
+                $numEntries = $n;   # continue processing the entries we have
             }
             # sort entries if necessary (but not in maker notes IFDs)
             unless ($inMakerNotes) {
@@ -1343,11 +1350,15 @@ NoOverwrite:            next if $isNew > 0;
                     if ($$et{DEL_GROUP}{MakerNotes} and
                        ($$et{DEL_GROUP}{MakerNotes} != 2 or $isNew <= 0))
                     {
-                        if ($isNew <= 0) {
-                            ++$$et{CHANGED};
-                            $verbose and print $out "  Deleting MakerNotes\n";
+                        if ($et->IsRawType()) {
+                            $et->WarnOnce("Can't delete MakerNotes from $$et{FileType}",1);
+                        } else {
+                            if ($isNew <= 0) {
+                                ++$$et{CHANGED};
+                                $verbose and print $out "  Deleting MakerNotes\n";
+                            }
+                            next;
                         }
-                        next;
                     }
                     my $saveOrder = GetByteOrder();
                     if ($isNew >= 0 and defined $set{$newID}) {
@@ -2548,7 +2559,7 @@ This file contains routines to write EXIF metadata.
 
 =head1 AUTHOR
 
-Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

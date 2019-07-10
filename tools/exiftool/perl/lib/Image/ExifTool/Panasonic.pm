@@ -35,7 +35,7 @@ use vars qw($VERSION %leicaLensTypes);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Exif;
 
-$VERSION = '2.02';
+$VERSION = '2.04';
 
 sub ProcessLeicaLEIC($$$);
 sub WhiteBalanceConv($;$$);
@@ -312,6 +312,7 @@ my %shootingMode = (
             14 => 'Manual 3', #forum9296
             15 => 'Manual 4', #forum9296
             # also seen 18,26 (forum9296)
+            19 => 'Auto (cool)', #PH (Leica C-Lux)
         },
     },
     0x07 => {
@@ -482,9 +483,12 @@ my %shootingMode = (
             $val -= $h * 3600;
             my $m = int($val / 60);
             $val -= $m * 60;
-            my $s = int($val);
-            my $f = 100 * ($val - int($val));
-            return sprintf("%s%.2d:%.2d:%.2d.%.2d",$str,$h,$m,$s,$f);
+            my $ss = sprintf('%05.2f', $val);
+            if ($ss >= 60) {
+                $ss = '00.00';
+                ++$m >= 60 and $m -= 60, ++$h;
+            }
+            return sprintf("%s%.2d:%.2d:%s",$str,$h,$m,$ss);
         },
         PrintConvInv => sub {
             my $val = shift;
@@ -630,6 +634,7 @@ my %shootingMode = (
             2 => 'High (+1)',
             3 => 'Lowest (-2)', #JD
             4 => 'Highest (+2)', #JD
+            # 6 - seen for DC-S1/S1R (IB)
             # 65531 - seen for LX100/FZ2500 "NR1" test shots at imaging-resource (PH)
             #     0 - seen for FZ2500 "NR6D" test shots (PH)
         },
@@ -642,7 +647,7 @@ my %shootingMode = (
             2 => '10 s',
             3 => '2 s',
             4 => '10 s / 3 pictures', #17
-            # 258 - seen for FZ2500,TZ90 (PH)
+            # 258 - seen for FZ2500,TZ90,LeicaCLux (PH)
         },
     },
     # 0x2f - values: 1 (LZ6,FX10K)
@@ -2613,7 +2618,7 @@ Panasonic and Leica maker notes in EXIF information.
 
 =head1 AUTHOR
 
-Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

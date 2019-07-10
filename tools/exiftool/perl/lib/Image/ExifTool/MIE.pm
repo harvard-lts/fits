@@ -152,7 +152,7 @@ my %offOn = ( 0 => 'Off', 1 => 'On' );
         (eg. C<55(mi/h)>).  If no units are specified, the default units are
         written.
 
-        4) ExifTool writes compressed metadata to MIE files if the Compress (-z)
+        4) ExifTool writes compressed metadata to MIE files if the L<Compress|../ExifTool.html#Compress> (-z)
         option is used and Compress::Zlib is available.
 
         See L<http://owl.phy.queensu.ca/~phil/exiftool/MIE1.1-20070121.pdf> for the
@@ -1001,10 +1001,10 @@ sub WriteMIEGroup($$$)
                 }
             }
             # don't rewrite free bytes or information in deleted groups
-            if ($format eq 0x80 or ($delGroup and $tagLen and ($format & 0xf0) != 0x10)) {
+            if ($format == 0x80 or ($delGroup and $tagLen and ($format & 0xf0) != 0x10)) {
                 $raf->Seek($valLen, 1) or $msg = 'Seek error', last;
                 if ($verbose > 1) {
-                    my $free = ($format eq 0x80) ? ' free' : '';
+                    my $free = ($format == 0x80) ? ' free' : '';
                     print $out "    - $grp1:$tag ($valLen$free bytes)\n";
                 }
                 ++$$et{CHANGED} if $delGroup;
@@ -2545,7 +2545,7 @@ tag name.  For example:
 
 =head1 AUTHOR
 
-Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.  The MIE format itself is also

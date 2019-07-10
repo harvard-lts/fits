@@ -49,7 +49,7 @@ use Image::ExifTool::Exif;
 use Image::ExifTool::GPS;
 require Exporter;
 
-$VERSION = '3.16';
+$VERSION = '3.23';
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(EscapeXML UnescapeXML);
 
@@ -63,11 +63,12 @@ sub SaveBlankInfo($$$;$);
 sub ProcessBlankInfo($$$;$);
 sub ValidateXMP($;$);
 sub ValidateProperty($$);
-sub UnescapeChar($$);
+sub UnescapeChar($$;$);
 sub AddFlattenedTags($;$$);
 sub FormatXMPDate($);
 sub ConvertRational($);
 sub ConvertRationalList($);
+sub WriteGSpherical($$$);
 
 # lookup for translating to ExifTool namespaces (and family 1 group names)
 %stdXlatNS = (
@@ -176,8 +177,11 @@ my %xmpNS = (
     GSpherical=> 'http://ns.google.com/videos/1.0/spherical/',
     GDepth    => 'http://ns.google.com/photos/1.0/depthmap/',
     GFocus    => 'http://ns.google.com/photos/1.0/focus/',
+    GCamera   => 'http://ns.google.com/photos/1.0/camera/',
+    GCreations=> 'http://ns.google.com/photos/1.0/creations/',
     dwc       => 'http://rs.tdwg.org/dwc/index.htm',
     GettyImagesGIFT => 'http://xmp.gettyimages.com/gift/1.0/',
+    LImage    => 'http://ns.leiainc.com/photos/1.0/image/',
 );
 
 # build reverse namespace lookup
@@ -745,6 +749,14 @@ my %sRetouchArea = (
         Name => 'GFocus',
         SubDirectory => { TagTable => 'Image::ExifTool::XMP::GFocus' },
     },
+    GCamera => {
+        Name => 'GCamera',
+        SubDirectory => { TagTable => 'Image::ExifTool::XMP::GCamera' },
+    },
+    GCreations => {
+        Name => 'GCreations',
+        SubDirectory => { TagTable => 'Image::ExifTool::XMP::GCreations' },
+    },
     dwc => {
         Name => 'dwc',
         SubDirectory => { TagTable => 'Image::ExifTool::DarwinCore::Main' },
@@ -756,6 +768,10 @@ my %sRetouchArea = (
    'drone-dji' => {
         Name => 'drone-dji',
         SubDirectory => { TagTable => 'Image::ExifTool::DJI::XMP' },
+    },
+    LImage => {
+        Name => 'LImage',
+        SubDirectory => { TagTable => 'Image::ExifTool::XMP::LImage' },
     },
 );
 
@@ -1447,6 +1463,7 @@ my %sPantryItem = (
     PerspectiveX                        => { Writable => 'real' },
     PerspectiveY                        => { Writable => 'real' },
     UprightFourSegmentsCount            => { Writable => 'integer' },
+    AutoTone                            => { Writable => 'boolean' },
 );
 
 # Tiff namespace properties (tiff)
@@ -2213,6 +2230,7 @@ my %sPantryItem = (
     # (used to set EXIF GPS position from XMP tags)
     GPSLatitudeRef => {
         Require => 'XMP:GPSLatitude',
+        # Note: Do not Inihibit based on EXIF:GPSLatitudeRef (see forum10192)
         ValueConv => q{
             IsFloat($val[0]) and return $val[0] < 0 ? "S" : "N";
             $val[0] =~ /^.*([NS])/;
@@ -2284,11 +2302,11 @@ my %sPantryItem = (
                 my $i = 0;
                 $val[$i++] = $val[5]{$_} foreach qw(Fired Return Mode Function RedEyeMode);
             }
-            return (($val[0] and lc($val[0]) eq 'true') ? 0x01 : 0) |
+            return((($val[0] and lc($val[0]) eq 'true') ? 0x01 : 0) |
                    (($val[1] || 0) << 1) |
                    (($val[2] || 0) << 3) |
                    (($val[3] and lc($val[3]) eq 'true') ? 0x20 : 0) |
-                   (($val[4] and lc($val[4]) eq 'true') ? 0x40 : 0);
+                   (($val[4] and lc($val[4]) eq 'true') ? 0x40 : 0));
         },
         PrintConv => \%Image::ExifTool::Exif::flash,
         WriteAlso => {
@@ -2328,13 +2346,14 @@ sub EscapeXML($)
 # Unescape XML character references (entities and numerical)
 # Inputs: 0) string to be unescaped
 #         1) optional hash reference to convert entity names to numbers
+#         2) optional character encoding
 # Returns: unescaped string
 my %charNum = ('quot'=>34, 'amp'=>38, 'apos'=>39, 'lt'=>60, 'gt'=>62);
-sub UnescapeXML($;$)
+sub UnescapeXML($;$$)
 {
-    my ($str, $conv) = @_;
+    my ($str, $conv, $enc) = @_;
     $conv = \%charNum unless $conv;
-    $str =~ s/&(#?\w+);/UnescapeChar($1,$conv)/sge;
+    $str =~ s/&(#?\w+);/UnescapeChar($1,$conv,$enc)/sge;
     return $str;
 }
 
@@ -2372,10 +2391,11 @@ sub FullUnescapeXML($)
 # Convert XML character reference to UTF-8
 # Inputs: 0) XML character reference stripped of the '&' and ';' (eg. 'quot', '#34', '#x22')
 #         1) hash reference for looking up character numbers by name
+#         2) optional character encoding (default 'UTF8')
 # Returns: UTF-8 equivalent (or original character on conversion error)
-sub UnescapeChar($$)
+sub UnescapeChar($$;$)
 {
-    my ($ch, $conv) = @_;
+    my ($ch, $conv, $enc) = @_;
     my $val = $$conv{$ch};
     unless (defined $val) {
         if ($ch =~ /^#x([0-9a-fA-F]+)$/) {
@@ -2387,8 +2407,9 @@ sub UnescapeChar($$)
         }
     }
     return chr($val) if $val < 0x80;   # simple ASCII
-    return pack('C0U', $val) if $] >= 5.006001;
-    return Image::ExifTool::PackUTF8($val);
+    $val = $] >= 5.006001 ? pack('C0U', $val) : Image::ExifTool::PackUTF8($val);
+    $val = Image::ExifTool::Decode(undef, $val, 'UTF8', undef, $enc) if $enc and $enc ne 'UTF8';
+    return $val;
 }
 
 #------------------------------------------------------------------------------
@@ -3155,6 +3176,26 @@ NoLoop:
     my $key = $et->FoundTag($tagInfo, $val) or return 0;
     # save original components of rational numbers (used when copying)
     $$et{RATIONAL}{$key} = $rational if defined $rational;
+    # allow read-only subdirectories (eg. embedded base64 XMP/IPTC in NKSC files)
+    if ($$tagInfo{SubDirectory} and not $$et{IsWriting}) {
+        my $subdir = $$tagInfo{SubDirectory};
+        my $dataPt = ref $$et{VALUE}{$key} ? $$et{VALUE}{$key} : \$$et{VALUE}{$key};
+        # process subdirectory information
+        my %dirInfo = (
+            DirName  => $$subdir{DirName} || $$tagInfo{Name},
+            DataPt   => $dataPt,
+            DirLen   => length $$dataPt,
+            IsExtended => 1, # (hack to avoid Duplicate warning for embedded XMP)
+        );
+        my $oldOrder = GetByteOrder();
+        SetByteOrder($$subdir{ByteOrder}) if $$subdir{ByteOrder};
+        my $oldNS = $$et{definedNS};
+        delete $$et{definedNS};
+        my $subTablePtr = GetTagTable($$subdir{TagTable}) || $tagTablePtr;
+        $et->ProcessDirectory(\%dirInfo, $subTablePtr, $$subdir{ProcessProc});
+        SetByteOrder($oldOrder);
+        $$et{definedNS} = $oldNS;
+    }
     # save structure/list information if necessary
     if (@structProps and (@structProps > 1 or defined $structProps[0][1]) and
         not $$et{NO_STRUCT})
@@ -3239,7 +3280,6 @@ sub ParseXMPElement($$$;$$$$)
         # (empty elements end with '/', eg. <a:b/>)
         if ($attrs !~ s/\/$//) {
             my $nesting = 1;
-            my $tok;
             for (;;) {
 # this match fails with perl 5.6.2 (perl bug!), but it works without
 # the '(.*?)', so we must do it differently...
@@ -3539,10 +3579,10 @@ sub ParseXMPElement($$$;$$$$)
                     if ($prop eq 'rdf:Description' and $val) {
                         $val =~ s/<!--.*?-->//g; $val =~ s/^\s+//; $val =~ s/\s+$//;
                     }
-                    # if element value is empty, take value from 'resource' attribute
-                    # (preferentially) or 'about' attribute (if no 'resource')
-                    if ($val eq '' and ($attrs =~ /\bresource=(['"])(.*?)\1/ or
-                                        $attrs =~ /\babout=(['"])(.*?)\1/))
+                    # if element value is empty, take value from RDF 'value' or 'resource' attribute
+                    # (preferentially) or 'about' attribute (if no 'value' or 'resource')
+                    if ($val eq '' and ($attrs =~ /\brdf:(?:value|resource)=(['"])(.*?)\1/ or
+                                        $attrs =~ /\brdf:about=(['"])(.*?)\1/))
                     {
                         $val = $2;
                         $wasEmpty = 1;
@@ -3844,8 +3884,8 @@ sub ProcessXMP($$;$)
     # extract XMP as a block if specified
     my $blockName = $$dirInfo{BlockInfo} ? $$dirInfo{BlockInfo}{Name} : 'XMP';
     if (($$et{REQ_TAG_LOOKUP}{lc $blockName} or ($$et{TAGS_FROM_FILE} and
-        not $$et{EXCL_TAG_LOOKUP}{lc $blockName})) and
-        ($$dirInfo{DirName} and $$dirInfo{DirName} eq 'XMP'))
+        not $$et{EXCL_TAG_LOOKUP}{lc $blockName})) and ($$et{FileType} eq 'XMP' or
+        ($$dirInfo{DirName} and $$dirInfo{DirName} eq 'XMP')))
     {
         $et->FoundTag($$dirInfo{BlockInfo} || 'XMP', substr($$dataPt, $dirStart, $dirLen));
     }
@@ -4007,7 +4047,7 @@ information.
 
 =head1 AUTHOR
 
-Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

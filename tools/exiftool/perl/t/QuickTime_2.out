@@ -1,10 +1,10 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.94
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 11.39
 [File, System, Image] FileName - File Name: QuickTime.mov
 [File, System, Image] Directory - Directory: t/images
 [File, System, Image] FileSize - File Size: 3.8 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2013:11:05 10:27:25-05:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:29 20:10:39-04:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:25 10:57:00-04:00
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2019:03:22 12:13:41-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2019:05:03 08:53:23-04:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2019:04:24 09:58:02-04:00
 [File, System, Image] FilePermissions - File Permissions: rw-r--r--
 [File, File, Image] FileType - File Type: MOV
 [File, File, Image] FileTypeExtension - File Type Extension: mov
@@ -84,31 +84,31 @@
 [QuickTime, Track2, Audio] 26 - Audio Bits Per Sample: 8
 [QuickTime, Track2, Audio] 32 - Audio Sample Rate: 7875
 [QuickTime, QuickTime, Video] 8 - Handler Type: Metadata Tags
-[QuickTime, QuickTime, Audio] 1.1 - Album: √•lbum
-[QuickTime, QuickTime, Audio] 1.2 - Artist: √•rtist
-[QuickTime, QuickTime, Audio] 1.3 - Comment: √ß√∏mm√©nts
-[QuickTime, QuickTime, Video] ©fmt - Format: Digital Camera
-[QuickTime, QuickTime, Video] ©inf - Information: PENTAX DIGITAL CAMERA                            
-[QuickTime, QuickTime, Video] ©alb - Album: √•lbum
-[QuickTime, QuickTime, Video] ©ART - Artist: √•rtist
-[QuickTime, QuickTime, Video] ©cmt - Comment: √ß√∏mm√©nts
-[QuickTime, QuickTime, Video] ©com - Composer: c√∏mp√∏s√©r
-[QuickTime, QuickTime, Video] ©gen - Genre: Genr√©
+[QuickTime, Keys, Other] 1.1 - Album: √•lbum
+[QuickTime, Keys, Other] 1.2 - Artist: √•rtist
+[QuickTime, Keys, Other] 1.3 - Comment: √ß√∏mm√©nts
+[QuickTime, UserData, Video] ©fmt - Format: Digital Camera
+[QuickTime, UserData, Video] ©inf - Information: PENTAX DIGITAL CAMERA                            
+[QuickTime, UserData, Video] ©alb - Album: √•lbum
+[QuickTime, UserData, Video] ©ART - Artist: √•rtist
+[QuickTime, UserData, Video] ©cmt - Comment: √ß√∏mm√©nts
+[QuickTime, UserData, Video] ©com - Composer: c√∏mp√∏s√©r
+[QuickTime, UserData, Video] ©gen - Genre: Genr√©
 [QuickTime, QuickTime, Video] 8 - Handler Type: Metadata
 [QuickTime, QuickTime, Video] 12 - Handler Vendor ID: Apple
-[QuickTime, QuickTime, Audio] ©lyr - Lyrics: These are lyrics
-[QuickTime, QuickTime, Preview] covr - Cover Art: (Binary data 251 bytes)
-[QuickTime, QuickTime, Audio] ©ART - Artist: √•rtist
-[QuickTime, QuickTime, Author] aART - Album Artist: √•lb√ºm √•rt√Æst
-[QuickTime, QuickTime, Audio] ©wrt - Composer: c√∏mp√∏s√©r
-[QuickTime, QuickTime, Audio] ©alb - Album: √•lbum
-[QuickTime, QuickTime, Audio] ©grp - Grouping: gr√∏uping
-[QuickTime, QuickTime, Audio] ©gen - Genre: Genr√©
-[QuickTime, QuickTime, Audio] trkn - Track Number: 1 of 2
-[QuickTime, QuickTime, Audio] disk - Disk Number: 3 of 4
-[QuickTime, QuickTime, Time] ©day - Content Create Date: 2010
-[QuickTime, QuickTime, Audio] ©cmt - Comment: √ß√∏mm√©nts
-[QuickTime, QuickTime, Audio] tmpo - Beats Per Minute: 128
+[QuickTime, ItemList, Audio] ©lyr - Lyrics: These are lyrics
+[QuickTime, ItemList, Preview] covr - Cover Art: (Binary data 251 bytes)
+[QuickTime, ItemList, Audio] ©ART - Artist: √•rtist
+[QuickTime, ItemList, Author] aART - Album Artist: √•lb√ºm √•rt√Æst
+[QuickTime, ItemList, Audio] ©wrt - Composer: c√∏mp√∏s√©r
+[QuickTime, ItemList, Audio] ©alb - Album: √•lbum
+[QuickTime, ItemList, Audio] ©grp - Grouping: gr√∏uping
+[QuickTime, ItemList, Audio] ©gen - Genre: Genr√©
+[QuickTime, ItemList, Audio] trkn - Track Number: 1 of 2
+[QuickTime, ItemList, Audio] disk - Disk Number: 3 of 4
+[QuickTime, ItemList, Time] ©day - Content Create Date: 2010
+[QuickTime, ItemList, Audio] ©cmt - Comment: √ß√∏mm√©nts
+[QuickTime, ItemList, Audio] tmpo - Beats Per Minute: 128
 [QuickTime, QuickTime, Video] mdat-size - Movie Data Size: 0
 [QuickTime, QuickTime, Video] mdat-offset - Movie Data Offset: 3871
 [MakerNotes, Pentax, Camera] 0 - Make: PENTAX DIGITAL CAMERA

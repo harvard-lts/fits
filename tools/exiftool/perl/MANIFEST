@@ -22,8 +22,12 @@ config_files/dji.config
 config_files/example.config
 config_files/fotoware.config
 config_files/gps2utm.config
+config_files/mini0806.config
+config_files/nksc.config
 config_files/photoshop_paths.config
 config_files/picasa_faces.config
+config_files/rotate_regions.config
+config_files/tiff_version.config
 config_files/time_zone.config
 exiftool
 fmt_files/gpx.fmt
@@ -57,6 +61,7 @@ html/TagNames/DjVu.html
 html/TagNames/EXE.html
 html/TagNames/EXIF.html
 html/TagNames/Extra.html
+html/TagNames/FITS.html
 html/TagNames/FLAC.html
 html/TagNames/FLIF.html
 html/TagNames/FLIR.html
@@ -114,6 +119,7 @@ html/TagNames/Ogg.html
 html/TagNames/Olympus.html
 html/TagNames/OpenEXR.html
 html/TagNames/Opus.html
+html/TagNames/PCX.html
 html/TagNames/PDF.html
 html/TagNames/PGF.html
 html/TagNames/PICT.html
@@ -249,6 +255,7 @@ lib/Image/ExifTool/DarwinCore.pm
 lib/Image/ExifTool/DjVu.pm
 lib/Image/ExifTool/EXE.pm
 lib/Image/ExifTool/Exif.pm
+lib/Image/ExifTool/FITS.pm
 lib/Image/ExifTool/FLAC.pm
 lib/Image/ExifTool/FLIF.pm
 lib/Image/ExifTool/FLIR.pm
@@ -330,6 +337,7 @@ lib/Image/ExifTool/Ogg.pm
 lib/Image/ExifTool/Olympus.pm
 lib/Image/ExifTool/OpenEXR.pm
 lib/Image/ExifTool/Opus.pm
+lib/Image/ExifTool/PCX.pm
 lib/Image/ExifTool/PDF.pm
 lib/Image/ExifTool/PGF.pm
 lib/Image/ExifTool/PICT.pm
@@ -425,6 +433,7 @@ t/CanonRaw_5.out
 t/CanonRaw_6.out
 t/CanonRaw_7.out
 t/CanonRaw_8.out
+t/CanonRaw_9.out
 t/CanonVRD.t
 t/CanonVRD_11.out
 t/CanonVRD_12.out
@@ -438,6 +447,8 @@ t/CanonVRD_19.out
 t/CanonVRD_2.out
 t/CanonVRD_20.out
 t/CanonVRD_21.out
+t/CanonVRD_22.out
+t/CanonVRD_24.out
 t/CanonVRD_3.out
 t/CanonVRD_4.out
 t/CanonVRD_5.out
@@ -494,6 +505,8 @@ t/ExifTool_6.out
 t/ExifTool_7.out
 t/ExifTool_8.out
 t/ExifTool_9.out
+t/FITS.t
+t/FITS_2.out
 t/FLAC.t
 t/FLAC_2.out
 t/FLAC_3.out
@@ -657,6 +670,8 @@ t/OpenEXR.t
 t/OpenEXR_2.out
 t/Opus.t
 t/Opus_2.out
+t/PCX.t
+t/PCX_2.out
 t/PDF.t
 t/PDF_10.out
 t/PDF_11.out
@@ -723,11 +738,20 @@ t/PostScript.t
 t/PostScript_2.out
 t/PostScript_3.out
 t/QuickTime.t
+t/QuickTime_10.out
+t/QuickTime_11.out
+t/QuickTime_12.out
+t/QuickTime_13.out
+t/QuickTime_14.out
+t/QuickTime_15.out
 t/QuickTime_2.out
 t/QuickTime_3.out
 t/QuickTime_4.out
 t/QuickTime_5.out
 t/QuickTime_6.out
+t/QuickTime_7.out
+t/QuickTime_8.out
+t/QuickTime_9.out
 t/RIFF.t
 t/RIFF_2.out
 t/RIFF_3.out
@@ -904,6 +928,7 @@ t/images/EXE.so
 t/images/ExifTool.jpg
 t/images/ExifTool.tif
 t/images/ExtendedXMP.jpg
+t/images/FITS.fits
 t/images/FLAC.flac
 t/images/FLAC.ogg
 t/images/FLIF.flif
@@ -972,6 +997,7 @@ t/images/OlympusE1.jpg
 t/images/OpenDoc.ods
 t/images/OpenEXR.exr
 t/images/Opus.opus
+t/images/PCX.pcx
 t/images/PDF.pdf
 t/images/PDF2.pdf
 t/images/PGF.pgf
@@ -993,6 +1019,7 @@ t/images/PhotoCD.pcd
 t/images/PhotoMechanic.jpg
 t/images/Photoshop.psd
 t/images/PostScript.eps
+t/images/QuickTime.heic
 t/images/QuickTime.m4a
 t/images/QuickTime.mov
 t/images/RIFF.avi
