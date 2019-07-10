@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.harvard.huit.lts</groupId>
 	<artifactId>fits</artifactId>
-	<version>1.4.2-SNAPSHOT</version>
+	<version>1.5.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>FITS</name>
@@ -17,7 +18,7 @@
 		<bcmail.version>132</bcmail.version>
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.22</slf4j.version>
-		<tika.version>1.20</tika.version>
+		<tika.version>1.21</tika.version>
 		<jdom.version>1.1.3</jdom.version>
 		<woodstox.version>4.4.1</woodstox.version>
 		<xmlunit.version>1.6</xmlunit.version>
@@ -204,28 +205,28 @@
 			<groupId>org.apache.tika</groupId>
 			<artifactId>tika-core</artifactId>
 			<version>${tika.version}</version>
-			<!-- not included in main lib directory - only in subdirectory  -->
+			<!-- not included in main lib directory - only in subdirectory -->
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.gov.nationalarchives</groupId>
 			<artifactId>droid-command-line</artifactId>
 			<version>${droid.version}</version>
-			<!-- not included in main lib directory - only in subdirectory  -->
+			<!-- not included in main lib directory - only in subdirectory -->
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.gov.nationalarchives</groupId>
 			<artifactId>droid-core</artifactId>
 			<version>${droid.version}</version>
-			<!-- not included in main lib directory - only in subdirectory  -->
+			<!-- not included in main lib directory - only in subdirectory -->
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openpreservation.jhove</groupId>
 			<artifactId>jhove-core</artifactId>
 			<version>${jhove.version}</version>
-			<!-- not included in main lib directory - only in subdirectory  -->
+			<!-- not included in main lib directory - only in subdirectory -->
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -269,14 +270,14 @@
 			<groupId>edu.harvard.hcl</groupId>
 			<artifactId>hclaps</artifactId>
 			<version>${hclaps.version}</version>
-			<!-- not included in main lib directory - only in subdirectory  -->
+			<!-- not included in main lib directory - only in subdirectory -->
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>nz.govt.natlib</groupId>
 			<artifactId>metadata</artifactId>
 			<version>${nzmetool.version}</version>
-			<!-- not included in main lib directory - only in subdirectory  -->
+			<!-- not included in main lib directory - only in subdirectory -->
 			<scope>provided</scope>
 		</dependency>
 

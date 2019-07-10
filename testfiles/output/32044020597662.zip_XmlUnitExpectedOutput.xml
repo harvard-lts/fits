@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.1" timestamp="3/20/18 11:42 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0-SNAPSHOT" timestamp="7/10/19 9:19 AM">
   <identification>
-    <identity format="ZIP Format" mimetype="application/zip" toolname="FITS" toolversion="1.2.1">
-      <tool toolname="Droid" toolversion="6.3" />
+    <identity format="ZIP Format" mimetype="application/zip" toolname="FITS" toolversion="1.5.0-SNAPSHOT">
+      <tool toolname="Droid" toolversion="6.4" />
       <tool toolname="file utility" toolversion="5.31" />
-      <tool toolname="Exiftool" toolversion="10.00" />
+      <tool toolname="Exiftool" toolversion="11.54" />
       <tool toolname="ffident" toolversion="0.2" />
-      <tool toolname="Tika" toolversion="1.10" />
+      <tool toolname="Tika" toolversion="1.21" />
       <version toolname="file utility" toolversion="5.31">1.0</version>
-      <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/263</externalIdentifier>
+      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">x-fmt/263</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
@@ -21,9 +21,9 @@
   <filestatus />
   <metadata>
     <container>
-      <originalSize toolname="Droid" toolversion="6.3" status="SINGLE_RESULT">83996</originalSize>
-      <compressionMethod toolname="Droid" toolversion="6.3" status="SINGLE_RESULT">stored</compressionMethod>
-      <entries totalEntries="84" toolname="Droid" toolversion="6.3" status="SINGLE_RESULT">
+      <originalSize toolname="Droid" toolversion="6.4" status="SINGLE_RESULT">83996</originalSize>
+      <compressionMethod toolname="Droid" toolversion="6.4" status="SINGLE_RESULT">stored</compressionMethod>
+      <entries totalEntries="84" toolname="Droid" toolversion="6.4" status="SINGLE_RESULT">
         <format name="Hypertext Markup Language" number="1" />
         <format name="JPEG 2000 JP2" number="40" />
         <format name="MD5 File" number="1" />
@@ -31,20 +31,20 @@
       </entries>
     </container>
   </metadata>
-  <statistics fitsExecutionTime="655">
+  <statistics fitsExecutionTime="556">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.3" executionTime="121" />
-    <tool toolname="Jhove" toolversion="1.16" status="did not run" />
-    <tool toolname="file utility" toolversion="5.31" executionTime="92" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="302" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="122" />
+    <tool toolname="Jhove" toolversion="1.20.1" status="did not run" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="551" />
+    <tool toolname="Exiftool" toolversion="11.54" executionTime="538" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="3" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="26" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="8" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="640" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="31" />
+    <tool toolname="Tika" toolversion="1.21" executionTime="534" />
   </statistics>
 </fits>
 

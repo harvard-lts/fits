@@ -140,7 +140,9 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
 	 * To be called from a @AfterClass method in a class that is testing an external FITS web application.
 	 */
 	protected static void afterServiceTest() throws Exception {
-        httpclient = HttpClients.createDefault();
+        if (httpclient != null) {
+        	httpclient.close();
+        }
 	}
 
 	/**
