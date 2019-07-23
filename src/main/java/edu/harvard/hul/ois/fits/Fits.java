@@ -250,22 +250,28 @@ public class Fits {
     setFitsVersionFromFile();
 
     Options options = new Options();
-    options.addOption( "i", true, "input file or directory" );
+    options.addOption( "i", true, "input file or directory (required)" );
     options.addOption( "r", false, "process directories recursively when -i is a directory " );
-    options.addOption( "n", false, "when processing nested directories recursively when -i is a directory and -r is set, output directories are also nested (optional)" );
-    options.addOption( "o", true, "output file or directory if -i is a directory" );
+    options.addOption( "n", false, "output directories are nested when recursively processing nested directories (when -r is set and -i is a directory) (optional)" );
+    options.addOption( "o", true, "Directs the FITS output to a file or directory (if -i is a directory) rather than console" );
     options.addOption( "h", false, "print this message" );
     options.addOption( "v", false, "print version information" );
     options.addOption( "f", true, "alternate fits.xml configuration file location (optional)" );
     OptionGroup outputOptions = new OptionGroup();
-    Option stdxml = new Option( "x", false, "convert FITS output to a standard metadata schema" );
+    Option stdxml = new Option( "x", false, "convert FITS output to a standard metadata schema -- note: only standard schema metadata is output" );
     Option combinedStd = new Option( "xc", false, "output using a standard metadata schema and include FITS xml" );
     outputOptions.addOption( stdxml );
     outputOptions.addOption( combinedStd );
     options.addOptionGroup( outputOptions );
 
     CommandLineParser parser = new GnuParser();
-    CommandLine cmd = parser.parse( options, args );
+    CommandLine cmd = null;
+    try {
+    	cmd = parser.parse( options, args );
+    } catch (Exception e) {
+    	System.err.println(e.getMessage());
+    	System.exit( 1 );
+    }
 
     if (cmd.hasOption( "h" )) {
       printHelp( options );
@@ -287,43 +293,48 @@ public class Fits {
     }
     
     File fitsConfigFile = null;
-    if (cmd.hasOption( 'f' )) {
-    	String input = cmd.getOptionValue( 'f' );
-    	if (StringUtils.isEmpty(input)) {
-    		throw new FitsException("When using the -f option there must be an associated value." );
+    try {
+    	if (cmd.hasOption( 'f' )) {
+    		String input = cmd.getOptionValue( 'f' );
+    		if (StringUtils.isEmpty(input)) {
+    			throw new FitsException("When using the -f option there must be an associated value." );
+    		}
+    		fitsConfigFile = new File(input);
+    		if ( !fitsConfigFile.isFile() || !fitsConfigFile.canRead() ) {
+    			throw new FitsException("The FITS configuration file: " + input + " cannot be read." );
+    		}
     	}
-    	fitsConfigFile = new File(input);
-    	if ( !fitsConfigFile.isFile() || !fitsConfigFile.canRead() ) {
-    		throw new FitsException("The FITS configuration file: " + input + " cannot be read." );
+    	
+    	if (cmd.hasOption( "i" )) {
+    		String input = cmd.getOptionValue( "i" );
+    		File inputFile = new File( input );
+    		
+    		if (inputFile.isDirectory()) {
+    			String outputDir = cmd.getOptionValue( "o" );
+    			if (outputDir == null || !(new File( outputDir ).isDirectory())) {
+    				throw new FitsException(
+    						"When FITS is run in directory processing mode the output location must be a directory." );
+    			}
+    			Fits fits = constructFits(fitsConfigFile);
+    			fits.doDirectory( inputFile, new File( outputDir ), cmd.hasOption( "x" ), cmd.hasOption( "xc" ) );
+    		} else { // inputFile is a file so output -o must either be a file or not set at all
+    			String outputFile = cmd.getOptionValue( "o" );
+    			if (outputFile != null && (new File( outputFile ).isDirectory())) {
+    				throw new FitsException(
+    						"When FITS is processing a single file the output location must also be a file." );
+    			}
+    			Fits fits = constructFits(fitsConfigFile);
+    			FitsOutput result = fits.doSingleFile( inputFile );
+    			fits.outputResults( result, cmd.getOptionValue( "o" ), cmd.hasOption( "x" ), cmd.hasOption( "xc" ), false );
+    		}
+    	} else {
+    		System.err.println( "Invalid CLI options: -i <arg> is required." );
+    		printHelp( options );
+    		System.exit( 1 );
     	}
-    }
-
-    if (cmd.hasOption( "i" )) {
-      String input = cmd.getOptionValue( "i" );
-      File inputFile = new File( input );
-
-      if (inputFile.isDirectory()) {
-        String outputDir = cmd.getOptionValue( "o" );
-        if (outputDir == null || !(new File( outputDir ).isDirectory())) {
-          throw new FitsException(
-              "When FITS is run in directory processing mode the output location must be a directory." );
-        }
-        Fits fits = constructFits(fitsConfigFile);
-        fits.doDirectory( inputFile, new File( outputDir ), cmd.hasOption( "x" ), cmd.hasOption( "xc" ) );
-      } else { // inputFile is a file so output -o must either be a file or not set at all
-          String outputFile = cmd.getOptionValue( "o" );
-          if (outputFile != null && (new File( outputFile ).isDirectory())) {
-            throw new FitsException(
-                    "When FITS is processing a single file the output location must also be a file." );
-          }
-        Fits fits = constructFits(fitsConfigFile);
-        FitsOutput result = fits.doSingleFile( inputFile );
-        fits.outputResults( result, cmd.getOptionValue( "o" ), cmd.hasOption( "x" ), cmd.hasOption( "xc" ), false );
-      }
-    } else {
-      System.err.println( "Invalid CLI options" );
-      printHelp( options );
-      System.exit( -1 );
+    } catch (FitsException fe) {
+    	System.err.println( fe.getMessage() );
+    	System.exit( 1 );
     }
 
     System.exit( 0 );
@@ -447,15 +458,10 @@ public class Fits {
    * @throws XMLStreamException
    * @throws IOException
    */
-  private FitsOutput doSingleFile( File inputFile ) throws FitsException, XMLStreamException, IOException {
+	private FitsOutput doSingleFile( File inputFile ) throws FitsException, XMLStreamException, IOException {
 
     logger.debug( "Processing file " + inputFile.getAbsolutePath() );
     FitsOutput result = this.examine( inputFile );
-    if (result.getCaughtThrowables().size() > 0) {
-      for (Throwable e : result.getCaughtThrowables()) {
-        logger.error( "Tool error processing file: " + inputFile.getName() + "\n" + e.getMessage(), e );
-      }
-    }
     return result;
   }
 
@@ -569,7 +575,7 @@ public class Fits {
 
   private static void printHelp( Options opts ) {
     HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp( "fits", opts );
+    formatter.printHelp( "fits", null, opts, null );
   }
 
   public FitsOutput examine( File input ) throws FitsException {
@@ -665,6 +671,12 @@ public class Fits {
     		t.resetOutput();
     	}
     }
+
+    if (result.getCaughtThrowables().size() > 0) {
+        for (Throwable e : result.getCaughtThrowables()) {
+          logger.error( "Tool error processing file: " + input.getName() + "\n" + e.getMessage(), e );
+        }
+      }
 
     return result;
   }
