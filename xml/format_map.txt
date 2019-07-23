@@ -38,3 +38,4 @@ Material Exchange Format=Material Exchange Format (MXF)
 Microsoft Office Open XML=Office Open XML Document
 Office Open XML Document (macro-enabled)=Office Open XML Document (Macros Enabled)
 Comma Separated Values=Comma-Separated Values (CSV)
+MPEG-4 Media File=MPEG-4

@@ -19,7 +19,6 @@ import org.apache.log4j.Logger;
 import org.jdom.Document;
 
 import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
@@ -35,11 +34,22 @@ public class MediaInfo extends ToolBase {
 
     private final static String mediaInfoFitsConfig = Fits.FITS_XML_DIR+"mediainfo"+File.separator;
     private final static String xsltTransform = "mediainfo_video_to_fits.xslt";
+    private final static String WINDOWS_NATIVE_LIB_PATH = File.separator + "tools" + File.separator + "mediainfo" + File.separator + "windows" + File.separator + "64";
+    private final static String OSX_NATIVE_LIB_PATH = File.separator + "tools" + File.separator + "mediainfo" + File.separator + "mac";
+    private final static String LINUX_NATIVE_LIB_PATH = File.separator + "tools" + File.separator + "mediainfo" + File.separator + "linux";
 
     private static final Logger logger = Logger.getLogger(MediaInfo.class);
     private static MediaInfoNativeWrapper mi = null;
 
-	public MediaInfo(Fits fits) throws FitsException {
+    /**
+     * Instantiate this class.
+     * Since this class is instantiated via Java Reflection, any exception
+     * in this constructor will actually result in a InstantiationException, nto a FitsToolException.
+     * 
+     * @param fits
+     * @throws FitsToolException
+     */
+	public MediaInfo(Fits fits) throws FitsToolException {
 		super();
 		this.fits = fits;
 		info = new ToolInfo();
@@ -58,41 +68,39 @@ public class MediaInfo extends ToolBase {
 		switch (ostype) {
 		    case Windows:
 		    	// default setting
-		    	if(fitsHome.equals("."))
+		    	if(fitsHome.equals(".")) {
 		    		fitsHome = System.getProperty("user.dir");
-
-		    	// Assume we are 64-bit, so default to 64-bit DLL location
-		    	nativeLibPath = fitsHome + "/tools/mediainfo/windows/64";
-
-				// If 32 bit, we need to path to the 32-bit DLL
-				String jvmModel =  System.getProperty("sun.arch.data.model");
-				if (jvmModel.equals("32")) {
-					nativeLibPath = fitsHome + "/tools/mediainfo/windows/32";
-				}
+		    	}
+		    	// Assume both a 64-bit operating system AND Java version, so default to 64-bit DLL location.
+		    	// 32 bit is not supported so pointing to 64-bit DLL will likely result in an error.
+		    	nativeLibPath = fitsHome + WINDOWS_NATIVE_LIB_PATH;
 		    	break;
 		    case MacOS:
-	    		nativeLibPath = fitsHome + "/tools/mediainfo/mac";
+	    		nativeLibPath = fitsHome + OSX_NATIVE_LIB_PATH;
 	    		break;
 		    case Linux:
-		    	nativeLibPath = fitsHome + "/tools/mediainfo/linux";
+		    	nativeLibPath = fitsHome + LINUX_NATIVE_LIB_PATH;
 		    	break;
 		    case Other:
-		    	logger.warn("Unsupported native support in MediaInfor for this OS");
+		    	logger.warn("Unsupported native support in MediaInfo for this OS");
 		    	break;
 		}
-		System.setProperty("jna.library.path", nativeLibPath);
 
 		try {
+			System.setProperty("jna.library.path", nativeLibPath);
 		    String versionOutput = MediaInfoNativeWrapper.Option_Static("Info_Version");
 		    // Strip "MediaInfoLib - v" from the version
 		    info.setVersion(versionOutput.replace("MediaInfoLib - v",""));
 
-		    // Initialize the native library
+		    // Initialize the native library 
 		    mi = new MediaInfoNativeWrapper();
 
-		} catch (java.lang.UnsatisfiedLinkError e){
-			throw new FitsToolException("Error loading native library for " + TOOL_NAME +
-					" please check that fits_home is properly set");
+		} catch (Throwable e){
+			String jvmModel =  System.getProperty("sun.arch.data.model");
+			logger.error("Error loading native library for this operating system for tool: " + TOOL_NAME +
+					". ostype=[" + ostype + "] -- jvmModel=[" + jvmModel + "] -- nativeLibPath=[" + nativeLibPath + "]" +
+					(nativeLibPath.length() == 0 ? "" : " -- No native MediaInfo library for this OS"), e);
+			throw new FitsToolException();
 		}
 
 	}

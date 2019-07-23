@@ -49,6 +49,15 @@
                 <xsl:when test="$mime='application/vnd.adobe.illustrator'">
                     <xsl:value-of select="string('application/postscript')"/>
                 </xsl:when>
+                <xsl:when test="$mime='application/vnd.rn-realmedia-vbr'">
+                    <xsl:value-of select="string('application/vnd.rn-realmedia')"/>
+                </xsl:when>
+                <xsl:when test="$mime='video/x-pn-realvideo'">
+                    <xsl:value-of select="string('application/vnd.rn-realmedia')"/>
+                </xsl:when>
+                <xsl:when test="$mime='video/x-m4v'">
+                    <xsl:value-of select="string('video/mp4')"/>
+                </xsl:when>
 				<xsl:when test="not($mime) or $mime='' or $mime='application/unknown'">
 					<xsl:value-of select="string('application/octet-stream')"/>
 				</xsl:when>			
@@ -230,7 +239,13 @@
 					<xsl:value-of select="string('Free Lossless Audio Codec')"/>
 				</xsl:when>	
 				<xsl:when test="$format='MP4'">
-					<xsl:value-of select="string('ISO Media, MPEG v4 system, version 2')"/>
+					<xsl:value-of select="string('MPEG-4')"/>
+				</xsl:when>
+				<xsl:when test="$format='M4V'">
+					<xsl:value-of select="string('MPEG-4')"/>
+				</xsl:when>
+				<xsl:when test="$format='MOV'">
+					<xsl:value-of select="string('Quicktime')"/>
 				</xsl:when>
 				<xsl:when test="$format='SVG'">
 					<xsl:value-of select="string('Scalable Vector Graphics (SVG)')"/>
@@ -256,6 +271,15 @@
 				<xsl:when test="$format='AI'">
 					<xsl:value-of select="string('Adobe Illustrator')"/>
 				</xsl:when>	
+				<xsl:when test="$format='WMV'">
+					<xsl:value-of select="string('Windows Media Video')"/>
+				</xsl:when>
+				<xsl:when test="$format='RMVB'">
+					<xsl:value-of select="string('RealMedia')"/>
+				</xsl:when>
+				<xsl:when test="$format='MXF'">
+					<xsl:value-of select="string('Material Exchange Format (MXF)')"/>
+				</xsl:when>
 				<xsl:when test="$format=''">
 					<xsl:value-of select="string('Unknown Binary')"/>
 				</xsl:when>		

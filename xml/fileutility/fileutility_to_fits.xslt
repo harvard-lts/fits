@@ -38,6 +38,9 @@
                         <xsl:when test="$mime='text/rtf'">
                             <xsl:value-of select="string('application/rtf')"/>
                         </xsl:when>
+                        <xsl:when test="$mime='video/x-m4v'">
+                            <xsl:value-of select="string('video/mp4')"/>
+                        </xsl:when>
 						<!-- Open Office Formats -->
 						<xsl:when test="$format='OpenDocument Text'">
 								<xsl:value-of select="string('application/vnd.oasis.opendocument.text')"/>
@@ -471,7 +474,7 @@
                             <xsl:value-of select="string('Material Exchange Format (MXF)')"/>
                         </xsl:attribute>
                     </xsl:when>
-                    <xsl:when test="starts-with($format, 'ISO Media, Apple QuickTime movie')">
+                    <xsl:when test="contains($format, 'Apple QuickTime movie')">
                         <xsl:attribute name="format">
                             <xsl:value-of select="string('Quicktime')"/>
                         </xsl:attribute>
@@ -480,42 +483,47 @@
                         <xsl:attribute name="format">
                             <xsl:value-of select="string('MPEG-4')"/>
                         </xsl:attribute>
-                    </xsl:when>     
+                    </xsl:when>
                     <xsl:when test="starts-with($format, 'ISO Media, MP4')">
                         <xsl:attribute name="format">
                             <xsl:value-of select="string('MPEG-4')"/>
                         </xsl:attribute>
-                    </xsl:when>     
+                    </xsl:when>
+                    <xsl:when test="starts-with($format, 'ISO Media, Apple iTunes Video')">
+                        <xsl:attribute name="format">
+                            <xsl:value-of select="string('MPEG-4')"/>
+                        </xsl:attribute>
+                    </xsl:when>
 					<xsl:when test="$format='data'">
 						<xsl:attribute name="format">
 							<xsl:value-of select="string('Unknown Binary')"/>
 						</xsl:attribute>
-					</xsl:when>		
+					</xsl:when>
 					<xsl:when test="$format='OpenDocument Drawing'">
 						<xsl:attribute name="format">
 							<xsl:value-of select="string('OpenDocument Graphics')"/>
 						</xsl:attribute>
-					</xsl:when>		
+					</xsl:when>
 					<xsl:when test="starts-with($format,'x86 boot sector')">
 						<xsl:attribute name="format">	
 							<xsl:value-of select="string('x86 boot sector')"/>
 						</xsl:attribute>
-					</xsl:when>			
+					</xsl:when>
 					<xsl:when test="starts-with($format,'Adobe Photoshop Image')">
 						<xsl:attribute name="format">	
 							<xsl:value-of select="string('Adobe Photoshop')"/>
 						</xsl:attribute>
-					</xsl:when>			
+					</xsl:when>
 					<xsl:when test="starts-with($format,'RIFF (little-endian) data, AVI')">
 						<xsl:attribute name="format">	
 							<xsl:value-of select="string('Audio/Video Interleaved Format')"/>
 						</xsl:attribute>
-					</xsl:when>			
+					</xsl:when>
 					<xsl:when test="starts-with($format,'MPEG ADTS, AAC')">
 						<xsl:attribute name="format">	
 							<xsl:value-of select="string('AAC')"/>
 						</xsl:attribute>
-					</xsl:when>	
+					</xsl:when>
 		  			<xsl:when test="ends-with($format,'ICC Profile')">
 							<xsl:attribute name="format">	
 								<xsl:value-of select="string('ICC')"/>

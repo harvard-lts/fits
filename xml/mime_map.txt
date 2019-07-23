@@ -16,3 +16,4 @@ application/rtf, text/rtf=application/rtf
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=application/vnd.openxmlformats-officedocument.wordprocessingml.document
 application/msword2=application/msword
 application/msword5=application/msword
+application/mp4, video/mp4=video/mp4

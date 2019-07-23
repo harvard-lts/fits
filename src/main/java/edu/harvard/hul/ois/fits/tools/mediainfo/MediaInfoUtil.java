@@ -575,9 +575,6 @@ public class MediaInfoUtil {
 		    	}
 	    		break;
 	    	}
-
-
-
 	    }
 
 	}
