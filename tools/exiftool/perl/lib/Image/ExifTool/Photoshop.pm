@@ -28,7 +28,7 @@ use strict;
 use vars qw($VERSION $AUTOLOAD $iptcDigestInfo);
 use Image::ExifTool qw(:DataAccess :Utils);
 
-$VERSION = '1.62';
+$VERSION = '1.63';
 
 sub ProcessPhotoshop($$$);
 sub WritePhotoshop($$$);
@@ -819,7 +819,7 @@ sub ProcessDocumentData($$$)
     my $raf = $$dirInfo{RAF};
     my $dirLen = $$dirInfo{DirLen};
     my $pos = 36;   # length of header
-    my $buff;
+    my ($buff, $n);
 
     $et->VerboseDir('Photoshop Document Data', undef, $dirLen);
     unless ($raf) {
@@ -838,7 +838,6 @@ sub ProcessDocumentData($$$)
     }
     my $psb = ($1 eq 'V0002');
     my %dinfo = ( DataPt => \$buff );
-    my ($n, $setOrder);
     $$et{IsPSB} = $psb; # set PSB flag (needed when handling Layers directory)
     while ($pos + 12 <= $dirLen) {
         $raf->Read($buff, 8) == 8 or last;
@@ -911,6 +910,9 @@ sub ProcessPhotoshop($$$)
             }
         }
     }
+    if ($$et{FILE_TYPE} eq 'JPEG' and $$dirInfo{Parent} ne 'APP13') {
+        $$et{LOW_PRIORITY_DIR}{'*'} = 1;    # lower priority of all these tags
+    }
     SetByteOrder('MM');     # Photoshop is always big-endian
     $verbose and $et->VerboseDir('Photoshop', 0, $$dirInfo{DirLen});
 
@@ -975,6 +977,7 @@ sub ProcessPhotoshop($$$)
         $size += 1 if $size & 0x01; # size is padded to an even # bytes
         $pos += $size;
     }
+    delete $$et{LOW_PRIORITY_DIR}{'*'};
     return $success;
 }
 
@@ -1123,7 +1126,7 @@ be preserved when copying Photoshop information via user-defined tags.
 
 =head1 AUTHOR
 
-Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

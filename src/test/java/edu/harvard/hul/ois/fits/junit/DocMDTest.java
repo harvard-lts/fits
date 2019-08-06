@@ -61,7 +61,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/Word2003_has_URLs_has_embedded_resources.doc_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -71,7 +71,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-		fitsOut.saveToDisk("test-generated-output/Word2003_many_graphics.doc_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -81,7 +81,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/Word2003PasswordProtected.doc_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -91,7 +91,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();		
-    	fitsOut.saveToDisk("test-generated-output/Word2011_Has_Outline.doc_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -101,7 +101,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/LibreOffice.doc_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -111,7 +111,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/Word2003_has_table_of_contents.doc_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -121,7 +121,7 @@ public class DocMDTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/Word_protected_encrypted.doc_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test

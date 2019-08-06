@@ -108,11 +108,18 @@ tags in other locations will not appear in the output for
 
 <pre>exiftool -gps:all image.jpg</pre>
 
-will NOT necessarily extract all GPS tags because some GPS tags may have been
-suppressed by same-named tags in other groups.  To be sure all GPS tags are
+will NOT necessarily extract all EXIF GPS tags because some may have been
+suppressed by same-named tags in other groups.  To be sure all EXIF GPS tags are
 extracted, the <code>-a</code> option must be used:
 
 <pre>exiftool -a -gps:all image.jpg</pre>
+
+<i class=lt>[But note that GPS information may be stored in metadata formats
+other than just EXIF, so restricting the command to the EXIF "GPS" group may
+miss GPS information in other formats.  The following command is better suited
+to extract all GPS from a wide variety of file formats:]</i>
+
+<pre>exiftool -a "-gps*" -ee video.mp4</pre>
 
 If you are having problems with other software reading information written by
 ExifTool, if possible try first writing the information from the other software,
@@ -825,8 +832,8 @@ arbitrary output format.  For example, the following format file
 (let's call it "<code>my.fmt</code>") may be used to emulate a CSV-formatted
 output:
 
-<pre>#[HEAD]FileName, Aperture, ISO
-$filename, $aperture, $iso
+<pre>#[HEAD]FileName,Aperture,ISO
+$filename,$aperture,$iso
 </pre>
 
 with a command like this:
@@ -839,7 +846,7 @@ of a file name.  The following command has the same effect as above except that
 the row of headings is not printed (Note: Use single quotes as below on Mac/Linux,
 or double quotes instead on Windows):
 
-<pre>exiftool -f -r -p '$filename, $aperture, $iso' t/images &gt; out.csv
+<pre>exiftool -f -r -p '$filename,$aperture,$iso' t/images &gt; out.csv
 </pre>
 
 With the <code>-f</code> option, the value of any missing tag is printed as a
@@ -1074,8 +1081,8 @@ would represent a single keyword:
 <pre>exiftool -keywords="one, two, three" test.jpg  <span class=blk>(WRONG!)</span>
 </pre>
 
-With exiftool version 7.56 or later, the <code>-sep</code> option may be used to
-split values of list-type tags into separate items when writing.  For example,
+The <code>-sep</code> option may be used to split values of list-type tags into
+separate items when writing.  For example,
 
 <pre>exiftool -sep ", " -keywords="one, two, three" DIR
 </pre>
@@ -1361,7 +1368,13 @@ extracted.  In this case, the formatted output (<code>-p</code>), JSON
 (<code>-j</code>), XML (<code>-X</code>) and PHP (<code>-php</code>) options
 provide alternative output formats which preserve newlines in values.</blockquote>
 
-<blockquote>When writing, there are a number of options:
+<blockquote>Alternatively, the <a href="ExifTool.html#Filter">API Filter option</a>
+may be used to apply an arbitrary filter to all extracted values.  For example,
+the following command changes newlines to "\n":
+
+<pre>exiftool -api filter="s/\n/\\n/g" FILE</pre>
+
+When writing, there are a number of options:
 
 <ol type='a'>
 <li>In many shells, a newline may be inserted directly in the command
@@ -1397,6 +1410,11 @@ processing pass to read tags from the file, but most of this delay may be
 avoided with the <code>-fast3</code> option.)
 <pre>exiftool '-comment&lt;line 1$/line 2' image.jpg
 </pre></li>
+<li>Use the "<code>#[CSTR]</code>" feature to allow C-style escape sequences in
+a <code>-@</code> argfile.  For example, this command:
+<pre>exiftool -@ test.args image.jpg</pre>
+with this "test.args" file:
+<pre>#[CSTR]-comment=line 1\nline 2</pre></li>
 </ol>
 </blockquote>
 
@@ -1511,12 +1529,12 @@ creation date is readable/writable through the FileCreateDate tag (see the
 <a href="TagNames/Extra.html">Extra Tags documentation</a>), and is preserved
 with the <code>-P</code> option. On Mac the MDItemFSCreationDate tag is used
 (see the <a href="TagNames/MacOS.html#MDItem">MacOS MDItem Tags documentation</a>),
-however this tag is extracted only if specified explicitly or the MDItemTags API
-option is set.  The <code>-P</code> option does not preserve the creation date
-when editing a file on Mac systems, but the
-<code>-overwrite_original_in_place</code> option may be used to preserve all
-Finder information including the creation date, or the MDItemFSCreationDate may
-be copied back specifically (ie.
+however this tag is extracted only if specified explicitly or the
+<a href="ExifTool.html#MDItemTags">MDItemTags API option</a> is set.  The
+<code>-P</code> option does not preserve the creation date when editing a file
+on Mac systems, but the <code>-overwrite_original_in_place</code> option may be
+used to preserve all Finder information including the creation date, or the
+MDItemFSCreationDate may be copied back specifically (ie.
 <code>-tagsfromfile @ -MDItemFSCreationDate</code>).  On Linux, the file
 creation date is not stored.</blockquote>
 
@@ -1551,19 +1569,15 @@ exiftool -alldates+=1 "-filemodifydate&lt;datetimeoriginal" c:\images
 <a name="Q25"></a>
 <p>25. <b>"Can ExifTool be used as an image validator?"</b></p>
 
-<blockquote>ExifTool is <u>not</u> designed as an image validator.  It does issue
-warnings about some of the more important problems in the metadata when reading,
-and will often catch more problems when writing, but it does not attempt to do a
-full validation.  There are other packages that are designed to do validation
-like this, for example, <a href="http://jhove.sourceforge.net">JHOVE</a>.</blockquote>
+<blockquote>ExifTool is not designed as an image validator but it does have a
+<code>-validate</code> feature which enables extra validation checks, mainly for
+JPEG and TIFF-format images (officially released in version 10.97, May 2018).
+Here is an example command to apply these validation checks to a JPEG image:
 
-<blockquote><b>Feb 2017 Update:</b> ExifTool now has a <code>-validate</code>
-option which implements a number of validation tests when reading images.  The
-following command invokes the validation feature and shows all associated Error
-and Warning messages:
+<pre>exiftool -validate -warning -error -a test.jpg</pre>
 
-<pre>exiftool -validate -error -warning -a test.jpg</pre>
-</blockquote>
+Note that there are other packages that are designed specifically for file
+validation, for example: <a href="https://github.com/openpreserve/jhove">JHOVE</a>.</blockquote>
 
 <a name="Q26"></a>
 <p>26. <b>"How do I import information from a database?"</b></p>
@@ -1606,11 +1620,12 @@ in the database.</blockquote>
 <blockquote>Tag names may be prefixed by a group name to write to a specific
 group (using the same format as when <code>-G</code> or <code>-G1</code> is
 added to the export command).  To delete a tag, set the tag value to "-" (or the
-MissingTagValue if this API option was used) and use the <code>-f</code> option
-when importing.  Tags with an empty value are ignored in a CSV import, or set to
-an empty string in a JSON import (unless <code>-f</code> is used and the API
-MissingTagValue option is set to an empty string, in which case the tag is
-deleted).  </blockquote>
+<a href="ExifTool.html#MissingTagValue">MissingTagValue</a> if this API option
+was used) and use the <code>-f</code> option when importing.  Tags with an empty
+value are ignored in a CSV import, or set to an empty string in a JSON import
+(unless <code>-f</code> is used and the
+<a href="ExifTool.html#MissingTagValue">API MissingTagValue option</a> is set to
+an empty string, in which case the tag is deleted).</blockquote>
 
 <blockquote>See the <code>-csv</code> or <code>-j</code> option in the
 <a href="exiftool_pod.html#input_output_text_formatting">application documentation</a>
@@ -1651,7 +1666,7 @@ technique for shifting a date/time value when copying:
 </blockquote>
 
 <hr>
-<i>Last revised May 16, 2018</i>
+<i>Last revised June 25, 2019</i>
 <p class='lf'><a href="index.html">&lt;-- Back to ExifTool home page</a></p>
 </body>
 </html>

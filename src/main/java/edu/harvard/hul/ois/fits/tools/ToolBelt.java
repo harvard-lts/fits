@@ -138,7 +138,7 @@ public class ToolBelt {
 			    // Cannot use this particular tool, but continue with other tools.
 			    logger.error ("Thread ["+Thread.currentThread().getId() +
 			    				"] Error instantiating class: " + tClass +
-			    				" -- Exception thrown " + ex.getClass().getName() +
+			    				" -- Exception thrown: " + ex.getClass().getName() +
 			    				" -- Error message: " + ex.getMessage());
 
 				// Capture exception so the failure can be reported later for this tool, then move on to next tool
@@ -158,7 +158,9 @@ public class ToolBelt {
 	/*
 	 * Instantiate a Tool class using Reflection by passing Fits into the constructor.
 	 * Note: All Tool class implementations can have a 1-argument constructor with Fits as the argument.
-	 * If it does not, then the standard newInstance() method fall-back will be used.
+	 * If it does not, then the standard newInstance() method fall-back will be used which results in a no-arg constructor being called.
+	 * Note: Any exception thrown in a Tool constructor will result in a ReflectiveOperationException, not the thrown exception
+	 * propagating up from the constructor.
 	 */
 	private Tool createToolClassInstance(Class<?> toolClass, Fits fits) throws ReflectiveOperationException {
 		Object instanceOfTheClass = null;
@@ -168,9 +170,9 @@ public class ToolBelt {
 			logger.debug("1-arg constructor for instantiating tool class: " + toolClass.getName());
 		} catch (ReflectiveOperationException e) {
 			// now try a no-arg constructor
-			logger.debug("No Fits 1-arg constructor for tool class: " + toolClass.getName() + " -- trying no-arg constructor...");
+			logger.warn("No Fits 1-arg constructor for tool class: " + toolClass.getName() + " -- trying no-arg constructor. Error message: " + e.getMessage());
 			instanceOfTheClass = toolClass.newInstance();
-			logger.debug("no-arg constructor for instantiating tool class: " + toolClass.getName());
+			logger.warn("Instantiated no-arg constructor for tool class: " + toolClass.getName());
 		}
 		return (Tool)instanceOfTheClass;
 	}

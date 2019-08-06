@@ -22,7 +22,7 @@ use vars qw($VERSION %samsungLensTypes);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Exif;
 
-$VERSION = '1.43';
+$VERSION = '1.46';
 
 sub WriteSTMN($$$);
 sub ProcessINFO($$$);
@@ -111,7 +111,7 @@ my %formatMinMax = (
         This is a standard-format IFD found in the maker notes of some Samsung
         models, except that the entry count is a 4-byte integer and the offsets are
         relative to the end of the IFD.  Currently, no tags in this IFD are known,
-        so the Unknown (-u) or Verbose (-v) option must be used to see this
+        so the L<Unknown|../ExifTool.html#Unknown> (-u) or L<Verbose|../ExifTool.html#Verbose> (-v) option must be used to see this
         information.
     },
     GROUPS => { 0 => 'MakerNotes', 2 => 'Image' },
@@ -234,6 +234,7 @@ my %formatMinMax = (
             0x500103c => 'WB600 / VLUU WB600 / WB610',
             0x500133e => 'WB150 / WB150F / WB152 / WB152F / WB151',
             0x5a0000f => 'WB5000 / HZ25W',
+            0x5a0001e => 'WB5500 / VLUU WB5500 / HZ50W',
             0x6001036 => 'EX1',
             0x700131c => 'VLUU SH100, SH100',
             0x27127002 => 'SMX-C20N',
@@ -924,6 +925,16 @@ my %formatMinMax = (
     4 => { Name => 'ThumbnailOffset', IsOffset => 1 },
 );
 
+# information extracted from "ssuniqueid\0" APP5 (ref PH)
+%Image::ExifTool::Samsung::APP5 = (
+    GROUPS => { 0 => 'MakerNotes', 2 => 'Camera' },
+    ssuniqueid => {
+        Name => 'UniqueID',
+        # 32 bytes - some sort of serial number?
+        ValueConv => 'unpack("H*",$val)',
+    },
+);
+
 # information extracted from Samsung trailer (ie. Samsung SM-T805 "Sound & Shot" JPEG) (ref PH)
 %Image::ExifTool::Samsung::Trailer = (
     GROUPS => { 0 => 'MakerNotes', 2 => 'Other' },
@@ -963,6 +974,7 @@ my %formatMinMax = (
     '0x0a30' => { Name => 'EmbeddedVideoFile', Groups => { 2 => 'Video' }, Binary => 1 }, #forum7161
    # 0x0aa1-name - seen 'MCC_Data'
    # 0x0aa1 - seen '234','222'
+   # 0x0ab0-name - seen 'DualShot_Meta_Info'
     '0x0ab1-name' => 'DepthMapName', # seen 'DualShot_DepthMap_1' (SM-N950U)
     '0x0ab1' => { Name => 'DepthMapData', Binary => 1 },
    # 0x0ab3-name - seen 'DualShot_Extra_Info' (SM-N950U)
@@ -982,8 +994,28 @@ my %formatMinMax = (
     GROUPS => { 0 => 'MakerNotes', 2 => 'Image' },
     FIRST_ENTRY => 0,
     FORMAT => 'int32u',
-    9 => 'DepthMapWidth',
-    10 => 'DepthMapHeight',
+    0 => {
+        Name => 'DualShotInfoVersion', # (NC)
+        Format => 'int16u',
+        RawConv => '$$self{DualShotInfoVersion} = $val; undef',
+        Hidden => 1,
+    },
+    9 => {
+        Name => 'DepthMapWidth',
+        Condition => '$$self{DualShotInfoVersion} < 4', # (tested only with versions: 1,4)
+    },
+    10 => {
+        Name => 'DepthMapHeight',
+        Condition => '$$self{DualShotInfoVersion} < 4', # (tested only with versions: 1,4)
+    },
+    16 => {
+        Name => 'DepthMapWidth',
+        Condition => '$$self{DualShotInfoVersion} >= 4', # (tested only with versions: 1,4)
+    },
+    17 => {
+        Name => 'DepthMapHeight',
+        Condition => '$$self{DualShotInfoVersion} >= 4', # (tested only with versions: 1,4)
+    },
 );
 
 # Samsung composite tags
@@ -1305,7 +1337,7 @@ Samsung maker notes in EXIF information.
 
 =head1 AUTHOR
 
-Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

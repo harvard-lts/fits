@@ -295,8 +295,8 @@ entries may not be in the same order as requested.)  If a requested tag doesn't
 exist, a tag key is still generated, but the tag value is undefined.
 
 </td></tr><tr><td valign=top><b>HASH&nbsp;ref</b></td><td>
-Reference to a hash containing the options settings.  See
-<a href="#Options">Options</a> documentation below for a list of available
+Reference to a hash containing the options settings valid for this call only.
+See <a href="#Options">Options</a> documentation below for a list of available
 options. Options specified as arguments to <a href="#ImageInfo">ImageInfo</a>
 take precedence over <a href="#Options">Options</a> settings.
 </td></tr></table></blockquote>
@@ -415,6 +415,9 @@ distribution for examples.</p>
 </table></blockquote>
 
 <p><b>Available options:</b></p>
+<p><i>Note that these API options may be also be used in the
+<a href="exiftool_pod.html">exiftool application</a> via the command-line
+<b>-api</b> option.</i></p>
 <blockquote>
 <table class='norm'>
 <tr><th colspan=4 bgcolor='#dddddd'><font size='+1'>ExifTool Options</font></th></tr>
@@ -488,12 +491,18 @@ distribution for examples.</p>
     metadata (eg. AVI and WAV files).  The default value of 0 assumes 'Latin' encoding unless otherwise
     specified by the RIFF CSET chunk.  Set to undef to pass through strings without recoding.</td>
     <td align=center><i>(see <a href="#Charset">Charset</a> option)</i><br>or 0 or undef</td><td align=center>0</td></tr>
-<tr id="Compact"><td>Compact</td><td>Option to write compact XMP output.  The XMP specification suggests that the
-    data be padded with blanks to allow in-place editing. With this flag set to 1, the 2 kB of padding
-    is not written.  Note that this only effects embedded XMP since padding is never written for
-    stand-alone XMP files.  When set to 2, spaces to indent XMP for readability are also dropped.
-    Also see the <a href="#XMPShorthand">XMPShorthand</a> option for reducing the size of XMP.</td>
-    <td align=center>0, 1 or 2</td><td align=center>undef</td></tr>
+<tr id="Compact"><td>Compact</td><td>Comma-delimited list of settings for writing compact XMP.
+    Note that 'NoPadding' effects only embedded XMP since padding is never written for
+    stand-alone XMP files.  Case is not significant.</td><td align=center><table class=clear>
+    <tr><td valign=top align=right><b>NoPadding</b>&nbsp;=</td><td>Avoid 2 kB of recommended padding at end of XMP</td></tr>
+    <tr><td valign=top align=right><b>NoIndent</b>&nbsp;=</td><td>Avoid spaces to indent lines for readability</td></tr>
+    <tr><td valign=top align=right><b>NoNewline</b>&nbsp;=</td><td>Avoid unnecessary newlines</td></tr>
+    <tr><td valign=top align=right><b>Shorthand</b>&nbsp;=</td><td>Use XMP Shorthand format</td></tr>
+    <tr><td valign=top align=right><b>OneDesc</b>&nbsp;=</td><td>Combine XMP properties into a single rdf:Description</td></tr>
+    <tr><td valign=top align=right><b>AllSpace</b>&nbsp;=</td><td>'NoPadding,NoIndent,NoNewline'</td></tr>
+    <tr><td valign=top align=right><b>AllFormat</b>&nbsp;=</td><td>'Shorthand,OneDesc'</td></tr>
+    <tr><td valign=top align=right><b>All</b>&nbsp;=</td><td>'AllSpace,AllFormat'</td></tr>
+    </table></td><td align=center>undef</td></tr>
 <tr id="Composite"><td>Composite</td><td>Flag to generate Composite tags when extracting information.</td>
     <td align=center>0 or 1</td><td align=center>1</td></tr>
 <tr id="Compress"><td>Compress</td><td>Flag to write new values in compressed format if possible.
@@ -512,13 +521,12 @@ distribution for examples.</p>
     <code>q{%d&nbsp;%d&nbsp;%.8f}</code>.
     </td><td align=center>undef</td></tr>
 <tr id="DateFormat"><td>DateFormat</td><td>Output format for date/time values. If date can not
-    be converted, value is left unchanged unless the StrictDate option is set.
-    Timezones are ignored.  The inversion conversion (ie. when calling
+    be converted, value is left unchanged unless the <a href="#StrictDate">StrictDate</a>
+    option is set.  Timezones are ignored.  The inversion conversion (ie. when calling
     <a href="#SetNewValue">SetNewValue</a>) is performed only if POSIX::strptime
-    or Time::Piece is installed.</td> <td>See strftime
-    manpage for details.  The default setting of undef causes date/time values
-    to remain in standard EXIF format (similar to a DateFormat of
-    <code>"%Y:%m:%d %H:%M:%S"</code>).</td>
+    or Time::Piece is installed.</td><td>See strftime manpage for details.
+    The default setting of undef causes date/time values to remain in standard EXIF
+    format (similar to a DateFormat of <code>"%Y:%m:%d %H:%M:%S"</code>).</td>
     <td align=center>undef</td></tr>
 <tr id="Duplicates"><td>Duplicates</td><td>Flag to return values from
     tags with duplicate names when extracting information.</td>
@@ -545,17 +553,17 @@ distribution for examples.</p>
     proper GUID).  This option should be set to 2 to emulate pre-9.96 behaviour
     and read all extended XMP.  It may also be set to a GUID to read a specific
     extended XMP, or 0 to ignore extended XMP entirely.</td>
-    <td><table class=clear>
-    <tr><td valign=top align=right><b>0</b>&nbsp;=</td><td>ignore extended XMP</td></tr>
-    <tr><td valign=top align=right><b>1</b>&nbsp;=</td><td>valid GUID only</td></tr>
-    <tr><td valign=top align=right><b>2</b>&nbsp;=</td><td>any GUID</td></tr>
-    <tr><td valign=top align=right><i>guid</i>&nbsp;=</td><td>specific GUID</td></tr>
+    <td align=center><table class=clear>
+    <tr><td valign=top align=right><b>0</b>&nbsp;=</td><td>Ignore extended XMP</td></tr>
+    <tr><td valign=top align=right><b>1</b>&nbsp;=</td><td>Valid GUID only</td></tr>
+    <tr><td valign=top align=right><b>2</b>&nbsp;=</td><td>Any GUID</td></tr>
+    <tr><td valign=top align=right><i>guid</i>&nbsp;=</td><td>Specific GUID</td></tr>
     </table></td><td align=center>1</td></tr>
 <tr id="ExtractEmbedded"><td>ExtractEmbedded</td>
     <td>Flag to extract information from embedded
     documents in EPS files, embedded EPS information and JPEG and Jpeg2000
-    images in PDF files, embedded MPF images in JPEG and MPO files, streaming
-    metadata in AVCHD videos, and the resource fork of Mac OS files.</td>
+    images in PDF files, embedded MPF images in JPEG and MPO files, timed
+    metadata in videos, and the resource fork of Mac OS files.</td>
     <td align=center>0 or 1</td><td align=center>undef</td></tr>
 <tr id="FastScan"><td>FastScan</td>
     <td>Flag to increase speed of extracting information
@@ -564,17 +572,27 @@ distribution for examples.</p>
     PhotoMechanic, MIE or PreviewImage trailer.  This also stops the parsing
     after the first comment in GIF images, and at the audio/video data with
     RIFF-format files (AVI, WAV, etc), so any trailing metadata (eg. XMP written
-    by some utilities) may be missed.  When combined with the ScanForXMP option,
-    prevents scanning for XMP in recognized file types.  With a value of 2,
-    ExifTool will also avoid extracting any EXIF MakerNote information. When set
-    to 3, the file is not actually parsed, and only an initial guess at FileType
-    and some pseudo tags are returned. </td>
-    <td align=center>0, 1, 2 or 3</td><td align=center>undef</td></tr>
+    by some utilities) may be missed.  Also disables input buffering for some
+    types of files to reduce memory usage when reading from a non-seekable
+    stream.  When combined with the ScanForXMP option, prevents scanning for XMP
+    in recognized file types.  With a value of 2, ExifTool will also avoid
+    extracting any EXIF MakerNote information.  When set to 3 or 4, only pseudo
+    system tags and FileType are generated.  For 3, the file header is read to
+    provide an educated guess at FileType.  For 4, the file is not read at all
+    and FileType is determined based on the file's extension.</td>
+    <td align=center>0, 1, 2, 3 or 4</td><td align=center>undef</td></tr>
 <tr id="Filter"><td>Filter</td>
     <td>Perl expression used to filter all returned tag values.  Applies to
-    PrintConv values only.</td><td>Expression to act on the
-    value of the Perl default variable ($_), changing the value of this variable
-    as required.  The value is not changed if $_ is set to undef.</td>
+    PrintConv values only.  List items are filtered individually.</td>
+    <td>Expression to act on the value of the Perl default variable ($_),
+    changing the value of this variable as required.  The value is not changed
+    if $_ is set to undef.</td>
+    <td align=center>undef</td></tr>
+<tr id="FilterW"><td>FilterW</td>
+    <td>Perl expression used to filter PrintConv values when writing.</td>
+    <td>Expression to act on the value of the Perl default variable ($_),
+    changing the value of this variable as required.  The value is not changed
+    if $_ is set to undef.</td>
     <td align=center>undef</td></tr>
 <tr id="FixBase"><td>FixBase</td>
     <td>Fix maker notes base offset.  Allows values to be extracted from maker notes
@@ -616,6 +634,13 @@ distribution for examples.</p>
     GPS fixes are ignored if the number of acquired satellites is less than this.</td>
     <td align=center>A positive integer, or undef</td>
     <td align=center>undef</td></tr>
+<tr id="GeoSpeedRef"><td>GeoSpeedRef</td>
+    <td>Reference units for writing GPSSpeed when geotagging.</td>
+    <td align=center><table class=clear>
+    <tr><td valign=top align=right><b>K</b>,&nbsp;<b>k</b>&nbsp;or&nbsp;<b>km/h</b></td><td>=&nbsp;km/h</td></tr>
+    <tr><td valign=top align=right><b>M</b>,&nbsp;<b>m</b>&nbsp;or&nbsp;<b>mph</b></td><td>=&nbsp;mph</td></tr>
+    <tr><td valign=top align=right><i>(anything else)</i></td><td>=&nbsp;knots</td></tr>
+    </table></td><td align=center>undef</td></tr>
 <tr id="GlobalTimeShift"><td>GlobalTimeShift</td>
     <td>Time shift to apply to all extracted
     date/time PrintConv values.  Does not affect ValueConv values.</td>
@@ -631,7 +656,7 @@ distribution for examples.</p>
 <tr id="HtmlDump"><td>HtmlDump</td><td>Dump information in hex to a dynamic HTML web page.
     Option value sets a limit on the maximum block size.  Output file is
     specified by the TextOut option.</td>
-    <td><table class=clear>
+    <td align=center><table class=clear>
     <tr><td valign=top align=center><b>0</b>&nbsp;=</td><td>No HTML dump</td></tr>
     <tr><td valign=top align=center><b>1</b>&nbsp;=</td><td>1 KB size limit</td></tr>
     <tr><td valign=top align=center><b>2</b>&nbsp;=</td><td>16 KB size limit</td></tr>
@@ -639,7 +664,7 @@ distribution for examples.</p>
     </table></td><td align=center>0</td></tr>
 <tr id="HtmlDumpBase"><td>HtmlDumpBase</td><td>Base for HTML dump
     offsets.  If not defined, the EXIF/TIFF base offset is used.</td>
-    <td><table class=clear>
+    <td align=center><table class=clear>
     <tr><td valign=top align=right><b>0</b>&nbsp;=</td><td>Absolute offsets</td></tr>
     <tr><td valign=top align=right><i>non&#8209;zero</i>&nbsp;=</td><td>Relative offsets</td></tr>
     <tr><td valign=top align=right><b>undef</b>&nbsp;=</td><td>EXIF/TIFF offsets</td></tr>
@@ -672,7 +697,7 @@ distribution for examples.</p>
     <td align=center>An integer, or undef</td><td align=center>undef</td></tr>
 <tr id="ListJoin"><td>ListJoin</td><td>Separator used to join the PrintConv value of
     multi-item List-type tags into a single string.  If not defined, multi-item lists
-    are returned as a list reference.  Does not affect ValueConv values. </td>
+    are returned as a list reference.  Does not affect ValueConv values.</td>
     <td align=center>Any string, or undef</td><td align=center>', '</td></tr>
 <!-- deprecated in ExifTool 10.54; use "ListJoin" instead
 <tr id="ListSep"><td>ListSep</td><td>Separator string used to join lists of PrintConv values when
@@ -695,9 +720,10 @@ distribution for examples.</p>
     metadata item tags (see the "mdls" man page and the
     <a href="TagNames/MacOS.html#MDItem">MacOS MDItem Tags documentation</a> for more information).</td>
     <td align=center>0 or 1</td><td align=center>undef</td></tr>
-<tr id="MissingTagValue"><td>MissingTagValue</td><td>Value for missing tags interpolated
-    in tag name expressions. If not set, a minor error is issued for missing values,
-    or the value is set to '' if IgnoreMinorErrors is set.</td>
+<tr id="MissingTagValue"><td>MissingTagValue</td><td>Value for missing tags
+    interpolated in tag name expressions (or tags where the advanced formatting
+    expression returns undef). If not set, a minor error is issued for missing
+    values, or the value is set to '' if IgnoreMinorErrors is set.</td>
     <td align=center>Any string, or undef</td><td align=center>undef</td></tr>
 <tr id="NoPDFList"><td>NoPDFList</td><td>Flag to avoid splitting PDF list-type tag
     values into separate items.</td>
@@ -724,14 +750,21 @@ distribution for examples.</p>
     <td align=center>0 or 1</td><td align=center>undef</td></tr>
 <tr id="PrintConv"><td>PrintConv</td><td>Flag to enable print conversion.  Also enables inverse print
     conversion for writing.</td><td align=center>0 or 1</td><td align=center>1</td></tr>
+<tr id="QuickTimeHandler"><td>QuickTimeHandler</td><td>Flag set to add an 'mdir'
+    <a href="TagNames/QuickTime.html#Handler">Handler</a> to a newly created
+    Meta box when adding QuickTime ItemList tags.  Adobe Bridge does not add this
+    Handler, but it is commonly found in samples from other software, so it is
+    possible that this could affect the interoperability of ItemList tags.</td>
+    <td align=center>0 or 1</td>
+    <td align=center>undef</td></tr>
 <tr id="QuickTimeUTC"><td>QuickTimeUTC</td><td>Flag set to assume that QuickTime
     date/time values are stored as UTC, causing conversion to local time when they are
     extracted and from local time when written. According to the QuickTime
     specification date/time values should be UTC, but many digital cameras store
     local time instead (presumably because they don't know the time zone), so
-    the default is undef.  This option also disables the autodetection of
-    incorrect time-zero offsets in QuickTime date/time values, and enforces a
-    time zero of 1904 as per the QuickTime specification.</td>
+    the default is to not convert these times.  This option also disables the
+    autodetection of incorrect time-zero offsets in QuickTime date/time values,
+    and enforces a time zero of 1904 as per the QuickTime specification.</td>
     <td align=center>0 or 1</td>
     <td align=center>undef</td></tr>
 <tr id="RequestAll"><td>RequestAll</td><td>Flag to request all tags to be extracted.
@@ -768,10 +801,15 @@ distribution for examples.</p>
     <tr><td valign=top align=right><b>Tag</b>&nbsp;=</td><td>Sort alphabetically by tag name</td></tr>
     <tr><td valign=top align=right><b>Descr</b>&nbsp;=</td><td>Sort by tag description (with current Lang setting)</td></tr>
     </table></td><td align=center>'File'</td></tr>
-<tr id="StrictDate"><td>StrictDate</td><td>Flag to return undefined value for any date which can't be
-    converted when the DateFormat option is used.  When set to 1 while writing a
-    PrintConv date/time value, the value is written only if POSIX::strptime or
-    Time::Piece is available and can successfully convert the value.</td>
+<tr id="StrictDate"><td>StrictDate</td><td>Flag to return undefined value for
+    any date which can't be converted when the DateFormat option is used.  When
+    set to 1 while writing a PrintConv date/time value with the DateFormat
+    option set, the value is written only if POSIX::strptime or Time::Piece is
+    available and can successfully convert the value. For PNG CreationTime, a
+    setting of 1 has the additional effect of causing the date/time to be
+    reformatted according to PNG 1.2 recommendation (RFC-1123) when writing, and
+    a warning to be issued for any non-standard value when reading (but note
+    that Windows may not recognize PNG date/time values in standard format).</td>
     <td><table class=clear>
     <tr><td valign=top align=right><b>undef</b>&nbsp;=</td><td>Same as 0 for reading/writing or 1 for copying</td></tr>
     <tr><td valign=top align=right><b>0</b>&nbsp;=</td><td>Return bad date/time values unchanged</td></tr>
@@ -779,7 +817,7 @@ distribution for examples.</p>
     </table></td><td align=center>undef</td></tr>
 <tr id="Struct"><td>Struct</td><td>Flag to return XMP structures as HASH references
     instead of flattening into individual tags.  This setting has no effect
-    when writing since both flattened or structured tags may always be written.
+    when writing since both flattened and structured tags may always be written.
     See the <a href="struct.html">Structured Information documentation</a> for
     more details about structured information.</td>
     <td><table class=clear>
@@ -839,7 +877,11 @@ distribution for examples.</p>
     <tr><td valign=top align=center><b>4</b>&nbsp;=</td><td>Remove length limit on dump of tag values</td></tr>
     <tr><td valign=top align=center><b>5</b>&nbsp;=</td><td>Remove length limit on dump of JPEG segments</td></tr>
     </table></td><td align=center>0</td></tr>
-<tr id="WriteMode"><td>WriteMode</td><td>Set tag write/create mode.</td>
+<tr id="WriteMode"><td>WriteMode</td><td>Set tag write/create mode.  The level of the group
+    differs for different types of metadata.  For XMP or IPTC this is the full XMP/IPTC block
+    (the family 0 group), but for EXIF this is the individual IFD (the family 1 group).
+    The 'w' and 'c' modes are tested only when <a href="#SetNewValue">SetNewValue</a>
+    is called, but the 'g' mode is also tested in <a href="#WriteInfo">WriteInfo</a>.</td>
     <td>A string with one or more of these characters:<table class=clear>
     <tr><td valign=top align=center><b>w</b>&nbsp;=</td><td><b>W</b>rite existing tags</td></tr>
     <tr><td valign=top align=center><b>c</b>&nbsp;=</td><td><b>C</b>reate new tags</td></tr>
@@ -853,9 +895,6 @@ distribution for examples.</p>
     for unknown XMP tags with values that look like rational numbers or dates.</td>
     <td align=center>0 or 1</td>
     <td align=center>1</td></tr>
-<tr id="XMPShorthand"><td>XMPShorthand</td><td>Flag set to write XMP in shorthand format.</td>
-    <td align=center>0 or 1</td>
-    <td align=center>undef</td></tr>
 </table></blockquote>
 
 <blockquote><table><tr><td valign=top><sup>&dagger;</sup></td><td>The level of
@@ -1057,7 +1096,8 @@ and Warning tags.</p>
 <a href="#WriteInfo">WriteInfo</a>:</p>
 <blockquote>
 ByteOrder, Charset, CharsetEXIF, CharsetFileName, CharsetIPTC, Compact,
-Compress, FixBase, IgnoreMinorErrors, Password, PNGEarlyXMP and Verbose.
+Compress, FixBase, IgnoreMinorErrors, Password, PNGEarlyXMP, QuickTimeHandler,
+Verbose and WriteMode.
 </blockquote>
 
 <hr><h2><a name="GetTagList">GetTagList</a></h2>
@@ -1196,8 +1236,8 @@ my @keywords = $exifTool-&gt;<b>GetValue</b>('Keywords', 'ValueConv');
 called:</p>
 <blockquote>
 Charset, CoordFormat, DateFormat, Escape, Filter, GlobalTimeShift, Lang,
-ListItem, ListJoin, PrintConv, QuickTimeUTC (conversion to local time) and
-StrictDate.
+ListItem, ListJoin, PrintConv, QuickTimeUTC (conversion to local time),
+StrictDate and TimeZone.
 </blockquote>
 
 <hr><h2><a name="SetNewValue">SetNewValue</a></h2>
@@ -1409,7 +1449,7 @@ group (with '<code>Adobe:*</code>') or as a block (with '<code>Adobe</code>').</
 <a href="#SetNewValue">SetNewValue</a>:</p>
 <blockquote>
 Charset, DateFormat, Escape, IgnoreMinorErrors, Lang, ListJoin, ListSplit,
-PrintConv, QuickTimeUTC, StrictDate, Verbose and WriteMode.
+PrintConv, QuickTimeUTC, StrictDate, TimeZone, Verbose and WriteMode.
 </blockquote>
 
 <hr><h2><a name="GetNewValue">GetNewValue</a><a name="GetNewValues"></a></h2>
@@ -1659,22 +1699,22 @@ file is used unless the optional base time is specified.</p>
 <hr><h2><a name="SetFileName">SetFileName</a></h2>
 <p>Set the file name and directory, or create a hard link to the file.  If not
 specified, the new file name is derived from the new values of the FileName and
-Directory tags, or from the HardLink tag if creating a link.  If the FileName
-tag contains a '<code>/</code>', then the file is renamed into a new directory.
-If FileName ends with '<code>/</code>', then it is taken as a directory name and
-the file is moved into the new directory.  The new value for the Directory tag
-takes precedence over any directory specified in FileName.</p>
+Directory tags, or from the HardLink or SymLink tag if creating a link.  If the
+FileName tag contains a '<code>/</code>', then the file is renamed into a new
+directory. If FileName ends with '<code>/</code>', then it is taken as a
+directory name and the file is moved into the new directory.  The new value for
+the Directory tag takes precedence over any directory specified in FileName.</p>
 <blockquote><table class='norm'>
 <tr><td><b>Prototype</b></td><td>SetFileName($$;$$)</td></tr>
 <tr><td valign=top><b>Inputs</b></td><td><b>0)</b> ExifTool object reference
  <br><b>1)</b> Current file name
  <br><b>2)</b> [<i>optional</i>] New file name
- <br><b>3)</b> [<i>optional</i>] 'Link' to create a hard link instead of renaming the file,
- or 'Test' to test renaming feature by printing the old and new names instead of
- changing anything.
+ <br><b>3)</b> [<i>optional</i>] 'HardLink' or 'SymLink' to create a hard or
+ symbolic link instead of renaming the file, or 'Test' to test renaming feature
+ by printing the old and new names instead of changing anything.
 </td></tr>
-<tr><td valign=top><b>Returns</b></td><td>1 if the file name or directory was changed,
-0 if nothing was done, or -1 if there was an error renaming the file.
+<tr><td valign=top><b>Returns</b></td><td>1 on success, 0 if nothing was done,
+or -1 if there was an error renaming the file or creating the link.
 </td></tr>
 </table></blockquote>
 <p><b>Examples:</b></p>
@@ -1694,9 +1734,10 @@ necessary.</p>
 subsequent calls to <a href="#SetNewValue">SetNewValue</a>, new information
 will be created in the first valid group of this list.  This has an impact
 only if the group is not specified when calling
-<a href="#SetNewValue">SetNewValue</a>, and if the tag name exists in more
-than one group.  The default order is EXIF, IPTC then XMP.  Any family 0
-group name may be used.  Case is not significant.</p>
+<a href="#SetNewValue">SetNewValue</a>, and if the tag name exists in more than
+one group.  The default order is EXIF, IPTC, XMP, MakerNotes, QuickTime,
+Photoshop, ICC_Profile, CanonVRD, Adobe.  Any family 0 group name may be used. 
+Case is not significant.</p>
 <blockquote><table class='norm'>
 <tr><td><b>Prototype</b></td><td>SetNewGroups($;@)</td></tr>
 <tr><td valign=top><b>Inputs</b></td><td><b>0)</b> ExifTool object reference
@@ -1810,12 +1851,15 @@ documents.)  Nested sub-documents (if they exist) are indicated by numbers
 separated with dashes in the group name, to an arbitrary depth. (eg.
 '<code>Doc2-3-1</code>' is the 1<sup>st</sup> sub-sub-document of the
 3<sup>rd</sup> sub-document of the 2<sup>nd</sup> embedded document of the main
-file.)</p>
+file.)  Document numbers are also used to differentiate samples for
+timed metadata in videos.</p>
 <p>Family 4 provides a method for differentiating tags when multiple tags exist
 with the same name in the same location.  The primary instance of a tag (the tag
 extracted when the Duplicates option is disabled and no group is specified) has
 no family 4 group name, but additional instances have have family 4 group names
-of '<code>Copy1</code>', '<code>Copy2</code>', '<code>Copy3</code>', etc.</p>
+of '<code>Copy1</code>', '<code>Copy2</code>', '<code>Copy3</code>', etc.  For
+convenience, the primary tag may also be accessed using a group name of
+'<code>Copy0</code>'.</p>
 <p>See <a href="#GetAllGroups">GetAllGroups</a> for lists of group names.</p>
 
 <p><b>Examples:</b></p>
@@ -1982,51 +2026,53 @@ the specific IFD).
 <tr><td><b>0 (Information&nbsp;Type)</b></td>
 <td>AFCP, AIFF, APE, APP0, APP1, APP11, APP12, APP13, APP14, APP15, APP4, APP5,
 APP6, APP8, ASF, Audible, CanonVRD, Composite, DICOM, DNG, DV, DjVu, Ducky,
-EXE, EXIF, ExifTool, FLAC, FLIR, File, Flash, FlashPix, Font, FotoStation,
-GIF, GIMP, GeoTiff, GoPro, H264, HTML, ICC_Profile, ID3, IPTC, ISO, ITC,
-JFIF, JPEG, JSON, Jpeg2000, LNK, Leaf, Lytro, M2TS, MIE, MIFF, MNG, MOI,
-MPC, MPEG, MPF, MXF, MakerNotes, Matroska, Meta, Ogg, OpenEXR, Opus, PDF,
-PICT, PLIST, PNG, PSP, Palm, PanasonicRaw, PhotoCD, PhotoMechanic,
-Photoshop, PostScript, PrintIM, QuickTime, RAF, RIFF, RSRC, RTF, Radiance,
-Rawzor, Real, Red, SVG, SigmaRaw, Stim, Theora, Torrent, VCard, Vorbis, WTV,
-XML, XMP, ZIP
+EXE, EXIF, ExifTool, FITS, FLAC, FLIR, File, Flash, FlashPix, Font,
+FotoStation, GIF, GIMP, GeoTiff, GoPro, H264, HTML, ICC_Profile, ID3, IPTC,
+ISO, ITC, JFIF, JPEG, JSON, Jpeg2000, LNK, Leaf, Lytro, M2TS, MIE, MIFF,
+MNG, MOI, MPC, MPEG, MPF, MXF, MakerNotes, Matroska, Meta, Ogg, OpenEXR,
+Opus, PDF, PICT, PLIST, PNG, PSP, Palm, PanasonicRaw, PhotoCD,
+PhotoMechanic, Photoshop, PostScript, PrintIM, QuickTime, RAF, RIFF, RSRC,
+RTF, Radiance, Rawzor, Real, Red, SVG, SigmaRaw, Stim, Theora, Torrent,
+VCard, Vorbis, WTV, XML, XMP, ZIP
 </td></tr>
 <tr><td><b>1&nbsp;(Specific&nbsp;Location)</b></td>
 <td>AC3, AFCP, AIFF, APE, ASF, AVI1, Adobe, AdobeCM, AdobeDNG, Apple, Audible,
 CIFF, CameraIFD, Canon, CanonCustom, CanonRaw, CanonVRD, Casio, Chapter#,
 Composite, DICOM, DJI, DNG, DV, DjVu, DjVu-Meta, Ducky, EPPIM, EXE, EXIF,
-ExifIFD, ExifTool, FLAC, FLIR, File, Flash, FlashPix, Font, FotoStation,
-FujiFilm, FujiIFD, GE, GIF, GIMP, GPS, GeoTiff, GlobParamIFD, GoPro,
-GraphConv, H264, HP, HTC, HTML, HTML-dc, HTML-ncc, HTML-office, HTML-prod,
-HTML-vw96, HTTP-equiv, ICC-chrm, ICC-clrt, ICC-header, ICC-meas, ICC-meta,
-ICC-view, ICC_Profile, ICC_Profile#, ID3, ID3v1, ID3v1_Enh, ID3v2_2,
-ID3v2_3, ID3v2_4, IFD0, IFD1, IPTC, IPTC#, ISO, ITC, InteropIFD, JFIF, JFXX,
-JPEG, JPEG-HDR, JSON, JVC, Jpeg2000, KDC_IFD, Kodak, KodakBordersIFD,
-KodakEffectsIFD, KodakIFD, KyoceraRaw, LNK, Leaf, LeafSubIFD, Leica, Lytro,
-M2TS, MAC, MIE-Audio, MIE-Camera, MIE-Canon, MIE-Doc, MIE-Extender,
-MIE-Flash, MIE-GPS, MIE-Geo, MIE-Image, MIE-Lens, MIE-Main, MIE-MakerNotes,
-MIE-Meta, MIE-Orient, MIE-Preview, MIE-Thumbnail, MIE-UTM, MIE-Unknown,
-MIE-Video, MIFF, MNG, MOBI, MOI, MPC, MPEG, MPF0, MPImage, MXF, MacOS,
-MakerNotes, MakerUnknown, Matroska, MediaJukebox, MetaIFD, Microsoft,
-Minolta, MinoltaRaw, Motorola, NITF, Nikon, NikonCapture, NikonCustom,
-NikonScan, Nintendo, Ocad, Ogg, Olympus, OpenEXR, Opus, PDF, PICT, PNG,
-PNG-pHYs, PSP, Palm, Panasonic, PanasonicRaw, Pentax, PhaseOne, PhotoCD,
-PhotoMechanic, Photoshop, PictureInfo, PostScript, PreviewIFD, PrintIM,
-ProfileIFD, Qualcomm, QuickTime, RAF, RAF2, RIFF, RMETA, RSRC, RTF,
-Radiance, Rawzor, Real, Real-CONT, Real-MDPR, Real-PROP, Real-RA3, Real-RA4,
-Real-RA5, Real-RJMD, Reconyx, Red, Ricoh, SPIFF, SR2, SR2DataIFD, SR2SubIFD,
-SRF#, SVG, Samsung, Sanyo, Scalado, Sigma, SigmaRaw, Sony, SonyIDC, Stim,
-SubIFD, System, Theora, Torrent, Track#, VCalendar, VCard, Version0, Vorbis,
-WTV, XML, XMP, XMP-DICOM, XMP-GAudio, XMP-GImage, XMP-GPano, XMP-GSpherical,
-XMP-MP, XMP-MP1, XMP-PixelLive, XMP-aas, XMP-acdsee, XMP-album,
-XMP-apple-fi, XMP-aux, XMP-cc, XMP-cell, XMP-creatorAtom, XMP-crs, XMP-dc,
-XMP-dex, XMP-digiKam, XMP-drone-dji, XMP-dwc, XMP-exif, XMP-exifEX,
-XMP-expressionmedia, XMP-extensis, XMP-fpv, XMP-getty, XMP-ics,
-XMP-iptcCore, XMP-iptcExt, XMP-lr, XMP-mediapro, XMP-microsoft,
-XMP-mwg-coll, XMP-mwg-kw, XMP-mwg-rs, XMP-pdf, XMP-pdfx, XMP-photomech,
-XMP-photoshop, XMP-plus, XMP-pmi, XMP-prism, XMP-prl, XMP-prm, XMP-pur,
-XMP-rdf, XMP-swf, XMP-tiff, XMP-x, XMP-xmp, XMP-xmpBJ, XMP-xmpDM, XMP-xmpMM,
-XMP-xmpNote, XMP-xmpPLUS, XMP-xmpRights, XMP-xmpTPg, ZIP
+ExifIFD, ExifTool, FITS, FLAC, FLIR, File, Flash, FlashPix, Font,
+FotoStation, FujiFilm, FujiIFD, GE, GIF, GIMP, GPS, GeoTiff, GlobParamIFD,
+GoPro, GraphConv, H264, HP, HTC, HTML, HTML-dc, HTML-ncc, HTML-office,
+HTML-prod, HTML-vw96, HTTP-equiv, ICC-chrm, ICC-clrt, ICC-header, ICC-meas,
+ICC-meta, ICC-view, ICC_Profile, ICC_Profile#, ID3, ID3v1, ID3v1_Enh,
+ID3v2_2, ID3v2_3, ID3v2_4, IFD0, IFD1, IPTC, IPTC#, ISO, ITC, InteropIFD,
+ItemList, JFIF, JFXX, JPEG, JPEG-HDR, JSON, JVC, Jpeg2000, KDC_IFD, Keys,
+Kodak, KodakBordersIFD, KodakEffectsIFD, KodakIFD, KyoceraRaw, LNK, Leaf,
+LeafSubIFD, Leica, Lytro, M2TS, MAC, MIE-Audio, MIE-Camera, MIE-Canon,
+MIE-Doc, MIE-Extender, MIE-Flash, MIE-GPS, MIE-Geo, MIE-Image, MIE-Lens,
+MIE-Main, MIE-MakerNotes, MIE-Meta, MIE-Orient, MIE-Preview, MIE-Thumbnail,
+MIE-UTM, MIE-Unknown, MIE-Video, MIFF, MNG, MOBI, MOI, MPC, MPEG, MPF0,
+MPImage, MS-DOC, MXF, MacOS, MakerNotes, MakerUnknown, Matroska,
+MediaJukebox, Meta, MetaIFD, Microsoft, Minolta, MinoltaRaw, Motorola, NITF,
+Nikon, NikonCapture, NikonCustom, NikonScan, Nintendo, Ocad, Ogg, Olympus,
+OpenEXR, Opus, PDF, PICT, PNG, PNG-pHYs, PSP, Palm, Panasonic, PanasonicRaw,
+Pentax, PhaseOne, PhotoCD, PhotoMechanic, Photoshop, PictureInfo,
+PostScript, PreviewIFD, PrintIM, ProfileIFD, Qualcomm, QuickTime, RAF, RAF2,
+RIFF, RMETA, RSRC, RTF, Radiance, Rawzor, Real, Real-CONT, Real-MDPR,
+Real-PROP, Real-RA3, Real-RA4, Real-RA5, Real-RJMD, Reconyx, Red, Ricoh,
+SPIFF, SR2, SR2DataIFD, SR2SubIFD, SRF#, SVG, Samsung, Sanyo, Scalado,
+Sigma, SigmaRaw, Sony, SonyIDC, Stim, SubIFD, System, Theora, Torrent,
+Track#, UserData, VCalendar, VCard, Version0, Vorbis, WTV, XML, XMP,
+XMP-DICOM, XMP-GAudio, XMP-GDepth, XMP-GFocus, XMP-GImage, XMP-GPano,
+XMP-GSpherical, XMP-LImage, XMP-MP, XMP-MP1, XMP-PixelLive, XMP-aas,
+XMP-acdsee, XMP-album, XMP-apple-fi, XMP-aux, XMP-cc, XMP-cell,
+XMP-creatorAtom, XMP-crs, XMP-dc, XMP-dex, XMP-digiKam, XMP-drone-dji,
+XMP-dwc, XMP-exif, XMP-exifEX, XMP-expressionmedia, XMP-extensis, XMP-fpv,
+XMP-getty, XMP-ics, XMP-iptcCore, XMP-iptcExt, XMP-lr, XMP-mediapro,
+XMP-microsoft, XMP-mwg-coll, XMP-mwg-kw, XMP-mwg-rs, XMP-pdf, XMP-pdfx,
+XMP-photomech, XMP-photoshop, XMP-plus, XMP-pmi, XMP-prism, XMP-prl,
+XMP-prm, XMP-pur, XMP-rdf, XMP-swf, XMP-tiff, XMP-x, XMP-xmp, XMP-xmpBJ,
+XMP-xmpDM, XMP-xmpMM, XMP-xmpNote, XMP-xmpPLUS, XMP-xmpRights, XMP-xmpTPg,
+ZIP
 </td></tr>
 <tr><td><b>2&nbsp;(Category)</b></td>
 <td>Audio, Author, Camera, Document, ExifTool, Image, Location, Other,

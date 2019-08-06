@@ -4,7 +4,7 @@
 <head>
 <title>exiftool Application Documentation</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rev="made" href="mailto:_networkd@osx339.sd.apple.com" />
+<link rev="made" href="mailto:root@osx217.apple.com" />
 </head>
 
 <body style="background-color: white">
@@ -91,7 +91,7 @@
 
 <p>A command-line interface to <a>Image::ExifTool</a>, used for reading and writing meta information in a variety of file types. <i>FILE</i> is one or more source file names, directory names, or <code>-</code> for the standard input. Metadata is read from source files and printed in readable form to the console (or written to output text files with <b>-w</b>).</p>
 
-<p>To write or delete metadata, tag values are assigned using the -<i>TAG</i>=[<i>VALUE</i>] syntax, or the <b>-geotag</b> option. To copy or move metadata, the <b>-tagsFromFile</b> feature is used. By default the original files are preserved with <code>_original</code> appended to their names -- be sure to verify that the new files are OK before erasing the originals. Once in write mode, exiftool will ignore any read-specific options.</p>
+<p>To write or delete metadata, tag values are assigned using -<i>TAG</i>=[<i>VALUE</i>], and/or the <b>-geotag</b>, <b>-csv=</b> or <b>-json=</b> options. To copy or move metadata, the <b>-tagsFromFile</b> feature is used. By default the original files are preserved with <code>_original</code> appended to their names -- be sure to verify that the new files are OK before erasing the originals. Once in write mode, exiftool will ignore any read-specific options.</p>
 
 <p>Note: If <i>FILE</i> is a directory name then only supported file types in the directory are processed (in write mode only writable types are processed). However, files may be specified by name, or the <b>-ext</b> option may be used to force processing of files with any extension. Hidden files in the directory are also processed. Adding the <b>-r</b> option causes subdirectories to be processed recursively, but those with names beginning with &quot;.&quot; are skipped unless <b>-r.</b> is used.</p>
 
@@ -99,44 +99,45 @@
 
 <pre><code>  File Types
   ------------+-------------+-------------+-------------+------------
-  3FR   r     | DV    r     | JP2   r/w   | ODT   r     | RSRC  r
-  3G2   r/w   | DVB   r/w   | JPEG  r/w   | OFR   r     | RTF   r
-  3GP   r/w   | DVR-MS r    | JSON  r     | OGG   r     | RW2   r/w
-  A     r     | DYLIB r     | K25   r     | OGV   r     | RWL   r/w
-  AA    r     | EIP   r     | KDC   r     | OPUS  r     | RWZ   r
-  AAX   r/w   | EPS   r/w   | KEY   r     | ORF   r/w   | RM    r
-  ACR   r     | EPUB  r     | LA    r     | OTF   r     | SEQ   r
-  AFM   r     | ERF   r/w   | LFP   r     | PAC   r     | SKETCH r
-  AI    r/w   | EXE   r     | LNK   r     | PAGES r     | SO    r
-  AIFF  r     | EXIF  r/w/c | M2TS  r     | PBM   r/w   | SR2   r/w
-  APE   r     | EXR   r     | M4A/V r/w   | PCD   r     | SRF   r
-  ARW   r/w   | EXV   r/w/c | MAX   r     | PDB   r     | SRW   r/w
-  ASF   r     | F4A/V r/w   | MEF   r/w   | PDF   r/w   | SVG   r
-  AVI   r     | FFF   r/w   | MIE   r/w/c | PEF   r/w   | SWF   r
-  AZW   r     | FLA   r     | MIFF  r     | PFA   r     | THM   r/w
-  BMP   r     | FLAC  r     | MKA   r     | PFB   r     | TIFF  r/w
-  BPG   r     | FLIF  r/w   | MKS   r     | PFM   r     | TORRENT r
-  BTF   r     | FLV   r     | MKV   r     | PGF   r     | TTC   r
-  CHM   r     | FPF   r     | MNG   r/w   | PGM   r/w   | TTF   r
-  COS   r     | FPX   r     | MOBI  r     | PLIST r     | VCF   r
-  CR2   r/w   | GIF   r/w   | MODD  r     | PICT  r     | VRD   r/w/c
-  CR3   r/w   | GPR   r/w   | MOI   r     | PMP   r     | VSD   r
-  CRM   r/w   | GZ    r     | MOS   r/w   | PNG   r/w   | WAV   r
-  CRW   r/w   | HDP   r/w   | MOV   r/w   | PPM   r/w   | WDP   r/w
-  CS1   r/w   | HDR   r     | MP3   r     | PPT   r     | WEBP  r
-  DCM   r     | HEIC  r     | MP4   r/w   | PPTX  r     | WEBM  r
-  DCP   r/w   | HEIF  r     | MPC   r     | PS    r/w   | WMA   r
-  DCR   r     | HTML  r     | MPG   r     | PSB   r/w   | WMV   r
-  DFONT r     | ICC   r/w/c | MPO   r/w   | PSD   r/w   | WTV   r
-  DIVX  r     | ICS   r     | MQV   r/w   | PSP   r     | WV    r
-  DJVU  r     | IDML  r     | MRW   r/w   | QTIF  r/w   | X3F   r/w
-  DLL   r     | IIQ   r/w   | MXF   r     | R3D   r     | XCF   r
-  DNG   r/w   | IND   r/w   | NEF   r/w   | RA    r     | XLS   r
-  DOC   r     | INX   r     | NRW   r/w   | RAF   r/w   | XLSX  r
-  DOCX  r     | ISO   r     | NUMBERS r   | RAM   r     | XMP   r/w/c
-  DPX   r     | ITC   r     | O     r     | RAR   r     | ZIP   r
-  DR4   r/w/c | J2C   r     | ODP   r     | RAW   r/w   |
-  DSS   r     | JNG   r/w   | ODS   r     | RIFF  r     |
+  3FR   r     | DSS   r     | J2C   r     | ODP   r     | RAW   r/w
+  3G2   r/w   | DV    r     | JNG   r/w   | ODS   r     | RIFF  r
+  3GP   r/w   | DVB   r/w   | JP2   r/w   | ODT   r     | RSRC  r
+  A     r     | DVR-MS r    | JPEG  r/w   | OFR   r     | RTF   r
+  AA    r     | DYLIB r     | JSON  r     | OGG   r     | RW2   r/w
+  AAE   r     | EIP   r     | K25   r     | OGV   r     | RWL   r/w
+  AAX   r/w   | EPS   r/w   | KDC   r     | OPUS  r     | RWZ   r
+  ACR   r     | EPUB  r     | KEY   r     | ORF   r/w   | RM    r
+  AFM   r     | ERF   r/w   | LA    r     | OTF   r     | SEQ   r
+  AI    r/w   | EXE   r     | LFP   r     | PAC   r     | SKETCH r
+  AIFF  r     | EXIF  r/w/c | LNK   r     | PAGES r     | SO    r
+  APE   r     | EXR   r     | LRV   r/w   | PBM   r/w   | SR2   r/w
+  ARQ   r/w   | EXV   r/w/c | M2TS  r     | PCD   r     | SRF   r
+  ARW   r/w   | F4A/V r/w   | M4A/V r/w   | PCX   r     | SRW   r/w
+  ASF   r     | FFF   r/w   | MAX   r     | PDB   r     | SVG   r
+  AVI   r     | FITS  r     | MEF   r/w   | PDF   r/w   | SWF   r
+  AZW   r     | FLA   r     | MIE   r/w/c | PEF   r/w   | THM   r/w
+  BMP   r     | FLAC  r     | MIFF  r     | PFA   r     | TIFF  r/w
+  BPG   r     | FLIF  r/w   | MKA   r     | PFB   r     | TORRENT r
+  BTF   r     | FLV   r     | MKS   r     | PFM   r     | TTC   r
+  CHM   r     | FPF   r     | MKV   r     | PGF   r     | TTF   r
+  COS   r     | FPX   r     | MNG   r/w   | PGM   r/w   | VCF   r
+  CR2   r/w   | GIF   r/w   | MOBI  r     | PLIST r     | VRD   r/w/c
+  CR3   r/w   | GPR   r/w   | MODD  r     | PICT  r     | VSD   r
+  CRM   r/w   | GZ    r     | MOI   r     | PMP   r     | WAV   r
+  CRW   r/w   | HDP   r/w   | MOS   r/w   | PNG   r/w   | WDP   r/w
+  CS1   r/w   | HDR   r     | MOV   r/w   | PPM   r/w   | WEBP  r
+  DCM   r     | HEIC  r/w   | MP3   r     | PPT   r     | WEBM  r
+  DCP   r/w   | HEIF  r/w   | MP4   r/w   | PPTX  r     | WMA   r
+  DCR   r     | HTML  r     | MPC   r     | PS    r/w   | WMV   r
+  DFONT r     | ICC   r/w/c | MPG   r     | PSB   r/w   | WTV   r
+  DIVX  r     | ICS   r     | MPO   r/w   | PSD   r/w   | WV    r
+  DJVU  r     | IDML  r     | MQV   r/w   | PSP   r     | X3F   r/w
+  DLL   r     | IIQ   r/w   | MRW   r/w   | QTIF  r/w   | XCF   r
+  DNG   r/w   | IND   r/w   | MXF   r     | R3D   r     | XLS   r
+  DOC   r     | INSV  r     | NEF   r/w   | RA    r     | XLSX  r
+  DOCX  r     | INX   r     | NRW   r/w   | RAF   r/w   | XMP   r/w/c
+  DPX   r     | ISO   r     | NUMBERS r   | RAM   r     | ZIP   r
+  DR4   r/w/c | ITC   r     | O     r     | RAR   r     |
 
   Meta Information
   ----------------------+----------------------+---------------------
@@ -219,7 +220,7 @@
   -fast[NUM]                       Increase speed for slow devices
   -fileOrder [-]TAG                Set file processing order
   -i DIR      (-ignore)            Ignore specified directory name
-  -if EXPR                         Conditionally process files
+  -if[NUM] EXPR                    Conditionally process files
   -m          (-ignoreMinorErrors) Ignore minor errors and warnings
   -o OUTFILE  (-out)               Set output file or directory name
   -overwrite_original              Overwrite original by renaming tmp file
@@ -341,7 +342,7 @@
 
 <p><i>SRCFILE</i> may be the same as <i>FILE</i> to move information around within a single file. In this case, <code>@</code> may be used to represent the source file (ie. <code>-tagsFromFile @</code>), permitting this feature to be used for batch processing multiple files. Specified tags are then copied from each file in turn as it is rewritten. For advanced batch use, the source file name may also be specified using a <i>FMT</i> string in which %d, %f and %e represent the directory, file name and extension of <i>FILE</i>. (eg. the current <i>FILE</i> would be represented by <code>%d%f.%e</code>, with the same effect as <code>@</code>). See the <b>-w</b> option for <i>FMT</i> string examples.</p>
 
-<p>A powerful redirection feature allows a destination tag to be specified for each copied tag. With this feature, information may be written to a tag with a different name or group. This is done using &quot;&#39;-<i>DSTTAG</i>&lt;<i>SRCTAG</i>&#39;&quot; or &quot;&#39;-<i>SRCTAG</i>&gt;<i>DSTTAG</i>&#39;&quot; on the command line after <b>-tagsFromFile</b>, and causes the value of <i>SRCTAG</i> to be copied from <i>SRCFILE</i> and written to <i>DSTTAG</i> in <i>FILE</i>. Note that this argument must be quoted to prevent shell redirection, and there is no <code>=</code> sign as when assigning new values. Source and/or destination tags may be prefixed by a group name and/or suffixed by <code>#</code>. Wildcards are allowed in both the source and destination tag names. A destination group and/or tag name of <code>All</code> or <code>*</code> writes to the same family 1 group and/or tag name as the source. If no destination group is specified, the information is written to the preferred group. Whitespace around the <code>&gt;</code> or <code>&lt;</code> is ignored. As a convenience, <code>-tagsFromFile @</code> is assumed for any redirected tags which are specified without a prior <b>-tagsFromFile</b> option. Copied tags may also be added or deleted from a list with arguments of the form &quot;&#39;-<i>SRCTAG</i>+&lt;<i>DSTTAG</i>&#39;&quot; or &quot;&#39;-<i>SRCTAG</i>-&lt;<i>DSTTAG</i>&#39;&quot;.</p>
+<p>A powerful redirection feature allows a destination tag to be specified for each copied tag. With this feature, information may be written to a tag with a different name or group. This is done using &quot;&#39;-<i>DSTTAG</i>&lt;<i>SRCTAG</i>&#39;&quot; or &quot;&#39;-<i>SRCTAG</i>&gt;<i>DSTTAG</i>&#39;&quot; on the command line after <b>-tagsFromFile</b>, and causes the value of <i>SRCTAG</i> to be copied from <i>SRCFILE</i> and written to <i>DSTTAG</i> in <i>FILE</i>. Has no effect unless <i>SRCTAG</i> exists in <i>SRCFILE</i>. Note that this argument must be quoted to prevent shell redirection, and there is no <code>=</code> sign as when assigning new values. Source and/or destination tags may be prefixed by a group name and/or suffixed by <code>#</code>. Wildcards are allowed in both the source and destination tag names. A destination group and/or tag name of <code>All</code> or <code>*</code> writes to the same family 1 group and/or tag name as the source. If no destination group is specified, the information is written to the preferred group. Whitespace around the <code>&gt;</code> or <code>&lt;</code> is ignored. As a convenience, <code>-tagsFromFile @</code> is assumed for any redirected tags which are specified without a prior <b>-tagsFromFile</b> option. Copied tags may also be added or deleted from a list with arguments of the form &quot;&#39;-<i>SRCTAG</i>+&lt;<i>DSTTAG</i>&#39;&quot; or &quot;&#39;-<i>SRCTAG</i>-&lt;<i>DSTTAG</i>&#39;&quot; (but see Note 5 below).</p>
 
 <p>An extension of the redirection feature allows strings involving tag names to be used on the right hand side of the <code>&lt;</code> symbol with the syntax &quot;&#39;-<i>DSTTAG</i>&lt;<i>STR</i>&#39;&quot;, where tag names in <i>STR</i> are prefixed with a <code>$</code> symbol. See the <b>-p</b> option and the <a href="#Advanced-formatting-feature">&quot;Advanced formatting feature&quot;</a> section for more details about this syntax. Strings starting with a <code>=</code> sign must insert a single space after the <code>&lt;</code> to avoid confusion with the <code>&lt;=</code> operator which sets the tag value from the contents of a file. A single space at the start of the string is removed if it exists, but all other whitespace in the string is preserved. See note 8 below about using the redirection feature with list-type stags, shortcuts or when using wildcards in tag names.</p>
 
@@ -373,7 +374,7 @@
 
 <p>7) Structured tags are copied by default when copying tags. See the <b>-struct</b> option for details.</p>
 
-<p>8) With the redirection feature, copying a tag directly (ie. &quot;&#39;-<i>DSTTAG</i>&lt;<i>SRCTAG</i>&#39;&quot;) is not the same as interpolating its value inside a string (ie. &quot;&#39;-<i>DSTTAG</i>&lt;$<i>SRCTAG</i>&#39;&quot;) for list-type tags, <a>shortcut tags</a>, or tag names containing wildcards. When copying directly, the values of each matching source tag are copied individually to the destination tag (as if they were separate assignments). However, when interpolated inside a string, list items and the values of shortcut tags are concatenated (with a separator set by the <b>-sep</b> option), and wildcards are not allowed. Also, UserParam variables are available only when interpolated in a string.</p>
+<p>8) With the redirection feature, copying a tag directly (ie. &quot;&#39;-<i>DSTTAG</i>&lt;<i>SRCTAG</i>&#39;&quot;) is not the same as interpolating its value inside a string (ie. &quot;&#39;-<i>DSTTAG</i>&lt;$<i>SRCTAG</i>&#39;&quot;) for list-type tags, <a>shortcut tags</a>, tag names containing wildcards, or UserParam variables. When copying directly, the values of each matching source tag are copied individually to the destination tag (as if they were separate assignments). However, when interpolated inside a string, list items and the values of shortcut tags are concatenated (with a separator set by the <b>-sep</b> option), and wildcards are not allowed. Also, UserParam variables are available only when interpolated in a string.</p>
 
 </dd>
 <dt id="x-TAG--exclude"><b>-x</b> <i>TAG</i> (<b>-exclude</b>)</dt>
@@ -433,7 +434,7 @@
 <dt id="charset-TYPE-CHARSET"><b>-charset</b> [[<i>TYPE</i>=]<i>CHARSET</i>]</dt>
 <dd>
 
-<p>If <i>TYPE</i> is <code>ExifTool</code> or not specified, this option sets the ExifTool character encoding for output tag values when reading and input values when writing. The default ExifTool encoding is <code>UTF8</code>. If no <i>CHARSET</i> is given, a list of available character sets is returned. Valid <i>CHARSET</i> values are:</p>
+<p>If <i>TYPE</i> is <code>ExifTool</code> or not specified, this option sets the ExifTool character encoding for output tag values when reading and input values when writing, with a default of <code>UTF8</code>. If no <i>CHARSET</i> is given, a list of available character sets is returned. Valid <i>CHARSET</i> values are:</p>
 
 <pre><code>    CHARSET     Alias(es)        Description
     ----------  ---------------  ----------------------------------
@@ -489,7 +490,9 @@
 
 <p>Empty values are ignored when importing (unless the <b>-f</b> option is used and the API MissingTagValue is set to an empty string, in which case the tag is deleted). Also, FileName and Directory columns are ignored if they exist (ie. ExifTool will not attempt to write these tags with a CSV import). To force a tag to be deleted, use the <b>-f</b> option and set the value to &quot;-&quot; in the CSV file (or to the MissingTagValue if this API option was used). Multiple databases may be imported in a single command.</p>
 
-<p>When exporting a CSV file, the <b>-g</b> or <b>-G</b> option adds group names to the tag headings. If the <b>-a</b> option is used to allow duplicate tag names, the duplicate tags are only included in the CSV output if the column headings are unique. Adding the <b>-G4</b> option ensures a unique column heading for each tag. When exporting specific tags, the CSV columns are arranged in the same order as the specified tags provided the column headings exactly match the specified tag names, otherwise the columns are sorted in alphabetical order.</p>
+<p>When exporting a CSV file, the <b>-g</b> or <b>-G</b> option adds group names to the tag headings. If the <b>-a</b> option is used to allow duplicate tag names, the duplicate tags are only included in the CSV output if the column headings are unique. Adding the <b>-G4</b> option ensures a unique column heading for each tag. The <b>-b</b> option may be added to output binary data, encoded in base64 if necessary (indicated by ASCII &quot;base64:&quot; as the first 7 bytes of the value). Values may also be encoded in base64 if the <b>-charset</b> option is used and the value contains invalid characters.</p>
+
+<p>When exporting specific tags, the CSV columns are arranged in the same order as the specified tags provided the column headings exactly match the specified tag names, otherwise the columns are sorted in alphabetical order.</p>
 
 <p>When importing from a CSV file, only files specified on the command line are processed. Any extra entries in the CSV file are ignored.</p>
 
@@ -497,7 +500,7 @@
 
 <p>Special feature: <b>-csv</b>+=<i>CSVFILE</i> may be used to add items to existing lists. This affects only list-type tags. Also applies to the <b>-j</b> option.</p>
 
-<p>Note that this option is fundamentally different than all other output format options because it requires information from all input files to be buffered in memory before the output is written. This may result in excessive memory usage when processing a very large number of files with a single command. Also, it makes this option incompatible with the <b>-w</b> option.</p>
+<p>Note that this option is fundamentally different than all other output format options because it requires information from all input files to be buffered in memory before the output is written. This may result in excessive memory usage when processing a very large number of files with a single command. Also, it makes this option incompatible with the <b>-w</b> option. When processing a large number of files, it is recommended to either use the JSON (<b>-j</b>) or XML (<b>-X</b>) output format, or use <b>-p</b> to generate a fixed-column CSV file instead of using the <b>-csv</b> option.</p>
 
 </dd>
 <dt id="d-FMT--dateFormat"><b>-d</b> <i>FMT</i> (<b>-dateFormat</b>)</dt>
@@ -557,7 +560,7 @@
 <dt id="j-JSONFILE--json"><b>-j</b>[[+]=<i>JSONFILE</i>] (<b>-json</b>)</dt>
 <dd>
 
-<p>Use JSON (JavaScript Object Notation) formatting for console output, or import JSON file if <i>JSONFILE</i> is specified. This option may be combined with <b>-g</b> to organize the output into objects by group, or <b>-G</b> to add group names to each tag. List-type tags with multiple items are output as JSON arrays unless <b>-sep</b> is used. By default XMP structures are flattened into individual tags in the JSON output, but the original structure may be preserved with the <b>-struct</b> option (this also causes all list-type XMP tags to be output as JSON arrays, otherwise single-item lists would be output as simple strings). The <b>-a</b> option is implied if the <b>-g</b> or <b>-G</b> options are used, otherwise it is ignored and duplicate tags are suppressed. Adding the <b>-D</b> or <b>-H</b> option changes tag values to JSON objects with &quot;val&quot; and &quot;id&quot; fields, and adding <b>-l</b> adds a &quot;desc&quot; field, and a &quot;num&quot; field if the numerical value is different from the converted &quot;val&quot;. The <b>-b</b> option may be added to output binary data, encoded in base64 if necessary (indicated by &quot;base64:&quot; as the first 7 bytes of the value), and <b>-t</b> may be added to include tag table information (see <b>-t</b> for details). The JSON output is UTF-8 regardless of any <b>-L</b> or <b>-charset</b> option setting, but the UTF-8 validation is disabled if a character set other than UTF-8 is specified.</p>
+<p>Use JSON (JavaScript Object Notation) formatting for console output, or import JSON file if <i>JSONFILE</i> is specified. This option may be combined with <b>-g</b> to organize the output into objects by group, or <b>-G</b> to add group names to each tag. List-type tags with multiple items are output as JSON arrays unless <b>-sep</b> is used. By default XMP structures are flattened into individual tags in the JSON output, but the original structure may be preserved with the <b>-struct</b> option (this also causes all list-type XMP tags to be output as JSON arrays, otherwise single-item lists would be output as simple strings). The <b>-a</b> option is implied if the <b>-g</b> or <b>-G</b> options are used, otherwise it is ignored and tags with identical JSON names are suppressed. (<b>-g4</b> may be used to ensure that all tags have unique JSON names.) Adding the <b>-D</b> or <b>-H</b> option changes tag values to JSON objects with &quot;val&quot; and &quot;id&quot; fields, and adding <b>-l</b> adds a &quot;desc&quot; field, and a &quot;num&quot; field if the numerical value is different from the converted &quot;val&quot;. The <b>-b</b> option may be added to output binary data, encoded in base64 if necessary (indicated by ASCII &quot;base64:&quot; as the first 7 bytes of the value), and <b>-t</b> may be added to include tag table information (see <b>-t</b> for details). The JSON output is UTF-8 regardless of any <b>-L</b> or <b>-charset</b> option setting, but the UTF-8 validation is disabled if a character set other than UTF-8 is specified.</p>
 
 <p>If <i>JSONFILE</i> is specified, the file is imported and the tag definitions from the file are used to set tag values on a per-file basis. The special &quot;SourceFile&quot; entry in each JSON object associates the information with a specific target file. An object with a missing SourceFile or a SourceFile of &quot;*&quot; defines default tags for all target files which are combined with any tags specified for the specific SourceFile processed. The imported JSON file must have the same format as the exported JSON files with the exception that the <b>-g</b> option is not compatible with the import file format (use <b>-G</b> instead). Additionally, tag names in the input JSON file may be suffixed with a <code>#</code> to disable print conversion.</p>
 
@@ -622,7 +625,7 @@
 
 <p>Print output in the format specified by the given file or string. The argument is interpreted as a string unless a file of that name exists, in which case the string is loaded from the contents of the file. Tag names in the format file or string begin with a <code>$</code> symbol and may contain a leading group names and/or a trailing <code>#</code>. Case is not significant. Braces <code>{}</code> may be used around the tag name to separate it from subsequent text. Use <code>$$</code> to represent a <code>$</code> symbol, and <code>$/</code> for a newline.</p>
 
-<p>Multiple <b>-p</b> options may be used, each contributing a line (or more) of text to the output. Lines beginning with <code>#[HEAD]</code> and <code>#[TAIL]</code> are output before the first processed file and after the last processed file respectively. Lines beginning with <code>#[SECT]</code> and <code>#[ENDS]</code> are output around each section of files. A section is defined as a group of consecutive files with the same section header (eg. files are grouped by directory if <code>#[SECT]</code> contains <code>$directory</code>). Lines beginning with <code>#[BODY]</code> and lines not beginning with <code>#</code> are output for each processed file. Lines beginning with <code>#[IF]</code> are not output, but the BODY lines are skipped if any tag on an IF line doesn&#39;t exist. Other lines beginning with <code>#</code> are ignored. For example, this format file:</p>
+<p>Multiple <b>-p</b> options may be used, each contributing a line (or more) of text to the output. Lines beginning with <code>#[HEAD]</code> and <code>#[TAIL]</code> are output before the first processed file and after the last processed file respectively. Lines beginning with <code>#[SECT]</code> and <code>#[ENDS]</code> are output around each section of files. A section is defined as a group of consecutive files with the same section header (eg. files are grouped by directory if <code>#[SECT]</code> contains <code>$directory</code>). Lines beginning with <code>#[BODY]</code> and lines not beginning with <code>#</code> are output for each processed file. Lines beginning with <code>#[IF]</code> are not output, but all BODY lines are skipped if any tag on an IF line doesn&#39;t exist. Other lines beginning with <code>#</code> are ignored. For example, this format file:</p>
 
 <pre><code>    # this is a comment line
     #[HEAD]-- Generated by ExifTool $exifToolVersion --
@@ -636,7 +639,7 @@
 
 <p>produces output like this:</p>
 
-<pre><code>    -- Generated by ExifTool 11.01 --
+<pre><code>    -- Generated by ExifTool 11.54 --
     File: a.jpg - 2003:10:31 15:44:19
     (f/5.6, 1/60s, ISO 100)
     File: b.jpg - 2006:05:23 11:57:38
@@ -647,7 +650,7 @@
 
 <p>When <b>-ee</b> (<b>-extractEmbedded</b>) is combined with <b>-p</b>, embedded documents are effectively processed as separate input files.</p>
 
-<p>If a specified tag does not exist, a minor warning is issued and the line with the missing tag is not printed. However, the <b>-f</b> option may be used to set the value of missing tags to &#39;-&#39; (but this may be configured via the MissingTagValue API option), or the <b>-m</b> option may be used to ignore minor warnings and leave the missing values empty.</p>
+<p>If a specified tag does not exist, a minor warning is issued and the line with the missing tag is not printed. However, the <b>-f</b> option may be used to set the value of missing tags to &#39;-&#39; (but this may be configured via the MissingTagValue API option), or the <b>-m</b> option may be used to ignore minor warnings and leave the missing values empty. Alternatively, <b>-q -q</b> may be used to simply suppress the warning messages.</p>
 
 <p>The <a href="#Advanced-formatting-feature">&quot;Advanced formatting feature&quot;</a> may be used to modify the values of individual tags with the <b>-p</b> option.</p>
 
@@ -688,7 +691,7 @@
 
 <p>Note that an empty separator (&quot;&quot;) is allowed, and will join items with no separator when reading, or split the value into individual characters when writing.</p>
 
-<p>For pure binary output (<b>-b</b> used without <b>-j</b>, <b>-php</b> or <b>-X</b>), the first <b>-sep</b> option specifies a list-item separator, and subsequent <b>-sep</b> options specify a terminator added to the end of the list (or after each value if not a list). In these strings, <code>\n</code>, <code>\r</code> and <code>\t</code> may be used to represent a newline, carriage return and tab respectively. By default, binary list items are separated by a newline, and no terminator is added.</p>
+<p>For pure binary output (<b>-b</b> used without <b>-j</b>, <b>-php</b> or <b>-X</b>), the first <b>-sep</b> option specifies a list-item separator, and a second <b>-sep</b> option specifies a terminator for the end of the list (or after each value if not a list). In these strings, <code>\n</code>, <code>\r</code> and <code>\t</code> may be used to represent a newline, carriage return and tab respectively. By default, binary list items are separated by a newline, and no terminator is added.</p>
 
 </dd>
 <dt id="sort---sort"><b>-sort</b>, <b>--sort</b></dt>
@@ -706,7 +709,7 @@
 <dt id="t--tab"><b>-t</b> (<b>-tab</b>)</dt>
 <dd>
 
-<p>Output a tab-delimited list of description/values (useful for database import). May be combined with <b>-s</b> to print tag names instead of descriptions, or <b>-S</b> to print tag values only, tab-delimited on a single line. The <b>-t</b> option may be combined with <b>-j</b>, <b>-php</b> or <b>-X</b> to add tag table information (table <code>name</code>, decimal tag <code>id</code>, and <code>index</code> for cases where multiple conditional tags exist with the same ID).</p>
+<p>Output a tab-delimited list of description/values (useful for database import). May be combined with <b>-s</b> to print tag names instead of descriptions, or <b>-S</b> to print tag values only, tab-delimited on a single line. The <b>-t</b> option may be combined with <b>-j</b>, <b>-php</b> or <b>-X</b> to add tag table information (<code>table</code>, tag <code>id</code>, and <code>index</code> for cases where multiple conditional tags exist with the same ID).</p>
 
 </dd>
 <dt id="T--table"><b>-T</b> (<b>-table</b>)</dt>
@@ -787,7 +790,7 @@
     -w H%-lc.txt      # H.txt, H-b.txt, H-c.txt ...
     -w I.%.3uc.txt    # I.AAA.txt, I.AAB.txt, I.AAC.txt ...</code></pre>
 
-<p>A special feature allows the copy number to be incremented for each processed file by using %C (upper case) instead of %c. This allows a sequential number to be added to output file names, even if the names are different. For %C, a copy number of zero is not omitted as it is with %c. The number before the decimal place gives the starting index, the number after the decimal place gives the field width. The following examples show the output filenames when used with the command <code>exiftool rose.jpg star.jpg jet.jpg ...</code>:</p>
+<p>A special feature allows the copy number to be incremented for each processed file by using %C (upper case) instead of %c. This allows a sequential number to be added to output file names, even if the names are different. For %C, a copy number of zero is not omitted as it is with %c. A leading &#39;-&#39; causes the number to be reset at the start of each new directory, and &#39;+&#39; has no effect. The number before the decimal place gives the starting index, the number after the decimal place gives the field width. The following examples show the output filenames when used with the command <code>exiftool rose.jpg star.jpg jet.jpg ...</code>:</p>
 
 <pre><code>    -w %C%f.txt       # 0rose.txt, 1star.txt, 2jet.txt
     -w %f-%10C.txt    # rose-10.txt, star-11.txt, jet-12.txt
@@ -808,9 +811,17 @@
 
 <p>2) <b>-W</b> supports three additional format codes: %t, %g and %s represent the tag name, group name, and suggested extension for the output file (based on the format of the data). The %g code may be followed by a single digit to specify the group family number (eg. %g1), otherwise family 0 is assumed. The substring width/position/case specifiers may be used with these format codes in exactly the same way as with %f and %e.</p>
 
-<p>3) The argument for <b>-W</b> is interpreted as a file name if it contains no format codes. (For <b>-w</b>, this would be a file extension.) This change allows a simple file name to be specified, which, when combined with the append feature, provides a method to write metadata from multiple source files to a single output file without the need for shell redirection.</p>
+<p>3) The argument for <b>-W</b> is interpreted as a file name if it contains no format codes. (For <b>-w</b>, this would be a file extension.) This change allows a simple file name to be specified, which, when combined with the append feature, provides a method to write metadata from multiple source files to a single output file without the need for shell redirection. For example, the following pairs of commands give the same result:</p>
 
-<p>4) Adding the <b>-v</b> option to <b>-W</b> generates a list of the tags and output file names instead of giving a verbose dump of the entire file. (Unless appending all output to one file for each source file by using <b>-W+</b> with an output file <i>FMT</i> that does not contain %t, $g or %s.)</p>
+<pre><code>    # overwriting existing text file
+    exiftool test.jpg &gt; out.txt     # shell redirection
+    exiftool test.jpg -W+! out.txt  # equivalent -W option
+
+    # append to existing text file
+    exiftool test.jpg &gt;&gt; out.txt    # shell redirection
+    exiftool test.jpg -W+ out.txt   # equivalent -W option</code></pre>
+
+<p>4) Adding the <b>-v</b> option to <b>-W</b> sends a list of the tags and output file names to the console instead of giving a verbose dump of the entire file. (Unless appending all output to one file for each source file by using <b>-W+</b> with an output file <i>FMT</i> that does not contain %t, $g or %s.)</p>
 
 <p>5) Individual list items are stored in separate files when <b>-W</b> is combined with <b>-b</b>, but note that for separate files to be created %c or %C must be used in <i>FMT</i> to give the files unique names.</p>
 
@@ -840,7 +851,7 @@
 <dt id="a---a--duplicates---duplicates"><b>-a</b>, <b>--a</b> (<b>-duplicates</b>, <b>--duplicates</b>)</dt>
 <dd>
 
-<p>Allow (<b>-a</b>) or suppress (<b>--a</b>) duplicate tag names to be extracted. By default, duplicate tags are suppressed unless the <b>-ee</b> or <b>-X</b> options are used or the Duplicates option is enabled in the configuration file. This option also has an affect when writing to allow duplicate Warning messages to be shown.</p>
+<p>Allow (<b>-a</b>) or suppress (<b>--a</b>) duplicate tag names to be extracted. By default, duplicate tags are suppressed when reading unless the <b>-ee</b> or <b>-X</b> options are used or the Duplicates option is enabled in the configuration file. This option has an affect when writing only to allow duplicate Warning messages to be shown. Duplicate tags are always extracted when copying.</p>
 
 </dd>
 <dt id="e---composite"><b>-e</b> (<b>--composite</b>)</dt>
@@ -852,7 +863,7 @@
 <dt id="ee--extractEmbedded"><b>-ee</b> (<b>-extractEmbedded</b>)</dt>
 <dd>
 
-<p>Extract information from embedded documents in EPS files, embedded EPS information and JPEG and Jpeg2000 images in PDF files, embedded MPF images in JPEG and MPO files, streaming metadata in AVCHD videos, and the resource fork of Mac OS files. Implies the <b>-a</b> option. Use <b>-g3</b> or <b>-G3</b> to identify the originating document for extracted information. Embedded documents containing sub-documents are indicated with dashes in the family 3 group name. (eg. <code>Doc2-3</code> is the 3rd sub-document of the 2nd embedded document.) Note that this option may increase processing time substantially, especially for PDF files with many embedded images.</p>
+<p>Extract information from embedded documents in EPS files, embedded EPS information and JPEG and Jpeg2000 images in PDF files, embedded MPF images in JPEG and MPO files, streaming metadata in AVCHD videos, and the resource fork of Mac OS files. Implies the <b>-a</b> option. Use <b>-g3</b> or <b>-G3</b> to identify the originating document for extracted information. Embedded documents containing sub-documents are indicated with dashes in the family 3 group name. (eg. <code>Doc2-3</code> is the 3rd sub-document of the 2nd embedded document.) Note that this option may increase processing time substantially, especially for PDF files with many embedded images or videos with streaming metadata.</p>
 
 <p>When used with <b>-ee</b>, the <b>-p</b> option is evaluated for each embedded document as if it were a separate input file. This allows, for example, generation of GPS track logs from timed metadata in videos. See <a href="http://owl.phy.queensu.ca/~phil/exiftool/geotag.html#Inverse">http://owl.phy.queensu.ca/~phil/exiftool/geotag.html#Inverse</a> for examples.</p>
 
@@ -885,7 +896,7 @@
 <dt id="fast-NUM"><b>-fast</b>[<i>NUM</i>]</dt>
 <dd>
 
-<p>Increase speed of extracting information. With this option, ExifTool will not scan to the end of a JPEG image to check for an AFCP or PreviewImage trailer, or past the first comment in GIF images or the audio/video data in WAV/AVI files to search for additional metadata. These speed benefits are small when reading images directly from disk, but can be substantial if piping images through a network connection. For more substantial speed benefits, <b>-fast2</b> also causes exiftool to avoid extracting any EXIF MakerNote information. <b>-fast3</b> avoids processing the file entirely, and returns only an initial guess at FileType and the pseudo System tags. Has no effect when writing.</p>
+<p>Increase speed of extracting information. With this option, ExifTool will not scan to the end of a JPEG image to check for an AFCP or PreviewImage trailer, or past the first comment in GIF images or the audio/video data in WAV/AVI files to search for additional metadata. These speed benefits are small when reading images directly from disk, but can be substantial if piping images through a network connection. For more substantial speed benefits, <b>-fast2</b> also causes exiftool to avoid extracting any EXIF MakerNote information. <b>-fast3</b> avoids extracting metadata from the file, and returns only pseudo System tags, but still reads the file header to obtain an educated guess at FileType. <b>-fast4</b> doesn&#39;t even read the file header, and determines FileType based only on the file extension. Has no effect when writing.</p>
 
 </dd>
 <dt id="fileOrder---TAG"><b>-fileOrder</b> [-]<i>TAG</i></dt>
@@ -904,7 +915,7 @@
 <p>Ignore specified directory name. <i>DIR</i> may be either an individual folder name, or a full path. If a full path is specified, it must match the Directory tag exactly to be ignored. Use multiple <b>-i</b> options to ignore more than one directory name. A special <i>DIR</i> value of <code>SYMLINKS</code> (case sensitive) may be specified to ignore symbolic links when the <b>-r</b> option is used.</p>
 
 </dd>
-<dt id="if-EXPR"><b>-if</b> <i>EXPR</i></dt>
+<dt id="if-NUM-EXPR"><b>-if</b>[<i>NUM</i>] <i>EXPR</i></dt>
 <dd>
 
 <p>Specify a condition to be evaluated before processing each <i>FILE</i>. <i>EXPR</i> is a Perl-like logic expression containing tag names prefixed by <code>$</code> symbols. It is evaluated with the tags from each <i>FILE</i> in turn, and the file is processed only if the expression returns true. Unlike Perl variable names, tag names are not case sensitive and may contain a hyphen. As well, tag names may have a leading group names separated by colons, and/or a trailing <code>#</code> character to disable print conversion. The expression <code>$GROUP:all</code> evaluates to 1 if any tag exists in the specified <code>GROUP</code>, or 0 otherwise (see note 2 below). When multiple <b>-if</b> options are used, all conditions must be satisfied to process the file. Returns an exit status of 2 if all files fail the condition. Below are a few examples:</p>
@@ -920,6 +931,8 @@
 
     # find images containing a specific keyword (case insensitive)
     exiftool -if &#39;$keywords =~ /harvey/i&#39; -filename dir</code></pre>
+
+<p>Adding <i>NUM</i> to the <b>-if</b> option causes a separate processing pass to be executed for evaluating <i>EXPR</i> at a <b>-fast</b> level given by <i>NUM</i> (see the <b>-fast</b> option documentation for details). Without <i>NUM</i>, only one processing pass is done at the level specified by the <b>-fast</b> option. For example, using <b>-if4</b> is possible if <i>EXPR</i> uses only pseudo System tags, and may significantly speed processing if enough files fail the condition.</p>
 
 <p>Notes:</p>
 
@@ -942,7 +955,7 @@
 <dt id="m--ignoreMinorErrors"><b>-m</b> (<b>-ignoreMinorErrors</b>)</dt>
 <dd>
 
-<p>Ignore minor errors and warnings. This enables writing to files with minor errors and disables some validation checks which could result in minor warnings. Generally, minor errors/warnings indicate a problem which usually won&#39;t result in loss of metadata if ignored. However, there are exceptions, so ExifTool leaves it up to you to make the final decision. Minor errors and warnings are indicated by &quot;[minor]&quot; at the start of the message. Warnings which affect processing when ignored are indicated by &quot;[Minor]&quot; (with a capital &quot;M&quot;).</p>
+<p>Ignore minor errors and warnings. This enables writing to files with minor errors and disables some validation checks which could result in minor warnings. Generally, minor errors/warnings indicate a problem which usually won&#39;t result in loss of metadata if ignored. However, there are exceptions, so ExifTool leaves it up to you to make the final decision. Minor errors and warnings are indicated by &quot;[minor]&quot; at the start of the message. Warnings which affect processing when ignored are indicated by &quot;[Minor]&quot; (with a capital &quot;M&quot;). Note that this causes missing values in <b>-tagsFromFile</b>, <b>-p</b> and <b>-if</b> strings to be set to an empty string rather than an undefined value.</p>
 
 </dd>
 <dt id="o-OUTFILE-or-FMT--out"><b>-o</b> <i>OUTFILE</i> or <i>FMT</i> (<b>-out</b>)</dt>
@@ -988,7 +1001,7 @@
 <dt id="progress-:-TITLE"><b>-progress</b>[:[<i>TITLE</i>]]</dt>
 <dd>
 
-<p>Show the progress when processing files. The progress count appears in brackets after the name of each processed file, and gives the current file number and the total number of files to be processed. Implies the <b>-v0</b> option if <i>TITLE</i> is not used, printing the name of each processed file when writing. When combined with the <b>-if</b> option, the total count includes all files before the condition is applied, but files that fail the condition will not have their names printed.</p>
+<p>Show the progress when processing files. Without a colon, the <b>-progress</b> option adds a progress count in brackets after the name of each processed file, giving the current file number and the total number of files to be processed. Implies the <b>-v0</b> option, causing the names of processed files to also be printed when writing. When combined with the <b>-if</b> option, the total count includes all files before the condition is applied, but files that fail the condition will not have their names printed.</p>
 
 <p>If followed by a colon (ie. <b>-progress:</b>), the console window title is set according to the specified <i>TITLE</i> string. If no <i>TITLE</i> is given, a default <i>TITLE</i> string of &quot;ExifTool %p%%&quot; is assumed. In the string, %f represents the file name, %p is the progress as a percent, %r is the progress as a ratio, %##b is a progress bar of width &quot;##&quot; (20 characters if &quot;##&quot; is omitted), and %% is a % character. May be combined with the normal <b>-progress</b> option to also show the progress count in console messages. (Note: For this feature to function correctly on Mac/Linux, stderr must go to the console.)</p>
 
@@ -1040,7 +1053,7 @@
 <dt id="z--zip"><b>-z</b> (<b>-zip</b>)</dt>
 <dd>
 
-<p>When reading, causes information to be extracted from .gz and .bz2 compressed images (only one image per archive; requires gzip and bzip2 to be available). When writing, causes compressed information to be written if supported by the metadata format (eg. compressed textual metadata in PNG), disables the recommended padding in embedded XMP (saving 2424 bytes when writing XMP in a file), and writes XMP in shorthand format -- the equivalent of setting the API Compress, Compact and XMPShorthand options to 1.</p>
+<p>When reading, causes information to be extracted from .gz and .bz2 compressed images (only one image per archive; requires gzip and bzip2 to be available). When writing, causes compressed information to be written if supported by the metadata format (eg. compressed textual metadata in PNG), disables the recommended padding in embedded XMP (saving 2424 bytes when writing XMP in a file), and writes XMP in shorthand format -- the equivalent of setting the API Compress and Compact=&quot;Padding,Shorthand&quot;.</p>
 
 </dd>
 </dl>
@@ -1052,7 +1065,7 @@
 <dt id="ARGFILE"><b>-@</b> <i>ARGFILE</i></dt>
 <dd>
 
-<p>Read command-line arguments from the specified file. The file contains one argument per line (NOT one option per line -- some options require additional arguments, and all arguments must be placed on separate lines). Blank lines and lines beginning with <code>#</code> are ignored. White space at the start of a line is removed. Normal shell processing of arguments is not performed, which among other things means that arguments should not be quoted and spaces are treated as any other character. <i>ARGFILE</i> may exist relative to either the current directory or the exiftool directory unless an absolute pathname is given.</p>
+<p>Read command-line arguments from the specified file. The file contains one argument per line (NOT one option per line -- some options require additional arguments, and all arguments must be placed on separate lines). Blank lines and lines beginning with <code>#</code> are ignored (unless they start with <code>#[CSTR]</code>, in which case the rest of the line is treated as a C string, allowing standard C escape sequences such as &quot;\n&quot; for a newline). White space at the start of a line is removed. Normal shell processing of arguments is not performed, which among other things means that arguments should not be quoted and spaces are treated as any other character. <i>ARGFILE</i> may exist relative to either the current directory or the exiftool directory unless an absolute pathname is given.</p>
 
 <p>For example, the following <i>ARGFILE</i> will set the value of Copyright to &quot;Copyright YYYY, Phil Harvey&quot;, where &quot;YYYY&quot; is the year of CreateDate:</p>
 
@@ -1217,7 +1230,7 @@
 
 <pre><code>    exiftool -ext nef -tagsfromfile @ -srcfile %d%f.jpg dir</code></pre>
 
-<p>If than one <b>-srcfile</b> option is specified, the files are tested in order and the first existing source file is processed. If none of the source files already exist, then exiftool uses the first <b>-srcfile</b> specified.</p>
+<p>If more than one <b>-srcfile</b> option is specified, the files are tested in order and the first existing source file is processed. If none of the source files already exist, then exiftool uses the first <b>-srcfile</b> specified.</p>
 
 <p>A <i>FMT</i> of <code>@</code> may be used to represent the original <i>FILE</i>, which may be useful when specifying multiple <b>-srcfile</b> options (eg. to fall back to processing the original <i>FILE</i> if no sidecar exists).</p>
 
@@ -1261,11 +1274,11 @@
 
 <h3 id="Advanced-formatting-feature">Advanced formatting feature</h3>
 
-<p>An advanced formatting feature allows modification of the value of any tag interpolated within a <b>-if</b> or <b>-p</b> option argument, or a <b>-tagsFromFile</b> redirection string. Tag names within these strings are prefixed by a <code>$</code> symbol, and an arbitrary Perl expression may be applied to the tag value by placing braces around the tag name and inserting the expression after the name, separated by a semicolon (ie. <code>${TAG;EXPR}</code>). The expression acts on the value of the tag through the default input variable (<code>$_</code>), and has access to the full ExifTool API through the current ExifTool object (<code>$self</code>). It may contain any valid Perl code, including translation (<code>tr///</code>) and substitution (<code>s///</code>) operations, but note that braces within the expression must be balanced. The example below prints the camera Make with spaces translated to underlines, and multiple consecutive underlines replaced by a single underline:</p>
+<p>An advanced formatting feature allows modification of the value of any tag interpolated within a <b>-if</b> or <b>-p</b> option argument, or a <b>-tagsFromFile</b> redirection string. Tag names within these strings are prefixed by a <code>$</code> symbol, and an arbitrary Perl expression may be applied to the tag value by placing braces around the tag name and inserting the expression after the name, separated by a semicolon (ie. <code>${TAG;EXPR}</code>). The expression acts on the value of the tag through the default input variable (<code>$_</code>), and has access to the full ExifTool API through the current ExifTool object (<code>$self</code>) and the tag key (<code>$tag</code>). It may contain any valid Perl code, including translation (<code>tr///</code>) and substitution (<code>s///</code>) operations, but note that braces within the expression must be balanced. The example below prints the camera Make with spaces translated to underlines, and multiple consecutive underlines replaced by a single underline:</p>
 
 <pre><code>    exiftool -p &#39;${make;tr/ /_/;s/__+/_/g}&#39; image.jpg</code></pre>
 
-<p>A <code>@</code> may be added after the tag name to make the expression act on individual list items for list-type tags, simplifying list processing. As an example, the following command returns all subjects not containing the string &quot;xxx&quot;:</p>
+<p>An <code>@</code> may be added after the tag name to make the expression act on individual list items for list-type tags, simplifying list processing. Set <code>$_</code> to undef to remove an item from the list. As an example, the following command returns all subjects not containing the string &quot;xxx&quot;:</p>
 
 <pre><code>    exiftool -p &#39;${subject@;$_=undef if /xxx/}&#39; image.jpg</code></pre>
 
@@ -1273,11 +1286,21 @@
 
 <h4 id="Helper-functions">Helper functions</h4>
 
-<p>ExifTool provides a <code>DateFmt</code> utility to simplify reformatting of individual date/time values. The function acts on a standard EXIF-formatted date/time value in <code>$_</code> and formats it according to the specified format string (see the <b>-d</b> option). To avoid trying to reformat an already formatted date/time value, a <code>#</code> must be added to the tag name (as in the example below) if the <b>-d</b> option is also used. For example:</p>
+<p><code>DateFmt</code></p>
+
+<p>Simplifies reformatting of individual date/time values. This function acts on a standard EXIF-formatted date/time value in <code>$_</code> and formats it according to the specified format string (see the <b>-d</b> option). To avoid trying to reformat an already-formatted date/time value, a <code>#</code> must be added to the tag name (as in the example below) if the <b>-d</b> option is also used. For example:</p>
 
 <pre><code>    exiftool -p &#39;${createdate#;DateFmt(&quot;%Y-%m-%d_%H%M%S&quot;)}&#39; a.jpg</code></pre>
 
-<p>A <code>NoDups</code> utility is also provided to remove duplicate items from a list with a separator specified by the <b>-sep</b> option. This function is most useful when copying list-type tags. For example, the following command may be used to remove duplicate Keywords:</p>
+<p><code>ShiftTime</code></p>
+
+<p>Shifts EXIF-formatted date/time string by a specified amount. Start with a leading minus sign to shift backwards in time. See <a>Image::ExifTool::Shift.pl</a> for details about shift syntax. For example, to shift a date/time value back by one year:</p>
+
+<pre><code>    exiftool -p &#39;${createdate;ShiftTime(&quot;-1:0:0 0&quot;)}&#39; a.jpg</code></pre>
+
+<p><code>NoDups</code></p>
+
+<p>Removes duplicate items from a list with a separator specified by the <b>-sep</b> option. This function is most useful when copying list-type tags. For example, the following command may be used to remove duplicate Keywords:</p>
 
 <pre><code>    exiftool -sep &#39;##&#39; &#39;-keywords&lt;${keywords;NoDups}&#39; a.jpg</code></pre>
 
@@ -1293,7 +1316,7 @@
 
 <p>In Windows, command-line arguments are specified using the current code page and are recoded automatically to the system code page. This recoding is not done for arguments in ExifTool arg files, so by default filenames in arg files use the system code page. Unfortunately, these code pages are not complete character sets, so not all file names may be represented.</p>
 
-<p>ExifTool 9.79 and later allow the file name encoding to be specified with <code>-charset filename=CHARSET</code>, where <code>CHARSET</code> is the name of a valid ExifTool character set, preferably <code>UTF8</code> (see the <b>-charset</b> option for a complete list). Setting this triggers the use of Windows wide-character i/o routines, thus providing support for all Unicode file names. But note that it is not trivial to pass properly encoded file names on the Windows command line (see <a href="http://owl.phy.queensu.ca/~phil/exiftool/faq.html#Q18">http://owl.phy.queensu.ca/~phil/exiftool/faq.html#Q18</a> for details), so placing them in a UTF-8 encoded <b>-@</b> argfile and using <code>-charset filename=utf8</code> is recommended if possible.</p>
+<p>ExifTool 9.79 and later allow the file name encoding to be specified with <code>-charset filename=CHARSET</code>, where <code>CHARSET</code> is the name of a valid ExifTool character set, preferably <code>UTF8</code> (see the <b>-charset</b> option for a complete list). Setting this triggers the use of Windows wide-character i/o routines, thus providing support for most Unicode file names (see note 4). But note that it is not trivial to pass properly encoded file names on the Windows command line (see <a href="http://owl.phy.queensu.ca/~phil/exiftool/faq.html#Q18">http://owl.phy.queensu.ca/~phil/exiftool/faq.html#Q18</a> for details), so placing them in a UTF-8 encoded <b>-@</b> argfile and using <code>-charset filename=utf8</code> is recommended if possible.</p>
 
 <p>A warning is issued if a specified filename contains special characters and the filename character set was not provided. However, the warning may be disabled by setting <code>-charset filename=&quot;&quot;</code>, and ExifTool may still function correctly if the system code page matches the character set used for the file names.</p>
 
@@ -1308,6 +1331,8 @@
 <p>2) Unicode support is not yet implemented for other Windows-based systems like Cygwin.</p>
 
 <p>3) See <a href="#WRITING-READ-ONLY-FILES">&quot;WRITING READ-ONLY FILES&quot;</a> below for a note about editing read-only files with Unicode names.</p>
+
+<p>4) Unicode file names with surrogate pairs (code points over U+FFFF) still cause problems.</p>
 
 <h1 id="WRITING-READ-ONLY-FILES">WRITING READ-ONLY FILES</h1>
 
@@ -1328,7 +1353,7 @@
 <dt id="exiftool--a--u--g1-a.jpg">exiftool -a -u -g1 a.jpg</dt>
 <dd>
 
-<p>Print all meta information in an image, including duplicate and unknown tags, sorted by group (for family 1).</p>
+<p>Print all meta information in an image, including duplicate and unknown tags, sorted by group (for family 1). For performance reasons, this command may not extract all available metadata. (Metadata in embedded documents, metadata extracted by external utilities, and metadata requiring excessive processing time may not be extracted). Add <code>-ee</code> and <code>-api RequestAll=3</code> to the command to extract absolutely everything available.</p>
 
 </dd>
 <dt id="exiftool--common-dir">exiftool -common dir</dt>
@@ -1911,7 +1936,7 @@
 
 <h1 id="AUTHOR">AUTHOR</h1>
 
-<p>Copyright 2003-2018, Phil Harvey</p>
+<p>Copyright 2003-2019, Phil Harvey</p>
 
 <p>This is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
 

@@ -216,19 +216,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<blockSizeMax>
 					<xsl:value-of select="exiftool/BlockSizeMax[1]"/>
 				</blockSizeMax>
-					
-				<xsl:choose>
-					<xsl:when test="exiftool/CompressorName">
-						<creatingApplicationName>
-							<xsl:value-of select="exiftool/CompressorName[1]"/>
-						</creatingApplicationName>
-					</xsl:when>
-					<xsl:when test="exiftool/CompressorID">
-						<creatingApplicationName>
-							<xsl:value-of select="exiftool/CompressorID[1]"/>
-						</creatingApplicationName>
-					</xsl:when>
-				</xsl:choose>		
 
 				<xsl:choose>
 					<xsl:when test="exiftool/VideoStreamType">
@@ -411,6 +398,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 				<gpsDifferential>
 					<xsl:value-of select="exiftool/GPSDifferential[1]"/>
 				</gpsDifferential>
+				<ProjectionType>
+					<xsl:value-of select="exiftool/ProjectionType[1]"/>
+				</ProjectionType>
 			</video>			
 		</metadata>
 	</fits>	

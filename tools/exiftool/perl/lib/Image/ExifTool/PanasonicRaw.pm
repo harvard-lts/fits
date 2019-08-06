@@ -187,10 +187,13 @@ my %panasonicWhiteBalance = ( #forum9396
         Protected => 1,
         # 2 - RAW DMC-FZ8/FZ18
         # 3 - RAW DMC-L10
-        # 4 - RW2 for most other models, including G9 normal resolution and YUNEEC CGO4
+        # 4 - RW2 for most other models, including G9 in "pixel shift off" mode and YUNEEC CGO4
         #     (must add 15 to black levels for RawFormat == 4)
-        # 5 - RW2 DC-GH5s and G9 HiRes
-        # missing - DMC-LX1/FZ30/FZ50/L1/LX1/LX2
+        # 5 - RW2 DC-GH5s; G9 in "pixel shift on" mode
+        # 6 - RW2 DC-S1, DC-S1r in "pixel shift off" mode
+        # 7 - RW2 DC-S1r (and probably DC-S1, have no raw samples) in "pixel shift on" mode
+        # not used - DMC-LX1/FZ30/FZ50/L1/LX1/LX2
+        # (modes 5 and 7 are lossless)
     },
     0x2e => { #JD
         Name => 'JpgFromRaw', # (writable directory!)
@@ -271,6 +274,7 @@ my %panasonicWhiteBalance = ( #forum9396
     0x11c => { #forum9373
         Name => 'Gamma',
         Writable => 'int16u',
+        # unfortunately it seems that the scaling factor varies with model...
         ValueConv => '$val / ($val >= 1024 ? 1024 : ($val >= 256 ? 256 : 100))',
         ValueConvInv => 'int($val * 256 + 0.5)',
     },
@@ -823,7 +827,7 @@ write meta information in Panasonic/Leica RAW, RW2 and RWL images.
 
 =head1 AUTHOR
 
-Copyright 2003-2018, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

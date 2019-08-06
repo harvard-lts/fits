@@ -39,10 +39,10 @@ public class VideoStdSchemaTest extends AbstractLoggingTest {
 	@BeforeClass
 	public static void beforeClass() throws Exception {
 		// Set up FITS for entire class.
-		fits = new Fits();
+//		fits = new Fits();
 // Use the following two lines to turn on tool output
-//		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
-//		fits = new Fits(null, fitsConfigFile);
+		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
+		fits = new Fits(null, fitsConfigFile);
 	}
 	
 	@AfterClass
@@ -57,20 +57,27 @@ public class VideoStdSchemaTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + fileName);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-		fitsOut.saveToDisk("test-generated-output/" + fileName + "_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + fileName + OUTPUT_FILE_SUFFIX);
+	}    
+    
+    @Test  
+	public void testMp4() throws Exception {   
+
+		String fileName = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
+    	File input = new File("testfiles/" + fileName);
+    	FitsOutput fitsOut = fits.examine(input);
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + fileName + OUTPUT_FILE_SUFFIX);
 	}    
     
     @Test
     public void testMxfVideo() throws Exception {
-    	
-    	// Here we want a specific fits.xml file so instantiate a new Fits class.
-    	Fits fits = new Fits(null, new File("testfiles/properties/fits-full-with-tool-output.xml"));
 
     	String fileName = "freeMXF-mxf1a.mxf";
     	File input = new File("testfiles/" + fileName);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-		fitsOut.saveToDisk("test-generated-output/" + fileName + "_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + fileName + OUTPUT_FILE_SUFFIX);
 	}
 
 }

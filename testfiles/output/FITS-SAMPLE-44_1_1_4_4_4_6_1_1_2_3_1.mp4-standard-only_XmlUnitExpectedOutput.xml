@@ -67,7 +67,7 @@
                 </ebucore:audioChannelFormat>
               </ebucore:audioFormatExtended>                             
              <ebucore:containerFormat>
-                <ebucore:comment typeLabel="format">Quicktime</ebucore:comment>
+                <ebucore:comment typeLabel="format">MPEG-4</ebucore:comment>
                 <ebucore:comment typeLabel="formatProfile">Base Media / Version 2</ebucore:comment>
              </ebucore:containerFormat>
               <ebucore:duration>

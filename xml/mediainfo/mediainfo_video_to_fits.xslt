@@ -1,19 +1,21 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <xsl:stylesheet version="2.0"
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:dc="http://purl.org/dc/elements/1.1/" 
    xmlns:ebucore="urn:ebu:metadata-schema:ebuCore_2014" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
    xmlns:xalan="http://xml.apache.org/xalan"
+   xmlns:local="http://local"
    >
 <xsl:import href="mediainfo_common_to_fits.xslt"/>
+
+<!-- Used to convert case of the string -->
+<xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
+<xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 
 <xsl:template match="/">
 
 	<xsl:apply-imports/>
-	<!-- Used to convert case of the string -->
-    <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
-    <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
     
     <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output">
     
@@ -21,61 +23,13 @@
             <xsl:if test="@type = 'General'">
                 
                 <xsl:variable name="completefilename" select="./Complete_name"/>
-       			<!-- Convert Format to lowercase for comparison -->
+                
        			<xsl:variable name="format" select="./Format"/>
-                <xsl:variable name="formatLC" select="translate($format, $uppercase, $smallcase)" />             
+                <xsl:variable name="formatProfile" select="./Format_profile" />
 	            <identification>
                     <identity>
-
-   		                <xsl:attribute name="mimetype">                   
-       			           <xsl:choose>
-      			               <xsl:when test="contains($formatLC, 'mpeg-4')">
-       			                   <xsl:value-of select="string('video/quicktime')"/>
-       			               </xsl:when>
-       			               <xsl:when test="contains($formatLC, 'mpeg')">
-       			                   <xsl:value-of select="string('video/mpg')"/>
-       			               </xsl:when>
-      			               <xsl:when test="$formatLC = 'quicktime'">
-       			                   <xsl:value-of select="string('video/quicktime')"/>
-       			               </xsl:when> 
-      			               <xsl:when test="$formatLC = 'mxf'">
-       			                   <xsl:value-of select="string('application/mxf')"/>
-       			               </xsl:when>        			             			              			            			   
-      			               <xsl:when test="$formatLC = 'mjp2'">
-       			                   <xsl:value-of select="string('video/mj2')"/>
-       			               </xsl:when>
-      			               <xsl:when test="$formatLC = 'matroska'">
-       			                   <xsl:value-of select="string('video/x-matroska')"/>
-       			               </xsl:when>
-       			               <xsl:when test="$formatLC = 'ogg'">
-       			                   <xsl:value-of select="string('video/ogg')"/>
-       			               </xsl:when>
-       			               <xsl:when test="$formatLC = 'avi'">
-       			                   <xsl:value-of select="string('video/avi')"/>
-       			               </xsl:when>       			            			             			        
-      			               <xsl:when test="$formatLC = 'dv'">
-       			                   <xsl:value-of select="string('video/x-dv')"/>
-       			               </xsl:when> 
-      			               <xsl:when test="contains($formatLC, 'avc')">
-       			                   <xsl:value-of select="string('video/quicktime')"/>
-       			               </xsl:when>       			                         			              			             			       
-		                       <xsl:otherwise>
-				                   <xsl:text>TBD</xsl:text>
-				               </xsl:otherwise>
-				           </xsl:choose>
-		                </xsl:attribute>
-		                
-		                <xsl:attribute name="format">
-                           <xsl:choose>
-                               <xsl:when test="$format = 'MXF'">
-                                   <xsl:value-of select="string('Material Exchange Format (MXF)')"/>
-                               </xsl:when>
-                               <xsl:otherwise>
-                                   <xsl:value-of select="$format"/>
-                               </xsl:otherwise>
-                           </xsl:choose>
-		                </xsl:attribute>                          
-                
+   		                <xsl:attribute name="mimetype" select="local:calcMimeType($format, $formatProfile)" />
+		                <xsl:attribute name="format" select="local:calcFormat($format)" />
                     </identity>
 		        </identification>
 		        		        
@@ -115,47 +69,14 @@
        			<!-- Convert Format to lowercase for comparison -->
        			<xsl:variable name="format" select="./Format"/>
                 <xsl:variable name="formatLC" select="translate($format, $uppercase, $smallcase)" /> 
+                <xsl:variable name="formatProfile" select="./Format_profile" />
                 
       			<mimeType>
-       			   <xsl:choose>
-      			       <xsl:when test="contains($formatLC, 'mpeg-4')">
-       			           <xsl:value-of select="string('video/quicktime')"/>
-       			       </xsl:when>
-       			       <xsl:when test="contains($formatLC, 'mpeg')">
-       			           <xsl:value-of select="string('video/mpg')"/>
-       			       </xsl:when>
-      			       <xsl:when test="$formatLC = 'quicktime'">
-       			           <xsl:value-of select="string('video/quicktime')"/>
-       			       </xsl:when> 
-      			       <xsl:when test="$formatLC = 'mxf'">
-       			           <xsl:value-of select="string('application/mxf')"/>
-       			       </xsl:when>        			             			              			            			   
-      			       <xsl:when test="$formatLC = 'mjp2'">
-       			           <xsl:value-of select="string('video/mj2')"/>
-       			       </xsl:when>
-      			       <xsl:when test="$formatLC = 'matroska'">
-       			           <xsl:value-of select="string('video/x-matroska')"/>
-       			       </xsl:when>
-       			       <xsl:when test="$formatLC = 'ogg'">
-       			           <xsl:value-of select="string('video/ogg')"/>
-       			       </xsl:when>
-       			       <xsl:when test="$formatLC = 'avi'">
-       			           <xsl:value-of select="string('video/avi')"/>
-       			       </xsl:when>       			            			             			        
-      			       <xsl:when test="$formatLC = 'dv'">
-       			           <xsl:value-of select="string('video/x-dv')"/>
-       			       </xsl:when>
-      			       <xsl:when test="contains($formatLC, 'avc')">
-       			           <xsl:value-of select="string('video/quicktime')"/>
-       			       </xsl:when>        			                			              			             			       
-		               <xsl:otherwise>
-				           <xsl:text>TBD</xsl:text>
-				       </xsl:otherwise>
-				   </xsl:choose>
+      				<xsl:value-of select="local:calcMimeType($format, $formatProfile)" />
        			</mimeType>
        			        
 			    <format>
-                    <xsl:value-of select="./Format"/>
+			    	<xsl:value-of select="local:calcFormat($format)" />
                 </format>
 
                 <!-- Can be found in either MediaInfo in General section or -->
@@ -165,7 +86,7 @@
 		        <formatProfile>
                     <xsl:value-of select="./Format_profile"/>
        			</formatProfile>
-       			 			        
+
        			<duration>
        			    <xsl:value-of select="./Duration"/>
        			</duration>
@@ -594,8 +515,81 @@
          </video>	    
 	</metadata>
 
-	</fits>				
+	</fits>
 
 </xsl:template>
+
+	<!-- get the mime type -->
+	<xsl:function name="local:calcMimeType">
+		<xsl:param name="format" />
+		<xsl:param name="formatProfile" />
+
+		<xsl:variable name="formatLC" select="translate($format, $uppercase, $smallcase)" />
+        <xsl:choose>
+            <xsl:when test="contains($formatLC, 'mpeg-4') and $formatProfile and $formatProfile = 'QuickTime'">
+                 <xsl:value-of select="string('video/quicktime')"/>
+             </xsl:when>
+            <xsl:when test="contains($formatLC, 'mpeg-4')">
+                <xsl:value-of select="string('video/mp4')"/>
+            </xsl:when>
+            <xsl:when test="contains($formatLC, 'mpeg')">
+                <xsl:value-of select="string('video/mpg')"/>
+            </xsl:when>
+            <xsl:when test="$formatLC = 'quicktime'">
+                <xsl:value-of select="string('video/quicktime')"/>
+            </xsl:when>
+            <xsl:when test="$formatLC = 'mxf'">
+                <xsl:value-of select="string('application/mxf')"/>
+            </xsl:when>
+            <xsl:when test="$formatLC = 'mjp2'">
+                <xsl:value-of select="string('video/mj2')"/>
+            </xsl:when>
+            <xsl:when test="$formatLC = 'matroska'">
+                <xsl:value-of select="string('video/x-matroska')"/>
+            </xsl:when>
+            <xsl:when test="$formatLC = 'ogg'">
+                <xsl:value-of select="string('video/ogg')"/>
+            </xsl:when>
+            <xsl:when test="$formatLC = 'avi'">
+            	<xsl:value-of select="string('video/x-msvideo')"/>
+            </xsl:when>
+            <xsl:when test="$formatLC = 'dv'">
+                <xsl:value-of select="string('video/x-dv')"/>
+            </xsl:when>
+            <xsl:when test="contains($formatLC, 'avc')">
+                <xsl:value-of select="string('video/quicktime')"/>
+            </xsl:when>
+            <xsl:when test="contains($formatLC, 'realmedia')">
+                <xsl:value-of select="string('application/vnd.rn-realmedia')"/>
+            </xsl:when>
+            <xsl:when test="contains($formatLC, 'windows media')">
+                <xsl:value-of select="string('video/x-ms-wmv')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="string('application/octet-stream')"/>
+            </xsl:otherwise>
+        </xsl:choose>
+	</xsl:function>
+
+	<!-- get the format -->
+	<xsl:function name="local:calcFormat">
+		<xsl:param name="format" />
+
+		<xsl:variable name="formatLC" select="translate($format, $uppercase, $smallcase)" />
+		<xsl:choose>
+		    <xsl:when test="$formatLC = 'mxf'">
+				<xsl:value-of select="string('Material Exchange Format (MXF)')"/>
+		    </xsl:when>
+			<xsl:when test="$formatLC = 'avi'">
+				<xsl:value-of select="string('Audio/Video Interleaved Format')"/>
+			</xsl:when>
+            <xsl:when test="contains($formatLC, 'windows media')">
+                <xsl:value-of select="string('Windows Media Video')"/>
+            </xsl:when>
+		    <xsl:otherwise>
+		        <xsl:value-of select="$format"/>
+		    </xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
 
 </xsl:stylesheet>

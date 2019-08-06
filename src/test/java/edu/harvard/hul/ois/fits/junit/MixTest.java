@@ -56,7 +56,7 @@ public class MixTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
 				
 		fitsOut.addStandardCombinedFormat(); // output all data to file
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 	
 	@Test
@@ -67,7 +67,7 @@ public class MixTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -79,7 +79,7 @@ public class MixTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
     	
 		fitsOut.addStandardCombinedFormat(); // output all data to file
-		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + filename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -91,7 +91,7 @@ public class MixTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
 						
 		fitsOut.addStandardCombinedFormat(); // output all data to file
-		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + filename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -103,7 +103,7 @@ public class MixTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
-		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + filename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -115,7 +115,7 @@ public class MixTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
-		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + filename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -127,7 +127,7 @@ public class MixTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
-		fitsOut.saveToDisk("test-generated-output/" + filename + "_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + filename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -139,7 +139,7 @@ public class MixTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
-		fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
     
 	@Test
@@ -151,7 +151,7 @@ public class MixTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
-		fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 	
 	@Test
@@ -163,7 +163,7 @@ public class MixTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
 		
 		fitsOut.addStandardCombinedFormat(); // output all data to file
-		fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 	}
 
 }

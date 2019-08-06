@@ -20,6 +20,7 @@ package edu.harvard.hul.ois.fits.junit;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Scanner;
 
 import org.jdom.output.Format;
@@ -121,7 +122,12 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 		
 		// Create standard output in the stream passed in
 		Fits.outputStandardSchemaXml(fitsOut, out);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
+		
+		File file = new File("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
+		FileOutputStream fos = new FileOutputStream(file);
+		fos.write(out.toByteArray());
+		fos.flush();
+		fos.close();
 		
 		// Turn output stream into a String HtmlUnit can use
 		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
@@ -164,46 +170,23 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 	}	
 	
 	@Test  
-	public void testVideoXmlUnitCombinedOutput_AVC() throws Exception {
-		
-    	String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
-    	File input = new File("testfiles/" + inputFilename);
-		FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-combined" + ACTUAL_OUTPUT_FILE_SUFFIX);
-		
-		// Output stream for FITS to write to 
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		
-		// Turn output stream into a String HtmlUnit can use
-		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-		
-		// Read in the expected XML file
-		Scanner scan = new Scanner(new File(
-	            "testfiles/output/" + inputFilename + "-combined" + EXPECTED_OUTPUT_FILE_SUFFIX));
-		String expectedXmlStr = scan.
-				useDelimiter("\\Z").next();
-		scan.close();
-
-		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
-	}
-	
-	@Test  
 	public void testVideoXmlUnitCombinedOutput_DV() throws Exception {
 		
     	String inputFilename = "FITS-SAMPLE-26.mov";
     	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
-		
-		// Output stream for FITS to write to 
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		
-		// Create combined output in the stream passed in
-		Fits.outputStandardCombinedFormat(fitsOut, out);
-		
+		// Include standard schema output 
+		fitsOut.addStandardCombinedFormat();
+
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		// Turn output stream into a String HtmlUnit can use
-		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
-		fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-combined" + ACTUAL_OUTPUT_FILE_SUFFIX);
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// also save file to disk for visual examination
+		File file = new File("test-generated-output/" + inputFilename + "-combined" + ACTUAL_OUTPUT_FILE_SUFFIX);
+		FileOutputStream fos = new FileOutputStream(file);
+		fitsOut.output(fos);
+		fos.close();
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(
@@ -227,9 +210,6 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 		FitsOutput fitsOut = fits.examine(input);
     	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 		
-		// Output stream for FITS to write to 
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		
 		// Turn output stream into a String HtmlUnit can use
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
@@ -245,21 +225,18 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 	}
 	
 	@Test  
-	public void testVideoXmlUnitCombinedOutput_MPEG2() throws Exception {
+	public void testVideoXmlUnitCombinedOutput() throws Exception {
 		
     	String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov";
     	File input = new File("testfiles/" + inputFilename);
 		FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-		
-		// Output stream for FITS to write to 
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		
 		// Create combined output in the stream passed in
-		Fits.outputStandardCombinedFormat(fitsOut, out);
+		fitsOut.addStandardCombinedFormat();
 		
 		// Turn output stream into a String HtmlUnit can use
-		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 		
 		// Read in the expected XML file
 		Scanner scan = new Scanner(new File(

@@ -56,7 +56,7 @@ public class M4aTest extends AbstractLoggingTest {
     	File input = new File("testfiles/" + fileName);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-		fitsOut.saveToDisk("test-generated-output/" + fileName + "_Output.xml");
+		fitsOut.saveToDisk("test-generated-output/" + fileName + OUTPUT_FILE_SUFFIX);
 	}
 
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<!-- (this file generated automatically by Image::ExifTool::BuildTagLookup) -->
 <head>
 <title>MPF Tags</title>
 <link rel=stylesheet type='text/css' href='style.css' title='Style'>
@@ -135,7 +136,7 @@ specification.</p>
 <h2><a name='MPImage'>MPF MPImage Tags</a></h2>
 <p>The first MPF &quot;Large Thumbnail&quot; image is extracted as PreviewImage, and the
 rest of the embedded MPF images are extracted as MPImage#.  The
-ExtractEmbedded (-ee) option may be used to extract information from these
+<a href="../ExifTool.html#ExtractEmbedded">ExtractEmbedded</a> (-ee) option may be used to extract information from these
 embedded images.</p>
 <blockquote>
 <table class=frame><tr><td>
@@ -146,21 +147,21 @@ embedded images.</p>
 <td class=r title='0 = 0x0'>0.1</td>
 <td>MPImageFlags</td>
 <td class=c>no</td>
-<td><span class=s>[Mask 0xf8000000]
-  <br>Bit 29 = Representative image
-  <br>Bit 30 = Dependent child image
-  <br>Bit 31 = Dependent parent image</span></td></tr>
+<td><span class=s>[val &gt;&gt; 27 &amp; 0x1f]
+  <br>Bit 2 = Representative image
+  <br>Bit 3 = Dependent child image
+  <br>Bit 4 = Dependent parent image</span></td></tr>
 <tr class=b>
 <td class=r title='0 = 0x0'>0.2</td>
 <td>MPImageFormat</td>
 <td class=c>no</td>
-<td><span class=s>[Mask 0x7000000]
-  <br>0x0 = JPEG</span></td></tr>
+<td><span class=s>[val &gt;&gt; 24 &amp; 0x7]
+  <br>0 = JPEG</span></td></tr>
 <tr>
 <td class=r title='0 = 0x0'>0.3</td>
 <td>MPImageType</td>
 <td class=c>no</td>
-<td><span class=s>[Mask 0xffffff]</span><table class=cols><tr>
+<td><span class=s>[val &amp; 0xffffff]</span><table class=cols><tr>
   <td>0x0 = Undefined
   <br>0x10001 = Large Thumbnail (VGA equivalent)
   <br>0x10002 = Large Thumbnail (full HD equivalent)
@@ -193,7 +194,7 @@ embedded images.</p>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Jul 9, 2015</i>
+<br><i>Last revised Oct 24, 2018</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

@@ -79,8 +79,6 @@ public class XmlContentConverter {
                     Double dblValue = null;
                     Rational rationalValue = null;
 
-                    // This is a very long switch, but I don't think much would be gained
-                    // by breaking out each case into a separate processing function.
                     switch (fitsElem) {
                     case byteOrder:
                         mm.bdoi.setByteOrder(dataValue);
@@ -1040,8 +1038,9 @@ public class XmlContentConverter {
 	    			}
 	    			
 	    	    	// Ebucore can only be generated from MediaInfo output
-	    	    	if(!isMediaInfoTool(fitsName, elem))
-	    	    		return null;
+	    	    	if(!isMediaInfoTool(fitsName, elem)) {
+	    	    		continue;
+	    	    	}
 	
 	    	    	// Set mime type - MXF codec generation needs it
 	    	    	if(fitsName.equals("mimeType")) {
@@ -1096,8 +1095,7 @@ public class XmlContentConverter {
     		}  // for(Element elem : trackList)
 
 			// Process Elements directly off the root of the Format Element
-			ebucoreModel.
-			createStart(timecode, framerate);
+			ebucoreModel.createStart(timecode, framerate);
 
     	} catch (XmlContentException e) {
     		// If we get here then construction of EbuCoreModel failed so
