@@ -46,10 +46,5 @@
 	<!-- Limits number of bytes DROID reads in (in KB) for processing large files for the listed file extensions. -->
 	<!-- Note: This should only be used with files that can provide sufficient metadata at beginning of the file -->
 	<!-- <droid_read_limit include-exts="mov,mxf" read-limit-kb="64" /> -->
-	
-	<!-- the fits home is used by the MediaInfo tool to load the jna api libs  -->
-	<!-- in most cases you won't need to change -->
-	<!-- example for BB will be /fits -->
-	<fits_home>.</fits_home>	
 		
 </fits_configuration>

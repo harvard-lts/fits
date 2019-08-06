@@ -34,9 +34,9 @@ public class MediaInfo extends ToolBase {
 
     private final static String mediaInfoFitsConfig = Fits.FITS_XML_DIR+"mediainfo"+File.separator;
     private final static String xsltTransform = "mediainfo_video_to_fits.xslt";
-    private final static String WINDOWS_NATIVE_LIB_PATH = File.separator + "tools" + File.separator + "mediainfo" + File.separator + "windows" + File.separator + "64";
-    private final static String OSX_NATIVE_LIB_PATH = File.separator + "tools" + File.separator + "mediainfo" + File.separator + "mac";
-    private final static String LINUX_NATIVE_LIB_PATH = File.separator + "tools" + File.separator + "mediainfo" + File.separator + "linux";
+    private final static String WINDOWS_NATIVE_LIB_PATH = "tools" + File.separator + "mediainfo" + File.separator + "windows" + File.separator + "64";
+    private final static String OSX_NATIVE_LIB_PATH = "tools" + File.separator + "mediainfo" + File.separator + "mac";
+    private final static String LINUX_NATIVE_LIB_PATH = "tools" + File.separator + "mediainfo" + File.separator + "linux";
 
     private static final Logger logger = Logger.getLogger(MediaInfo.class);
     private static MediaInfoNativeWrapper mi = null;
@@ -55,12 +55,7 @@ public class MediaInfo extends ToolBase {
 		info = new ToolInfo();
 		info.setName(TOOL_NAME);
 
-		String fitsHome = fits.getConfig().getString("fits_home");
-		// If the user has passed in the FITS_HOME parameter, use that
-		// instead of what is in the fits.xml
-		if(!StringUtils.isEmpty(Fits.FITS_HOME)) {
-			fitsHome = Fits.FITS_HOME;
-		}
+		String fitsHome = Fits.FITS_HOME; // this will always have a trailing slash if not empty
 		String nativeLibPath = "";
 
 		// Set the JNA library path based upon the OS

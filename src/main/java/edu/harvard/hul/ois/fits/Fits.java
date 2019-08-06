@@ -68,7 +68,7 @@ import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
  */
 public class Fits {
 
-  public static volatile String FITS_HOME;
+  public static volatile String FITS_HOME; // during initialization this value will always have a trailing slash.
   public static String FITS_XML_DIR;
   public static String FITS_TOOLS_DIR;
   public static String VERSION = "<unknown>";
