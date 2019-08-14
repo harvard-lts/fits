@@ -1,5 +1,5 @@
 /* 
- * Copyright 2016 Harvard University Library
+ * Copyright 2009 Harvard University Library
  * 
  * This file is part of FITS (File Information Tool Set).
  * 
@@ -18,10 +18,7 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
-import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -29,11 +26,11 @@ import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.identity.FitsIdentity;
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 
-public class VTTToolTest extends AbstractLoggingTest {
 
+public class ADLTest extends AbstractLoggingTest {
+    
 	/*
 	 *  Only one Fits instance is needed to run all tests.
 	 *  This also speeds up the tests.
@@ -52,44 +49,14 @@ public class VTTToolTest extends AbstractLoggingTest {
 		fits = null;
 	}
 
-	@Test  
-	public void testVttRead() throws Exception {   
-
-		String inputFilename = "simple_webvtt.vtt";
-		File input = new File("testfiles/" + inputFilename);
+	@Test
+	public void testADL() throws Exception {	
+		
+		String inputFilename = "T-350_036_Archival_Side_1.adl";
+    	File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
 		fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
-
-		List <FitsIdentity> identities = fitsOut.getIdentities();
-		
-		for(FitsIdentity identity : identities) {
-			if(!identity.getMimetype().contains("text/vtt")) {
-				fail("This should be identified as a WebVTT file with mimetype of text/vtt");
-			}
-		}
-
 	}
-
-
-	@Test  
-	public void testInvalidVttRead() throws Exception {   
-
-		String inputFilename = "invalid_webvtt.vtt";
-		File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-		fitsOut.addStandardCombinedFormat();
-		fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
-
-		List <FitsIdentity> identities = fitsOut.getIdentities();
-		
-		// Since this is an invalid VTT file, it should be identified as "text/plain"
-		for(FitsIdentity identity : identities) {
-			if(!identity.getMimetype().contains("text/plain")) {
-				fail("This should not be identified as a text/plain file");
-			}
-		}
-
-	}    
 
 }
