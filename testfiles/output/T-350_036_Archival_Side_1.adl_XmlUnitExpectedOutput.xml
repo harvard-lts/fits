@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0-SNAPSHOT" timestamp="8/14/19 10:44 AM">
+  <identification status="SINGLE_RESULT">
+    <identity format="Audio Decision List" mimetype="text/x-adl" toolname="FITS" toolversion="1.5.0-SNAPSHOT">
+      <tool toolname="ADL Tool" toolversion="0.1" />
+      <version toolname="ADL Tool" toolversion="0.1">01.01.00.00.03</version>
+    </identity>
+  </identification>
+  <fileinfo>
+    <creatingApplicationName toolname="ADL Tool" toolversion="0.1" status="SINGLE_RESULT">"Steinberg AES31 Filter"</creatingApplicationName>
+    <creatingApplicationVersion toolname="ADL Tool" toolversion="0.1" status="SINGLE_RESULT">03.00.02.35</creatingApplicationVersion>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/T-350_036_Archival_Side_1.adl</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">T-350_036_Archival_Side_1.adl</filename>
+    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">3211</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">0bbf80e4ee1843f887c297afa9fe0809</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1565793061000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <text>
+      <markupLanguage toolname="ADL Tool" toolversion="0.1" status="SINGLE_RESULT">EDML</markupLanguage>
+      <markupLanguageVersion toolname="ADL Tool" toolversion="0.1" status="SINGLE_RESULT">01.01.00.00.03</markupLanguageVersion>
+      <standard>
+        <textMD:textMD xmlns:textMD="info:lc/xmlns/textMD-v3">
+          <textMD:markup_language version="01.01.00.00.03">EDML</textMD:markup_language>
+        </textMD:textMD>
+      </standard>
+    </text>
+  </metadata>
+  <statistics fitsExecutionTime="582">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" executionTime="100" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="98" />
+    <tool toolname="Jhove" toolversion="1.20.1" status="did not run" />
+    <tool toolname="file utility" toolversion="5.31" status="did not run" />
+    <tool toolname="Exiftool" toolversion="11.54" executionTime="571" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="98" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="570" />
+    <tool toolname="Tika" toolversion="1.21" executionTime="144" />
+  </statistics>
+</fits>
+

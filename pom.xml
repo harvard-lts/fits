@@ -36,7 +36,7 @@
 		<jhove.version>1.20.1</jhove.version>
 		<jna.version>4.1.0</jna.version>
 		<hclaps.version>2.1</hclaps.version>
-		<fast-md5.version>1.0.0</fast-md5.version>
+		<fast-md5.version>2.7.1</fast-md5.version>
 		<aes31.version>31.3</aes31.version>
 		<gson.version>2.4</gson.version>
 		<nzmetool.version>3.6GA</nzmetool.version>
@@ -249,6 +249,11 @@
 			<artifactId>Saxon-HE</artifactId>
 			<version>${saxon.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.twmacinta</groupId>
+			<artifactId>fast-md5</artifactId>
+			<version>${fast-md5.version}</version>
+		</dependency>
 
 		<!-- Local dependencies -->
 		<dependency>
@@ -260,11 +265,6 @@
 			<groupId>com.therockquarry.aes</groupId>
 			<artifactId>aes</artifactId>
 			<version>${aes31.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.twmacinta</groupId>
-			<artifactId>fast-md5</artifactId>
-			<version>${fast-md5.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.harvard.hcl</groupId>

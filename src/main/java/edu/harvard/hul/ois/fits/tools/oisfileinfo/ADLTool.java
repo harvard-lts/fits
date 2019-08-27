@@ -28,7 +28,7 @@ import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
 /**
- * This uses the audio file parsing library hclaps.jar provided by Dave Ackerman
+ * This uses the audio file parsing library therockquarry.jar provided by Dave Ackerman
  * @author spencer
  *
  */
@@ -73,7 +73,7 @@ public class ADLTool extends ToolBase {
 			String adlCreatorVersion = null;
 
 			try	{
-				//creating an ADL objecte should be enough to validate it as ADL
+				//creating an ADL object should be enough to validate it as ADL
 				new ADL(file);
 
 				Scanner scanner = new Scanner(new FileReader(file));
