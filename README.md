@@ -3,7 +3,7 @@ FITS
 
 System Requirements
 -------------------
-FITS is a Java program and requires Java version 1.7 or higher. To find out your Java version type java -version in a command-line window.
+FITS is a Java program and requires Java version 1.8 or higher. To find out your Java version type java -version in a command-line window.
 
 Building FITS
 -------------
