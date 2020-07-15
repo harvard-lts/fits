@@ -28,16 +28,17 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
-/** The FileInfo tool uses Java system calls to get basic information about
- *  a file, as well as calculating an MD5 digest.
+/**
+ * The FileInfo tool uses Java system calls to get basic information about
+ * a file, as well as calculating an MD5 digest.
  *
  *  @see <a href="http://www.twmacinta.com/myjava/fast_md5.php">Fast MD5 Implementation in Java</a>
  */
 public class FileInfo extends ToolBase {
 
     private final static String TOOL_NAME = "OIS File Information";
-    private final static String TOOL_VERSION = "0.2";
-    private final static String TOOL_DATE = "12/13/2013";
+    private final static String TOOL_VERSION = "1.0";
+    private final static String TOOL_DATE = "8/14/2019";
 
     private static Logger logger = Logger.getLogger(FileInfo.class);
 

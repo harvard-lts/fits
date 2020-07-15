@@ -18,22 +18,21 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
-import java.util.List;
+import java.util.Scanner;
 
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.identity.FitsIdentity;
-import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
+import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
 
-public class VTTToolTest extends AbstractLoggingTest {
-
+public class VTTToolXmlUnitTest extends AbstractXmlUnitTest {
+	
 	/*
 	 *  Only one Fits instance is needed to run all tests.
 	 *  This also speeds up the tests.
@@ -43,8 +42,7 @@ public class VTTToolTest extends AbstractLoggingTest {
 	@BeforeClass
 	public static void beforeClass() throws Exception {
 		// Set up FITS for entire class.
-		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
-		fits = new Fits(null, fitsConfigFile);
+		fits = new Fits();
 	}
 	
 	@AfterClass
@@ -53,43 +51,25 @@ public class VTTToolTest extends AbstractLoggingTest {
 	}
 
 	@Test  
-	public void testVttRead() throws Exception {   
+	public void testVtt() throws Exception {   
 
 		String inputFilename = "simple_webvtt.vtt";
 		File input = new File("testfiles/" + inputFilename);
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
-		fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
-		List <FitsIdentity> identities = fitsOut.getIdentities();
-		
-		for(FitsIdentity identity : identities) {
-			if(!identity.getMimetype().contains("text/vtt")) {
-				fail("This should be identified as a WebVTT file with mimetype of text/vtt");
-			}
-		}
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
-
-
-	@Test  
-	public void testInvalidVttRead() throws Exception {   
-
-		String inputFilename = "invalid_webvtt.vtt";
-		File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-		fitsOut.addStandardCombinedFormat();
-		fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
-
-		List <FitsIdentity> identities = fitsOut.getIdentities();
-		
-		// Since this is an invalid VTT file, it should be identified as "text/plain"
-		for(FitsIdentity identity : identities) {
-			if(!identity.getMimetype().contains("text/plain")) {
-				fail("This should not be identified as a text/plain file");
-			}
-		}
-
-	}    
 
 }
