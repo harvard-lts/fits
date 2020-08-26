@@ -32,7 +32,7 @@
 		<commons-cli.version>1.2</commons-cli.version>
 		<commons-configuration.version>1.8</commons-configuration.version>
 		<droid.version>6.4</droid.version>
-		<ots-schemas.version>1.0.53</ots-schemas.version>
+		<ots-schemas.version>1.0.51</ots-schemas.version>
 		<jhove.version>1.20.1</jhove.version>
 		<jna.version>4.1.0</jna.version>
 		<hclaps.version>2.1</hclaps.version>
