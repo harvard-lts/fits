@@ -24,7 +24,7 @@
 		<xmlunit.version>1.6</xmlunit.version>
 		<stax2.version>3.0.2</stax2.version>
 		<staxmate.version>2.0.1</staxmate.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<commons-lang.version>2.6</commons-lang.version>
 		<commons-logging.version>1.2</commons-logging.version>
 		<commons-collections.version>3.2.2</commons-collections.version>
