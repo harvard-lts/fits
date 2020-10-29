@@ -19,7 +19,7 @@
     
     <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output">
     
-        <xsl:for-each select="File/track">      
+        <xsl:for-each select="Mediainfo/File/track">      
             <xsl:if test="@type = 'General'">
                 
                 <xsl:variable name="completefilename" select="./Complete_name"/>
@@ -36,7 +36,7 @@
             </xsl:if>
         </xsl:for-each>
         
-        <xsl:for-each select="File/track">      
+        <xsl:for-each select="Mediainfo/File/track">      
             <xsl:if test="@type = 'General'">
                 <fileinfo>
                     <creatingApplicationName>
@@ -58,7 +58,7 @@
             <video>
 
         <!-- Some of the video data comes from the General Track data -->
-        <xsl:for-each select="/File/track">
+        <xsl:for-each select="/Mediainfo/File/track">
         
             <xsl:if test="@type = 'General'">                   
        			<xsl:variable name="completefilename" select="./Complete_name"/>

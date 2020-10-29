@@ -3,10 +3,562 @@
 + Added
 - Deleted
 x Correction
-#number is the identifier of bug report (B), requested feature (F) or patch (P)
+#number is the identifier of SourceForge bug report (B), requested feature (F) or patch (P), MediaInfoLib GitHub issue (I), or MediaInfo GitHub issue (M)
 bug reports and feature request are here:
 https://sourceforge.net/p/mediainfo/_list/tickets
 
+Version 20.08, 2020-08-11
+-------------
++ MPEG-H 3D Audio full featured support (group presets, switch groups, groups, signal groups)
++ MP4/MOV: support of more metadata locations
++ JSON and XML outputs: authorize "complete" output
++ MPEG-4: support of TrueHD
++ WM: show legacy value of performer if not same as modern one
++ WAV: trace of adtl (Associated Data List) chunk
+x URL encoding detection fix for URL having a query part (issue with e.g. pre-signed AWS S3 URLs)
+x Don't try to seek to the end (false positive range related error with HTTP)
+x DPX: don't load the whole file in RAM
+x Opus: fix wrong channel mapping
+x Miscellaneous other bug fixes
+
+Version 20.03, 2020-04-03
+-------------
++ AC-4 full featured support (presentations, groups, substreams)
++ MPEG-H 3D Audio basic support
++ MPEG-TS: audio preselection descriptor support
++ Dolby Vision v2 detection
++ MPEG-4: support of colr/nclx (color information) box
+x URL encoding option fixes, permitting to use URL encoded or non URL encoded links
+x AAC: fix SBR frequency when in ADIF
+x DPX: ColorimetricSpecification and TransferCharacteristic were inverted
+x Some API calls were not thread safe
+x Several crash and memory leaks fixes
+
+Version 19.09, 2019-09-10
+-------------
++ AC-4: basic detection, raw, in MP4 or TS
++ AC-3/E-AC-3: display time code of the first frame
++ Don't show anymore by default "encoded" bit rates and stream sizes
++ MOV: Decode more language codes
+x MXF: some metadata were missing
+x AC-3: AC-3 actually has no bit depth, removing the default 16 value
+x AC-3/E-AC-3: fix bitrate info (so duration) with streams having a time code
+x AC-3: parse more frames also when in MP4, in order to better detect JOC (Atmos)
+x MP4: do not show audio bit depth if it is the "default" 16 (value is not trustable enough)
+x ProRes RAW: we know only width and height
+x SubRip: bad handling of files having a quote character
+
+Version 19.07, 2019-07-16
+--------------
++ Dolby E: readout of Dolby E program description
++ MXF: Detection of Dolby Vision
++ MP4: support of Spatial Audio Metadata
++ DV: color space is explicit
++ DV: audio format settings
++ Matroska: PCM bit rate
++ MOV, MXF: Time code frame rate
++ DV: DVCAM commercial name for locked audio and PAL 4:2:0
++ MXF: Time code track name
+x USAC: frame rate was missing in case of non standard sampling rate
+x USAC: fix infinite loop with some LATM streams
+x WAV: MP3 delay should be added to BWF time reference
+x TTML: fix wrong output with standalone files
+x N19/STL: fix crash with some uncommon framerates
+x VC-3: fix sub sampling with some v2 files
+x DV: Time code frame number was wrong (divided by 2) for 50/60 fps content
+
+Version 19.04, 2019-04-23
+--------------
++ USAC: DRC effect types, Sample peak level, True peak level, Program loudness
++ HDR: SMPTE ST 2094 App 4 (including HDR10+) support
++ HDR: move HDR10, Dolby Vision and SL-HDR meta to specific generic "HDR Format" lines
++ Matroska: SMPTE ST 2086 (HDR10) support
++ Matroska: FieldOrder support
++ HEIF image format support
++ AV1: support of AV1 in MP4, HEIF, IVF
++ MOV: Add a lot more countries to AppleStoreCountry field internal list
++ MXF: Fix memory leak when fully parsing big file with acquisition metadata
++ HEVC: more HEVC profiles (Multiview, Scalable, Screen Content...)
++ AAC: better handling of corrupted streams
++ AAC: better handling of unknown channel layouts
++ AVC in MP4: better support of corrupted streams
+x B1101, AVI: fix crash with some invalid streams
+x B1101, SMPTE ST 337: fix crash with some invalid streams
+x Matroska: chapters timestamp were not display if chapters have no name
+x MXF: Fix false positive truncated file detection when there is no Random Index Pack
+x AAC: channel layout typos (Rls instead of Lrs, Lr instead of Rb)
+x ProRes: correctly show color space if alpha plane is present
+x MPEG Audio: some VBR files use "Info" Xing header, so we ignore the  difference between "Info" and "Xing"
+x I943, MPEG-4: wrong display aspect ratio in some corner cases (32-bit release only)
+x I1096, OGG: assign METADATA_BLOCK_PICTURE tag to cover
+x I339, text in square brackets stripped in $if() section
+
+Version 18.12, 2018-12-10
+--------------
++ DCP: support of multi-reel packages
++ EBUCore: added some FFV1 related metadata
++ JPEG: better info display of CYMK files
++ Provide source of the color related metadata (container or stream)  (hidden by default)
++ MXF: display more information when wrapper/essence values are detected as not same
++ MXF: ProRes profiles
++ MPEG-4: ProRes RAW support
++ MPEG-TS: add support of parsing some ETSI TS 103-433 messages
+x MPEG-2 Video: variable GOP detection fix
+x MPEG-7 export: some fields were missing due to the removal of some legacy fields
+x ADTS: Fix display of channel count for 8-channel streams
+x ID3v2: fix some date related issues
+x I298, ID3v2: fix wrong read of recording date in some cases
+x I1032, PBCore2: fix essenceFrameSize with non Video tracks
+x I1096, JPEG: fix crash with one file
+x Several other crash and memory leak fixes
+
+Version 18.08.1, 2018-09-10
+--------------
+x Fix XML/MPEG-7/PBCore2 output discarding non ANSI characters
+
+Version 18.08, 2018-08-31
+--------------
++ Dolby Atmos (in E-AC-3 or TrueHD): support of bed channel count/configuration + objects count + complexity index
++ AC-3/DTS/AAC: display of info about legacy decoders behavior removed
++ AC-3/DTS/AAC: some changes in how format is displayed
++ AC-3/DTS/AAC: better split between technical names and commercial names
++ AAC: support of profile information from MP4_IOD_Tag AudioProfileLevelIndication
++ USAC (xHE-AAC) support
++ Audio channel layout: using a new terminology, better suited for 3D Audio, see https://mediaarea.net/AudioChannelLayout
++ DSD (DSF & DSDIFF) support
++ DXD (Digital eXtreme Definition) commercial name
++ Dolby Vision: use new form for profile (numbers instead of acronyms)
++ New format "Directory" when image sequence + audio file is detected (1 directory style for the moment)
++ PBCore2 export update, thanks to WGBH
++ MPEG-7 export update
++ NISO export update
++ AV1: support of AOmedia AV1 based on 1.0.0 specifications
++ ATRAC9 detection
++ Versionned RPMs
++ HEVC: better support of buggy SEI
++ ADTS: CodecID
++ Support of injection of external metadata
++ HTTPS: support of AWS extension "x-amz-*" in HTTPS headers, permitting to manage temporary credentials (AssumeRole)
++ MPEG-4, #1005: Obey edit list in QuickTime Timecode track
+x MIXML: hide fields which were hidden in normal output
+x Hybrid AC-3/E-AC-3 (in Blu-rays): bit rate info was wrong
+x Lot of bug fixes, see full log for more info
+
+Version 18.05, 2018-05-09
+--------------
++ PBCore 2.1 export update, sponsored by WGBH as part of the NEH-funded PBCore Development and Preservation Project
++ TIFF: more IFDs are supported (density, software...)
++ NISO Z39.87 output
+x Mastering Display Color Primaries: was always showing BT.709 instead of real value, when present
+x Attachments: do not provide anymore attachments content in XML by default, fixes
+
+Version 18.03.1, 2018-03-26
+ --------------
+x Fix regression on Windows with directory names beginning by n or r.
+
+Version 18.03, 2018-03-19
+--------------
++ AV1: support of AOmedia AV1 based on latest specifications draft, raw 
+(OBU) and in MKV
++ MXF: HDR metadata support
++ MXF: detection and parsing of ProRes (SMPTE RDD 44)
++ MXF: framerate container/stream incoherence detection
++ DPX: endianess, packing mode, compression mode
++ AVC: add consumer camera recording date/time
++ AVC: add consumer camera model name and iris F number
++ JPEG: ICC parsing, display of ICC color space
++ EBUCore: possibility to inject external metadata in the output from 
+MediaInfo
++ JSON output
++ Hide/Show fields option
++ Attachments: do not provide anymore attachments content in XML by 
+default, reducing XML output size
+x colour description: trying (again!) to have more coherent labeling
+x DCP/IMF: fix crash with some CPL files
+x I782, FFV1: Golomb Rice parsing was wrong
+x I210, FFV1: remove sar_den test must be 0 if sar_num is 0
+x AAC: SBR parsing issue with 3+ channel streams, with sometimes 
+false-positive PS detection
+x BMP: was wrongly considering 4-bit without palette as with palette so 
+wrong bit depth
+x DPX: some elements in trace were wrongly displayed (wrong endianess)
+x B1082, Ancillary data: fix infinite loop
+
+Version 17.12, 2017-12-21
+--------------
++ MediaInfoOnline: https://mediaarea.net/MediaInfoOnline
++ JavaScript build and example
++ Dolby Vision: detection of Dolby Vision and display of profile for MPEG-TS and MP4 files
++ MPEG-4: Support of external time code tracks (.qtc)
++ JPEG 2000: Support of IMF profiles
++ F523, BDMV: Support of UHD Blu-ray playlist
++ Endianness and Sign report for PCM Matroska tracks
++ MPEG-4: Resolume DXV display
++ MPEG-4: support of file names >64 chars long or non ASCII for referenced files
++ Slight binary size optimizations
++ colour_description: some changes in order to have more readable names (DCI P3, Display P3, sRGB)
+x MP4: crash with some HEVC streams with Dolby Vision
+x VC-3: frame rate should not be detected as wrong when there are several frames per block
+x Matroska: wrong color range info
+x Matroska: fix crash with some corrupted files
+x MXF: better support of height when there is an incoherence between header and footer
+x transfer_characteristics: fix BT.2020 difference between values 14 and 15
+x Trace: fix freeze with some files
+x Trace: invalid character encoding with some MOV files
+x Some memory leak fixes
+
+Version 17.10, 2017-11-02
+--------------
++ We need your support! Visit https://mediaarea.net/SupportUs
++ Version scheme is now YY.MM (year dot month, 2 digits each)
++ New MediaInfo XML output, with XSD, more suitable for automatic parsing. Use Option("Inform", "OLDXML") for keeping previous behavior
++ New "Info_OutputFormats" option for listing supported output formats
++ Universal Ad ID: refactored display, better display of value and registry, XML name slightly modified
++ MOV: support of HDR metadata (MasteringDisplayColorVolume, MaxCLL, MaxFALL)
++ BWF: display of UMID and loudness info
++ AAC: show program_config_element in trace
++ MPEG Audio: frame rate info
++ PCM in WAV and Matroska: Support of ValidBitsPerSample
++ I197, EBUCore: 1.8 output uses now final version of XSD and final XSD location
++ Matroska: tweaking frame rate empirical detection for some corner cases
+x I1070, LAME 3.100 info tag was incorrectly parsed
+x B1068, MPEG Audio: Incoherent duration between General and Audio parts, Audio part duration fixed
+x Matroska: showing "A_MS/ACM" Matroska CodecID
+x MXF: Fix crash with some buggy files
+x MXF: was not well supporting MXF referencing only 1 file
+x PCM in WAV: 8-bit content is unsigned and without endianess
+x PCM in WAV and Matroska: More coherency between Wave info and ExtensibleWave Info (bitdepth, sign)
+x WAV: GUID display was with first 8 bytes in wrong order
+x Several crash fixes
+
+Version 0.7.99, 2017-09-11
+--------------
++ EBUCore: JSON output (--Output=EBUCore_1.8_JSON)
++ EBUCore: add writingLibraryName and writingLibraryVersion attributes
++ Ad-ID identifier display on a single line ("Value (Registry)" format)
++ MPEG-4: Better display of format of VobSub tracks
++ MPEG-4: CodecID is stsd name + ObjectTypeId for mp4a, mp4v, mp4s
++ AVC: preferred_transfer_characteristics support
++ MPEG Video, MPEG-4 Visual, AVC, HEVC, MPEG-4, Matroska: correct detection of RGB
++ matrix_coefficients: detection of Y'D'zD'x and Chromaticity-derived
++ AAC: info about SBR/PS being implicit/explicit/NBC (Not Backward Compatible)
++ AAC: indicate audioObjectType in CodecID
+x Fix a weird 1.334 DAR due to a rounding issue
+
+Version 0.7.98, 2017-08-08
+--------------
++ Delphi XE8 64 bit support
++ Matroska: handling of files with Tracks element after Cluster elements
++ Matroska: detection of Duration tag alone and use it even if tag writing date is not there.
++ Matroska: mapping of colour description elements, timecode and handler name to corresponding MediaInfo fields
+x I169, WAV: too much aggressive detection of wrong 5-channel audio, now limited on AC-3 and DTS
+x transfer_characteristics and matrix_coefficients slight change in order to have them unique per ISO integer value
+x EBUCore: All XML elements are correctly escaped
+x PBCore: All XML elements are correctly escaped
+x CMake file refactoring
+
+Version 0.7.97, 2017-06-30
+--------------
++ Ubuntu 17.04 packages
++ HEVC: support of stream having VPS hrd_parameters
++ FLV: support of FLV files with an ID3v2 header
++ FLV: detect some incoherent frame rates in buggy files
++ TIFF: support of more tags
++ I518, AAC: consider 4 back channels as 2 side + 2 back channels
++ Matroska: integrate all elements from Matroska specs in MediaTrace
++ WAV: parsing of MPEG Audio extension "mext" chunk and displayed in MediaTrace
++ MPC: channels count
++ AAC: ADTS/ADIF duration in case of full parsing and/or "risky bitrate estimation" option
+x MXF: less false-positive detection of some files as MXF
+x B1053, WAV: metadata coherency, ignore "fact" chunk more often in order to avoid bad information when this chunk is buggy
+x B1029, DPX: DPX endianess not considered with some fields in MediaTrace
+x Custom template: can check "Other" part as any other parts
+x Matroska: fix parsing issue with small byte blocks are taken from the file e.g. when reading from HTTP link
+x Matroska: files with unknown block size were flagged as truncated
+x MediaTrace: values with a \n were breaking the text report lines
+x Some typos (RefFrames, SPF)
+
+Version 0.7.96, 2017-06-01
+--------------
++ MPEG-4: display of recorded date from DV substream
+x I505, AC-3: crash with some potentially malformed frames
+x I477, AVC: fix hang when open .mpls from some 3D BD
+x MPEG-4: does not show "1904" year is raw value is 0 (Mac/Linux)
+x Dedicated read thread disabled by default (rare dead locks)
+x #B1027, MPEG-TS: some files where detected as MPEG-TS or BDAV but they aren't
+x Sequence of files : frame count was wrong with sequence of MPEG-TS files (was count of files)
+x MXF: detection of more 608/708 with parsing of few frames in the middle of the file was broken
+
+Version 0.7.95, 2017-05-04
+--------------
++ EBUCore: EBUCore 1.8 with acquisition metadata output.
++ Better support of growing files, especially when accessed by FTP
++ Matroska: better support of some broken files (high EBMLMaxSizeLength, padding before start of EBML)
++ EXR: showing Multipart and Deep flags
++ EXR: show image compression method
+x EBUCore: fixed display aspect ratio (was using rational)
+x EBUCore: fixed frame rate factor (was num/den instead of factor)
+x AVC: some streams with dynamic frame type were having a wrong frame rate
+x MPEG-4: some old AAC tracks were not correctly detected
+x Matroska: was sometimes displaying "Bit depth: Bit0" when bit depth is unknown
+x Nut: fix crash with some files
+x FFV1: PixelAspectRatio was an integer, switched to 3-digit rational
+x DTS: fix frame count
+x Dolby E: fix frame count
+x EBUCore: fix regression creating invalid XML files
+x AVC: some streams with dynamic frame type were having a wrong frame rate
+x I490, EXR: was not supporting valid 31-char attribute names
+
+Version 0.7.94, 2017-03-31
+--------------
++ VC-3: detection of embedded time code
++ VC-3: better support of stream with width 960 or 1440
++ VC-3: support of version 3 (a.k.a. DNxHR), including profile and level for version 1/2 (a.k.a. DNxHD)
++ Matroska trace feature: reduction of its size
++ MXF trace feature: reduction of its size
++ Visual Studio 2017 project files
+x M143, MXF with Acquisition Metadata: crash fixed
+x Several crash fixes
+
+Version 0.7.93, 2017-02-28
+--------------
++ Matroska: detection of native FFV1 CodecID ("V_FFV1")
++ AC-3/E-AC-3: detection of Atmos inside core streams
++ AC-3/E-AC-3: slight reorganization of metadata display for dual mono and surround
++ AC-3/E-AC-3: "complete main" and similar info moved to "Service kind" dedicated line
++ AC-3/E-AC-3: more precision about how is built a stream (e.g. "E-AC-3+Atmos / E-AC-3" or "TrueHD+Atmos / TrueHD / AC-3")
++ WTV: basic detection
++ MPEG-TS: Detection of Opus
++ URL: "URLEncode" option for saying if the input should be URL encoded or not (default is guess = no change except if it contains spaces)
+x MediaTrace: for bitstreams (not bytestreams), bit offset was wrong
+x HLS: duration was sometimes wrong, reading only the first TS file duration. Now full duration is displayed
+x MPEG-TS: if stream is encrypted or invalid, level was sometimes not the expected one for AVC (e.g. "BaseLine@3.0" instead of "Baseline@3")
+x Matroska: FFV1 stream width/height was not initialized when Matroska track header width/height is after CodecID
+x FFV1: fix potential crash with some buggy slice headers
+x Matroska: crash in case of big attachment and CRC32 present
+
+Version 0.7.92.1, 2017-02-02
+--------------
+x Fix a performance regression in the matroska parser
+
+Version 0.7.92, 2017-01-31
+--------------
++ #F507, MXF: detection of HLG Transfer Characteristic
++ #F508, HEVC: support of preferred_transfer_characteristics SEI (from HEVC/H.265 draft, preferred method for HLG in DVB)
++ MXF: parsing of AVC descriptors and crosscheck with the essence content
++ MP4: more AppleStoreCountry values mapped to countries, show the country number if unknown
++ File extension: test if the file extension correspond to the container format
++ AVI/WAV: test of truncated file
++ MPEG-TS: MpegTs_ForceTextStreamDisplay option for showing e.g. DVB streams detected in PMT even if there is no PES at the beginning of the file
++ MIXML output: Format_Profile divided in Format_Profile, Format_Level, Format_Tier
++ ID3v2: TCAP tag is mapped to new field "PodcastCategory"
+x MIXML output: some *_Original values were missing
+x MXF/Teletext: was not correctly detecting non subtitle streams
+x ID3v2: TP2 tag was incorrectly mapped to "Accompaniment", now mapped to "Album_Performer"
+x ID3v2: TSO2 tag was incorrectly mapped to "Performer_Sort", now mapped to "Album_Performer_Sort"
+x ID3v2: TCMP tag was displayed twice (2 "Compilation" lines)
+
+Version 0.7.91, 2016-11-30
+--------------
++ IMF and PTX: more languages detected from file names (but the full list of common languages tags still need to be added)
++ IMF and PTX: support of non-standard but common "LAS" = "Spanish (Latin America)" language code
++ MXF: Support of color primaries, transfer characteristic, coding equations defined in SMPTE ST 2067-21:2016 e.g. xvYCC or BT.2020
++ Minor performance optimizations and cleanup (Thanks to Pavel Pimenov)
++ MediaTrace optimization for Matroska
+x Fixed parsing of FFV1 v0/v1
+x PTX: fix crash due to bad parsing of some file names while looking for track language
+
+Version 0.7.90, 2016-10-31
+--------------
++ #M94, WAV: support of file with a buggy RIFF header
++ Matroska: detection of segment size of zero (compatibility risks e.g. Windows 10 Media Player does not play such file)
++ MXF: detection of some incoherences between header and footer
++ MXF: display of Locked information
++ N19/STL: support of 48/50/60 fps content
++ N19/STL: display of time code of first frame
++ AC-3: bit depth
++ MPEG Video: CBR bitrate mode information based on vbv_delay
++ DXW: support of fake time code attribute
+x Teletext in MPEG-TS: CodecID, format (classic teletext or subtitle), video delay were sometimes not displayed
+x PDF: fixed crash with some files with full analysis set
+x #B485, BMP height is negative
+x Several minor fixes
+
+Version 0.7.89, 2016-09-30
+--------------
++ QuickTime: support of Panasonic AVC-Intra 50/100/200 without SPS/PPS ("aixx" and "AVin" CodecID)
++ More QuickTime/MP4/AVC/HEVC color descriptions based on future ISO 23001-8:201x/PDAM1
++ FFV1: handling 16+ bitdepth (YUV and RGB) while handling buggy version <= 3 YUV 16-bit streams
++ Improved growing file detection, option for forcing the growing file test
++ Matroska: support of video FieldOrder, MatrixCoefficients, BitsPerChannel, Range, TransferCharacteristics, Primaries
++ Acquisition Metadata: support of more elements (IrisTNumber, IrisRingPosition, FocusRingPosition, ZoomRingPosition, ColorMatrix)
++ Add stream counts to MIXML output
++ I242, AVI/Matroska: mapping of mjp2 to JPEG 2000 format name
++ MPEG-4 Visual: parsing of Studio profiles, providing width/height/frame rate...
++ MXF: reading MPEG-4 Visual profile from MXF sub-descriptor and/or EssenceCompression
++ MXF: reading Intra GOP info from descriptors
++ Sequence of images: detection of sequence even if the provided path separator is the Unix one (Windows only)
+x Acquisition Metadata: IrisFNumber, FocusPosition, LensZoom were not correctly reported
+x LXF: fixed crash in case of some malformed files
+x LXF: reject bad frames instead of displaying wrong duration and bit rate
+
+Version 0.7.88, 2016-08-31
+--------------
++ MediaInfo distributed with HTTP/HTTPS support: support of Amazon S3 with Signature Version 4
++ FFV1: parsing speed slight improvement
+x Duration: fixed regression in last release, sometimes duration was displayed with only count of minutes
+
+Version 0.7.87, 2016-06-30
+--------------
++ Refactoring of the trace feature, for better performance and some bug fixes
+- Visual C++ 2012 project files removed
+x Review of symbols display, now using standard display (e.g. "k" instead of "K", " min" instead of "mn"...)
+x XML output: revert to old versioning method (version is MediaInfo software version)
+x I63, EBUCore/FIMS outputs: typo correction about WritingLibrary and WritingApplication
+x Matroska: files with CodecPrivate element before CodecID element where not always correctly parsed
+x OGG: crash/incoherent behavior with some buggy OGG streams having invalid chunk sizes
+
+Version 0.7.86, 2016-05-31
+--------------
++ FFV1 parsing optimization, avoiding by default a too verbose trace
++ Matroska: more elements support and typo fixes in the trace
++ #I172, Trace feature: provide the name of the main parser in the media element
++ Matroska: consider all values below 0x10 EBML names as 1-byte junk
++ --HTTPS=0 option for using HTTP in XML outputs
+x Matroska: better support (including speed improvement) of huge lossless frames (e.g. 20 MB FFV1 4K)
+x #I144, Python binding: Python 2 on Linux does not automatically provide the locale to the shared object
+x HTML output: don't escape carriage returns from the input file
+x FFV1: some streams were rejected despite the fact they are valid
+x Python binding: some errors during call of Get() API with Python3 on Linux/Mac
+
+Version 0.7.85, 2016-04-29
+--------------
++ FFV1: ScanType and ScanOrder
++ Detection of Omneon VBI and move of the VBI track from Video part to Others part
++ N19/STL: Support of etection of less standard frame rates (23.976 and 29.970)
++ Teletext in MPEG-TS: Teletext not subtitle moved to "Other" part
++ Teletext in MPEG-TS: display of CodecID and timestamp of first frame
+x Teletext in MXF: some IDs were wrong (when there are more than one Teletext service)
+x MPEG-4/MOV: default of raw audio to Signed in case of stsd atom version <2
+x MPEG Video: some CEA-608/708 captions were not correctly detected due to some packets discarded by the parser with interlaced content
+x MPEG-4/MOV: Dolby E with 2 or more audio services were not correctly reported
+
+Version 0.7.84, 2016-03-31
+--------------
+x #I122, MPEG-4/MOV: Crash if mdhd timescale is 0
+x MPEG-4/MOV: Infinite loop if malformed stsc / stsz (detected by fuzzing)
+x MPEG-TS: some DVB Subtitles were not detected
+x HLS: better handling of media playlists having EXT-X-BYTERANGE
+
+Version 0.7.83, 2016-02-29
+--------------
++ HEVC: Maximum Content Light Level (MaxCLL) and Maximum Frame-Average Light Level (MaxFALL), metadata mandated by CEA-861.3 for HDR support
++ HEVC: Mastering display color primaries and luminance (based on SMPTE ST 2084), metadata mandated by CEA-861.3 for HDR support
++ HEVC: SMPTE ST 2048 and SMPTE ST 428-1 transfer characteristics
++ HEVC: Chroma subsampling location (indication of the location type described in the HEVC spec)
++ MPEG-TS: ATSC Modulation Mode (Analog, SCTE_mode_1 aka 64-QAM, SCTE_mode_2 aka 256-QAM, 8-VSB, 16-VSB)
++ #B981, MP4: support of buggy file having "hint" SubType 
+x HLS: better handling of media playlists having EXT-X-BYTERANGE
+
+Version 0.7.82, 2016-01-27
+--------------
++ Matroska: CRC-32 validation
++ Matroska: support of padding/junk at the start of a segment
++ Matroska: trace is activated for all elements (but report is still based on the first element met)
++ Matroska: add an intermediate level in the trace for the raw stream parser
+x FLV: potential infinite loop fixed
+x #B966, DTS: DTS-HD HR 3840 not detected anymore
+x AC-3: wrong sample rate with 32 kHz streams
+x #B948, EBUCore 1.6: invalid output due to position of containerEncoding element
+x #B957, MPEG-7 output: No XML encoded value output
+
+Version 0.7.81, 2015-12-31
+--------------
++ Acquisition Metadata: support of all SMPTE RDD18 elements
++ Matroska: cover presence and content of the cover, thanks to Max Pozdeev
++ #F446, Matroska: Handling of cropping values, thanks to Max Pozdeev
++ Improvement of Python binding: Mac Os X support, Python2 and Python3 can use same MediaInfoDLL.py
++ #F484, AVI: OpenDML Interlaced / Progressive scan type detection
++ MP4: support of AtomicParsley imdb tag
+x #B959, MPEG-TS: MPEG-1 Video appeared as MPEG-2 Video
+x #B914, Matroska: Undefined number of chapters in some M4V with Timed Text, thanks to Max Pozdeev
+x #B962, Matroska: negative timecodes were not correctly handled
+x #B964, FLV: was hanging trying to open some FLV files
+x JPEG in AVI or MOV: better handling of buggy APP0/AVI1, avoiding some false positives about interlacement
+x DVCPRO HD: some containers consider DVCPRO HD as with width 1920 despite the fact it is 1280 or 1440, using 1280 or 1440 in all cases
+
+Version 0.7.80, 2015-11-30
+--------------
++ Matroska: support of MKVMerge statistics tags (duration frame count, stream size, bit rate) per track, thanks to ndjamena
++ FLAC: Channel positions, thanks to ndjamena
++ FLAC: difference between detected bit depth and stored bit depth
++ MPEG-TS: if DTVCC transport stream is present and no DTVCC service descriptor, scan also in the middle of the file in order to detect more caption services
++ Subtitle frame rate computing if frame count and duration are available (hidden by default)
++ Subtitles in Matroska: count of elements
++ Matroska, MXF and MP4/MOV: detection of truncated files
++ DTS: difference between ES Matrix and ES Discrete
++ DTS: display ES Matrix or ES Discrete even if HRA or MA is present
++ DTS: difference between DTS-HRA with 96k option and pure DTS-96/24
++ DTS: detection of DTS:X
++ Samples per frame info
++ AC-3: detection of Atmos inside TrueHD
++ Video frame rate: showing precision of 1/1.001 frame rates (e.g. "23.976 (24000/1001) fps" and "23.976 (23976/1000) fps")
++ MPEG-4/MOV: showing the complete list of compatible brands in the CodecID field
++ MPEG-4/MOV: Alternate groups
++ MPEG-4/MOV: "Disabled" tag
++ MPEG-4/MOV: "Forced" tag
++ MPEG-4/MOV: showing links between tracks (chapters for, subtitles for, fallback for)
++ MXF: handling of more acquisition metadata items
++ MXF: Package name
++ AVC: Store method of interlaced content (Interleaved Fields or Separated Fields)
++ EBUCore: acquisition metadata (Proof of concept, for feedback only)
+x Matroska: frame rate detection algorithm revisited, less wrong numbers are expected
+x SDP/Teletext: some pages were sometimes (when present in 2 different SDP lines) displayed several times
+x MPEG-4/MOV: some hint tracks were not displayed
+
+Version 0.7.79, 2015-11-02
+--------------
++ CLI/DLL only, XML: new option --Output=MIXML, with XML v2.0beta1 status, not for production, see https://github.com/MediaArea/MediaAreaXml for more details
++ MediaTrace: support of more than 1 file in XML output.
++ CLI/DLL only, XML: new option --Output=MAXML, with XML v0.1 status, in order to have bot MediaInfo and MediaTrace in the same output, not for production, see https://github.com/MediaArea/MediaAreaXml for more details
+x MediaTrace: fixed some invalid outputs
+x #B951, Amazon S3 support (REST API v2), CLI/DLL only and if compiled with libcurl support: URL without credential were badly interpreted
+
+Version 0.7.78, 2015-10-02
+--------------
++ MOV: AVrp CodecID support
++ Video Stored_Width/Stored_Height and Sampled_Width/Sampled_Height added (hidden by default)
++ Speed optimization for the parsing of tiny files e.g. JPEG files
++ Option (command line / DLL) --Legacy=0 for disabling some legacy fields
++ Option (command line / DLL) --Output=MAXML, XML with MediaInfo and MediaTrace output together, technology preview (not for production)
+x MPEG-TS: Teletext and Teletext Subtitle were missing in the menu list
+x Chroma subsampling "4:4:4" was sometimes indicated for RGB, which is not useful
+
+Version 0.7.77, 2015-09-02
+--------------
++ #B941, MXF: files having only a video stream and an ancillary data stream were having incorrect second video stream
++ MOV: detection of r210 CodecID as raw RGB
++ Ancillary data: detection of all metadata blocks (previously: only the first one was detected)
+x MPEG-TS: Wrong demux of TSP (188+16 TS) files having PES with only padding
+x MediaTrace #2: XML malformed with Flags items (hotfix, flags meaning disabled in XML output)
+x MediaTrace #3: XML malformed with some MP4 files
+x MediaTrace #6: XML duplicated attributes
+x MediaTrace #10: versioned xsd, creating library name and version
+x MediaTrace: XML content was not escaped
+x #B947, Amazon S3 support (REST API v2), CLI/DLL only and if compiled with libcurl support: Analyze file on s3 was not working if secret key contains / character
+
+Version 0.7.76, 2015-08-06
+--------------
++ XML output: line breaks and indents in between attributes for readability
++ Trace feature: XML trace update, only if compiled with trace feature
++ Amazon S3 support (REST API v2), CLI/DLL only and if compiled with libcurl support
++ FFV1: improved slice analysis (currently activated only with trace feature and for 1st frame)
+x MXF: optimization of the parsing, reading a lot less data (e.g. can be reduced from 1 GB to 10 MB with some UHD files)
+x MXF: wrong frame count with files not having the video stream as the first stream
+x Dolby E in MPEG-TS: "SMPTE ST 302" information was accidentally removed
+x MPEG-TS: avoid filling delay from file name, not applicable on MPEG-TS
+x MXF: better handling of huge padding blocks, better handling of descriptors without link to a TrackID
+x IMX: streams claiming that they are IMX are actually pure MPEG Video, probing both IMX and MPEG Video
 
 Version 0.7.75, 2015-06-30
 --------------
@@ -17,6 +569,7 @@ x MXF: SDTI 60 fps times were wrong
 x #B927, DPX: date/time specific DPX format was used instead of the ISO-like one
 x #B927, EBUCore: invalid content in attribute startDate 
 x ProRes: streams with apcs CodecID were displayed with an incoherent bit depth instead of no bit depth
+x IMX: streams claiming that they are IMX are actually pure MPEG Video, probing both IMX and MPEG Video
 
 Version 0.7.74, 2015-05-25
 --------------

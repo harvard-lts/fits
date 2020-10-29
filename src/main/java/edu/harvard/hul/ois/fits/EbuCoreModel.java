@@ -134,7 +134,10 @@ public class EbuCoreModel {
         		frameRate.setFactorDenominator(frRatio.getDenominator());
         		vfmt.setFrameRate(frameRate);
     			break;
-    		case bitRate:
+      		case bitRate:
+        	 	// workaround for handling multiple bitrate values that are sometimes returned by mediainfo
+      			String[] bitRateParts = dataValue.split(" ");
+        		dataValue = bitRateParts[0];
         		vfmt.setBitRate(Integer.parseInt(dataValue));
         		break;
     		case bitRateMax:
@@ -457,10 +460,10 @@ public class EbuCoreModel {
     		Comment comment = new Comment(dataValue);
     		// Add the type label
     		if (formatElem.name().equals("formatProfile")) {
-    	   		comment.setTypeLabel("formatProfile");    			
+    	   		comment.setTypeLabel("formatProfile");
     		}
     		else {
-    	   		comment.setTypeLabel("format");    			
+    	   		comment.setTypeLabel("format");
     		}
     		this.containerFormat.addComment(comment);
     		break;

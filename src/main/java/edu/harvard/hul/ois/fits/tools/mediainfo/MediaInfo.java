@@ -165,7 +165,7 @@ public class MediaInfo extends ToolBase {
 
 	    // Get MediaInfoLib Output as standard RAW XML
 	    mi.Option("Complete", "1");
-	    mi.Option("Output", "XML");
+	    mi.Option("Output", "OLDXML");
 	    String execOutRaw = mi.Inform();
 
 	    // DEBUG
@@ -173,7 +173,7 @@ public class MediaInfo extends ToolBase {
 
 	    // Get MediaInfoLib Output as standard XML
 	    mi.Option("Complete", "");
-	    mi.Option("Output", "XML");
+	    mi.Option("Output", "OLDXML");
 	    String execOut = mi.Inform();
 
 	    //// Get MediaInfoLib Output as EBUCore 1.5
