@@ -11,9 +11,9 @@
 package edu.harvard.hul.ois.fits.tools.tika;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.apache.tika.config.TikaConfig;
+import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MimeType;
 import org.apache.tika.mime.MimeTypeException;
@@ -434,19 +435,29 @@ public class TikaTool extends ToolBase {
         logger.debug("TikaTool.extractInfo starting on " + file.getName());
     	long startTime = System.currentTimeMillis();
         Metadata metadata = new Metadata();
-        FileInputStream instrm = null;
+
+        InputStream instrm = null;
         try {
-            instrm = new FileInputStream (file);
-        }
-        catch (FileNotFoundException e) {
+            instrm = TikaInputStream.get(file.toPath(), metadata);
+        } catch (FileNotFoundException e) {
             logger.debug(("FileNotFoundException with Tika on file " + file.getAbsolutePath()));
             throw new FitsToolException ("Can't open file with Tika", e);
-        }
-        try {
-            tika.parse (instrm, metadata);
         } catch (IOException e) {
             logger.debug (e.getClass().getName() + " in Tika: " + e.getMessage());
             throw new FitsToolException ("IOException in Tika", e);
+        }
+
+        try {
+            tika.parse(instrm, metadata);
+        } catch (IOException e) {
+            logger.debug (e.getClass().getName() + " in Tika: " + e.getMessage());
+            throw new FitsToolException ("IOException in Tika", e);
+        } finally {
+            try {
+                instrm.close();
+            } catch (IOException e) {
+                logger.debug("Failed to close input stream for file " + file.getAbsolutePath());
+            }
         }
 
         // Now we start constructing the tool output JDOM document
@@ -603,7 +614,7 @@ public class TikaTool extends ToolBase {
 
         if (contentLength != null) {
             Element sizeElem = new Element (FitsMetadataValues.SIZE, fitsNS);
-            sizeElem.addContent (sizeElem);
+            sizeElem.addContent (contentLength);
             fileInfoElem.addContent (sizeElem);
         }
         return fileInfoElem;
