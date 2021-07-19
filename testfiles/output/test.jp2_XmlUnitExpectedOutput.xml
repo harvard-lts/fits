@@ -77,7 +77,7 @@
           </mix:BasicImageInformation>
           <mix:ImageCaptureMetadata>
             <mix:GeneralCaptureInformation>
-              <mix:dateTimeCreated>2007-09-21T04:00:00.0Z</mix:dateTimeCreated>
+              <mix:dateTimeCreated>2007-09-21T00:00:00</mix:dateTimeCreated>
             </mix:GeneralCaptureInformation>
             <mix:ScannerCapture>
               <mix:scannerManufacturer>Google</mix:scannerManufacturer>

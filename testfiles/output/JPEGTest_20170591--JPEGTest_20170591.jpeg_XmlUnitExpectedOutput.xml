@@ -106,7 +106,7 @@
           </mix:BasicImageInformation>
           <mix:ImageCaptureMetadata>
             <mix:GeneralCaptureInformation>
-              <mix:dateTimeCreated>2014-10-27T16:34:43.0Z</mix:dateTimeCreated>
+              <mix:dateTimeCreated>2014-10-27T12:34:43</mix:dateTimeCreated>
               <mix:captureDevice>digital still camera</mix:captureDevice>
             </mix:GeneralCaptureInformation>
             <mix:ScannerCapture>

@@ -13,6 +13,7 @@ package edu.harvard.hul.ois.fits;
 
 import java.io.File;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,6 @@ import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
-import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlDateFormat;
 
 /** This class handles conversion between FITS metadata and XmlContent
  *  implementations of metadata schemas.
@@ -58,6 +58,12 @@ public class XmlContentConverter {
 			docMdNames.add(elem.getName());
 		}
 	}
+
+    // Exif timestamps do not include a timezone and a timezone cannot be easily inferred.
+    // See page 33 of this document for more info: https://web.archive.org/web/20180919181934/http://www.metadataworkinggroup.org/pdf/mwg_guidance.pdf
+    // SimpleDateFormat is not thread-safe, but XmlContentConvert should never be called from multiple threads.
+    private final SimpleDateFormat exifDateFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+    private final SimpleDateFormat mixNoTzDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
     /** Converts an image element to a MIX object
      *
@@ -563,10 +569,8 @@ public class XmlContentConverter {
             if(created != null) {
                 String date = null;
                 try {
-                    date = XmlDateFormat.exifDateTimeToXml(created.getText().trim());
-                    if(date != null) {
-                        mm.icm.getGeneralCaptureInformation().setDateTimeCreated(date);
-                    }
+                    date = mixNoTzDateFormat.format(exifDateFormat.parse(created.getText().trim()));
+                    mm.icm.getGeneralCaptureInformation().setDateTimeCreated(date);
                 }
                 catch (ParseException e) {
                     logger.warn("Warning - unable to parse date: " + e.getMessage ());
