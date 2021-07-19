@@ -455,7 +455,7 @@ public class TikaTool extends ToolBase {
         } finally {
             try {
                 instrm.close();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 logger.debug("Failed to close input stream for file " + file.getAbsolutePath());
             }
         }
