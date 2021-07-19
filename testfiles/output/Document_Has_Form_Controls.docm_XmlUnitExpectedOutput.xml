@@ -14,7 +14,7 @@
     <creatingApplicationVersion toolname="Exiftool" toolversion="10.00">14.0000</creatingApplicationVersion>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/Document_Has_Form_Controls.docm</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Document_Has_Form_Controls.docm</filename>
-    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">117650</size>
+    <size toolname="OIS File Information" toolversion="0.2">117650</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">acd68a6f5ba25303486add10a62a673e</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1455050482000</fslastmodified>
   </fileinfo>

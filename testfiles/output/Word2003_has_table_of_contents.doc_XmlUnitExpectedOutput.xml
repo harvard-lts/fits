@@ -17,7 +17,7 @@
     <creatingApplicationVersion toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">14.0000</creatingApplicationVersion>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/Word2003_has_table_of_contents.doc</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Word2003_has_table_of_contents.doc</filename>
-    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">99328</size>
+    <size toolname="OIS File Information" toolversion="0.2">99328</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">afb707e78e777bebf7563534f2d51762</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>

@@ -14,7 +14,7 @@
   <fileinfo>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/uncompressed-encrypted.zip</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">uncompressed-encrypted.zip</filename>
-    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">18851920</size>
+    <size toolname="OIS File Information" toolversion="0.2">18851920</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">794d9bfc7a6743dbde2c04919136e152</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117984000</fslastmodified>
   </fileinfo>

@@ -15,7 +15,7 @@
     <created toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2015:08:05 09:25:00</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/TestDoc.rtf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">TestDoc.rtf</filename>
-    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">29650</size>
+    <size toolname="OIS File Information" toolversion="0.2">29650</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">7ef9fd20c3545d3f29a79a9d77d85a03</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>

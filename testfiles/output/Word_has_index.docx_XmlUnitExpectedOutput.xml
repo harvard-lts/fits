@@ -18,7 +18,7 @@
     <creatingApplicationVersion toolname="Exiftool" toolversion="10.00">14.0000</creatingApplicationVersion>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/Word_has_index.docx</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Word_has_index.docx</filename>
-    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">39310</size>
+    <size toolname="OIS File Information" toolversion="0.2">39310</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">915d4914b6516586a4e05d32ccb27b35</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1455055714000</fslastmodified>
   </fileinfo>

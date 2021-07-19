@@ -17,7 +17,7 @@
     <creatingApplicationVersion toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">14.0000</creatingApplicationVersion>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/Word2003_many_graphics.doc</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Word2003_many_graphics.doc</filename>
-    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">528896</size>
+    <size toolname="OIS File Information" toolversion="0.2">528896</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">f2b172182cb10edc2c1d65dd44a7b9e0</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>
