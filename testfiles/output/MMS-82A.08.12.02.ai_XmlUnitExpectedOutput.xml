@@ -11,7 +11,8 @@
   <fileinfo>
     <size toolname="Jhove" toolversion="1.16">561633</size>
     <creatingApplicationName toolname="Jhove" toolversion="1.16">Adobe PDF library 4.800/Adobe Illustrator 9.0</creatingApplicationName>
-    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2002:08:10 18:43:47</created>
+    <created toolname="Exiftool" toolversion="10.00" status="CONFLICT">2002:08:10 18:43:47</created>
+    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2002-08-10T18:43:47Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/MMS-82A.08.12.02.ai</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">MMS-82A.08.12.02.ai</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">b09e1524642c0166da3566d4c7e03871</md5checksum>

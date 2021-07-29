@@ -11,7 +11,8 @@
     <creatingApplicationName toolname="Jhove" toolversion="1.11">Adobe PDF Library 10.0.1/Adobe InDesign CS6 (Windows)</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:20 18:29:04-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-20T22:29:04Z</lastmodified>
-    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2015:08:20 18:29-04:00</created>
+    <created toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:20 18:29-04:00</created>
+    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2015-08-20T22:29:00Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/Book_pdfx1a.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Book_pdfx1a.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">2d4fc60b4498c7cb63a95d7d247f6160</md5checksum>

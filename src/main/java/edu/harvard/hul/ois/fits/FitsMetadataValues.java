@@ -74,6 +74,7 @@ public class FitsMetadataValues {
     public final static String COLOR_SPACE = "colorSpace";
     public final static String COMPANY = "company";
     public final static String COMPRESSION_SCHEME = "compressionScheme";
+    public final static String CREATED = "created";
     public final static String CREATING_APPLICATION_NAME = "creatingApplicationName";
     public final static String CREATING_APPLICATION_VERSION = "creatingApplicationVersion";
     public final static String DATA_FORMAT_TYPE = "dataFormatType";

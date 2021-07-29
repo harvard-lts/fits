@@ -12,7 +12,8 @@
   </identification>
   <fileinfo>
     <lastmodified toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2015:09:24 12:17:00</lastmodified>
-    <created toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2015:09:24 12:16:00</created>
+    <created toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:09:24 12:16:00</created>
+    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2015-09-24T17:16:00Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/Doc2.rtf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Doc2.rtf</filename>
     <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">26328</size>

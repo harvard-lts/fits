@@ -14,7 +14,8 @@
     <creatingApplicationName toolname="Jhove" toolversion="1.20">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:08:19 18:15:37-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.18" status="CONFLICT">2015-08-19T22:15:37Z</lastmodified>
-    <created toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2015:08:19 16:44:12-04:00</created>
+    <created toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:08:19 16:44:12-04:00</created>
+    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2015-08-19T20:44:12Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/PDFa_has_table_of_contents.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_has_table_of_contents.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">537d5a41d854b5c03f8bb33041faf1aa</md5checksum>

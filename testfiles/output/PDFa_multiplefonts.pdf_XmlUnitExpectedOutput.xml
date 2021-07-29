@@ -15,7 +15,8 @@
     <creatingApplicationName toolname="Jhove" toolversion="1.20">Acrobat Distiller 8.1.0 (Windows)/records policy.doc - Microsoft Word</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:08:19 17:45:08-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.18" status="CONFLICT">2015-08-19T21:45:08Z</lastmodified>
-    <created toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2008:09:24 15:27:39-04:00</created>
+    <created toolname="Exiftool" toolversion="11.01" status="CONFLICT">2008:09:24 15:27:39-04:00</created>
+    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2008-09-24T19:27:39Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/PDFa_multiplefonts.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_multiplefonts.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">ba84a24c8d09b76b1f02e359c36ebbda</md5checksum>

@@ -13,6 +13,7 @@
     <lastmodified toolname="Tika" toolversion="1.19.1" status="CONFLICT">2016-01-19T20:30:00Z</lastmodified>
     <created toolname="Exiftool" toolversion="11.14" status="CONFLICT">2015:08:20 21:23:10</created>
     <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015-08-20 17:22:00</created>
+    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2015-08-20T21:22:00Z</created>
     <creatingApplicationName toolname="Exiftool" toolversion="11.14">Microsoft Macintosh Word</creatingApplicationName>
     <creatingApplicationVersion toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">14.0000</creatingApplicationVersion>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/Word2003_many_graphics.doc</filepath>

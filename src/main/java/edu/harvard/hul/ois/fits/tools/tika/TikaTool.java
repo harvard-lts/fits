@@ -589,6 +589,12 @@ public class TikaTool extends ToolBase {
             fileInfoElem.addContent (lastModElem);
         }
 
+        if (created != null) {
+            Element createdElem = new Element (FitsMetadataValues.CREATED, fitsNS);
+            createdElem.addContent(created);
+            fileInfoElem.addContent(createdElem);
+        }
+
         if (appName != null) {
             Element appNameElem = new Element (FitsMetadataValues.CREATING_APPLICATION_NAME, fitsNS);
             appNameElem.addContent (appName);

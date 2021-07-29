@@ -15,7 +15,8 @@
     <creatingApplicationName toolname="Jhove" toolversion="1.20">Mac OS X 10.5.6 Quartz PDFContext/XPP</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:08:19 18:29:41-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.18" status="CONFLICT">2015-08-19T22:29:41Z</lastmodified>
-    <created toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2009:04:13 18:38:02Z</created>
+    <created toolname="Exiftool" toolversion="11.01" status="CONFLICT">2009:04:13 18:38:02Z</created>
+    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2009-04-13T18:38:02Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/PDFa_has_tables.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_has_tables.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">fd321cedf56dec077704cfd5e0b6dbca</md5checksum>

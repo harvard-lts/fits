@@ -18,7 +18,8 @@
     <creatingApplicationName toolname="Jhove" toolversion="1.11">Acrobat Distiller 6.0.1 for Macintosh/QuarkXPress: pictwpstops filter 1.0</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2004:10:15 13:06:47-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2004-10-15T17:06:47Z</lastmodified>
-    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2004:10:15 12:35:50-04:00</created>
+    <created toolname="Exiftool" toolversion="10.00" status="CONFLICT">2004:10:15 12:35:50-04:00</created>
+    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2004-10-15T16:35:50Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDF_eng.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDF_eng.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">4ef7c6dd77d598fe8f60f84af8e4e7de</md5checksum>

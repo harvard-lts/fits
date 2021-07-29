@@ -16,7 +16,8 @@
     <creatingApplicationName toolname="Exiftool" toolversion="11.01" status="CONFLICT">JagPDF 1.5.0, http://jagpdf.org/Pdfcrowd - online HTML to PDF API - http://pdfcrowd.com</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:08:19 18:34:33-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.18" status="CONFLICT">2015-08-19T22:34:33Z</lastmodified>
-    <created toolname="Exiftool" toolversion="11.01" status="SINGLE_RESULT">2015:08:19 18:33:55-04:00</created>
+    <created toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:08:19 18:33:55-04:00</created>
+    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2015-08-19T22:33:55Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/PDFa_has_form.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_has_form.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">553682ae868f787654f5b2da6925861e</md5checksum>

@@ -12,6 +12,7 @@
     </identity>
   </identification>
   <fileinfo>
+    <created toolname="Tika" toolversion="2.0.0" status="SINGLE_RESULT">2015-08-05T08:25:00</created>
     <creatingApplicationName toolname="Exiftool" toolversion="11.01">OpenOffice/4.1.1$Unix OpenOffice.org_project/411m6$Build-9775</creatingApplicationName>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/UnparseableDate.odt</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">UnparseableDate.odt</filename>

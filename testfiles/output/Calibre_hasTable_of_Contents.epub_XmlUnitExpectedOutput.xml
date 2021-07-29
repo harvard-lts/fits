@@ -9,6 +9,7 @@
     </identity>
   </identification>
   <fileinfo>
+    <created toolname="Tika" toolversion="2.0.0" status="SINGLE_RESULT">2015-08-01T08:34:26.276379+00:00</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/Calibre_hasTable_of_Contents.epub</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Calibre_hasTable_of_Contents.epub</filename>
     <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">465875</size>

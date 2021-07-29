@@ -7,6 +7,7 @@
     </identity>
   </identification>
   <fileinfo>
+    <created toolname="Tika" toolversion="2.0.0" status="SINGLE_RESULT">1954</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/Winnie-the-Pooh-protected.epub</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Winnie-the-Pooh-protected.epub</filename>
     <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">15107043</size>

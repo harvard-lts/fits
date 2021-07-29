@@ -18,6 +18,7 @@
     <lastmodified toolname="Tika" toolversion="1.19.1" status="CONFLICT">2016-01-15T20:03:34Z</lastmodified>
     <created toolname="Exiftool" toolversion="11.14" status="CONFLICT">2015:12:14 16:12:58</created>
     <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015-12-14 11:12:58</created>
+    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2015-12-14T16:12:58Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/LibreOffice.doc</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">LibreOffice.doc</filename>
     <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">10240</size>
