@@ -56,6 +56,8 @@ public class ParentLastClassLoader extends ClassLoader {
 		loadByParentClassLoader.add("org.apache.xerces");
 		loadByParentClassLoader.add("org.w3c");
 		loadByParentClassLoader.add("org.jdom");
+		// Needed so tools (Droid) can access FITS config
+		loadByParentClassLoader.add("org.apache.commons.configuration.XMLConfiguration");
 	}
 
 	/**

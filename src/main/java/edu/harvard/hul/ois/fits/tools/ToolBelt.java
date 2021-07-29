@@ -168,7 +168,7 @@ public class ToolBelt {
 			Constructor<?> ctor = toolClass.getConstructor(Fits.class);
 			instanceOfTheClass = ctor.newInstance(fits);
 			logger.debug("1-arg constructor for instantiating tool class: " + toolClass.getName());
-		} catch (ReflectiveOperationException e) {
+		} catch (NoSuchMethodException e) {
 			// now try a no-arg constructor
 			logger.warn("No Fits 1-arg constructor for tool class: " + toolClass.getName() + " -- trying no-arg constructor. Error message: " + e.getMessage());
 			instanceOfTheClass = toolClass.newInstance();

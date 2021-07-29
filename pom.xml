@@ -30,8 +30,8 @@
 		<commons-collections.version>3.2.2</commons-collections.version>
 		<commons-io.version>2.11.0</commons-io.version>
 		<commons-cli.version>1.2</commons-cli.version>
-		<commons-configuration.version>1.8</commons-configuration.version>
-		<droid.version>6.4</droid.version>
+		<commons-configuration.version>1.10</commons-configuration.version>
+		<droid.version>6.5</droid.version>
 		<ots-schemas.version>1.0.56</ots-schemas.version>
 		<jhove.version>1.20.1</jhove.version>
 		<jna.version>4.1.0</jna.version>
@@ -214,6 +214,12 @@
 			<version>${droid.version}</version>
 			<!-- not included in main lib directory - only in subdirectory -->
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-slf4j-impl</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>uk.gov.nationalarchives</groupId>
@@ -221,6 +227,16 @@
 			<version>${droid.version}</version>
 			<!-- not included in main lib directory - only in subdirectory -->
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-slf4j-impl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.openpreservation.jhove</groupId>

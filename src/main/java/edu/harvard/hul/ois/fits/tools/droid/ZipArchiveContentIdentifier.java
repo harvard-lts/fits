@@ -102,7 +102,7 @@ public class ZipArchiveContentIdentifier extends ArchiveContentIdentifier {
                         final RequestMetaData metaData = new RequestMetaData(entry.getSize(), 2L, name);
                         final RequestIdentifier identifier = new RequestIdentifier(uri);
                         final ZipEntryIdentificationRequest zipRequest =
-                            new ZipEntryIdentificationRequest(metaData, identifier, getTmpDir(), false);
+                            new ZipEntryIdentificationRequest(metaData, identifier, getTmpDir().toPath(), false);
                         
                         if (compressionMethod != null && !compressionMethod.equals(entry.getMethod())) {
                         	logger.warn("Different compression method: " + compressionMethod + ", entry method: " + entry.getMethod());

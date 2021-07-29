@@ -75,7 +75,7 @@ public class Droid extends ToolBase {
 	        		throw new FitsToolException("Invalid long value in fits.xml droid_read_limit[@read-limit-kb]: " + limit, nfe);
 	        	}
 	        }
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			throw new FitsToolException("Error initilizing DROID",e);
 		}
 	}
