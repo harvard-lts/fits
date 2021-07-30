@@ -70,6 +70,7 @@ my %formatType = (
     chromaticities      => { },
     capDate => {
         Name => 'DateTimeOriginal',
+        Description => 'Date/Time Original',
         Groups => { 2 => 'Time' },
         PrintConv => '$self->ConvertDateTime($val)',
     },
@@ -196,7 +197,7 @@ sub ProcessEXR($$)
                     $name = 'Invalid';
                 }
             }
-            $tagInfo = { Name => $name, WasAdded => 1 };
+            $tagInfo = { Name => $name };
             AddTagToTable($tagTablePtr, $tag, $tagInfo);
             $et->VPrint(0, $$et{INDENT}, "[adding $tag]\n");
         }
@@ -301,7 +302,7 @@ information from OpenEXR images.
 
 =head1 AUTHOR
 
-Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2021, Phil Harvey (philharvey66 at gmail.com)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

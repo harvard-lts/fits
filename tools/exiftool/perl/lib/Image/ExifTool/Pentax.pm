@@ -37,11 +37,11 @@
 #              22) Bozi (K10D, http://www.cpanforum.com/posts/8480)
 #              23) Akos Szalkai (https://rt.cpan.org/Ticket/Display.html?id=43743)
 #              24) Albert Bogner private communication
-#              26) http://u88.n24.queensu.ca/exiftool/forum/index.php/topic,3444.0.html
-#              27) http://u88.n24.queensu.ca/exiftool/forum/index.php/topic,3833.0.html
-#              28) Klaus Homeister http://u88.n24.queensu.ca/exiftool/forum/index.php/topic,4803.0.html
+#              26) https://exiftool.org/forum/index.php/topic,3444.0.html
+#              27) https://exiftool.org/forum/index.php/topic,3833.0.html
+#              28) Klaus Homeister https://exiftool.org/forum/index.php/topic,4803.0.html
 #              29) Louis Granboulan private communication (K-5II)
-#              30) http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=5433
+#              30) https://exiftool.org/forum/index.php?topic=5433
 #              31) Andras Salamon private communication (K-70)
 #              IB) Iliah Borg private communication (LibRaw)
 #              JD) Jens Duttke private communication
@@ -58,7 +58,7 @@ use Image::ExifTool::Exif;
 use Image::ExifTool::GPS;
 use Image::ExifTool::HP;
 
-$VERSION = '3.28';
+$VERSION = '3.38';
 
 sub CryptShutterCount($$);
 sub PrintFilter($$$);
@@ -146,7 +146,7 @@ sub DecodeAFPoints($$$$;$);
     '3 44.3' => 'Sigma 17-70mm F2.8-4.5 DC Macro', #(Bart Hickman)
     '3 44.4' => 'Sigma 18-50mm F3.5-5.6 DC', #4
     '3 44.5' => 'Sigma 17-35mm F2.8-4 EX DG', #29
-    '3 44.6' => 'Tamron 35-90mm F4 AF', #12
+    '3 44.6' => 'Tamron 35-90mm F4-5.6 AF', #12 (added "-5.6", ref IB)
     '3 44.7' => 'Sigma AF 18-35mm F3.5-4.5 Aspherical', #29
     '3 46' => 'Sigma or Samsung Lens (3 46)',
     '3 46.1' => 'Sigma APO 70-200mm F2.8 EX',
@@ -178,6 +178,7 @@ sub DecodeAFPoints($$$$;$);
     '4 2' => 'smc PENTAX-FA 80-320mm F4.5-5.6',
     '4 3' => 'smc PENTAX-FA 43mm F1.9 Limited',
     '4 6' => 'smc PENTAX-FA 35-80mm F4-5.6',
+    '4 8' => 'Irix 150mm F2.8 Macro', #exiv2 issue 1084
     '4 9' => 'Irix 11mm F4 Firefly', #27
     '4 10' => 'Irix 15mm F2.4', #27
     '4 12' => 'smc PENTAX-FA 50mm F1.4', #17
@@ -306,6 +307,7 @@ sub DecodeAFPoints($$$$;$);
     '8 0' => 'Sigma 50-150mm F2.8 II APO EX DC HSM', #forum2997
     '8 3' => 'Sigma 18-125mm F3.8-5.6 DC HSM', #forum10167
     '8 4' => 'Sigma 50mm F1.4 EX DG HSM', #Artur private communication
+    '8 6' => 'Sigma 4.5mm F2.8 EX DC Fisheye', #IB
     '8 7' => 'Sigma 24-70mm F2.8 IF EX DG HSM', #Exiv2
     '8 8' => 'Sigma 18-250mm F3.5-6.3 DC OS HSM', #27
     '8 11' => 'Sigma 10-20mm F3.5 EX DC HSM', #27
@@ -316,9 +318,11 @@ sub DecodeAFPoints($$$$;$);
     '8 16' => 'Sigma 70-200mm F2.8 EX DG Macro HSM II', #26
     '8 17' => 'Sigma 50-500mm F4.5-6.3 DG OS HSM', #(Heike Herrmann) (also APO, ref 26)
     '8 18' => 'Sigma 8-16mm F4.5-5.6 DC HSM', #forum2998
+    '8 20' => 'Sigma 18-50mm F2.8-4.5 DC HSM', #IB
     '8 21' => 'Sigma 17-50mm F2.8 EX DC OS HSM', #26
     '8 22' => 'Sigma 85mm F1.4 EX DG HSM', #26
     '8 23' => 'Sigma 70-200mm F2.8 APO EX DG OS HSM', #27
+    '8 24' => 'Sigma 17-70mm F2.8-4 DC Macro OS HSM', #27
     '8 25' => 'Sigma 17-50mm F2.8 EX DC HSM', #Exiv2
     '8 27' => 'Sigma 18-200mm F3.5-6.3 II DC HSM', #27
     '8 28' => 'Sigma 18-250mm F3.5-6.3 DC Macro HSM', #27
@@ -334,6 +338,8 @@ sub DecodeAFPoints($$$$;$);
     '8 62' => 'HD PENTAX-D FA 24-70mm F2.8 ED SDM WR', #PH
     '8 63' => 'HD PENTAX-D FA 15-30mm F2.8 ED SDM WR', #PH
     '8 64' => 'HD PENTAX-D FA* 50mm F1.4 SDM AW', #27
+    '8 65' => 'HD PENTAX-D FA 70-210mm F4 ED SDM WR', #PH
+    '8 66' => 'HD PENTAX-D FA 85mm F1.4 ED SDM AW', #James O'Neill
     '8 196' => 'HD PENTAX-DA* 11-18mm F2.8 ED DC AW', #29
     '8 197' => 'HD PENTAX-DA 55-300mm F4.5-6.3 ED PLM WR RE', #29
     '8 198' => 'smc PENTAX-DA L 18-50mm F4-5.6 DC WR RE', #29
@@ -542,6 +548,8 @@ my %pentaxModelID = (
     0x13222 => 'K-70', #29 (Ricoh)
     0x1322c => 'KP', #29 (Ricoh)
     0x13240 => 'K-1 Mark II', # (Ricoh)
+    0x13254 => 'K-3 Mark III', #IB (Ricoh)
+    0x13290 => 'WG-70', # (Ricoh)
 );
 
 # Pentax city codes - (PH, Optio WP)
@@ -2215,6 +2223,7 @@ my %binaryDataAttrs = (
             17 => '17 (K-70)', #29
             18 => '18 (KP)', #PH
             19 => '19 (GR III)', #PH
+            20 => '20 (K-3III)', #PH
         },
     },
     0x0067 => { #PH (K-5)
@@ -2447,6 +2456,7 @@ my %binaryDataAttrs = (
             '2 0' => 'Standard',
             '3 0' => 'Fast',
             # '1 108' - seen for GR III
+            # '3 84' - seen for K-3III
         },
     },
     0x007b => { #PH (K-5)
@@ -2548,6 +2558,14 @@ my %binaryDataAttrs = (
     },
     # 0x0086 - int8u: 0, 111[Sport,Pet] (Q) - related to Tracking FocusMode?
     # 0x0087 - int8u: 0 (Q)
+    0x0087 => { #PH
+        Name => 'ShutterType',
+        Writable => 'int8u',
+        PrintConv => {
+            0 => 'Normal', # ('Mechanical' if the camera has a mechanical shutter)
+            1 => 'Electronic', # (KP)
+        },
+    },
     0x0088 => { #PH
         Name => 'NeutralDensityFilter',
         Writable => 'int8u',
@@ -2582,8 +2600,9 @@ my %binaryDataAttrs = (
             },
         },
     },
-    0x0095 => { #31
+    0x0095 => [{ #31
         Name => 'SkinToneCorrection',
+        Condition => '$count == 2',
         Writable => 'int8s',
         Count => 2,
         PrintConv => {
@@ -2591,7 +2610,15 @@ my %binaryDataAttrs = (
             '1 1' => 'On (type 1)',
             '1 2' => 'On (type 2)',
         },
-    },
+    },{
+        Name => 'SkinToneCorrection',
+        Condition => '$count == 3',
+        Writable => 'int8s',
+        Count => 3,
+        PrintConv => {
+            '0 0 0' => 'Off',
+        },
+    }],
     0x0096 => { #31
         Name => 'ClarityControl',
         Writable => 'int8s',
@@ -2827,8 +2854,18 @@ my %binaryDataAttrs = (
         # High:     0000000238c0e960fde0f9203140f5a0fce0f1e031403f00e600fb00f7803760f120fc60ef403460
         # Very High:000000023d20e520fdc0f7203420f4c0fb60ee6036404400e120fae0f5403aa0f020fac0eb403a00
     },
-    # 0x021c - undef[18] (K-5)
-    # 0x021d - undef[18] (K-5)
+    0x021c => { #IB
+        Name => 'ColorMatrixA2',
+        Format => 'int16s',
+        Writable => 'undef',
+        Count => 9,
+    },
+    0x021d => { #IB
+        Name => 'ColorMatrixB2',
+        Format => 'int16s',
+        Writable => 'undef',
+        Count => 9,
+    },
     # 0x021e - undef[8] (K-5, Q)
     0x021f => { #JD
         Name => 'AFInfo',
@@ -2880,13 +2917,20 @@ my %binaryDataAttrs = (
         Writable => 'string',
         Notes => 'left blank by some cameras',
     },
-    0x022a => { #PH (K-5)
+    0x022a => [{ #PH (RICOH models (GR III))
+        Name => 'FilterInfo',
+        Condition => '$$self{Make} =~ /^RICOH/',
+        SubDirectory => {
+            TagTable => 'Image::ExifTool::Pentax::FilterInfo',
+            ByteOrder => 'LittleEndian',
+        },
+    },{ #PH (K-5)
         Name => 'FilterInfo',
         SubDirectory => {
             TagTable => 'Image::ExifTool::Pentax::FilterInfo',
             ByteOrder => 'BigEndian',
         },
-    },
+    }],
     0x022b => { #PH (K-5)
         Name => 'LevelInfo',
         SubDirectory => { TagTable => 'Image::ExifTool::Pentax::LevelInfo' },
@@ -4305,15 +4349,15 @@ my %binaryDataAttrs = (
         Name => 'LC3',
         %lensCode,
     },
-    5 => { # LC4 = abberation correction, near distance data
+    5 => { # LC4 = aberration correction, near distance data
         Name => 'LC4',
         %lensCode,
     },
-    6 => { # LC5 = light color abberation correction data
+    6 => { # LC5 = light color aberration correction data
         Name => 'LC5',
         %lensCode,
     },
-    7 => { # LC6 = open abberation data
+    7 => { # LC6 = open aberration data
         Name => 'LC6',
         %lensCode,
     },
@@ -6269,7 +6313,7 @@ tags, and everyone who helped contribute to the LensType values.
 
 =head1 AUTHOR
 
-Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2021, Phil Harvey (philharvey66 at gmail.com)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

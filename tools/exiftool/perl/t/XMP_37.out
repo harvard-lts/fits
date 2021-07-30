@@ -1,14 +1,14 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
-[File, System, Image] FileName - File Name: XMP5.xmp
-[File, System, Image] Directory - Directory: t/images
-[File, System, Image] FileSize - File Size: 4.6 kB
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 12.11
+[File, System, Other] FileName - File Name: XMP5.xmp
+[File, System, Other] Directory - Directory: t/images
+[File, System, Other] FileSize - File Size: 4.6 KiB
 [File, System, Time] FileModifyDate - File Modification Date/Time: 2015:04:11 07:17:32-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:18 07:17:55-04:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:04:11 07:18:33-04:00
-[File, System, Image] FilePermissions - File Permissions: rw-r--r--
-[File, File, Image] FileType - File Type: XMP
-[File, File, Image] FileTypeExtension - File Type Extension: xmp
-[File, File, Image] MIMEType - MIME Type: application/rdf+xml
+[File, System, Time] FileAccessDate - File Access Date/Time: 2020:11:26 10:02:49-05:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2017:12:27 12:00:59-05:00
+[File, System, Other] FilePermissions - File Permissions: rw-r--r--
+[File, File, Other] FileType - File Type: XMP
+[File, File, Other] FileTypeExtension - File Type Extension: xmp
+[File, File, Other] MIMEType - MIME Type: application/rdf+xml
 [XMP, XMP-x, Document] xmptk - XMP Toolkit: Image::ExifTool 8.82
 [XMP, XMP-iptcExt, Author] ArtworkOrObjectAOTitle - Artwork Title: test
 [XMP, XMP-iptcExt, Author] ArtworkOrObjectAOTitle-de - Artwork Title (de): pr&uuml;fung
@@ -33,4 +33,4 @@
 [XMP, XMP-myXMPns, Other] BTestTagField1-en-US - Renamed (en-US): huh?, groovy
 [XMP, XMP-myXMPns, Other] BTestTagField1-fr - Renamed (fr): ing&eacute;nieux
 [XMP, XMP-plus, Author] LicenseeLicenseeName - Licensee Name: Phil
-[Composite, Composite, Other] Flash - Flash: Off, Did not fire
+[Composite, Composite, Camera] XMP-Flash - Flash: Off, Did not fire

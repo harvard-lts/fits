@@ -52,7 +52,7 @@ values, may created via the <a href="../config.html">ExifTool configuration file
 <tr>
 <td>AvgBitrate</td>
 <td class=c>no</td>
-<td class=n>QuickTime::MovieDataSize
+<td class=n>QuickTime::MediaDataSize
   <br>QuickTime::Duration</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
@@ -169,22 +169,22 @@ may be incorrect if the image has been resized)</span></span></td></tr>
 <tr>
 <td>Duration</td>
 <td class=c>no</td>
-<td class=n>FLAC:SampleRate
-  <br>FLAC:TotalSamples</td>
+<td class=n>AIFF:SampleRate
+  <br>AIFF:NumSampleFrames</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
-<td>Duration</td>
-<td class=c>no</td>
-<td class=n>Vorbis:NominalBitrate
-  <br>FileSize</td>
-<td>&nbsp;</td></tr>
-<tr>
 <td>Duration</td>
 <td class=c>no</td>
 <td class=n>APE:SampleRate
   <br>APE:TotalFrames
   <br>APE:BlocksPerFrame
   <br>APE:FinalFrameBlocks</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>Duration</td>
+<td class=c>no</td>
+<td class=n>FLAC:SampleRate
+  <br>FLAC:TotalSamples</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td>Duration</td>
@@ -216,8 +216,8 @@ may be incorrect if the image has been resized)</span></span></td></tr>
 <tr>
 <td>Duration</td>
 <td class=c>no</td>
-<td class=n>AIFF:SampleRate
-  <br>AIFF:NumSampleFrames</td>
+<td class=n>Vorbis:NominalBitrate
+  <br>FileSize</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td>ExtenderStatus</td>
@@ -319,6 +319,19 @@ manual mode)</span>
   <br>GPS:GPSTimeStamp</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td>GPSDateTime</td>
+<td class=c>no</td>
+<td class=n>Parrot:GPSLatitude
+  <br>Main:CreateDate
+  <br>SampleTime</td>
+<td>&nbsp;</td></tr>
+<tr>
+<td>GPSDateTime</td>
+<td class=c>no</td>
+<td class=n>Sony:GPSDateStamp
+  <br>Sony:GPSTimeStamp</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
 <td>GPSDestLatitude</td>
 <td class=c>no</td>
 <td class=n>GPS:GPSDestLatitude
@@ -327,7 +340,7 @@ manual mode)</span>
 <tr>
 <td>GPSDestLatitudeRef</td>
 <td class=c>no</td>
-<td class=n>XMP:GPSDestLatitude</td>
+<td class=n>XMP-exif:GPSDestLatitude</td>
 <td><span class=s>&#39;N&#39; = North
   <br>&#39;S&#39; = South</span></td></tr>
 <tr class=b>
@@ -339,7 +352,7 @@ manual mode)</span>
 <tr>
 <td>GPSDestLongitudeRef</td>
 <td class=c>no</td>
-<td class=n>XMP:GPSDestLongitude</td>
+<td class=n>XMP-exif:GPSDestLongitude</td>
 <td><span class=s>&#39;E&#39; = East
   <br>&#39;W&#39; = West</span></td></tr>
 <tr class=b>
@@ -361,7 +374,7 @@ manual mode)</span>
 <tr>
 <td>GPSLatitudeRef</td>
 <td class=c>no</td>
-<td class=n>XMP:GPSLatitude</td>
+<td class=n>XMP-exif:GPSLatitude</td>
 <td><span class=s>&#39;N&#39; = North
   <br>&#39;S&#39; = South</span></td></tr>
 <tr class=b>
@@ -383,7 +396,7 @@ manual mode)</span>
 <tr>
 <td>GPSLongitudeRef</td>
 <td class=c>no</td>
-<td class=n>XMP:GPSLongitude</td>
+<td class=n>XMP-exif:GPSLongitude</td>
 <td><span class=s>&#39;E&#39; = East
   <br>&#39;W&#39; = West</span></td></tr>
 <tr class=b>
@@ -415,14 +428,14 @@ manual mode)</span>
 <tr class=b>
 <td>ImageHeight</td>
 <td class=c>no</td>
-<td class=n>Main:PostScript:ImageData
-  <br>PostScript:BoundingBox</td>
+<td class=n>IFD0:SensorTopBorder
+  <br>IFD0:SensorBottomBorder</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td>ImageHeight</td>
 <td class=c>no</td>
-<td class=n>IFD0:SensorTopBorder
-  <br>IFD0:SensorBottomBorder</td>
+<td class=n>Main:PostScript:ImageData
+  <br>PostScript:BoundingBox</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td>ImageSize</td>
@@ -436,14 +449,14 @@ manual mode)</span>
 <tr>
 <td>ImageWidth</td>
 <td class=c>no</td>
-<td class=n>Main:PostScript:ImageData
-  <br>PostScript:BoundingBox</td>
+<td class=n>IFD0:SensorLeftBorder
+  <br>IFD0:SensorRightBorder</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td>ImageWidth</td>
 <td class=c>no</td>
-<td class=n>IFD0:SensorLeftBorder
-  <br>IFD0:SensorRightBorder</td>
+<td class=n>Main:PostScript:ImageData
+  <br>PostScript:BoundingBox</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td>JpgFromRaw</td>
@@ -480,20 +493,19 @@ but not create or delete them)</span></span></td></tr>
   <br>LensSpec
   <br>LensType2
   <br>LensType3
-  <br>LensFocalLength</td>
+  <br>LensFocalLength
+  <br>RFLensType</td>
 <td><span class=s><span class=n>(attempt to identify the actual lens from all lenses with a given LensType.
 Applies only to LensType values with a lookup table.  May be configured
 by adding user-defined lenses)</span></span></td></tr>
 <tr>
 <td>LensID</td>
 <td class=c>no</td>
-<td class=n>XMP-aux:LensID
-  <br>Make
-  <br>LensInfo
-  <br>FocalLength
-  <br>LensModel
-  <br>MaxApertureValue</td>
-<td><span class=s><span class=n>(attempt to convert numerical XMP-aux:LensID stored by Adobe applications)</span></span></td></tr>
+<td class=n>LensModel
+  <br>Lens
+  <br>XMP-aux:LensID
+  <br>Make</td>
+<td>&nbsp;</td></tr>
 <tr class=b>
 <td>LensID</td>
 <td class=c>no</td>
@@ -512,11 +524,28 @@ by adding user-defined lenses)</span></span></td></tr>
 <td class=n>Ricoh:LensFirmware</td>
 <td>--&gt; <a href='Ricoh.html#LensID'>Ricoh LensID Values</a></td></tr>
 <tr class=b>
+<td>LensID</td>
+<td class=c>no</td>
+<td class=n>XMP-aux:LensID
+  <br>Make
+  <br>LensInfo
+  <br>FocalLength
+  <br>LensModel
+  <br>MaxApertureValue</td>
+<td><span class=s><span class=n>(attempt to convert numerical XMP-aux:LensID stored by Adobe applications)</span></span></td></tr>
+<tr>
 <td>LensSpec</td>
 <td class=c>no</td>
 <td class=n>Nikon:Lens
   <br>Nikon:LensType</td>
 <td>&nbsp;</td></tr>
+<tr class=b>
+<td>LensType</td>
+<td class=c>no</td>
+<td class=n>LensTypeMake
+  <br>LensTypeModel</td>
+<td>--&gt; <a href='Olympus.html#LensType'>Olympus LensType Values</a>
+  <br><span class='n s'>(based on tags found in some Panasonic RW2 images)</span></td></tr>
 <tr>
 <td>LightValue</td>
 <td class=c>no</td>
@@ -611,7 +640,7 @@ but not create or delete them)</span></span></td></tr>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td>Rotation</td>
-<td class=c>yes</td>
+<td class=c title=' ! = Unsafe'>yes!</td>
 <td class=n>QuickTime:MatrixStructure
   <br>QuickTime:HandlerType</td>
 <td><span class=s><span class=n>(writing this tag updates QuickTime MatrixStructure for all tracks with a
@@ -665,27 +694,34 @@ resized)</span></span></td></tr>
   <br>BulbDuration</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
+<td>SingleShotDepthMapTiff</td>
+<td class=c>no</td>
+<td class=n>SingleShotDepthMap
+  <br>SegWidth
+  <br>SegHeight</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td>SubSecCreateDate</td>
 <td class=c>yes</td>
 <td class=n>EXIF:CreateDate
   <br>SubSecTimeDigitized
   <br>OffsetTimeDigitized</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>SubSecDateTimeOriginal</td>
 <td class=c>yes</td>
 <td class=n>EXIF:DateTimeOriginal
   <br>SubSecTimeOriginal
   <br>OffsetTimeOriginal</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>SubSecModifyDate</td>
 <td class=c>yes</td>
 <td class=n>EXIF:ModifyDate
   <br>SubSecTime
   <br>OffsetTime</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>ThumbnailImage</td>
 <td class=c>yes</td>
 <td class=n>ThumbnailOffset
@@ -694,7 +730,7 @@ resized)</span></span></td></tr>
 only create a thumbnail in IFD1 of certain types of files.  Note that for
 this and other Composite embedded-image tags the family 0 and 1 groups match
 those of the originating tags)</span></span></td></tr>
-<tr class=b>
+<tr>
 <td>ThumbnailTIFF</td>
 <td class=c>no</td>
 <td class=n>SubfileType
@@ -710,13 +746,13 @@ those of the originating tags)</span></span></td></tr>
   <br>PlanarConfiguration
   <br>Orientation</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>VolumeSize</td>
 <td class=c>no</td>
 <td class=n>ISO:VolumeBlockCount
   <br>ISO:VolumeBlockSize</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>WB_RGBLevels</td>
 <td class=c>no</td>
 <td class=n>KDC_IFD:WhiteBalance
@@ -728,7 +764,7 @@ those of the originating tags)</span></span></td></tr>
   <br>WB_RGBLevels5
   <br>WB_RGBLevelsShade</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>WB_RGBLevels</td>
 <td class=c>no</td>
 <td class=n>KodakIFD:WhiteBalance
@@ -743,7 +779,7 @@ those of the originating tags)</span></span></td></tr>
   <br>KodakIFD:ColorTemperature
   <br>Kodak:WB_RGBLevels</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>WB_RGGBLevels</td>
 <td class=c>no</td>
 <td class=n>Canon:WhiteBalance
@@ -758,13 +794,13 @@ those of the originating tags)</span></span></td></tr>
   <br>WB_RGGBLevelsShade
   <br>WB_RGGBLevelsKelvin</td>
 <td>&nbsp;</td></tr>
-<tr>
+<tr class=b>
 <td>WB_RGGBLevels</td>
 <td class=c>no</td>
 <td class=n>WB_RGGBLevelsUncorrected
   <br>WB_RGGBLevelsBlack</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td>ZoomedPreviewImage</td>
 <td class=c>no</td>
 <td class=n>ZoomedPreviewStart
@@ -774,7 +810,7 @@ those of the originating tags)</span></span></td></tr>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Apr 9, 2019</i>
+<br><i>Last revised Mar 17, 2021</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

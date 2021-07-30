@@ -1,14 +1,14 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 11.39
-[File, System, Image] FileName - File Name: QuickTime.m4a
-[File, System, Image] Directory - Directory: t/images
-[File, System, Image] FileSize - File Size: 5.1 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2019:03:22 12:15:37-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2019:05:03 08:53:23-04:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2019:04:24 09:58:02-04:00
-[File, System, Image] FilePermissions - File Permissions: rw-r--r--
-[File, File, Image] FileType - File Type: M4A
-[File, File, Image] FileTypeExtension - File Type Extension: m4a
-[File, File, Image] MIMEType - MIME Type: audio/mp4
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 12.11
+[File, System, Other] FileName - File Name: QuickTime.m4a
+[File, System, Other] Directory - Directory: t/images
+[File, System, Other] FileSize - File Size: 5.1 KiB
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2019:03:22 19:58:22-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2020:11:26 10:02:41-05:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2019:03:22 19:58:22-04:00
+[File, System, Other] FilePermissions - File Permissions: rw-r--r--
+[File, File, Other] FileType - File Type: M4A
+[File, File, Other] FileTypeExtension - File Type Extension: m4a
+[File, File, Other] MIMEType - MIME Type: audio/mp4
 [QuickTime, QuickTime, Video] 0 - Major Brand: Apple iTunes AAC-LC (.M4A) Audio
 [QuickTime, QuickTime, Video] 1 - Minor Version: 0.0.0
 [QuickTime, QuickTime, Video] 2 - Compatible Brands: M4A , mp42, isom
@@ -68,6 +68,6 @@
 [QuickTime, ItemList, Audio] pgap - Play Gap: No Gap
 [QuickTime, ItemList, Preview] covr - Cover Art: (Binary data 19 bytes)
 [QuickTime, ItemList, Preview] covr - Cover Art: (Binary data 19 bytes)
-[QuickTime, QuickTime, Video] mdat-size - Movie Data Size: 0
-[QuickTime, QuickTime, Video] mdat-offset - Movie Data Offset: 5237
-[Composite, Composite, Video] AvgBitrate - Avg Bitrate: 0 bps
+[QuickTime, QuickTime, Video] mdat-size - Media Data Size: 0
+[QuickTime, QuickTime, Video] mdat-offset - Media Data Offset: 5237
+[Composite, Composite, Video] QuickTime-AvgBitrate - Avg Bitrate: 0 bps

@@ -1,14 +1,14 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 10.71
-[File, System, Image] FileName - File Name: FLIF.flif
-[File, System, Image] Directory - Directory: t/images
-[File, System, Image] FileSize - File Size: 674 bytes
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 12.03
+[File, System, Other] FileName - File Name: FLIF.flif
+[File, System, Other] Directory - Directory: t/images
+[File, System, Other] FileSize - File Size: 674 bytes
 [File, System, Time] FileModifyDate - File Modification Date/Time: 2016:10:27 14:56:15-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2017:12:30 11:02:33-05:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2020:07:29 09:04:05-04:00
 [File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2017:12:27 12:00:59-05:00
-[File, System, Image] FilePermissions - File Permissions: rwxr-xr-x
-[File, File, Image] FileType - File Type: FLIF
-[File, File, Image] FileTypeExtension - File Type Extension: flif
-[File, File, Image] MIMEType - MIME Type: image/flif
+[File, System, Other] FilePermissions - File Permissions: rwxr-xr-x
+[File, File, Other] FileType - File Type: FLIF
+[File, File, Other] FileTypeExtension - File Type Extension: flif
+[File, File, Other] MIMEType - MIME Type: image/flif
 [File, File, Image] 0 - Image Type: RGB (non-interlaced)
 [File, File, Image] 1 - Bit Depth: 8
 [File, File, Image] 2 - Image Width: 16
@@ -47,5 +47,5 @@
 [ICC_Profile, ICC_Profile, Image] bTRC - Blue Tone Reproduction Curve: (Binary data 14 bytes)
 [ICC_Profile, ICC_Profile, Image] wtpt - Media White Point: 0.9505 1 1.0891
 [ICC_Profile, ICC_Profile, Image] cprt - Profile Copyright: Nikon Inc. & Nikon Corporation 2001
-[Composite, Composite, Image] ImageSize - Image Size: 16x16
-[Composite, Composite, Image] Megapixels - Megapixels: 0.000256
+[Composite, Composite, Image] Exif-ImageSize - Image Size: 16x16
+[Composite, Composite, Image] Exif-Megapixels - Megapixels: 0.000256

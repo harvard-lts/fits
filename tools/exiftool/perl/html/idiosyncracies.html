@@ -2,11 +2,11 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Maker Note Idio(t)syncracies</title>
+<title>Maker Note Idio(t)syncrasies</title>
 <link rel=stylesheet type='text/css' href='style.css' title='Style'>
 </head>
 <body>
-<h1 class='up'>Maker Note Idio(t)syncracies</h1>
+<h1 class='up'>Maker Note Idio(t)syncrasies</h1>
 
 <p>It really is surprising how stupid some (...many, ...most?) manufacturers
 seem to be when it comes to writing what should be a fairly simple file
@@ -35,7 +35,7 @@ for values to be stored, and all value data for the IFD would be stored in a
 block at this location.  If this was done, an entire IFD could be relocated
 easily without causing problems.</font></blockquote>
 
-<p>Below is a list of idiosyncracies in files written by the digital cameras or
+<p>Below is a list of idiosyncrasies in files written by the digital cameras or
 software from various manufacturers.  Many of these quirks relate to the offset
 problem mentioned above.</p>
 
@@ -92,7 +92,7 @@ ASCII instead of binary.  The M8 writes EXIF ExposureCompensation and
 ShutterSpeedValue incorrectly as a unsigned rationals when they should be
 signed.  This leads to crazy values like "+65536" for small negative exposure
 compensations, and "0 s" for long exposure times.  (NOTE: These are all EXIF
-idiosyncracies since the values are in the standard EXIF, not the maker
+idiosyncrasies since the values are in the standard EXIF, not the maker
 notes.)  In DNG images, the M8 uses maker note offsets relative to the
 start of the maker notes in JPEG images (very reasonable), but relative to
 the end of the maker note header in DNG images.  I think this was a mistake
@@ -206,7 +206,7 @@ Samsung and Yakumo models built by Skanhex.</p>
 start of the individual IFD entry.  (very similar to Konica KD-300Z)</p>
 
 <hr><a name="raw"></a>
-<h2>RAW file Idiosyncracies</h2>
+<h2>RAW file Idiosyncrasies</h2>
 
 <p><a name="MinoltaMRW"><b>Minolta MRW:</b></a> The A200 stores the thumbnail image offset in IFD0
 relative to the start of file, while all other offsets are relative to the start
@@ -226,6 +226,15 @@ when used to edit ARW images.  Even funnier:  IDC v3.0 will crash when loading
 some original A100 firmware 1.00 images, but no longer crashes if the images are
 first edited with ExifTool (probably because ExifTool fixes the above mentioned
 problems when it rewrites the image).</p>
+
+<p><a name="HasselbladFFF"><b>Hasselblad FFF:</b></a> Many Hasselblad camera models
+write TIFF-format FFF raw files which contain a double-referenced
+reduced-resolution image that is referenced from both IFD0 and IFD1.Immediately
+following the data for this image is an unreferenced data block that the
+Hasselblad Phocus software uses for an updated preview to reflect the raw
+development settings.  This unreferenced data is lost if the FFF file is edited
+using a TIFF-compatible algorithm, which results in the Phocus no longer
+updating the preview when the settings are changed.</p>
 
 <p><a name="LeicaDNG"><b>Leica DNG:</b></a> The makernote offsets for the M8 are relative to the start
 of the makernote IFD in JPEG images, but relative to the start of the makernote
@@ -261,7 +270,7 @@ leads to duplicated information when the image is rewritten.</p>
 <p><a name="RicohDNG"><b>Ricoh DNG:</b></a>  The GR Digital IV (firmware 1.14) stores an incorrect
 length for the JPEG preview in SubIFD1.</p>
 
-<p><a name="SamsungSRW"><b>Samsung SRW:</b></a> Yet another TIFF-based RAW image with no proper file
+<p><a name="SamsungSRW"><b>Samsung SRW:</b></a> Yet another TIFF-based raw image with no proper file
 identifier.  In these images the thumbnail is stored inside a SubIFD of IFD1
 instead of directly in IFD1 (dumb, dumb...).  Also, the NX200 (firmware
 NX200_011181) uses a base offset for the X/YResolution values that is different
@@ -278,7 +287,7 @@ are absolute.  What a mess!</p>
 
 <hr>
 <i>Created Mar. 25, 2005</i>
-<br><i>Last revised Jan. 11, 2019</i>
+<br><i>Last revised Feb. 24, 2020</i>
 <p class='lf'><a href="index.html">&lt;-- Back to ExifTool home page</a></p>
 </body>
 </html>

@@ -11,7 +11,7 @@ package Image::ExifTool::Lang::de;
 use strict;
 use vars qw($VERSION);
 
-$VERSION = '1.35';
+$VERSION = '1.36';
 
 %Image::ExifTool::Lang::de::Translate = (
    'AEAperture' => 'AE-Blende',
@@ -993,7 +993,9 @@ $VERSION = '1.35';
       },
     },
    'AdvancedSceneMode' => {
+      Description => 'Erweiteter Szenenmodus',
       PrintConv => {
+        'Off' => 'Aus',
         'Creative Macro' => 'Makro kreativ',
         'Flower' => 'Blumen',
         'HDR B&W' => 'HDR Schwarz-Weiß',
@@ -7713,7 +7715,7 @@ $VERSION = '1.35';
       Description => 'Unterdatei-Typ',
       PrintConv => {
         'Alternate reduced-resolution image' => 'Alternatives Bild in reduzierter Auflösung',
-        'Full-resolution Image' => 'Bild in voller Auflösung',
+        'Full-resolution image' => 'Bild in voller Auflösung',
         'Reduced-resolution image' => 'Bild in reduzierter Auflösung',
         'Single page of multi-page image' => 'Einzelbild eines mehrseitigen Bildes',
         'Single page of multi-page reduced-resolution image' => 'Einzelbild eines mehrseitigen Bildes in reduzierter Auflösung',
@@ -8700,14 +8702,15 @@ and values.
 
 =head1 AUTHOR
 
-Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2021, Phil Harvey (philharvey66 at gmail.com)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
 =head1 ACKNOWLEDGEMENTS
 
-Thanks to Jens Duttke and Herbert Kauer for providing this translation.
+Thanks to Jens Duttke, Herbert Kauer and Jobi for providing this
+translation.
 
 =head1 SEE ALSO
 

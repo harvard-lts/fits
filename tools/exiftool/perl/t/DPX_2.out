@@ -1,14 +1,14 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.96
-[File, System, Image] FileName - File Name: DPX.dpx
-[File, System, Image] Directory - Directory: t/images
-[File, System, Image] FileSize - File Size: 2.0 kB
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 12.11
+[File, System, Other] FileName - File Name: DPX.dpx
+[File, System, Other] Directory - Directory: t/images
+[File, System, Other] FileSize - File Size: 2.0 KiB
 [File, System, Time] FileModifyDate - File Modification Date/Time: 2013:09:20 08:49:38-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2015:05:11 13:05:40-04:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:03:07 15:31:02-05:00
-[File, System, Image] FilePermissions - File Permissions: rw-r--r--
-[File, File, Image] FileType - File Type: DPX
-[File, File, Image] FileTypeExtension - File Type Extension: dpx
-[File, File, Image] MIMEType - MIME Type: image/x-dpx
+[File, System, Time] FileAccessDate - File Access Date/Time: 2020:11:26 10:02:26-05:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2017:12:27 12:00:59-05:00
+[File, System, Other] FilePermissions - File Permissions: rw-r--r--
+[File, File, Other] FileType - File Type: DPX
+[File, File, Other] FileTypeExtension - File Type Extension: dpx
+[File, File, Other] MIMEType - MIME Type: image/x-dpx
 [File, File, Image] 0 - Byte Order: Big-endian
 [File, File, Image] 8 - Header Version: V1.0
 [File, File, Image] 16 - DPX File Size: 12812288
@@ -25,15 +25,18 @@
 [File, File, Image] 776 - Image Height: 1556
 [File, File, Image] 780 - Data Sign: Unsigned
 [File, File, Image] 800 - Components Configuration: R, G, B
+[File, File, Image] 801 - Transfer Characteristic: Printing density
+[File, File, Image] 802 - Colorimetric Specification: Printing density
 [File, File, Image] 803 - Bit Depth: 10
 [File, File, Image] 820 - Image Description: CPD
 [File, File, Image] 1432 - Source File Name: 
 [File, File, Image] 1532 - Source Create Date: 
 [File, File, Image] 1556 - Input Device Name: SPIRIT-4K DATACINE 
 [File, File, Image] 1588 - Input Device Serial Number: 01018
-[File, File, Image] 1724 - Frame Rate: 0
+[File, File, Image] 1724 - Original Frame Rate: 0
 [File, File, Image] 1732 - Frame ID: 
 [File, File, Image] 1764 - Slate Information: 
+[File, File, Image] 1920 - Time Code: 4117
 [File, File, Image] 2048 - User ID: Thomson BTS        
-[Composite, Composite, Image] ImageSize - Image Size: 2048x1556
-[Composite, Composite, Image] Megapixels - Megapixels: 3.2
+[Composite, Composite, Image] Exif-ImageSize - Image Size: 2048x1556
+[Composite, Composite, Image] Exif-Megapixels - Megapixels: 3.2
