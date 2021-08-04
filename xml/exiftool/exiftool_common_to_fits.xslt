@@ -283,6 +283,9 @@
 				<xsl:when test="$format='CSV'">
 					<xsl:value-of select="string('Comma-Separated Values (CSV)')"/>
 				</xsl:when>
+				<xsl:when test="$format='TXT'">
+					<xsl:value-of select="string('Plain text')"/>
+				</xsl:when>
 				<xsl:when test="$format=''">
 					<xsl:value-of select="string('Unknown Binary')"/>
 				</xsl:when>		

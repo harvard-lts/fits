@@ -11,12 +11,23 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 		<metadata>
 		<text>
 			<charset>
-		  		<xsl:value-of select="substring-after(exiftool/ContentType[1],'charset=')"/>
+		  		<xsl:value-of select="exiftool/MIMEEncoding[1]"/>
 			</charset>
-			<markupBasis>
-				<xsl:value-of select="exiftool/FileType[1]"/>
-			</markupBasis>
-		</text>				
+			<linebreak>
+				<xsl:value-of select="substring-after(exiftool/Newlines[1], ' ')"/>
+			</linebreak>
+			<lineCount>
+				<xsl:value-of select="exiftool/LineCount[1]"/>
+			</lineCount>
+			<wordCount>
+				<xsl:value-of select="exiftool/WordCount[1]"/>
+			</wordCount>
+			<xsl:if test="exiftool/FileType[1] != 'TXT' and exiftool/FileType[1] != 'CSV'">
+				<markupBasis>
+					<xsl:value-of select="exiftool/FileType[1]"/>
+				</markupBasis>
+			</xsl:if>
+		</text>
 		</metadata>
 	</fits>	
 

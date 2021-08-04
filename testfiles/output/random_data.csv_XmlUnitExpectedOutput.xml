@@ -15,7 +15,20 @@
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1456866565000</fslastmodified>
   </fileinfo>
   <filestatus />
-  <metadata />
+  <metadata>
+    <text>
+      <charset toolname="Exiftool" toolversion="12.29" status="SINGLE_RESULT">us-ascii</charset>
+      <linebreak toolname="Exiftool" toolversion="12.29" status="SINGLE_RESULT">CR</linebreak>
+      <standard>
+        <textMD:textMD xmlns:textMD="info:lc/xmlns/textMD-v3">
+          <textMD:character_info>
+            <textMD:charset>US-ASCII</textMD:charset>
+            <textMD:linebreak>CR</textMD:linebreak>
+          </textMD:character_info>
+        </textMD:textMD>
+      </standard>
+    </text>
+  </metadata>
   <statistics fitsExecutionTime="425">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
