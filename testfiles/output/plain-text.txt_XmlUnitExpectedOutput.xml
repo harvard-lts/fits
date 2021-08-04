@@ -5,6 +5,7 @@
       <tool toolname="Droid" toolversion="6.3" />
       <tool toolname="Jhove" toolversion="1.20" />
       <tool toolname="file utility" toolversion="5.31" />
+      <tool toolname="Tika" toolversion="2.0.0" />
       <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/111</externalIdentifier>
     </identity>
   </identification>
@@ -22,7 +23,8 @@
   <metadata>
     <text>
       <linebreak toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">LF</linebreak>
-      <charset toolname="Jhove" toolversion="1.20">US-ASCII</charset>
+      <charset toolname="Jhove" toolversion="1.20" status="CONFLICT">US-ASCII</charset>
+      <charset toolname="Tika" toolversion="2.0.0" status="CONFLICT">ISO-8859-1</charset>
       <standard>
         <textMD:textMD xmlns:textMD="info:lc/xmlns/textMD-v3">
           <textMD:character_info>

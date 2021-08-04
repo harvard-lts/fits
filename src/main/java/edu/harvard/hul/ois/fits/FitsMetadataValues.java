@@ -206,6 +206,12 @@ public class FitsMetadataValues {
         if (mime == null || mime.length()==0) {
             return DEFAULT_MIMETYPE;
         }
+
+        // Tika is the primary tool that sets the charset in the MIME and it throws off comparisons
+        if (mime.contains("; charset=")) {
+            mime = mime.replaceFirst("; charset=[^;]+", "");
+        }
+
         String normMime = mimeMap.get(mime);
         if (normMime != null) {
             return normMime;
