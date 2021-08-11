@@ -20,19 +20,32 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import uk.gov.nationalarchives.droid.command.action.CommandExecutionException;
+import uk.gov.nationalarchives.droid.container.ContainerSignatureDefinitions;
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.SignatureParseException;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationRequest;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResult;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultImpl;
 import uk.gov.nationalarchives.droid.core.interfaces.RequestIdentifier;
+import uk.gov.nationalarchives.droid.core.interfaces.archive.ArchiveFormatResolver;
+import uk.gov.nationalarchives.droid.core.interfaces.archive.ContainerIdentifier;
+import uk.gov.nationalarchives.droid.core.interfaces.archive.ContainerIdentifierFactory;
 import uk.gov.nationalarchives.droid.core.interfaces.resource.FileSystemIdentificationRequest;
 import uk.gov.nationalarchives.droid.core.interfaces.resource.RequestMetaData;
+import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 
 public class DroidQuery {
 
     private BinarySignatureIdentifier sigIdentifier;
+    private ContainerIdentifierFactory containerIdentifierFactory;
+    private ArchiveFormatResolver containerFormatResolver;
+    private Map<String, Format> puidFormatMap;
+    private ContainerSignatureDefinitions containerSignatureDefinitions;
     // Certain file types (possibly really large file), we only want to examine the beginning of the file.
     private long bytesToRead = -1;
     private List<String> fileExtensions; // file extensions for files on which to apply file read limit
@@ -44,16 +57,30 @@ public class DroidQuery {
      * different queries.
      *
      * @param sigIdentifier BinarySignatureIdentifier  for a Droid signature file
+     * @param containerIdentifierFactory container identifier
+     * @param containerFormatResolver container format resolver
+     * @param puidFormatMap map of puids to formats
+     * @param containerSignatureDefinitions container sig definitions
      * @param includeExts File extensions to include for possibly limiting number of bytes to read of file to process.
      * @param kbReadLimit Number of bytes to process in KB from the beginning of the file. -1 indicates read entire file.
      * @param file The file to be processed by DROID.
      * @throws SignatureParseException If there is a problem processing the DROID signature file.
      */
-    public DroidQuery(BinarySignatureIdentifier sigIdentifier, List<String> includeExts, long kbReadLimit, File file)  throws SignatureParseException, FileNotFoundException    {
+    public DroidQuery(BinarySignatureIdentifier sigIdentifier,
+                      ContainerIdentifierFactory containerIdentifierFactory,
+                      ArchiveFormatResolver containerFormatResolver,
+                      Map<String, Format> puidFormatMap,
+                      ContainerSignatureDefinitions containerSignatureDefinitions,
+                      List<String> includeExts,
+                      long kbReadLimit, File file)  throws SignatureParseException, FileNotFoundException    {
     	this.sigIdentifier = sigIdentifier;
+        this.containerIdentifierFactory = containerIdentifierFactory;
+        this.containerFormatResolver = containerFormatResolver;
+        this.puidFormatMap = puidFormatMap;
+        this.containerSignatureDefinitions = containerSignatureDefinitions;
         this.fileExtensions = includeExts;
         if (kbReadLimit > 0) {
-        	this.bytesToRead = (kbReadLimit * 1024) - 1;
+            this.bytesToRead = (kbReadLimit * 1024) - 1;
         }
         this.file = file;
     }
@@ -84,16 +111,19 @@ public class DroidQuery {
         try {
             req = new FileSystemIdentificationRequest(metadata, identifier);
             req.open(file.toPath());
+
+            // This logic is based on https://github.com/digital-preservation/droid/blob/master/droid-results/src/main/java/uk/gov/nationalarchives/droid/submitter/SubmissionGateway.java
+
             IdentificationResultCollection results = sigIdentifier.matchBinarySignatures(req);
-            if (results.getResults().size() > 1) {
-                sigIdentifier.removeLowerPriorityHits(results); // this could modify 'results'
+            IdentificationResultCollection containerResults = handleContainer(req, results);
+
+            if (containerResults != null) {
+                results = containerResults;
             }
 
-            if(results.getResults().size() == 0) {
-            	results = sigIdentifier.matchExtensions(req,false);
-            }
-            if (results.getResults().size() > 1) {
-                sigIdentifier.removeLowerPriorityHits(results); // this could modify 'results'
+            sigIdentifier.removeLowerPriorityHits(results);
+            if (results.getResults().isEmpty()) {
+                results = sigIdentifier.matchExtensions(req,false);
             }
 
             return results;
@@ -104,7 +134,44 @@ public class DroidQuery {
             }
         }
     }
-    
+
+    private IdentificationResultCollection handleContainer(IdentificationRequest request,
+                                                           IdentificationResultCollection results) throws IOException {
+        String containerFormat = getContainerFormat(results);
+
+        if (containerFormat != null) {
+            ContainerIdentifier containerIdentifier = containerIdentifierFactory.getIdentifier(containerFormat);
+            IdentificationResultCollection containerResults = containerIdentifier.submit(request);
+            sigIdentifier.removeLowerPriorityHits(containerResults);
+
+            // container results only have the PUID filled in
+            for (IdentificationResult result : containerResults.getResults()) {
+                IdentificationResultImpl impl = (IdentificationResultImpl) result;
+                Format format = puidFormatMap.get(result.getPuid());
+                if (format != null) {
+                    impl.setName(format.getName());
+                    impl.setMimeType(format.getMimeType());
+                    impl.setVersion(format.getVersion());
+                }
+            }
+
+            return containerResults.getResults().isEmpty() ? null : containerResults;
+        }
+
+        return null;
+    }
+
+    private String getContainerFormat(IdentificationResultCollection results) {
+        for (IdentificationResult result : results.getResults()) {
+            final String format = containerFormatResolver.forPuid(result.getPuid());
+            if (format != null) {
+                return format;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Provides additional results from DROID for processing ZIP files.
      * 
@@ -121,9 +188,9 @@ public class DroidQuery {
     	request = new FileSystemIdentificationRequest(metadata, identifier);
     	request.open(file.toPath());
     	
-    	ZipArchiveContentIdentifier zipArchiveIdentifier = 
+    	ZipArchiveContentIdentifier zipArchiveIdentifier =
                 new ZipArchiveContentIdentifier(this.sigIdentifier,
-                    null, "", File.separator, File.separator);
+                    containerSignatureDefinitions, "", File.separator, File.separator, puidFormatMap);
         try {
         	ContainerAggregator aggregator = zipArchiveIdentifier.identify(results.getUri(), request);
         	return aggregator;

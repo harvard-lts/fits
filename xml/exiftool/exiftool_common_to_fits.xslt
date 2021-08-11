@@ -190,6 +190,12 @@
                 <xsl:when test="$format='DOCM'">
                     <xsl:value-of select="string('Office Open XML Document (Macros Enabled)')"/>
                 </xsl:when>
+                <xsl:when test="$format='XLSX'">
+                    <xsl:value-of select="string('Office Open XML Workbook')"/>
+                </xsl:when>
+                <xsl:when test="$format='PPTX'">
+                    <xsl:value-of select="string('Office Open XML Presentation')"/>
+                </xsl:when>
                 <xsl:when test="$format='RTF'">
                     <xsl:value-of select="string('Rich Text Format (RTF)')"/>
                 </xsl:when>

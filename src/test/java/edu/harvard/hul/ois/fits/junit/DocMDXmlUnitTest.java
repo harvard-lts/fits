@@ -363,6 +363,90 @@ public class DocMDXmlUnitTest extends AbstractXmlUnitTest {
 
 		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
+
+	@Test
+	public void testXlsxOutput() throws Exception {
+		String inputFilename = "DH43D5TQESXBZ8W.xlsx";
+		File input = new File("testfiles/" + inputFilename);
+		FitsOutput fitsOut = fits.examine(input);
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
+
+	@Test
+	public void testXlsOutput() throws Exception {
+		String inputFilename = "valid.xls";
+		File input = new File("testfiles/" + inputFilename);
+		FitsOutput fitsOut = fits.examine(input);
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
+
+	@Test
+	public void testPptxOutput() throws Exception {
+		String inputFilename = "samplepptx.pptx";
+		File input = new File("testfiles/" + inputFilename);
+		FitsOutput fitsOut = fits.examine(input);
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
+
+	@Test
+	public void testPptOutput() throws Exception {
+		String inputFilename = "ConleyPPLec.ppt";
+		File input = new File("testfiles/" + inputFilename);
+		FitsOutput fitsOut = fits.examine(input);
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
 	
 	/*
 	 * This output of this document produces what looks to be invalid output.

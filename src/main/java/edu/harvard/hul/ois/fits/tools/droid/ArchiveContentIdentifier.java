@@ -37,6 +37,7 @@ package edu.harvard.hul.ois.fits.tools.droid;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 import org.apache.commons.compress.archivers.zip.UnsupportedZipFeatureException;
 
@@ -47,6 +48,7 @@ import uk.gov.nationalarchives.droid.container.ContainerSignatureDefinitions;
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationRequest;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
+import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 
 /**
  * Parent class for Containers.
@@ -63,6 +65,7 @@ public abstract class ArchiveContentIdentifier {
     protected File tmpDir;
     protected String path;
     private Boolean expandWebArchives;
+    private Map<String, Format> puidFormatMap;
 
     private static final Logger logger = LoggerFactory.getLogger(ArchiveContentIdentifier.class);
 
@@ -74,11 +77,12 @@ public abstract class ArchiveContentIdentifier {
      * @param slash                         local path element delimiter
      * @param slash1                        local first container prefix delimiter
      * @param expandWebArchives             optionally expand (W)ARC files
+     * @param puidFormatMap                 map of puids to formats
      */
     public ArchiveContentIdentifier(final BinarySignatureIdentifier binarySignatureIdentifier,
                                        final ContainerSignatureDefinitions containerSignatureDefinitions,
                                        final String path, final String slash, final String slash1,
-                                       final Boolean expandWebArchives) {
+                                       final Boolean expandWebArchives, final Map<String, Format> puidFormatMap) {
 
         synchronized (this) {
             setBinarySignatureIdentifier(binarySignatureIdentifier);
@@ -90,6 +94,7 @@ public abstract class ArchiveContentIdentifier {
             if (getTmpDir() == null) {
                 setTmpDir(new File(System.getProperty("java.io.tmpdir")));
             }
+            this.puidFormatMap = puidFormatMap;
         }
     }
     /**
@@ -209,7 +214,8 @@ public abstract class ArchiveContentIdentifier {
 
             final ResultPrinter resultPrinter =
                     new ResultPrinter(getBinarySignatureIdentifier(),
-                            getContainerSignatureDefinitions(), newPath, getSlash(), getSlash1(), true, getExpandWebArchives(), aggregator);
+                            getContainerSignatureDefinitions(), newPath, getSlash(), getSlash1(), true,
+                            getExpandWebArchives(), aggregator, puidFormatMap);
 
             resultPrinter.print(results, request);
             request.close();

@@ -37,6 +37,7 @@ package edu.harvard.hul.ois.fits.tools.droid;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Map;
 
 import org.apache.commons.compress.archivers.zip.UnsupportedZipFeatureException;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
@@ -51,6 +52,7 @@ import uk.gov.nationalarchives.droid.core.interfaces.IdentificationRequest;
 import uk.gov.nationalarchives.droid.core.interfaces.RequestIdentifier;
 import uk.gov.nationalarchives.droid.core.interfaces.resource.RequestMetaData;
 import uk.gov.nationalarchives.droid.core.interfaces.resource.ZipEntryIdentificationRequest;
+import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 
 /**
  * Identifier for files held in a ZIP archive.
@@ -68,13 +70,15 @@ public class ZipArchiveContentIdentifier extends ArchiveContentIdentifier {
      * @param path                          current archive path 
      * @param slash                         local path element delimiter
      * @param slash1                        local first container prefix delimiter
+     * @param puidFormatMap                 map of puids to formats
      */
     public ZipArchiveContentIdentifier(final BinarySignatureIdentifier binarySignatureIdentifier,
             final ContainerSignatureDefinitions containerSignatureDefinitions,
-            final String path, final String slash, final String slash1) {
+            final String path, final String slash, final String slash1,
+                                       final Map<String, Format> puidFormatMap) {
     
             super(binarySignatureIdentifier, containerSignatureDefinitions,
-        path, slash, slash1, false);
+        path, slash, slash1, false, puidFormatMap);
     }
     
     /**

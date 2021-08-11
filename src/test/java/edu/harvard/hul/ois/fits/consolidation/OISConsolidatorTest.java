@@ -87,70 +87,22 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
     	assertNotNull(identities);
     	assertEquals(1, identities.size());
     	FitsIdentity ident = identities.get(0);
-    	assertEquals("ZIP Format", ident.getFormat());
-    	assertEquals("application/zip", ident.getMimetype());
+    	assertEquals("EPUB", ident.getFormat());
+    	assertEquals("application/epub+zip", ident.getMimetype());
     	assertEquals(1, ident.getReportingTools().size());
     	assertEquals("Droid", ident.getReportingTools().get(0).getName());
     	assertEquals(1, ident.getExternalIdentifiers().size());
 	}
 	
 	/**
-	 * This tests that a less specific identity (Droid) will not appear with one that is more specific (Tika)
+	 * This tests that a less specific identity (jhove) will not appear with one that is more specific (droid)
 	 * when the tool with the MORE specific identity appears first in the fits.xml tool list.
 	 */
 	@Test
-	public void tikaBeforeDroid() throws Exception {
-		String inputFilename = "Winnie-the-Pooh-protected.epub";
+	public void droidBeforeJhove() throws Exception {
+		String inputFilename = "image-vectorgraphic.svg";
 		File input = new File("testfiles/" + inputFilename);
-		File fitsConfigFile = new File("testfiles/properties/fits_tika_droid.xml");
-		
-		// Make sure ToolOutput for each tool not reset after examine() so it can be reused for test.
-		Fits fits = new Fits(null, fitsConfigFile) {
-			
-			@Override
-			 public FitsOutput examine( File input ) throws FitsException {
-				resetToolOutputAfterExaminingInput(false);
-				return super.examine(input);
-			}
-		};
-		
-    	FitsOutput fitsOut = fits.examine(input);
-    	
-    	// output to file and console to view output if necessary, before running assertions
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_tika_droid_Output.xml");
-    	fitsOut.addStandardCombinedFormat();
-    	
-    	ToolBelt toolBelt = fits.getToolbelt();
-    	assertEquals(2, toolBelt.getTools().size());
-    	OISConsolidator consolidator = new OISConsolidator(fits);
-    	List<ToolOutput> results = new ArrayList<ToolOutput>();
-    	for (Tool tool : toolBelt.getTools()) {
-    		ToolOutput toolOutput = tool.getOutput();
-    		assertNotNull(toolOutput);
-    		results.add(toolOutput);
-    	}
-    	FitsOutput fitsOutput = consolidator.processResults(results);
-    	
-    	List<FitsIdentity> identities = fitsOutput.getIdentities();
-    	assertNotNull(identities);
-    	assertEquals(1, identities.size());
-    	FitsIdentity ident = identities.get(0);
-    	assertEquals("EPUB", ident.getFormat());
-    	assertEquals("application/epub+zip", ident.getMimetype());
-    	assertEquals(1, ident.getReportingTools().size());
-    	assertEquals("Tika", ident.getReportingTools().get(0).getName());
-    	assertEquals(0, ident.getExternalIdentifiers().size());
-	}
-	
-	/**
-	 * This tests that a less specific identity (Droid) will not appear with one that is more specific (Tika)
-	 * when the tool with the LESS specific identity appears first in the fits.xml tool list.
-	 */
-	@Test
-	public void droidBeforeTika() throws Exception {
-		String inputFilename = "Winnie-the-Pooh-protected.epub";
-		File input = new File("testfiles/" + inputFilename);
-		File fitsConfigFile = new File("testfiles/properties/fits_droid_tika.xml");
+		File fitsConfigFile = new File("testfiles/properties/fits_droid_jhove.xml");
 		
 		// Make sure ToolOutput for each tool not reset after examine() so it can be reused for test.
 		Fits fits = new Fits(null, fitsConfigFile) {
@@ -183,11 +135,59 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
     	assertNotNull(identities);
     	assertEquals(1, identities.size());
     	FitsIdentity ident = identities.get(0);
-    	assertEquals("EPUB", ident.getFormat());
-    	assertEquals("application/epub+zip", ident.getMimetype());
+    	assertEquals("Scalable Vector Graphics (SVG)", ident.getFormat());
+    	assertEquals("image/svg+xml", ident.getMimetype());
     	assertEquals(1, ident.getReportingTools().size());
-    	assertEquals("Tika", ident.getReportingTools().get(0).getName());
-    	assertEquals(0, ident.getExternalIdentifiers().size());
+    	assertEquals("Droid", ident.getReportingTools().get(0).getName());
+    	assertEquals(1, ident.getExternalIdentifiers().size());
+	}
+	
+	/**
+	 * This tests that a less specific identity (jhove) will not appear with one that is more specific (droid)
+	 * when the tool with the LESS specific identity appears first in the fits.xml tool list.
+	 */
+	@Test
+	public void jhoveBeforeDroid() throws Exception {
+		String inputFilename = "image-vectorgraphic.svg";
+		File input = new File("testfiles/" + inputFilename);
+		File fitsConfigFile = new File("testfiles/properties/fits_jhove_droid.xml");
+		
+		// Make sure ToolOutput for each tool not reset after examine() so it can be reused for test.
+		Fits fits = new Fits(null, fitsConfigFile) {
+			
+			@Override
+			 public FitsOutput examine( File input ) throws FitsException {
+				resetToolOutputAfterExaminingInput(false);
+				return super.examine(input);
+			}
+		};
+		
+    	FitsOutput fitsOut = fits.examine(input);
+    	
+    	// output to file and console to view output if necessary, before running assertions
+    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_jhove_droid_Output.xml");
+    	fitsOut.addStandardCombinedFormat();
+    	
+    	ToolBelt toolBelt = fits.getToolbelt();
+    	assertEquals(2, toolBelt.getTools().size());
+    	OISConsolidator consolidator = new OISConsolidator(fits);
+    	List<ToolOutput> results = new ArrayList<ToolOutput>();
+    	for (Tool tool : toolBelt.getTools()) {
+    		ToolOutput toolOutput = tool.getOutput();
+    		assertNotNull(toolOutput);
+    		results.add(toolOutput);
+    	}
+    	FitsOutput fitsOutput = consolidator.processResults(results);
+    	
+    	List<FitsIdentity> identities = fitsOutput.getIdentities();
+    	assertNotNull(identities);
+    	assertEquals(1, identities.size());
+    	FitsIdentity ident = identities.get(0);
+    	assertEquals("Scalable Vector Graphics (SVG)", ident.getFormat());
+    	assertEquals("image/svg+xml", ident.getMimetype());
+    	assertEquals(1, ident.getReportingTools().size());
+    	assertEquals("Droid", ident.getReportingTools().get(0).getName());
+    	assertEquals(1, ident.getExternalIdentifiers().size());
 	}
 
 }

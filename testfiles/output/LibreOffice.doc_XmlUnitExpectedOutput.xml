@@ -10,7 +10,7 @@
       <version toolname="Droid" toolversion="6.4">97-2003</version>
       <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">fmt/40</externalIdentifier>
     </identity>
-    <identity format="Microsoft Excel Format" mimetype="application/vnd.ms-excel" toolname="FITS" toolversion="1.5.0">
+    <identity format="Microsoft Excel" mimetype="application/vnd.ms-excel" toolname="FITS" toolversion="1.5.0">
       <tool toolname="ffident" toolversion="0.2" />
     </identity>
   </identification>
