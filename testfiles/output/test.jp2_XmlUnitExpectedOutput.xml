@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.4.1-SNAPSHOT" timestamp="4/2/19 4:06 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0" timestamp="12/6/21 3:32 PM">
   <identification>
-    <identity format="JPEG 2000 JP2" mimetype="image/jp2" toolname="FITS" toolversion="1.4.1-SNAPSHOT">
+    <identity format="JPEG 2000 JP2" mimetype="image/jp2" toolname="FITS" toolversion="1.5.0">
       <tool toolname="Droid" toolversion="6.4" />
       <tool toolname="Jhove" toolversion="1.20.1" />
-      <tool toolname="file utility" toolversion="5.31" />
-      <tool toolname="Exiftool" toolversion="11.14" />
-      <tool toolname="Tika" toolversion="1.19.1" />
+      <tool toolname="file utility" toolversion="5.39" />
+      <tool toolname="Exiftool" toolversion="11.54" />
+      <tool toolname="Tika" toolversion="1.21" />
       <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">x-fmt/392</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
     <size toolname="Jhove" toolversion="1.20.1">253214</size>
-    <creatingApplicationName toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">Photostation v1</creatingApplicationName>
-    <created toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">2007:09:21 00:00:00+08:00</created>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/test.jp2</filepath>
-    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">test.jp2</filename>
-    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">a9f2c77997e438c97639ad3a843f4fdb</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1446674963000</fslastmodified>
+    <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Photostation v1</creatingApplicationName>
+    <created toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2007:09:21 00:00:00+08:00</created>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/test.jp2</filepath>
+    <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">test.jp2</filename>
+    <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">a9f2c77997e438c97639ad3a843f4fdb</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1446674963000</fslastmodified>
   </fileinfo>
   <filestatus>
     <well-formed toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">true</well-formed>
@@ -27,7 +27,7 @@
     <image>
       <byteOrder toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">big endian</byteOrder>
       <compressionScheme toolname="Jhove" toolversion="1.20.1" status="CONFLICT">JPEG 2000 Lossy</compressionScheme>
-      <compressionScheme toolname="Exiftool" toolversion="11.14" status="CONFLICT">JPEG 2000</compressionScheme>
+      <compressionScheme toolname="Exiftool" toolversion="11.54" status="CONFLICT">JPEG 2000</compressionScheme>
       <imageWidth toolname="Jhove" toolversion="1.20.1">1542</imageWidth>
       <imageHeight toolname="Jhove" toolversion="1.20.1">2464</imageHeight>
       <colorSpace toolname="Jhove" toolversion="1.20.1">sRGB</colorSpace>
@@ -35,17 +35,17 @@
       <tileHeight toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">1024</tileHeight>
       <qualityLayers toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">8</qualityLayers>
       <resolutionLevels toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">5</resolutionLevels>
-      <orientation toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">normal*</orientation>
+      <orientation toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">normal*</orientation>
       <samplingFrequencyUnit toolname="Jhove" toolversion="1.20.1" status="CONFLICT">cm</samplingFrequencyUnit>
-      <samplingFrequencyUnit toolname="Exiftool" toolversion="11.14" status="CONFLICT">0.1 mm</samplingFrequencyUnit>
+      <samplingFrequencyUnit toolname="Exiftool" toolversion="11.54" status="CONFLICT">0.1 mm</samplingFrequencyUnit>
       <xSamplingFrequency toolname="Jhove" toolversion="1.20.1" status="CONFLICT">118</xSamplingFrequency>
-      <xSamplingFrequency toolname="Exiftool" toolversion="11.14" status="CONFLICT">1.181102</xSamplingFrequency>
+      <xSamplingFrequency toolname="Exiftool" toolversion="11.54" status="CONFLICT">1.181102</xSamplingFrequency>
       <ySamplingFrequency toolname="Jhove" toolversion="1.20.1" status="CONFLICT">118</ySamplingFrequency>
-      <ySamplingFrequency toolname="Exiftool" toolversion="11.14" status="CONFLICT">1.181102</ySamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="11.54" status="CONFLICT">1.181102</ySamplingFrequency>
       <bitsPerSample toolname="Jhove" toolversion="1.20.1">8 8 8</bitsPerSample>
       <samplesPerPixel toolname="Jhove" toolversion="1.20.1">3</samplesPerPixel>
-      <scannerManufacturer toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">Google</scannerManufacturer>
-      <scannerModelName toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">Photostation v1</scannerModelName>
+      <scannerManufacturer toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Google</scannerManufacturer>
+      <scannerModelName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Photostation v1</scannerModelName>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -113,20 +113,20 @@
       </standard>
     </image>
   </metadata>
-  <statistics fitsExecutionTime="214">
+  <statistics fitsExecutionTime="452">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.4" executionTime="9" />
-    <tool toolname="Jhove" toolversion="1.20.1" executionTime="171" />
-    <tool toolname="file utility" toolversion="5.31" executionTime="128" />
-    <tool toolname="Exiftool" toolversion="11.14" executionTime="201" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="11" />
+    <tool toolname="Jhove" toolversion="1.20.1" executionTime="107" />
+    <tool toolname="file utility" toolversion="5.39" executionTime="61" />
+    <tool toolname="Exiftool" toolversion="11.54" executionTime="441" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="5" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="7" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="9" />
-    <tool toolname="Tika" toolversion="1.19.1" executionTime="102" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="5" />
+    <tool toolname="Tika" toolversion="1.21" executionTime="34" />
   </statistics>
 </fits>
 
