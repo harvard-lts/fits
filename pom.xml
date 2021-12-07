@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.harvard.huit.lts</groupId>
 	<artifactId>fits</artifactId>
-	<version>1.5.0</version>
+	<version>1.5.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>FITS</name>
@@ -32,7 +32,7 @@
 		<commons-cli.version>1.2</commons-cli.version>
 		<commons-configuration.version>1.8</commons-configuration.version>
 		<droid.version>6.4</droid.version>
-		<ots-schemas.version>1.0.53</ots-schemas.version>
+		<ots-schemas.version>1.0.56</ots-schemas.version>
 		<jhove.version>1.20.1</jhove.version>
 		<jna.version>4.1.0</jna.version>
 		<hclaps.version>2.1</hclaps.version>
