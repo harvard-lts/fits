@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.harvard.huit.lts</groupId>
 	<artifactId>fits</artifactId>
-	<version>1.5.0</version>
+	<version>1.5.1</version>
 	<packaging>jar</packaging>
 
 	<name>FITS</name>
@@ -24,15 +24,15 @@
 		<xmlunit.version>1.6</xmlunit.version>
 		<stax2.version>3.0.2</stax2.version>
 		<staxmate.version>2.0.1</staxmate.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.2</junit.version>
 		<commons-lang.version>2.6</commons-lang.version>
 		<commons-logging.version>1.2</commons-logging.version>
 		<commons-collections.version>3.2.2</commons-collections.version>
-		<commons-io.version>2.4</commons-io.version>
+		<commons-io.version>2.11.0</commons-io.version>
 		<commons-cli.version>1.2</commons-cli.version>
 		<commons-configuration.version>1.8</commons-configuration.version>
 		<droid.version>6.4</droid.version>
-		<ots-schemas.version>1.0.53</ots-schemas.version>
+		<ots-schemas.version>1.0.56</ots-schemas.version>
 		<jhove.version>1.20.1</jhove.version>
 		<jna.version>4.1.0</jna.version>
 		<hclaps.version>2.1</hclaps.version>
@@ -40,7 +40,7 @@
 		<aes31.version>31.3</aes31.version>
 		<gson.version>2.4</gson.version>
 		<nzmetool.version>3.6GA</nzmetool.version>
-		<xerces-impl.version>2.9.1</xerces-impl.version>
+		<xerces-impl.version>2.12.1</xerces-impl.version>
 		<saxon.version>9.8.0-10</saxon.version>
 		<mvn-compiler-plgn.version>3.0</mvn-compiler-plgn.version>
 	</properties>

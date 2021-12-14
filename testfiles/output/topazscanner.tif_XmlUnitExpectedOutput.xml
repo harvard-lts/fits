@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.4.2-SNAPSHOT" timestamp="5/1/19 10:50 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0" timestamp="12/6/21 3:32 PM">
   <identification>
-    <identity format="TIFF EXIF" mimetype="image/tiff" toolname="FITS" toolversion="1.4.2-SNAPSHOT">
+    <identity format="TIFF EXIF" mimetype="image/tiff" toolname="FITS" toolversion="1.5.0">
       <tool toolname="Jhove" toolversion="1.20.1" />
-      <tool toolname="Exiftool" toolversion="11.14" />
+      <tool toolname="Exiftool" toolversion="11.54" />
       <version toolname="Jhove" toolversion="1.20.1">6.0</version>
     </identity>
   </identification>
   <fileinfo>
     <size toolname="Jhove" toolversion="1.20.1">5146108</size>
-    <creatingApplicationName toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">Adobe Photoshop CS Macintosh</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="11.14" status="CONFLICT">2006:11:28 13:30:06</lastmodified>
-    <lastmodified toolname="Tika" toolversion="1.20" status="CONFLICT">2006-11-28T08:30:06</lastmodified>
-    <created toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">2006:11:28 12:22:59-05:00</created>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/topazscanner.tif</filepath>
-    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">topazscanner.tif</filename>
-    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">c2c36f561b1da65ff74ea2b22fe3fba0</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1446674963000</fslastmodified>
+    <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Adobe Photoshop CS Macintosh</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="11.54" status="CONFLICT">2006:11:28 13:30:06</lastmodified>
+    <lastmodified toolname="Tika" toolversion="1.21" status="CONFLICT">2006-11-28T08:30:06</lastmodified>
+    <created toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2006:11:28 12:22:59-05:00</created>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/topazscanner.tif</filepath>
+    <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">topazscanner.tif</filename>
+    <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">c2c36f561b1da65ff74ea2b22fe3fba0</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1446674963000</fslastmodified>
   </fileinfo>
   <filestatus>
     <well-formed toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">true</well-formed>
@@ -38,9 +38,9 @@
       <bitsPerSample toolname="Jhove" toolversion="1.20.1">8 8 8</bitsPerSample>
       <samplesPerPixel toolname="Jhove" toolversion="1.20.1">3</samplesPerPixel>
       <scanningSoftwareName toolname="Jhove" toolversion="1.20.1">Adobe Photoshop CS Macintosh</scanningSoftwareName>
-      <iccProfileVersion toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
-      <scannerManufacturer toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">HDPPKIEL</scannerManufacturer>
-      <scannerModelName toolname="Exiftool" toolversion="11.14" status="SINGLE_RESULT">TOPAZ iX Scanner</scannerModelName>
+      <iccProfileVersion toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
+      <scannerManufacturer toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">HDPPKIEL</scannerManufacturer>
+      <scannerModelName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">TOPAZ iX Scanner</scannerModelName>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -140,20 +140,20 @@
       </standard>
     </image>
   </metadata>
-  <statistics fitsExecutionTime="625">
+  <statistics fitsExecutionTime="321">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.4" executionTime="147" />
-    <tool toolname="Jhove" toolversion="1.20.1" executionTime="613" />
-    <tool toolname="file utility" toolversion="5.31" executionTime="83" />
-    <tool toolname="Exiftool" toolversion="11.14" executionTime="254" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="142" />
+    <tool toolname="Jhove" toolversion="1.20.1" executionTime="315" />
+    <tool toolname="file utility" toolversion="5.39" executionTime="46" />
+    <tool toolname="Exiftool" toolversion="11.54" executionTime="275" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="59" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="48" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="12" />
-    <tool toolname="Tika" toolversion="1.20" executionTime="119" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="6" />
+    <tool toolname="Tika" toolversion="1.21" executionTime="100" />
   </statistics>
 </fits>
 
