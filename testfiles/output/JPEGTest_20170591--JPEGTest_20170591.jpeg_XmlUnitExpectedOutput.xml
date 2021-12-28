@@ -62,9 +62,8 @@
       <flash toolname="Jhove" toolversion="1.20.1">No flash function</flash>
       <focalLength toolname="Jhove" toolversion="1.20.1" status="CONFLICT">2.77</focalLength>
       <focalLength toolname="Exiftool" toolversion="11.54" status="CONFLICT">2.8</focalLength>
-      <exposureIndex toolname="Jhove" toolversion="1.20.1" status="CONFLICT">�</exposureIndex>
+      <exposureIndex toolname="Jhove" toolversion="1.20.1" status="CONFLICT">NaN</exposureIndex>
       <exposureIndex toolname="Exiftool" toolversion="11.54" status="CONFLICT">undef</exposureIndex>
-      <exposureIndex toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">NaN</exposureIndex>
       <iccProfileVersion toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
       <captureDevice toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">digital still camera</captureDevice>
       <digitalCameraManufacturer toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">GoPro</digitalCameraManufacturer>

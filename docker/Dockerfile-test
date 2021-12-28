@@ -1,0 +1,58 @@
+# This file creates an image that can be used to execute the unit tests.
+#
+# Usage:
+#   # Build the image
+#   podman build -f docker/Dockerfile-test -t fits-docker-test
+#
+#   # Run the tests
+#   podman run -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-docker-test mvn clean test
+#
+#   # Interactive container access
+#   podman run -it -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-docker-test
+
+FROM docker.io/maven:3-eclipse-temurin-17
+
+ENV FILE_VERSION=5.41
+
+RUN apt-get update
+
+# Set timezone to eastern because some of the tests need this
+RUN echo 'America/New_York' > /etc/timezone
+
+# Install exiftool dependencies https://github.com/exiftool/exiftool
+RUN apt-get install -yqq \
+    libarchive-zip-perl \
+    libio-compress-perl \
+    libcompress-raw-zlib-perl \
+    libcompress-bzip2-perl \
+    libcompress-raw-bzip2-perl \
+    libio-digest-perl \
+    libdigest-md5-file-perl \
+    libdigest-perl-md5-perl \
+    libdigest-sha-perl \
+    libposix-strptime-perl \
+    libunicode-linebreak-perl
+
+# Install file dependencies
+RUN apt-get install -yqq \
+    make \
+    gcc
+
+# Install file https://github.com/file/file
+RUN cd /var/tmp && \
+    curl -so file-${FILE_VERSION}.tar.gz https://astron.com/pub/file/file-${FILE_VERSION}.tar.gz && \
+    tar xzf file-${FILE_VERSION}.tar.gz && \
+    cd file-${FILE_VERSION} && \
+    ./configure && \
+    make -j4 && \
+    make install && \
+    ldconfig && \
+    cd .. && \
+    rm -rf file-${FILE_VERSION}*
+
+# Cleanup package list
+RUN  rm -rf /var/lib/apt/lists/*
+
+WORKDIR /fits
+
+CMD ["bash"]
