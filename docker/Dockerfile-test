@@ -2,17 +2,17 @@
 #
 # Usage:
 #   # Build the image
-#   podman build -f docker/Dockerfile-test -t fits-docker-test
+#   podman build -f docker/Dockerfile-test -t fits-test
 #
 #   # Run the tests
-#   podman run -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-docker-test mvn clean test
+#   podman run -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
 #
 #   # Interactive container access
-#   podman run -it -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-docker-test
+#   podman run -it -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test
 
 FROM docker.io/maven:3-eclipse-temurin-17
 
-ENV FILE_VERSION=5.41
+ARG FILE_VERSION=5.41
 
 RUN apt-get update
 
