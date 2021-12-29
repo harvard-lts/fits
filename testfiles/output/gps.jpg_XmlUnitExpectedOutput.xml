@@ -21,6 +21,7 @@
     <lastmodified toolname="Tika" toolversion="1.21" status="CONFLICT">2006-11-02T21:26:02</lastmodified>
     <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2006:11:03 07:14:39</created>
     <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2006:11:03 02:26:02</created>
+    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2006-11-03T02:14:39</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/gps.jpg</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">gps.jpg</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">201f1db44775631d307b3ffd62acb3ac</md5checksum>

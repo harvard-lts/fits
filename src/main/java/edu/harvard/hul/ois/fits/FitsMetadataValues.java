@@ -74,6 +74,7 @@ public class FitsMetadataValues {
     public final static String COLOR_SPACE = "colorSpace";
     public final static String COMPANY = "company";
     public final static String COMPRESSION_SCHEME = "compressionScheme";
+    public final static String CREATED = "created";
     public final static String CREATING_APPLICATION_NAME = "creatingApplicationName";
     public final static String CREATING_APPLICATION_VERSION = "creatingApplicationVersion";
     public final static String DATA_FORMAT_TYPE = "dataFormatType";
@@ -206,6 +207,12 @@ public class FitsMetadataValues {
         if (mime == null || mime.length()==0) {
             return DEFAULT_MIMETYPE;
         }
+
+        // Tika is the primary tool that sets the charset in the MIME and it throws off comparisons
+        if (mime.contains("; charset=")) {
+            mime = mime.replaceFirst("; charset=[^;]+", "");
+        }
+
         String normMime = mimeMap.get(mime);
         if (normMime != null) {
             return normMime;

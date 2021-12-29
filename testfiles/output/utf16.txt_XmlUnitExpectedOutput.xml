@@ -5,13 +5,14 @@
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="file utility" toolversion="5.04" />
       <tool toolname="Exiftool" toolversion="12.29" />
+      <tool toolname="Tika" toolversion="2.2.1" />
       <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/111</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/utf16.txt</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">utf16.txt</filename>
-    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">30</size>
+    <size toolname="OIS File Information" toolversion="0.2">30</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">fbb8ef84677fad5a798cef6cf69aef1d</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1446674963000</fslastmodified>
   </fileinfo>

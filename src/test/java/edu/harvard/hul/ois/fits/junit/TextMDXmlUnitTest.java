@@ -117,4 +117,25 @@ public class TextMDXmlUnitTest extends AbstractXmlUnitTest {
 		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
 	}
 
+	@Test
+	public void testKml() throws Exception {
+		String inputFilename = "KXXJXH4YTGWQ68W.kml";
+		File input = new File("testfiles/" + inputFilename);
+		FitsOutput fitsOut = fits.examine(input);
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
+
 }

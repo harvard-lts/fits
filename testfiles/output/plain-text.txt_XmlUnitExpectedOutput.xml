@@ -6,6 +6,7 @@
       <tool toolname="Jhove" toolversion="1.20" />
       <tool toolname="file utility" toolversion="5.31" />
       <tool toolname="Exiftool" toolversion="12.29" />
+      <tool toolname="Tika" toolversion="2.2.1" />
       <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/111</externalIdentifier>
     </identity>
   </identification>
@@ -23,9 +24,10 @@
   <metadata>
     <text>
       <linebreak toolname="Jhove" toolversion="1.20">LF</linebreak>
-      <charset toolname="Jhove" toolversion="1.20">US-ASCII</charset>
-      <lineCount toolname="Exiftool" toolversion="12.29" status="SINGLE_RESULT">1</lineCount>
-      <wordCount toolname="Exiftool" toolversion="12.29" status="SINGLE_RESULT">7</wordCount>
+        <charset toolname="Jhove" toolversion="1.20.1" status="CONFLICT">US-ASCII</charset>
+        <lineCount toolname="Exiftool" toolversion="12.29" status="SINGLE_RESULT">1</lineCount>
+        <wordCount toolname="Exiftool" toolversion="12.29" status="SINGLE_RESULT">7</wordCount>
+      <charset toolname="Tika" toolversion="2.2.1" status="CONFLICT">ISO-8859-1</charset>
       <standard>
         <textMD:textMD xmlns:textMD="info:lc/xmlns/textMD-v3">
           <textMD:character_info>
