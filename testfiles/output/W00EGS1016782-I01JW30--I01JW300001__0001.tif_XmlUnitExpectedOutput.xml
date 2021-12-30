@@ -36,8 +36,7 @@
       <imageHeight toolname="Jhove" toolversion="1.20.1">3300</imageHeight>
       <colorSpace toolname="Jhove" toolversion="1.20.1">WhiteIsZero</colorSpace>
       <orientation toolname="Jhove" toolversion="1.20.1">normal*</orientation>
-      <samplingFrequencyUnit toolname="Jhove" toolversion="1.20.1" status="CONFLICT">in. in.</samplingFrequencyUnit>
-      <samplingFrequencyUnit toolname="Exiftool" toolversion="11.54" status="CONFLICT">in.</samplingFrequencyUnit>
+      <samplingFrequencyUnit toolname="Jhove" toolversion="1.20.1">in.</samplingFrequencyUnit>
       <xSamplingFrequency toolname="Jhove" toolversion="1.20.1">300</xSamplingFrequency>
       <ySamplingFrequency toolname="Jhove" toolversion="1.20.1">300</ySamplingFrequency>
       <bitsPerSample toolname="Jhove" toolversion="1.20.1" status="CONFLICT">1 1</bitsPerSample>
