@@ -18,12 +18,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 
-import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -44,7 +45,7 @@ public class DroidToolOutputter {
     private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
     private final static Map<Integer, String> COMPRESSION_METHOD_TO_STRING_VALUE;
     
-	private static Logger logger = Logger.getLogger(DroidToolOutputter.class);
+    private static final Logger logger = LoggerFactory.getLogger(DroidToolOutputter.class);
 
     private IdentificationResultCollection results;
     private ToolBase toolBase;

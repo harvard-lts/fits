@@ -12,11 +12,11 @@ package edu.harvard.hul.ois.fits.tools.nlnz;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
-
 import nz.govt.natlib.meta.log.Log;
 import nz.govt.natlib.meta.log.LogLevel;
 import nz.govt.natlib.meta.log.LogMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A logger that logs to SLF4J and approximates the log levels of the NLNZ Metadata Extractor
@@ -40,7 +40,7 @@ public class SLF4JLogger implements Log {
 	 * License for the specific language governing permissions and limitations
 	 * under the License.
 	 */
-	private static final Logger logger = Logger.getLogger(SLF4JLogger.class);
+	private static final Logger logger = LoggerFactory.getLogger(SLF4JLogger.class);
 
 	public SLF4JLogger() {
 		super();
@@ -51,7 +51,7 @@ public class SLF4JLogger implements Log {
 		int level = logLevel.getLevel();
 
 		if (level == LogMessage.CRITICAL.getLevel() ) {
-			logger.fatal( formatMessage(message, false) );
+			logger.error( formatMessage(message, false) );
 		} else if (level == LogMessage.ERROR.getLevel() ) {
 			logger.error( formatMessage(message, false) );
 		} else if (level == LogMessage.DEBUG.getLevel() ) {

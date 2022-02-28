@@ -47,7 +47,6 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
@@ -62,6 +61,8 @@ import edu.harvard.hul.ois.fits.tools.Tool.RunStatus;
 import edu.harvard.hul.ois.fits.tools.ToolBelt;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The main class for FITS.
@@ -190,7 +191,7 @@ public class Fits {
     // with scheme so the log4j framework can initialize.
     System.setProperty( "log4j.configuration", log4jUri.toString());
 
-    logger = Logger.getLogger( this.getClass() );
+    logger = LoggerFactory.getLogger(this.getClass());
     logger.info("Logging initialized with: " + log4jUri.toString());
     try {
       if ( fitsXmlConfig != null ) {
@@ -199,13 +200,13 @@ public class Fits {
           config = new XMLConfiguration( FITS_XML_DIR + FITS_CONFIG_FILE_NAME );
       }
     } catch (ConfigurationException e) {
-      logger.fatal( "Error reading " + FITS_XML_DIR + FITS_CONFIG_FILE_NAME + ": " + e.getClass().getName() );
+      logger.error( "Error reading {}{}: {}", FITS_XML_DIR, FITS_CONFIG_FILE_NAME, e.getClass().getName() );
       throw new FitsConfigurationException( "Error reading " + FITS_XML_DIR + FITS_CONFIG_FILE_NAME, e );
     }
     try {
       mapper = new FitsXmlMapper();
     } catch (Exception e) {
-      logger.fatal( "Error creating FITS XML Mapper: " + e.getClass().getName() );
+      logger.error( "Error creating FITS XML Mapper: {}", e.getClass().getName() );
       throw new FitsConfigurationException( "Error creating FITS XML Mapper", e );
     }
     // required config values
@@ -215,7 +216,7 @@ public class Fits {
       internalOutputSchema = config.getString( "output.internal-output-schema" );
       enableStatistics = config.getBoolean( "output.enable-statistics" );
     } catch (NoSuchElementException e) {
-      logger.fatal( "Error in configuration file: " + e.getClass().getName() );
+      logger.error( "Error in configuration file: {}", e.getClass().getName() );
       System.out.println( "Error inconfiguration file: " + e.getMessage() );
       return;
     }

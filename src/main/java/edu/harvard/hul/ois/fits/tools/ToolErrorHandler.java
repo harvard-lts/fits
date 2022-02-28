@@ -10,18 +10,16 @@
 
 package edu.harvard.hul.ois.fits.tools;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import org.apache.log4j.Logger;
 
 /** Output error reports from validation of FITS output */
 public class ToolErrorHandler implements ErrorHandler {
 
-    private static Logger logger = Logger.getLogger(ToolErrorHandler.class);
+    private static Logger logger = LoggerFactory.getLogger(ToolErrorHandler.class);
 
     @Override
     public void error(SAXParseException e) throws SAXException {
@@ -30,7 +28,7 @@ public class ToolErrorHandler implements ErrorHandler {
 
     @Override
     public void fatalError(SAXParseException e) throws SAXException {
-        logger.fatal("Fatal SAX error", e);
+        logger.error("Fatal SAX error", e);
     }
 
     @Override

@@ -37,12 +37,13 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.BeforeClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import edu.harvard.hul.ois.fits.FitsOutput;
@@ -85,11 +86,10 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
 
 	private static Logger logger = null;
 
-
 	@BeforeClass
 	public static void abstractClassSetup() throws Exception {
 		// Set up XMLUnit for all classes.
-	    logger = Logger.getLogger(AbstractXmlUnitTest.class);
+	    logger = LoggerFactory.getLogger(AbstractXmlUnitTest.class);
 		XMLUnit.setIgnoreWhitespace(true);
 		XMLUnit.setNormalizeWhitespace(true);
 	}

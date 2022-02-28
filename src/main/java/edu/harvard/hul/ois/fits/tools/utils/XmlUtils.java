@@ -14,16 +14,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.xpath.XPath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlUtils {
 
-    private static final Logger logger = Logger.getLogger(XmlUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(XmlUtils.class);
 
     /**
      * Returns the first value of the element in the provided dom object.  Returns

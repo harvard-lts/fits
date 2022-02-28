@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.EncryptedDocumentException;
 import org.apache.tika.exception.TikaException;
@@ -42,6 +41,8 @@ import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.harvard.hul.ois.fits.DocumentTypes;
 import edu.harvard.hul.ois.fits.Fits;
@@ -203,7 +204,7 @@ public class TikaTool extends ToolBase {
     private final static MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
     private final Parser tikaParser;
 
-    private static final Logger logger = Logger.getLogger(TikaTool.class);
+    private static final Logger logger = LoggerFactory.getLogger(TikaTool.class);
     private boolean enabled = true;
     private Fits fits;
 

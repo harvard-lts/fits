@@ -39,8 +39,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.compress.archivers.zip.UnsupportedZipFeatureException;
-import org.apache.log4j.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.gov.nationalarchives.droid.command.action.CommandExecutionException;
 import uk.gov.nationalarchives.droid.container.ContainerSignatureDefinitions;
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
@@ -63,7 +64,7 @@ public abstract class ArchiveContentIdentifier {
     protected String path;
     private Boolean expandWebArchives;
 
-    private static final Logger logger = Logger.getLogger(ArchiveContentIdentifier.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArchiveContentIdentifier.class);
 
     /**
      * Initialization of instance values must be explicitly called by all children.
