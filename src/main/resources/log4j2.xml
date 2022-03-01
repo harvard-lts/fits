@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The following properties set the logging levels and log appender. -->
+<Configuration status="warn" name="FITS">
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_ERR">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} - %5p - %c{1}:%L - %m%n</Pattern>
+            </PatternLayout>
+        </Console>
+
+        <!--
+            Direct messages to a rolling log file.
+            See https://logging.apache.org/log4j/2.x/manual/appenders.html for details.
+        -->
+        <RollingRandomAccessFile
+                name="FILE"
+                fileName="./fits.log"
+                filePattern="./fits-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} - %5p - %c{1}:%L - %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="uk.gov.nationalarchives.droid" level="fatal"/>
+        <Logger name="edu.harvard.hul.ois.jhove" level="fatal"/>
+        <Logger name="org.apache.tika" level="error"/>
+        <Logger name="net.sf" level="error"/>
+        <Logger name="org.apache.pdfbox" level="error"/>
+
+        <Root level="info">
+            <AppenderRef ref="FILE" level="error"/>
+            <AppenderRef ref="CONSOLE" level="error"/>
+        </Root>
+    </Loggers>
+</Configuration>

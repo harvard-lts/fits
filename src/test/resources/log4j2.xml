@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is for use only with test classes. -->
+<Configuration status="warn" name="FITS">
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_ERR">
+            <PatternLayout>
+                <Pattern>[TEST] %d{yyyy-MM-dd HH:mm:ss} - %5p - %c{1}:%L - %m%n</Pattern>
+            </PatternLayout>
+        </Console>
+
+        <!--
+            Direct messages to a log file.
+            Unlike standard FITS logging configuration file which uses a RollingFileAppender,
+            we only want a single log output file for testing purposes.
+            See https://logging.apache.org/log4j/2.x/manual/appenders.html for details.
+        -->
+        <File name="FILE" fileName="./fits-tests.log">
+            <PatternLayout>
+                <Pattern>[TEST] %d{yyyy-MM-dd HH:mm:ss} - %5p - %c{1}:%L - %m%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="uk.gov.nationalarchives.droid" level="fatal"/>
+        <Logger name="edu.harvard.hul.ois.jhove" level="fatal"/>
+        <Logger name="org.apache.tika" level="error"/>
+        <Logger name="net.sf" level="error"/>
+        <Logger name="org.apache.pdfbox" level="error"/>
+
+        <Root level="warn">
+            <AppenderRef ref="FILE"/>
+            <AppenderRef ref="CONSOLE"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -155,10 +155,10 @@ public class Fits {
     // If the property is just a path then convert it to a URI with a scheme and
     // set it back into the system property.
     //
-    // First look for a system property (the Log4j preferred way of configuration) at the Log4j expected value, "log4j.configuration".
+    // First look for a system property (the Log4j preferred way of configuration) at the Log4j expected value, "log4j2.configurationFile".
     // This value can be either a file path, file protocol (e.g. - file:/path/to/log4j.properties), or a URL (http://some/server/log4j.properties).
     // If this value either is does not exist or is not valid, the default file that comes with FITS will be used for initialization.
-    String log4jSystemProp = System.getProperty("log4j.configuration");
+    String log4jSystemProp = System.getProperty("log4j2.configurationFile");
     URI log4jUri = null;
     if (log4jSystemProp != null) {
         try {
@@ -176,20 +176,20 @@ public class Fits {
             }
         } catch (URISyntaxException e) {
             // fall back to FITS-supplied file
-            System.err.println("Unable to load log4j.properties file: " + log4jSystemProp + " -- reason: " + e.getReason());
-            System.err.println("Falling back to default log4j.properties file: " + FITS_HOME + "log4j.properties");
+            System.err.println("Unable to load log4j2 config file: " + log4jSystemProp + " -- reason: " + e.getReason());
+            System.err.println("Falling back to default log4j config file: " + FITS_HOME + "log4j2.xml");
         }
     }
     // Only set up logging with FITS default logging configuration if
     // either the System property is null or exception was thrown creating URI.
     if (log4jUri == null) {
-        File log4jProperties = new File(FITS_HOME + "log4j.properties");
+        File log4jProperties = new File(FITS_HOME + "log4j2.xml");
         log4jUri = log4jProperties.toURI();
     }
 
     // Even if set, reset logging System property to ensure it's in a URI format
     // with scheme so the log4j framework can initialize.
-    System.setProperty( "log4j.configuration", log4jUri.toString());
+    System.setProperty( "log4j2.configurationFile", log4jUri.toString());
 
     logger = LoggerFactory.getLogger(this.getClass());
     logger.info("Logging initialized with: " + log4jUri.toString());
