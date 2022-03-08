@@ -256,7 +256,7 @@
 			<version>${saxon.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.twmacinta</groupId>
+			<groupId>com.joyent.util</groupId>
 			<artifactId>fast-md5</artifactId>
 			<version>${fast-md5.version}</version>
 		</dependency>
@@ -325,22 +325,12 @@
 			<name>Local file system for temporarily holding non-repo JAR files</name>
 			<url>file://${project.basedir}/lib-local/</url>
 		</repository>
-		<repository>
-			<id>spring-plugins-repo</id>
-			<name>Spring plugins repo</name>
-			<url>https://repo.spring.io/plugins-release/</url>
-		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>maven2-repository.dev.java.net</id>
 			<name>Java.net Maven 2 Repository</name>
 			<url>https://repo1.maven.org/maven2/</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-plugins</id>
-			<name>Spring plugins repository</name>
-			<url>https://repo.spring.io/plugins-release/</url>
 		</pluginRepository>
 	</pluginRepositories>
 
