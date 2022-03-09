@@ -12,7 +12,16 @@ The build artifacts are fits-<version>.jar and fits-<version>.zip. The JAR file 
 The ZIP file can be built with the following command, which will also run the entire test suite:
 
     mvn clean package
-    
+
+Because the outcome of some of the tests are system dependent, it is
+recommended to run them in a Docker container so that the results are
+consistent. To do so, first install Docker, Podman, or an equivalent
+container service, and execute the following:
+
+    # The build only needs to be run once
+    docker build -f docker/Dockerfile-test -t fits-test .
+    docker run -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
+
 To build yet skip the tests, use the following command:
 
     mvn clean package -DskipTests
