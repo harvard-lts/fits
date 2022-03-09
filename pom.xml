@@ -250,7 +250,7 @@
 			<version>${saxon.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.twmacinta</groupId>
+			<groupId>com.joyent.util</groupId>
 			<artifactId>fast-md5</artifactId>
 			<version>${fast-md5.version}</version>
 		</dependency>
