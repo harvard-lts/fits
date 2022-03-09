@@ -40,7 +40,7 @@ use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::Exif;
 use Image::ExifTool::APP12;
 
-$VERSION = '2.73';
+$VERSION = '2.76';
 
 sub PrintLensInfo($$$);
 
@@ -431,6 +431,7 @@ my %olympusCameraTypes = (
     S0085 => 'E-PL10', #IB
     S0089 => 'E-M5MarkIII',
     S0092 => 'E-M1MarkIII', #IB
+    S0093 => 'E-P7', #IB
     SR45 => 'D220',
     SR55 => 'D320L',
     SR83 => 'D340L',
@@ -3429,7 +3430,7 @@ my %indexInfo = (
     0x2a => {
         Name => 'FNumber',
         Format => 'rational64u',
-        PrintConv => 'sprintf("%.1f",$val)',
+        PrintConv => 'Image::ExifTool::Exif::PrintFNumber($val)',
     },
     0x32 => { #(NC)
         Name => 'ExposureCompensation',
@@ -3475,7 +3476,7 @@ my %indexInfo = (
     0x3a => {
         Name => 'FNumber',
         Format => 'rational64u',
-        PrintConv => 'sprintf("%.1f",$val)',
+        PrintConv => 'Image::ExifTool::Exif::PrintFNumber($val)',
     },
     0x42 => { #(NC)
         Name => 'ExposureCompensation',
@@ -3526,7 +3527,7 @@ my %indexInfo = (
     0x28 => {
         Name => 'FNumber',
         Format => 'rational64u',
-        PrintConv => 'sprintf("%.1f",$val)',
+        PrintConv => 'Image::ExifTool::Exif::PrintFNumber($val)',
     },
     0x30 => { #(NC)
         Name => 'ExposureCompensation',
@@ -3607,6 +3608,10 @@ my %indexInfo = (
         Name => 'DateTime2',
         Format => 'string[24]',
         Groups => { 2 => 'Time' },
+    },
+    0x17f => {
+        Name => 'LensModel',
+        Format => 'string[32]'
     },
 );
 
@@ -3739,7 +3744,7 @@ my %indexInfo = (
     0x5a => {
         Name => 'FNumber',
         Format => 'rational64u',
-        PrintConv => 'sprintf("%.1f",$val)',
+        PrintConv => 'Image::ExifTool::Exif::PrintFNumber($val)',
     },
     0x7f => {
         Name => 'DateTimeOriginal', #(NC)
@@ -3784,7 +3789,7 @@ my %indexInfo = (
     0x5e => {
         Name => 'FNumber',
         Format => 'rational64u',
-        PrintConv => 'sprintf("%.1f",$val)',
+        PrintConv => 'Image::ExifTool::Exif::PrintFNumber($val)',
     },
     0x83 => {
         Name => 'DateTime1',
@@ -4066,7 +4071,7 @@ Olympus or Epson maker notes in EXIF information.
 
 =head1 AUTHOR
 
-Copyright 2003-2021, Phil Harvey (philharvey66 at gmail.com)
+Copyright 2003-2022, Phil Harvey (philharvey66 at gmail.com)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
