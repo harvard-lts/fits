@@ -13,7 +13,7 @@ The ZIP file can be built with the following command, which will also run the en
 
     mvn clean package
 
-Because the outcome of some of the tests are system dependent, it is
+Because the outcome of some of the tests is system dependent, it is
 recommended to run them in a Docker container so that the results are
 consistent. To do so, first install Docker, Podman, or an equivalent
 container service, and execute the following:
