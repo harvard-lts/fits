@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0-SNAPSHOT" timestamp="8/14/19 10:52 AM">
-  <identification status="SINGLE_RESULT">
+  <identification>
     <identity format="WebVTT" mimetype="text/vtt" toolname="FITS" toolversion="1.5.0-SNAPSHOT">
       <tool toolname="VTT Tool" toolversion="0.1" />
+      <tool toolname="Droid" toolversion="6.5" />
+      <externalIdentifier toolname="Droid" toolversion="6.5" type="puid">fmt/1454</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
