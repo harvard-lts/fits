@@ -60,7 +60,7 @@ class MediaInfoNativeWrapper
                final String LocalPath;
                if (loader!=null)
                {
-                   LocalPath=loader.getResource(MediaInfoNativeWrapper.class.getName().replace('.', '/')+ ".class").getPath().replace("MediaInfo.class", "");
+                   LocalPath=loader.getResource(MediaInfoNativeWrapper.class.getName().replace('.', '/')+ ".class").getPath().replace("MediaInfoNativeWrapper.class", "");
                    try
                    {
                        NativeLibrary.getInstance(LocalPath+"libzen.so.0"); // Local path
@@ -84,6 +84,7 @@ class MediaInfoNativeWrapper
                    }
                    catch (LinkageError e)
                    {
+                       NativeLibrary.getInstance("mediainfo");
                    }
                }
            }
