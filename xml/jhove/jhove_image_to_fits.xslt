@@ -164,7 +164,7 @@ xmlns:mix="http://www.loc.gov/mix/v20">
 			
 			<!-- samplingFrequencyUnit -->
 			<samplingFrequencyUnit>
-                <xsl:value-of select="//mix:samplingFrequencyUnit"/>
+                <xsl:value-of select="(//mix:samplingFrequencyUnit)[1]"/>
 			</samplingFrequencyUnit>
 			
 			<!--  xSamplingFrequency -->
@@ -357,10 +357,21 @@ xmlns:mix="http://www.loc.gov/mix/v20">
 			</subjectDistance>
 
 			<!--  meteringMode -->
-			<meteringMode>
-				<xsl:value-of select="//property[name='MeteringMode']/values/value"/>
-			</meteringMode>
-			
+			<xsl:variable name="meteringMode" select="//property[name='MeteringMode']/values/value"/>
+			<xsl:choose>
+				<!-- Jhove returns the wrong value here -->
+				<xsl:when test="$meteringMode='centre weighted average'">
+					<meteringMode>
+						<xsl:value-of select="'Center weighted average'"/>
+					</meteringMode>
+				</xsl:when>
+				<xsl:otherwise>
+					<meteringMode>
+						<xsl:value-of select="$meteringMode" />
+					</meteringMode>
+				</xsl:otherwise>
+			</xsl:choose>
+
 			<!--  flash -->
 			<flash>
 				<xsl:variable name="flash" select="//property[name='Flash']/values/value"/>
