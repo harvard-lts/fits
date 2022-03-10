@@ -9,9 +9,10 @@
     </identity>
   </identification>
   <fileinfo>
+    <created toolname="Tika" toolversion="2.2.1" status="SINGLE_RESULT">2008-01-03</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/GeographyofBliss_oneChapter.epub</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">GeographyofBliss_oneChapter.epub</filename>
-    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">198197</size>
+    <size toolname="OIS File Information" toolversion="0.2">198197</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">52c6dedc6e49c0e8bdd3ac85016640e3</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>

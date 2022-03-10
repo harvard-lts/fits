@@ -18,10 +18,11 @@
     <lastmodified toolname="Exiftool" toolversion="11.54" status="CONFLICT">2016:01:15 20:03:34</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.21" status="CONFLICT">2016-01-15T20:03:34Z</lastmodified>
     <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2015:12:14 16:12:58</created>
-    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015-12-14 12:12:58</created>
+    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015-12-14 11:12:58</created>
+    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2015-12-14T16:12:58Z</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/LibreOffice.doc</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">LibreOffice.doc</filename>
-    <size toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">10240</size>
+    <size toolname="OIS File Information" toolversion="1.0">10240</size>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">2520885e1d9e43b13d8dab9009393b56</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>

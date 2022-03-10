@@ -20,6 +20,7 @@
     <lastmodified toolname="Tika" toolversion="1.21" status="CONFLICT">2015-06-25T07:03:38</lastmodified>
     <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2014:10:27 12:34:43</created>
     <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015:06:25 11:03:38</created>
+    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2014-10-27T08:34:43</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/JPEGTest_20170591--JPEGTest_20170591.jpeg</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">JPEGTest_20170591--JPEGTest_20170591.jpeg</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">3c5a86c471809d347e99d19c51bd1b94</md5checksum>

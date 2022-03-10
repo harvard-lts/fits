@@ -15,7 +15,7 @@
     <creatingApplicationName toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">Word 2.0</creatingApplicationName>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/NEWSSLID_Word2_0.DOC</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">NEWSSLID_Word2_0.DOC</filename>
-    <size toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">10405</size>
+    <size toolname="OIS File Information" toolversion="0.2">10405</size>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">71649cd49b8cd0bc37f8643b2ee84c75</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>
