@@ -17,11 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Element;
 import org.jdom.Namespace;
 import org.jdom.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
 import edu.harvard.hul.ois.ots.schemas.ContainerMD.Container;
@@ -47,7 +48,7 @@ public class XmlContentConverter {
 
 	private static List<String> docMdNames;
 
-	private static final Logger logger = Logger.getLogger(XmlContentConverter.class);
+    private static final Logger logger = LoggerFactory.getLogger(XmlContentConverter.class);
 
 	private static final Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 

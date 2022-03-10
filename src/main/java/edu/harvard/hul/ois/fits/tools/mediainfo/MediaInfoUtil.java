@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -26,6 +25,8 @@ import org.jdom.xpath.XPath;
 
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is a helper class for the MediaInfo tool class. The main purpose of
@@ -125,7 +126,7 @@ public class MediaInfoUtil {
 		    }});
 
 	private final static String TOOL_NAME = "MediaInfo";
-	private static final Logger logger = Logger.getLogger(MediaInfoUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(MediaInfoUtil.class);
 	private static MediaInfoNativeWrapper mi = null;
 
 	protected MediaInfoUtil(MediaInfoNativeWrapper mi) {

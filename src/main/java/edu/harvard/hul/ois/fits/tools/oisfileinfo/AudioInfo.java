@@ -19,7 +19,6 @@ import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
-import org.apache.log4j.Logger;
 
 import edu.harvard.hcl.hclaps.bwav.InvalidWaveHeaderException;
 import edu.harvard.hcl.hclaps.bwav.WAVEFile;
@@ -29,6 +28,8 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This uses the audio file parsing library hclaps.jar provided by Dave Ackerman
@@ -46,7 +47,7 @@ public class AudioInfo extends ToolBase {
 	private static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
 
-    private static Logger logger = Logger.getLogger(AudioInfo.class);
+	private static final Logger logger = LoggerFactory.getLogger(AudioInfo.class);
 
 	public AudioInfo(Fits fits) throws FitsToolException {
 		super();

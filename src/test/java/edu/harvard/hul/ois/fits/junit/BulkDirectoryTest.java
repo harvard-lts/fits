@@ -20,7 +20,6 @@ package edu.harvard.hul.ois.fits.junit;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -29,6 +28,8 @@ import org.junit.Test;
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class can be used to process a group of disparate input files from a specific
@@ -47,8 +48,8 @@ public class BulkDirectoryTest extends AbstractLoggingTest {
 	private static final String FITS_CONFIG_FILE = "<some_directory>/some-fits.xml";
 	private static final String FITS_INPUT_DIRECTORY = "<some_directory_for_input_files>";
 	private static final String FITS_OUTPUT_DIRECTORY = "test-generated-output";
-	
-	private static final Logger LOG = Logger.getLogger(BulkDirectoryTest.class);
+
+	private static Logger logger = LoggerFactory.getLogger(BulkDirectoryTest.class);
 
 	@BeforeClass
 	public static void beforeClass() throws Exception {
@@ -71,10 +72,10 @@ public class BulkDirectoryTest extends AbstractLoggingTest {
 
 		File inputDir = new File(FITS_INPUT_DIRECTORY);
 		File[] inputFiles = inputDir.listFiles();
-		LOG.info("Processing this many files: " + inputFiles.length);
+		logger.info("Processing this many files: " + inputFiles.length);
 		for (File input : inputFiles) {
 			String fileName = input.getName();
-			LOG.info("processsing file: " + fileName);
+			logger.info("processsing file: " + fileName);
 			FitsOutput fitsOut = fits.examine(input);
 			fitsOut.addStandardCombinedFormat();
 			fitsOut.saveToDisk(FITS_OUTPUT_DIRECTORY + File.separator + fileName + OUTPUT_FILE_SUFFIX);

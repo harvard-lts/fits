@@ -14,7 +14,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /** This class holds standard element names for FITS metadata output, as well
@@ -24,7 +25,7 @@ public class FitsMetadataValues {
 
 	private static FitsMetadataValues instance;
 
-	private Logger logger = Logger.getLogger(this.getClass());
+    private static final Logger logger = LoggerFactory.getLogger(FitsMetadataValues.class);
 
 	private String mimeMapProperties = Fits.FITS_XML_DIR + "mime_map.txt";
 	private String formatMapProperties = Fits.FITS_XML_DIR + "format_map.txt";

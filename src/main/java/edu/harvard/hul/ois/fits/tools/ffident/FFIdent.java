@@ -20,13 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom.Document;
-import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** The main class of the FFIdent tool, adapted for use under FITS.
  *  Uses tools/ffident/formats.txt
@@ -42,7 +43,7 @@ public class FFIdent extends ToolBase {
 	private boolean enabled = true;
     private Fits fits;
 
-    private static final Logger logger = Logger.getLogger(FFIdent.class);
+	private static final Logger logger = LoggerFactory.getLogger(FFIdent.class);
 
 	public FFIdent(Fits fits) throws FitsToolException{
 		super();

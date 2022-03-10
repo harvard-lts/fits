@@ -54,7 +54,7 @@
 	</fileSets>
 	<files>
 		<file>
-			<source>src/main/resources/log4j.properties</source>
+			<source>src/main/resources/log4j2.xml</source>
 		</file>
 		<file>
 			<!-- should be copied and filtered to base directory during build -->
