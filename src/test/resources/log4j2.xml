@@ -24,6 +24,7 @@
         <Logger name="uk.gov.nationalarchives.droid" level="fatal"/>
         <Logger name="edu.harvard.hul.ois.jhove" level="fatal"/>
         <Logger name="org.apache.tika" level="error"/>
+        <Logger name="org.apache.poi" level="error"/>
         <Logger name="net.sf" level="error"/>
         <Logger name="org.apache.pdfbox" level="error"/>
 
