@@ -73,6 +73,7 @@
           </mix:ImageCaptureMetadata>
           <mix:ImageAssessmentMetadata>
             <mix:SpatialMetrics>
+              <mix:samplingFrequencyUnit>in.</mix:samplingFrequencyUnit>
               <mix:xSamplingFrequency>
                 <mix:numerator>300</mix:numerator>
                 <mix:denominator>1</mix:denominator>
