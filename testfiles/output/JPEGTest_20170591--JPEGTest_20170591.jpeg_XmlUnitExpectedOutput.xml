@@ -29,7 +29,6 @@
   <filestatus>
     <well-formed toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">true</well-formed>
     <valid toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">true</valid>
-    <message toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">TIFF compression scheme 6 is deprecated severity=info</message>
   </filestatus>
   <metadata>
     <image>
@@ -37,7 +36,7 @@
       <compressionScheme toolname="Jhove" toolversion="1.20.1">JPEG</compressionScheme>
       <imageWidth toolname="Jhove" toolversion="1.20.1">3920</imageWidth>
       <imageHeight toolname="Jhove" toolversion="1.20.1">2160</imageHeight>
-      <colorSpace toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">RGB</colorSpace>
+      <colorSpace toolname="Jhove" toolversion="1.24.9">RGB</colorSpace>
       <iccProfileName toolname="Jhove" toolversion="1.20.1">sRGB IEC61966-2.1</iccProfileName>
       <YCbCrSubSampling toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">1 1</YCbCrSubSampling>
       <YCbCrPositioning toolname="Exiftool" toolversion="11.54">1</YCbCrPositioning>
