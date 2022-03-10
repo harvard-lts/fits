@@ -142,6 +142,7 @@
                     <mix:numerator>280</mix:numerator>
                     <mix:denominator>100</mix:denominator>
                   </mix:maxApertureValue>
+                  <mix:meteringMode>Center weighted average</mix:meteringMode>
                   <mix:lightSource>unknown</mix:lightSource>
                   <mix:flash>No flash function</mix:flash>
                   <mix:focalLength>2.77</mix:focalLength>
