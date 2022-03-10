@@ -13,15 +13,17 @@ package edu.harvard.hul.ois.fits;
 
 import java.io.File;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Element;
 import org.jdom.Namespace;
 import org.jdom.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
 import edu.harvard.hul.ois.ots.schemas.ContainerMD.Container;
@@ -37,7 +39,6 @@ import edu.harvard.hul.ois.ots.schemas.MIX.YCbCrSubSampling;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
-import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlDateFormat;
 
 /** This class handles conversion between FITS metadata and XmlContent
  *  implementations of metadata schemas.
@@ -47,7 +48,7 @@ public class XmlContentConverter {
 
 	private static List<String> docMdNames;
 
-	private static final Logger logger = Logger.getLogger(XmlContentConverter.class);
+    private static final Logger logger = LoggerFactory.getLogger(XmlContentConverter.class);
 
 	private static final Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
@@ -59,6 +60,12 @@ public class XmlContentConverter {
 		}
 	}
 
+    // Exif timestamps do not include a timezone and a timezone cannot be easily inferred.
+    // See page 33 of this document for more info: https://web.archive.org/web/20180919181934/http://www.metadataworkinggroup.org/pdf/mwg_guidance.pdf
+    // SimpleDateFormat is not thread-safe, but XmlContentConvert should never be called from multiple threads.
+    private final SimpleDateFormat exifDateFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+    private final SimpleDateFormat mixNoTzDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
     /** Converts an image element to a MIX object
      *
      *  @param  fitsImage   an image element in the FITS schema
@@ -67,494 +74,495 @@ public class XmlContentConverter {
         MixModel mm = new MixModel ();
 
         for (ImageElement fitsElem : ImageElement.values()) {
-        	try {
-                String fitsName = fitsElem.getName ();
-                Element dataElement = fitsImage.getChild (fitsName,ns);
-                if (dataElement == null)
-                    continue;
+            String fitsName = fitsElem.getName ();
+            List<Element> dataElements = fitsImage.getChildren(fitsName,ns);
+            if (dataElements == null || dataElements.isEmpty()) {
+                continue;
+            }
+            for (Element dataElement : dataElements) {
                 String dataValue = dataElement.getText().trim();
-                if (dataElement != null) {
+                Integer intValue = null;
+                Double dblValue = null;
+                Rational rationalValue = null;
 
-                    Integer intValue = null;
-                    Double dblValue = null;
-                    Rational rationalValue = null;
-
+                try {
                     switch (fitsElem) {
-                    case byteOrder:
-                        mm.bdoi.setByteOrder(dataValue);
-                        break;
-                    case compressionScheme:
-                        Compression cmp = new Compression ();
-                        mm.bdoi.setCompression (cmp);
-                        cmp.setCompressionScheme (dataValue);
-                        break;
-                    case imageWidth:
-                    	intValue = parseInt(dataValue, fitsElem.toString());
-                    	if (intValue != null) {
-                    		mm.bic.setImageWidth(intValue);
-                    	}
-                        break;
-                    case imageHeight:
-                    	intValue = parseInt(dataValue, fitsElem.toString());
-                    	if (intValue != null) {
-                    		mm.bic.setImageHeight(intValue);
-                    	}
-                        break;
-                    case colorSpace:
-                        mm.phi.setColorSpace (dataValue);
-                        break;
-                    case referenceBlackWhite:
-                        // referenceBlackWhite depends on colorSpace
-                        Element cspc = fitsImage.getChild ("colorSpace",ns);
-                        String cspcStr = "";
-                        if (cspc != null)
-                            cspcStr = cspc.getText().trim();
-                        mm.populateReferenceBlackWhite (dataValue, cspcStr);
-                        break;
-                    case iccProfileName:
-                        mm.attachIccp ();
-                        mm.iccp.setIccProfileName(dataValue);
-                        mm.attachIccp ();
-                        break;
-                    case iccProfileVersion:
-                        mm.iccp.setIccProfileVersion(dataValue);
-                        mm.attachIccp ();
-                        break;
-                    case YCbCrSubSampling:
-                        YCbCrSubSampling ycbcrss = new YCbCrSubSampling();
-                        // Tokenize the value..
-                        mm.populateYCbCrSS (ycbcrss, dataValue);
-                        break;
-                    case YCbCrCoefficients:
-                        mm.populateYCbCrCoefficients(dataValue);
-                        break;
-                    case tileWidth:
-                    case tileHeight:
-                        mm.populateJPEG2000 ();
-                    	intValue = parseInt(dataValue, fitsElem.toString());
-                        if (intValue != null) {
-                            if (fitsElem == ImageElement.tileWidth)
-                                mm.tiles.setTileWidth(intValue);
+                        case byteOrder:
+                            mm.bdoi.setByteOrder(dataValue);
+                            break;
+                        case compressionScheme:
+                            Compression cmp = new Compression();
+                            mm.bdoi.setCompression(cmp);
+                            cmp.setCompressionScheme(dataValue);
+                            break;
+                        case imageWidth:
+                            intValue = parseInt(dataValue, fitsElem.toString());
+                            if (intValue != null) {
+                                mm.bic.setImageWidth(intValue);
+                            }
+                            break;
+                        case imageHeight:
+                            intValue = parseInt(dataValue, fitsElem.toString());
+                            if (intValue != null) {
+                                mm.bic.setImageHeight(intValue);
+                            }
+                            break;
+                        case colorSpace:
+                            mm.phi.setColorSpace(dataValue);
+                            break;
+                        case referenceBlackWhite:
+                            // referenceBlackWhite depends on colorSpace
+                            Element cspc = fitsImage.getChild("colorSpace", ns);
+                            String cspcStr = "";
+                            if (cspc != null)
+                                cspcStr = cspc.getText().trim();
+                            mm.populateReferenceBlackWhite(dataValue, cspcStr);
+                            break;
+                        case iccProfileName:
+                            mm.attachIccp();
+                            mm.iccp.setIccProfileName(dataValue);
+                            mm.attachIccp();
+                            break;
+                        case iccProfileVersion:
+                            mm.iccp.setIccProfileVersion(dataValue);
+                            mm.attachIccp();
+                            break;
+                        case YCbCrSubSampling:
+                            YCbCrSubSampling ycbcrss = new YCbCrSubSampling();
+                            // Tokenize the value..
+                            mm.populateYCbCrSS(ycbcrss, dataValue);
+                            break;
+                        case YCbCrCoefficients:
+                            mm.populateYCbCrCoefficients(dataValue);
+                            break;
+                        case tileWidth:
+                        case tileHeight:
+                            mm.populateJPEG2000();
+                            intValue = parseInt(dataValue, fitsElem.toString());
+                            if (intValue != null) {
+                                if (fitsElem == ImageElement.tileWidth)
+                                    mm.tiles.setTileWidth(intValue);
+                                else
+                                    mm.tiles.setTileHeight(intValue);
+                            }
+                            break;
+                        case qualityLayers:
+                        case resolutionLevels:
+                            mm.populateJPEG2000();
+                            intValue = parseInt(dataValue, fitsElem.toString());
+                            if (intValue != null) {
+                                if (fitsElem == ImageElement.qualityLayers)
+                                    mm.eo.setQualityLayers(intValue);
+                                else
+                                    mm.eo.setResolutionLevels(intValue);
+                            }
+                            break;
+                        case orientation:
+                            mm.icm.setOrientation(dataValue);
+                            break;
+                        case samplingFrequencyUnit:
+                            mm.sm.setSamplingFrequencyUnit(dataValue);
+                            break;
+                        case xSamplingFrequency:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null)
+                                mm.sm.setXSamplingFrequency(rationalValue);
+                            break;
+                        case ySamplingFrequency:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null)
+                                mm.sm.setYSamplingFrequency(rationalValue);
+                            break;
+                        case bitsPerSample:
+                            if (dataValue != null)
+                                mm.setBitsPerSample(dataValue);
+                            break;
+                        case samplesPerPixel:
+                            intValue = parseInt(dataValue, fitsElem.toString());
+                            if (intValue != null)
+                                mm.ice.setSamplesPerPixel(intValue);
+                            break;
+                        case extraSamples:
+                            //Can there be more than one of these? Assume only one.
+                            mm.ice.addExtraSamples(dataValue);
+                            break;
+                        case colorMap:
+                            //Assume we're getting the colormap reference.
+                            mm.attachColorMap();
+                            mm.cm.setColormapReference(dataValue);
+                            break;
+                        case grayResponseCurve:
+                            // If FITS gives us anything it will be just one number, not the whole curve.
+                            // We're best off ignoring it rather than putting defective
+                            // data into MIX.
+                            break;
+                        case grayResponseUnit:
+                            mm.ice.setGrayResponseUnit(dataValue);
+                            break;
+                        case whitePointXValue:
+                            //Can there be more than one of these?
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.populateWhitePoint();
+                                mm.wp.setWhitePointXValue(rationalValue);
+                            }
+                            break;
+                        case whitePointYValue:
+                            //Can there be more than one of these?
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.populateWhitePoint();
+                                mm.wp.setWhitePointYValue(rationalValue);
+                            }
+                            break;
+                        case primaryChromaticitiesRedX:
+                        case primaryChromaticitiesRedY:
+                        case primaryChromaticitiesBlueX:
+                        case primaryChromaticitiesBlueY:
+                        case primaryChromaticitiesGreenX:
+                        case primaryChromaticitiesGreenY:
+                            mm.populatePrimaryChromaticities();
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                if (fitsElem == ImageElement.primaryChromaticitiesRedX)
+                                    mm.pc.setPrimaryChromaticitiesRedX(rationalValue);
+                                else if (fitsElem == ImageElement.primaryChromaticitiesRedY)
+                                    mm.pc.setPrimaryChromaticitiesRedY(rationalValue);
+                                if (fitsElem == ImageElement.primaryChromaticitiesGreenX)
+                                    mm.pc.setPrimaryChromaticitiesGreenX(rationalValue);
+                                else if (fitsElem == ImageElement.primaryChromaticitiesGreenY)
+                                    mm.pc.setPrimaryChromaticitiesGreenY(rationalValue);
+                                if (fitsElem == ImageElement.primaryChromaticitiesBlueX)
+                                    mm.pc.setPrimaryChromaticitiesBlueX(rationalValue);
+                                else if (fitsElem == ImageElement.primaryChromaticitiesBlueY)
+                                    mm.pc.setPrimaryChromaticitiesBlueY(rationalValue);
+                            }
+                            break;
+                        case imageProducer:
+                            mm.gci.addImageProducer(dataValue);
+                            break;
+                        case captureDevice:
+                            mm.gci.setCaptureDevice(dataValue);
+                            break;
+                        case scannerManufacturer:
+                            mm.sc.setScannerManufacturer(dataValue);
+                            mm.attachScannerCapture();
+                            break;
+                        case scannerModelName:
+                        case scannerModelNumber:
+                        case scannerModelSerialNo:
+                            if (fitsElem == ImageElement.scannerModelName)
+                                mm.scanm.setScannerModelName(dataValue);
+                            else if (fitsElem == ImageElement.scannerModelNumber)
+                                mm.scanm.setScannerModelNumber(dataValue);
+                            else if (fitsElem == ImageElement.scannerModelSerialNo)
+                                mm.scanm.setScannerModelSerialNo(dataValue);
+                            mm.attachScannerModel();
+                            break;
+                        case scanningSoftwareName:
+                        case scanningSoftwareVersionNo:
+                            if (fitsElem == ImageElement.scanningSoftwareName)
+                                mm.sss.setScanningSoftwareName(dataValue);
                             else
-                                mm.tiles.setTileHeight(intValue);
-                        }
-                        break;
-                    case qualityLayers:
-                    case resolutionLevels:
-                        mm.populateJPEG2000();
-                    	intValue = parseInt(dataValue, fitsElem.toString());
-                        if (intValue != null) {
-                            if (fitsElem == ImageElement.qualityLayers)
-                                mm.eo.setQualityLayers(intValue);
-                            else
-                                mm.eo.setResolutionLevels(intValue);
-                        }
-                        break;
-                    case orientation:
-                        mm.icm.setOrientation(dataValue);
-                        break;
-                    case samplingFrequencyUnit:
-                        mm.sm.setSamplingFrequencyUnit(dataValue);
-                        break;
-                    case xSamplingFrequency:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null)
-                            mm.sm.setXSamplingFrequency(rationalValue);
-                        break;
-                    case ySamplingFrequency:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null)
-                            mm.sm.setYSamplingFrequency(rationalValue);
-                        break;
-                    case bitsPerSample:
-                        if (dataValue != null)
-                            mm.setBitsPerSample (dataValue);
-                        break;
-                    case samplesPerPixel:
-                    	intValue = parseInt(dataValue, fitsElem.toString());
-                        if (intValue != null)
-                            mm.ice.setSamplesPerPixel (intValue);
-                        break;
-                    case extraSamples:
-                        //Can there be more than one of these? Assume only one.
-                        mm.ice.addExtraSamples (dataValue);
-                        break;
-                    case colorMap:
-                        //Assume we're getting the colormap reference.
-                        mm.attachColorMap ();
-                        mm.cm.setColormapReference(dataValue);
-                        break;
-                    case grayResponseCurve:
-                        // If FITS gives us anything it will be just one number, not the whole curve.
-                        // We're best off ignoring it rather than putting defective
-                        // data into MIX.
-                        break;
-                    case grayResponseUnit:
-                        mm.ice.setGrayResponseUnit(dataValue);
-                        break;
-                    case whitePointXValue:
-                        //Can there be more than one of these?
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.populateWhitePoint();
-                            mm.wp.setWhitePointXValue(rationalValue);
-                        }
-                        break;
-                    case whitePointYValue:
-                        //Can there be more than one of these?
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.populateWhitePoint();
-                            mm.wp.setWhitePointYValue(rationalValue);
-                        }
-                        break;
-                    case primaryChromaticitiesRedX:
-                    case primaryChromaticitiesRedY:
-                    case primaryChromaticitiesBlueX:
-                    case primaryChromaticitiesBlueY:
-                    case primaryChromaticitiesGreenX:
-                    case primaryChromaticitiesGreenY:
-                        mm.populatePrimaryChromaticities();
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            if (fitsElem == ImageElement.primaryChromaticitiesRedX)
-                                mm.pc.setPrimaryChromaticitiesRedX(rationalValue);
-                            else if (fitsElem == ImageElement.primaryChromaticitiesRedY)
-                                mm.pc.setPrimaryChromaticitiesRedY(rationalValue);
-                            if (fitsElem == ImageElement.primaryChromaticitiesGreenX)
-                                mm.pc.setPrimaryChromaticitiesGreenX(rationalValue);
-                            else if (fitsElem == ImageElement.primaryChromaticitiesGreenY)
-                                mm.pc.setPrimaryChromaticitiesGreenY(rationalValue);
-                            if (fitsElem == ImageElement.primaryChromaticitiesBlueX)
-                                mm.pc.setPrimaryChromaticitiesBlueX(rationalValue);
-                            else if (fitsElem == ImageElement.primaryChromaticitiesBlueY)
-                                mm.pc.setPrimaryChromaticitiesBlueY(rationalValue);
-                        }
-                        break;
-                    case imageProducer:
-                        mm.gci.addImageProducer (dataValue);
-                        break;
-                    case captureDevice:
-                        mm.gci.setCaptureDevice(dataValue);
-                        break;
-                    case scannerManufacturer:
-                        mm.sc.setScannerManufacturer(dataValue);
-                        mm.attachScannerCapture();
-                        break;
-                    case scannerModelName:
-                    case scannerModelNumber:
-                    case scannerModelSerialNo:
-                        if (fitsElem == ImageElement.scannerModelName)
-                            mm.scanm.setScannerModelName(dataValue);
-                        else if (fitsElem == ImageElement.scannerModelNumber)
-                            mm.scanm.setScannerModelNumber(dataValue);
-                        else if (fitsElem == ImageElement.scannerModelSerialNo)
-                            mm.scanm.setScannerModelSerialNo(dataValue);
-                        mm.attachScannerModel ();
-                        break;
-                    case scanningSoftwareName:
-                    case scanningSoftwareVersionNo:
-                        if (fitsElem == ImageElement.scanningSoftwareName)
-                            mm.sss.setScanningSoftwareName(dataValue);
-                        else
-                            mm.sss.setScanningSoftwareVersionNo (dataValue);
-                        mm.attachScanningSystemSoftware();
-                        break;
+                                mm.sss.setScanningSoftwareVersionNo(dataValue);
+                            mm.attachScanningSystemSoftware();
+                            break;
 
 
-                    case digitalCameraManufacturer:
-                    	mm.dcc.setDigitalCameraManufacturer(dataValue);
-                    	break;
-                    case digitalCameraModelName:
-                    case digitalCameraModelNumber:
-                    case digitalCameraModelSerialNo:
-                        if (fitsElem == ImageElement.digitalCameraModelName)
-                            mm.dcc.getDigitalCameraModel().setDigitalCameraModelName(dataValue);
-                        else if (fitsElem == ImageElement.digitalCameraModelNumber)
-                        	mm.dcc.getDigitalCameraModel().setDigitalCameraModelNumber(dataValue);
-                        else if (fitsElem == ImageElement.digitalCameraModelSerialNo)
-                        	mm.dcc.getDigitalCameraModel().setDigitalCameraModelSerialNo(dataValue);
-                        break;
+                        case digitalCameraManufacturer:
+                            mm.dcc.setDigitalCameraManufacturer(dataValue);
+                            break;
+                        case digitalCameraModelName:
+                        case digitalCameraModelNumber:
+                        case digitalCameraModelSerialNo:
+                            if (fitsElem == ImageElement.digitalCameraModelName)
+                                mm.dcc.getDigitalCameraModel().setDigitalCameraModelName(dataValue);
+                            else if (fitsElem == ImageElement.digitalCameraModelNumber)
+                                mm.dcc.getDigitalCameraModel().setDigitalCameraModelNumber(dataValue);
+                            else if (fitsElem == ImageElement.digitalCameraModelSerialNo)
+                                mm.dcc.getDigitalCameraModel().setDigitalCameraModelSerialNo(dataValue);
+                            break;
 
-                    case fNumber:
-                    	dblValue = parseDouble(dataValue, fitsElem.toString());
-                        if (dblValue != null) {
-                            mm.id.setFNumber(dblValue);
+                        case fNumber:
+                            dblValue = parseDouble(dataValue, fitsElem.toString());
+                            if (dblValue != null) {
+                                mm.id.setFNumber(dblValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case exposureTime:
+                            dblValue = parseDouble(dataValue, fitsElem.toString());
+                            if (dblValue != null) {
+                                mm.id.setExposureTime(dblValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case exposureProgram:
+                            mm.id.setExposureProgram(dataValue);
                             mm.attachImageData();
-                        }
-                        break;
-                    case exposureTime:
-                    	dblValue = parseDouble(dataValue, fitsElem.toString());
-                        if (dblValue != null) {
-                            mm.id.setExposureTime (dblValue);
+                            break;
+                        case spectralSensitivity:
+                            mm.id.addSpectralSensitivity(dataValue);
                             mm.attachImageData();
-                        }
-                        break;
-                    case exposureProgram:
-                        mm.id.setExposureProgram (dataValue);
-                        mm.attachImageData();
-                        break;
-                    case spectralSensitivity:
-                        mm.id.addSpectralSensitivity (dataValue);
-                        mm.attachImageData ();
-                        break;
-                    case isoSpeedRating:
-                    	intValue = parseInt(dataValue, fitsElem.toString());
-                        if (intValue != null) {
-                            mm.id.setIsoSpeedRatings(intValue);
-                            mm.attachImageData ();
-                        }
-                        break;
-                    case oECF:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.id.setOECF(rationalValue);
-                            mm.attachImageData ();
-                        }
-                        break;
-                    case exifVersion:
-                        mm.id.setExifVersion(dataValue);
-                        mm.attachImageData ();
-                        break;
-                    case shutterSpeedValue:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.id.setShutterSpeedValue(rationalValue);
-                            mm.attachImageData ();
-                        }
-                        break;
-                    case apertureValue:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.id.setApertureValue(rationalValue);
-                            mm.attachImageData ();
-                        }
-                        break;
-                    case brightnessValue:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.id.setBrightnessValue(rationalValue);
-                            mm.attachImageData ();
-                        }
-                        break;
-                    case exposureBiasValue:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.id.setExposureBiasValue(rationalValue);
-                            mm.attachImageData ();
-                        }
-                        break;
-                    case maxApertureValue:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.id.setMaxApertureValue(rationalValue);
-                            mm.attachImageData ();
-                        }
-                        break;
-                    case subjectDistance:
-                        // I think we use only the nominal distance, not the min and max
-                    	dblValue = parseDouble(dataValue, fitsElem.toString());
-                        if (dblValue != null) {
-                            mm.sd.setDistance(dblValue);
-                            mm.attachSubjectDistance ();
-                        }
-                        break;
-                    case meteringMode:
-                        mm.id.setMeteringMode(dataValue);
-                        mm.attachImageData ();
-                        break;
-                    case lightSource:
-                        mm.id.setLightSource(dataValue);
-                        mm.attachImageData ();
-                        break;
-                    case flash:
-                        mm.id.setFlash (dataValue);
-                        mm.attachImageData ();
-                        break;
-                    case focalLength:
-                    	dblValue = parseDouble(dataValue, fitsElem.toString());
-                    	if (dblValue != null) {
-                    		mm.id.setFocalLength (dblValue);
-                    		mm.attachImageData ();
-                    	}
-                        break;
-                    case flashEnergy:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.id.setFlashEnergy(rationalValue);
-                            mm.attachImageData ();
-                        }
-                        break;
-                    case exposureIndex:
-                    	// only a positive non-zero value will validate against MIX schema
-                    	dblValue = parseDouble(dataValue, fitsElem.toString());
-                    	if (dblValue != null && dblValue > 0.0) {
-                    		mm.id.setExposureIndex (dblValue);
-                    		mm.attachImageData ();
-                    	}
-                        break;
-                    case sensingMethod:
-                        mm.id.setSensingMethod (dataValue);
-                        mm.attachImageData ();
-                        break;
-                    case cfaPattern:
-                    	intValue = parseInt(dataValue, fitsElem.toString());
-                        if (intValue != null) {
-                            mm.id.setCfaPattern(intValue);
-                            mm.attachImageData ();
-                        }
-                        break;
-                    case cfaPattern2:
-                        //This is generated by Exiftool and has no counterpart
-                        //in MIX. No one knows what it means. Ignore it.
-                        break;
-                    case gpsVersionID:
-                        mm.gps.setGpsVersionID(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsLatitudeRef:
-                        mm.gps.setGpsLatitudeRef(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsLatitude:
-                        mm.populateGPSLatitude (dataValue);
-                        break;
-                    case gpsLongitudeRef:
-                        mm.gps.setGpsLongitudeRef(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsLongitude:
-                        mm.populateGPSLongitude (dataValue);
-                        break;
-                    case gpsAltitudeRef:
-                        mm.gps.setGpsAltitudeRef(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsAltitude:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.gps.setGpsAltitude(rationalValue);
+                            break;
+                        case isoSpeedRating:
+                            intValue = parseInt(dataValue, fitsElem.toString());
+                            if (intValue != null) {
+                                mm.id.setIsoSpeedRatings(intValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case oECF:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.id.setOECF(rationalValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case exifVersion:
+                            mm.id.setExifVersion(dataValue);
+                            mm.attachImageData();
+                            break;
+                        case shutterSpeedValue:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.id.setShutterSpeedValue(rationalValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case apertureValue:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.id.setApertureValue(rationalValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case brightnessValue:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.id.setBrightnessValue(rationalValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case exposureBiasValue:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.id.setExposureBiasValue(rationalValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case maxApertureValue:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.id.setMaxApertureValue(rationalValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case subjectDistance:
+                            // I think we use only the nominal distance, not the min and max
+                            dblValue = parseDouble(dataValue, fitsElem.toString());
+                            if (dblValue != null) {
+                                mm.sd.setDistance(dblValue);
+                                mm.attachSubjectDistance();
+                            }
+                            break;
+                        case meteringMode:
+                            mm.id.setMeteringMode(dataValue);
+                            mm.attachImageData();
+                            break;
+                        case lightSource:
+                            mm.id.setLightSource(dataValue);
+                            mm.attachImageData();
+                            break;
+                        case flash:
+                            mm.id.setFlash(dataValue);
+                            mm.attachImageData();
+                            break;
+                        case focalLength:
+                            dblValue = parseDouble(dataValue, fitsElem.toString());
+                            if (dblValue != null) {
+                                mm.id.setFocalLength(dblValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case flashEnergy:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.id.setFlashEnergy(rationalValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case exposureIndex:
+                            // only a positive non-zero value will validate against MIX schema
+                            dblValue = parseDouble(dataValue, fitsElem.toString());
+                            if (dblValue != null && dblValue > 0.0) {
+                                mm.id.setExposureIndex(dblValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case sensingMethod:
+                            mm.id.setSensingMethod(dataValue);
+                            mm.attachImageData();
+                            break;
+                        case cfaPattern:
+                            intValue = parseInt(dataValue, fitsElem.toString());
+                            if (intValue != null) {
+                                mm.id.setCfaPattern(intValue);
+                                mm.attachImageData();
+                            }
+                            break;
+                        case cfaPattern2:
+                            //This is generated by Exiftool and has no counterpart
+                            //in MIX. No one knows what it means. Ignore it.
+                            break;
+                        case gpsVersionID:
+                            mm.gps.setGpsVersionID(dataValue);
                             mm.attachGPSData();
-                        }
-                        break;
-                    case gpsTimeStamp:
-                        mm.gps.setGpsTimeStamp(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsSatellites:
-                        mm.gps.setGpsSatellites(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsStatus:
-                        mm.gps.setGpsStatus(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsMeasureMode:
-                        mm.gps.setGpsMeasureMode(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsDOP:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.gps.setGpsDOP (rationalValue);
+                            break;
+                        case gpsLatitudeRef:
+                            mm.gps.setGpsLatitudeRef(dataValue);
                             mm.attachGPSData();
-                        }
-                        break;
-                    case gpsSpeedRef:
-                        mm.gps.setGpsSpeedRef(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsSpeed:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.gps.setGpsSpeed (rationalValue);
+                            break;
+                        case gpsLatitude:
+                            mm.populateGPSLatitude(dataValue);
+                            break;
+                        case gpsLongitudeRef:
+                            mm.gps.setGpsLongitudeRef(dataValue);
                             mm.attachGPSData();
-                        }
-                        break;
-                    case gpsTrackRef:
-                        mm.gps.setGpsTrackRef(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsTrack:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.gps.setGpsTrack (rationalValue);
+                            break;
+                        case gpsLongitude:
+                            mm.populateGPSLongitude(dataValue);
+                            break;
+                        case gpsAltitudeRef:
+                            mm.gps.setGpsAltitudeRef(dataValue);
                             mm.attachGPSData();
-                        }
-                        break;
-                    case gpsImgDirectionRef:
-                        mm.gps.setGpsImgDirectionRef(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsImgDirection:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.gps.setGpsImgDirection (rationalValue);
+                            break;
+                        case gpsAltitude:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.gps.setGpsAltitude(rationalValue);
+                                mm.attachGPSData();
+                            }
+                            break;
+                        case gpsTimeStamp:
+                            mm.gps.setGpsTimeStamp(dataValue);
                             mm.attachGPSData();
-                        }
-                        break;
-                    case gpsMapDatum:
-                        mm.gps.setGpsMapDatum(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsDestLatitudeRef:
-                        mm.gps.setGpsDestLatitudeRef(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsDestLatitude:
-                        mm.populateGPSDestLatitude (dataValue);
-                        break;
-                    case gpsDestLongitudeRef:
-                        mm.gps.setGpsDestLongitudeRef(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsDestLongitude:
-                        mm.populateGPSDestLongitude (dataValue);
-                        break;
-                    case gpsDestBearingRef:
-                        mm.gps.setGpsDestBearingRef(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsDestBearing:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.gps.setGpsDestBearing (rationalValue);
+                            break;
+                        case gpsSatellites:
+                            mm.gps.setGpsSatellites(dataValue);
                             mm.attachGPSData();
-                        }
-                        break;
-                    case gpsDestDistanceRef:
-                        mm.gps.setGpsDestDistanceRef(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsDestDistance:
-                    	rationalValue = parseRational(dataValue, fitsElem.toString());
-                        if (rationalValue != null) {
-                            mm.gps.setGpsDestDistance (rationalValue);
+                            break;
+                        case gpsStatus:
+                            mm.gps.setGpsStatus(dataValue);
                             mm.attachGPSData();
-                        }
-                        break;
-                    case gpsProcessingMethod:
-                        mm.gps.setGpsProcessingMethod(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsAreaInformation:
-                        mm.gps.setGpsAreaInformation(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsDateStamp:
-                        mm.gps.setGpsDateStamp(dataValue);
-                        mm.attachGPSData();
-                        break;
-                    case gpsDifferential:
-                        mm.gps.setGpsDifferential(dataValue);
-                        mm.attachGPSData();
-                        break;
+                            break;
+                        case gpsMeasureMode:
+                            mm.gps.setGpsMeasureMode(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsDOP:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.gps.setGpsDOP(rationalValue);
+                                mm.attachGPSData();
+                            }
+                            break;
+                        case gpsSpeedRef:
+                            mm.gps.setGpsSpeedRef(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsSpeed:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.gps.setGpsSpeed(rationalValue);
+                                mm.attachGPSData();
+                            }
+                            break;
+                        case gpsTrackRef:
+                            mm.gps.setGpsTrackRef(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsTrack:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.gps.setGpsTrack(rationalValue);
+                                mm.attachGPSData();
+                            }
+                            break;
+                        case gpsImgDirectionRef:
+                            mm.gps.setGpsImgDirectionRef(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsImgDirection:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.gps.setGpsImgDirection(rationalValue);
+                                mm.attachGPSData();
+                            }
+                            break;
+                        case gpsMapDatum:
+                            mm.gps.setGpsMapDatum(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsDestLatitudeRef:
+                            mm.gps.setGpsDestLatitudeRef(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsDestLatitude:
+                            mm.populateGPSDestLatitude(dataValue);
+                            break;
+                        case gpsDestLongitudeRef:
+                            mm.gps.setGpsDestLongitudeRef(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsDestLongitude:
+                            mm.populateGPSDestLongitude(dataValue);
+                            break;
+                        case gpsDestBearingRef:
+                            mm.gps.setGpsDestBearingRef(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsDestBearing:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.gps.setGpsDestBearing(rationalValue);
+                                mm.attachGPSData();
+                            }
+                            break;
+                        case gpsDestDistanceRef:
+                            mm.gps.setGpsDestDistanceRef(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsDestDistance:
+                            rationalValue = parseRational(dataValue, fitsElem.toString());
+                            if (rationalValue != null) {
+                                mm.gps.setGpsDestDistance(rationalValue);
+                                mm.attachGPSData();
+                            }
+                            break;
+                        case gpsProcessingMethod:
+                            mm.gps.setGpsProcessingMethod(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsAreaInformation:
+                            mm.gps.setGpsAreaInformation(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsDateStamp:
+                            mm.gps.setGpsDateStamp(dataValue);
+                            mm.attachGPSData();
+                            break;
+                        case gpsDifferential:
+                            mm.gps.setGpsDifferential(dataValue);
+                            mm.attachGPSData();
+                            break;
 
                     }
+                    // The first child element that is successfully processed terminates the iteration
+                    break;
+                } catch (XmlContentException e) {
+                    logger.warn("Invalid MIX content for element [" + fitsElem + "]: " + e.getMessage ());
                 }
-            }
-            catch (XmlContentException e) {
-            	logger.warn("Invalid MIX content for element [" + fitsElem + "]: " + e.getMessage ());
             }
         }//end of for loop
 
@@ -563,10 +571,8 @@ public class XmlContentConverter {
             if(created != null) {
                 String date = null;
                 try {
-                    date = XmlDateFormat.exifDateTimeToXml(created.getText().trim());
-                    if(date != null) {
-                        mm.icm.getGeneralCaptureInformation().setDateTimeCreated(date);
-                    }
+                    date = mixNoTzDateFormat.format(exifDateFormat.parse(created.getText().trim()));
+                    mm.icm.getGeneralCaptureInformation().setDateTimeCreated(date);
                 }
                 catch (ParseException e) {
                     logger.warn("Warning - unable to parse date: " + e.getMessage ());

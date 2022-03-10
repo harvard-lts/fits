@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -27,6 +26,8 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The FileInfo tool uses Java system calls to get basic information about
@@ -40,7 +41,7 @@ public class FileInfo extends ToolBase {
     private final static String TOOL_VERSION = "1.0";
     private final static String TOOL_DATE = "8/14/2019";
 
-    private static Logger logger = Logger.getLogger(FileInfo.class);
+	private static final Logger logger = LoggerFactory.getLogger(FileInfo.class);
 
     private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
     private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);

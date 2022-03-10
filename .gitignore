@@ -5,6 +5,9 @@
 # Directory created by fits-blackbox-tester
 .bb-testing/
 
+# Intellij project files
+/.idea/
+
 # Mac OS X system file
 .DS_Store
 /fits.log

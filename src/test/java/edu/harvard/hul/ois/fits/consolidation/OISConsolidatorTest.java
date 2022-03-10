@@ -25,7 +25,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -36,6 +35,8 @@ import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 import edu.harvard.hul.ois.fits.tools.Tool;
 import edu.harvard.hul.ois.fits.tools.ToolBelt;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This test class is to verify output created by the OISConsolidator class.
@@ -44,7 +45,7 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
  */
 public class OISConsolidatorTest extends AbstractLoggingTest {
 
-	private static Logger logger = Logger.getLogger(OISConsolidatorTest.class);
+	private static Logger logger = LoggerFactory.getLogger(OISConsolidatorTest.class);
 	
 	/**
 	 * This is a trivial test of passing a single ToolOutput from the Droid tool into the OISConsolidator

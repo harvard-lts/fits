@@ -24,7 +24,6 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -50,6 +49,8 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.EbuCoreMain;
 import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -66,7 +67,7 @@ public class FitsOutput {
 	private Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 
-    private static final Logger logger = Logger.getLogger(FitsOutput.class);
+	private static final Logger logger = LoggerFactory.getLogger(FitsOutput.class);
 
 	public FitsOutput(String fitsXmlStr) throws JDOMException, IOException {
 		SAXBuilder builder = new SAXBuilder();

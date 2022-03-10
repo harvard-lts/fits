@@ -15,7 +15,7 @@ use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 use Image::ExifTool::GPS;
 
-$VERSION = '1.02';
+$VERSION = '1.03';
 
 # supported EXR value format types (other types are extracted as undef binary data)
 my %formatType = (
@@ -70,6 +70,7 @@ my %formatType = (
     chromaticities      => { },
     capDate => {
         Name => 'DateTimeOriginal',
+        Description => 'Date/Time Original',
         Groups => { 2 => 'Time' },
         PrintConv => '$self->ConvertDateTime($val)',
     },
@@ -171,12 +172,13 @@ sub ProcessEXR($$)
     my $ver = unpack('x4V', $buff);
     $et->HandleTag($tagTablePtr, '_ver', $ver & 0xff);
     $et->HandleTag($tagTablePtr, '_lay', $ver & 0x200);
+    my $maxLen = ($ver & 0x400) ? 255 : 31;
 
     # extract attributes
     for (;;) {
         $raf->Read($buff, 68) or last;
         last if $buff =~ /^\0/;
-        unless ($buff =~ /^([^\0]{1,31})\0([^\0]{1,31})\0(.{4})/sg) {
+        unless ($buff =~ /^([^\0]{1,$maxLen})\0([^\0]{1,$maxLen})\0(.{4})/sg) {
             $et->Warn('EXR format error');
             last;
         }
@@ -188,6 +190,7 @@ sub ProcessEXR($$)
         my $tagInfo = $et->GetTagInfo($tagTablePtr, $tag);
         unless ($tagInfo) {
             my $name = ucfirst $tag;
+            $name =~ s/([^a-zA-Z])([a-z])/$1\U$2/g; # capitalize first letter of each word
             $name =~ tr/-_a-zA-Z0-9//dc;
             if (length $name <= 1) {
                 if (length $name) {
@@ -196,7 +199,7 @@ sub ProcessEXR($$)
                     $name = 'Invalid';
                 }
             }
-            $tagInfo = { Name => $name, WasAdded => 1 };
+            $tagInfo = { Name => $name };
             AddTagToTable($tagTablePtr, $tag, $tagInfo);
             $et->VPrint(0, $$et{INDENT}, "[adding $tag]\n");
         }
@@ -301,7 +304,7 @@ information from OpenEXR images.
 
 =head1 AUTHOR
 
-Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2022, Phil Harvey (philharvey66 at gmail.com)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

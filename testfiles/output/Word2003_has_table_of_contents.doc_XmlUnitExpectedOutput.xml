@@ -13,12 +13,13 @@
     <lastmodified toolname="Exiftool" toolversion="11.54" status="CONFLICT">2015:08:20 15:59:10</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.21" status="CONFLICT">2015-08-20T15:59:00Z</lastmodified>
     <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2015:08:20 15:59:00</created>
-    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015-08-20 12:59:00</created>
+    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015-08-20 11:59:00</created>
+    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2015-08-20T15:59:00Z</created>
     <creatingApplicationName toolname="Exiftool" toolversion="11.54">Microsoft Office Word</creatingApplicationName>
     <creatingApplicationVersion toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">14.0000</creatingApplicationVersion>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/Word2003_has_table_of_contents.doc</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">Word2003_has_table_of_contents.doc</filename>
-    <size toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">99328</size>
+    <size toolname="OIS File Information" toolversion="1.0">99328</size>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">afb707e78e777bebf7563534f2d51762</md5checksum>
     <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>

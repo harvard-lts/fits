@@ -83,7 +83,7 @@ public class DroidQuery {
         FileSystemIdentificationRequest req = null;
         try {
             req = new FileSystemIdentificationRequest(metadata, identifier);
-            req.open(file);
+            req.open(file.toPath());
             IdentificationResultCollection results = sigIdentifier.matchBinarySignatures(req);
             if (results.getResults().size() > 1) {
                 sigIdentifier.removeLowerPriorityHits(results); // this could modify 'results'
@@ -119,7 +119,7 @@ public class DroidQuery {
     	RequestIdentifier identifier = new RequestIdentifier (file.toURI());
     	FileSystemIdentificationRequest request = null;
     	request = new FileSystemIdentificationRequest(metadata, identifier);
-    	request.open(file);
+    	request.open(file.toPath());
     	
     	ZipArchiveContentIdentifier zipArchiveIdentifier = 
                 new ZipArchiveContentIdentifier(this.sigIdentifier,

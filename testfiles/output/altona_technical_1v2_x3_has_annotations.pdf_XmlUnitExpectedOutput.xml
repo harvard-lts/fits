@@ -15,7 +15,8 @@
     <creatingApplicationName toolname="Jhove" toolversion="1.11">Acrobat Distiller 5.0.5 f.r Macintosh/QuarkXPress(R) 4.04</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2004:05:09 14:07:13+02:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2004-05-09T12:07:13Z</lastmodified>
-    <created toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2002:09:21 19:25:36Z</created>
+    <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2002:09:21 19:25:36Z</created>
+    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2002-09-21T19:25:36Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/altona_technical_1v2_x3_has_annotations.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">altona_technical_1v2_x3_has_annotations.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">c524ab2cd02240b12eab3ee9f8887a9f</md5checksum>
@@ -48,7 +49,8 @@
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>Metanormal01-Bold</fontName>
       </font>
-      <subject toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</subject>
+      <subject toolname="Exiftool" toolversion="11.54" status="CONFLICT">Altona Test Suite – Online Version</subject>
+      <subject toolname="Tika" toolversion="2.2.1" status="CONFLICT">PDF/X-3 (ISO 15930-3), ICC Color Management, Standard Printing Conditions: Offset printing, according to ISO/DIS 12647-2:2003, OFCOM,  paper type 1+2 = coated art, 115 g/m2, screen ruling 60 cm-1, positive-acting plates (FOGRA27L)</subject>
       <description toolname="Exiftool" toolversion="10.00">Altona Test Suite – Online Version</description>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">

@@ -41,8 +41,9 @@ import java.net.URI;
 import org.apache.commons.compress.archivers.zip.UnsupportedZipFeatureException;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
-import org.apache.log4j.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.gov.nationalarchives.droid.command.action.CommandExecutionException;
 import uk.gov.nationalarchives.droid.container.ContainerSignatureDefinitions;
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
@@ -58,7 +59,7 @@ import uk.gov.nationalarchives.droid.core.interfaces.resource.ZipEntryIdentifica
  */
 public class ZipArchiveContentIdentifier extends ArchiveContentIdentifier {
 
-	 private static final Logger logger = Logger.getLogger(ZipArchiveContentIdentifier.class);
+    private static final Logger logger = LoggerFactory.getLogger(ZipArchiveContentIdentifier.class);
 	 
     /**
      * 
@@ -102,7 +103,7 @@ public class ZipArchiveContentIdentifier extends ArchiveContentIdentifier {
                         final RequestMetaData metaData = new RequestMetaData(entry.getSize(), 2L, name);
                         final RequestIdentifier identifier = new RequestIdentifier(uri);
                         final ZipEntryIdentificationRequest zipRequest =
-                            new ZipEntryIdentificationRequest(metaData, identifier, getTmpDir(), false);
+                            new ZipEntryIdentificationRequest(metaData, identifier, getTmpDir().toPath(), false);
                         
                         if (compressionMethod != null && !compressionMethod.equals(entry.getMethod())) {
                         	logger.warn("Different compression method: " + compressionMethod + ", entry method: " + entry.getMethod());
@@ -131,7 +132,7 @@ public class ZipArchiveContentIdentifier extends ArchiveContentIdentifier {
                 }
                 // shows collection of files within ZIP file
                 logger.debug("--------------");
-                logger.debug(aggregator);
+                logger.debug("{}", aggregator);
                 logger.debug("--------------");
             }
         } catch (IOException ioe) {

@@ -19,7 +19,8 @@
     <creatingApplicationName toolname="Exiftool" toolversion="11.54">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="11.54" status="CONFLICT">2015:08:19 17:10:57-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.21" status="CONFLICT">2015-08-19T21:10:57Z</lastmodified>
-    <created toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2015:08:19 17:10:14-04:00</created>
+    <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2015:08:19 17:10:14-04:00</created>
+    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2015-08-19T21:10:14Z</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/HasChangeHistory.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">HasChangeHistory.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">ad18d1a191b7ab53614f3d003fa60472</md5checksum>

@@ -14,7 +14,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /** This class holds standard element names for FITS metadata output, as well
@@ -24,7 +25,7 @@ public class FitsMetadataValues {
 
 	private static FitsMetadataValues instance;
 
-	private Logger logger = Logger.getLogger(this.getClass());
+    private static final Logger logger = LoggerFactory.getLogger(FitsMetadataValues.class);
 
 	private String mimeMapProperties = Fits.FITS_XML_DIR + "mime_map.txt";
 	private String formatMapProperties = Fits.FITS_XML_DIR + "format_map.txt";
@@ -74,6 +75,7 @@ public class FitsMetadataValues {
     public final static String COLOR_SPACE = "colorSpace";
     public final static String COMPANY = "company";
     public final static String COMPRESSION_SCHEME = "compressionScheme";
+    public final static String CREATED = "created";
     public final static String CREATING_APPLICATION_NAME = "creatingApplicationName";
     public final static String CREATING_APPLICATION_VERSION = "creatingApplicationVersion";
     public final static String DATA_FORMAT_TYPE = "dataFormatType";
@@ -206,6 +208,12 @@ public class FitsMetadataValues {
         if (mime == null || mime.length()==0) {
             return DEFAULT_MIMETYPE;
         }
+
+        // Tika is the primary tool that sets the charset in the MIME and it throws off comparisons
+        if (mime.contains("; charset=")) {
+            mime = mime.replaceFirst("; charset=[^;]+", "");
+        }
+
         String normMime = mimeMap.get(mime);
         if (normMime != null) {
             return normMime;

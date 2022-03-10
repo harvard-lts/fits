@@ -35,10 +35,10 @@ public abstract class AbstractLoggingTest {
 
 	/**
 	 * Configure logging with the test logging configuration file by setting a system property.
-	 * See "Default Initialization Procedure" here: https://logging.apache.org/log4j/1.2/manual.html
+	 * See "Default Initialization Procedure" here: https://logging.apache.org/log4j/2.x/manual/
 	 */
 	static {
-		File log4jProperties = new File("src/test/resources/log4j.properties");
-	    System.setProperty( "log4j.configuration", log4jProperties.toURI().toString());
+		File log4jConfig = new File("src/test/resources/log4j2.xml");
+	    System.setProperty( "log4j2.configurationFile", log4jConfig.toURI().toString());
 	}
 }

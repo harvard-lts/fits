@@ -20,6 +20,7 @@
     <lastmodified toolname="Tika" toolversion="1.21" status="CONFLICT">2015-06-25T07:03:38</lastmodified>
     <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2014:10:27 12:34:43</created>
     <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015:06:25 11:03:38</created>
+    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2014-10-27T08:34:43</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/JPEGTest_20170591--JPEGTest_20170591.jpeg</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">JPEGTest_20170591--JPEGTest_20170591.jpeg</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">3c5a86c471809d347e99d19c51bd1b94</md5checksum>
@@ -62,9 +63,8 @@
       <flash toolname="Jhove" toolversion="1.20.1">No flash function</flash>
       <focalLength toolname="Jhove" toolversion="1.20.1" status="CONFLICT">2.77</focalLength>
       <focalLength toolname="Exiftool" toolversion="11.54" status="CONFLICT">2.8</focalLength>
-      <exposureIndex toolname="Jhove" toolversion="1.20.1" status="CONFLICT">�</exposureIndex>
+      <exposureIndex toolname="Jhove" toolversion="1.20.1" status="CONFLICT">NaN</exposureIndex>
       <exposureIndex toolname="Exiftool" toolversion="11.54" status="CONFLICT">undef</exposureIndex>
-      <exposureIndex toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">NaN</exposureIndex>
       <iccProfileVersion toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
       <captureDevice toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">digital still camera</captureDevice>
       <digitalCameraManufacturer toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">GoPro</digitalCameraManufacturer>
@@ -107,7 +107,7 @@
           </mix:BasicImageInformation>
           <mix:ImageCaptureMetadata>
             <mix:GeneralCaptureInformation>
-              <mix:dateTimeCreated>2014-10-27T16:34:43.0Z</mix:dateTimeCreated>
+              <mix:dateTimeCreated>2014-10-27T12:34:43</mix:dateTimeCreated>
               <mix:captureDevice>digital still camera</mix:captureDevice>
             </mix:GeneralCaptureInformation>
             <mix:ScannerCapture>
@@ -143,6 +143,7 @@
                     <mix:numerator>280</mix:numerator>
                     <mix:denominator>100</mix:denominator>
                   </mix:maxApertureValue>
+                  <mix:meteringMode>Center weighted average</mix:meteringMode>
                   <mix:lightSource>unknown</mix:lightSource>
                   <mix:flash>No flash function</mix:flash>
                   <mix:focalLength>2.77</mix:focalLength>

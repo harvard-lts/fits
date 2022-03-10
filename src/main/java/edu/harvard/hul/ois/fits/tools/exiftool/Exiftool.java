@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.log4j.Logger;
 import org.jdom.Document;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -32,6 +31,8 @@ import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
 import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *  The glue class for invoking Exiftool under FITS.
@@ -50,7 +51,7 @@ public class Exiftool extends ToolBase {
     private final static String exiftoolFitsConfig = Fits.FITS_XML_DIR+"exiftool"+File.separator;
     private final static String genericTransform = "exiftool_generic_to_fits.xslt";
 
-    private static final Logger logger = Logger.getLogger(Exiftool.class);
+	private static final Logger logger = LoggerFactory.getLogger(Exiftool.class);
 
 	public Exiftool(Fits fits) throws FitsException {
 		super();

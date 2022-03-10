@@ -1,0 +1,1368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+	<name>Journal of a tour in Ireland [Anon.]</name>
+	<StyleMap id="msn_ylw-pushpin">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ylw-pushpin</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ylw-pushpin</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_ylw-pushpin">
+		<PolyStyle>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Style id="sh_ylw-pushpin">
+		<IconStyle>
+			<scale>1.2</scale>
+		</IconStyle>
+		<PolyStyle>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+
+	<StyleMap id="msn_placemark_land">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_placemark_land</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_placemark_land</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_placemark_land">
+		<IconStyle>
+			<color>ff0067ce</color>
+			<scale>0.7</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle id="khPoiLabelStyle0x6600">
+			<color>a00067ce</color>
+		</LabelStyle>
+	</Style>
+	<Style id="sh_placemark_land">
+		<IconStyle>
+			<color>ff0067ce</color>
+			<scale>0.7</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle_highlight.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle id="khPoiLabelStyle0x6601">
+			<color>a00067ce</color>
+		</LabelStyle>
+	</Style>
+
+	<StyleMap id="msn_water">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_water</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_water</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_water">
+		<IconStyle>
+			<scale>0.5</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/water.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction" />
+		</IconStyle>
+		<LabelStyle id="khPoiLabelStyle0x6500">
+			<color>a0ffaa00</color>
+		</LabelStyle>
+	</Style>
+	<Style id="sh_water">
+		<IconStyle>
+			<scale>0.7</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/water.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+		<LabelStyle id="khPoiLabelStyle0x6501">
+			<color>a0ffaa00</color>
+		</LabelStyle>
+	</Style>
+
+	<StyleMap id="msn_placemark_square">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_placemark_square</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_placemark_square_highlight</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_placemark_square">
+		<IconStyle>
+			<color>ff0000ff</color>
+			<scale>0.7</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/placemark_square.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle id="khPoiLabelStyle0x1100">
+			<color>a00000ff</color>
+		</LabelStyle>
+	</Style>
+	<Style id="sh_placemark_square_highlight">
+		<IconStyle>
+			<color>ff0000ff</color>
+			<scale>0.7</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/placemark_square_highlight.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle id="khPoiLabelStyle0x1101">
+			<color>a00000ff</color>
+		</LabelStyle>
+	</Style>
+
+	<StyleMap id="msn_wht-circle">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_wht-circle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_wht-circle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_wht-circle">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/wht-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle id="khPoiLabelStyle0x1400a">
+			<color>a0ffffff</color>
+		</LabelStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/wht-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_wht-circle">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/wht-circle.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<LabelStyle id="khPoiLabelStyle0x1400b">
+			<color>a0ffffff</color>
+		</LabelStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/wht-circle-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+
+	<StyleMap id="msn_grn-diamond">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_grn-diamond</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_grn-diamond</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_grn-diamond">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-diamond.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-diamond-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Style id="sh_grn-diamond">
+		<IconStyle>
+			<scale>1.3</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-diamond.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-diamond-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>
+	<Folder>
+		<name>Places seen or visited</name>
+			<Placemark>
+				<name>Ireland</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-8,53.33,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Conwy</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-3.829440,53.281462,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Swords Castle</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.219884,53.459513,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Saint Asaph</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-3.441729,53.257717,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Custom House</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.253068,53.348726,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Newgate Prison</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.271034,53.349427,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Dublin City Hall</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.267250,53.344012,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Muckross House</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-9.504152,52.018065,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Clonmel</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-7.7038889,52.3550,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Bangor</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-4.129923,53.226846,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Wales</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-3.5,52.5,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>James's Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.288672,53.343474,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Marino House</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.230146,53.367283,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>The Liberties</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-6.281537,53.343258,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Pigeon House Fort</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.192297,53.340286,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Irish Sea</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-5,53.666667,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Four Courts</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.273587,53.345912,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Dublin Bay</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-6.1105556,53.3344444,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Coleraine</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.671462,55.131125,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Irish Parliament House</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.260130,53.344929,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Ross Castle</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-9.531516,52.041271,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Collon</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.484058,53.777775,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Marlborough Green</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.257,53.34995,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Phoenix Park</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-6.3288889,53.3561111,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>O'Connell Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.259365,53.347707,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Dublin Castle</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.267016,53.342984,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Grafton Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.259680,53.342387,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Saint Stephens Green Park</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-6.259127,53.338169,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Bushmills</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.522984,55.203818,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Plaiskin Head</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-6.485631,55.248972,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>O'Connell Bridge</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.259077,53.347272,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Millstreet</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-9.063924,52.060322,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Merrion Square</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.249183,53.339714,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Londonderry County Borough</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-7.333333,55,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Chester</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-2.890967,53.193228,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>King's Inns</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.271667,53.352895,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Saint Patrick's Cathedral</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.271389,53.339444,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Kenmare House</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-9.508821,52.057284,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Eagle’s Nest</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-9.558427,51.998219,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Mangerton Mountain</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-9.476982,51.968819,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Meath Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.278682,53.341446,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Falconer's Hotel</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.257822,53.341933,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>River Blackwater</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-7.855668,51.980284,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Holywell</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-3.221818,53.273452,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Flesk Bridge</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-9.507524,52.048078,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Holyhead Bay</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-4.666667,53.366667,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Grand Parade</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-8.474906,51.897122,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Drogheda</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.350349,53.714914,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Rotunda Hospital</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.26211,53.352843,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Dawson Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.258177,53.34163,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Derry</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-7.3192,54.995,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>River Liffey</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-6.21368,53.344358,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Dame Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.265246,53.344206,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Lough Leane</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-9.55,52.033333,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Augher</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-7.131952,54.428755,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Mallow (Mala)</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-8.646006,52.137499,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>College Green</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.26,53.344444,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Fermoy (Mainistir Fhear Maí)</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-8.2758333,52.1358333,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Monaghan</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.970320,54.248222,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Castletownroche</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-8.464209,52.173041,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Torc Mountain</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-9.521621,51.997658,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Tyrone House</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.257779,53.350653,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Foundling Hospital</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.294054,53.341671,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Muckross Abbey</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-9.494779,52.026204,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Killarney</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-9.506681,52.059366,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Oxmantown Green</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.282547,53.349589,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Newtown Limavady</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.952155,55.050869,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Linen Hall</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.272634,53.351355,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Beresford Place</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.253166,53.349508,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>George's Hill</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-6.272242,53.348938,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Balbriggan (Baile Brigín)</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.183650,53.609934,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Holyhead</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-4.633625,53.309645,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Thomas Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.280516,53.343106,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Leinster House</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.253999,53.34055,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Ben of Howth</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-6.069935,53.370992,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Derry Bridge</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-7.317395,54.992719,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Muckross Lake</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-9.52993,52.0104,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Blue Coat Hospital</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.282808,53.348782,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Giants Causeway </name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-6.511813,55.241221,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Omagh</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-7.3,54.6,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Cork (Corcaigh)</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-8.495833299999999,51.8986111,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Leighlinbridge (Leithghlinn an Droichid)</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.975900,52.736147,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Rutland Square</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.263117,53.353056,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Leeson Street Lower</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.255755,53.334914,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Kilkenny (Cill Chainnigh)</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-7.2522222,52.6541667,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>North Dublin Union Workhouse</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.276297,53.353004,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Carlow (Ceatharlach)</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.933558,52.836534,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Isle of Anglesey</name>
+				<description></description>
+				<styleUrl>#msn_wht-circle</styleUrl>
+				<Point>
+					<coordinates>-4.333333,53.25,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Macgillycuddys Reeks</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-9.7,52,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Trinity College, Dublin</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.256779,53.345021,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Muckross Abbey</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-9.517311,52.019866,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Magdalene Chapel</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.256855,53.335498,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Bolton Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.354991,53.71708,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Swords Round Tower</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.224433,53.457638,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Murder Hole</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-6.825963,55.102438,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Dublin (Baile Átha Cliath)</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.272136,53.345287,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Strabane</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-7.463424,54.827194,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Flax Hall</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.271693,53.351793,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Islandbridge</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.308285,53.347257,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Essex Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.265373,53.345369,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>River Boyne</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-6.248634,53.722765,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Lough Foyle</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-7.1333333,55.1,0</coordinates>
+				</Point>
+			</Placemark>
+	</Folder>
+	<Folder>
+		<name>Other places mentioned</name>
+			<Placemark>
+				<name>House of Refuge</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.246697,53.335655,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>United States of America</name>
+				<description></description>
+				<styleUrl>#msn_wht-circle</styleUrl>
+				<Point>
+					<coordinates>-98.5,39.76,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Ringsend</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.2263889,53.3419444,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Fleet Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-0.107486,51.514247,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Wicklow Mountains</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-6.3333333,53.0833333,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>School Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.283311,53.34148,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Oxford</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-1.257765,51.751942,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>République Française</name>
+				<description></description>
+				<styleUrl>#msn_wht-circle</styleUrl>
+				<Point>
+					<coordinates>2,46,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Female Orphan House</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.288565,53.357615,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Blackfriars</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-0.103828,51.512025,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>England</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-2,53,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>London</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-0.1261698468621808,51.50015462019292,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Lincoln's Inn Fields</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-0.1166,51.5161,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>County Wicklow (Cill Mhantáin)</name>
+				<description></description>
+				<styleUrl>#msn_wht-circle</styleUrl>
+				<Point>
+					<coordinates>-6.4166667,53,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Vauxhall</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-0.1193,51.4903,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Buttermere</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-3.265280,54.530977,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Shrewsbury</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-2.755758,52.707595,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Prussia Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.287952,53.356193,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>St Giles, London</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-0.1270,51.5143,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Blackrock</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.177040,53.300873,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Koninkrijk der Nederlanden</name>
+				<description></description>
+				<styleUrl>#msn_wht-circle</styleUrl>
+				<Point>
+					<coordinates>5.75,52.5,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>United Kingdom of Great Britain and Northern Ireland</name>
+				<description></description>
+				<styleUrl>#msn_wht-circle</styleUrl>
+				<Point>
+					<coordinates>-4,54,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Dundalk</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.402008,54.004254,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Lambay Island</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-6.0216667,53.4936111,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Townsend Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.252506,53.345822,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Thomas Court</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.281754,53.34189,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Great Britain</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-2,54,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Magdalene Asylum</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.250196,53.345434,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Cheapside</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-0.0937,51.5141,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Baggot Street Upper</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.247309,53.3357,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Lough Swilly (Loch Súilí)</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-7.533333,55.166667,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Lock Hospital</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.254362,53.346313,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Whitefriars Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-0.107136,51.513352,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Crummock Water</name>
+				<description></description>
+				<styleUrl>#msn_water</styleUrl>
+				<Point>
+					<coordinates>-3.3,54.55,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>New Bridge Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-0.104214,51.512951,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Lock Penitentiary</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.266521,53.354241,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Scotland</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>-3.999999994231689,56.00000001459858,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Dublin Free School</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.282827,53.341562,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Ballynahinch</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-5.897487,54.401602,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Europe</name>
+				<description></description>
+				<styleUrl>#msn_placemark_land</styleUrl>
+				<Point>
+					<coordinates>9.14062,48.69096,0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Dorset Street</name>
+				<description></description>
+				<styleUrl>#msn_placemark_square</styleUrl>
+				<Point>
+					<coordinates>-6.265503,53.355769,0</coordinates>
+				</Point>
+			</Placemark>
+	</Folder>
+</Document>
+</kml>

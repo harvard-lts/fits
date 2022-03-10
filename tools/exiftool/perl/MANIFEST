@@ -15,17 +15,19 @@ arg_files/xmp2exif.args
 arg_files/xmp2gps.args
 arg_files/xmp2iptc.args
 arg_files/xmp2pdf.args
+config_files/acdsee.config
 config_files/age.config
 config_files/bibble.config
 config_files/convert_regions.config
-config_files/dji.config
+config_files/cuepointlist.config
+config_files/depthmap.config
 config_files/example.config
 config_files/fotoware.config
 config_files/gps2utm.config
-config_files/mini0806.config
 config_files/nksc.config
 config_files/photoshop_paths.config
 config_files/picasa_faces.config
+config_files/pix4d.config
 config_files/rotate_regions.config
 config_files/tiff_version.config
 config_files/time_zone.config
@@ -33,6 +35,7 @@ exiftool
 fmt_files/gpx.fmt
 fmt_files/gpx_wpt.fmt
 fmt_files/kml.fmt
+fmt_files/kml_track.fmt
 html/ExifTool.html
 html/MIE1.1-20070121.pdf
 html/Shift.html
@@ -45,6 +48,7 @@ html/TagNames/Apple.html
 html/TagNames/Audible.html
 html/TagNames/BMP.html
 html/TagNames/BPG.html
+html/TagNames/CBOR.html
 html/TagNames/Canon.html
 html/TagNames/CanonCustom.html
 html/TagNames/CanonRaw.html
@@ -91,6 +95,7 @@ html/TagNames/JVC.html
 html/TagNames/Jpeg2000.html
 html/TagNames/Kodak.html
 html/TagNames/KyoceraRaw.html
+html/TagNames/LIF.html
 html/TagNames/LNK.html
 html/TagNames/Leaf.html
 html/TagNames/Lytro.html
@@ -102,6 +107,7 @@ html/TagNames/MOI.html
 html/TagNames/MPC.html
 html/TagNames/MPEG.html
 html/TagNames/MPF.html
+html/TagNames/MRC.html
 html/TagNames/MWG.html
 html/TagNames/MXF.html
 html/TagNames/MacOS.html
@@ -113,12 +119,14 @@ html/TagNames/Motorola.html
 html/TagNames/Nikon.html
 html/TagNames/NikonCapture.html
 html/TagNames/NikonCustom.html
+html/TagNames/NikonSettings.html
 html/TagNames/Nintendo.html
 html/TagNames/OOXML.html
 html/TagNames/Ogg.html
 html/TagNames/Olympus.html
 html/TagNames/OpenEXR.html
 html/TagNames/Opus.html
+html/TagNames/Other.html
 html/TagNames/PCX.html
 html/TagNames/PDF.html
 html/TagNames/PGF.html
@@ -130,6 +138,7 @@ html/TagNames/PSP.html
 html/TagNames/Palm.html
 html/TagNames/Panasonic.html
 html/TagNames/PanasonicRaw.html
+html/TagNames/Parrot.html
 html/TagNames/Pentax.html
 html/TagNames/PhaseOne.html
 html/TagNames/PhotoCD.html
@@ -157,6 +166,7 @@ html/TagNames/SigmaRaw.html
 html/TagNames/Sony.html
 html/TagNames/SonyIDC.html
 html/TagNames/Stim.html
+html/TagNames/Text.html
 html/TagNames/Theora.html
 html/TagNames/Torrent.html
 html/TagNames/Unknown.html
@@ -165,6 +175,7 @@ html/TagNames/Vorbis.html
 html/TagNames/WTV.html
 html/TagNames/XMP.html
 html/TagNames/ZIP.html
+html/TagNames/ZISRAW.html
 html/TagNames/iWork.html
 html/TagNames/index.html
 html/TagNames/style.css
@@ -183,6 +194,7 @@ html/idiosyncracies.html
 html/index.html
 html/install.html
 html/metafiles.html
+html/mistakes.html
 html/overview.png
 html/standards.html
 html/struct.html
@@ -207,6 +219,7 @@ lib/Image/ExifTool/BPG.pm
 lib/Image/ExifTool/BZZ.pm
 lib/Image/ExifTool/BigTIFF.pm
 lib/Image/ExifTool/BuildTagLookup.pm
+lib/Image/ExifTool/CBOR.pm
 lib/Image/ExifTool/Canon.pm
 lib/Image/ExifTool/CanonCustom.pm
 lib/Image/ExifTool/CanonRaw.pm
@@ -217,6 +230,7 @@ lib/Image/ExifTool/Charset.pm
 lib/Image/ExifTool/Charset/Arabic.pm
 lib/Image/ExifTool/Charset/Baltic.pm
 lib/Image/ExifTool/Charset/Cyrillic.pm
+lib/Image/ExifTool/Charset/DOSCyrillic.pm
 lib/Image/ExifTool/Charset/DOSLatin1.pm
 lib/Image/ExifTool/Charset/DOSLatinUS.pm
 lib/Image/ExifTool/Charset/Greek.pm
@@ -290,6 +304,7 @@ lib/Image/ExifTool/JVC.pm
 lib/Image/ExifTool/Jpeg2000.pm
 lib/Image/ExifTool/Kodak.pm
 lib/Image/ExifTool/KyoceraRaw.pm
+lib/Image/ExifTool/LIF.pm
 lib/Image/ExifTool/LNK.pm
 lib/Image/ExifTool/Lang/cs.pm
 lib/Image/ExifTool/Lang/de.pm
@@ -319,6 +334,7 @@ lib/Image/ExifTool/MOI.pm
 lib/Image/ExifTool/MPC.pm
 lib/Image/ExifTool/MPEG.pm
 lib/Image/ExifTool/MPF.pm
+lib/Image/ExifTool/MRC.pm
 lib/Image/ExifTool/MWG.pm
 lib/Image/ExifTool/MXF.pm
 lib/Image/ExifTool/MacOS.pm
@@ -331,12 +347,14 @@ lib/Image/ExifTool/Motorola.pm
 lib/Image/ExifTool/Nikon.pm
 lib/Image/ExifTool/NikonCapture.pm
 lib/Image/ExifTool/NikonCustom.pm
+lib/Image/ExifTool/NikonSettings.pm
 lib/Image/ExifTool/Nintendo.pm
 lib/Image/ExifTool/OOXML.pm
 lib/Image/ExifTool/Ogg.pm
 lib/Image/ExifTool/Olympus.pm
 lib/Image/ExifTool/OpenEXR.pm
 lib/Image/ExifTool/Opus.pm
+lib/Image/ExifTool/Other.pm
 lib/Image/ExifTool/PCX.pm
 lib/Image/ExifTool/PDF.pm
 lib/Image/ExifTool/PGF.pm
@@ -349,6 +367,7 @@ lib/Image/ExifTool/PSP.pm
 lib/Image/ExifTool/Palm.pm
 lib/Image/ExifTool/Panasonic.pm
 lib/Image/ExifTool/PanasonicRaw.pm
+lib/Image/ExifTool/Parrot.pm
 lib/Image/ExifTool/Pentax.pm
 lib/Image/ExifTool/PhaseOne.pm
 lib/Image/ExifTool/PhotoCD.pm
@@ -382,6 +401,7 @@ lib/Image/ExifTool/Stim.pm
 lib/Image/ExifTool/TagInfoXML.pm
 lib/Image/ExifTool/TagLookup.pm
 lib/Image/ExifTool/TagNames.pod
+lib/Image/ExifTool/Text.pm
 lib/Image/ExifTool/Theora.pm
 lib/Image/ExifTool/Torrent.pm
 lib/Image/ExifTool/Unknown.pm
@@ -403,6 +423,7 @@ lib/Image/ExifTool/XMP.pm
 lib/Image/ExifTool/XMP2.pl
 lib/Image/ExifTool/XMPStruct.pl
 lib/Image/ExifTool/ZIP.pm
+lib/Image/ExifTool/ZISRAW.pm
 lib/Image/ExifTool/iWork.pm
 perl-Image-ExifTool.spec
 t/AFCP.t
@@ -499,6 +520,7 @@ t/ExifTool_29.out
 t/ExifTool_3.out
 t/ExifTool_30.out
 t/ExifTool_31.out
+t/ExifTool_32.out
 t/ExifTool_4.out
 t/ExifTool_5.out
 t/ExifTool_6.out
@@ -558,6 +580,7 @@ t/GeoTiff_4.out
 t/Geotag.t
 t/Geotag_10.out
 t/Geotag_11.out
+t/Geotag_12.out
 t/Geotag_2.out
 t/Geotag_3.out
 t/Geotag_5.out
@@ -589,10 +612,14 @@ t/JSON_2.out
 t/JVC.t
 t/JVC_2.out
 t/JVC_3.out
+t/JXL.t
+t/JXL_2.out
+t/JXL_3.out
 t/Jpeg2000.t
 t/Jpeg2000_2.out
 t/Jpeg2000_3.out
 t/Jpeg2000_4.out
+t/Jpeg2000_5.out
 t/Kodak.t
 t/Kodak_2.out
 t/Kodak_3.out
@@ -634,6 +661,8 @@ t/MOI.t
 t/MOI_2.out
 t/MP3.t
 t/MP3_2.out
+t/MRC.t
+t/MRC_2.out
 t/MWG.t
 t/MWG_2.out
 t/MWG_3.out
@@ -643,6 +672,8 @@ t/MWG_6.out
 t/MWG_7.out
 t/MXF.t
 t/MXF_2.out
+t/MacOS.t
+t/MacOS_2.out
 t/Matroska.t
 t/Matroska_2.out
 t/Minolta.t
@@ -691,6 +722,8 @@ t/PDF_6.out
 t/PDF_7.out
 t/PDF_8.out
 t/PDF_9.out
+t/PFM.t
+t/PFM_2.out
 t/PGF.t
 t/PGF_2.out
 t/PICT.t
@@ -707,6 +740,7 @@ t/PNG_3.out
 t/PNG_4.out
 t/PNG_5.out
 t/PNG_6.out
+t/PNG_7.out
 t/PPM.t
 t/PPM_2.out
 t/PPM_3.out
@@ -744,6 +778,8 @@ t/QuickTime_12.out
 t/QuickTime_13.out
 t/QuickTime_14.out
 t/QuickTime_15.out
+t/QuickTime_16.out
+t/QuickTime_17.out
 t/QuickTime_2.out
 t/QuickTime_3.out
 t/QuickTime_4.out
@@ -783,6 +819,13 @@ t/Sony_2.out
 t/Sony_3.out
 t/Sony_5.out
 t/TestLib.pm
+t/Text.t
+t/Text_2.out
+t/Text_3.out
+t/Text_4.out
+t/Text_5.out
+t/Text_6.out
+t/Text_7.out
 t/Torrent.t
 t/Torrent_2.out
 t/Unknown.t
@@ -841,6 +884,7 @@ t/Writer_54.out
 t/Writer_55.out
 t/Writer_56.out
 t/Writer_58.out
+t/Writer_59.out
 t/Writer_6.out
 t/Writer_7.out
 t/Writer_9.out
@@ -881,7 +925,14 @@ t/XMP_43.out
 t/XMP_44.out
 t/XMP_45.out
 t/XMP_46.out
+t/XMP_47.out
+t/XMP_48.out
+t/XMP_49.out
 t/XMP_5.out
+t/XMP_50.out
+t/XMP_52.out
+t/XMP_53.out
+t/XMP_54.out
 t/XMP_6.out
 t/XMP_7.out
 t/XMP_8.out
@@ -893,6 +944,8 @@ t/ZIP_4.out
 t/ZIP_5.out
 t/ZIP_6.out
 t/ZIP_7.out
+t/ZISRAW.t
+t/ZISRAW_2.out
 t/images/AFCP.jpg
 t/images/AIFF.aif
 t/images/APE.ape
@@ -926,6 +979,7 @@ t/images/EXE.exe
 t/images/EXE.macho
 t/images/EXE.so
 t/images/ExifTool.jpg
+t/images/ExifTool.jps
 t/images/ExifTool.tif
 t/images/ExtendedXMP.jpg
 t/images/FITS.fits
@@ -958,6 +1012,7 @@ t/images/Geotag.log
 t/images/Geotag.xml
 t/images/Geotag2.log
 t/images/Geotag3.log
+t/images/Geotag_DJI_2020-12-02_[07-50-31].csv
 t/images/GoPro.jpg
 t/images/HTML.html
 t/images/ICC_Profile.icc
@@ -968,6 +1023,7 @@ t/images/InDesign.indd
 t/images/JSON.json
 t/images/JVC.jpg
 t/images/JVC2.jpg
+t/images/JXL.jxl
 t/images/Jpeg2000.j2c
 t/images/Jpeg2000.jp2
 t/images/Kodak.jpg
@@ -979,8 +1035,10 @@ t/images/MIE.mie
 t/images/MIFF.miff
 t/images/MOI.moi
 t/images/MP3.mp3
+t/images/MRC.mrc
 t/images/MWG.jpg
 t/images/MXF.mxf
+t/images/MacOS.macos
 t/images/Matroska.mkv
 t/images/Minolta.jpg
 t/images/Minolta.mrw
@@ -1000,6 +1058,7 @@ t/images/Opus.opus
 t/images/PCX.pcx
 t/images/PDF.pdf
 t/images/PDF2.pdf
+t/images/PFM.pfm
 t/images/PGF.pgf
 t/images/PICT.pict
 t/images/PLIST-bin.plist
@@ -1039,6 +1098,12 @@ t/images/Sigma.x3f
 t/images/SigmaDP2.x3f
 t/images/Sony.jpg
 t/images/Sony.pmp
+t/images/Text.csv
+t/images/Text1.txt
+t/images/Text2.txt
+t/images/Text3.txt
+t/images/Text4.txt
+t/images/Text5.txt
 t/images/Torrent.torrent
 t/images/Unknown.jpg
 t/images/VCard.ics
@@ -1056,6 +1121,10 @@ t/images/XMP3.xmp
 t/images/XMP4.xmp
 t/images/XMP5.xmp
 t/images/XMP6.xmp
+t/images/XMP7.xmp
+t/images/XMP8.xmp
+t/images/XMP9.xmp
 t/images/ZIP.gz
 t/images/ZIP.zip
+t/images/ZISRAW.czi
 t/images/iWork.numbers

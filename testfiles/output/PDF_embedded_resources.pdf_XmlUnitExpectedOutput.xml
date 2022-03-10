@@ -19,7 +19,8 @@
     <creatingApplicationName toolname="Exiftool" toolversion="11.54">Acrobat Distiller 8.1.0 (Windows)/Adobe PageMaker 6.52</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="11.54" status="CONFLICT">2015:08:19 16:17:32-04:00</lastmodified>
     <lastmodified toolname="Tika" toolversion="1.21" status="CONFLICT">2015-08-19T20:17:32Z</lastmodified>
-    <created toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2008:09:24 15:27:24-04:00</created>
+    <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2008:09:24 15:27:24-04:00</created>
+    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2008-09-24T19:27:24Z</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/PDF_embedded_resources.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">PDF_embedded_resources.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">dbfbf8c633100f5d4301fed7b65ad698</md5checksum>

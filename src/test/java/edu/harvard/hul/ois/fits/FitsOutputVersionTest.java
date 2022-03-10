@@ -9,18 +9,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FitsOutputVersionTest extends AbstractLoggingTest {
 	
-	private static Logger logger = LogManager.getLogger(FitsOutputVersionTest.class);
+	private static Logger logger = LoggerFactory.getLogger(FitsOutputVersionTest.class);
 
 	/**
 	 * Test output of Fits version from the input file to FitsOutput.

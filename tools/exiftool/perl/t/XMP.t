@@ -2,7 +2,7 @@
 # After "make install" it should work as "perl t/XMP.t".
 
 BEGIN {
-    $| = 1; print "1..46\n"; $Image::ExifTool::configFile = '';
+    $| = 1; print "1..54\n"; $Image::ExifTool::configFile = '';
     require './t/TestLib.pm'; t::TestLib->import();
 }
 END {print "not ok 1\n" unless $loaded;}
@@ -21,7 +21,7 @@ END {print "not ok 1\n" unless $loaded;}
 use vars %Image::ExifTool::UserDefined::myXMPns;    # avoid "typo" warning
 %Image::ExifTool::UserDefined::myXMPns = (
     GROUPS    => { 0 => 'XMP', 1 => 'XMP-myXMPns'},
-    NAMESPACE => { 'myXMPns' => 'http://ns.exiftool.ca/t/XMP.t' },
+    NAMESPACE => { 'myXMPns' => 'http://ns.exiftool.org/t/XMP.t' },
     WRITABLE  => 'string',
     ATestTag  => { List => 'Bag', Resource => 1 },
     BTestTag  => {
@@ -258,11 +258,11 @@ my $testnum = 1;
     ++$testnum;
     my @writeInfo = (
         [ 'all' => undef ],
-        [ 'xmp-dc:all'  => undef, Replace => 2 ],
+        [ 'xmp-dc:all' => undef, Replace => 2 ],
         [ 'xmp-xmprights:all' => undef, Replace => 2 ],
     );
     print 'not ' unless writeCheck(\@writeInfo, $testname, $testnum,
-                                   't/images/XMP.jpg', ['XMP:all']);
+                                   't/images/XMP.jpg', ['XMP:all'], undef, 1);
     print "ok $testnum\n";
 }
 
@@ -274,7 +274,7 @@ my $testnum = 1;
         [ 'xmp:all' => undef, Replace => 2 ],
     );
     print 'not ' unless writeCheck(\@writeInfo, $testname, $testnum,
-                                   't/images/XMP.jpg', ['-file:all']);
+                                   't/images/XMP.jpg', ['-file:all'], undef, 1);
     print "ok $testnum\n";
 }
 
@@ -296,7 +296,7 @@ my $testnum = 1;
     unlink $testfile;
     my @writeInfo = (
         [ 'XMP-x:XMPToolkit' => "What's this?", Protected => 1 ],
-        [ 'XMP-rdf:About' => "http://www.exiftool.ca/t/$testname.t#$testnum", Protected => 1 ],
+        [ 'XMP-rdf:About' => "http://www.exiftool.org/t/$testname.t#$testnum", Protected => 1 ],
         [ 'XMP:ImageType' => 'Video' ],
         [ 'LicenseeImageNotes-en' => 'english notes' ],
         [ 'LicenseeImageNotes-de' => 'deutsche anmerkungen' ],
@@ -305,8 +305,8 @@ my $testnum = 1;
         [ 'CopyrightStatus' => 'public' ],
         [ 'Custom1-en' => 'a' ],
         [ 'Custom1-en' => 'b' ],
-        [ 'ATestTag' => "http://www.exiftool.ca/t/$testname.t#$testnum-one" ],
-        [ 'ATestTag' => "http://www.exiftool.ca/t/$testname.t#$testnum-two" ],
+        [ 'ATestTag' => "http://www.exiftool.org/t/$testname.t#$testnum-one" ],
+        [ 'ATestTag' => "http://www.exiftool.org/t/$testname.t#$testnum-two" ],
     );
     $exifTool->SetNewValue(@$_) foreach @writeInfo;
     my $ok = writeInfo($exifTool, undef, $testfile);
@@ -588,5 +588,114 @@ my $testnum = 1;
     }
     print "ok $testnum\n";
 }
+
+# tests 47-49: Test replacing specific elements in list of structures
+{
+    ++$testnum;
+    my $exifTool = new Image::ExifTool;
+    $exifTool->Options(ListSplit => ',');
+    $exifTool->Options(Struct => 1);
+    $exifTool->SetNewValue('LocationShownCity' => 'Manchester,Lyon,Frankfurt');
+    $testfile = "t/${testname}_${testnum}_failed.xmp";
+    unlink $testfile;
+    writeInfo($exifTool, 't/images/XMP7.xmp', $testfile);
+    my $info = $exifTool->ImageInfo($testfile, 'XMP:all');
+    if (check($exifTool, $info, $testname, $testnum)) {
+        unlink $testfile;
+    } else {
+        print 'not ';
+    }
+    print "ok $testnum\n";
+
+    ++$testnum;
+    $exifTool->SetNewValue();
+    $exifTool->SetNewValue('LocationShownCity' => 'London,Berlin', DelValue => 1);
+    $exifTool->SetNewValue('LocationShownCity' => 'Oxford,Munich');
+    $testfile = "t/${testname}_${testnum}_failed.xmp";
+    unlink $testfile;
+    writeInfo($exifTool, 't/images/XMP7.xmp', $testfile);
+    $info = $exifTool->ImageInfo($testfile, 'XMP:all');
+    if (check($exifTool, $info, $testname, $testnum)) {
+        unlink $testfile;
+    } else {
+        print 'not ';
+    }
+    print "ok $testnum\n";
+
+    ++$testnum;
+    $exifTool->SetNewValue();
+    $exifTool->SetNewValue('AboutCvTermName' => 'one,three', DelValue => 1);
+    $exifTool->SetNewValue('AboutCvTermName' => 'a,b,c');
+    $testfile = "t/${testname}_${testnum}_failed.xmp";
+    unlink $testfile;
+    writeInfo($exifTool, 't/images/XMP8.xmp', $testfile);
+    $info = $exifTool->ImageInfo($testfile, 'XMP:all');
+    if (check($exifTool, $info, $testname, $testnum)) {
+        unlink $testfile;
+    } else {
+        print 'not ';
+    }
+    print "ok $testnum\n";
+}
+
+# test 50-53: Test replacing/creating elements in nested lang-alt list
+{
+    ++$testnum;
+    my $exifTool = new Image::ExifTool;
+    $exifTool->SetNewValuesFromFile('t/images/XMP9.xmp', '*:*');
+    $testfile = "t/${testname}_${testnum}_failed.xmp";
+    unlink $testfile;
+    $exifTool->WriteInfo('t/images/XMP9.xmp', $testfile);
+    print 'not ' unless testCompare("t/XMP_$testnum.out",$testfile,$testnum);
+    print "ok $testnum\n";
+
+    ++$testnum;
+    $testfile = "t/${testname}_${testnum}_failed.xmp";
+    unlink $testfile;
+    $exifTool->WriteInfo(undef, $testfile);
+    print 'not ' unless testCompare('t/XMP_50.out',$testfile,$testnum);
+    print "ok $testnum\n";
+
+    ++$testnum;
+    $testfile = "t/${testname}_${testnum}_failed.xmp";
+    unlink $testfile;
+    $exifTool->SetNewValue();
+    $exifTool->SetNewValue(Custom1 => 'test', DelValue => 1);
+    $exifTool->SetNewValue(Custom1 => 'new');
+    $exifTool->WriteInfo('t/images/XMP9.xmp', $testfile);
+    print 'not ' unless testCompare("t/XMP_$testnum.out",$testfile,$testnum);
+    print "ok $testnum\n";
+
+    ++$testnum;
+    $testfile = "t/${testname}_${testnum}_failed.xmp";
+    unlink $testfile;
+    $exifTool->Options(ListSplit => ',');
+    $exifTool->SetNewValue();
+    $exifTool->SetNewValue(Custom1 => 'a,b,c', AddValue => 1);
+    $exifTool->SetNewValue('Custom1-fr' => 'a-fr,,c-fr,d-fr,,f-fr', AddValue => 1);
+    $exifTool->WriteInfo('t/images/XMP9.xmp', $testfile);
+    print 'not ' unless testCompare("t/XMP_$testnum.out",$testfile,$testnum);
+    print "ok $testnum\n";
+}
+
+# test 54: Write flattened tag and extension in a variable-namespace structure
+{
+    ++$testnum;
+    $testfile = "t/${testname}_${testnum}_failed.xmp";
+    unlink $testfile;
+    my $exifTool = new Image::ExifTool;
+    $exifTool->SetNewValue(ImageRegionCtypeIdentifier => 'x');
+    $exifTool->SetNewValue(ImageRegion => '{Flash={Fired=True,Return#=3}}');
+    $exifTool->WriteInfo(undef, $testfile);
+    $exifTool->Options(Struct => 1);
+    my $info = $exifTool->ImageInfo($testfile, 'XMP-iptcExt:all');
+    if (check($exifTool, $info, $testname, $testnum)) {
+        unlink $testfile;
+    } else {
+        print 'not ';
+    }
+    print "ok $testnum\n";
+}
+
 
 # end

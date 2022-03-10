@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0-SNAPSHOT" timestamp="8/14/19 10:52 AM">
-  <identification status="SINGLE_RESULT">
+  <identification>
     <identity format="WebVTT" mimetype="text/vtt" toolname="FITS" toolversion="1.5.0-SNAPSHOT">
       <tool toolname="VTT Tool" toolversion="0.1" />
+      <tool toolname="Droid" toolversion="6.5" />
+      <externalIdentifier toolname="Droid" toolversion="6.5" type="puid">fmt/1454</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
@@ -22,12 +24,12 @@
     <tool toolname="Droid" toolversion="6.4" executionTime="110" />
     <tool toolname="Jhove" toolversion="1.20.1" executionTime="618" />
     <tool toolname="file utility" toolversion="5.31" executionTime="660" />
-    <tool toolname="Exiftool" toolversion="11.54" executionTime="614" />
+    <tool toolname="Exiftool" toolversion="11.54" status="did not run" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
     <tool toolname="OIS File Information" toolversion="0.2" executionTime="109" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
     <tool toolname="ffident" toolversion="0.2" executionTime="613" />
-    <tool toolname="Tika" toolversion="1.21" executionTime="143" />
+    <tool toolname="Tika" toolversion="1.21" status="did not run" />
   </statistics>
 </fits>
 

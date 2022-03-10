@@ -14,9 +14,9 @@ import java.io.File;
 import java.io.StringReader;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.jdom.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
@@ -38,7 +38,7 @@ public class MediaInfo extends ToolBase {
     private final static String OSX_NATIVE_LIB_PATH = "tools" + File.separator + "mediainfo" + File.separator + "mac";
     private final static String LINUX_NATIVE_LIB_PATH = "tools" + File.separator + "mediainfo" + File.separator + "linux";
 
-    private static final Logger logger = Logger.getLogger(MediaInfo.class);
+	private static final Logger logger = LoggerFactory.getLogger(MediaInfo.class);
     private static MediaInfoNativeWrapper mi = null;
 
     /**
@@ -165,7 +165,7 @@ public class MediaInfo extends ToolBase {
 
 	    // Get MediaInfoLib Output as standard RAW XML
 	    mi.Option("Complete", "1");
-	    mi.Option("Output", "XML");
+	    mi.Option("Output", "OLDXML");
 	    String execOutRaw = mi.Inform();
 
 	    // DEBUG
@@ -173,7 +173,7 @@ public class MediaInfo extends ToolBase {
 
 	    // Get MediaInfoLib Output as standard XML
 	    mi.Option("Complete", "");
-	    mi.Option("Output", "XML");
+	    mi.Option("Output", "OLDXML");
 	    String execOut = mi.Inform();
 
 	    //// Get MediaInfoLib Output as EBUCore 1.5

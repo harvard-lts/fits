@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/1/16 4:36 PM">
-  <identification status="SINGLE_RESULT">
+  <identification>
     <identity format="Comma-Separated Values (CSV)" mimetype="text/csv" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Exiftool" toolversion="12.29" />
       <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/18</externalIdentifier>
     </identity>
   </identification>
@@ -14,7 +15,20 @@
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1456866565000</fslastmodified>
   </fileinfo>
   <filestatus />
-  <metadata />
+  <metadata>
+    <text>
+      <charset toolname="Exiftool" toolversion="12.29" status="SINGLE_RESULT">us-ascii</charset>
+      <linebreak toolname="Exiftool" toolversion="12.29" status="SINGLE_RESULT">CR</linebreak>
+      <standard>
+        <textMD:textMD xmlns:textMD="info:lc/xmlns/textMD-v3">
+          <textMD:character_info>
+            <textMD:charset>US-ASCII</textMD:charset>
+            <textMD:linebreak>CR</textMD:linebreak>
+          </textMD:character_info>
+        </textMD:textMD>
+      </standard>
+    </text>
+  </metadata>
   <statistics fitsExecutionTime="425">
     <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
@@ -28,7 +42,7 @@
     <tool toolname="OIS File Information" toolversion="0.2" executionTime="72" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
     <tool toolname="ffident" toolversion="0.2" executionTime="295" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="167" />
+    <tool toolname="Tika" toolversion="1.10" status="did not run" />
   </statistics>
 </fits>
 

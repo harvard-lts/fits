@@ -5,6 +5,8 @@
       <tool toolname="Droid" toolversion="6.3" />
       <tool toolname="Jhove" toolversion="1.20" />
       <tool toolname="file utility" toolversion="5.31" />
+      <tool toolname="Exiftool" toolversion="12.29" />
+      <tool toolname="Tika" toolversion="2.2.1" />
       <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/111</externalIdentifier>
     </identity>
   </identification>
@@ -21,8 +23,11 @@
   </filestatus>
   <metadata>
     <text>
-      <linebreak toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">LF</linebreak>
-      <charset toolname="Jhove" toolversion="1.20">US-ASCII</charset>
+      <linebreak toolname="Jhove" toolversion="1.20.1">LF</linebreak>
+      <charset toolname="Jhove" toolversion="1.20.1" status="CONFLICT">US-ASCII</charset>
+      <charset toolname="Tika" toolversion="2.3.0" status="CONFLICT">ISO-8859-1</charset>
+      <lineCount toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">1</lineCount>
+      <wordCount toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">7</wordCount>
       <standard>
         <textMD:textMD xmlns:textMD="info:lc/xmlns/textMD-v3">
           <textMD:character_info>
@@ -41,7 +46,7 @@
     <tool toolname="Droid" toolversion="6.3" executionTime="146" />
     <tool toolname="Jhove" toolversion="1.20" executionTime="1005" />
     <tool toolname="file utility" toolversion="5.31" executionTime="1173" />
-    <tool toolname="Exiftool" toolversion="10.00" status="did not run" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="950" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
     <tool toolname="OIS File Information" toolversion="0.2" executionTime="141" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />

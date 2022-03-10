@@ -21,6 +21,7 @@
     <lastmodified toolname="Tika" toolversion="1.21" status="CONFLICT">2017-01-30T06:39:51</lastmodified>
     <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2010:07:07 14:22:53</created>
     <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2017:01:30 11:39:51</created>
+    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2010-07-07T10:22:53</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/ICFA.KC.BIA.1524-small.jpg</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">ICFA.KC.BIA.1524-small.jpg</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">0108175c9153da1d41278066a2e3c1a2</md5checksum>
@@ -99,7 +100,7 @@
           </mix:BasicImageInformation>
           <mix:ImageCaptureMetadata>
             <mix:GeneralCaptureInformation>
-              <mix:dateTimeCreated>2010-07-07T18:22:53.0Z</mix:dateTimeCreated>
+              <mix:dateTimeCreated>2010-07-07T14:22:53</mix:dateTimeCreated>
             </mix:GeneralCaptureInformation>
             <mix:ScannerCapture>
               <mix:ScanningSystemSoftware>

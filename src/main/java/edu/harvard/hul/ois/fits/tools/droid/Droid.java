@@ -18,7 +18,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.configuration.XMLConfiguration;
-import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsMetadataValues;
@@ -26,6 +25,8 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.gov.nationalarchives.droid.command.action.VersionCommand;
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.SignatureParseException;
@@ -46,7 +47,7 @@ public class Droid extends ToolBase {
 
     private final static List<String> CONTAINER_TYPE_MIMETYPES = Arrays.asList("application/zip");
 
-    private static final Logger logger = Logger.getLogger(Droid.class);
+	private static final Logger logger = LoggerFactory.getLogger(Droid.class);
 
 	public Droid(Fits fits) throws FitsToolException {
 		super();
@@ -75,7 +76,7 @@ public class Droid extends ToolBase {
 	        		throw new FitsToolException("Invalid long value in fits.xml droid_read_limit[@read-limit-kb]: " + limit, nfe);
 	        	}
 	        }
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			throw new FitsToolException("Error initilizing DROID",e);
 		}
 	}
