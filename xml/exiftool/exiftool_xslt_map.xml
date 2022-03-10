@@ -165,6 +165,7 @@
 	<map format="WMV" transform="exiftool_video_to_fits.xslt"/>
 	
 	<!-- text -->
+	<map format="CSV" transform="exiftool_text_to_fits.xslt"/>
 	<map format="CHM" transform="exiftool_text_to_fits.xslt"/>
 	<map format="HTM" transform="exiftool_text_to_fits.xslt"/>
 	<map format="HTML" transform="exiftool_text_to_fits.xslt"/>
@@ -173,6 +174,7 @@
 	<map format="RAM" transform="exiftool_text_to_fits.xslt"/>
 	<map format="RPM" transform="exiftool_text_to_fits.xslt"/>
 	<map format="SVG" transform="exiftool_text_to_fits.xslt"/>
+	<map format="TXT" transform="exiftool_text_to_fits.xslt"/>
 	<map format="XHTML" transform="exiftool_text_to_fits.xslt"/>
 	<map format="XML" transform="exiftool_text_to_fits.xslt"/>
 	<map format="XMP" transform="exiftool_text_to_fits.xslt"/>

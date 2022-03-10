@@ -4,6 +4,7 @@
     <identity format="Plain text" mimetype="text/plain" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
       <tool toolname="file utility" toolversion="5.04" />
+      <tool toolname="Exiftool" toolversion="12.29" />
       <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/111</externalIdentifier>
     </identity>
   </identification>
@@ -17,7 +18,7 @@
   <filestatus />
   <metadata>
     <text>
-      <charset toolname="file utility" toolversion="5.04" status="SINGLE_RESULT">UTF-16LE</charset>
+      <charset toolname="file utility" toolversion="5.04">UTF-16LE</charset>
       <standard>
         <textMD:textMD xmlns:textMD="info:lc/xmlns/textMD-v3">
           <textMD:character_info>
@@ -35,7 +36,7 @@
     <tool toolname="Droid" toolversion="6.1.5" executionTime="24" />
     <tool toolname="Jhove" toolversion="1.11" executionTime="205" />
     <tool toolname="file utility" toolversion="5.04" executionTime="142" />
-    <tool toolname="Exiftool" toolversion="10.00" status="did not run" />
+    <tool toolname="Exiftool" toolversion="10.00" executionTime="278" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
     <tool toolname="OIS File Information" toolversion="0.2" executionTime="90" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
