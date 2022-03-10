@@ -1,14 +1,14 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 10.85
-[File, System, Image] FileName - File Name: CanonVRD.dr4
-[File, System, Image] Directory - Directory: t/images
-[File, System, Image] FileSize - File Size: 5.3 kB
-[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:05:18 15:47:02-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2018:03:12 12:39:06-04:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2018:03:12 12:26:08-04:00
-[File, System, Image] FilePermissions - File Permissions: rw-r--r--
-[File, File, Image] FileType - File Type: DR4
-[File, File, Image] FileTypeExtension - File Type Extension: dr4
-[File, File, Image] MIMEType - MIME Type: application/unknown
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 12.11
+[File, System, Other] FileName - File Name: CanonVRD.dr4
+[File, System, Other] Directory - Directory: t/images
+[File, System, Other] FileSize - File Size: 5.3 KiB
+[File, System, Time] FileModifyDate - File Modification Date/Time: 2015:05:18 15:43:16-04:00
+[File, System, Time] FileAccessDate - File Access Date/Time: 2020:11:26 10:02:25-05:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2017:12:27 12:00:59-05:00
+[File, System, Other] FilePermissions - File Permissions: rw-r--r--
+[File, File, Other] FileType - File Type: DR4
+[File, File, Other] FileTypeExtension - File Type Extension: dr4
+[File, File, Other] MIMEType - MIME Type: application/octet-stream
 [CanonVRD, CanonVRD, Image] 3 - DR4 Camera Model: EOS 7D Mark II
 [CanonVRD, CanonVRD, Image] 65538 - Rotation: 0
 [CanonVRD, CanonVRD, Image] 65539 - Angle Adj: 13.08

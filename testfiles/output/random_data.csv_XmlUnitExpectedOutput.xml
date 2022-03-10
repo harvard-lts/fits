@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.11.0" timestamp="3/1/16 4:36 PM">
-  <identification status="SINGLE_RESULT">
+  <identification>
     <identity format="Comma-Separated Values (CSV)" mimetype="text/csv" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="Exiftool" toolversion="12.29" />
       <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">x-fmt/18</externalIdentifier>
     </identity>
   </identification>

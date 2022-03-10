@@ -17,7 +17,7 @@ package Image::ExifTool::Validate;
 use strict;
 use vars qw($VERSION %exifSpec);
 
-$VERSION = '1.15';
+$VERSION = '1.18';
 
 use Image::ExifTool qw(:Utils);
 use Image::ExifTool::Exif;
@@ -206,7 +206,7 @@ my %validValue = (
         },
         GPS => {
             0x00 => 'defined $val and $val =~ /^\d \d \d \d$/', # GPSVersionID
-            0x1b => '$val =~ /^(GPS|CELLID|WLAN|MANUAL)$/', # GPSProcessingMethod
+            0x1b => 'not defined $val or $val =~ /^(GPS|CELLID|WLAN|MANUAL)$/', # GPSProcessingMethod
         },
         InteropIFD => { },      # (needed for ExifVersion check)
     },
@@ -214,11 +214,11 @@ my %validValue = (
         IFD0 => {
             0x100 => 'defined $val',        # ImageWidth
             0x101 => 'defined $val',        # ImageLength
-            0x102 => 'defined $val',        # BitsPerSample
+            # (default is 1) 0x102 => 'defined $val',        # BitsPerSample
             0x103 => q{
                 not defined $val or $val =~ /^(1|5|6|32773)$/ or
                     ($val == 2 and (not defined $val{0x102} or $val{0x102} == 1));
-            },  # Compression
+            }, # Compression
             0x106 => '$val =~ /^[0123]$/',  # PhotometricInterpretation
             0x111 => 'defined $val',        # StripOffsets
             # SamplesPerPixel
@@ -237,7 +237,7 @@ my %validValue = (
             0x117 => 'defined $val',        # StripByteCounts
             0x11a => 'defined $val',        # XResolution
             0x11b => 'defined $val',        # YResolution
-            0x128 => '$val =~ /^[123]$/',   # ResolutionUnit
+            0x128 => 'not defined $val or $val =~ /^[123]$/',   # ResolutionUnit
             # ColorMap (must be palette image with correct number of colors)
             0x140 => q{
                 return '' if defined $val{0x106} and $val{0x106} == 3 xor defined $val;
@@ -285,7 +285,7 @@ my %validateInfo = (
         enables the API L<Validate|../ExifTool.html#Validate> option, imposing
         additional validation checks when extracting metadata.  Returns the number
         of errors, warnings and minor warnings encountered.  Note that the Validate
-        feature focuses mainly on validation of TIFF/EXIF metadata
+        feature focuses mainly on validation of EXIF/TIFF metadata
     },
     PrintConv => {
         '0 0 0' => 'OK',
@@ -554,7 +554,7 @@ sub FinishValidate($$)
                 undef $ver unless $ver =~ /^\d{4}$/; # (already warned if invalid version)
             }
             # get all tags in this group
-            foreach $key (keys %{$$et{VALUE}}) {
+            foreach $key (sort keys %{$$et{VALUE}}) {
                 next unless $et->GetGroup($key, 1) eq $grp;
                 next if $$et{TAG_EXTRA}{$key} and $$et{TAG_EXTRA}{$key}{G3}; # ignore sub-documents
                 # fill in %val lookup with values based on tag ID
@@ -659,7 +659,7 @@ ExifTool Validate option is enabled.
 
 =head1 AUTHOR
 
-Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2022, Phil Harvey (philharvey66 at gmail.com)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

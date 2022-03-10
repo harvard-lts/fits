@@ -522,6 +522,9 @@ sub WriteExif($$$)
     my $name = $$dirInfo{Name};
     $name = $dirName unless $name and $dirName eq 'MakerNotes' and $name !~ /^MakerNote/;
 
+    # save byte order of existing EXIF
+    $$et{SaveExifByteOrder} = GetByteOrder() if $dirName eq 'IFD0' or $dirName eq 'ExifIFD';
+
     # set encoding for strings
     $strEnc = $et->Options('CharsetEXIF') if $$tagTablePtr{GROUPS}{0} eq 'EXIF';
 
@@ -545,7 +548,7 @@ sub WriteExif($$$)
         my $mustRead;
         if ($dirStart < 0 or $dirStart > $dataLen-2) {
             $mustRead = 1;
-        } elsif ($dirLen > 2) {
+        } elsif ($dirLen >= 2) {
             my $len = 2 + 12 * Get16u($dataPt, $dirStart);
             $mustRead = 1 if $dirStart + $len > $dataLen;
         }
@@ -1323,7 +1326,7 @@ NoOverwrite:            next if $isNew > 0;
                     unless (defined $offsetData{$dataTag} or $dataTag eq 'LeicaTrailer') {
                         # prefer tag from Composite table if it exists (otherwise
                         # PreviewImage data would be taken from Extra tag)
-                        my $compInfo = $Image::ExifTool::Composite{$dataTag};
+                        my $compInfo = Image::ExifTool::GetCompositeTagInfo($dataTag);
                         $offsetData{$dataTag} = $et->GetNewValue($compInfo || $dataTag);
                         my $err;
                         if (defined $offsetData{$dataTag}) {
@@ -1774,7 +1777,7 @@ NoOverwrite:            next if $isNew > 0;
                         # - I'm going out of my way here to preserve data which is
                         #   invalidated anyway by our edits
                         my $odd;
-                        my $oddInfo = $Image::ExifTool::Composite{OriginalDecisionData};
+                        my $oddInfo = Image::ExifTool::GetCompositeTagInfo('OriginalDecisionData');
                         if ($oddInfo and $$et{NEW_VALUE}{$oddInfo}) {
                             $odd = $et->GetNewValue($dataTag);
                             if ($verbose > 1) {
@@ -1829,6 +1832,7 @@ NoOverwrite:            next if $isNew > 0;
                                 warn "Internal error writing offsets for $$newInfo{Name}\n";
                                 return undef;
                             }
+                            $newValuePt = \$newValue;
                         }
                         $offsetInfo or $offsetInfo = $offsetInfo[$ifd] = { };
                         # save location of valuePtr in new directory
@@ -2294,8 +2298,8 @@ NoOverwrite:            next if $isNew > 0;
                     } elsif ($ifd < 0) {
                         # pad if necessary (but don't pad contiguous image blocks)
                         my $pad = 0;
-                        ++$pad if $size & 0x01 and ($n+1 >= $count or not $oldEnd or
-                                  $oldEnd != $$oldOffset[$n+1]);
+                        ++$pad if ($blockSize + $size) & 0x01 and ($n+1 >= $count or
+                                  not $oldEnd or $oldEnd != $$oldOffset[$n+1]);
                         # preserve original image padding if specified
                         if ($$origDirInfo{PreserveImagePadding} and $n+1 < $count and
                             $oldEnd and $$oldOffset[$n+1] > $oldEnd)
@@ -2559,7 +2563,7 @@ This file contains routines to write EXIF metadata.
 
 =head1 AUTHOR
 
-Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2022, Phil Harvey (philharvey66 at gmail.com)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

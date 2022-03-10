@@ -14,7 +14,7 @@ use strict;
 use vars qw($VERSION);
 use Image::ExifTool qw(:DataAccess :Utils);
 
-$VERSION = '1.09';
+$VERSION = '1.11';
 
 my %noYes = ( 0 => 'No', 1 => 'Yes' );
 
@@ -221,6 +221,8 @@ my %noYes = ( 0 => 'No', 1 => 'Yes' );
     },
     0x2e => {
         Name => 'TrackEntry',
+        # reset TrackType member at the start of each track
+        Condition => 'delete $$self{TrackType}; 1',
         SubDirectory => { TagTable => 'Image::ExifTool::Matroska::Main' },
     },
     0x57   => { Name => 'TrackNumber',      Format => 'unsigned' },
@@ -662,6 +664,7 @@ my %noYes = ( 0 => 'No', 1 => 'Yes' );
             3 => 'Mesh',
         },
     },
+    # ProjectionPrivate in the spec
     0x7672 => [{
         Name => 'EquirectangularProj',
         Condition => '$$self{ProjectionType} == 1',
@@ -670,10 +673,13 @@ my %noYes = ( 0 => 'No', 1 => 'Yes' );
         Name => 'CubemapProj',
         Condition => '$$self{ProjectionType} == 2',
         SubDirectory => { TagTable => 'Image::ExifTool::QuickTime::cbmp' },
+    },{ # (don't decode 3 because it is a PITA)
+        Name => 'ProjectionPrivate',
+        Binary => 1,
     }],
-    0x7673 => { Name => 'ProjectionPosYaw',   Format => 'float' },
-    0x7674 => { Name => 'ProjectionPosPitch', Format => 'float' },
-    0x7675 => { Name => 'ProjectionPosRoll',  Format => 'float' },
+    0x7673 => { Name => 'ProjectionPoseYaw',   Format => 'float' },
+    0x7674 => { Name => 'ProjectionPosePitch', Format => 'float' },
+    0x7675 => { Name => 'ProjectionPoseRoll',  Format => 'float' },
 );
 
 #------------------------------------------------------------------------------
@@ -912,7 +918,7 @@ information from Matroska multimedia files (MKA, MKV, MKS and WEBM).
 
 =head1 AUTHOR
 
-Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2022, Phil Harvey (philharvey66 at gmail.com)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

@@ -12,9 +12,10 @@
 #               2013/02/05 - PH Fixed camera icon to work with new Google Earth
 #               2017/02/02 - PH Organize into folders based on file directory
 #               2018/01/04 - PH Added IF to be sure position exists
+#               2020/01/11 - F. Kotov Limited image preview size to 500px
 #
 # Notes:     1) Input files must contain GPSLatitude and GPSLongitude.
-#            2) Add the -ee option to extract the full track from video files.
+#            2) Add the -ee3 option to extract the full track from video files.
 #            3) For Google Earth to be able to find the images, the input
 #               images must be specified using relative paths, and "out.kml"
 #               must stay in the same directory as where the command was run.
@@ -38,14 +39,13 @@
 #[HEAD]      </IconStyle>
 #[HEAD]    </Style>
 #[SECT]    <Folder>
-#[SECT]      <name>$directory</name>
+#[SECT]      <name>$main:directory</name>
 #[SECT]      <open>0</open>
 #[IF]  $gpslatitude $gpslongitude
 #[BODY]      <Placemark>
-#[BODY]        <description><![CDATA[<br/><table><tr><td>
-#[BODY]        <img src='$directory/$filename'
-#[BODY]          width='$imagewidth' height='$imageheight'>
-#[BODY]        </td></tr></table>]]></description>
+#[BODY]        <description><![CDATA[<img src='$main:directory/$main:filename'
+#[BODY]          style='max-width:500px;max-height:500px;'> ]]>
+#[BODY]        </description>
 #[BODY]        <Snippet/>
 #[BODY]        <name>$filename</name>
 #[BODY]        <styleUrl>#Photo</styleUrl>

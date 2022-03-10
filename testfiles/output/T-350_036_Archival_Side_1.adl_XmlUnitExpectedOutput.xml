@@ -35,7 +35,7 @@
     <tool toolname="Droid" toolversion="6.4" executionTime="98" />
     <tool toolname="Jhove" toolversion="1.20.1" status="did not run" />
     <tool toolname="file utility" toolversion="5.31" status="did not run" />
-    <tool toolname="Exiftool" toolversion="11.54" executionTime="571" />
+    <tool toolname="Exiftool" toolversion="11.54" status="did not run" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
     <tool toolname="OIS File Information" toolversion="0.2" executionTime="98" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />

@@ -14,8 +14,8 @@ These tags apply to CRW-format Canon RAW files and information in the APP0
 length of the information is preserved (and the new information is truncated
 or padded as required) unless <b>Writable</b> is <code>resize</code>. Currently, only
 JpgFromRaw and ThumbnailImage are allowed to change size.  See
-<a href="../canon_raw.html">canon_raw.html</a> for a description
-of the Canon CRW format.</p>
+<a href="../canon_raw.html">canon_raw.html</a> for a description of the Canon CRW
+format.</p>
 
 <p>CRW images also support the addition of a CanonVRD trailer, which in turn
 supports XMP.  This trailer is created automatically if necessary when
@@ -277,12 +277,12 @@ models do not produce CRW images)</span></td></tr>
 <tr>
 <td title='0x2007 = 8199'>0x2007</td>
 <td>JpgFromRaw</td>
-<td class=c>resize</td>
+<td class=c title=' ^ = Deletable'>resize^</td>
 <td>&nbsp;</td></tr>
 <tr class=b>
 <td title='0x2008 = 8200'>0x2008</td>
 <td>ThumbnailImage</td>
-<td class=c>resize</td>
+<td class=c title=' ^ = Deletable'>resize^</td>
 <td>&nbsp;</td></tr>
 <tr>
 <td title='0x2804 = 10244'>0x2804</td>
@@ -558,7 +558,7 @@ models do not produce CRW images)</span></td></tr>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Mar 18, 2019</i>
+<br><i>Last revised Nov 28, 2019</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

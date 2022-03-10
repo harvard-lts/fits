@@ -19,7 +19,7 @@ use strict;
 use vars qw($VERSION $warnString);
 use Image::ExifTool qw(:DataAccess :Utils);
 
-$VERSION = '1.25';
+$VERSION = '1.27';
 
 sub WarnProc($) { $warnString = $_[0]; }
 
@@ -125,6 +125,7 @@ my %iWorkType = (
         Name => 'ZipFileName',
         Format => 'string[$$self{ZipFileNameLength}]',
     },
+    _com => 'ZipFileComment',
 );
 
 # GNU ZIP tags (ref 3)
@@ -380,6 +381,8 @@ sub HandleMember($$;$)
     $et->HandleTag($tagTablePtr, 9, $member->compressedSize());
     $et->HandleTag($tagTablePtr, 11, $member->uncompressedSize());
     $et->HandleTag($tagTablePtr, 15, $member->fileName());
+    my $com = $member->fileComment();
+    $et->HandleTag($tagTablePtr, '_com', $com) if defined $com and length $com;
 }
 
 #------------------------------------------------------------------------------
@@ -397,7 +400,7 @@ sub ProcessZIP($$)
     my $tagTablePtr = GetTagTable('Image::ExifTool::ZIP::Main');
     my $docNum = 0;
 
-    # use Archive::Zip if avilable
+    # use Archive::Zip if available
     for (;;) {
         unless (eval { require Archive::Zip } and eval { require IO::File }) {
             if ($$et{FILE_EXT} and $$et{FILE_EXT} ne 'ZIP') {
@@ -448,6 +451,10 @@ sub ProcessZIP($$)
             $et->Warn("$err reading ZIP file");
             last;
         }
+        # extract zip file comment
+        my $comment = $zip->zipfileComment();
+        $et->FoundTag(Comment => $comment) if defined $comment and length $comment;
+
         $$dirInfo{ZIP} = $zip;
 
         # check for an Office Open file (DOCX, etc)
@@ -456,7 +463,14 @@ sub ProcessZIP($$)
         my $cType = $zip->memberNamed('[Content_Types].xml');
         if ($cType) {
             ($buff, $status) = $zip->contents($cType);
-            if (not $status and $buff =~ /ContentType\s*=\s*(['"])([^"']+)\.main(\+xml)?\1/) {
+            if (not $status and (
+                # first look for the main document with the expected name
+                $buff =~ m{\sPartName\s*=\s*['"](?:/ppt/presentation.xml|/word/document.xml|/xl/workbook.xml)['"][^>]*\sContentType\s*=\s*(['"])([^"']+)\.main(\+xml)?\1} or
+                # then look for the main part
+                $buff =~ /<Override[^>]*\sPartName[^<]+\sContentType\s*=\s*(['"])([^"']+)\.main(\+xml)?\1/ or
+                # and if all else fails, use the default main
+                $buff =~ /ContentType\s*=\s*(['"])([^"']+)\.main(\+xml)?\1/))
+            {
                 $mime = $2;
             }
         }
@@ -648,6 +662,7 @@ sub ProcessZIP($$)
             DataLen => 30 + $len,
             DirStart => 0,
             DirLen => 30 + $len,
+            MixedTags => 1, # (to ignore FileComment tag)
         );
         $et->ProcessDirectory(\%dirInfo, $tagTablePtr);
         my $flags = Get16u(\$buff, 6);
@@ -693,7 +708,7 @@ Electronic Publication (EPUB), and Sketch design files (SKETCH).
 
 =head1 AUTHOR
 
-Copyright 2003-2019, Phil Harvey (phil at owl.phy.queensu.ca)
+Copyright 2003-2022, Phil Harvey (philharvey66 at gmail.com)
 
 This library is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

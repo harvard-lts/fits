@@ -41,7 +41,7 @@
                     <xsl:value-of select="string('application/rtf')"/>
                 </xsl:when>
                 <xsl:when test="$mime='application/vnd.ms-word.document.macroEnabled'">
-                    <xsl:value-of select="string('application/vnd.ms-word.document.macroenabled.12')"/>
+                    <xsl:value-of select="string('application/vnd.ms-word.document.macroEnabled.12')"/>
                 </xsl:when>
 				<xsl:when test="$mime='application/photoshop'">
 					<xsl:value-of select="string('image/vnd.adobe.photoshop')"/>
@@ -280,6 +280,9 @@
 				<xsl:when test="$format='MXF'">
 					<xsl:value-of select="string('Material Exchange Format (MXF)')"/>
 				</xsl:when>
+				<xsl:when test="$format='CSV'">
+					<xsl:value-of select="string('Comma-Separated Values (CSV)')"/>
+				</xsl:when>
 				<xsl:when test="$format=''">
 					<xsl:value-of select="string('Unknown Binary')"/>
 				</xsl:when>		
@@ -386,9 +389,10 @@
 			<xsl:choose>
 				<xsl:when test="$mime='application/msword' or
 				        $mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document' or
-				        $mime='application/vnd.ms-word.document.macroEnabled'">
+				        $mime='application/vnd.ms-word.document.macroEnabled' or
+				        $mime='application/vnd.ms-word.document.macroEnabled.12'">
 				    <xsl:if test="exiftool/AppVersion">
-						<xsl:value-of select="exiftool/AppVersion[1]"/>			
+						<xsl:value-of select="exiftool/AppVersion[1]"/>
 				    </xsl:if>
 				</xsl:when>
 			</xsl:choose>

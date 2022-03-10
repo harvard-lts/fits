@@ -2,7 +2,7 @@
 # After "make install" it should work as "perl t/ExifTool.t".
 
 BEGIN {
-    $| = 1; print "1..31\n"; $Image::ExifTool::configFile = '';
+    $| = 1; print "1..32\n"; $Image::ExifTool::configFile = '';
     require './t/TestLib.pm'; t::TestLib->import();
 }
 END {print "not ok 1\n" unless $loaded;}
@@ -121,7 +121,7 @@ my $testnum = 1;
     print "ok $testnum\n";
 }
 
-# tests 12/13: check precidence of tags extracted from groups
+# tests 12/13: check precedence of tags extracted from groups
 # (Note: these tests should produce the same output as 7/8,
 #  so the .out files from tests 7/8 are used)
 {
@@ -146,8 +146,9 @@ my $testnum = 1;
     $exifTool->ExtractInfo('t/images/Canon.jpg');
     my @groups = $exifTool->GetGroups(2);
     my $not;
-    foreach ('Camera','ExifTool','Image','Time') {
-        $_ eq shift @groups or $not = 1;
+    foreach ('Camera','ExifTool','Image','Other','Time') {
+        my $g = shift @groups || '';
+        $_ eq $g or warn("\nWrong group: $_ ne $g\n"), $not = 1;
     }
     @groups and $not = 1;
     print 'not ' if $not;
@@ -338,6 +339,15 @@ my $testnum = 1;
     ++$testnum;
     my $exifTool = new Image::ExifTool;
     my $info = $exifTool->ImageInfo('t/images/CanonRaw.cr2', 'Validate', 'Warning', 'Error');
+    print 'not ' unless check($exifTool, $info, $testname, $testnum);
+    print "ok $testnum\n";
+}
+
+# test 32: Read JPS file
+{
+    ++$testnum;
+    my $exifTool = new Image::ExifTool;
+    my $info = $exifTool->ImageInfo('t/images/ExifTool.jps', 'jps:all');
     print 'not ' unless check($exifTool, $info, $testname, $testnum);
     print "ok $testnum\n";
 }

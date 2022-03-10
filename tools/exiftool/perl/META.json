@@ -1,16 +1,16 @@
 {
    "abstract" : "Read and write meta information",
    "author" : [
-      "Phil Harvey (phil@owl.phy.queensu.ca)"
+      "Phil Harvey (philharvey66 at gmail.com)"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.150010",
+   "generated_by" : "ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.133380",
    "license" : [
       "perl_5"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
-      "version" : 2
+      "version" : "2"
    },
    "name" : "Image-ExifTool",
    "no_index" : {
@@ -47,6 +47,5 @@
       }
    },
    "release_status" : "stable",
-   "version" : "11.54",
-   "x_serialization_backend" : "JSON::PP version 4.02"
+   "version" : "12.40"
 }

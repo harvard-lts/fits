@@ -19,7 +19,7 @@ imaging cameras by FLIR Systems Inc.</p>
 <td title='0x0001 = 1'>0x0001</td>
 <td>ImageTemperatureMax</td>
 <td class=c>rational64u</td>
-<td><span class=s><span class=n>(these temperatures may be in Celcius, Kelvin or Fahrenheit, but there is no
+<td><span class=s><span class=n>(these temperatures may be in Celsius, Kelvin or Fahrenheit, but there is no
 way to tell which)</span></span></td></tr>
 <tr class=b>
 <td title='0x0002 = 2'>0x0002</td>
@@ -51,7 +51,7 @@ way to tell which)</span></span></td></tr>
 <h2><a name='FFF'>FLIR FFF Tags</a></h2>
 <p>Information extracted from FLIR FFF images and the APP1 FLIR segment of JPEG
 images.  These tags may also be extracted from the first frame of an FLIR
-SEQ file.</p>
+SEQ file, or all frames if the ExtractEmbedded option is used.</p>
 <blockquote>
 <table class=frame><tr><td>
 <table class=inner cellspacing=1>
@@ -271,7 +271,7 @@ other image data)</span></span></td></tr>
 <h2><a name='CameraInfo'>FLIR CameraInfo Tags</a></h2>
 <p>FLIR camera information.  The Planck tags are variables used in the
 temperature calculation.  See
-<a href="http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=4898.msg23972#msg23972">http://u88.n24.queensu.ca/exiftool/forum/index.php?topic=4898.msg23972#msg23972</a>
+<a href="../forum/index.php?topic=4898.msg23972#msg23972">forum/index.php?topic=4898.msg23972#msg23972</a>
 for details.</p>
 <blockquote>
 <table class=frame><tr><td>
@@ -777,13 +777,24 @@ Tags for subsequent measurements are generated as required with the prefixes
 <td><span class=s>&#39;M&#39; = Magnetic North
   <br>&#39;T&#39; = True North</span></td></tr>
 <tr>
+<td class=r title='72 = 0x48'>72</td>
+<td>GPSImgDirectionRef</td>
+<td class=c>no</td>
+<td><span class=s>&#39;M&#39; = Magnetic North
+  <br>&#39;T&#39; = True North</span></td></tr>
+<tr class=b>
 <td class=r title='76 = 0x4c'>76</td>
 <td>GPSSpeed</td>
 <td class=c>no</td>
 <td>&nbsp;</td></tr>
-<tr class=b>
+<tr>
 <td class=r title='80 = 0x50'>80</td>
 <td>GPSTrack</td>
+<td class=c>no</td>
+<td>&nbsp;</td></tr>
+<tr class=b>
+<td class=r title='84 = 0x54'>84</td>
+<td>GPSImgDirection</td>
 <td class=c>no</td>
 <td>&nbsp;</td></tr>
 <tr>
@@ -1416,7 +1427,7 @@ in FLIR MP4 videos.</p>
 
 <hr>
 (This document generated automatically by Image::ExifTool::BuildTagLookup)
-<br><i>Last revised Apr 18, 2019</i>
+<br><i>Last revised Jan 12, 2022</i>
 <p class=lf><a href='index.html'>&lt;-- ExifTool Tag Names</a></p>
 </body>
 </html>

@@ -1,14 +1,14 @@
-[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 9.93
-[File, System, Image] FileName - File Name: PhotoCD.pcd
-[File, System, Image] Directory - Directory: t/images
-[File, System, Image] FileSize - File Size: 4.0 kB
+[ExifTool, ExifTool, ExifTool] ExifToolVersion - ExifTool Version Number: 12.11
+[File, System, Other] FileName - File Name: PhotoCD.pcd
+[File, System, Other] Directory - Directory: t/images
+[File, System, Other] FileSize - File Size: 4.0 KiB
 [File, System, Time] FileModifyDate - File Modification Date/Time: 2012:05:07 13:11:08-04:00
-[File, System, Time] FileAccessDate - File Access Date/Time: 2015:04:18 07:17:35-04:00
-[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2015:03:07 15:31:28-05:00
-[File, System, Image] FilePermissions - File Permissions: rw-r--r--
-[File, File, Image] FileType - File Type: PCD
-[File, File, Image] FileTypeExtension - File Type Extension: pcd
-[File, File, Image] MIMEType - MIME Type: image/x-photo-cd
+[File, System, Time] FileAccessDate - File Access Date/Time: 2020:11:26 10:02:39-05:00
+[File, System, Time] FileInodeChangeDate - File Inode Change Date/Time: 2017:12:27 12:00:59-05:00
+[File, System, Other] FilePermissions - File Permissions: rw-r--r--
+[File, File, Other] FileType - File Type: PCD
+[File, File, Other] FileTypeExtension - File Type Extension: pcd
+[File, File, Other] MIMEType - MIME Type: image/x-photo-cd
 [PhotoCD, PhotoCD, Image] 7 - Specification Version: 0.6
 [PhotoCD, PhotoCD, Image] 9 - Authoring Software Release: 7.61
 [PhotoCD, PhotoCD, Image] 11 - Image Magnification Descriptor: 1.0
@@ -33,5 +33,5 @@
 [PhotoCD, PhotoCD, Image] 1538.1 - Image Width: 2048
 [PhotoCD, PhotoCD, Image] 1538.2 - Image Height: 3072
 [PhotoCD, PhotoCD, Image] 1538.3 - Compression Class: Class 1 - 35mm film; Pictoral hard copy
-[Composite, Composite, Image] ImageSize - Image Size: 2048x3072
-[Composite, Composite, Image] Megapixels - Megapixels: 6.3
+[Composite, Composite, Image] Exif-ImageSize - Image Size: 2048x3072
+[Composite, Composite, Image] Exif-Megapixels - Megapixels: 6.3
