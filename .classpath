@@ -195,5 +195,6 @@
 	<classpathentry kind="lib" path="lib/droid/truezip-swing-7.7.10.jar"/>
 	<classpathentry kind="lib" path="lib/droid/xercesImpl-2.9.1.jar"/>
 	<classpathentry kind="lib" path="lib/droid/xz-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/embarc/embARC.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
