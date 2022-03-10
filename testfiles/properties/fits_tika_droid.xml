@@ -43,7 +43,7 @@
 	
 	<!-- file name of the droid signature file to use in tools/droid/-->
 	<droid_sigfile>DROID_SignatureFile_V102_Alt.xml</droid_sigfile>
-	<droid_container_sigfile>container-signature-20200121.xml</droid_container_sigfile>
+	<droid_container_sigfile>container-signature-20211216.xml</droid_container_sigfile>
     <!-- Limits number of bytes DROID reads in (in KB) for processing large files for the listed file extensions. -->
     <!-- Note: This should only be used with files that can provide sufficient metadata at beginning of the file -->
     <!-- <droid_read_limit include-exts="mov,mxf" read-limit-kb="64" /> -->
