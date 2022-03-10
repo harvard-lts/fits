@@ -201,7 +201,7 @@
 					</xsl:when>						
 					<!-- PDF document, version 1.5 -->
 					<xsl:when test="$mime='application/pdf'">
-					  	<xsl:analyze-string select="$format" regex="(.*), version (.*)">		
+					  	<xsl:analyze-string select="$format" regex="([^,]*), version ([^,]*).*">
 						    <xsl:matching-substring>
 						    	<xsl:attribute name="format">
 						    		<xsl:if test="regex-group(1)='PDF document'">
@@ -396,7 +396,7 @@
                     </xsl:when> 
 					<!-- Zip archive data, at least v2.0 to extract -->
 					<xsl:when test="$mime='application/zip'">
-					  	<xsl:analyze-string select="$format" regex="(.*),(.*)">		
+					  	<xsl:analyze-string select="$format" regex="([^,]*),(.*)">
 						    <xsl:matching-substring>
 						    	<xsl:attribute name="format">
 						    		<xsl:if test="regex-group(1)='Zip archive data'">
