@@ -5,7 +5,7 @@
       <tool toolname="Droid" toolversion="6.4" />
       <tool toolname="Exiftool" toolversion="11.54" />
       <tool toolname="Tika" toolversion="1.21" />
-      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">fmt/483</externalIdentifier>
+      <externalIdentifier toolname="Droid" toolversion="6.5" type="puid">fmt/483</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>

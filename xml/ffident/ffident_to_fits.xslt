@@ -20,6 +20,9 @@
                             <xsl:when test="$format='Microsoft Word Document'">
                                 <xsl:value-of select="string('Microsoft Word Binary File Format')"/>
                             </xsl:when>
+                            <xsl:when test="$format='Microsoft Excel Format'">
+                                <xsl:value-of select="string('Microsoft Excel')"/>
+                            </xsl:when>
                             <xsl:otherwise>
 								<xsl:value-of select="$format" />
                             </xsl:otherwise>

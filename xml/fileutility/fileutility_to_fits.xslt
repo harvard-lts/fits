@@ -393,7 +393,27 @@
                         <xsl:attribute name="format">
                             <xsl:value-of select="string('Office Open XML Document')"/>
                         </xsl:attribute>                
-                    </xsl:when> 
+                    </xsl:when>
+					<xsl:when test="$mime='application/vnd.ms-excel'">
+						<xsl:attribute name="format">
+							<xsl:value-of select="string('Microsoft Excel')"/>
+						</xsl:attribute>
+					</xsl:when>
+					<xsl:when test="$mime='application/vnd.ms-powerpoint'">
+						<xsl:attribute name="format">
+							<xsl:value-of select="string('Microsoft Powerpoint Presentation')"/>
+						</xsl:attribute>
+					</xsl:when>
+					<xsl:when test="$mime='application/vnd.openxmlformats-officedocument.presentationml.presentation'">
+                        <xsl:attribute name="format">
+                            <xsl:value-of select="string('Office Open XML Presentation')"/>
+                        </xsl:attribute>
+                    </xsl:when>
+					<xsl:when test="$mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'">
+                        <xsl:attribute name="format">
+                            <xsl:value-of select="string('Office Open XML Workbook')"/>
+                        </xsl:attribute>
+                    </xsl:when>
 					<!-- Zip archive data, at least v2.0 to extract -->
 					<xsl:when test="$mime='application/zip'">
 					  	<xsl:analyze-string select="$format" regex="([^,]*),(.*)">

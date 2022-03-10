@@ -97,8 +97,6 @@ public class DroidToolOutputter {
             // maybe this block should be moved to mapFormatName() ???
             if(formatName.equals("Digital Negative (DNG)")) {
             	mimeType="image/x-adobe-dng";
-            } else if (formatName.equals("Office Open XML Document")) {
-            	mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document";
             }
 
             String version = res.getVersion();
@@ -120,7 +118,7 @@ public class DroidToolOutputter {
             idElem.addContent (identityElem);
 
             // If there's a version, report it
-            if (version != null) {
+            if (version != null && !version.isEmpty()) {
                 Element versionElem = new Element ("version", fitsNS);
                 identityElem.addContent(versionElem);
                 versionElem.addContent (version);
@@ -196,7 +194,10 @@ public class DroidToolOutputter {
     	else if(formatName.contains("Portable Document Format")) {
     		return "Portable Document Format";
     	}
-    	else if(formatName.startsWith("Microsoft Excel")) {
+    	else if(formatName.startsWith("Microsoft Word") && !formatName.equals("Microsoft Word for Windows")) {
+    		return "Microsoft Word Binary File Format";
+    	}
+    	else if(formatName.startsWith("Microsoft Excel") && !formatName.equals("Microsoft Excel for Windows")) {
     		return "Microsoft Excel";
     	}
     	else if(FitsMetadataValues.getInstance().normalizeFormat(formatName) != null){

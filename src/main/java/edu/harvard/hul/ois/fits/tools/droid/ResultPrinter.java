@@ -36,6 +36,7 @@ package edu.harvard.hul.ois.fits.tools.droid;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,9 @@ import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationRequest;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResult;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultImpl;
 import uk.gov.nationalarchives.droid.core.interfaces.archive.IdentificationRequestFactory;
+import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 
 /**
  * File identification results printer.
@@ -88,6 +91,7 @@ public class ResultPrinter {
     private final String WARC_ARCHIVE = "fmt/289";
     
     private ContainerAggregator aggregator;
+    private Map<String, Format> puidFormatMap;
     
     private static final Logger logger = LoggerFactory.getLogger(ResultPrinter.class);
 
@@ -102,11 +106,12 @@ public class ResultPrinter {
      * @param archives                      Should archives be examined?
      * @param webArchives                   Should web archives be examined?
      * @param aggregator
+     * @param puidFormatMap                 map of puids to formats
      */
     public ResultPrinter(final BinarySignatureIdentifier binarySignatureIdentifier,
             final ContainerSignatureDefinitions containerSignatureDefinitions,
             final String path, final String slash, final String slash1, boolean archives, boolean webArchives,
-            final ContainerAggregator aggregator) {
+            final ContainerAggregator aggregator, final Map<String, Format> puidFormatMap) {
     
         this.binarySignatureIdentifier = binarySignatureIdentifier;
         this.containerSignatureDefinitions = containerSignatureDefinitions;
@@ -120,6 +125,7 @@ public class ResultPrinter {
             triggerPuids = containerSignatureDefinitions.getTiggerPuids();
         }
         this.aggregator = aggregator;
+        this.puidFormatMap = puidFormatMap;
     }
     
     /**
@@ -227,6 +233,18 @@ public class ResultPrinter {
                 }
             }
         }
+
+        // container results only have the PUID filled in
+        for (IdentificationResult result : containerResults.getResults()) {
+            IdentificationResultImpl impl = (IdentificationResultImpl) result;
+            Format format = puidFormatMap.get(result.getPuid());
+            if (format != null) {
+                impl.setName(format.getName());
+                impl.setMimeType(format.getMimeType());
+                impl.setVersion(format.getVersion());
+            }
+        }
+
         return containerResults;
     }
     
