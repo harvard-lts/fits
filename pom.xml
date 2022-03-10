@@ -16,8 +16,8 @@
 		<java.version>1.8</java.version>
 		<java.target>1.8</java.target>
 		<bcmail.version>132</bcmail.version>
-		<log4j.version>1.2.17</log4j.version>
-		<slf4j.version>1.7.32</slf4j.version>
+		<log4j.version>2.17.1</log4j.version>
+		<slf4j.version>1.7.36</slf4j.version>
 		<tika.version>2.3.0</tika.version>
 		<jdom.version>1.1.3</jdom.version>
 		<woodstox.version>4.4.1</woodstox.version>
@@ -143,8 +143,13 @@
 			<version>${xerces-impl.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
 		<dependency>
@@ -154,8 +159,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
+			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jdom</groupId>
@@ -224,6 +234,10 @@
 				<exclusion>
 					<groupId>org.apache.logging.log4j</groupId>
 					<artifactId>log4j-slf4j-impl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>

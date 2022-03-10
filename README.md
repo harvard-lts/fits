@@ -76,16 +76,16 @@ Here are a couple examples of running FITS to get you started. These are relativ
 
 Logging
 -------
-Whether using the default log4j.properties configuration file contained within the application deployment or configuring an external log4j.properties file, the default logging output file, fits.log, is configured to be written to the directory from which the FITS is launched. This can be modified by finding the following line within the log4j.properties file in the top-level directory of the FITS deployment:
+Whether using the default log4j2.xml configuration file contained within the application deployment or configuring an external log4j2.xml file, the default logging output file, fits.log, is configured to be written to the directory from which the FITS is launched. This can be modified by finding the following line within the log4j2.xml file in the top-level directory of the FITS deployment:
 
-    log4j.appender.FILE.File = ./fits.log
+    fileName="./fits.log"
 
 Modify the path to fits.log to have this log file written to a different place on the file system.
-To use a log4j.properties file external to the FITS deployment, when launching FITS add the following property to the deployment script:
+To use a log4j2.xml (or log4j2.properties) file external to the FITS deployment, when launching FITS add the following property to the deployment script:
 
-    -Dlog4j.configuration=/path/to/log4j.properties
+    -Dlog4j2.configurationFile=/path/to/log4j2.xml
 
-For more information on configuring the verboseness of logging using ERROR, WARN, INFO, DEBUG, see the [log4j site](http://logging.apache.org/log4j/1.2/)
+For more information on configuring the verboseness of logging using ERROR, WARN, INFO, DEBUG, see the [log4j site](https://logging.apache.org/log4j/2.x/manual/)
 
 Using FITS Java API
 -------------------

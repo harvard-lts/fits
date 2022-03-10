@@ -18,12 +18,13 @@ import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
-import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is a class used to parse and validate VTT video caption files
@@ -34,7 +35,7 @@ public class VTTTool extends ToolBase {
 	private Fits fits;
 	private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
-	private static final Logger logger = Logger.getLogger(VTTTool.class);
+	private static final Logger logger = LoggerFactory.getLogger(VTTTool.class);
 
 	private final static String VTT_TOOL_VERSION = "0.1";
 	private final static String VTT_IDENTIFIER = "WEBVTT";

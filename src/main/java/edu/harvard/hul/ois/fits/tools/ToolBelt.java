@@ -20,12 +20,13 @@ import java.util.List;
 
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 import edu.harvard.hul.ois.fits.tools.utils.ParentLastClassLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ToolBelt {
 
@@ -33,7 +34,7 @@ public class ToolBelt {
 	// This is used for building custom class loaders representing all FITS class files.
 	private URL fitsUrl;
 
-    private static Logger logger = Logger.getLogger(ToolBelt.class);
+	private static Logger logger = LoggerFactory.getLogger(ToolBelt.class);
 
     /** The representation of one tools-used element in the config file */
     public class ToolsUsedItem {

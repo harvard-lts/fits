@@ -18,7 +18,6 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 
 import org.jdom.Document;
-import org.apache.log4j.Logger;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
@@ -33,6 +32,8 @@ import edu.harvard.hul.ois.jhove.JhoveBase;
 import edu.harvard.hul.ois.jhove.JhoveException;
 import edu.harvard.hul.ois.jhove.Module;
 import edu.harvard.hul.ois.jhove.handler.XmlHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**  The glue class for invoking JHOVE under FITS.
  */
@@ -46,7 +47,7 @@ public class Jhove extends ToolBase {
     private Fits fits;
 
     private final static String jhoveFitsConfig = Fits.FITS_XML_DIR + "jhove" + File.separator;
-    private static final Logger logger = Logger.getLogger(Jhove.class);
+	private static final Logger logger = LoggerFactory.getLogger(Jhove.class);
 
 	public Jhove(Fits fits) throws FitsException {
 		super();

@@ -13,7 +13,6 @@ package edu.harvard.hul.ois.fits.tools.oisfileinfo;
 import java.io.File;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -23,6 +22,8 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** A FITS-native tool for getting informationa about XML files.
  */
@@ -42,7 +43,7 @@ public class XmlMetadata extends ToolBase {
 	private boolean enabled = true;
 	private Fits fits;
 
-    private static Logger logger = Logger.getLogger(XmlMetadata.class);
+	private static final Logger logger = LoggerFactory.getLogger(XmlMetadata.class);
 
 	public XmlMetadata(Fits fits) throws FitsToolException{
 		super();

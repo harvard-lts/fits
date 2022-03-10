@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 
-import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 
@@ -33,6 +32,8 @@ import nz.govt.natlib.fx.ParserListener;
 import nz.govt.natlib.meta.config.Config;
 import nz.govt.natlib.meta.harvester.DTDXmlParserListener;
 import nz.govt.natlib.meta.log.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**  The glue class for invoking the NLNZ Metadata Extractor under FITS.
  */
@@ -46,7 +47,7 @@ public class MetadataExtractor extends ToolBase {
 	private boolean enabled = true;
     private Fits fits;
 
-    private static final Logger logger = Logger.getLogger(MetadataExtractor.class);
+	private static final Logger logger = LoggerFactory.getLogger(MetadataExtractor.class);
 
     static {
     	nlnzFitsConfig = Fits.FITS_XML_DIR+"nlnz"+File.separator+"fits"+File.separator;

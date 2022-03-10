@@ -17,7 +17,6 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.log4j.Logger;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -25,6 +24,8 @@ import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.jdom.output.XMLOutputter;
 import org.jdom.xpath.XPath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -38,7 +39,7 @@ import edu.harvard.hul.ois.fits.identity.ToolIdentity;
  */
 public class ToolOutput {
 
-	private static Logger logger = Logger.getLogger(ToolOutput.class);
+	private static Logger logger = LoggerFactory.getLogger(ToolOutput.class);
 
     private DocumentBuilderFactory docBuilderFactory;
 

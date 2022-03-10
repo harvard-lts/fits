@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -34,7 +35,7 @@ public class FitsXmlMapper {
 
 	private static final String FITS_XML_MAP_PATH = Fits.FITS_XML_DIR+"fits_xml_map.xml";
 	private List<ToolMap> toolMaps = new ArrayList<ToolMap>();
-    private static Logger logger = Logger.getLogger(FitsXmlMapper.class);
+    private static Logger logger = LoggerFactory.getLogger(FitsXmlMapper.class);
 
 	public FitsXmlMapper() throws JDOMException, IOException {
 		 SAXBuilder saxBuilder = new SAXBuilder();

@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
 import org.jdom.Document;
 import org.jdom.Element;
 
@@ -29,6 +28,8 @@ import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileUtility extends ToolBase {
 
@@ -41,7 +42,7 @@ public class FileUtility extends ToolBase {
 	private boolean enabled = true;
     private Fits fits;
 
-    private static final Logger logger = Logger.getLogger(FileUtility.class);
+	private static final Logger logger = LoggerFactory.getLogger(FileUtility.class);
 
     private final static String xslt = Fits.FITS_XML_DIR+"fileutility/fileutility_to_fits.xslt";
 

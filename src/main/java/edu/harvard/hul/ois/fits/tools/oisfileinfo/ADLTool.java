@@ -18,7 +18,6 @@ import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
-import org.apache.log4j.Logger;
 
 import com.therockquarry.aes31.adl.ADL;
 
@@ -26,6 +25,8 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This uses the audio file parsing library therockquarry.jar provided by Dave Ackerman
@@ -38,7 +39,7 @@ public class ADLTool extends ToolBase {
 	private Fits fits;
 	private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
-    private static final Logger logger = Logger.getLogger(ADLTool.class);
+	private static final Logger logger = LoggerFactory.getLogger(ADLTool.class);
 
 	public ADLTool(Fits fits) throws FitsToolException {
 		super();
