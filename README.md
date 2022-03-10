@@ -20,7 +20,7 @@ container service, and execute the following:
 
     # The build only needs to be run once
     docker build -f docker/Dockerfile-test -t fits-test .
-    docker run -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
+    docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
 
 To build yet skip the tests, use the following command:
 
