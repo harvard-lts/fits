@@ -18,7 +18,7 @@
         <tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.XmlMetadata" include-exts="xml" classpath-dirs="lib/xmlmetadata" />
         <tool class="edu.harvard.hul.ois.fits.tools.ffident.FFIdent" exclude-exts="dng,wps,vsd,jar,ppt,rtf" classpath-dirs="lib/ffident" />
         <tool class="edu.harvard.hul.ois.fits.tools.tika.TikaTool" exclude-exts="adl,vtt,csv,jar,avi,mov,mpg,mpeg,mkv,mp4,mpeg4,m2ts,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv" classpath-dirs="lib/tika"/>
-		<tool class="edu.harvard.hul.ois.fits.tools.embarc.EmbARC" exclude-exts="mxf" classpath-dirs="lib/embarc" />
+		<tool class="edu.harvard.hul.ois.fits.tools.embarc.EmbARC" include-exts="dpx" classpath-dirs="lib/embarc" />
 	</tools>
 	
 	<output>
