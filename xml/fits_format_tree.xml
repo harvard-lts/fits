@@ -26,6 +26,8 @@
 	<branch format="Plain text">
 		<branch format="Extensible Markup Language">
 			<branch format="Scalable Vector Graphics (SVG)"/>
+			<branch format="Keyhole Markup Language" />
+			<branch format="TEI" />
 		</branch>
 		<branch format="Hypertext Markup Language"/>
 		<branch format="Postscript"/>
