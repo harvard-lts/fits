@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.2-SNAPSHOT" timestamp="12/29/21, 12:14 PM">
   <identification status="CONFLICT">
-    <identity format="Keyhole Markup Language (XML)" mimetype="application/vnd.google-earth.kml+xml" toolname="FITS" toolversion="1.5.2-SNAPSHOT">
+    <identity format="Keyhole Markup Language" mimetype="application/vnd.google-earth.kml+xml" toolname="FITS" toolversion="1.5.2-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
+      <tool toolname="Tika" toolversion="2.3.0" />
       <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/244</externalIdentifier>
     </identity>
     <identity format="Extensible Markup Language" mimetype="text/xml" toolname="FITS" toolversion="1.5.2-SNAPSHOT">
@@ -11,9 +12,6 @@
       <tool toolname="Exiftool" toolversion="11.54" />
       <tool toolname="ffident" toolversion="0.2" />
       <version toolname="Jhove" toolversion="1.20.1">1.0</version>
-    </identity>
-    <identity format="Keyhole Markup Language" mimetype="application/vnd.google-earth.kml+xml" toolname="FITS" toolversion="1.5.2-SNAPSHOT">
-      <tool toolname="Tika" toolversion="2.2.1" />
     </identity>
   </identification>
   <fileinfo>

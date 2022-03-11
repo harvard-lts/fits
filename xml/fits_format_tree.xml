@@ -54,9 +54,12 @@
         <branch format="Office Open XML Document">
             <branch format="Office Open XML Document (Macros Enabled)" />
         </branch>
+		<branch format="Office Open XML Workbook" />
+		<branch format="Office Open XML Presentation" />
 	</branch>
 	<branch format="OLE2 Compound Document Format">
 	   <branch format="Microsoft Word Binary File Format" />
+	   <branch format="Microsoft Excel" />
 	</branch>
 	<branch format="Microsoft ASF">
 		<branch format="Windows Media Video" />

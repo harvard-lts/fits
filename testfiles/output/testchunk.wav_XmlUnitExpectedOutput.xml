@@ -19,11 +19,11 @@
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1446674963000</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">true</valid>
-    <message toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">Ignored unrecognized chunk: FLLR severity=info offset=910</message>
-    <message toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">Ignored unrecognized chunk: MD5  severity=info offset=3986310</message>
-    <message toolname="Jhove" toolversion="1.20" status="SINGLE_RESULT">Ignored unrecognized chunk: axml severity=info offset=3986366</message>
+    <well-formed toolname="Jhove" toolversion="1.24.9" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.24.9" status="SINGLE_RESULT">true</valid>
+    <message toolname="Jhove" toolversion="1.24.9" status="SINGLE_RESULT">Ignored unrecognized chunk: "FLLR" severity=info offset=902</message>
+    <message toolname="Jhove" toolversion="1.24.9" status="SINGLE_RESULT">Ignored unrecognized chunk: "MD5 " severity=info offset=3986302</message>
+    <message toolname="Jhove" toolversion="1.24.9" status="SINGLE_RESULT">Ignored unrecognized chunk: "axml" severity=info offset=3986358</message>
   </filestatus>
   <metadata>
     <audio>

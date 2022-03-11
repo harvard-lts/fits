@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0" timestamp="8/11/21, 10:10 AM">
+  <identification>
+    <identity format="Microsoft Powerpoint Presentation" mimetype="application/vnd.ms-powerpoint" toolname="FITS" toolversion="1.5.0">
+      <tool toolname="Droid" toolversion="6.5" />
+      <tool toolname="file utility" toolversion="5.39" />
+      <tool toolname="Exiftool" toolversion="12.29" />
+      <tool toolname="Tika" toolversion="2.0.0" />
+      <version toolname="Droid" toolversion="6.5">97-2003</version>
+      <externalIdentifier toolname="Droid" toolversion="6.5" type="puid">fmt/126</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <lastmodified toolname="Exiftool" toolversion="12.29" status="CONFLICT">2003:04:02 16:50:46</lastmodified>
+    <lastmodified toolname="Tika" toolversion="2.0.0" status="CONFLICT">2003-04-02T16:50:46Z</lastmodified>
+    <created toolname="Exiftool" toolversion="12.29" status="CONFLICT">2003:01:03 13:40:42</created>
+    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2003-01-03T13:40:42Z</created>
+    <creatingApplicationName toolname="Tika" toolversion="2.0.0" status="SINGLE_RESULT">Microsoft PowerPoint</creatingApplicationName>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/home/winckles/workspace/3rd-party/fits/testfiles/ConleyPPLec.ppt</filepath>
+    <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">ConleyPPLec.ppt</filename>
+    <size toolname="OIS File Information" toolversion="1.0">83456</size>
+    <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">e57ef0327d753efab0c49286e8296550</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1556115032000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <document>
+      <pageCount toolname="Tika" toolversion="2.0.0" status="SINGLE_RESULT">26</pageCount>
+      <wordCount toolname="Exiftool" toolversion="12.29">1631</wordCount>
+      <title toolname="Exiftool" toolversion="12.29">Making High Schools Work for All Students</title>
+      <author toolname="Exiftool" toolversion="12.29">David Conley</author>
+      <paragraphCount toolname="Exiftool" toolversion="12.29" status="SINGLE_RESULT">156</paragraphCount>
+      <standard>
+        <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
+          <docmd:PageCount>26</docmd:PageCount>
+          <docmd:WordCount>1631</docmd:WordCount>
+          <docmd:ParagraphCount>156</docmd:ParagraphCount>
+        </docmd:document>
+      </standard>
+    </document>
+  </metadata>
+  <statistics fitsExecutionTime="1138">
+    <tool toolname="MediaInfo" toolversion="21.03" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.5" executionTime="225" />
+    <tool toolname="Jhove" toolversion="1.24.0" executionTime="1107" />
+    <tool toolname="file utility" toolversion="5.39" executionTime="1096" />
+    <tool toolname="Exiftool" toolversion="12.29" executionTime="1111" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="214" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" status="did not run" />
+    <tool toolname="Tika" toolversion="2.0.0" executionTime="891" />
+  </statistics>
+</fits>
+

@@ -1,6 +1,8 @@
 FITS
 ====
 
+![build status](https://github.com/harvard-lts/fits/actions/workflows/build.yml/badge.svg)
+
 System Requirements
 -------------------
 FITS is a Java program and requires Java version 1.8 or higher. To find out your Java version type java -version in a command-line window.
@@ -20,7 +22,7 @@ container service, and execute the following:
 
     # The build only needs to be run once
     docker build -f docker/Dockerfile-test -t fits-test .
-    docker run -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
+    docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
 
 To build yet skip the tests, use the following command:
 

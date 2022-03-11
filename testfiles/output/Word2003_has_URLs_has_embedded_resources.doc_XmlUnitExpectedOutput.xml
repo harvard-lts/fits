@@ -2,10 +2,13 @@
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.4.0-SNAPSHOT" timestamp="10/24/18 4:42 PM">
   <identification>
     <identity format="Microsoft Word Binary File Format" mimetype="application/msword" toolname="FITS" toolversion="1.4.0-SNAPSHOT">
+      <tool toolname="Droid" toolversion="6.5" />
       <tool toolname="Exiftool" toolversion="11.14" />
       <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
       <tool toolname="ffident" toolversion="0.2" />
       <tool toolname="Tika" toolversion="1.19.1" />
+      <version toolname="Droid" toolversion="6.5">97-2003</version>
+      <externalIdentifier toolname="Droid" toolversion="6.5" type="puid">fmt/40</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>

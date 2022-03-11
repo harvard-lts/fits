@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.configuration.XMLConfiguration;
 
@@ -28,22 +30,40 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.nationalarchives.droid.command.action.VersionCommand;
+import uk.gov.nationalarchives.droid.container.ContainerFileIdentificationRequestFactory;
+import uk.gov.nationalarchives.droid.container.ContainerSignatureDefinitions;
+import uk.gov.nationalarchives.droid.container.ContainerSignatureFileReader;
+import uk.gov.nationalarchives.droid.container.ole2.Ole2Identifier;
+import uk.gov.nationalarchives.droid.container.ole2.Ole2IdentifierEngine;
+import uk.gov.nationalarchives.droid.container.zip.ZipIdentifier;
+import uk.gov.nationalarchives.droid.container.zip.ZipIdentifierEngine;
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.SignatureParseException;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResult;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
+import uk.gov.nationalarchives.droid.core.interfaces.archive.ArchiveFormatResolver;
+import uk.gov.nationalarchives.droid.core.interfaces.archive.ArchiveFormatResolverImpl;
+import uk.gov.nationalarchives.droid.core.interfaces.archive.ContainerIdentifierFactory;
+import uk.gov.nationalarchives.droid.core.interfaces.archive.ContainerIdentifierFactoryImpl;
+import uk.gov.nationalarchives.droid.profile.referencedata.Format;
+import uk.gov.nationalarchives.droid.signature.SaxSignatureFileParser;
+import uk.gov.nationalarchives.droid.signature.SignatureParser;
 
 /**  The principal glue class for invoking DROID under FITS.
  */
 public class Droid extends ToolBase {
 
 	private boolean enabled = true;
-    private Fits fits;
-    private List<String> includeExts;
+    private final Fits fits;
+    private final List<String> includeExts;
     private long kbReadLimit;
 
     private static File sigFile;
-    private static BinarySignatureIdentifier sigIdentifier = new BinarySignatureIdentifier();
+    private static final BinarySignatureIdentifier sigIdentifier = new BinarySignatureIdentifier();
+    private static final ContainerIdentifierFactory containerIdentifierFactory = new ContainerIdentifierFactoryImpl();
+    private static final ArchiveFormatResolver containerFormatResolver = new ArchiveFormatResolverImpl();
+    private static ContainerSignatureDefinitions containerSignatureDefinitions;
+	private static final Map<String, Format> puidFormatMap = new HashMap<>(2500);
 
     private final static List<String> CONTAINER_TYPE_MIMETYPES = Arrays.asList("application/zip");
 
@@ -61,9 +81,46 @@ public class Droid extends ToolBase {
 			// only need a single Droid signature file.
 			if (sigFile == null) {
 				synchronized(this) {
-					sigFile = new File(droid_conf + config.getString("droid_sigfile"));
-					sigIdentifier.setSignatureFile (sigFile.getAbsolutePath());
-					sigIdentifier.init();
+					if (sigFile == null) {
+						sigFile = new File(droid_conf + config.getString("droid_sigfile"));
+						sigIdentifier.setSignatureFile(sigFile.getAbsolutePath());
+						sigIdentifier.init();
+
+						// The following is necessary to init the code that identifies formats like docx, xlsx, etc
+						SignatureParser sigParser = new SaxSignatureFileParser(sigFile.toURI());
+						sigParser.formats(format -> {
+							puidFormatMap.put(format.getPuid(), format);
+						});
+
+						String containerSigFile = droid_conf + config.getString("droid_container_sigfile");
+						ContainerSignatureFileReader signatureReader = new ContainerSignatureFileReader(containerSigFile);
+
+						containerSignatureDefinitions = signatureReader.getDefinitions();
+
+						ZipIdentifierEngine zipIdentifierEngine = new ZipIdentifierEngine();
+						zipIdentifierEngine.setRequestFactory(new ContainerFileIdentificationRequestFactory());
+
+						ZipIdentifier zipIdentifier = new ZipIdentifier();
+						zipIdentifier.setContainerType("ZIP");
+						zipIdentifier.setContainerIdentifierFactory(containerIdentifierFactory);
+						zipIdentifier.setContainerFormatResolver(containerFormatResolver);
+						zipIdentifier.setDroidCore(sigIdentifier);
+						zipIdentifier.setIdentifierEngine(zipIdentifierEngine);
+						zipIdentifier.setSignatureReader(signatureReader);
+						zipIdentifier.init();
+
+						Ole2IdentifierEngine ole2IdentifierEngine = new Ole2IdentifierEngine();
+						ole2IdentifierEngine.setRequestFactory(new ContainerFileIdentificationRequestFactory());
+
+						Ole2Identifier ole2Identifier = new Ole2Identifier();
+						ole2Identifier.setContainerType("OLE2");
+						ole2Identifier.setContainerIdentifierFactory(containerIdentifierFactory);
+						ole2Identifier.setContainerFormatResolver(containerFormatResolver);
+						ole2Identifier.setDroidCore(sigIdentifier);
+						ole2Identifier.setIdentifierEngine(ole2IdentifierEngine);
+						ole2Identifier.setSignatureReader(signatureReader);
+						ole2Identifier.init();
+					}
 				}
 			}
 	        includeExts = (List<String>)(List<?>)config.getList("droid_read_limit[@include-exts]");
@@ -88,12 +145,11 @@ public class Droid extends ToolBase {
 		IdentificationResultCollection results;
 		ContainerAggregator aggregator = null;
 		try {
-			DroidQuery droidQuery = new DroidQuery (sigIdentifier, includeExts, kbReadLimit, file);
+			DroidQuery droidQuery = new DroidQuery (sigIdentifier, containerIdentifierFactory, containerFormatResolver,
+					puidFormatMap, containerSignatureDefinitions, includeExts, kbReadLimit, file);
 			// the following will almost always return a single result
 		    results = droidQuery.queryFile();
 	        for (IdentificationResult res : results.getResults()) {
-	            String formatName = res.getName();
-	            formatName = DroidToolOutputter.mapFormatName(formatName);
 	            String mimeType = res.getMimeType();
 
 	            if(FitsMetadataValues.getInstance().normalizeMimeType(mimeType) != null) {

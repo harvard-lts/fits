@@ -7,8 +7,8 @@
       <tool toolname="Exiftool" toolversion="11.01" />
       <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
       <tool toolname="Tika" toolversion="1.18" />
-      <version toolname="Droid" toolversion="6.4">1.1</version>
-      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">fmt/290</externalIdentifier>
+      <version toolname="Droid" toolversion="6.5">1.2</version>
+      <externalIdentifier toolname="Droid" toolversion="6.5" type="puid">fmt/291</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
