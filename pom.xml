@@ -287,6 +287,11 @@
 			<version>${saxon.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.xmlresolver</groupId>
+			<artifactId>xmlresolver</artifactId>
+			<version>4.2.0</version>
+		</dependency>
+		<dependency>
 			<groupId>com.joyent.util</groupId>
 			<artifactId>fast-md5</artifactId>
 			<version>${fast-md5.version}</version>
