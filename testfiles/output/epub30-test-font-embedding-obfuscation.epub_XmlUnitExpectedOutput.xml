@@ -3,6 +3,7 @@
   <identification>
     <identity format="EPUB" mimetype="application/epub+zip" toolname="FITS" toolversion="0.11.0">
       <tool toolname="Droid" toolversion="6.1.5" />
+      <tool toolname="file utility" toolversion="5.41" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <tool toolname="Tika" toolversion="1.10" />
       <externalIdentifier toolname="Droid" toolversion="6.5" type="puid">fmt/483</externalIdentifier>
@@ -38,7 +39,7 @@
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
     <tool toolname="Droid" toolversion="6.1.5" executionTime="24" />
     <tool toolname="Jhove" toolversion="1.11" status="did not run" />
-    <tool toolname="file utility" toolversion="5.04" status="did not run" />
+    <tool toolname="file utility" toolversion="5.41" executionTime="112" />
     <tool toolname="Exiftool" toolversion="10.00" executionTime="182" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
     <tool toolname="OIS File Information" toolversion="0.2" executionTime="28" />

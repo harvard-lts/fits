@@ -270,7 +270,13 @@
 						<xsl:attribute name="format">
 							<xsl:value-of select="string('ASCII')"/>
 						</xsl:attribute>				
-					</xsl:when>		
+					</xsl:when>
+					<!--  EPUB -->
+					<xsl:when test="starts-with($format, 'EPUB')">
+						<xsl:attribute name="format">
+							<xsl:value-of select="'EPUB'"/>
+						</xsl:attribute>
+					</xsl:when>
 					<!--  JPEG 2000 image data -->
 					<xsl:when test="$mime='image/jp2'">
 						<xsl:attribute name="format">
