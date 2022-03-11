@@ -2,8 +2,9 @@ package edu.harvard.hul.ois.fits.tools.embarc;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
 import org.jdom.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.portalmedia.embarc.cli.DPXFileListHelper;
 import com.portalmedia.embarc.parser.FileFormat;
@@ -15,11 +16,12 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import edu.harvard.hul.ois.fits.tools.droid.Droid;
 
 public class EmbARC extends ToolBase {
 	private boolean enabled = true;
 	private Fits fits;
-	private static final Logger logger = Logger.getLogger(EmbARC.class);
+	private static final Logger logger = LoggerFactory.getLogger(Droid.class);
 
 	public EmbARC(Fits fits) throws FitsToolException {
 		super();
