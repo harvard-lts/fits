@@ -687,4 +687,29 @@ public class DocMDXmlUnitTest extends AbstractXmlUnitTest {
     	}
 	}
 
+	@Test
+	public void includeAllToolOutputWhenConsolidationDisabled() throws Exception {
+		String inputFilename = "PDFa_has_table_of_contents.pdf";
+		File input = new File("testfiles/" + inputFilename);
+		File fitsConfigFile = new File("testfiles/properties/fits-no-consolidation.xml");
+
+		Fits fits = new Fits(null, fitsConfigFile);
+		FitsOutput fitsOut = fits.examine(input);
+
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_no_consolidation_ActualOutput.xml");
+
+		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+
+		// Read in the expected XML file
+		Scanner scan = new Scanner(new File(
+				"testfiles/output/" + inputFilename + "_no_consolidation_ExpectedOutput.xml"));
+		String expectedXmlStr = scan.
+				useDelimiter("\\Z").next();
+		scan.close();
+
+		testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+	}
+
 }

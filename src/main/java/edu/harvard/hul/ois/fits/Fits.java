@@ -85,6 +85,7 @@ public class Fits {
   private XMLConfiguration config;
   private FitsXmlMapper mapper;
   private boolean enableStatistics;
+  private boolean consolidateFirstIdentity;
   private String externalOutputSchema;
   private String internalOutputSchema;
   private boolean validateToolOutput;
@@ -215,6 +216,7 @@ public class Fits {
       externalOutputSchema = config.getString( "output.external-output-schema" );
       internalOutputSchema = config.getString( "output.internal-output-schema" );
       enableStatistics = config.getBoolean( "output.enable-statistics" );
+      consolidateFirstIdentity = config.getBoolean("output.consolidate-first-identity", true);
     } catch (NoSuchElementException e) {
       logger.error( "Error in configuration file: {}", e.getClass().getName() );
       System.out.println( "Error inconfiguration file: " + e.getMessage() );
@@ -717,7 +719,14 @@ public class Fits {
   public boolean validateToolOutput() {
 	  return validateToolOutput;
   }
-  
+
+  /**
+   * @return true if tool output should be consolidated to only include output from tools in the first identity block
+   */
+  public boolean isConsolidateFirstIdentity() {
+    return consolidateFirstIdentity;
+  }
+
   /* Count up all the threads that are still running */
   private int countActiveTools( List<Thread> threads ) {
     int count = 0;

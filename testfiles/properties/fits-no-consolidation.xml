@@ -22,7 +22,7 @@
 	
 	<output>
 		<dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
-		<consolidate-first-identity>true</consolidate-first-identity>
+		<consolidate-first-identity>false</consolidate-first-identity>
 		<display-tool-output>false</display-tool-output>
 		<report-conflicts>true</report-conflicts>
 		<validate-tool-output>false</validate-tool-output>
