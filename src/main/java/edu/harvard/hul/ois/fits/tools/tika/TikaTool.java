@@ -195,6 +195,8 @@ public class TikaTool extends ToolBase {
     static {
         compressionTypeMap.put("lzw", FitsMetadataValues.CMPR_LZW);
         compressionTypeMap.put("JPEG", FitsMetadataValues.CMPR_JPEG);
+        compressionTypeMap.put("Baseline", FitsMetadataValues.CMPR_JPEG);
+        compressionTypeMap.put("Progressive, Huffman", FitsMetadataValues.CMPR_JPEG);
         compressionTypeMap.put("deflate", FitsMetadataValues.CMPR_DEFLATE);
     }
 
@@ -578,11 +580,7 @@ public class TikaTool extends ToolBase {
                     break;
 
                 case COMPRESSION_TYPE:
-                    addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
-                    break;
-
                 case COMPRESSION_COMPRESSION_TYPE_NAME:
-                    // is this the same as COMPRESSION_TYPE?
                     String stdValue = compressionTypeMap.get(value);
                     if (stdValue != null) {
                         value = stdValue;
@@ -612,7 +610,7 @@ public class TikaTool extends ToolBase {
 
                 case X_RESOLUTION:
                     if (!xresReported) {
-                        int ix = value.indexOf (" dots");
+                        int ix = value.indexOf (" dot");
                         if (ix > 0) {
                             value = value.substring (0, ix);
                         }
@@ -623,7 +621,7 @@ public class TikaTool extends ToolBase {
 
                 case Y_RESOLUTION:
                     if (!yresReported) {
-                        int ix = value.indexOf (" dots");
+                        int ix = value.indexOf (" dot");
                         if (ix > 0) {
                             value = value.substring (0, ix);
                         }
