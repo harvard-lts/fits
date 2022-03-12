@@ -1,14 +1,11 @@
 package edu.harvard.hul.ois.fits.tools.embarc;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
