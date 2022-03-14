@@ -15,7 +15,6 @@ import com.portalmedia.embarc.cli.JsonWriterDpx;
 import com.portalmedia.embarc.parser.dpx.DPXFileListHelper;
 import com.portalmedia.embarc.parser.dpx.DPXMetadata;
 import com.portalmedia.embarc.parser.FileFormat;
-import com.portalmedia.embarc.parser.FileFormatDetection;
 import com.portalmedia.embarc.parser.dpx.DPXColumn;
 import com.portalmedia.embarc.parser.dpx.DPXFileInformation;
 
@@ -51,12 +50,6 @@ public class EmbARC extends ToolBase {
 
 		inputFile = file;
 		String absPath = inputFile.getAbsolutePath();
-		fileFormat = FileFormatDetection.getFileFormat(absPath);
-
-		if (fileFormat != FileFormat.DPX) {
-			logger.debug("Non DPX file input, bailing");
-			return null;
-		}
 		dpxFileInfo = DPXFileListHelper.createDPXFileInformation(absPath);
 
 		Document fitsXml = createToolData();
@@ -81,21 +74,17 @@ public class EmbARC extends ToolBase {
 
 	private Document createToolData() {
 		DPXMetadata metadata = dpxFileInfo.getFileData();
-
 		Element fitsElement = new Element("fits", fitsNS);
-        Document toolDocument = new Document(fitsElement);
+		Document toolDocument = new Document(fitsElement);
 
-        /* IDENTIFICATION */
-        Element identificationElement = createIdentificationElement(metadata);
-        fitsElement.addContent(identificationElement);
+		Element identificationElement = createIdentificationElement(metadata);
+		fitsElement.addContent(identificationElement);
 
-        /* FILEINFO */
-        Element fileInfoElement = createFileInfoElement(metadata);
-        fitsElement.addContent(fileInfoElement);
+		Element fileInfoElement = createFileInfoElement(metadata);
+		fitsElement.addContent(fileInfoElement);
 
-        /* METADATA */
-    	Element metadataElement = createMetadataElement(metadata);
-    	fitsElement.addContent(metadataElement);
+		Element metadataElement = createMetadataElement(metadata);
+		fitsElement.addContent(metadataElement);
 
 		return toolDocument;
 	}
@@ -105,9 +94,9 @@ public class EmbARC extends ToolBase {
 		Element identityElem = new Element("identity", fitsNS);
 
 		String format = fileFormat == FileFormat.DPX ? "Digital Picture Exchange" : "";
-		identityElem.setAttribute(new Attribute("format", format));
-
 		String mimeType = FitsMetadataValues.getInstance().normalizeMimeType(dpxFileInfo.getMimeType());
+
+		identityElem.setAttribute(new Attribute("format", format));
 		identityElem.setAttribute(new Attribute("mimetype", mimeType));
 
 		identificationElement.addContent(identityElem);
@@ -115,42 +104,32 @@ public class EmbARC extends ToolBase {
 	}
 	
 	private Element createFileInfoElement(DPXMetadata metadata) {
+        Element fileInfoElement = new Element("fileinfo", fitsNS);
+
 		String copyrightNote = metadata.getColumn(DPXColumn.COPYRIGHT_STATEMENT).getStandardizedValue();
         String created = metadata.getColumn(DPXColumn.CREATION_DATETIME).getStandardizedValue();
         String filePath = inputFile.getAbsolutePath();
         String fileName = inputFile.getName();
         String fileSize = Long.toString(inputFile.length());
 
-        Element fileInfoElement = new Element("fileinfo", fitsNS);
-
         if (created != null) {
-            Element createdElem = new Element(FitsMetadataValues.CREATED, fitsNS);
-            createdElem.addContent(stripInvalidXMLChars(created));
-            fileInfoElement.addContent(createdElem);
+            addElement(fileInfoElement, FitsMetadataValues.CREATED, stripInvalidXMLChars(created));
         }
 
         if (copyrightNote != null) {
-            Element copyrightNoteElement = new Element(FitsMetadataValues.COPYRIGHT_NOTE, fitsNS);
-            copyrightNoteElement.addContent(stripInvalidXMLChars(copyrightNote));
-            fileInfoElement.addContent(copyrightNoteElement);
+            addElement(fileInfoElement, FitsMetadataValues.COPYRIGHT_NOTE, stripInvalidXMLChars(copyrightNote));
         }
 
         if (filePath != null) {
-            Element filePathElement = new Element("filepath", fitsNS);
-            filePathElement.addContent(filePath);
-            fileInfoElement.addContent(filePathElement);
+            addElement(fileInfoElement, "filepath", filePath);
         }
 
         if (fileName != null) {
-            Element fileNameElement = new Element("filename", fitsNS);
-            fileNameElement.addContent(fileName);
-            fileInfoElement.addContent(fileNameElement);
+            addElement(fileInfoElement, "filename", fileName);
         }
 
         if (fileSize != null) {
-            Element fileSizeElement = new Element(FitsMetadataValues.SIZE, fitsNS);
-            fileSizeElement.addContent(fileSize);
-            fileInfoElement.addContent(fileSizeElement);
+            addElement(fileInfoElement, FitsMetadataValues.SIZE, fileSize);
         }
 
         return fileInfoElement;
@@ -170,15 +149,15 @@ public class EmbARC extends ToolBase {
 		String inputDeviceName = metadata.getColumn(DPXColumn.INPUT_DEVICE_NAME).getStandardizedValue();
 		String inputDeviceSerialNumber = metadata.getColumn(DPXColumn.INPUT_DEVICE_SERIAL_NUMBER).getStandardizedValue();
 
-		addSimpleElement(imageElement, FitsMetadataValues.BITS_PER_SAMPLE, stripInvalidXMLChars(bitDepth));
-		addSimpleElement(imageElement, FitsMetadataValues.BYTE_ORDER, stripInvalidXMLChars(byteOrder));
-		addSimpleElement(imageElement, FitsMetadataValues.COLOR_SPACE, stripInvalidXMLChars(descriptor));
-		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_HEIGHT, stripInvalidXMLChars(linesPerImageElement));
-		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_PRODUCER, stripInvalidXMLChars(creator));
-		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_WIDTH, stripInvalidXMLChars(pixelsPerLine));
-		addSimpleElement(imageElement, FitsMetadataValues.ORIENTATION, stripInvalidXMLChars(imageOrientation));
-		addSimpleElement(imageElement, FitsMetadataValues.SCANNER_MODEL_NAME, stripInvalidXMLChars(inputDeviceName));
-		addSimpleElement(imageElement, FitsMetadataValues.SCANNER_MODEL_SERIAL_NO, stripInvalidXMLChars(inputDeviceSerialNumber));
+		addElement(imageElement, FitsMetadataValues.BITS_PER_SAMPLE, stripInvalidXMLChars(bitDepth));
+		addElement(imageElement, FitsMetadataValues.BYTE_ORDER, stripInvalidXMLChars(byteOrder));
+		addElement(imageElement, FitsMetadataValues.COLOR_SPACE, stripInvalidXMLChars(descriptor));
+		addElement(imageElement, FitsMetadataValues.IMAGE_HEIGHT, stripInvalidXMLChars(linesPerImageElement));
+		addElement(imageElement, FitsMetadataValues.IMAGE_PRODUCER, stripInvalidXMLChars(creator));
+		addElement(imageElement, FitsMetadataValues.IMAGE_WIDTH, stripInvalidXMLChars(pixelsPerLine));
+		addElement(imageElement, FitsMetadataValues.ORIENTATION, stripInvalidXMLChars(imageOrientation));
+		addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_NAME, stripInvalidXMLChars(inputDeviceName));
+		addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_SERIAL_NO, stripInvalidXMLChars(inputDeviceSerialNumber));
 
 		metadataElement.addContent(imageElement);
 
@@ -188,13 +167,15 @@ public class EmbARC extends ToolBase {
 	private Document createRawData() {
 		Element root = new Element("embARCOutput");
 		Element rawOutput = new Element("rawOutput");
+
 		JSONObject dpxJson = JsonWriterDpx.createJsonFileObject(dpxFileInfo);
 		rawOutput.addContent(dpxJson.toString(2));
 		root.addContent(rawOutput);
+
 		return new Document(root);
 	}
 
-	private void addSimpleElement(Element parent, String tag, String value ) {
+	private void addElement(Element parent, String tag, String value ) {
 	    Element newElem = new Element(tag, fitsNS);
 	    newElem.addContent(value);
 	    parent.addContent(newElem);
