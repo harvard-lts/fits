@@ -60,7 +60,10 @@
                 </xsl:when>
 				<xsl:when test="not($mime) or $mime='' or $mime='application/unknown'">
 					<xsl:value-of select="string('application/octet-stream')"/>
-				</xsl:when>			
+				</xsl:when>
+				<xsl:when test="exiftool/FileType='EPUB'">
+					<xsl:value-of select="'application/epub+zip'"/>
+				</xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of select="$mime"/>
 				</xsl:otherwise>
