@@ -14,10 +14,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Scanner;
 
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.Namespace;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
 
 import com.therockquarry.aes31.adl.ADL;
 
@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This uses the audio file parsing library therockquarry.jar provided by Dave Ackerman
+ * This uses the audio file parsing library therockquarry.jar provided by Kaylie Ackerman
  * @author spencer
  *
  */

@@ -17,10 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.jdom.Attribute;
-import org.jdom.Element;
-import org.jdom.Namespace;
-import org.jdom.Text;
+import org.jdom2.Attribute;
+import org.jdom2.Content;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.jdom2.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -591,7 +592,6 @@ public class XmlContentConverter {
     	boolean isTableCountSet = false;
     	
         DocumentMDModel dm = new DocumentMDModel();
-        @SuppressWarnings("unchecked")
 		List<Element> dataElements = fitsDoc.getChildren();
         for (Element dataElement : dataElements) {
         	// If element name is contained in enum then we're interested in it.
@@ -769,7 +769,7 @@ public class XmlContentConverter {
 			logger.error("Invalid content: " + e2.getMessage ());
 		}
 
-    	String filename = fitsOutput.getMetadataElement("filename").getValue();
+    	String filename = fitsOutput.getFileInfoElement("filename").getValue();
 
 
     	FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
@@ -953,7 +953,6 @@ public class XmlContentConverter {
     			Formats formats = new Formats();
     			entriesInformation.setFormats(formats);
     			
-    			@SuppressWarnings("unchecked")
     			List<Element> formatElements = entriesElement.getChildren(ContainerMDElement.format.getName(), ns);
     			if (formatElements != null & formatElements.size() > 0) {
     				for (Element formatElement : formatElements) {
@@ -1007,7 +1006,7 @@ public class XmlContentConverter {
 
     	try {
     		ebucoreModel = new EbuCoreModel();
-    		List<Object> videoElemList = fitsVideo.getContent();    		
+    		List<Content> videoElemList = fitsVideo.getContent();
 
     		String mimeType = null;
 

@@ -10,13 +10,11 @@
 
 package edu.harvard.hul.ois.fits;
 
-//import java.util.UUID;
-
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.jdom.Element;
-import org.jdom.Namespace;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
 
 import edu.harvard.hul.ois.fits.tools.mediainfo.ChannelPositionParser;
 import edu.harvard.hul.ois.fits.tools.mediainfo.ChannelPositionWrapper;

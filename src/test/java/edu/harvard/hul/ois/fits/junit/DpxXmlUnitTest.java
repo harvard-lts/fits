@@ -22,8 +22,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Scanner;
 
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

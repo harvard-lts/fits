@@ -17,13 +17,14 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.Namespace;
-import org.jdom.output.XMLOutputter;
-import org.jdom.xpath.XPath;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
+import org.jdom2.output.XMLOutputter;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -43,7 +44,8 @@ public class ToolOutput {
 
     private DocumentBuilderFactory docBuilderFactory;
 
-    private static Namespace ns = Namespace.getNamespace("fits",Fits.XML_NAMESPACE);
+    private static Namespace fitsNS = Namespace.getNamespace("fits",Fits.XML_NAMESPACE);
+    private XPathFactory xFactory = XPathFactory.instance();
 
 	//The FITS formatted XML
 	private Document fitsXml = null;
@@ -136,41 +138,35 @@ public class ToolOutput {
 
 	private List<ToolIdentity> createFileIdentities(Document dom, ToolInfo info) {
 		List<ToolIdentity> identities = new ArrayList<ToolIdentity>();
-		try {
-			XPath xpath = XPath.newInstance("//fits:identity");
-			xpath.addNamespace(ns);
-			@SuppressWarnings("unchecked")
-            List<Element> identElements = xpath.selectNodes(dom);
-			for(Element element : identElements) {
-				Attribute formatAttr = element.getAttribute("format");
-				Attribute mimetypeAttr = element.getAttribute("mimetype");
-				Element versionElement = element.getChild("version",ns);
+		XPathExpression<Element> expr = xFactory.compile("//fits:identity", Filters.element(), null, fitsNS);
+        List<Element> identElements = (List<Element>) expr.evaluate(dom);
+		for(Element element : identElements) {
+			Attribute formatAttr = element.getAttribute("format");
+			Attribute mimetypeAttr = element.getAttribute("mimetype");
+			Element versionElement = element.getChild("version",fitsNS);
 
-				String format = null;
-				String mimetype = null;
-				String version = null;
+			String format = null;
+			String mimetype = null;
+			String version = null;
 
-				if(formatAttr != null) {
-					format = formatAttr.getValue();
-				}
-				if(mimetypeAttr != null) {
-					mimetype = mimetypeAttr.getValue();
-				}
-				if(versionElement != null) {
-					version = versionElement.getText();
-				}
-				ToolIdentity identity = new ToolIdentity(mimetype,format,version,info);
-				List<Element> xIDElements = element.getChildren("externalIdentifier",ns);
-				for(Element xIDElement : xIDElements) {
-					String type = xIDElement.getAttributeValue("type");
-					String value = xIDElement.getText();
-					ExternalIdentifier xid = new ExternalIdentifier(type,value,info);
-					identity.addExternalIdentifier(xid);
-				}
-				identities.add(identity);
+			if(formatAttr != null) {
+				format = formatAttr.getValue();
 			}
-		} catch (JDOMException e) {
-			logger.error("Error parsing DOC with XPath", e);
+			if(mimetypeAttr != null) {
+				mimetype = mimetypeAttr.getValue();
+			}
+			if(versionElement != null) {
+				version = versionElement.getText();
+			}
+			ToolIdentity identity = new ToolIdentity(mimetype,format,version,info);
+			List<Element> xIDElements = element.getChildren("externalIdentifier",fitsNS);
+			for(Element xIDElement : xIDElements) {
+				String type = xIDElement.getAttributeValue("type");
+				String value = xIDElement.getText();
+				ExternalIdentifier xid = new ExternalIdentifier(type,value,info);
+				identity.addExternalIdentifier(xid);
+			}
+			identities.add(identity);
 		}
 		return identities;
 	}

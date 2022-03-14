@@ -15,12 +15,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.Namespace;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import edu.harvard.hcl.hclaps.bwav.InvalidWaveHeaderException;
 import edu.harvard.hcl.hclaps.bwav.WAVEFile;
 import edu.harvard.hcl.hclaps.bwav.chunks.FormatChunk;
 import edu.harvard.hcl.hclaps.util.ByteConvertor;
@@ -28,11 +29,9 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * This uses the audio file parsing library hclaps.jar provided by Dave Ackerman
+ * This uses the audio file parsing library hclaps.jar provided by Kaylie Ackerman
  * @author spencer
  *
  */
@@ -100,9 +99,6 @@ public class AudioInfo extends ToolBase {
 		}
 		catch (FileNotFoundException e) {
 			throw new FitsToolException("File "+file.getName() + " not found",e);
-		}
-		catch (InvalidWaveHeaderException e) {
-			throw new FitsToolException("Problem with HCLAPS Wave Header: " + e.getMessage(), e);
 		}
 
 		Element metadata = new Element("metadata",fitsNS);

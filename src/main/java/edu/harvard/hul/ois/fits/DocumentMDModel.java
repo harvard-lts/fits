@@ -13,7 +13,7 @@ package edu.harvard.hul.ois.fits;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD.Feature;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 
 public class DocumentMDModel {
 

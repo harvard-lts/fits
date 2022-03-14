@@ -23,22 +23,22 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.Namespace;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.portalmedia.embarc.cli.Main;
 import com.portalmedia.embarc.cli.XmlWriterDpx;
-import com.portalmedia.embarc.parser.dpx.DPXFileListHelper;
-import com.portalmedia.embarc.parser.dpx.DPXMetadata;
 import com.portalmedia.embarc.parser.FileFormat;
 import com.portalmedia.embarc.parser.FileFormatDetection;
 import com.portalmedia.embarc.parser.MetadataColumn;
 import com.portalmedia.embarc.parser.dpx.DPXColumn;
 import com.portalmedia.embarc.parser.dpx.DPXFileInformation;
+import com.portalmedia.embarc.parser.dpx.DPXFileListHelper;
+import com.portalmedia.embarc.parser.dpx.DPXMetadata;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsMetadataValues;

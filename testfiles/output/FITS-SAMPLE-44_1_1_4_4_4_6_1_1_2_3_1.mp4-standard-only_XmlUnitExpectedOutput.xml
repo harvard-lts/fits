@@ -5,7 +5,7 @@
              <ebucore:videoFormat>
                 <ebucore:width unit="pixel">1440</ebucore:width>
                 <ebucore:height unit="pixel">1080</ebucore:height>
-                <ebucore:frameRate factorDenominator="1001" factorNumerator="1000">30</ebucore:frameRate>
+                <ebucore:frameRate factorNumerator="1000" factorDenominator="1001">30</ebucore:frameRate>
                 <ebucore:aspectRatio typeLabel="display">
                    <ebucore:factorNumerator>4</ebucore:factorNumerator>
                    <ebucore:factorDenominator>3</ebucore:factorDenominator>
@@ -28,7 +28,7 @@
                 <ebucore:technicalAttributeString typeLabel="byteOrder">unknown</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="compression">unknown</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="broadcastStandard">NTSC</ebucore:technicalAttributeString>
-                <ebucore:technicalAttributeLong typeLabel="streamSize">8986104</ebucore:technicalAttributeLong>                
+                <ebucore:technicalAttributeLong typeLabel="streamSize">8986104</ebucore:technicalAttributeLong>
                 <ebucore:technicalAttributeLong typeLabel="frameCount">124</ebucore:technicalAttributeLong>
                 <ebucore:technicalAttributeLong typeLabel="bitDepth">8</ebucore:technicalAttributeLong>
                 <ebucore:technicalAttributeLong typeLabel="duration">4137</ebucore:technicalAttributeLong>
@@ -70,13 +70,13 @@
                 <ebucore:comment typeLabel="format">MPEG-4</ebucore:comment>
                 <ebucore:comment typeLabel="formatProfile">Base Media / Version 2</ebucore:comment>
              </ebucore:containerFormat>
-              <ebucore:duration>
-                <ebucore:editUnitNumber factorDenominator="1" factorNumerator="1" editRate="1000">4137</ebucore:editUnitNumber>
-              </ebucore:duration>
+             <ebucore:duration>
+                <ebucore:editUnitNumber editRate="1000" factorNumerator="1" factorDenominator="1">4137</ebucore:editUnitNumber>
+             </ebucore:duration>
              <ebucore:mimeType typeLabel="video/quicktime"/>
              <ebucore:locator>testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</ebucore:locator>
              <ebucore:technicalAttributeString typeLabel="overallBitRate">17585272</ebucore:technicalAttributeString>
-             <ebucore:dateModified startTime="16:43:04Z" startDate="2015-03-13"/>
+             <ebucore:dateModified startTime="15:56:52Z" startDate="2015-08-11"/>
           </ebucore:format>
        </ebucore:coreMetadata>
     </ebucore:ebuCoreMain>

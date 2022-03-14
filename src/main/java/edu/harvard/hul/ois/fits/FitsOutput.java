@@ -24,15 +24,19 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.Namespace;
-import org.jdom.input.SAXBuilder;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
-import org.jdom.xpath.XPath;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.fits.identity.ExternalIdentifier;
@@ -49,8 +53,6 @@ import edu.harvard.hul.ois.ots.schemas.Ebucore.EbuCoreMain;
 import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -64,9 +66,10 @@ public class FitsOutput {
 
 	private Document fitsXml;          // This is in the FITS XML format
 	private List<Throwable> caughtThrowables = new ArrayList<Throwable>();
-	private Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 	private XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
-
+	private Namespace fitsNamespace = Namespace.getNamespace(Fits.XML_NAMESPACE);
+	private XPathFactory xFactory = XPathFactory.instance();
+	
 	private static final Logger logger = LoggerFactory.getLogger(FitsOutput.class);
 
 	public FitsOutput(String fitsXmlStr) throws JDOMException, IOException {
@@ -99,23 +102,23 @@ public class FitsOutput {
 	@SuppressWarnings("unchecked")
 	public List<FitsMetadataElement> getFileInfoElements() {
 		Element root = fitsXml.getRootElement();
-		Element fileInfo = root.getChild("fileinfo",ns);
+		Element fileInfo = root.getChild("fileinfo",fitsNamespace);
 		return buildMetadataList(fileInfo);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<FitsMetadataElement> getFileStatusElements() {
 		Element root = fitsXml.getRootElement();
-		Element fileStatus = root.getChild("filestatus",ns);
+		Element fileStatus = root.getChild("filestatus",fitsNamespace);
 		return buildMetadataList(fileStatus);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<FitsMetadataElement> getTechMetadataElements() {
 		Element root = fitsXml.getRootElement();
-		Element metadata = (Element)root.getChild("metadata",ns);
+		Element metadata = (Element)root.getChild("metadata",fitsNamespace);
 		if(metadata.getChildren().size() > 0) {
-			Element techMetadata = (Element)root.getChild("metadata",ns).getChildren().get(0);
+			Element techMetadata = (Element)root.getChild("metadata",fitsNamespace).getChildren().get(0);
 			return buildMetadataList(techMetadata);
 		}
 		else {
@@ -125,46 +128,52 @@ public class FitsOutput {
 
 	public String getTechMetadataType() {
 		Element root = fitsXml.getRootElement();
-		Element metadata = (Element)root.getChild("metadata",ns);
+		Element metadata = (Element)root.getChild("metadata",fitsNamespace);
 		if(metadata.getChildren().size() > 0) {
-			Element techMetadata = (Element)root.getChild("metadata",ns).getChildren().get(0);
+			Element techMetadata = (Element)root.getChild("metadata",fitsNamespace).getChildren().get(0);
 			return techMetadata.getName();
 		}
 		else {
 			return null;
 		}
 	}
+	
+	public FitsMetadataElement getFileInfoElement(String name) {
+        Element root = fitsXml.getRootElement();
+        Element fileInfo = (Element)root.getChild("fileinfo", fitsNamespace);
+        if(fileInfo.getChildren().size() > 0) {
+            Element element = (Element)fileInfo.getChild(name,fitsNamespace);
+            if (element != null) {
+                return buildMetdataIElements(element);
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
+    }
 
 	public FitsMetadataElement getMetadataElement(String name) {
-		try {
-			XPath xpath = XPath.newInstance("//fits:"+name);
-			xpath.addNamespace("fits",Fits.XML_NAMESPACE);
-			Element node = (Element)xpath.selectSingleNode(fitsXml);
-			if(node != null) {
-				FitsMetadataElement element = buildMetdataIElements(node);
-				return element;
-			}
-		} catch (JDOMException e) {
-			//do nothing
+        XPathExpression<Element> expr = xFactory.compile("//fits:"+name, Filters.element(), null, fitsNamespace);
+//		XPathExpression<Element> expr = xFactory.compile("//fits:"+name, Filters.element(), null, fitsNamespace);
+		Element node = expr.evaluateFirst(fitsXml);
+		if(node != null) {
+			FitsMetadataElement element = buildMetdataIElements(node);
+			return element;
 		}
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<FitsMetadataElement> getMetadataElements(String name) {
 		List<FitsMetadataElement> elements = new ArrayList<FitsMetadataElement>();
-		try {
-			XPath xpath = XPath.newInstance("//fits:"+name);
-			xpath.addNamespace("fits",Fits.XML_NAMESPACE);
-			List<Element> nodes = xpath.selectNodes(fitsXml);
-			for(Element e : nodes) {
-				elements.add(buildMetdataIElements(e));
-			}
-			return elements;
-		} catch (JDOMException e) {
-			//do nothing
+        XPathExpression<Element> expr = xFactory.compile("//fits:"+name, Filters.element(), null, fitsNamespace);
+        List<Element> nodes = expr.evaluate(fitsXml);
+		for(Element e : nodes) {
+			elements.add(buildMetdataIElements(e));
 		}
-		return null;
+		return elements;
 	}
 
 	public boolean hasMetadataElement(String name) {
@@ -193,7 +202,6 @@ public class FitsOutput {
 		}
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List buildMetadataList(Element parent) {
 		List<FitsMetadataElement> data = new ArrayList<FitsMetadataElement>();
 		if(parent == null) {
@@ -268,7 +276,7 @@ public class FitsOutput {
     /** Return an XmlContent object representing the data from fitsXml. */
     public XmlContent getStandardXmlContent () {
 
-        Element metadata = fitsXml.getRootElement().getChild("metadata",ns);
+        Element metadata = fitsXml.getRootElement().getChild("metadata",fitsNamespace);
 
         if(metadata == null) {
         	return null;
@@ -278,33 +286,33 @@ public class FitsOutput {
 
         //Element metadata = root.getChild("metadata");
         // This can have an image, document, text, or audio subelement.
-        Element subElem = metadata.getChild ("image",ns);
+        Element subElem = metadata.getChild ("image",fitsNamespace);
         if (subElem != null) {
-        	Element fileinfo = fitsXml.getRootElement().getChild("fileinfo",ns);
+        	Element fileinfo = fitsXml.getRootElement().getChild("fileinfo",fitsNamespace);
             // Process image metadata...
         	return (Mix) conv.toMix (subElem,fileinfo);
         }
-        subElem = metadata.getChild ("text",ns);
+        subElem = metadata.getChild ("text",fitsNamespace);
         if (subElem != null) {
         	// Process text metadata...
         	return (TextMD) conv.toTextMD (subElem);
         }
-        subElem = metadata.getChild ("document",ns);
+        subElem = metadata.getChild ("document",fitsNamespace);
         if (subElem != null) {
             // Process document metadata...
         	return (DocumentMD)conv.toDocumentMD (subElem);
         }
-        subElem = metadata.getChild ("audio",ns);
+        subElem = metadata.getChild ("audio",fitsNamespace);
         if (subElem != null) {
             // Process audio metadata...
         	return (AudioObject)conv.toAES (this,subElem);
         }
-        subElem = metadata.getChild ("video",ns);
+        subElem = metadata.getChild ("video",fitsNamespace);
         if (subElem != null) {
         	// Process video metadata...
         	return (EbuCoreMain)conv.toEbuCoreVideo(this,subElem);
         }
-        subElem = metadata.getChild ("container",ns);
+        subElem = metadata.getChild ("container",fitsNamespace);
         if (subElem != null) {
         	// Process container metadata...
         	return (ContainerMd)conv.toContainerMD(subElem);
@@ -350,93 +358,87 @@ public class FitsOutput {
 		}
     }
 
-	@SuppressWarnings("unchecked")
 	public List<FitsIdentity> getIdentities() {
 		List<FitsIdentity> identities = new ArrayList<FitsIdentity>();
-		try {
-			XPath xpath = XPath.newInstance("//fits:identity");
-			Namespace ns = Namespace.getNamespace("fits",Fits.XML_NAMESPACE);
-			xpath.addNamespace(ns);
-			List<Element> identElements = xpath.selectNodes(fitsXml);
-			for(Element element : identElements) {
-				FitsIdentity fileIdentSect = new FitsIdentity();
+	    Namespace ns = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
+        XPathExpression<Element> expr = xFactory.compile("//fits:identity", Filters.element(), null, ns);
+        List<Element> identElements = (List<Element>) expr.evaluate(fitsXml);
+		for(Element element : identElements) {
+			FitsIdentity fileIdentSect = new FitsIdentity();
 
-				//get the identity attributes
-				Attribute formatAttr = element.getAttribute("format");
-				Attribute mimetypeAttr = element.getAttribute("mimetype");
-				if(formatAttr != null) {
-					fileIdentSect.setFormat(formatAttr.getValue());
-				}
-				if(mimetypeAttr != null) {
-					fileIdentSect.setMimetype(mimetypeAttr.getValue());
-				}
-
-				//get the tool elements
-				List<Element> toolElements = element.getChildren("tool",ns);
-				for(Element toolElement : toolElements) {
-					ToolInfo toolInfo = new ToolInfo();
-					Attribute toolNameAttr = toolElement.getAttribute("toolname");
-					Attribute toolVersionAttr = toolElement.getAttribute("toolversion");
-					if(toolNameAttr != null) {
-						toolInfo.setName(toolNameAttr.getValue());
-					}
-					if(toolVersionAttr != null) {
-						toolInfo.setVersion(toolVersionAttr.getValue());
-					}
-					fileIdentSect.addReportingTool(toolInfo);
-				}
-
-				//get the version elements
-				List<Element> versionElements = element.getChildren("version",ns);
-				for(Element versionElement : versionElements) {
-					ToolInfo toolInfo = new ToolInfo();
-					Attribute toolNameAttr = versionElement.getAttribute("toolname");
-					Attribute toolVersionAttr = versionElement.getAttribute("toolversion");
-					if(toolNameAttr != null) {
-						toolInfo.setName(toolNameAttr.getValue());
-					}
-					if(toolVersionAttr != null) {
-						toolInfo.setVersion(toolVersionAttr.getValue());
-					}
-					String value = versionElement.getText();
-					FormatVersion formatVersion = new FormatVersion(value,toolInfo);
-					fileIdentSect.addFormatVersion(formatVersion);
-				}
-
-				//get the externalIdentifier elements
-				List<Element> xIDElements = element.getChildren("externalIdentifier",ns);
-				for(Element xIDElement : xIDElements) {
-					String type = xIDElement.getAttributeValue("type");
-					String value = xIDElement.getText();
-					ToolInfo toolInfo = new ToolInfo();
-					Attribute toolNameAttr = xIDElement.getAttribute("toolname");
-					Attribute toolVersionAttr = xIDElement.getAttribute("toolversion");
-					if(toolNameAttr != null) {
-						toolInfo.setName(toolNameAttr.getValue());
-					}
-					if(toolVersionAttr != null) {
-						toolInfo.setVersion(toolVersionAttr.getValue());
-					}
-					ExternalIdentifier xid = new ExternalIdentifier(type,value,toolInfo);
-					fileIdentSect.addExternalID(xid);
-				}
-				identities.add(fileIdentSect);
+			//get the identity attributes
+			Attribute formatAttr = element.getAttribute("format");
+			Attribute mimetypeAttr = element.getAttribute("mimetype");
+			if(formatAttr != null) {
+				fileIdentSect.setFormat(formatAttr.getValue());
 			}
-		} catch (JDOMException e) {
-			logger.error("Error parsing DOC with XPath", e);
+			if(mimetypeAttr != null) {
+				fileIdentSect.setMimetype(mimetypeAttr.getValue());
+			}
+
+			//get the tool elements
+			List<Element> toolElements = element.getChildren("tool",fitsNamespace);
+			for(Element toolElement : toolElements) {
+				ToolInfo toolInfo = new ToolInfo();
+				Attribute toolNameAttr = toolElement.getAttribute("toolname");
+				Attribute toolVersionAttr = toolElement.getAttribute("toolversion");
+				if(toolNameAttr != null) {
+					toolInfo.setName(toolNameAttr.getValue());
+				}
+				if(toolVersionAttr != null) {
+					toolInfo.setVersion(toolVersionAttr.getValue());
+				}
+				fileIdentSect.addReportingTool(toolInfo);
+			}
+
+			//get the version elements
+			List<Element> versionElements = element.getChildren("version",fitsNamespace);
+			for(Element versionElement : versionElements) {
+				ToolInfo toolInfo = new ToolInfo();
+				Attribute toolNameAttr = versionElement.getAttribute("toolname");
+				Attribute toolVersionAttr = versionElement.getAttribute("toolversion");
+				if(toolNameAttr != null) {
+					toolInfo.setName(toolNameAttr.getValue());
+				}
+				if(toolVersionAttr != null) {
+					toolInfo.setVersion(toolVersionAttr.getValue());
+				}
+				String value = versionElement.getText();
+				FormatVersion formatVersion = new FormatVersion(value,toolInfo);
+				fileIdentSect.addFormatVersion(formatVersion);
+			}
+
+			//get the externalIdentifier elements
+			List<Element> xIDElements = element.getChildren("externalIdentifier",fitsNamespace);
+			for(Element xIDElement : xIDElements) {
+				String type = xIDElement.getAttributeValue("type");
+				String value = xIDElement.getText();
+				ToolInfo toolInfo = new ToolInfo();
+				Attribute toolNameAttr = xIDElement.getAttribute("toolname");
+				Attribute toolVersionAttr = xIDElement.getAttribute("toolversion");
+				if(toolNameAttr != null) {
+					toolInfo.setName(toolNameAttr.getValue());
+				}
+				if(toolVersionAttr != null) {
+					toolInfo.setVersion(toolVersionAttr.getValue());
+				}
+				ExternalIdentifier xid = new ExternalIdentifier(type,value,toolInfo);
+				fileIdentSect.addExternalID(xid);
+			}
+			identities.add(fileIdentSect);
 		}
 		return identities;
 	}
 
-	public void createStatistics(ToolBelt toolBelt, String ext, long totalExecutionTime) {
+	public void createStatistics(ToolBelt toolBelt, long totalExecutionTime) {
 		Element root = fitsXml.getRootElement();
-		Element statistics = new Element("statistics",ns);
+		Element statistics = new Element("statistics", fitsNamespace);
 
 		for(Tool t: toolBelt.getTools()) {
 
 			//if the tool should have been used for the file, else ignore it because it did not run
 			ToolInfo info = t.getToolInfo();
-			Element tool = new Element("tool",ns);
+			Element tool = new Element("tool", fitsNamespace);
 			tool.setAttribute("toolname", info.getName());
 			tool.setAttribute("toolversion", info.getVersion());
 
@@ -459,7 +461,7 @@ public class FitsOutput {
 			statistics.addContent(tool);
 
 		}
-		statistics.setAttribute("fitsExecutionTime",String.valueOf(totalExecutionTime));
+		statistics.setAttribute("fitsExecutionTime", String.valueOf(totalExecutionTime));
 
 		root.addContent(statistics);
 

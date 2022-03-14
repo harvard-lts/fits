@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>edu.harvard.lts.tools</groupId>
+  <artifactId>hclaps</artifactId>
+  <version>2.2.0-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
+    <lastUpdated>20220321172943</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>2.2.0-SNAPSHOT</value>
+        <updated>20220321172943</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>2.2.0-SNAPSHOT</value>
+        <updated>20220321172943</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

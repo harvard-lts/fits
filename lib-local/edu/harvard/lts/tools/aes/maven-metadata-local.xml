@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>edu.harvard.lts.tools</groupId>
+  <artifactId>aes</artifactId>
+  <versioning>
+    <versions>
+      <version>31.4.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20220321173045</lastUpdated>
+  </versioning>
+</metadata>

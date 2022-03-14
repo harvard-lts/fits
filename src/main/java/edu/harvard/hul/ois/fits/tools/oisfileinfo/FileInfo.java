@@ -15,10 +15,10 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.Namespace;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
 
 import com.twmacinta.util.MD5;
 
@@ -36,20 +36,19 @@ import org.slf4j.LoggerFactory;
  *  @see <a href="http://www.twmacinta.com/myjava/fast_md5.php">Fast MD5 Implementation in Java</a>
  */
 public class FileInfo extends ToolBase {
+    
+    private boolean enabled = true;
+    private Fits fits;
 
     private final static String TOOL_NAME = "OIS File Information";
     private final static String TOOL_VERSION = "1.0";
     private final static String TOOL_DATE = "8/14/2019";
-
-	private static final Logger logger = LoggerFactory.getLogger(FileInfo.class);
-
     private final static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
     private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
-    private boolean enabled = true;
-    private Fits fits;
+    private static final Logger logger = LoggerFactory.getLogger(FileInfo.class);
 
-	public FileInfo(Fits fits) throws FitsToolException{
+    public FileInfo(Fits fits) throws FitsToolException{
 		super();
         logger.debug ("Initializing FileInfo");
         this.fits = fits;

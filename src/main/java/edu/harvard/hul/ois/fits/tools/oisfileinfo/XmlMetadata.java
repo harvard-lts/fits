@@ -13,10 +13,10 @@ package edu.harvard.hul.ois.fits.tools.oisfileinfo;
 import java.io.File;
 import java.util.List;
 
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.Namespace;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
@@ -100,7 +100,6 @@ public class XmlMetadata extends ToolBase {
 
 				Element xmlRoot = xml.getRootElement();
 				String defaultNamespaceURI = xmlRoot.getNamespaceURI();
-				@SuppressWarnings("unchecked")
 				List<Namespace> namespaces = xmlRoot.getAdditionalNamespaces();
 				String schemaPrefix = null;
 				for(Namespace n : namespaces) {

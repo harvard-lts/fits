@@ -14,14 +14,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.filter.Filters;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
-import org.jdom.xpath.XPath;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.tools.Tool;
@@ -36,6 +38,7 @@ public class FitsXmlMapper {
 	private static final String FITS_XML_MAP_PATH = Fits.FITS_XML_DIR+"fits_xml_map.xml";
 	private List<ToolMap> toolMaps = new ArrayList<ToolMap>();
     private static Logger logger = LoggerFactory.getLogger(FitsXmlMapper.class);
+    private XPathFactory xFactory = XPathFactory.instance();
 
 	public FitsXmlMapper() throws JDOMException, IOException {
 		 SAXBuilder saxBuilder = new SAXBuilder();
@@ -56,13 +59,10 @@ public class FitsXmlMapper {
 		}
 		//get mimetype from first identity in doc
 		String mime = "";
-		try {
-			Element e = (Element)XPath.selectSingleNode(doc,"//identity");
-			if(e != null) {
-				mime = e.getAttributeValue("mimetype"); // (This code is never accessed from any of the unit tests. Is it ever?)
-			}
-		} catch (JDOMException e) {
-			logger.error("Error parsing XML with XPath expression.", e);
+		XPathExpression<Element> expr = xFactory.compile("//identity", Filters.element());
+		Element e = expr.evaluateFirst(doc);
+		if(e != null) {
+			mime = e.getAttributeValue("mimetype"); // (This code is never accessed from any of the unit tests. Is it ever?)
 		}
 		//iterate through all elements in doc
 		Element root = doc.getRootElement();

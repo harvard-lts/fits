@@ -18,13 +18,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.Namespace;
-import org.jdom.input.SAXBuilder;
-import org.jdom.xpath.XPath;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
@@ -37,12 +40,11 @@ import edu.harvard.hul.ois.fits.tools.Tool;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class OISConsolidator implements ToolOutputConsolidator {
 
     private static Namespace xsiNS = Namespace.getNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
+    private static Namespace fitsNamespace = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
 
 	private static final Logger logger = LoggerFactory.getLogger(OISConsolidator.class);
 
@@ -50,6 +52,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	private boolean displayToolOutput;
 	private Document formatTree;
 	private Fits fits;
+	private XPathFactory xFactory = XPathFactory.instance();
 
 	private final static int CONFLICT = 0;
 	private final static int SINGLE_RESULT = 1;
@@ -106,25 +109,22 @@ public class OISConsolidator implements ToolOutputConsolidator {
 	private Element findAnElement(List<ToolOutput> results, String xpath_query, boolean useChildren) {
 		for(ToolOutput result : results) {
 			Document dom = result.getFitsXml();
-			try {
-				//only look at non null dom structures
-				if(dom != null) {
-					XPath xpath = XPath.newInstance(xpath_query);
-					xpath.addNamespace("fits",Fits.XML_NAMESPACE);
-					Element e = (Element)xpath.selectSingleNode(dom);
-					if(e != null && e.getChildren().size() > 0) {
-						if(useChildren) {
-							e = (Element)e.getChildren().get(0);
-						}
-						List children = e.getChildren();
-						if(children.size()>0) {
-							Element child = (Element)children.get(0);
-							return child;
-						}
+			//only look at non null dom structures
+			if(dom != null) {
+				
+	            XPathExpression<Element> expr = xFactory.compile(xpath_query, Filters.element(), null, fitsNamespace);
+	            Element e = expr.evaluateFirst(dom);
+
+	            if(e != null && e.getChildren().size() > 0) {
+					if(useChildren) {
+						e = (Element)e.getChildren().get(0);
+					}
+					List children = e.getChildren();
+					if(children.size()>0) {
+						Element child = (Element)children.get(0);
+						return child;
 					}
 				}
-			} catch (JDOMException e) {
-				logger.error("Error parsing XML with XPath expression.", e);
 			}
 		}
 		return null;
@@ -230,19 +230,13 @@ public class OISConsolidator implements ToolOutputConsolidator {
 				continue;
 			}
 			ToolInfo toolInfo = result.getTool().getToolInfo();
-			try {
-				XPath xpath = XPath.newInstance("//fits:"+element.getName());
-				xpath.addNamespace("fits",Fits.XML_NAMESPACE);
-				Element e = (Element)xpath.selectSingleNode(dom);
-				if(e != null) {
-					e.setAttribute("toolname",toolInfo.getName());
-					e.setAttribute("toolversion",toolInfo.getVersion());
-					fitsElements.add(e);
-					e.getParent().removeContent(e);
-				}
-			}
-			catch(JDOMException e) {
-				logger.error("Error parsing XML with XPath expression.", e);
+            XPathExpression<Element> expr = xFactory.compile("//fits:"+element.getName(), Filters.element(), null, fitsNamespace);
+            Element e = expr.evaluateFirst(dom);
+			if(e != null) {
+				e.setAttribute("toolname",toolInfo.getName());
+				e.setAttribute("toolversion",toolInfo.getVersion());
+				fitsElements.add(e);
+				e.getParent().removeContent(e);
 			}
 		}
 

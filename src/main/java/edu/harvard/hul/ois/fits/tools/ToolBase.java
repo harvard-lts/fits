@@ -22,10 +22,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 
 //import org.apache.xalan.processor.TransformerFactoryImpl;
-import org.jdom.Document;
-import org.jdom.input.SAXBuilder;
-import org.jdom.transform.JDOMResult;
-import org.jdom.transform.JDOMSource;
+import org.jdom2.Document;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.transform.JDOMResult;
+import org.jdom2.transform.JDOMSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import org.w3c.dom.Node;
@@ -128,23 +128,14 @@ public abstract class ToolBase implements Tool {
 	}
 
 	public Document transform(String xslt, Document input) throws FitsToolException {
-		org.jdom.Document doc = null;
+		Document doc = null;
 		try {
-//			Configuration config = ((TransformerFactoryImpl)tFactory).getConfiguration();
-//			DocumentWrapper docw = new DocumentWrapper(input,null,config);
 			Templates templates = tFactory.newTemplates(new StreamSource(xslt));
 			Transformer transformer = templates.newTransformer();
-//			transformer.transform(new DOMSource((Node)input), out);
-//			transformer.transform(docw, out);
-
-		       JDOMSource in = new JDOMSource(input);
-		       JDOMResult out = new JDOMResult();
-//		       JDOMResult result = new JDOMResult();
-		       transformer.transform(in, out);
-		       doc = out.getDocument();
-
-			
-//			doc = out.getDocument();
+	        JDOMSource in = new JDOMSource(input);
+	        JDOMResult out = new JDOMResult();
+	        transformer.transform(in, out);
+	        doc = out.getDocument();
 		}
 		catch(Exception e) {
 			throw new FitsToolException(info.getName()+": Error converting output using "+xslt,e);

@@ -14,17 +14,20 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.xpath.XPath;
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class XmlUtils {
 
-	private static final Logger logger = LoggerFactory.getLogger(XmlUtils.class);
+    private static XPathFactory xFactory = XPathFactory.instance();
+
+    private static final Logger logger = LoggerFactory.getLogger(XmlUtils.class);
 
     /**
      * Returns the first value of the element in the provided dom object.  Returns
@@ -34,13 +37,10 @@ public class XmlUtils {
      * @return the element value or empty string
      */
 	public static String getDomValue(Document dom, String element) {
-		try {
-			Element e = (Element)XPath.selectSingleNode(dom,"//"+element);
-			if(e != null) {
-				return e.getText();
-			}
-		} catch (JDOMException e) {
-			logger.error("Error parsing DOC with XPath", e);
+        XPathExpression<Element> expr = xFactory.compile("//"+element, Filters.element());
+        Element e = expr.evaluateFirst(dom);
+		if(e != null) {
+			return e.getText();
 		}
 		return null;
 	}
@@ -53,16 +53,13 @@ public class XmlUtils {
 	 */
 	public static String getChildDomValues(Document dom, String element) {
 		String s = "";
-		try {
-			Element e = (Element)XPath.selectSingleNode(dom,"//"+element);
-			if(e != null) {
-				for(Element ee : (List<Element>)e.getChildren()) {
-					s = s + ee.getText() + " ";
-				}
-				return s;
+        XPathExpression<Element> expr = xFactory.compile("//"+element, Filters.element());
+        Element e = expr.evaluateFirst(dom);
+		if(e != null) {
+			for(Element ee : (List<Element>)e.getChildren()) {
+				s = s + ee.getText() + " ";
 			}
-		} catch (JDOMException e) {
-			logger.error("Error parsing DOC with XPath", e);
+			return s;
 		}
 		return null;
 	}

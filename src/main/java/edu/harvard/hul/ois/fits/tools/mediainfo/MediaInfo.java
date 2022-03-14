@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.StringReader;
 import java.util.Map;
 
-import org.jdom.Document;
+import org.jdom2.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

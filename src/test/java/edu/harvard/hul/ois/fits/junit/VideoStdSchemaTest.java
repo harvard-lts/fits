@@ -68,7 +68,17 @@ public class VideoStdSchemaTest extends AbstractLoggingTest {
     	FitsOutput fitsOut = fits.examine(input);
 		fitsOut.addStandardCombinedFormat();
 		fitsOut.saveToDisk("test-generated-output/" + fileName + OUTPUT_FILE_SUFFIX);
-	}    
+	}
+    
+    @Test  
+    public void testVideo() throws Exception {   
+
+        String fileName = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov";
+        File input = new File("testfiles/" + fileName);
+        FitsOutput fitsOut = fits.examine(input);
+        fitsOut.addStandardCombinedFormat();
+        fitsOut.saveToDisk("test-generated-output/" + fileName + OUTPUT_FILE_SUFFIX);
+    }    
     
     @Test
     public void testMxfVideo() throws Exception {

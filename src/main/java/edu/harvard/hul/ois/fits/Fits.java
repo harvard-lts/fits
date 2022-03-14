@@ -48,9 +48,9 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.lang.StringUtils;
-import org.jdom.Document;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
+import org.jdom2.Document;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 import edu.harvard.hul.ois.fits.consolidation.ToolOutputConsolidator;
 import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
@@ -526,7 +526,7 @@ public class Fits {
   public static void outputStandardSchemaXml( FitsOutput fitsOutput, OutputStream out ) throws XMLStreamException,
       IOException, FitsException {
     XmlContent xml = fitsOutput.getStandardXmlContent();
-	FitsMetadataElement fileNameElement = fitsOutput.getMetadataElement("filename");
+	FitsMetadataElement fileNameElement = fitsOutput.getFileInfoElement("filename");
 	String inputFilename = fileNameElement == null ? null : fileNameElement.getValue();
 
     // create an xml output factory
@@ -674,7 +674,7 @@ public class Fits {
 
     long t2 = System.currentTimeMillis();
     if (enableStatistics) {
-      result.createStatistics( toolbelt, ext, t2 - t1 );
+      result.createStatistics( toolbelt, t2 - t1 );
     }
 
     if (resetToolOutput) {
