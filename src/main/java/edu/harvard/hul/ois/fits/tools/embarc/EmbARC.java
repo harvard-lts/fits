@@ -42,17 +42,11 @@ public class EmbARC extends ToolBase {
 		this.fits = fits;
 		logger.debug("Initializing embARC");
 		info = new ToolInfo("embARC", Main.version, null);
-
-		try {
-			// TODO
-		} catch (Exception e) {
-			throw new FitsToolException("Error initilizing embARC", e);
-		}
 	}
 
 	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
-		logger.debug("embARC.extractInfo starting on " + file.getName());
+		logger.debug("embARC extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 
 		inputFile = file;
@@ -71,7 +65,7 @@ public class EmbARC extends ToolBase {
 
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
-		logger.debug("embARC.extractInfo finished on " + file.getName());
+		logger.debug("embARC extractInfo finished on " + file.getName());
 		return output;
 	}
 
@@ -92,16 +86,7 @@ public class EmbARC extends ToolBase {
         Document toolDocument = new Document(fitsElement);
 
         /* IDENTIFICATION */
-        Element identificationElement = new Element("identification", fitsNS);
-        Element identityElem = new Element("identity", fitsNS);
-
-        String format = fileFormat == FileFormat.DPX ? "Digital Picture Exchange" : "";
-        identityElem.setAttribute(new Attribute("format", format));
-
-        String mimeType = FitsMetadataValues.getInstance().normalizeMimeType(dpxFileInfo.getMimeType());
-        identityElem.setAttribute(new Attribute("mimetype", mimeType));
-
-        identificationElement.addContent(identityElem);
+        Element identificationElement = createIdentificationElement(metadata);
         fitsElement.addContent(identificationElement);
 
         /* FILEINFO */
@@ -113,6 +98,20 @@ public class EmbARC extends ToolBase {
     	fitsElement.addContent(metadataElement);
 
 		return toolDocument;
+	}
+
+	private Element createIdentificationElement(DPXMetadata metadata) {
+		Element identificationElement = new Element("identification", fitsNS);
+		Element identityElem = new Element("identity", fitsNS);
+
+		String format = fileFormat == FileFormat.DPX ? "Digital Picture Exchange" : "";
+		identityElem.setAttribute(new Attribute("format", format));
+
+		String mimeType = FitsMetadataValues.getInstance().normalizeMimeType(dpxFileInfo.getMimeType());
+		identityElem.setAttribute(new Attribute("mimetype", mimeType));
+
+		identificationElement.addContent(identityElem);
+		return identificationElement;
 	}
 	
 	private Element createFileInfoElement(DPXMetadata metadata) {
