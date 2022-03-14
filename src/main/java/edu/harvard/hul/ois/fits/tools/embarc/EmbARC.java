@@ -40,8 +40,8 @@ public class EmbARC extends ToolBase {
 	public EmbARC(Fits fits) throws FitsToolException {
 		super();
 		this.fits = fits;
-		logger.debug("Initializing EmbARC");
-		info = new ToolInfo("EmbARC", Main.version, null);
+		logger.debug("Initializing embARC");
+		info = new ToolInfo("embARC", Main.version, null);
 
 		try {
 			// TODO
@@ -52,7 +52,7 @@ public class EmbARC extends ToolBase {
 
 	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
-		logger.debug("EmbARC.extractInfo starting on " + file.getName());
+		logger.debug("embARC.extractInfo starting on " + file.getName());
 		long startTime = System.currentTimeMillis();
 
 		inputFile = file;
@@ -71,7 +71,7 @@ public class EmbARC extends ToolBase {
 
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
-		logger.debug("EmbARC.extractInfo finished on " + file.getName());
+		logger.debug("embARC.extractInfo finished on " + file.getName());
 		return output;
 	}
 
@@ -116,8 +116,8 @@ public class EmbARC extends ToolBase {
 	}
 	
 	private Element createFileInfoElement(DPXMetadata metadata) {
-		String copyrightNote = metadata.getColumn(DPXColumn.COPYRIGHT_STATEMENT).getCurrentValue();
-        String created = metadata.getColumn(DPXColumn.CREATION_DATETIME).getCurrentValue();
+		String copyrightNote = metadata.getColumn(DPXColumn.COPYRIGHT_STATEMENT).getStandardizedValue();
+        String created = metadata.getColumn(DPXColumn.CREATION_DATETIME).getStandardizedValue();
         String filePath = inputFile.getAbsolutePath();
         String fileName = inputFile.getName();
         String fileSize = Long.toString(inputFile.length());
@@ -160,28 +160,18 @@ public class EmbARC extends ToolBase {
 	private Element createMetadataElement(DPXMetadata metadata) {
 		Element metadataElement = new Element("metadata", fitsNS);
 		Element imageElement = new Element(FitsMetadataValues.IMAGE, fitsNS);
-		Element videoElement = new Element(FitsMetadataValues.VIDEO, fitsNS);
 
-		addSimpleElement(imageElement, FitsMetadataValues.BITS_PER_SAMPLE, metadata.getColumn(DPXColumn.BIT_DEPTH_1).getCurrentValue());
-		addSimpleElement(imageElement, FitsMetadataValues.BYTE_ORDER, metadata.getColumn(DPXColumn.MAGIC_NUMBER).getCurrentValue());
-		addSimpleElement(imageElement, FitsMetadataValues.COLOR_SPACE, metadata.getColumn(DPXColumn.DESCRIPTOR_1).getCurrentValue());
-		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_HEIGHT, metadata.getColumn(DPXColumn.LINES_PER_IMAGE_ELEMENT).getCurrentValue());
-		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_PRODUCER, metadata.getColumn(DPXColumn.CREATOR).getCurrentValue());
-		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_WIDTH, metadata.getColumn(DPXColumn.PIXELS_PER_LINE).getCurrentValue());
-		addSimpleElement(imageElement, FitsMetadataValues.ORIENTATION, metadata.getColumn(DPXColumn.IMAGE_ORIENTATION).getCurrentValue());
-		addSimpleElement(imageElement, FitsMetadataValues.SCANNER_MODEL_NAME, metadata.getColumn(DPXColumn.INPUT_DEVICE_NAME).getCurrentValue());
-		addSimpleElement(imageElement, FitsMetadataValues.SCANNER_MODEL_SERIAL_NO, metadata.getColumn(DPXColumn.INPUT_DEVICE_SERIAL_NUMBER).getCurrentValue());
+		addSimpleElement(imageElement, FitsMetadataValues.BITS_PER_SAMPLE, metadata.getColumn(DPXColumn.BIT_DEPTH_1).getStandardizedValue());
+		addSimpleElement(imageElement, FitsMetadataValues.BYTE_ORDER, metadata.getColumn(DPXColumn.MAGIC_NUMBER).getStandardizedValue());
+		addSimpleElement(imageElement, FitsMetadataValues.COLOR_SPACE, metadata.getColumn(DPXColumn.DESCRIPTOR_1).getStandardizedValue());
+		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_HEIGHT, metadata.getColumn(DPXColumn.LINES_PER_IMAGE_ELEMENT).getStandardizedValue());
+		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_PRODUCER, metadata.getColumn(DPXColumn.CREATOR).getStandardizedValue());
+		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_WIDTH, metadata.getColumn(DPXColumn.PIXELS_PER_LINE).getStandardizedValue());
+		addSimpleElement(imageElement, FitsMetadataValues.ORIENTATION, metadata.getColumn(DPXColumn.IMAGE_ORIENTATION).getStandardizedValue());
+		addSimpleElement(imageElement, FitsMetadataValues.SCANNER_MODEL_NAME, metadata.getColumn(DPXColumn.INPUT_DEVICE_NAME).getStandardizedValue());
+		addSimpleElement(imageElement, FitsMetadataValues.SCANNER_MODEL_SERIAL_NO, metadata.getColumn(DPXColumn.INPUT_DEVICE_SERIAL_NUMBER).getStandardizedValue());
 
 		metadataElement.addContent(imageElement);
-
-		addSimpleElement(videoElement, FitsMetadataValues.BIT_DEPTH, metadata.getColumn(DPXColumn.BIT_DEPTH_1).getCurrentValue()); // TODO
-		addSimpleElement(videoElement, FitsMetadataValues.FRAME_RATE, metadata.getColumn(DPXColumn.TEMPORAL_SAMPLING_RATE).getCurrentValue());
-		addSimpleElement(videoElement, FitsMetadataValues.IMAGE_HEIGHT, metadata.getColumn(DPXColumn.LINES_PER_IMAGE_ELEMENT).getCurrentValue()); // TODO
-		addSimpleElement(videoElement, FitsMetadataValues.IMAGE_WIDTH, metadata.getColumn(DPXColumn.PIXELS_PER_LINE).getCurrentValue()); // TODO
-		addSimpleElement(videoElement, FitsMetadataValues.X_SAMPLING_FREQUENCY, metadata.getColumn(DPXColumn.HORIZONTAL_SAMPLING_RATE).getCurrentValue());
-		addSimpleElement(videoElement, FitsMetadataValues.Y_SAMPLING_FREQUENCY, metadata.getColumn(DPXColumn.VERTICAL_SAMPLING_RATE).getCurrentValue());
-
-		metadataElement.addContent(videoElement);
 
 		return metadataElement;
 	}
@@ -189,7 +179,7 @@ public class EmbARC extends ToolBase {
 	private Document createRawData() {
 		Document rawData = new Document();
 		JSONObject dpxJson = JsonWriterDpx.createJsonFileObject(dpxFileInfo);
-		Element jsonElement = new Element("embARC_JSON_Output");
+		Element jsonElement = new Element("rawOutput");
 		jsonElement.addContent(dpxJson.toString(2));
 		rawData.addContent(jsonElement);
 		return rawData;
