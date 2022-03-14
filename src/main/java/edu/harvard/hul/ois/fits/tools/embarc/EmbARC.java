@@ -126,13 +126,13 @@ public class EmbARC extends ToolBase {
 
         if (created != null) {
             Element createdElem = new Element(FitsMetadataValues.CREATED, fitsNS);
-            createdElem.addContent(created);
+            createdElem.addContent(stripInvalidXMLChars(created));
             fileInfoElement.addContent(createdElem);
         }
 
         if (copyrightNote != null) {
             Element copyrightNoteElement = new Element(FitsMetadataValues.COPYRIGHT_NOTE, fitsNS);
-            copyrightNoteElement.addContent(copyrightNote);
+            copyrightNoteElement.addContent(stripInvalidXMLChars(copyrightNote));
             fileInfoElement.addContent(copyrightNoteElement);
         }
 
@@ -161,15 +161,25 @@ public class EmbARC extends ToolBase {
 		Element metadataElement = new Element("metadata", fitsNS);
 		Element imageElement = new Element(FitsMetadataValues.IMAGE, fitsNS);
 
-		addSimpleElement(imageElement, FitsMetadataValues.BITS_PER_SAMPLE, metadata.getColumn(DPXColumn.BIT_DEPTH_1).getStandardizedValue());
-		addSimpleElement(imageElement, FitsMetadataValues.BYTE_ORDER, metadata.getColumn(DPXColumn.MAGIC_NUMBER).getStandardizedValue());
-		addSimpleElement(imageElement, FitsMetadataValues.COLOR_SPACE, metadata.getColumn(DPXColumn.DESCRIPTOR_1).getStandardizedValue());
-		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_HEIGHT, metadata.getColumn(DPXColumn.LINES_PER_IMAGE_ELEMENT).getStandardizedValue());
-		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_PRODUCER, metadata.getColumn(DPXColumn.CREATOR).getStandardizedValue());
-		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_WIDTH, metadata.getColumn(DPXColumn.PIXELS_PER_LINE).getStandardizedValue());
-		addSimpleElement(imageElement, FitsMetadataValues.ORIENTATION, metadata.getColumn(DPXColumn.IMAGE_ORIENTATION).getStandardizedValue());
-		addSimpleElement(imageElement, FitsMetadataValues.SCANNER_MODEL_NAME, metadata.getColumn(DPXColumn.INPUT_DEVICE_NAME).getStandardizedValue());
-		addSimpleElement(imageElement, FitsMetadataValues.SCANNER_MODEL_SERIAL_NO, metadata.getColumn(DPXColumn.INPUT_DEVICE_SERIAL_NUMBER).getStandardizedValue());
+		String bitDepth = metadata.getColumn(DPXColumn.BIT_DEPTH_1).getStandardizedValue();
+		String byteOrder = metadata.getColumn(DPXColumn.MAGIC_NUMBER).getStandardizedValue();
+		String descriptor = metadata.getColumn(DPXColumn.DESCRIPTOR_1).getStandardizedValue();
+		String linesPerImageElement = metadata.getColumn(DPXColumn.LINES_PER_IMAGE_ELEMENT).getStandardizedValue();
+		String creator = metadata.getColumn(DPXColumn.CREATOR).getStandardizedValue();
+		String pixelsPerLine = metadata.getColumn(DPXColumn.PIXELS_PER_LINE).getStandardizedValue();
+		String imageOrientation = metadata.getColumn(DPXColumn.IMAGE_ORIENTATION).getStandardizedValue();
+		String inputDeviceName = metadata.getColumn(DPXColumn.INPUT_DEVICE_NAME).getStandardizedValue();
+		String inputDeviceSerialNumber = metadata.getColumn(DPXColumn.INPUT_DEVICE_SERIAL_NUMBER).getStandardizedValue();
+
+		addSimpleElement(imageElement, FitsMetadataValues.BITS_PER_SAMPLE, stripInvalidXMLChars(bitDepth));
+		addSimpleElement(imageElement, FitsMetadataValues.BYTE_ORDER, stripInvalidXMLChars(byteOrder));
+		addSimpleElement(imageElement, FitsMetadataValues.COLOR_SPACE, stripInvalidXMLChars(descriptor));
+		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_HEIGHT, stripInvalidXMLChars(linesPerImageElement));
+		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_PRODUCER, stripInvalidXMLChars(creator));
+		addSimpleElement(imageElement, FitsMetadataValues.IMAGE_WIDTH, stripInvalidXMLChars(pixelsPerLine));
+		addSimpleElement(imageElement, FitsMetadataValues.ORIENTATION, stripInvalidXMLChars(imageOrientation));
+		addSimpleElement(imageElement, FitsMetadataValues.SCANNER_MODEL_NAME, stripInvalidXMLChars(inputDeviceName));
+		addSimpleElement(imageElement, FitsMetadataValues.SCANNER_MODEL_SERIAL_NO, stripInvalidXMLChars(inputDeviceSerialNumber));
 
 		metadataElement.addContent(imageElement);
 
@@ -177,17 +187,28 @@ public class EmbARC extends ToolBase {
 	}
 
 	private Document createRawData() {
-		Document rawData = new Document();
+		Element root = new Element("embARCOutput");
+		Element rawOutput = new Element("rawOutput");
 		JSONObject dpxJson = JsonWriterDpx.createJsonFileObject(dpxFileInfo);
-		Element jsonElement = new Element("rawOutput");
-		jsonElement.addContent(dpxJson.toString(2));
-		rawData.addContent(jsonElement);
-		return rawData;
+		rawOutput.addContent(dpxJson.toString(2));
+		root.addContent(rawOutput);
+		return new Document(root);
 	}
 
 	private void addSimpleElement(Element parent, String tag, String value ) {
 	    Element newElem = new Element(tag, fitsNS);
 	    newElem.addContent(value);
 	    parent.addContent(newElem);
+	}
+
+	private String stripInvalidXMLChars(String input) {
+		String invalidChars = "[^"
+                + "\u0009\r\n"
+                + "\u0020-\uD7FF"
+                + "\uE000-\uFFFD"
+                + "\ud800\udc00-\udbff\udfff"
+                + "]";
+		String output = input.replaceAll(invalidChars, "");
+		return output;
 	}
 }
