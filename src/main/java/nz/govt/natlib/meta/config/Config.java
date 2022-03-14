@@ -713,6 +713,7 @@ public class Config {
 					try {
 						adapter = (DataAdapter) Class.forName(className, true,
 								classLoader)
+								.getDeclaredConstructor()
 								.newInstance();
 						String jarName = map.getNamedItem(JAR_TAG)
 								.getNodeValue();

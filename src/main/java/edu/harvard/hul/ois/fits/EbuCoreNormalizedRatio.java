@@ -75,8 +75,8 @@ public class EbuCoreNormalizedRatio {
 		// Must be an integer
 		else {
 			// set the denormalized value
-			this.normalizedNumerator = new Integer(numerator).intValue();
-			this.normalizedDenominator = new Integer(denominator).intValue();
+			this.normalizedNumerator = Integer.parseInt(numerator);
+			this.normalizedDenominator = Integer.parseInt(denominator);
 		}
 
 
