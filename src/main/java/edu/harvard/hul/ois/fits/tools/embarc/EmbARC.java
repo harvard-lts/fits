@@ -15,6 +15,7 @@ import com.portalmedia.embarc.cli.JsonWriterDpx;
 import com.portalmedia.embarc.parser.dpx.DPXFileListHelper;
 import com.portalmedia.embarc.parser.dpx.DPXMetadata;
 import com.portalmedia.embarc.parser.FileFormat;
+import com.portalmedia.embarc.parser.FileFormatDetection;
 import com.portalmedia.embarc.parser.dpx.DPXColumn;
 import com.portalmedia.embarc.parser.dpx.DPXFileInformation;
 
@@ -50,6 +51,8 @@ public class EmbARC extends ToolBase {
 
 		inputFile = file;
 		String absPath = inputFile.getAbsolutePath();
+		fileFormat = FileFormatDetection.getFileFormat(absPath);
+
 		dpxFileInfo = DPXFileListHelper.createDPXFileInformation(absPath);
 
 		Document fitsXml = createToolData();
@@ -102,7 +105,7 @@ public class EmbARC extends ToolBase {
 		identificationElement.addContent(identityElem);
 		return identificationElement;
 	}
-	
+
 	private Element createFileInfoElement(DPXMetadata metadata) {
         Element fileInfoElement = new Element("fileinfo", fitsNS);
 
@@ -112,11 +115,11 @@ public class EmbARC extends ToolBase {
         String fileName = inputFile.getName();
         String fileSize = Long.toString(inputFile.length());
 
-        if (created != null) {
+        if (created != null && !created.isEmpty()) {
             addElement(fileInfoElement, FitsMetadataValues.CREATED, stripInvalidXMLChars(created));
         }
 
-        if (copyrightNote != null) {
+        if (copyrightNote != null && !copyrightNote.isEmpty()) {
             addElement(fileInfoElement, FitsMetadataValues.COPYRIGHT_NOTE, stripInvalidXMLChars(copyrightNote));
         }
 
@@ -140,27 +143,52 @@ public class EmbARC extends ToolBase {
 		Element imageElement = new Element(FitsMetadataValues.IMAGE, fitsNS);
 
 		String bitDepth = metadata.getColumn(DPXColumn.BIT_DEPTH_1).getStandardizedValue();
-		String byteOrder = metadata.getColumn(DPXColumn.MAGIC_NUMBER).getStandardizedValue();
-		String descriptor = metadata.getColumn(DPXColumn.DESCRIPTOR_1).getStandardizedValue();
+		String byteOrder = mapMagicNumberToByteOrder(metadata.getColumn(DPXColumn.MAGIC_NUMBER).getStandardizedValue());
+		String colorSpace = mapDescriptorToColorSpace(metadata.getColumn(DPXColumn.DESCRIPTOR_1).getStandardizedValue());
 		String linesPerImageElement = metadata.getColumn(DPXColumn.LINES_PER_IMAGE_ELEMENT).getStandardizedValue();
 		String creator = metadata.getColumn(DPXColumn.CREATOR).getStandardizedValue();
 		String pixelsPerLine = metadata.getColumn(DPXColumn.PIXELS_PER_LINE).getStandardizedValue();
-		String imageOrientation = metadata.getColumn(DPXColumn.IMAGE_ORIENTATION).getStandardizedValue();
+		String orientation = mapImageOrientationToOrientation(metadata.getColumn(DPXColumn.IMAGE_ORIENTATION).getStandardizedValue());
 		String inputDeviceName = metadata.getColumn(DPXColumn.INPUT_DEVICE_NAME).getStandardizedValue();
 		String inputDeviceSerialNumber = metadata.getColumn(DPXColumn.INPUT_DEVICE_SERIAL_NUMBER).getStandardizedValue();
 
-		addElement(imageElement, FitsMetadataValues.BITS_PER_SAMPLE, stripInvalidXMLChars(bitDepth));
-		addElement(imageElement, FitsMetadataValues.BYTE_ORDER, stripInvalidXMLChars(byteOrder));
-		addElement(imageElement, FitsMetadataValues.COLOR_SPACE, stripInvalidXMLChars(descriptor));
-		addElement(imageElement, FitsMetadataValues.IMAGE_HEIGHT, stripInvalidXMLChars(linesPerImageElement));
-		addElement(imageElement, FitsMetadataValues.IMAGE_PRODUCER, stripInvalidXMLChars(creator));
-		addElement(imageElement, FitsMetadataValues.IMAGE_WIDTH, stripInvalidXMLChars(pixelsPerLine));
-		addElement(imageElement, FitsMetadataValues.ORIENTATION, stripInvalidXMLChars(imageOrientation));
-		addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_NAME, stripInvalidXMLChars(inputDeviceName));
-		addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_SERIAL_NO, stripInvalidXMLChars(inputDeviceSerialNumber));
+		if (bitDepth != null && !bitDepth.isEmpty()) {
+			addElement(imageElement, FitsMetadataValues.BITS_PER_SAMPLE, stripInvalidXMLChars(bitDepth));
+		}
+
+		if (byteOrder != null && !byteOrder.isEmpty()) {
+			addElement(imageElement, FitsMetadataValues.BYTE_ORDER, stripInvalidXMLChars(byteOrder));
+		}
+
+		if (colorSpace != null && !colorSpace.isEmpty()) {
+			addElement(imageElement, FitsMetadataValues.COLOR_SPACE, stripInvalidXMLChars(colorSpace));
+		}
+
+		if (linesPerImageElement != null && !linesPerImageElement.isEmpty()) {
+			addElement(imageElement, FitsMetadataValues.IMAGE_HEIGHT, stripInvalidXMLChars(linesPerImageElement));
+		}
+
+		if (creator != null && !creator.isEmpty()) {
+			addElement(imageElement, FitsMetadataValues.IMAGE_PRODUCER, stripInvalidXMLChars(creator));
+		}
+
+		if (pixelsPerLine != null && !pixelsPerLine.isEmpty()) {
+			addElement(imageElement, FitsMetadataValues.IMAGE_WIDTH, stripInvalidXMLChars(pixelsPerLine));
+		}
+
+		if (orientation != null && !orientation.isEmpty()) {
+			addElement(imageElement, FitsMetadataValues.ORIENTATION, stripInvalidXMLChars(orientation));
+		}
+
+		if (inputDeviceName != null && !inputDeviceName.isEmpty()) {
+			addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_NAME, stripInvalidXMLChars(inputDeviceName));
+		}
+
+		if (inputDeviceSerialNumber != null && !inputDeviceSerialNumber.isEmpty()) {
+			addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_SERIAL_NO, stripInvalidXMLChars(inputDeviceSerialNumber));
+		}
 
 		metadataElement.addContent(imageElement);
-
 		return metadataElement;
 	}
 
@@ -190,5 +218,90 @@ public class EmbARC extends ToolBase {
                 + "]";
 		String output = input.replaceAll(invalidChars, "");
 		return output;
+	}
+
+	private String mapMagicNumberToByteOrder(String magicNumber) {
+		if (magicNumber.charAt(0) == 'S') {
+			return "big endian";
+		} else if (magicNumber.charAt(0) == 'X') {
+			return "little endian";
+		}
+		return "";
+	}
+
+	private String mapDescriptorToColorSpace(String descriptor) {
+		switch (descriptor) {
+			case "0":
+				return "User defined (or unspecified single component)";
+			case "1":
+				return "Red (R)";
+			case "2":
+				return "Green (G)";
+			case "3":
+				return "Blue (B)";
+			case "4":
+				return "Alpha (matte)";
+			case "6":
+				return "Luma (Y)";
+			case "7":
+				return "Color Difference (CB, CR, subsampled by two)";
+			case "8":
+				return "Depth (Z)";
+			case "9":
+				return "Composite video";
+			case "50":
+				return "R,G,B";
+			case "51":
+				return "R,G,B, Alpha (A)";
+			case "52":
+				return "A,B,G,R";
+			case "100":
+				return "CB, Y, CR, Y (4:2:2)";
+			case "101":
+				return "CB, Y, A, CR, Y, A (4:2:2:4)";
+			case "102":
+				return "CB, Y, CR (4:4:4)";
+			case "103":
+				return "CB, Y, CR, A (4:4:4:4)";
+			case "150":
+				return "User-defined 2-component element";
+			case "151":
+				return "User-defined 3-component element";
+			case "152":
+				return "User-defined 4-component element";
+			case "153":
+				return "User-defined 5-component element";
+			case "154":
+				return "User-defined 6-component element";
+			case "155":
+				return "User-defined 7-component element";
+			case "156":
+				return "User-defined 8-component element";
+			default:
+				return "";
+		}
+	}
+
+	private String mapImageOrientationToOrientation(String imageOrientation) {
+		switch (imageOrientation) {
+			case "0":
+				return "left to right, top to bottom";
+			case "1":
+				return "right to left, top to bottom";
+			case "2":
+				return "left to right, bottom to top";
+			case "3":
+				return "right to left, bottom to top";
+			case "4":
+				return "top to bottom, left to right";
+			case "5":
+				return "top to bottom, right to left";
+			case "6":
+				return "bottom to top, left to right";
+			case "7":
+				return "bottom to top, right to left";
+			default:
+				return "";
+		}
 	}
 }
