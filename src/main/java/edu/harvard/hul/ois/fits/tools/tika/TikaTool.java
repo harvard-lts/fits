@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.tika.Tika;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.EncryptedDocumentException;
 import org.apache.tika.exception.TikaException;
@@ -640,10 +639,7 @@ public class TikaTool extends ToolBase {
         String[] metadataNames = metadata.names();
         Element elem = new Element (FitsMetadataValues.DOCUMENT, fitsNS);
 
-        String subject = metadata.get(OfficeOpenXMLCore.SUBJECT.getName());
-        if (subject == null) {
-            subject = metadata.get(TikaCoreProperties.SUBJECT.getName());
-        }
+        String subject = metadata.get(TikaCoreProperties.SUBJECT.getName());
         if (subject != null) {
             addSimpleElement (elem, FitsMetadataValues.SUBJECT, subject);
         }

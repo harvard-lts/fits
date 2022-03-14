@@ -308,10 +308,10 @@ public class EbuCoreModel {
 		    		List<ChannelPositionWrapper> positions = cpp.getChannelsFromString(dataValue);
 
 		    		for (ChannelPositionWrapper positionWrapper : positions) {
-		    			Position positionX = new Position(new Integer(positionWrapper.getXpos()));
+		    			Position positionX = new Position(positionWrapper.getXpos());
 		    			positionX.setCoordinate("x");
 
-		    			Position positionY = new Position(new Integer(positionWrapper.getYpos()));
+		    			Position positionY = new Position(positionWrapper.getYpos());
 		    			positionY.setCoordinate("y");
 
 		    			AudioBlockFormat abf = new AudioBlockFormat();
@@ -470,8 +470,8 @@ public class EbuCoreModel {
     	case duration:
     		//Integer intValue = new Integer(dataValue);
     		// Sometimes MediaInfo returns a value with a decimal place
-    		Double d = new Double(dataValue);
-    		Integer intValue = Integer.valueOf((int) Math.round(d));
+    		double d = Double.parseDouble(dataValue);
+    		int intValue = (int) Math.round(d);
     		EditUnitNumber eun = new EditUnitNumber(intValue, "editUnitNumber");
     		eun.setEditRate(1000);
     		eun.setFactorNumerator(1);
@@ -497,7 +497,7 @@ public class EbuCoreModel {
         int framesFromTc = Integer.parseInt(timecode.substring(9, 11 ));
 
         EbuCoreFrameRateRatio ratio = new EbuCoreFrameRateRatio(framerate);
-        int fps = new Integer (ratio.getValue());
+        int fps = Integer.parseInt(ratio.getValue());
 
         // hours
         int frames = (int)(( double)hours * 3600 * fps);
@@ -516,10 +516,10 @@ public class EbuCoreModel {
         // frames
         frames += framesFromTc;
 
-		EditUnitNumber eun = new EditUnitNumber(new Integer(frames), "editUnitNumber");
+		EditUnitNumber eun = new EditUnitNumber(frames, "editUnitNumber");
 		eun.setEditRate(fps);
-		eun.setFactorNumerator(new Integer(ratio.getNumerator()));
-		eun.setFactorDenominator(new Integer(ratio.getDenominator()));
+		eun.setFactorNumerator(Integer.parseInt(ratio.getNumerator()));
+		eun.setFactorDenominator(Integer.parseInt(ratio.getDenominator()));
 
 		Start start = new Start("start");
 		start.setTimecode(eun);
