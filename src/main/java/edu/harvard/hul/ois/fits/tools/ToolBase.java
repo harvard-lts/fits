@@ -11,6 +11,7 @@
 package edu.harvard.hul.ois.fits.tools;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -60,8 +61,8 @@ public abstract class ToolBase implements Tool {
 		String factoryImpl = "net.sf.saxon.TransformerFactoryImpl";
 		try {
 			Class<?> clazz = Class.forName(factoryImpl, true, ToolBase.class.getClassLoader());
-			tFactory = (TransformerFactory)clazz.newInstance();
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			tFactory = (TransformerFactory)clazz.getDeclaredConstructor().newInstance();
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 			throw new FitsToolException("Could not access or instantiate class: " + factoryImpl, e);
 		}
 		

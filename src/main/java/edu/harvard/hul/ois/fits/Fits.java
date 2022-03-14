@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
@@ -265,7 +266,7 @@ public class Fits {
     outputOptions.addOption( combinedStd );
     options.addOptionGroup( outputOptions );
 
-    CommandLineParser parser = new GnuParser();
+    CommandLineParser parser = new DefaultParser();
     CommandLine cmd = null;
     try {
     	cmd = parser.parse( options, args );
@@ -527,8 +528,8 @@ public class Fits {
 	String factoryImpl = "net.sf.saxon.TransformerFactoryImpl";
 	try {
 		Class<?> clazz = Class.forName(factoryImpl);
-		tFactory = (TransformerFactory)clazz.newInstance();
-	} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+		tFactory = (TransformerFactory)clazz.getDeclaredConstructor().newInstance();
+	} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 		throw new FitsToolException("Could not access or instantiate class: " + factoryImpl, e);
 	}
 

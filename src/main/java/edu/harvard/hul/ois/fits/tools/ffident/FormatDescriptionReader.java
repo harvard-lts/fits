@@ -51,9 +51,9 @@ public class FormatDescriptionReader
 		desc.setLongName(items[2]);
 		desc.addMimeTypes(items[3]);
 		desc.addFileExtensions(items[4]);
-		desc.setOffset(new Integer(items[5]));
+		desc.setOffset(Integer.parseInt(items[5]));
 		desc.setMagicBytes(items[6]);
-		desc.setMinimumSize(new Integer(items[7]));
+		desc.setMinimumSize(Integer.parseInt(items[7]));
 		return desc;
 	}
 }

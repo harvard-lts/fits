@@ -34,7 +34,6 @@ package edu.harvard.hul.ois.fits.tools.mediainfo;
 import static java.util.Collections.singletonMap;
 
 import java.lang.reflect.Method;
-import java.net.URL;
 
 import com.sun.jna.FunctionMapper;
 import com.sun.jna.Library;
@@ -99,12 +98,9 @@ class MediaInfoNativeWrapper
    interface MediaInfoDLL_Internal extends Library
    {
 
-       MediaInfoDLL_Internal INSTANCE = (MediaInfoDLL_Internal) Native.loadLibrary(LibraryPath, MediaInfoDLL_Internal.class, singletonMap(OPTION_FUNCTION_MAPPER, new FunctionMapper()
-           {
-
+       MediaInfoDLL_Internal INSTANCE = Native.load(LibraryPath, MediaInfoDLL_Internal.class, singletonMap(OPTION_FUNCTION_MAPPER, new FunctionMapper() {
                @Override
-               public String getFunctionName(NativeLibrary lib, Method method)
-               {
+               public String getFunctionName(NativeLibrary lib, Method method) {
                    return "MediaInfo_" + method.getName();
                }
            }
