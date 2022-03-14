@@ -9,7 +9,7 @@
 #   docker run --rm -v `pwd`:/work:z fits -i file.txt
 #
 #   # Run FITS on a directory
-#   docker run --rm -v `pwd`:/work:z fits -r -i in-dir -o out-dir
+#   docker run --rm -v `pwd`:/work:z fits -r -n -i in-dir -o out-dir
 #
 #   # Run FITS with alternate configuration
 #   docker run --rm -v `pwd`:/work:z fits -f fits-custom.xml -i file.txt
