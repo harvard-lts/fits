@@ -296,7 +296,7 @@
 	       	<xsl:variable name="exposureProgram" select="JPG/EXIF/EXPOSUREPROGRAM/VALUE"/>
 	      	<xsl:choose>
 				<xsl:when test="$exposureProgram=0">
-					<xsl:value-of select="string('Not Defined')"/>
+					<xsl:value-of select="string('Not defined')"/>
 				</xsl:when>
 				<xsl:when test="$exposureProgram=1">
 					<xsl:value-of select="string('Manual')"/>
