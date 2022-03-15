@@ -286,7 +286,7 @@ public class Config {
 	 * registered in config.xml.
 	 * 
 	 * @param cl - An alternative, custom class loader.
-	 * @see initAdapters(Node)
+	 * @see #initAdapters(Node)
 	 */
 	public synchronized static void setClassLoader(final ClassLoader cl) {
 		if (cl != null) {
