@@ -47,3 +47,7 @@ Comma Separated Values=Comma-Separated Values (CSV)
 MPEG-4 Media File=MPEG-4
 Web Video Text Tracks (WebVTT) Format=WebVTT
 Keyhole Markup Language (XML)=Keyhole Markup Language
+TEI P4 XML - Single Text File=TEI
+TEI P4 XML - Corpus File=TEI
+TEI P5 - Single Text File=TEI
+TEI P5 XML - Corpus File=TEI

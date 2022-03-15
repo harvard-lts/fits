@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
@@ -78,9 +79,11 @@ public class Fits {
   private static boolean traverseDirs;
   private static boolean nestDirs; // whether traversing nested directories of input files creates nest output directories - if false, all output goes in same output directory
   private static XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
+  private static boolean rawToolOutput = false;
 
   private static final String FITS_CONFIG_FILE_NAME = "fits.xml";
   private static final String VERSION_PROPERTIES_FILE = "version.properties";
+  private static final int DEFAULT_MAX_THREADS = 20;
   
   private XMLConfiguration config;
   private FitsXmlMapper mapper;
@@ -89,7 +92,7 @@ public class Fits {
   private String externalOutputSchema;
   private String internalOutputSchema;
   private boolean validateToolOutput;
-  private int maxThreads = 20;
+  private int maxThreads;
   private ToolOutputConsolidator consolidator;
   private ToolBelt toolbelt;
   private boolean resetToolOutput = true; // should always be true except for unit tests
@@ -227,10 +230,13 @@ public class Fits {
     try {
       maxThreads = config.getShort( "process.max-threads" );
     } catch (NoSuchElementException e) {
+        logger.warn("'max-threads' value not set in fit.xml. Setting to default: {}", DEFAULT_MAX_THREADS);
+        maxThreads = DEFAULT_MAX_THREADS;
     }
     if (maxThreads < 1) {
       // If invalid number specified, use a default.
-      maxThreads = 20;
+      logger.warn("Invalid number of threads specified: {} -- Resetting to default: {}", maxThreads, DEFAULT_MAX_THREADS);
+      maxThreads = DEFAULT_MAX_THREADS;
     }
     logger.debug( "Maximum threads = " + maxThreads );
 
@@ -260,6 +266,7 @@ public class Fits {
     options.addOption( "h", false, "print this message" );
     options.addOption( "v", false, "print version information" );
     options.addOption( "f", true, "alternate fits.xml configuration file location (optional)" );
+    options.addOption( "t", false, "include all raw tool output" );
     OptionGroup outputOptions = new OptionGroup();
     Option stdxml = new Option( "x", false, "convert FITS output to a standard metadata schema -- note: only standard schema metadata is output" );
     Option combinedStd = new Option( "xc", false, "output using a standard metadata schema and include FITS xml" );
@@ -267,7 +274,7 @@ public class Fits {
     outputOptions.addOption( combinedStd );
     options.addOptionGroup( outputOptions );
 
-    CommandLineParser parser = new GnuParser();
+    CommandLineParser parser = new DefaultParser();
     CommandLine cmd = null;
     try {
     	cmd = parser.parse( options, args );
@@ -289,11 +296,12 @@ public class Fits {
     } else {
       traverseDirs = false;
     }
-    if (cmd.hasOption( "n") ) {
+    if (cmd.hasOption( "n" ) ) {
       nestDirs = true;
     } else {
       nestDirs = false;
     }
+    rawToolOutput = cmd.hasOption( "t" );
     
     File fitsConfigFile = null;
     try {
@@ -529,8 +537,8 @@ public class Fits {
 	String factoryImpl = "net.sf.saxon.TransformerFactoryImpl";
 	try {
 		Class<?> clazz = Class.forName(factoryImpl);
-		tFactory = (TransformerFactory)clazz.newInstance();
-	} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+		tFactory = (TransformerFactory)clazz.getDeclaredConstructor().newInstance();
+	} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 		throw new FitsToolException("Could not access or instantiate class: " + factoryImpl, e);
 	}
 
@@ -725,6 +733,10 @@ public class Fits {
    */
   public boolean isConsolidateFirstIdentity() {
     return consolidateFirstIdentity;
+  }
+  
+  public boolean isRawToolOutput() {
+      return rawToolOutput;
   }
 
   /* Count up all the threads that are still running */
