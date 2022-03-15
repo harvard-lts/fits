@@ -45,6 +45,7 @@
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="Droid" toolversion="6.1.5" executionTime="266" />
     <tool toolname="Jhove" toolversion="1.16" executionTime="443" />
+    <tool toolname="embARC" toolversion="0.2" status="did not run" />
     <tool toolname="file utility" toolversion="5.04" executionTime="414" />
     <tool toolname="Exiftool" toolversion="10.00" executionTime="432" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />

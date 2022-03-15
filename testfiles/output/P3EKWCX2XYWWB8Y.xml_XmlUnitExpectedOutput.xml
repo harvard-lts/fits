@@ -23,6 +23,7 @@
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
     <tool toolname="Droid" toolversion="6.5" executionTime="117" />
     <tool toolname="Jhove" toolversion="1.24.9" executionTime="825" />
+    <tool toolname="embARC" toolversion="0.2" status="did not run" />
     <tool toolname="file utility" toolversion="5.40" executionTime="876" />
     <tool toolname="Exiftool" toolversion="12.30" executionTime="815" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="695" />
