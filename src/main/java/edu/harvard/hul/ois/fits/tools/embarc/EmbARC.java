@@ -107,35 +107,35 @@ public class EmbARC extends ToolBase {
 	}
 
 	private Element createFileInfoElement(DPXMetadata metadata) {
-        Element fileInfoElement = new Element("fileinfo", fitsNS);
+		Element fileInfoElement = new Element("fileinfo", fitsNS);
 
 		String copyrightNote = metadata.getColumn(DPXColumn.COPYRIGHT_STATEMENT).getStandardizedValue();
-        String created = metadata.getColumn(DPXColumn.CREATION_DATETIME).getStandardizedValue();
-        String filePath = inputFile.getAbsolutePath();
-        String fileName = inputFile.getName();
-        String fileSize = Long.toString(inputFile.length());
+		String created = metadata.getColumn(DPXColumn.CREATION_DATETIME).getStandardizedValue();
+		String filePath = inputFile.getAbsolutePath();
+		String fileName = inputFile.getName();
+		String fileSize = Long.toString(inputFile.length());
 
-        if (created != null && !created.isEmpty()) {
-            addElement(fileInfoElement, FitsMetadataValues.CREATED, stripInvalidXMLChars(created));
-        }
+		if (created != null && !created.isEmpty()) {
+			addElement(fileInfoElement, FitsMetadataValues.CREATED, stripInvalidXMLChars(created));
+		}
 
-        if (copyrightNote != null && !copyrightNote.isEmpty()) {
-            addElement(fileInfoElement, FitsMetadataValues.COPYRIGHT_NOTE, stripInvalidXMLChars(copyrightNote));
-        }
+		if (copyrightNote != null && !copyrightNote.isEmpty()) {
+			addElement(fileInfoElement, FitsMetadataValues.COPYRIGHT_NOTE, stripInvalidXMLChars(copyrightNote));
+		}
 
-        if (filePath != null) {
-            addElement(fileInfoElement, "filepath", filePath);
-        }
+		if (filePath != null) {
+			addElement(fileInfoElement, "filepath", filePath);
+		}
 
-        if (fileName != null) {
-            addElement(fileInfoElement, "filename", fileName);
-        }
+		if (fileName != null) {
+			addElement(fileInfoElement, "filename", fileName);
+		}
 
-        if (fileSize != null) {
-            addElement(fileInfoElement, FitsMetadataValues.SIZE, fileSize);
-        }
+		if (fileSize != null) {
+			addElement(fileInfoElement, FitsMetadataValues.SIZE, fileSize);
+		}
 
-        return fileInfoElement;
+		return fileInfoElement;
 	}
 
 	private Element createMetadataElement(DPXMetadata metadata) {
@@ -204,9 +204,9 @@ public class EmbARC extends ToolBase {
 	}
 
 	private void addElement(Element parent, String tag, String value ) {
-	    Element newElem = new Element(tag, fitsNS);
-	    newElem.addContent(value);
-	    parent.addContent(newElem);
+		Element newElem = new Element(tag, fitsNS);
+		newElem.addContent(value);
+		parent.addContent(newElem);
 	}
 
 	private String stripInvalidXMLChars(String input) {
