@@ -37,7 +37,6 @@ public class EmbARC extends ToolBase {
 
 	private File inputFile;
 	private FileFormat fileFormat;
-	private DPXFileInformation dpxFileInfo;
 
 	private static final Logger logger = LoggerFactory.getLogger(EmbARC.class);
 
@@ -57,16 +56,21 @@ public class EmbARC extends ToolBase {
 		String absPath = inputFile.getAbsolutePath();
 		fileFormat = FileFormatDetection.getFileFormat(absPath);
 
-		dpxFileInfo = DPXFileListHelper.createDPXFileInformation(absPath);
+		// embARC should only run for dpx files
+		if (fileFormat != FileFormat.DPX) {
+			throw new FitsToolException("embARC processing failed: non-dpx file detected");
+		}
 
-		Document fitsXml = createToolData();
+		DPXFileInformation dpxFileInfo = DPXFileListHelper.createDPXFileInformation(absPath);
+
+		Document fitsXml = createToolData(dpxFileInfo);
 		Document rawData = null;
 		try {
-			rawData = createRawDataXml();
+			rawData = createRawDataXml(dpxFileInfo);
 		} catch (FitsToolException ex) {}
 
 		if (rawData == null) {
-			rawData = createRawDataJson();
+			rawData = createRawDataJson(dpxFileInfo);
 		}
 		ToolOutput output = new ToolOutput(this, fitsXml, rawData, fits);
 
@@ -86,24 +90,23 @@ public class EmbARC extends ToolBase {
 		enabled = value;
 	}
 
-	private Document createToolData() {
-		DPXMetadata metadata = dpxFileInfo.getFileData();
+	private Document createToolData(DPXFileInformation dpxFileInfo) {
 		Element fitsElement = new Element("fits", fitsNS);
 		Document toolDocument = new Document(fitsElement);
 
-		Element identificationElement = createIdentificationElement(metadata);
+		Element identificationElement = createIdentificationElement(dpxFileInfo);
 		fitsElement.addContent(identificationElement);
 
-		Element fileInfoElement = createFileInfoElement(metadata);
+		Element fileInfoElement = createFileInfoElement(dpxFileInfo);
 		fitsElement.addContent(fileInfoElement);
 
-		Element metadataElement = createMetadataElement(metadata);
+		Element metadataElement = createMetadataElement(dpxFileInfo);
 		fitsElement.addContent(metadataElement);
 
 		return toolDocument;
 	}
 
-	private Element createIdentificationElement(DPXMetadata metadata) {
+	private Element createIdentificationElement(DPXFileInformation dpxFileInfo) {
 		Element identificationElement = new Element("identification", fitsNS);
 		Element identityElem = new Element("identity", fitsNS);
 
@@ -117,7 +120,8 @@ public class EmbARC extends ToolBase {
 		return identificationElement;
 	}
 
-	private Element createFileInfoElement(DPXMetadata metadata) {
+	private Element createFileInfoElement(DPXFileInformation dpxFileInfo) {
+		DPXMetadata metadata = dpxFileInfo.getFileData();
 		Element fileInfoElement = new Element("fileinfo", fitsNS);
 
 		String copyrightNote = metadata.getColumn(DPXColumn.COPYRIGHT_STATEMENT).getStandardizedValue();
@@ -149,7 +153,8 @@ public class EmbARC extends ToolBase {
 		return fileInfoElement;
 	}
 
-	private Element createMetadataElement(DPXMetadata metadata) {
+	private Element createMetadataElement(DPXFileInformation dpxFileInfo) {
+		DPXMetadata metadata = dpxFileInfo.getFileData();
 		Element metadataElement = new Element("metadata", fitsNS);
 		Element imageElement = new Element(FitsMetadataValues.IMAGE, fitsNS);
 
@@ -203,7 +208,7 @@ public class EmbARC extends ToolBase {
 		return metadataElement;
 	}
 
-	private Document createRawDataJson() {
+	private Document createRawDataJson(DPXFileInformation dpxFileInfo) {
 		Element root = new Element("embARC");
 		Element rawOutput = new Element("rawOutput");
 
@@ -214,7 +219,7 @@ public class EmbARC extends ToolBase {
 		return new Document(root);
 	}
 
-	private Document createRawDataXml() throws FitsToolException {
+	private Document createRawDataXml(DPXFileInformation dpxFileInfo) throws FitsToolException {
 		JSONObject dpxJson = JsonWriterDpx.createJsonFileObject(dpxFileInfo);
 		String dpxXmlString = XML.toString(dpxJson);
 

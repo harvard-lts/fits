@@ -44,6 +44,7 @@
 		<xerces-impl.version>2.12.2</xerces-impl.version>
 		<saxon.version>11.2</saxon.version>
 		<mvn-compiler-plgn.version>3.0</mvn-compiler-plgn.version>
+		<embarc.version>0.2</embarc.version>
 	</properties>
 
 	<build>
@@ -295,6 +296,13 @@
 			<groupId>com.joyent.util</groupId>
 			<artifactId>fast-md5</artifactId>
 			<version>${fast-md5.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.portalmedia.embarc</groupId>
+			<artifactId>embarc</artifactId>
+			<version>${embarc.version}</version>
+			<!-- not included in main lib directory - only in subdirectory -->
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Local dependencies -->
