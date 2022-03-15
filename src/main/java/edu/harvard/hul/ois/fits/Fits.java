@@ -299,9 +299,7 @@ public class Fits {
     } else {
       nestDirs = false;
     }
-    if (cmd.hasOption( "t" )) {
-        rawToolOutput = true;
-    }
+    rawToolOutput = cmd.hasOption( "t" );
     
     File fitsConfigFile = null;
     try {
