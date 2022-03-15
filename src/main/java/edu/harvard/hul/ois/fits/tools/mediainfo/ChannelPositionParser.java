@@ -49,7 +49,7 @@ public class ChannelPositionParser {
 	/**
 	 *
 	 * @param channelsStr - the channel position string returned by MediaInfo
-	 * @return
+	 * @return List<ChannelPositionWrapper>
 	 * @throws XmlContentException
 	 */
 	public List<ChannelPositionWrapper> getChannelsFromString(String channelsStr)
