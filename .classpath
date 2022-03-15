@@ -189,7 +189,6 @@
 	<classpathentry kind="lib" path="lib/droid/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="lib/droid/xmlschema-core-2.2.5.jar"/>
 	<classpathentry kind="lib" path="lib/droid/xmpbox-2.0.24.jar"/>
-	<classpathentry kind="lib" path="lib/embarc/embARC.jar"/>
 	<classpathentry kind="lib" path="lib/tika/apache-mime4j-core-0.8.4.jar"/>
 	<classpathentry kind="lib" path="lib/tika/apache-mime4j-dom-0.8.4.jar"/>
 	<classpathentry kind="lib" path="lib/tika/asm-9.2.jar"/>
@@ -269,5 +268,6 @@
 	<classpathentry kind="lib" path="lib/tika/xmpbox-2.0.25.jar"/>
 	<classpathentry kind="lib" path="lib/tika/xmpcore-6.1.11.jar"/>
 	<classpathentry kind="lib" path="lib/tika/xz-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/embarc/embARC.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

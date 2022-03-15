@@ -1,12 +1,16 @@
 package edu.harvard.hul.ois.fits.tools.embarc;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
 import org.json.JSONObject;
+import org.json.XML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +60,14 @@ public class EmbARC extends ToolBase {
 		dpxFileInfo = DPXFileListHelper.createDPXFileInformation(absPath);
 
 		Document fitsXml = createToolData();
-		Document rawData = createRawData();
+		Document rawData = null;
+		try {
+			rawData = createRawDataXml();
+		} catch (FitsToolException ex) {}
+
+		if (rawData == null) {
+			rawData = createRawDataJson();
+		}
 		ToolOutput output = new ToolOutput(this, fitsXml, rawData, fits);
 
 		duration = System.currentTimeMillis()-startTime;
@@ -192,8 +203,8 @@ public class EmbARC extends ToolBase {
 		return metadataElement;
 	}
 
-	private Document createRawData() {
-		Element root = new Element("embARCOutput");
+	private Document createRawDataJson() {
+		Element root = new Element("embARC");
 		Element rawOutput = new Element("rawOutput");
 
 		JSONObject dpxJson = JsonWriterDpx.createJsonFileObject(dpxFileInfo);
@@ -201,6 +212,39 @@ public class EmbARC extends ToolBase {
 		root.addContent(rawOutput);
 
 		return new Document(root);
+	}
+
+	private Document createRawDataXml() throws FitsToolException {
+		JSONObject dpxJson = JsonWriterDpx.createJsonFileObject(dpxFileInfo);
+		String dpxXmlString = XML.toString(dpxJson);
+
+		StringWriter out = new StringWriter();
+		out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+		out.write("\n");
+		out.write("<embARC>");
+		out.write("\n");
+		out.write("<rawOutput>\n");
+		out.write(dpxXmlString);
+		out.write("</rawOutput>");
+		out.write("\n");
+		out.write("</embARC>");
+		out.write("\n");
+		out.flush();
+
+		try {
+			out.close();
+		} catch (IOException e) {
+			throw new FitsToolException("Error closing embARC tool XML output stream");
+		}
+
+		Document doc = null;
+		try {
+			doc = saxBuilder.build(new StringReader(out.toString()));
+		} catch (Exception e) {
+			throw new FitsToolException("Error parsing embARC tool XML raw output");
+		}
+
+		return doc;
 	}
 
 	private void addElement(Element parent, String tag, String value ) {
