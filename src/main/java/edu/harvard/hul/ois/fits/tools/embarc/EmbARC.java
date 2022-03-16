@@ -9,17 +9,16 @@ import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.Namespace;
-import org.json.JSONObject;
-import org.json.XML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.portalmedia.embarc.cli.Main;
-import com.portalmedia.embarc.cli.JsonWriterDpx;
+import com.portalmedia.embarc.cli.XmlWriterDpx;
 import com.portalmedia.embarc.parser.dpx.DPXFileListHelper;
 import com.portalmedia.embarc.parser.dpx.DPXMetadata;
 import com.portalmedia.embarc.parser.FileFormat;
 import com.portalmedia.embarc.parser.FileFormatDetection;
+import com.portalmedia.embarc.parser.MetadataColumn;
 import com.portalmedia.embarc.parser.dpx.DPXColumn;
 import com.portalmedia.embarc.parser.dpx.DPXFileInformation;
 
@@ -64,13 +63,11 @@ public class EmbARC extends ToolBase {
 		DPXFileInformation dpxFileInfo = DPXFileListHelper.createDPXFileInformation(absPath);
 
 		Document fitsXml = createToolData(dpxFileInfo);
-		Document rawData = null;
+		Document rawData = new Document();
 		try {
 			rawData = createRawDataXml(dpxFileInfo);
-		} catch (FitsToolException ex) {}
-
-		if (rawData == null) {
-			rawData = createRawDataJson(dpxFileInfo);
+		} catch (FitsToolException ex) {
+			ex.printStackTrace();
 		}
 		ToolOutput output = new ToolOutput(this, fitsXml, rawData, fits);
 
@@ -124,18 +121,18 @@ public class EmbARC extends ToolBase {
 		DPXMetadata metadata = dpxFileInfo.getFileData();
 		Element fileInfoElement = new Element("fileinfo", fitsNS);
 
-		String copyrightNote = metadata.getColumn(DPXColumn.COPYRIGHT_STATEMENT).getStandardizedValue();
-		String created = metadata.getColumn(DPXColumn.CREATION_DATETIME).getStandardizedValue();
+		String copyrightNote = getValueForColumn(metadata, DPXColumn.COPYRIGHT_STATEMENT);
+		String created = getValueForColumn(metadata, DPXColumn.CREATION_DATETIME);
 		String filePath = inputFile.getAbsolutePath();
 		String fileName = inputFile.getName();
 		String fileSize = Long.toString(inputFile.length());
 
 		if (created != null && !created.isEmpty()) {
-			addElement(fileInfoElement, FitsMetadataValues.CREATED, stripInvalidXMLChars(created));
+			addElement(fileInfoElement, FitsMetadataValues.CREATED, created);
 		}
 
 		if (copyrightNote != null && !copyrightNote.isEmpty()) {
-			addElement(fileInfoElement, FitsMetadataValues.COPYRIGHT_NOTE, stripInvalidXMLChars(copyrightNote));
+			addElement(fileInfoElement, FitsMetadataValues.COPYRIGHT_NOTE, copyrightNote);
 		}
 
 		if (filePath != null) {
@@ -158,78 +155,67 @@ public class EmbARC extends ToolBase {
 		Element metadataElement = new Element("metadata", fitsNS);
 		Element imageElement = new Element(FitsMetadataValues.IMAGE, fitsNS);
 
-		String bitDepth = metadata.getColumn(DPXColumn.BIT_DEPTH_1).getStandardizedValue();
-		String byteOrder = mapMagicNumberToByteOrder(metadata.getColumn(DPXColumn.MAGIC_NUMBER).getStandardizedValue());
-		String colorSpace = mapDescriptorToColorSpace(metadata.getColumn(DPXColumn.DESCRIPTOR_1).getStandardizedValue());
-		String linesPerImageElement = metadata.getColumn(DPXColumn.LINES_PER_IMAGE_ELEMENT).getStandardizedValue();
-		String creator = metadata.getColumn(DPXColumn.CREATOR).getStandardizedValue();
-		String pixelsPerLine = metadata.getColumn(DPXColumn.PIXELS_PER_LINE).getStandardizedValue();
-		String orientation = mapImageOrientationToOrientation(metadata.getColumn(DPXColumn.IMAGE_ORIENTATION).getStandardizedValue());
-		String inputDeviceName = metadata.getColumn(DPXColumn.INPUT_DEVICE_NAME).getStandardizedValue();
-		String inputDeviceSerialNumber = metadata.getColumn(DPXColumn.INPUT_DEVICE_SERIAL_NUMBER).getStandardizedValue();
+		String bitDepth = getValueForColumn(metadata, DPXColumn.BIT_DEPTH_1);
+		String byteOrder = mapMagicNumberToByteOrder(getValueForColumn(metadata, DPXColumn.MAGIC_NUMBER));
+		String colorSpace = mapDescriptorToColorSpace(getValueForColumn(metadata, DPXColumn.DESCRIPTOR_1));
+		String linesPerImageElement = getValueForColumn(metadata, DPXColumn.LINES_PER_IMAGE_ELEMENT);
+		String creator = getValueForColumn(metadata, DPXColumn.CREATOR);
+		String pixelsPerLine = getValueForColumn(metadata, DPXColumn.PIXELS_PER_LINE);
+		String orientation = mapImageOrientationToOrientation(getValueForColumn(metadata, DPXColumn.IMAGE_ORIENTATION));
+		String inputDeviceName = getValueForColumn(metadata, DPXColumn.INPUT_DEVICE_NAME);
+		String inputDeviceSerialNumber = getValueForColumn(metadata, DPXColumn.INPUT_DEVICE_SERIAL_NUMBER);
 
 		if (bitDepth != null && !bitDepth.isEmpty()) {
-			addElement(imageElement, FitsMetadataValues.BITS_PER_SAMPLE, stripInvalidXMLChars(bitDepth));
+			addElement(imageElement, FitsMetadataValues.BITS_PER_SAMPLE, bitDepth);
 		}
 
 		if (byteOrder != null && !byteOrder.isEmpty()) {
-			addElement(imageElement, FitsMetadataValues.BYTE_ORDER, stripInvalidXMLChars(byteOrder));
+			addElement(imageElement, FitsMetadataValues.BYTE_ORDER, byteOrder);
 		}
 
 		if (colorSpace != null && !colorSpace.isEmpty()) {
-			addElement(imageElement, FitsMetadataValues.COLOR_SPACE, stripInvalidXMLChars(colorSpace));
+			addElement(imageElement, FitsMetadataValues.COLOR_SPACE, colorSpace);
 		}
 
 		if (linesPerImageElement != null && !linesPerImageElement.isEmpty()) {
-			addElement(imageElement, FitsMetadataValues.IMAGE_HEIGHT, stripInvalidXMLChars(linesPerImageElement));
-		}
-
-		if (creator != null && !creator.isEmpty()) {
-			addElement(imageElement, FitsMetadataValues.IMAGE_PRODUCER, stripInvalidXMLChars(creator));
+			addElement(imageElement, FitsMetadataValues.IMAGE_HEIGHT, linesPerImageElement);
 		}
 
 		if (pixelsPerLine != null && !pixelsPerLine.isEmpty()) {
-			addElement(imageElement, FitsMetadataValues.IMAGE_WIDTH, stripInvalidXMLChars(pixelsPerLine));
+			addElement(imageElement, FitsMetadataValues.IMAGE_WIDTH, pixelsPerLine);
+		}
+
+		if (creator != null && !creator.isEmpty()) {
+			addElement(imageElement, FitsMetadataValues.IMAGE_PRODUCER, creator);
 		}
 
 		if (orientation != null && !orientation.isEmpty()) {
-			addElement(imageElement, FitsMetadataValues.ORIENTATION, stripInvalidXMLChars(orientation));
+			addElement(imageElement, FitsMetadataValues.ORIENTATION, orientation);
 		}
 
 		if (inputDeviceName != null && !inputDeviceName.isEmpty()) {
-			addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_NAME, stripInvalidXMLChars(inputDeviceName));
+			addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_NAME, inputDeviceName);
 		}
 
 		if (inputDeviceSerialNumber != null && !inputDeviceSerialNumber.isEmpty()) {
-			addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_SERIAL_NO, stripInvalidXMLChars(inputDeviceSerialNumber));
+			addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_SERIAL_NO, inputDeviceSerialNumber);
 		}
 
 		metadataElement.addContent(imageElement);
 		return metadataElement;
 	}
 
-	private Document createRawDataJson(DPXFileInformation dpxFileInfo) {
-		Element root = new Element("embARC");
-		Element rawOutput = new Element("rawOutput");
-
-		JSONObject dpxJson = JsonWriterDpx.createJsonFileObject(dpxFileInfo);
-		rawOutput.addContent(dpxJson.toString(2));
-		root.addContent(rawOutput);
-
-		return new Document(root);
-	}
-
 	private Document createRawDataXml(DPXFileInformation dpxFileInfo) throws FitsToolException {
-		JSONObject dpxJson = JsonWriterDpx.createJsonFileObject(dpxFileInfo);
-		String dpxXmlString = XML.toString(dpxJson);
-
 		StringWriter out = new StringWriter();
 		out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		out.write("\n");
 		out.write("<embARC>");
 		out.write("\n");
 		out.write("<rawOutput>\n");
-		out.write(dpxXmlString);
+		String dpxXml = XmlWriterDpx.createDpxMetadataXml(dpxFileInfo);
+		if (dpxXml != null) {
+			out.write(dpxXml);
+		}
 		out.write("</rawOutput>");
 		out.write("\n");
 		out.write("</embARC>");
@@ -252,21 +238,33 @@ public class EmbARC extends ToolBase {
 		return doc;
 	}
 
-	private void addElement(Element parent, String tag, String value ) {
-		Element newElem = new Element(tag, fitsNS);
-		newElem.addContent(value);
-		parent.addContent(newElem);
+	private String getValueForColumn(DPXMetadata metadata, DPXColumn column) {
+		MetadataColumn col = metadata.getColumn(column);
+		if (col.isNull()) {
+			return "";
+		}
+		return stripInvalidXmlChars(col.getStandardizedValue());
 	}
 
-	private String stripInvalidXMLChars(String input) {
-		String invalidChars = "[^"
+	private String stripInvalidXmlChars(String input) {
+		String invalidChars1 = "[^"
                 + "\u0009\r\n"
                 + "\u0020-\uD7FF"
                 + "\uE000-\uFFFD"
                 + "\ud800\udc00-\udbff\udfff"
                 + "]";
-		String output = input.replaceAll(invalidChars, "");
-		return output;
+		String invalidChars11 = "[^"
+                + "\u0001-\uD7FF"
+                + "\uE000-\uFFFD"
+                + "\ud800\udc00-\udbff\udfff"
+                + "]+";
+		return input.replaceAll(invalidChars1, "").replaceAll(invalidChars11, "");
+	}
+
+	private void addElement(Element parent, String tag, String value ) {
+		Element newElem = new Element(tag, fitsNS);
+		newElem.addContent(value);
+		parent.addContent(newElem);
 	}
 
 	private String mapMagicNumberToByteOrder(String magicNumber) {
