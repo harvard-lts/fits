@@ -245,6 +245,7 @@ public abstract class ToolBase implements Tool {
 
 	public void resetOutput() {
 		output = null;
+		caughtThrowable = null;
 	}
 
 	public long getDuration() {
