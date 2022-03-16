@@ -248,18 +248,14 @@ public class EmbARC extends ToolBase {
 	}
 
 	private String stripInvalidXmlChars(String input) {
-		String invalidChars1 = "[^"
+		String invalidChars = "[^"
+                + "\u0001-\uD7FF"
                 + "\u0009\r\n"
                 + "\u0020-\uD7FF"
                 + "\uE000-\uFFFD"
                 + "\ud800\udc00-\udbff\udfff"
                 + "]";
-		String invalidChars11 = "[^"
-                + "\u0001-\uD7FF"
-                + "\uE000-\uFFFD"
-                + "\ud800\udc00-\udbff\udfff"
-                + "]+";
-		return input.replaceAll(invalidChars1, "").replaceAll(invalidChars11, "");
+		return input.replaceAll(invalidChars, "");
 	}
 
 	private void addElement(Element parent, String tag, String value ) {
