@@ -13,7 +13,7 @@
   <fileinfo>
     <size toolname="Jhove" toolversion="1.20.1">253214</size>
     <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Photostation v1</creatingApplicationName>
-    <created toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2007:09:21 00:00:00+08:00</created>
+    <created toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">2007-09-20T16:00:00Z</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/test.jp2</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">test.jp2</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">a9f2c77997e438c97639ad3a843f4fdb</md5checksum>
@@ -77,7 +77,7 @@
           </mix:BasicImageInformation>
           <mix:ImageCaptureMetadata>
             <mix:GeneralCaptureInformation>
-              <mix:dateTimeCreated>2007-09-21T00:00:00</mix:dateTimeCreated>
+              <mix:dateTimeCreated>2007-09-20T16:00:00Z</mix:dateTimeCreated>
             </mix:GeneralCaptureInformation>
             <mix:ScannerCapture>
               <mix:scannerManufacturer>Google</mix:scannerManufacturer>
