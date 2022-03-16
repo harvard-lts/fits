@@ -239,11 +239,12 @@ public class EmbARC extends ToolBase {
 	}
 
 	private String getValueForColumn(DPXMetadata metadata, DPXColumn column) {
-		MetadataColumn col = metadata.getColumn(column);
-		if (col.isNull()) {
+		MetadataColumn metadataColumn = metadata.getColumn(column);
+		String stdValue = metadataColumn.getStandardizedValue();
+		if (metadataColumn.isNull() || stdValue == "NULL") {
 			return "";
 		}
-		return stripInvalidXmlChars(col.getStandardizedValue());
+		return stripInvalidXmlChars(stdValue);
 	}
 
 	private String stripInvalidXmlChars(String input) {
