@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.2-SNAPSHOT" timestamp="3/11/22, 12:28 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.2-SNAPSHOT" timestamp="3/16/22 4:06 PM">
   <identification>
     <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.5.2-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
@@ -12,14 +12,12 @@
   <fileinfo>
     <size toolname="Jhove" toolversion="1.24.9">357428</size>
     <creatingApplicationName toolname="Jhove" toolversion="1.24.9">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="12.40" status="CONFLICT">2015:08:19 18:15:37-04:00</lastmodified>
-    <lastmodified toolname="Tika" toolversion="2.3.0" status="CONFLICT">2015-08-19T22:15:37Z</lastmodified>
-    <created toolname="Exiftool" toolversion="12.40" status="CONFLICT">2015:08:19 16:44:12-04:00</created>
-    <created toolname="Tika" toolversion="2.3.0" status="CONFLICT">2015-08-19T20:44:12Z</created>
-    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/PDFa_has_table_of_contents.pdf</filepath>
+    <lastmodified toolname="Exiftool" toolversion="12.40">2015-08-19T22:15:37Z</lastmodified>
+    <created toolname="Exiftool" toolversion="12.40">2015-08-19T20:44:12Z</created>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-harvard-lts/fits/testfiles/PDFa_has_table_of_contents.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">PDFa_has_table_of_contents.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">537d5a41d854b5c03f8bb33041faf1aa</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1646157541533</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1466791807000</fslastmodified>
   </fileinfo>
   <filestatus>
     <well-formed toolname="Jhove" toolversion="1.24.9" status="SINGLE_RESULT">true</well-formed>
