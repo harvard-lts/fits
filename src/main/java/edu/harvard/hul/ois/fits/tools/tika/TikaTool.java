@@ -18,6 +18,7 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.harvard.hul.ois.fits.util.DateTimeUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.EncryptedDocumentException;
@@ -379,13 +380,13 @@ public class TikaTool extends ToolBase {
         Element fileInfoElem = new Element ("fileinfo", fitsNS);
         if (lastModified != null) {
             Element lastModElem = new Element (FitsMetadataValues.LAST_MODIFIED, fitsNS);
-            lastModElem.addContent (lastModified);
+            lastModElem.addContent (DateTimeUtil.standardize(lastModified));
             fileInfoElem.addContent (lastModElem);
         }
 
         if (created != null) {
             Element createdElem = new Element (FitsMetadataValues.CREATED, fitsNS);
-            createdElem.addContent(created);
+            createdElem.addContent(DateTimeUtil.standardize(created));
             fileInfoElem.addContent(createdElem);
         }
 

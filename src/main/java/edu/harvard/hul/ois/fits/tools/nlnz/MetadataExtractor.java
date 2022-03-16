@@ -15,7 +15,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 
+import edu.harvard.hul.ois.fits.util.DateTimeUtil;
 import org.jdom.Document;
+import org.jdom.Element;
 import org.jdom.JDOMException;
 
 import edu.harvard.hul.ois.fits.Fits;
@@ -32,6 +34,7 @@ import nz.govt.natlib.fx.ParserListener;
 import nz.govt.natlib.meta.config.Config;
 import nz.govt.natlib.meta.harvester.DTDXmlParserListener;
 import nz.govt.natlib.meta.log.LogManager;
+import org.jdom.xpath.XPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -141,6 +144,9 @@ public class MetadataExtractor extends ToolBase {
 
 		//XmlUtils.printToConsole(dom);
 
+		standardizeTimestamp("//fits:fileinfo/fits:created", fitsXml);
+		standardizeTimestamp("//fits:fileinfo/fits:lastmodified", fitsXml);
+
 		output = new ToolOutput(this,fitsXml,dom, fits);
 		duration = System.currentTimeMillis()-startTime;
         logger.debug("MetadataExtractor.extractInfo finished on " + file.getName());
@@ -173,4 +179,18 @@ public class MetadataExtractor extends ToolBase {
 	public void setEnabled(boolean value) {
 		enabled = value;
 	}
+
+	private void standardizeTimestamp(String path, Document document) {
+		try {
+			XPath xpath = XPath.newInstance(path);
+			xpath.addNamespace("fits",Fits.XML_NAMESPACE);
+			Element element = (Element) xpath.selectSingleNode(document);
+			if (element != null) {
+				element.setText(DateTimeUtil.standardize(element.getText()));
+			}
+		} catch (JDOMException e) {
+			logger.debug("Failed to standardize timestamp", e);
+		}
+	}
+
 }

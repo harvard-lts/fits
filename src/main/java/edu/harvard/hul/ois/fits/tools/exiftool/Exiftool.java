@@ -11,17 +11,6 @@
 
 package edu.harvard.hul.ois.fits.tools.exiftool;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.apache.commons.lang.StringEscapeUtils;
-import org.jdom.Document;
-
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolCLIException;
@@ -31,8 +20,22 @@ import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
 import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
+import edu.harvard.hul.ois.fits.util.DateTimeUtil;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.xpath.XPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *  The glue class for invoking Exiftool under FITS.
@@ -156,6 +159,10 @@ public class Exiftool extends ToolBase {
 			//use generic transform
 			fitsXml = transform(exiftoolFitsConfig+genericTransform,rawOut);
 		}
+
+		standardizeTimestamp("//fits:fileinfo/fits:created", fitsXml);
+		standardizeTimestamp("//fits:fileinfo/fits:lastmodified", fitsXml);
+
 		output = new ToolOutput(this,fitsXml,rawOut, fits);
 		//}
 
@@ -235,6 +242,19 @@ public class Exiftool extends ToolBase {
 
 	public void setEnabled(boolean value) {
 		enabled = value;
+	}
+
+	private void standardizeTimestamp(String path, Document document) {
+		try {
+			XPath xpath = XPath.newInstance(path);
+			xpath.addNamespace("fits",Fits.XML_NAMESPACE);
+			Element element = (Element) xpath.selectSingleNode(document);
+			if (element != null) {
+				element.setText(DateTimeUtil.standardize(element.getText()));
+			}
+		} catch (JDOMException e) {
+			logger.debug("Failed to standardize timestamp", e);
+		}
 	}
 
 }
