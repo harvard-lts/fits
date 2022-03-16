@@ -11,10 +11,8 @@
     </identity>
   </identification>
   <fileinfo>
-    <lastmodified toolname="Exiftool" toolversion="12.29" status="CONFLICT">2009:05:06 22:13:30Z</lastmodified>
-    <lastmodified toolname="Tika" toolversion="2.0.0" status="CONFLICT">2009-05-06T22:13:30Z</lastmodified>
-    <created toolname="Exiftool" toolversion="12.29" status="CONFLICT">2009:05:06 22:06:09Z</created>
-    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2009-05-06T22:06:09Z</created>
+    <lastmodified toolname="Exiftool" toolversion="12.40">2009-05-06T22:13:30Z</lastmodified>
+    <created toolname="Exiftool" toolversion="12.40">2009-05-06T22:06:09Z</created>
     <creatingApplicationName toolname="Tika" toolversion="2.0.0" status="SINGLE_RESULT">Microsoft Office PowerPoint</creatingApplicationName>
     <creatingApplicationVersion toolname="Tika" toolversion="2.0.0" status="SINGLE_RESULT">12.0000</creatingApplicationVersion>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/home/winckles/workspace/3rd-party/fits/testfiles/samplepptx.pptx</filepath>
