@@ -268,6 +268,6 @@
 	<classpathentry kind="lib" path="lib/tika/xmpbox-2.0.25.jar"/>
 	<classpathentry kind="lib" path="lib/tika/xmpcore-6.1.11.jar"/>
 	<classpathentry kind="lib" path="lib/tika/xz-1.9.jar"/>
-	<classpathentry kind="lib" path="lib/embarc/embARC-0.2.jar"/>
+	<classpathentry kind="lib" path="lib-local/com/portalmedia/embarc/0.2/embarc-0.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

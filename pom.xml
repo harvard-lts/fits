@@ -297,11 +297,6 @@
 			<artifactId>fast-md5</artifactId>
 			<version>${fast-md5.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.portalmedia.embarc</groupId>
-			<artifactId>embarc</artifactId>
-			<version>${embarc.version}</version>
-		</dependency>
 
 		<!-- Local dependencies -->
 		<dependency>
@@ -327,6 +322,11 @@
 			<version>${nzmetool.version}</version>
 			<!-- not included in main lib directory - only in subdirectory -->
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.portalmedia.embarc</groupId>
+			<artifactId>embarc</artifactId>
+			<version>${embarc.version}</version>
 		</dependency>
 
 		<!-- test dependencies -->
