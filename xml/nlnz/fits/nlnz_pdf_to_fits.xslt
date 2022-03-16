@@ -57,17 +57,18 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</isTagged>
-			
-			<hasOutline>
-				<xsl:choose>
-					<xsl:when test="//HAS-OUTLINE='true'">
-						<xsl:value-of select="string('yes')"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="string('no')"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</hasOutline>
+
+			<!-- The metadata extractor does NOT correctly detect outlines so this value should be ignored -->
+<!--			<hasOutline>-->
+<!--				<xsl:choose>-->
+<!--					<xsl:when test="//HAS-OUTLINE='true'">-->
+<!--						<xsl:value-of select="string('yes')"/>-->
+<!--					</xsl:when>-->
+<!--					<xsl:otherwise>-->
+<!--						<xsl:value-of select="string('no')"/>-->
+<!--					</xsl:otherwise>-->
+<!--				</xsl:choose>-->
+<!--			</hasOutline>-->
 			
 			<hasForms>
 				<xsl:choose>
