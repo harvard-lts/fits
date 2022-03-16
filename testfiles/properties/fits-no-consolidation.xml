@@ -11,8 +11,7 @@
         <tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.VTTTool" include-exts="vtt" />
         <tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="odm,m4a,mpg" classpath-dirs="lib/droid" />
         <tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,mbox,arw,adl,eml,java,doc,docx,docm,odt,rtf,pages,wpd,wp,epub,csv,avi,mov,mpg,mpeg,mkv,mp3,mp4,mpeg4,m2ts,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv,pcd,zip" classpath-dirs="lib/jhove" />
-        <tool class="edu.harvard.hul.ois.fits.tools.embarc.EmbARC" include-exts="dpx" />
-        <tool class="edu.harvard.hul.ois.fits.tools.fileutility.FileUtility" exclude-exts="dng,wps,adl,jar,csv,m4a,dpx" classpath-dirs="lib/fileutility" />
+        <tool class="edu.harvard.hul.ois.fits.tools.fileutility.FileUtility" exclude-exts="dng,wps,adl,jar,epub,csv,m4a" classpath-dirs="lib/fileutility" />
         <tool class="edu.harvard.hul.ois.fits.tools.exiftool.Exiftool" exclude-exts="wps,vsd,jar,avi,mov,mpg,mpeg,mkv,mp4,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv,m2ts,mpeg4,rmvb,rm,wmv,vtt,adl" classpath-dirs="lib/exiftool" />
         <tool class="edu.harvard.hul.ois.fits.tools.nlnz.MetadataExtractor" include-exts="bmp,gif,jpg,jpeg,wp,wpd,odt,doc,pdf,mp3,bfw,flac,html,xml,arc" classpath-dirs="lib/nzmetool,xml/nlnz"/>
         <tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.FileInfo" classpath-dirs="lib/fileinfo" />
@@ -23,7 +22,7 @@
 	
 	<output>
 		<dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
-		<consolidate-first-identity>true</consolidate-first-identity>
+		<consolidate-first-identity>false</consolidate-first-identity>
 		<display-tool-output>false</display-tool-output>
 		<report-conflicts>true</report-conflicts>
 		<validate-tool-output>false</validate-tool-output>

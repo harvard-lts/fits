@@ -673,10 +673,12 @@ public class OISConsolidator implements ToolOutputConsolidator {
 			}
 		}
 
-		// Only use the output from tools that we're able to identify
-		// the file and are in the first identity section
-		if(identitySections.size() > 0) {
-			filterToolOutput(identitySections.get(0),culledResults);
+		if (fits.isConsolidateFirstIdentity()) {
+			// Only use the output from tools that we're able to identify
+			// the file and are in the first identity section
+			if(identitySections.size() > 0) {
+				filterToolOutput(identitySections.get(0),culledResults);
+			}
 		}
 
 		//check filestatus, do normal xml comparison

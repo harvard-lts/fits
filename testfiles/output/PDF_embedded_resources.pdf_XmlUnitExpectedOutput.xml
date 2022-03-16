@@ -36,7 +36,7 @@
       <author toolname="Exiftool" toolversion="11.54">Harvard University Archives</author>
       <pageCount toolname="Jhove" toolversion="1.20.1">52</pageCount>
       <isTagged toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</isTagged>
-      <hasOutline toolname="Jhove" toolversion="1.20.1">no</hasOutline>
+      <hasOutline toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">no</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">433</graphicsCount>
       <font toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">

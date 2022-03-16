@@ -38,7 +38,7 @@
       <pageCount toolname="Jhove" toolversion="1.20.1">6</pageCount>
       <isTagged toolname="Jhove" toolversion="1.20.1" status="CONFLICT">yes</isTagged>
       <isTagged toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">no</isTagged>
-      <hasOutline toolname="Jhove" toolversion="1.20.1">no</hasOutline>
+      <hasOutline toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">yes</hasAnnotations>
       <font toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">
         <fontName>ArialMT</fontName>

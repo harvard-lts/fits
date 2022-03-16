@@ -35,7 +35,7 @@
       <author toolname="Jhove" toolversion="1.11">Kristina Colucci</author>
       <pageCount toolname="Jhove" toolversion="1.11">32</pageCount>
       <isTagged toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">no</isTagged>
-      <hasOutline toolname="Jhove" toolversion="1.11">no</hasOutline>
+      <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
         <fontName>HelveticaRounded-Bold</fontName>
