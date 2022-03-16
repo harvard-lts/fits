@@ -183,10 +183,6 @@ public class Exiftool extends ToolBase {
         out.write("<exiftool>");
         out.write("\n");
 
-        out.write("<rawOutput>\n"+StringEscapeUtils.escapeXml(execOut));
-        out.write("</rawOutput>");
-        out.write("\n");
-
     	String[] lines = execOut.split("\n");
     	for(String line : lines) {
     		String[] parts = line.split("\t");
