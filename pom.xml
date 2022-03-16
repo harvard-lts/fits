@@ -301,8 +301,6 @@
 			<groupId>com.portalmedia.embarc</groupId>
 			<artifactId>embarc</artifactId>
 			<version>${embarc.version}</version>
-			<!-- not included in main lib directory - only in subdirectory -->
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- Local dependencies -->
