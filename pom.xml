@@ -324,7 +324,7 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.portalmedia.embarc</groupId>
+			<groupId>com.portalmedia</groupId>
 			<artifactId>embarc</artifactId>
 			<version>${embarc.version}</version>
 		</dependency>
