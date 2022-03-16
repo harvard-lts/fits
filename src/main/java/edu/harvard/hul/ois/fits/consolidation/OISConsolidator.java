@@ -91,6 +91,10 @@ public class OISConsolidator implements ToolOutputConsolidator {
 		this.fits = fits;
 		reportConflicts = fits.getConfig().getBoolean("output.report-conflicts",true);
 		displayToolOutput = fits.getConfig().getBoolean("output.display-tool-output",false);
+		// tool output can be turned on from command line overriding configured value
+		if (fits.isRawToolOutput()) {
+		    displayToolOutput = true;
+		}
 		SAXBuilder saxBuilder = new SAXBuilder();
 		try {
 			formatTree = saxBuilder.build(Fits.FITS_XML_DIR+"fits_format_tree.xml");
@@ -669,10 +673,12 @@ public class OISConsolidator implements ToolOutputConsolidator {
 			}
 		}
 
-		// Only use the output from tools that we're able to identify
-		// the file and are in the first identity section
-		if(identitySections.size() > 0) {
-			filterToolOutput(identitySections.get(0),culledResults);
+		if (fits.isConsolidateFirstIdentity()) {
+			// Only use the output from tools that we're able to identify
+			// the file and are in the first identity section
+			if(identitySections.size() > 0) {
+				filterToolOutput(identitySections.get(0),culledResults);
+			}
 		}
 
 		//check filestatus, do normal xml comparison
