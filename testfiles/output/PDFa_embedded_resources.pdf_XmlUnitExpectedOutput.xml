@@ -13,10 +13,8 @@
   <fileinfo>
     <size toolname="Jhove" toolversion="1.20">1219058</size>
     <creatingApplicationName toolname="Jhove" toolversion="1.20">Acrobat Distiller 8.1.0 (Windows)/Adobe PageMaker 6.52</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:08:19 17:53-04:00</lastmodified>
-    <lastmodified toolname="Tika" toolversion="1.18" status="CONFLICT">2015-08-19T21:53:00Z</lastmodified>
-    <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2008:09:24 15:27:24-04:00</created>
-    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2008-09-24T19:27:24Z</created>
+    <lastmodified toolname="Exiftool" toolversion="12.40">2015-08-19T21:53:00Z</lastmodified>
+    <created toolname="Exiftool" toolversion="12.40">2008-09-24T19:27:24Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/PDFa_embedded_resources.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFa_embedded_resources.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">12b6269615243b9a62cc9181796e76bd</md5checksum>

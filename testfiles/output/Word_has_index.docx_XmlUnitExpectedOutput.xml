@@ -11,10 +11,8 @@
     </identity>
   </identification>
   <fileinfo>
-    <lastmodified toolname="Exiftool" toolversion="10.00" status="CONFLICT">2015:08:19 23:04:00Z</lastmodified>
-    <lastmodified toolname="Tika" toolversion="1.10" status="CONFLICT">2015-08-19T23:04:00Z</lastmodified>
-    <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2015:08:19 23:03:00Z</created>
-    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2015-08-19T23:03:00Z</created>
+    <lastmodified toolname="Exiftool" toolversion="12.40">2015-08-19T23:04:00Z</lastmodified>
+    <created toolname="Exiftool" toolversion="12.40">2015-08-19T23:03:00Z</created>
     <creatingApplicationName toolname="Tika" toolversion="1.10" status="SINGLE_RESULT">Microsoft Office Word</creatingApplicationName>
     <creatingApplicationVersion toolname="Exiftool" toolversion="10.00">14.0000</creatingApplicationVersion>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/Word_has_index.docx</filepath>

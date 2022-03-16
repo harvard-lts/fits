@@ -13,10 +13,8 @@
   <fileinfo>
     <size toolname="Jhove" toolversion="1.20">248559</size>
     <creatingApplicationName toolname="Jhove" toolversion="1.20">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="11.01" status="CONFLICT">2015:08:19 18:32:33-04:00</lastmodified>
-    <lastmodified toolname="Tika" toolversion="1.18" status="CONFLICT">2015-08-19T22:32:33Z</lastmodified>
-    <created toolname="Exiftool" toolversion="11.54" status="CONFLICT">2015:08:19 18:32:31-04:00</created>
-    <created toolname="Tika" toolversion="2.2.1" status="CONFLICT">2015-08-19T22:32:31Z</created>
+    <lastmodified toolname="Exiftool" toolversion="12.40">2015-08-19T22:32:33Z</lastmodified>
+    <created toolname="Exiftool" toolversion="12.40">2015-08-19T22:32:31Z</created>
     <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/PDFA_Document with tables.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFA_Document with tables.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">fd8c309140462d55d6a76e5e3ec709ee</md5checksum>

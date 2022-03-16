@@ -11,10 +11,8 @@
     </identity>
   </identification>
   <fileinfo>
-    <lastmodified toolname="Exiftool" toolversion="12.29" status="CONFLICT">2016:08:23 15:51:49Z</lastmodified>
-    <lastmodified toolname="Tika" toolversion="2.0.0" status="CONFLICT">2016-08-23T15:51:49Z</lastmodified>
-    <created toolname="Exiftool" toolversion="12.29" status="CONFLICT">2016:08:22 16:47:09Z</created>
-    <created toolname="Tika" toolversion="2.0.0" status="CONFLICT">2016-08-22T16:47:09Z</created>
+    <lastmodified toolname="Exiftool" toolversion="12.40">2016-08-23T15:51:49Z</lastmodified>
+    <created toolname="Exiftool" toolversion="12.40">2016-08-22T16:47:09Z</created>
     <creatingApplicationName toolname="Tika" toolversion="2.0.0" status="SINGLE_RESULT">Microsoft Macintosh Excel</creatingApplicationName>
     <creatingApplicationVersion toolname="Tika" toolversion="2.0.0" status="SINGLE_RESULT">15.0300</creatingApplicationVersion>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/home/winckles/workspace/3rd-party/fits/testfiles/DH43D5TQESXBZ8W.xlsx</filepath>
