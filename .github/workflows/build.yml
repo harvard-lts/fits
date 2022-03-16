@@ -14,4 +14,4 @@ jobs:
       - name: Build image
         run: docker build -f docker/Dockerfile-test -t fits-test .
       - name: Run tests
-        run: docker run -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test -e
+        run: docker run -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
