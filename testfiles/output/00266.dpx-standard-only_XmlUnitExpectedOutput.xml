@@ -23,6 +23,7 @@
             <mix:scannerModelSerialNo>01018</mix:scannerModelSerialNo>
          </mix:ScannerModel>
       </mix:ScannerCapture>
+      <mix:orientation>normal*</mix:orientation>
    </mix:ImageCaptureMetadata>
    <mix:ImageAssessmentMetadata>
       <mix:SpatialMetrics/>

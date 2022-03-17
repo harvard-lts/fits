@@ -329,21 +329,21 @@ public class EmbARC extends ToolBase {
 	private String mapImageOrientationToOrientation(String imageOrientation) {
 		switch (imageOrientation) {
 			case "0":
-				return "left to right, top to bottom";
+				return "normal*";
 			case "1":
-				return "right to left, top to bottom";
+				return "normal, image flipped";
 			case "2":
-				return "left to right, bottom to top";
+				return "normal, image flipped, rotated 180°";
 			case "3":
-				return "right to left, bottom to top";
+				return "normal, rotated 180°";
 			case "4":
-				return "top to bottom, left to right";
+				return "normal, image flipped, rotated ccw 90°";
 			case "5":
-				return "top to bottom, right to left";
+				return "normal, rotated cw 90°";
 			case "6":
-				return "bottom to top, left to right";
+				return "normal, rotated ccw 90°";
 			case "7":
-				return "bottom to top, right to left";
+				return "normal, image flipped, rotated cw 90°";
 			default:
 				return "";
 		}
