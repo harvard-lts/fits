@@ -5,5 +5,3 @@
 {% include_relative guides/references/standard-metadata-schemas.md %}
 {% include_relative guides/references/fits-configuration-files.md %}
 {% include_relative guides/references/tools.md %}
-
----

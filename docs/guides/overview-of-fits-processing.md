@@ -2,7 +2,7 @@
 
 FITS works in different stages as shown in the image below.
 
-<img src="../images/fits_process.jpg">
+<img src="./images/fits_process.jpg">
 
 The steps are described in more detail here.
 

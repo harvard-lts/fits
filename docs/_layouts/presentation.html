@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+</header>
+
+<div>
+  {% if page.date %}<p>Presentation Date: {{ page.date }}</p>{% endif %}
+  {% if page.location %}<p>Location: {{ page.location }}</p>{% endif %}
+  {% if page.presentors %}<p>Presentor(s): {{ page.presentors }}</p>{% endif %}
+  {% if page.link %} <p><a href="{{ page.link }}">Presentation Slides</a></p>{% endif %}
+</div>
+
+{{ content }}

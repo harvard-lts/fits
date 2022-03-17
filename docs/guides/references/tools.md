@@ -35,14 +35,4 @@ Details
 Formats supported
 URL
 
-
-<!-- {% assign tools = site.tools | sort: 'name' %} -->
-    {% for tool in site.tools %}
-      {% if tool.name %}
-        <h4>{{ tool.name }}</h4>
-        <p>{{ tool.capabilities }}</p>
-      </a>
-      {% endif %}
-    {% endfor %}
-
 ---
