@@ -151,24 +151,24 @@ public class MetadataExtractor extends ToolBase {
         runStatus = RunStatus.SUCCESSFUL;
         return output;
     }
-	/*
-	public boolean isIdentityKnown(FileIdentity identity) {
-		if(identity == null
-				|| identity.getMime() == null
-				|| identity.getMime().length() == 0
-				|| identity.getFormat() == null
-				|| identity.getFormat().length() == 0) {
-			return false;
-		}
-		String format = identity.getFormat();
-		String mime = identity.getMime();
-		if(format == null || mime.equalsIgnoreCase("file/unknown")) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}*/
+    /*
+    public boolean isIdentityKnown(FileIdentity identity) {
+        if(identity == null
+                || identity.getMime() == null
+                || identity.getMime().length() == 0
+                || identity.getFormat() == null
+                || identity.getFormat().length() == 0) {
+            return false;
+        }
+        String format = identity.getFormat();
+        String mime = identity.getMime();
+        if(format == null || mime.equalsIgnoreCase("file/unknown")) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }*/
 
     public boolean isEnabled() {
         return enabled;

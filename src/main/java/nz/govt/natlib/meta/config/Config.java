@@ -336,13 +336,13 @@ public class Config {
         return defaultProfile;
     }
 
-//	public void setAdminPassword(String oldPassword, String password) {
-//		if (oldPassword.equals(adminPassword)) {
-//			adminPassword = password;
-//			BlowfishEasy bfish = new BlowfishEasy(SEED.toCharArray());
-//			adminPasswordNode.setNodeValue(bfish.encryptString(password));
-//		}
-//	}
+//    public void setAdminPassword(String oldPassword, String password) {
+//        if (oldPassword.equals(adminPassword)) {
+//            adminPassword = password;
+//            BlowfishEasy bfish = new BlowfishEasy(SEED.toCharArray());
+//            adminPasswordNode.setNodeValue(bfish.encryptString(password));
+//        }
+//    }
 
     public boolean checkAdminPassword(String pass) {
         if (pass != null) {
@@ -675,7 +675,7 @@ public class Config {
                         .getNodeName())) {
                     // the value is in the tag - not an attribute...
                     adminPasswordNode = appParam.getFirstChild();
-//					readAdminPassword(appParam.getFirstChild().getNodeValue());
+//                    readAdminPassword(appParam.getFirstChild().getNodeValue());
                 }
                 if (LOG_TAG.equalsIgnoreCase(nodes.item(i).getNodeName())) {
                     // the value is in the tag - not an attribute...
@@ -687,13 +687,13 @@ public class Config {
         return foundInit;
     }
 
-//	private void readAdminPassword(String hashedValue) {
-//		// System.out.println(hashedValue);
-//		BlowfishEasy bf = new BlowfishEasy(SEED.toCharArray());
-//		// System.out.println(bf);
-//		adminPassword = bf.decryptString(hashedValue);// .trim();
-//		// System.out.println(adminPassword);
-//	}
+//    private void readAdminPassword(String hashedValue) {
+//        // System.out.println(hashedValue);
+//        BlowfishEasy bf = new BlowfishEasy(SEED.toCharArray());
+//        // System.out.println(bf);
+//        adminPassword = bf.decryptString(hashedValue);// .trim();
+//        // System.out.println(adminPassword);
+//    }
 
     private boolean initAdapters(Node node) throws ClassNotFoundException,
             IllegalAccessException, InstantiationException {

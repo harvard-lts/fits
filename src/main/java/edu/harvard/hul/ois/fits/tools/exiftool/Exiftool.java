@@ -127,19 +127,19 @@ public class Exiftool extends ToolBase {
 
         Document rawOut = createXml(execOut);
 
-		/*
-		Document exifDoc = null;
-		try {
-			exifDoc = saxBuilder.build(new StringReader(execOut));
-		} catch (Exception e) {
-			throw new FitsToolException("Error parsing ffident XML Output",e);
-		}
+        /*
+        Document exifDoc = null;
+        try {
+            exifDoc = saxBuilder.build(new StringReader(execOut));
+        } catch (Exception e) {
+            throw new FitsToolException("Error parsing ffident XML Output",e);
+        }
 
-		String format = XmlUtils.getDomValue(exifDoc.getDocument(),"File:FileType");
-		exifDoc.getRootElement().getChild("rdf:Description/File:FileType");
-		Namespace ns = Namespace.getNamespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-		String test = exifDoc.getRootElement().getChildText("rdf:Description",ns);
-		*/
+        String format = XmlUtils.getDomValue(exifDoc.getDocument(),"File:FileType");
+        exifDoc.getRootElement().getChild("rdf:Description/File:FileType");
+        Namespace ns = Namespace.getNamespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+        String test = exifDoc.getRootElement().getChildText("rdf:Description",ns);
+        */
 
         String xsltTransform = null;
         if (format != null) {
@@ -210,24 +210,24 @@ public class Exiftool extends ToolBase {
         }
         return doc;
     }
-	/*
-	public boolean isIdentityKnown(FileIdentity identity) {
-		//identity and mimetype must not be null or empty strings for an identity to be "known"
-		if(identity == null
-				|| identity.getMime() == null
-				|| identity.getMime().length() == 0
-				|| identity.getFormat() == null
-				|| identity.getFormat().length() == 0) {
-			return false;
-		}
-		String mime = identity.getMime();
-		if(mime.equals("application/unknown")) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}*/
+    /*
+    public boolean isIdentityKnown(FileIdentity identity) {
+        //identity and mimetype must not be null or empty strings for an identity to be "known"
+        if(identity == null
+                || identity.getMime() == null
+                || identity.getMime().length() == 0
+                || identity.getFormat() == null
+                || identity.getFormat().length() == 0) {
+            return false;
+        }
+        String mime = identity.getMime();
+        if(mime.equals("application/unknown")) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }*/
 
     public boolean isEnabled() {
         return enabled;

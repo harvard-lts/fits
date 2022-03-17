@@ -47,13 +47,13 @@ public enum VideoFormatElements {
     }
 
     //static public VideoFormatElements lookup(String name) {
-    //	VideoFormatElements retMethod = null;
-    //	for(VideoFormatElements method : VideoFormatElements.values()) {
-    //		if (method.Name().equals(name)) {
-    //			retMethod = method;
-    //			break;
-    //		}
-    //	}
-    //	return retMethod;
+    //    VideoFormatElements retMethod = null;
+    //    for(VideoFormatElements method : VideoFormatElements.values()) {
+    //        if (method.Name().equals(name)) {
+    //            retMethod = method;
+    //            break;
+    //        }
+    //    }
+    //    return retMethod;
     //}
 }

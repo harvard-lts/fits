@@ -138,21 +138,21 @@ public abstract class ToolBase implements Tool {
     public Document transform(String xslt, Document input) throws FitsToolException {
         org.jdom.Document doc = null;
         try {
-//			Configuration config = ((TransformerFactoryImpl)tFactory).getConfiguration();
-//			DocumentWrapper docw = new DocumentWrapper(input,null,config);
+//            Configuration config = ((TransformerFactoryImpl)tFactory).getConfiguration();
+//            DocumentWrapper docw = new DocumentWrapper(input,null,config);
             Templates templates = tFactory.newTemplates(new StreamSource(xslt));
             Transformer transformer = templates.newTransformer();
-//			transformer.transform(new DOMSource((Node)input), out);
-//			transformer.transform(docw, out);
+//            transformer.transform(new DOMSource((Node)input), out);
+//            transformer.transform(docw, out);
 
             JDOMSource in = new JDOMSource(input);
             JDOMResult out = new JDOMResult();
-//		       JDOMResult result = new JDOMResult();
+//               JDOMResult result = new JDOMResult();
             transformer.transform(in, out);
             doc = out.getDocument();
 
 
-//			doc = out.getDocument();
+//            doc = out.getDocument();
         } catch (Exception e) {
             throw new FitsToolException(info.getName() + ": Error converting output using " + xslt, e);
         }

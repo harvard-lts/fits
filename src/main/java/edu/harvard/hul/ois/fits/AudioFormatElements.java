@@ -40,13 +40,13 @@ public enum AudioFormatElements {
     }
 
 //    static public AudioFormatElements lookup(String name) {
-//    	AudioFormatElements retMethod = null;
-//    	for(AudioFormatElements method : AudioFormatElements.values()) {
-//    		if (method.Name().equals(name)) {
-//    			retMethod = method;
-//    			break;
-//    		}
-//    	}
-//    	return retMethod;
+//        AudioFormatElements retMethod = null;
+//        for(AudioFormatElements method : AudioFormatElements.values()) {
+//            if (method.Name().equals(name)) {
+//                retMethod = method;
+//                break;
+//            }
+//        }
+//        return retMethod;
 //    }
 }

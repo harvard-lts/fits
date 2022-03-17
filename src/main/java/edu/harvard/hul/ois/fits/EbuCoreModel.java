@@ -236,8 +236,8 @@ public class EbuCoreModel {
 
             //Element codecElement = elem.getChild ("codecInfo",ns);
             //if(codecElement != null) {
-            //	dataValue = codecElement.getText().trim();
-            //	codec.setNameField(dataValue);
+            //    dataValue = codecElement.getText().trim();
+            //    codec.setNameField(dataValue);
             //}
             Element codecElement = elem.getChild("codecName", ns);
             if (codecElement != null) {
@@ -386,8 +386,8 @@ public class EbuCoreModel {
             }
             //codecElement = elem.getChild ("codecFamily",ns);
             //if(codecElement != null) {
-            //	dataValue = codecElement.getText().trim();
-            //	codec.setFamily(dataValue);
+            //    dataValue = codecElement.getText().trim();
+            //    codec.setFamily(dataValue);
             //}
             afmt.setCodec(codec);
         }
@@ -395,14 +395,14 @@ public class EbuCoreModel {
 //        //
 //        // Channel Positions
 //        //
-//   		dataElement = elem.getChild ("soundField",ns);
+//           dataElement = elem.getChild ("soundField",ns);
 //        if(dataElement != null) {
-//        	String dataValue = dataElement.getText().trim();
+//            String dataValue = dataElement.getText().trim();
 //
-//        	//if(StringUtilts.)
-//        	if(dataValue != null) {
+//            //if(StringUtilts.)
+//            if(dataValue != null) {
 //
-//        	}
+//            }
 //        }
 
         // Add the audio format object to the list
@@ -509,7 +509,7 @@ public class EbuCoreModel {
         // Not necessary, as normalization is already done in the
         // EbuCoreFrameRateRatio class
         //if (tmpFrame > Math.floor(tmpFrame))
-        //	tmpFrame = Math.floor(tmpFrame) + 1;
+        //    tmpFrame = Math.floor(tmpFrame) + 1;
         frames += tmpFrame;
 
         // frames
@@ -528,12 +528,12 @@ public class EbuCoreModel {
 
 //    public static void main(String[] args) throws XmlContentException {
 //
-//    	String timecode = "00:00:01:00";
-//    	String framerate = "29.97";
+//        String timecode = "00:00:01:00";
+//        String framerate = "29.97";
 //
-//    	EbuCoreModel test = new EbuCoreModel();
+//        EbuCoreModel test = new EbuCoreModel();
 //
-//    	test.createStart(timecode, framerate);
+//        test.createStart(timecode, framerate);
 //    }
 
 }

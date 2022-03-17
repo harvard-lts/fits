@@ -72,18 +72,18 @@ public class OISConsolidator implements ToolOutputConsolidator {
     }
 
 // This class is instantiated by Reflection in the Fits class using a 1-arg constructor
-//	public OISConsolidator() throws FitsConfigurationException {
+//    public OISConsolidator() throws FitsConfigurationException {
 //
-//		reportConflicts = Fits.config.getBoolean("output.report-conflicts",true);
-//		displayToolOutput = Fits.config.getBoolean("output.display-tool-output",false);
-//		SAXBuilder saxBuilder = new SAXBuilder();
-//		try {
-//			formatTree = saxBuilder.build(Fits.FITS_XML_DIR+"fits_format_tree.xml");
-//		} catch (Exception e) {
-//			throw new FitsConfigurationException("",e);
-//		}
-//		//fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
-//	}
+//        reportConflicts = Fits.config.getBoolean("output.report-conflicts",true);
+//        displayToolOutput = Fits.config.getBoolean("output.display-tool-output",false);
+//        SAXBuilder saxBuilder = new SAXBuilder();
+//        try {
+//            formatTree = saxBuilder.build(Fits.FITS_XML_DIR+"fits_format_tree.xml");
+//        } catch (Exception e) {
+//            throw new FitsConfigurationException("",e);
+//        }
+//        //fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
+//    }
 
     public OISConsolidator(Fits fits) throws FitsConfigurationException {
         if (fits == null || fits.getConfig() == null) {

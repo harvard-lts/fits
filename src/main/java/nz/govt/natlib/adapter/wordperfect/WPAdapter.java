@@ -246,10 +246,10 @@ public class WPAdapter extends DataAdapter {
             // compare inital bytes of input file with expected bytes
             wp = Arrays.equals(fileHead, acceptableWordPerfectHead);
 
-//			String head = FXUtil.getFixedStringValue(ftk, 4);
-//			if ((head.equals("�WPC"))) { // DO NOT USE: different encoding on different platforms
-//				wp = true;
-//			}
+//            String head = FXUtil.getFixedStringValue(ftk, 4);
+//            if ((head.equals("�WPC"))) { // DO NOT USE: different encoding on different platforms
+//                wp = true;
+//            }
 
         } catch (IOException ex) {
             LogManager.getInstance().logMessage(LogMessage.WORTHLESS_CHATTER,
@@ -331,7 +331,7 @@ public class WPAdapter extends DataAdapter {
                                 ctx.fireStartParseEvent("summary");
                                 summary = true;
                                 // System.out.println("Found Sumary at :"
-                                //		+ ftk.getPosition());
+                                //        + ftk.getPosition());
                                 summaryElement.read(ftk, ctx);
                                 if (fivePointOnePlus) {
                                     summary2Element.read(ftk, ctx);

@@ -127,14 +127,14 @@ public class FileUtility extends ToolBase {
             mime = execMimeOut.substring(0, execMimeOut.indexOf("; charset="));
             charset = execMimeOut.substring(execMimeOut.indexOf("=") + 1);
             charset = charset.toUpperCase();
-			/*if(execOut.contains("ASCII text") ||
-					execOut.contains("Unicode text, UTF-32") ||
-					execOut.contains("UTF-8 Unicode") ||
-					execOut.contains("UTF-16 Unicode") ||
-					execOut.contains("Non-ISO extended-ASCII text") ||
-					execOut.contains("ISO-8859")) {
-				format = "Plain text";
-			}*/
+            /*if(execOut.contains("ASCII text") ||
+                    execOut.contains("Unicode text, UTF-32") ||
+                    execOut.contains("UTF-8 Unicode") ||
+                    execOut.contains("UTF-16 Unicode") ||
+                    execOut.contains("Non-ISO extended-ASCII text") ||
+                    execOut.contains("ISO-8859")) {
+                format = "Plain text";
+            }*/
             format = "Plain text";
 
             Pattern p = Pattern.compile("(.*) with (.*) line terminators");
@@ -213,25 +213,25 @@ public class FileUtility extends ToolBase {
         return new Document(root);
 
     }
-	/*
-	public boolean isIdentityKnown(FileIdentity identity) {
-		//identity and mimetype must not be null or empty strings for an identity to be "known"
-		if(identity == null
-				|| identity.getMime() == null
-				|| identity.getMime().length() == 0
-				|| identity.getFormat() == null
-				|| identity.getFormat().length() == 0) {
-			return false;
-		}
-		String format = identity.getFormat();
-		String mime = identity.getMime();
-		if(format.equals("data") || format.equals("Unknown Binary") || mime.equals("application/octet-stream")) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
+    /*
+    public boolean isIdentityKnown(FileIdentity identity) {
+        //identity and mimetype must not be null or empty strings for an identity to be "known"
+        if(identity == null
+                || identity.getMime() == null
+                || identity.getMime().length() == 0
+                || identity.getFormat() == null
+                || identity.getFormat().length() == 0) {
+            return false;
+        }
+        String format = identity.getFormat();
+        String mime = identity.getMime();
+        if(format.equals("data") || format.equals("Unknown Binary") || mime.equals("application/octet-stream")) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 */
 
     public boolean isEnabled() {

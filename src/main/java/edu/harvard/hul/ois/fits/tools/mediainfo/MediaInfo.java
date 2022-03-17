@@ -122,7 +122,7 @@ public class MediaInfo extends ToolBase {
 
         // --------------------------------------------------------------------
         // OUTPUT Options for the Native MediaInfo Library are:
-        // 		(From MediaInfo_Inform.cpp)
+        //         (From MediaInfo_Inform.cpp)
         //
         // NOTE: Default is Text - when no options set
         //
@@ -144,13 +144,13 @@ public class MediaInfo extends ToolBase {
         //
         // Separate details are available via the API on various data types/tracks
         //
-        //	     "General"
-        //	     "Video"
-        //	     "Audio"
-        //	     "Text"
-        //	     "Chapters"
-        //	     "Image"
-        //	     "Menu"
+        //         "General"
+        //         "Video"
+        //         "Audio"
+        //         "Text"
+        //         "Chapters"
+        //         "Image"
+        //         "Menu"
         // --------------------------------------------------------------------
         //
         // No format, so output is pure text
@@ -211,18 +211,18 @@ public class MediaInfo extends ToolBase {
 
         Document fitsXml = transform(mediaInfoFitsConfig + xsltTransform, outputMetaDoc);
 
-//		//
-//		// DEBUG - write xml to file
-//		//
-//		try {
-//			XMLOutputter xmlOutput = new XMLOutputter();
+//        //
+//        // DEBUG - write xml to file
+//        //
+//        try {
+//            XMLOutputter xmlOutput = new XMLOutputter();
 //
-//			// display nice nice
-//			xmlOutput.setFormat(Format.getPrettyFormat());
-//			xmlOutput.output(fitsXml, new FileWriter("fitsxml_so_far.xml"));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+//            // display nice nice
+//            xmlOutput.setFormat(Format.getPrettyFormat());
+//            xmlOutput.output(fitsXml, new FileWriter("fitsxml_so_far.xml"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         // Revise the XML to include element data that was not returned either
         // via the MediaInfo XML or require revision for granularity

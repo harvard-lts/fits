@@ -96,7 +96,7 @@ public class DroidQuery {
 
         // For certain file types, set max. number of bytes at beginning of file to process.
         // See https://groups.google.com/forum/#!msg/droid-list/HqN6lKOATJk/i-qTEI-XEwAJ;context-place=forum/droid-list
-        // which indicates minimum number of bytes required to identify certain input file types.    	
+        // which indicates minimum number of bytes required to identify certain input file types.        
         long bytesToExamine = file.length();
         String filename = file.getName();
         int lastDot = filename.lastIndexOf('.');

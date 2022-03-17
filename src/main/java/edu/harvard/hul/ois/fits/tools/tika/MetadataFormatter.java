@@ -102,7 +102,7 @@ public final class MetadataFormatter {
     }
 
     private static String formatValue(String value) {
-//		String retVal = "null";
+//        String retVal = "null";
         if (value != null && value.length() > 0) {
             // Is it a number?
             ParsePosition pos = new ParsePosition(0);

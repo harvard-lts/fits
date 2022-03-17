@@ -151,25 +151,25 @@ public class MediaInfoUtil {
         generalValuesDataMap.put("generalFileSize", getMediaInfoString(
                 "FileSize", MediaInfoNativeWrapper.StreamKind.General));
 
-//	    //
-//	    // TODO: bitRate_Maximum never seems to appear in MediaInfo
-//	    // in the general section
-//	    //
-//	    //String generalBitRateMax = getMediaInfoString(
-//	    //		"BitRate_Maximum", MediaInfoNativeWrapper.StreamKind.General);
+//        //
+//        // TODO: bitRate_Maximum never seems to appear in MediaInfo
+//        // in the general section
+//        //
+//        //String generalBitRateMax = getMediaInfoString(
+//        //        "BitRate_Maximum", MediaInfoNativeWrapper.StreamKind.General);
 //
-//	    // Empty ???
-//	    String dateCreated = getMediaInfoString(
-//	    		"File_Created_Date", MediaInfoNativeWrapper.StreamKind.General);
-//				//"Created_Date", MediaInfoNativeWrapper.StreamKind.General);
+//        // Empty ???
+//        String dateCreated = getMediaInfoString(
+//                "File_Created_Date", MediaInfoNativeWrapper.StreamKind.General);
+//                //"Created_Date", MediaInfoNativeWrapper.StreamKind.General);
 //
-//	    String dateEncoded = getMediaInfoString(
-//	    		"Encoded_Date", MediaInfoNativeWrapper.StreamKind.General);
+//        String dateEncoded = getMediaInfoString(
+//                "Encoded_Date", MediaInfoNativeWrapper.StreamKind.General);
 //
-//	    // Empty ???
-//	    String encodedLibraryVersion = getMediaInfoString(
-//	    		//"File_Encoded_Library_Version", MediaInfoNativeWrapper.StreamKind.General);
-//				"Encoded_Library_Version",MediaInfoNativeWrapper.StreamKind.General);
+//        // Empty ???
+//        String encodedLibraryVersion = getMediaInfoString(
+//                //"File_Encoded_Library_Version", MediaInfoNativeWrapper.StreamKind.General);
+//                "Encoded_Library_Version",MediaInfoNativeWrapper.StreamKind.General);
 
         return generalValuesDataMap;
     }
@@ -300,7 +300,7 @@ public class MediaInfoUtil {
             // NOTE for all but MXF, codecCC is used for the 4CC code.
             // for MXF, we use the codecId.
             // String codecFamily = getMediaInfoString(ndx, "Codec/Family",
-            //		MediaInfoNativeWrapper.StreamKind.Video);
+            //        MediaInfoNativeWrapper.StreamKind.Video);
             String codecFamily = CODEC_4CC_TO_FAMILY.get(codecCC);
             // Now try for MXF files, if we haven't gotten a Codec Family
             if (codecFamily == null) {
@@ -405,7 +405,7 @@ public class MediaInfoUtil {
             addDataToMap(audioTrackValuesMap, id, "codecFamily", codecFamily);
 
             //String codecInfo = getMediaInfoString(ndx, "Codec/Info",
-            //		MediaInfoNativeWrapper.StreamKind.Audio);
+            //        MediaInfoNativeWrapper.StreamKind.Audio);
             //addDataToMap(audioTrackValuesMap, id, "codecInfo", codecInfo);
         }
 
@@ -433,7 +433,7 @@ public class MediaInfoUtil {
 
             XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");
 
-            // NOTE: We need to add a namespace	to xpath, because JDom XPath
+            // NOTE: We need to add a namespace    to xpath, because JDom XPath
             // does not support default namespaces. It requires you to add a
             // fake namespace to the XPath instance.
             xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
@@ -531,7 +531,7 @@ public class MediaInfoUtil {
         String videoFormatProfile = "";
         XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");
 
-        // NOTE: We need to add a namespace	to xpath, because JDom XPath
+        // NOTE: We need to add a namespace    to xpath, because JDom XPath
         // does not support default namespaces. It requires you to add a
         // fake namespace to the XPath instance.
         xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
@@ -552,7 +552,7 @@ public class MediaInfoUtil {
         //
         XPath xpathFitsIdentity = XPath.newInstance("//x:fits/x:identification");
 
-        // NOTE: We need to add a namespace	to xpath, because JDom XPath
+        // NOTE: We need to add a namespace    to xpath, because JDom XPath
         // does not support default namespaces. It requires you to add a
         // fake namespace to the XPath instance.
         xpathFitsIdentity.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
@@ -631,10 +631,10 @@ public class MediaInfoUtil {
         // For now, the MD5 will be put in Ebucore manually AFTER FITS generates it.
         //// General Section  MD5
         //else if(element.getName().equals("filemd5")) {
-        //	String generalMd5 = generalValuesDataMap.get("md5Hash");
-        //	if (!StringUtils.isEmpty(generalMd5)) {
-        //		element.setText(generalMd5);
-        //	}
+        //    String generalMd5 = generalValuesDataMap.get("md5Hash");
+        //    if (!StringUtils.isEmpty(generalMd5)) {
+        //        element.setText(generalMd5);
+        //    }
         //}
 
         // General Section formatProfile - If missing, use value from
@@ -855,7 +855,7 @@ public class MediaInfoUtil {
 
             XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");
 
-            // NOTE: We need to add a namespace	to xpath, because JDom XPath
+            // NOTE: We need to add a namespace    to xpath, because JDom XPath
             // does not support default namespaces. It requires you to add a
             // fake namespace to the XPath instance.
             xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
