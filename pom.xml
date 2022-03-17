@@ -327,6 +327,7 @@
 			<groupId>com.portalmedia</groupId>
 			<artifactId>embarc</artifactId>
 			<version>${embarc.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- test dependencies -->
