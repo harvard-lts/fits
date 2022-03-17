@@ -1,4 +1,4 @@
-## Overview of FITS processing
+## How FITS processes
 
 FITS works in different stages as shown in the image below.
 

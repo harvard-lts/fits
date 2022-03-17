@@ -22,8 +22,8 @@ title: FITS
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation and official code release of the FITS and the FITS Web Service projects
-baseurl: "/fits.github.io" # the subpath of your site, e.g. /blog
-url: "https://mferrarini.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/fits" # the subpath of your site, e.g. /blog
+url: "https://harvard-lts.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_reponame_fits:  FITS
 github_url_fits: "https://github.com/harvard-lts/fits"
 github_reponame_fits-servlet: FITSservlet

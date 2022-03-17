@@ -10,7 +10,7 @@ When FITS is told to output standard XML metadata (e.g. by use of the -x or -xc 
 | Website    | [http://www.aes.org/publications/standards/search.cfm?docID=84](http://www.aes.org/publications/standards/search.cfm?docID=84) [http://www.aes.org/standards/blog/2011/9/aes57-2011-metadata-audio-object](http://www.aes.org/standards/blog/2011/9/aes57-2011-metadata-audio-object) |
 
 
-#### Documents
+#### Documents **(has this been deprecated?)**
 
 | ---------  | ----------- |
 | Short name | DocumentMD   |

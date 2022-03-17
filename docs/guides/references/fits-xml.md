@@ -1,11 +1,13 @@
-### FITS XML
+### FITS XML schema
 
-FITS converts the native output of each wrapped tool to a format called FITS XML which is described here. The XML schema for FITS XML is maintained by Harvard Library and located at [http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd](http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd).
+FITS converts the raw output of each wrapped tool to a structure called FITS XML. [FITS XML schema](http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd) is maintained by Harvard Library.
 
 #### identification
 This section contains the file format in one or more identity blocks. If all the tools that processed the file and could identify it came up with the same format, there will only be one identity block. If there were tools that processed the file that came up with an alternative format, there will be multiple identity blocks. The tools that identified the format will be nested within the identity elements. Some examples follow. 
 
-##### **EXAMPLE: SUCCESSFUL FORMAT IDENTIFICATION**
+<!-- ##### **EXAMPLE: SUCCESSFUL FORMAT IDENTIFICATION** -->
+<br>
+**EXAMPLE: SUCCESSFUL FORMAT IDENTIFICATION**
 
 In this example, two tools (Jhove 1.5 and file utility 5.04) identified the format as Plain text with a MIME media type of text/plain.
 
@@ -18,7 +20,10 @@ In this example, two tools (Jhove 1.5 and file utility 5.04) identified the form
 </identification>
 ```
 
-##### **EXAMPLE: FORMAT CONFLICT**
+<!-- ##### **EXAMPLE: FORMAT CONFLICT** -->
+<br>
+**EXAMPLE: FORMAT CONFLICT**
+
 In this example, there is a "format conflict". The tool Exiftool 9.13 identified the format as PCD with MIME media type image/x-photo-cd, but the tool Tika 1.3 identified the format as MPEG-1 Audio Layer 3. Notice in this case that the identification element will carry an attribute status value of CONFLICT.
  
 ````
@@ -720,7 +725,7 @@ When the fits.xml file is configured to also output the native tool output, this
 </statistics>
 ```
 
-#### Additional things to understand about the FITS XML schema
+#### Additional things to understand about the FITS XML schema **(this should be reworded, maybe move above the schema part)**
 ##### **STATUS ATTRIBUTE**
 If multiple tools disagree on a format identity or other metadata values, a status attribute is added to the element with a value of ```CONFLICT```. If only a single tool reports a format identity or other metadata value, a status attribute is added to the element with a value of ```SINGLE_RESULT```. If multiple tools agree on a an identity or value, and none disagree, the status attribute is omitted. A ```PARTIAL``` value is written when the format can only be partially identified, for example a format name is identified but not a MIME media type.
 

@@ -18,4 +18,4 @@ The source code and further documentation for this project and using GET and POS
 
 Note: The latest and future versions of this project are built and tested using Java 8. 
 
-<p><a class="page-link" href="https://github.com/harvard-lts/FITSservlet/releases"><svg class="svg-icon"><use xlink:href="/fits.github.io/assets/minima-social-icons.svg#github"></use></svg>Release Notes & Downloads</a></p>
+<p><a class="page-link" href="https://github.com/harvard-lts/FITSservlet/releases"><svg class="svg-icon"><use xlink:href="/fits.github.io/assets/minima-social-icons.svg#github"></use></svg>Release Notes & Source Code</a></p>

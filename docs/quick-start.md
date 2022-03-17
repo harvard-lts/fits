@@ -18,7 +18,7 @@ FITS is a Java program and requires Java version 1.8 or higher. To find out your
 
 ## 2. Installation
 
-Download the latest [release](https://github.com/harvard-lts/fits/releases). If this is your first time downloading FITS, create a directory for FITS:
+Download the [latest release](https://github.com/harvard-lts/fits/releases). If this is your first time downloading FITS, create a directory for FITS:
 
 - On Windows: C:\Program Files\Fits 
 - On Mac OS X: /Applications/Fits 

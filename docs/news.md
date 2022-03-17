@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Blog
+title: News
 subtitle: News, presentations, and blog posts go here
-permalink: /blog
+permalink: /news
 ---
 
 <ul class='unstyled'>
