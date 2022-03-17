@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.2-SNAPSHOT" timestamp="3/16/22 8:11 PM">
-  <identification status="CONFLICT">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.2-SNAPSHOT" timestamp="3/17/22 9:40 AM">
+  <identification>
     <identity format="Digital Picture Exchange" mimetype="image/x-dpx" toolname="FITS" toolversion="1.5.2-SNAPSHOT">
       <tool toolname="embARC" toolversion="0.2" />
-    </identity>
-    <identity format="DPX" mimetype="image/x-dpx" toolname="FITS" toolversion="1.5.2-SNAPSHOT">
       <tool toolname="Exiftool" toolversion="12.40" />
-    </identity>
-    <identity format="Digital Picture Exchange from SMPTE" mimetype="image/x-dpx" toolname="FITS" toolversion="1.5.2-SNAPSHOT">
       <tool toolname="Tika" toolversion="2.3.0" />
     </identity>
   </identification>
@@ -18,7 +14,7 @@
     <filename toolname="embARC" toolversion="0.2">00266.dpx</filename>
     <size toolname="embARC" toolversion="0.2">12697608</size>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">a269fe44030b4d58cfa710947e5b95a2</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1571237099997</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1647523929469</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
@@ -71,21 +67,20 @@
       </standard>
     </image>
   </metadata>
-  <statistics fitsExecutionTime="4110">
-    <tool toolname="MediaInfo" toolversion="20.08" status="did not run" />
+  <statistics fitsExecutionTime="3932">
+    <tool toolname="MediaInfo" toolversion="21.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="126" />
-    <tool toolname="Jhove" toolversion="1.24.9" executionTime="4097" />
-    <tool toolname="embARC" toolversion="0.2" executionTime="125" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="106" />
+    <tool toolname="Jhove" toolversion="1.24.9" executionTime="3919" />
+    <tool toolname="embARC" toolversion="0.2" executionTime="106" />
     <tool toolname="file utility" toolversion="5.40" status="did not run" />
-    <tool toolname="Exiftool" toolversion="12.40" executionTime="719" />
+    <tool toolname="Exiftool" toolversion="12.40" executionTime="663" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="123" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="105" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="706" />
-    <tool toolname="Tika" toolversion="2.3.0" executionTime="156" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="653" />
+    <tool toolname="Tika" toolversion="2.3.0" executionTime="127" />
   </statistics>
 </fits>
-
