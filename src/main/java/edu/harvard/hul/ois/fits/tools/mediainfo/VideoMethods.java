@@ -11,38 +11,38 @@
 package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 public enum VideoMethods {
-	delay ("delay"),
-	frameCount ("frameCount"),
-	bitRate ("bitRate"),
-	codecCC ("codecCC"),
-	codecId ("codecId"),
-	codecFamily ("codecFamily"),
-	codecName ("codecName"),
-	codecVersion ("codecVersion"),
-	codecInfo ("codecInfo"),
-	duration ("duration"),
-	trackSize ("trackSize"),
-	frameRate ("frameRate"),
-	scanningOrder ("scanningOrder");
+    delay("delay"),
+    frameCount("frameCount"),
+    bitRate("bitRate"),
+    codecCC("codecCC"),
+    codecId("codecId"),
+    codecFamily("codecFamily"),
+    codecName("codecName"),
+    codecVersion("codecVersion"),
+    codecInfo("codecInfo"),
+    duration("duration"),
+    trackSize("trackSize"),
+    frameRate("frameRate"),
+    scanningOrder("scanningOrder");
 
-	private String name;
+    private String name;
 
-	VideoMethods(String name) {
+    VideoMethods(String name) {
         this.name = name;
     }
 
-    public String getName () {
+    public String getName() {
         return name;
     }
 
     static public VideoMethods lookup(String name) {
-    	VideoMethods retMethod = null;
-    	for(VideoMethods method : VideoMethods.values()) {
-    		if (method.getName().equals(name)) {
-    			retMethod = method;
-    			break;
-    		}
-    	}
-    	return retMethod;
+        VideoMethods retMethod = null;
+        for (VideoMethods method : VideoMethods.values()) {
+            if (method.getName().equals(name)) {
+                retMethod = method;
+                break;
+            }
+        }
+        return retMethod;
     }
 }

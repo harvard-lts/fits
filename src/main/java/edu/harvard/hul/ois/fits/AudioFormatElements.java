@@ -12,30 +12,30 @@ package edu.harvard.hul.ois.fits;
 
 public enum AudioFormatElements {
 
-	soundField ("soundField"),
-	bitRate ("bitRate"),
-	bitRateMode ("bitRateMode"),
-	samplingRate ("samplingRate"),
-	sampleSize ("sampleSize"),
-	channels("channels"),
-	byteOrder ("byteOrder"),
-	delay ("delay"),
-	compression ("compression"),
+    soundField("soundField"),
+    bitRate("bitRate"),
+    bitRateMode("bitRateMode"),
+    samplingRate("samplingRate"),
+    sampleSize("sampleSize"),
+    channels("channels"),
+    byteOrder("byteOrder"),
+    delay("delay"),
+    compression("compression"),
 
-	// NOTE the difference between the name and the ebucoreName so that .name()
-	// and .getEbucoreName() are different
-	trackSize ("streamSize"),
-	numSamples ("sampleCount"),
+    // NOTE the difference between the name and the ebucoreName so that .name()
+    // and .getEbucoreName() are different
+    trackSize("streamSize"),
+    numSamples("sampleCount"),
 
-	duration ("duration");
+    duration("duration");
 
-	private String ebucoreName;
+    private String ebucoreName;
 
-	AudioFormatElements(String ebcoreName) {
+    AudioFormatElements(String ebcoreName) {
         this.ebucoreName = ebcoreName;
     }
 
-    public String getEbucoreName () {
+    public String getEbucoreName() {
         return ebucoreName;
     }
 

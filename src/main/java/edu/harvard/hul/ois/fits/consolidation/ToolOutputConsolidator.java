@@ -18,6 +18,6 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 
 public interface ToolOutputConsolidator {
 
-	public FitsOutput processResults(List<ToolOutput> results);
+    public FitsOutput processResults(List<ToolOutput> results);
 
 }

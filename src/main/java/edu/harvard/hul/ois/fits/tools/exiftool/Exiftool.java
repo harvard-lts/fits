@@ -38,99 +38,94 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *  The glue class for invoking Exiftool under FITS.
+ * The glue class for invoking Exiftool under FITS.
  */
 public class Exiftool extends ToolBase {
 
-	private boolean osIsWindows = false;
-	private boolean osHasPerl = false;
-	private List<String> winCommand = new ArrayList<String>(Arrays.asList(Fits.FITS_TOOLS_DIR+"exiftool/windows/exiftool.exe"));
-	private List<String> unixCommand = new ArrayList<String>(Arrays.asList("perl",Fits.FITS_TOOLS_DIR+"exiftool/perl/exiftool"));
-	private List<String> perlTestCommand = Arrays.asList("which", "perl");
-	private final static String TOOL_NAME = "Exiftool";
-	private boolean enabled = true;
+    private boolean osIsWindows = false;
+    private boolean osHasPerl = false;
+    private List<String> winCommand = new ArrayList<String>(Arrays.asList(Fits.FITS_TOOLS_DIR + "exiftool/windows/exiftool.exe"));
+    private List<String> unixCommand = new ArrayList<String>(Arrays.asList("perl", Fits.FITS_TOOLS_DIR + "exiftool/perl/exiftool"));
+    private List<String> perlTestCommand = Arrays.asList("which", "perl");
+    private final static String TOOL_NAME = "Exiftool";
+    private boolean enabled = true;
     private Fits fits;
 
-    private final static String exiftoolFitsConfig = Fits.FITS_XML_DIR+"exiftool"+File.separator;
+    private final static String exiftoolFitsConfig = Fits.FITS_XML_DIR + "exiftool" + File.separator;
     private final static String genericTransform = "exiftool_generic_to_fits.xslt";
 
-	private static final Logger logger = LoggerFactory.getLogger(Exiftool.class);
+    private static final Logger logger = LoggerFactory.getLogger(Exiftool.class);
 
-	public Exiftool(Fits fits) throws FitsException {
-		super();
-		this.fits = fits;
-        logger.debug ("Initializing Exiftool");
+    public Exiftool(Fits fits) throws FitsException {
+        super();
+        this.fits = fits;
+        logger.debug("Initializing Exiftool");
 
-		String osName = System.getProperty("os.name");
-		info = new ToolInfo();
-		info.setName(TOOL_NAME);
-		String versionOutput = null;
-		List<String> infoCommand = new ArrayList<String>();
-		if (osName.startsWith("Windows")) {
-			//use provided Windows exiftool.exe
-			osIsWindows = true;
-			infoCommand.addAll(winCommand);
-			info.setNote("exiftool for windows");
-			logger.debug("Exiftool will use Windows environment");
-		}
-		else if (testOSForPerl()){
-			osHasPerl = true;
-			//use OS version of perl and the provided perl version of exiftool
-			infoCommand.addAll(unixCommand);
-			info.setNote("exiftool for unix");
+        String osName = System.getProperty("os.name");
+        info = new ToolInfo();
+        info.setName(TOOL_NAME);
+        String versionOutput = null;
+        List<String> infoCommand = new ArrayList<String>();
+        if (osName.startsWith("Windows")) {
+            //use provided Windows exiftool.exe
+            osIsWindows = true;
+            infoCommand.addAll(winCommand);
+            info.setNote("exiftool for windows");
+            logger.debug("Exiftool will use Windows environment");
+        } else if (testOSForPerl()) {
+            osHasPerl = true;
+            //use OS version of perl and the provided perl version of exiftool
+            infoCommand.addAll(unixCommand);
+            info.setNote("exiftool for unix");
             logger.debug("Exiftool will use Unix Perl environment");
-		}
+        } else {
+            logger.error("Perl and Windows not supported, not running Exiftool");
+            throw new FitsToolException("Exiftool cannot be used on this system");
+        }
+        infoCommand.add("-ver");
+        versionOutput = CommandLine.exec(infoCommand, null);
+        info.setVersion(versionOutput.trim());
+        transformMap = XsltTransformMap.getMap(exiftoolFitsConfig + "exiftool_xslt_map.xml");
+    }
 
-		else {
-		    logger.error ("Perl and Windows not supported, not running Exiftool");
-			throw new FitsToolException("Exiftool cannot be used on this system");
-		}
-		infoCommand.add("-ver");
-		versionOutput = CommandLine.exec(infoCommand,null);
-		info.setVersion(versionOutput.trim());
-		transformMap = XsltTransformMap.getMap(exiftoolFitsConfig+"exiftool_xslt_map.xml");
-	}
-
-	public ToolOutput extractInfo(File file) throws FitsToolException {
+    public ToolOutput extractInfo(File file) throws FitsToolException {
         logger.debug("Exiftool.extractInfo starting on " + file.getName());
-		long startTime = System.currentTimeMillis();
-		List<String> execCommand = new ArrayList<String>();
-		//determine if the file can be used on the current platform
-		if (osIsWindows) {
-			//use provided Windows File Utility
-			execCommand.addAll(winCommand);
-			execCommand.add(file.getPath());
-		}
-		else if(osHasPerl) {
-			//use file command in operating system
-			execCommand.addAll(unixCommand);
-			execCommand.add(file.getPath());
-		}
-		else {
-			//Tool cannot be used on this file on this system
-			return null;
-		}
-		//Output in tabbed format with tag names instead of descriptive names
-		execCommand.add("-t");
-		execCommand.add("-s");
-		execCommand.add("-a");
+        long startTime = System.currentTimeMillis();
+        List<String> execCommand = new ArrayList<String>();
+        //determine if the file can be used on the current platform
+        if (osIsWindows) {
+            //use provided Windows File Utility
+            execCommand.addAll(winCommand);
+            execCommand.add(file.getPath());
+        } else if (osHasPerl) {
+            //use file command in operating system
+            execCommand.addAll(unixCommand);
+            execCommand.add(file.getPath());
+        } else {
+            //Tool cannot be used on this file on this system
+            return null;
+        }
+        //Output in tabbed format with tag names instead of descriptive names
+        execCommand.add("-t");
+        execCommand.add("-s");
+        execCommand.add("-a");
 
-		logger.debug("Launching Exiftool, command = " + execCommand);
-		String execOut = CommandLine.exec(execCommand,null);
-		logger.debug("Finished running Exiftool");
+        logger.debug("Launching Exiftool, command = " + execCommand);
+        String execOut = CommandLine.exec(execCommand, null);
+        logger.debug("Finished running Exiftool");
 
-		String[] outParts = execOut.split("\n");
-		String format = null;
-		for(String s : outParts) {
-			s = s.toLowerCase();
-			String[] lineParts = s.split("\t");
-			if(lineParts[0].equalsIgnoreCase("filetype")) {
-				format = lineParts[1].trim();
-				break;
-			}
-		}
+        String[] outParts = execOut.split("\n");
+        String format = null;
+        for (String s : outParts) {
+            s = s.toLowerCase();
+            String[] lineParts = s.split("\t");
+            if (lineParts[0].equalsIgnoreCase("filetype")) {
+                format = lineParts[1].trim();
+                break;
+            }
+        }
 
-		Document rawOut = createXml(execOut);
+        Document rawOut = createXml(execOut);
 
 		/*
 		Document exifDoc = null;
@@ -146,75 +141,73 @@ public class Exiftool extends ToolBase {
 		String test = exifDoc.getRootElement().getChildText("rdf:Description",ns);
 		*/
 
-		String xsltTransform = null;
-		if(format != null) {
-			xsltTransform = (String)transformMap.get(format.toUpperCase());
-		}
+        String xsltTransform = null;
+        if (format != null) {
+            xsltTransform = (String) transformMap.get(format.toUpperCase());
+        }
 
-		Document fitsXml = null;
-		if(xsltTransform != null) {
-			fitsXml = transform(exiftoolFitsConfig+xsltTransform,rawOut);
-		}
-		else {
-			//use generic transform
-			fitsXml = transform(exiftoolFitsConfig+genericTransform,rawOut);
-		}
+        Document fitsXml = null;
+        if (xsltTransform != null) {
+            fitsXml = transform(exiftoolFitsConfig + xsltTransform, rawOut);
+        } else {
+            //use generic transform
+            fitsXml = transform(exiftoolFitsConfig + genericTransform, rawOut);
+        }
 
-		standardizeTimestamp("//fits:fileinfo/fits:created", fitsXml);
-		standardizeTimestamp("//fits:fileinfo/fits:lastmodified", fitsXml);
+        standardizeTimestamp("//fits:fileinfo/fits:created", fitsXml);
+        standardizeTimestamp("//fits:fileinfo/fits:lastmodified", fitsXml);
 
-		output = new ToolOutput(this,fitsXml,rawOut, fits);
-		//}
+        output = new ToolOutput(this, fitsXml, rawOut, fits);
+        //}
 
-		duration = System.currentTimeMillis()-startTime;
-		runStatus = RunStatus.SUCCESSFUL;
+        duration = System.currentTimeMillis() - startTime;
+        runStatus = RunStatus.SUCCESSFUL;
         logger.debug("Exiftool.extractInfo finished on " + file.getName());
-		return output;
-	}
+        return output;
+    }
 
-	public boolean testOSForPerl() throws FitsToolCLIException {
-		String output = CommandLine.exec(perlTestCommand,null);
-		if(output == null || output.length() == 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
+    public boolean testOSForPerl() throws FitsToolCLIException {
+        String output = CommandLine.exec(perlTestCommand, null);
+        if (output == null || output.length() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	private Document createXml(String execOut) throws FitsToolException {
-    	StringWriter out = new StringWriter();
+    private Document createXml(String execOut) throws FitsToolException {
+        StringWriter out = new StringWriter();
 
         out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         out.write("\n");
         out.write("<exiftool>");
         out.write("\n");
 
-    	String[] lines = execOut.split("\n");
-    	for(String line : lines) {
-    		String[] parts = line.split("\t");
-    		String field = parts[0].trim();
-    		if(parts.length > 1 && field.length() > 0) {
-    			String value = parts[1].trim();
-    			out.write("<"+field+">"+StringEscapeUtils.escapeXml(value)+"</"+field+">");
-    			out.write("\n");
-    		}
-    	}
+        String[] lines = execOut.split("\n");
+        for (String line : lines) {
+            String[] parts = line.split("\t");
+            String field = parts[0].trim();
+            if (parts.length > 1 && field.length() > 0) {
+                String value = parts[1].trim();
+                out.write("<" + field + ">" + StringEscapeUtils.escapeXml(value) + "</" + field + ">");
+                out.write("\n");
+            }
+        }
         out.write("</exiftool>");
         out.write("\n");
 
         out.flush();
         try {
-			out.close();
-		} catch (IOException e) {
-			throw new FitsToolException("Error closing Exiftool XML output stream",e);
-		}
+            out.close();
+        } catch (IOException e) {
+            throw new FitsToolException("Error closing Exiftool XML output stream", e);
+        }
         Document doc = null;
-		try {
-			doc = saxBuilder.build(new StringReader(out.toString()));
-		} catch (Exception e) {
-			throw new FitsToolException("Error parsing Exiftool XML Output",e);
-		}
+        try {
+            doc = saxBuilder.build(new StringReader(out.toString()));
+        } catch (Exception e) {
+            throw new FitsToolException("Error parsing Exiftool XML Output", e);
+        }
         return doc;
     }
 	/*
@@ -236,25 +229,25 @@ public class Exiftool extends ToolBase {
 		}
 	}*/
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public void setEnabled(boolean value) {
-		enabled = value;
-	}
+    public void setEnabled(boolean value) {
+        enabled = value;
+    }
 
-	private void standardizeTimestamp(String path, Document document) {
-		try {
-			XPath xpath = XPath.newInstance(path);
-			xpath.addNamespace("fits",Fits.XML_NAMESPACE);
-			Element element = (Element) xpath.selectSingleNode(document);
-			if (element != null) {
-				element.setText(DateTimeUtil.standardize(element.getText()));
-			}
-		} catch (JDOMException e) {
-			logger.debug("Failed to standardize timestamp", e);
-		}
-	}
+    private void standardizeTimestamp(String path, Document document) {
+        try {
+            XPath xpath = XPath.newInstance(path);
+            xpath.addNamespace("fits", Fits.XML_NAMESPACE);
+            Element element = (Element) xpath.selectSingleNode(document);
+            if (element != null) {
+                element.setText(DateTimeUtil.standardize(element.getText()));
+            }
+        } catch (JDOMException e) {
+            logger.debug("Failed to standardize timestamp", e);
+        }
+    }
 
 }

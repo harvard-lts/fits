@@ -57,14 +57,16 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class TikaTool extends ToolBase {
 
-    /** Constants for all Tika property names, so that they're all gathered in
-     *  one place and we don't have to fix inline names. */
+    /**
+     * Constants for all Tika property names, so that they're all gathered in
+     * one place and we don't have to fix inline names.
+     */
     private final static String P_AUTHOR = "author";
     private final static String P_BITS = "bits";
     private final static String P_CHANNELS = "channels";
     private final static String P_COMPRESSION_COMPRESSION_TYPE_NAME = "Compression CompressionTypeName";
     private final static String P_COMPRESSION_TYPE = "Compression Type";
-    private final static String P_DIMENSION_IMAGE_ORIENTATION ="Dimension ImageOrientation";
+    private final static String P_DIMENSION_IMAGE_ORIENTATION = "Dimension ImageOrientation";
     private final static String P_ENCODING = "encoding";
     private final static String P_GENERATOR = "generator";
     private final static String P_HEIGHT = "height";
@@ -93,7 +95,9 @@ public class TikaTool extends ToolBase {
     private final static String P_XMP_NPAGES = "xmpTPg:NPages";
 
 
-    /** Enumeration of Tika properties. */
+    /**
+     * Enumeration of Tika properties.
+     */
     private enum TikaProperty {
         AUTHOR,
         BITS,
@@ -135,63 +139,68 @@ public class TikaTool extends ToolBase {
         XMP_VIDEO_PIXEL_DEPTH
     }
 
-    /** Map of Tika properties to TikaProperty
+    /**
+     * Map of Tika properties to TikaProperty
      */
     private final static Map<String, TikaProperty> propertyNameMap =
             new HashMap<String, TikaProperty>();
+
     static {
-        propertyNameMap.put (TikaCoreProperties.CREATOR.getName(), TikaProperty.AUTHOR);
-        propertyNameMap.put (P_AUTHOR, TikaProperty.AUTHOR);
-        propertyNameMap.put (Office.AUTHOR.getName(), TikaProperty.AUTHOR);
-        propertyNameMap.put (P_BITS, TikaProperty.BITS);
-        propertyNameMap.put (OfficeOpenXMLCore.CATEGORY.getName(), TikaProperty.CATEGORY);
-        propertyNameMap.put (P_CHANNELS, TikaProperty.CHANNELS);
-        propertyNameMap.put (Office.CHARACTER_COUNT.getName(), TikaProperty.CHARACTER_COUNT);
-        propertyNameMap.put (P_COMPRESSION_COMPRESSION_TYPE_NAME, TikaProperty.COMPRESSION_COMPRESSION_TYPE_NAME);
-        propertyNameMap.put (P_COMPRESSION_TYPE, TikaProperty.COMPRESSION_TYPE);
-        propertyNameMap.put (HttpHeaders.CONTENT_ENCODING, TikaProperty.CONTENT_ENCODING);
-        propertyNameMap.put (TikaCoreProperties.DESCRIPTION.getName(), TikaProperty.DESCRIPTION);
-        propertyNameMap.put (P_DIMENSION_IMAGE_ORIENTATION, TikaProperty.DIMENSION_IMAGE_ORIENTATION);
-        propertyNameMap.put (P_ENCODING, TikaProperty.ENCODING);
-        propertyNameMap.put (TikaCoreProperties.IDENTIFIER.getName(), TikaProperty.IDENTIFIER);
-        propertyNameMap.put (Office.IMAGE_COUNT.getName(), TikaProperty.IMAGE_COUNT);
-        propertyNameMap.put (P_IMAGE_HEIGHT, TikaProperty.IMAGE_HEIGHT);
-        propertyNameMap.put (P_TIFF_IMAGE_LENGTH, TikaProperty.IMAGE_HEIGHT);
-        propertyNameMap.put (P_HEIGHT, TikaProperty.IMAGE_HEIGHT);
-        propertyNameMap.put (P_IMAGE_WIDTH, TikaProperty.IMAGE_WIDTH);
-        propertyNameMap.put (P_TIFF_IMAGE_WIDTH, TikaProperty.IMAGE_WIDTH);
-        propertyNameMap.put (P_WIDTH, TikaProperty.IMAGE_WIDTH);
-        propertyNameMap.put (TikaCoreProperties.LANGUAGE.getName(), TikaProperty.LANGUAGE);
-        propertyNameMap.put (Office.LINE_COUNT.getName(), TikaProperty.LINE_COUNT);
-        propertyNameMap.put (Office.OBJECT_COUNT.getName(), TikaProperty.OBJECT_COUNT);
-        propertyNameMap.put (Office.PAGE_COUNT.getName(), TikaProperty.PAGE_COUNT);
-        propertyNameMap.put (P_XMP_NPAGES, TikaProperty.PAGE_COUNT);
-        propertyNameMap.put (Office.PARAGRAPH_COUNT.getName(), TikaProperty.PARAGRAPH_COUNT);
-        propertyNameMap.put (P_RESOLUTION_UNIT, TikaProperty.RESOLUTION_UNIT);
-        propertyNameMap.put (P_TIFF_RESOLUTION_UNIT, TikaProperty.RESOLUTION_UNIT);
-        propertyNameMap.put (TikaCoreProperties.RIGHTS.getName(), TikaProperty.RIGHTS);
-        propertyNameMap.put (P_SAMPLE_RATE, TikaProperty.SAMPLE_RATE);
-        propertyNameMap.put (P_XMP_AUDIO_SAMPLE_RATE, TikaProperty.SAMPLE_RATE);
-        propertyNameMap.put (OfficeOpenXMLExtended.DOC_SECURITY.getName(), TikaProperty.SECURITY);
-        propertyNameMap.put (Office.TABLE_COUNT.getName(), TikaProperty.TABLE_COUNT);
-        propertyNameMap.put (P_TIFF_SAMPLES_PER_PIXEL, TikaProperty.TIFF_SAMPLES_PER_PIXEL);
-        propertyNameMap.put (TikaCoreProperties.TITLE.getName(), TikaProperty.TITLE);
-        propertyNameMap.put (Office.WORD_COUNT.getName(), TikaProperty.WORD_COUNT);
-        propertyNameMap.put (P_X_RESOLUTION, TikaProperty.X_RESOLUTION);
-        propertyNameMap.put (P_TIFF_X_RESOLUTION, TikaProperty.X_RESOLUTION);
-        propertyNameMap.put (P_Y_RESOLUTION, TikaProperty.Y_RESOLUTION);
-        propertyNameMap.put (P_TIFF_Y_RESOLUTION, TikaProperty.Y_RESOLUTION);
-        propertyNameMap.put (P_XMP_AUDIO_CHANNEL_TYPE, TikaProperty.XMP_AUDIO_CHANNEL_TYPE);
-        propertyNameMap.put (P_XMP_AUDIO_COMPRESSOR, TikaProperty.XMP_AUDIO_COMPRESSOR);
-        propertyNameMap.put (P_XMP_AUDIO_SAMPLE_TYPE, TikaProperty.XMP_AUDIO_SAMPLE_TYPE);
-        propertyNameMap.put (P_XMP_PIXEL_ASPECT_RATIO, TikaProperty.XMP_PIXEL_ASPECT_RATIO);
-        propertyNameMap.put (P_XMP_VIDEO_COLOR_SPACE, TikaProperty.XMP_VIDEO_COLOR_SPACE);
-        propertyNameMap.put (P_XMP_VIDEO_FRAME_RATE, TikaProperty.XMP_VIDEO_FRAME_RATE);
-        propertyNameMap.put (P_XMP_VIDEO_PIXEL_DEPTH, TikaProperty.XMP_VIDEO_PIXEL_DEPTH);
+        propertyNameMap.put(TikaCoreProperties.CREATOR.getName(), TikaProperty.AUTHOR);
+        propertyNameMap.put(P_AUTHOR, TikaProperty.AUTHOR);
+        propertyNameMap.put(Office.AUTHOR.getName(), TikaProperty.AUTHOR);
+        propertyNameMap.put(P_BITS, TikaProperty.BITS);
+        propertyNameMap.put(OfficeOpenXMLCore.CATEGORY.getName(), TikaProperty.CATEGORY);
+        propertyNameMap.put(P_CHANNELS, TikaProperty.CHANNELS);
+        propertyNameMap.put(Office.CHARACTER_COUNT.getName(), TikaProperty.CHARACTER_COUNT);
+        propertyNameMap.put(P_COMPRESSION_COMPRESSION_TYPE_NAME, TikaProperty.COMPRESSION_COMPRESSION_TYPE_NAME);
+        propertyNameMap.put(P_COMPRESSION_TYPE, TikaProperty.COMPRESSION_TYPE);
+        propertyNameMap.put(HttpHeaders.CONTENT_ENCODING, TikaProperty.CONTENT_ENCODING);
+        propertyNameMap.put(TikaCoreProperties.DESCRIPTION.getName(), TikaProperty.DESCRIPTION);
+        propertyNameMap.put(P_DIMENSION_IMAGE_ORIENTATION, TikaProperty.DIMENSION_IMAGE_ORIENTATION);
+        propertyNameMap.put(P_ENCODING, TikaProperty.ENCODING);
+        propertyNameMap.put(TikaCoreProperties.IDENTIFIER.getName(), TikaProperty.IDENTIFIER);
+        propertyNameMap.put(Office.IMAGE_COUNT.getName(), TikaProperty.IMAGE_COUNT);
+        propertyNameMap.put(P_IMAGE_HEIGHT, TikaProperty.IMAGE_HEIGHT);
+        propertyNameMap.put(P_TIFF_IMAGE_LENGTH, TikaProperty.IMAGE_HEIGHT);
+        propertyNameMap.put(P_HEIGHT, TikaProperty.IMAGE_HEIGHT);
+        propertyNameMap.put(P_IMAGE_WIDTH, TikaProperty.IMAGE_WIDTH);
+        propertyNameMap.put(P_TIFF_IMAGE_WIDTH, TikaProperty.IMAGE_WIDTH);
+        propertyNameMap.put(P_WIDTH, TikaProperty.IMAGE_WIDTH);
+        propertyNameMap.put(TikaCoreProperties.LANGUAGE.getName(), TikaProperty.LANGUAGE);
+        propertyNameMap.put(Office.LINE_COUNT.getName(), TikaProperty.LINE_COUNT);
+        propertyNameMap.put(Office.OBJECT_COUNT.getName(), TikaProperty.OBJECT_COUNT);
+        propertyNameMap.put(Office.PAGE_COUNT.getName(), TikaProperty.PAGE_COUNT);
+        propertyNameMap.put(P_XMP_NPAGES, TikaProperty.PAGE_COUNT);
+        propertyNameMap.put(Office.PARAGRAPH_COUNT.getName(), TikaProperty.PARAGRAPH_COUNT);
+        propertyNameMap.put(P_RESOLUTION_UNIT, TikaProperty.RESOLUTION_UNIT);
+        propertyNameMap.put(P_TIFF_RESOLUTION_UNIT, TikaProperty.RESOLUTION_UNIT);
+        propertyNameMap.put(TikaCoreProperties.RIGHTS.getName(), TikaProperty.RIGHTS);
+        propertyNameMap.put(P_SAMPLE_RATE, TikaProperty.SAMPLE_RATE);
+        propertyNameMap.put(P_XMP_AUDIO_SAMPLE_RATE, TikaProperty.SAMPLE_RATE);
+        propertyNameMap.put(OfficeOpenXMLExtended.DOC_SECURITY.getName(), TikaProperty.SECURITY);
+        propertyNameMap.put(Office.TABLE_COUNT.getName(), TikaProperty.TABLE_COUNT);
+        propertyNameMap.put(P_TIFF_SAMPLES_PER_PIXEL, TikaProperty.TIFF_SAMPLES_PER_PIXEL);
+        propertyNameMap.put(TikaCoreProperties.TITLE.getName(), TikaProperty.TITLE);
+        propertyNameMap.put(Office.WORD_COUNT.getName(), TikaProperty.WORD_COUNT);
+        propertyNameMap.put(P_X_RESOLUTION, TikaProperty.X_RESOLUTION);
+        propertyNameMap.put(P_TIFF_X_RESOLUTION, TikaProperty.X_RESOLUTION);
+        propertyNameMap.put(P_Y_RESOLUTION, TikaProperty.Y_RESOLUTION);
+        propertyNameMap.put(P_TIFF_Y_RESOLUTION, TikaProperty.Y_RESOLUTION);
+        propertyNameMap.put(P_XMP_AUDIO_CHANNEL_TYPE, TikaProperty.XMP_AUDIO_CHANNEL_TYPE);
+        propertyNameMap.put(P_XMP_AUDIO_COMPRESSOR, TikaProperty.XMP_AUDIO_COMPRESSOR);
+        propertyNameMap.put(P_XMP_AUDIO_SAMPLE_TYPE, TikaProperty.XMP_AUDIO_SAMPLE_TYPE);
+        propertyNameMap.put(P_XMP_PIXEL_ASPECT_RATIO, TikaProperty.XMP_PIXEL_ASPECT_RATIO);
+        propertyNameMap.put(P_XMP_VIDEO_COLOR_SPACE, TikaProperty.XMP_VIDEO_COLOR_SPACE);
+        propertyNameMap.put(P_XMP_VIDEO_FRAME_RATE, TikaProperty.XMP_VIDEO_FRAME_RATE);
+        propertyNameMap.put(P_XMP_VIDEO_PIXEL_DEPTH, TikaProperty.XMP_VIDEO_PIXEL_DEPTH);
     }
 
-    /** Map of Tika compression types to FITS compression types */
+    /**
+     * Map of Tika compression types to FITS compression types
+     */
     private final static Map<String, String> compressionTypeMap = new HashMap<String, String>();
+
     static {
         compressionTypeMap.put("lzw", FitsMetadataValues.CMPR_LZW);
         compressionTypeMap.put("JPEG", FitsMetadataValues.CMPR_JPEG);
@@ -200,7 +209,7 @@ public class TikaTool extends ToolBase {
         compressionTypeMap.put("deflate", FitsMetadataValues.CMPR_DEFLATE);
     }
 
-    private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
+    private final static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
     private final static String TOOL_NAME = "Tika";
     private final static String TOOL_VERSION = "2.3.0";  // Hard-coded version till we can do better
 
@@ -220,13 +229,13 @@ public class TikaTool extends ToolBase {
             throw new FitsToolException("Problem loading tika-config.xml", e);
         }
         this.fits = fits;
-        logger.debug ("Initializing TikaTool");
-        info = new ToolInfo(TOOL_NAME, TOOL_VERSION,"");
+        logger.debug("Initializing TikaTool");
+        info = new ToolInfo(TOOL_NAME, TOOL_VERSION, "");
     }
 
     public ToolOutput extractInfo(File file) throws FitsToolException {
         logger.debug("TikaTool.extractInfo starting on " + file.getName());
-    	long startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         Metadata metadata = new Metadata();
 
         InputStream instrm = null;
@@ -234,10 +243,10 @@ public class TikaTool extends ToolBase {
             instrm = TikaInputStream.get(file.toPath(), metadata);
         } catch (FileNotFoundException e) {
             logger.debug(("FileNotFoundException with Tika on file " + file.getAbsolutePath()));
-            throw new FitsToolException ("Can't open file with Tika", e);
+            throw new FitsToolException("Can't open file with Tika", e);
         } catch (IOException e) {
-            logger.debug (e.getClass().getName() + " in Tika: " + e.getMessage());
-            throw new FitsToolException ("IOException in Tika", e);
+            logger.debug(e.getClass().getName() + " in Tika: " + e.getMessage());
+            throw new FitsToolException("IOException in Tika", e);
         }
 
         try {
@@ -260,34 +269,34 @@ public class TikaTool extends ToolBase {
         }
 
         // Now we start constructing the tool output JDOM document
-        Document toolData = buildToolData (metadata);
+        Document toolData = buildToolData(metadata);
         // Now construct the raw data JDOM document
-        Document rawData = buildRawData (metadata);
-        ToolOutput output = new ToolOutput (this, toolData, rawData, fits);
-        duration = System.currentTimeMillis()-startTime;
+        Document rawData = buildRawData(metadata);
+        ToolOutput output = new ToolOutput(this, toolData, rawData, fits);
+        duration = System.currentTimeMillis() - startTime;
         runStatus = RunStatus.SUCCESSFUL;
-        logger.debug ("Tika.extractInfo finished on " + file.getName());
+        logger.debug("Tika.extractInfo finished on " + file.getName());
         return output;
     }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public void setEnabled(boolean value) {
-		enabled = value;
-	}
+    public void setEnabled(boolean value) {
+        enabled = value;
+    }
 
-	/* Create the tool data from the Metadata object */
-	private Document buildToolData (Metadata metadata) throws FitsToolException {
+    /* Create the tool data from the Metadata object */
+    private Document buildToolData(Metadata metadata) throws FitsToolException {
         //String mimeType =  DocumentTypes.normalizeMimeType(metadata.get (P_CONTENT_TYPE));
         String mimeType = FitsMetadataValues.getInstance().normalizeMimeType(metadata.get(Metadata.CONTENT_TYPE));
 
-        Element fitsElem = new Element ("fits", fitsNS);
-        Document toolDoc = new Document (fitsElem);
-        Element idElem = new Element ("identification", fitsNS);
+        Element fitsElem = new Element("fits", fitsNS);
+        Document toolDoc = new Document(fitsElem);
+        Element idElem = new Element("identification", fitsNS);
         fitsElem.addContent(idElem);
-        Element identityElem = new Element ("identity", fitsNS);
+        Element identityElem = new Element("identity", fitsNS);
         // Format and mime type info.
 
         String formatType = getFormatType(mimeType);
@@ -296,58 +305,57 @@ public class TikaTool extends ToolBase {
         String pdfaVersion = metadata.get(PDF.PDFA_VERSION);
         String pdfxVersion = metadata.get(P_PDFX_VERSION);
         if (pdfaVersion != null) {
-        	formatType = "PDF/A";
+            formatType = "PDF/A";
         } else if (pdfxVersion != null) {
-        	formatType = "PDF/X";
+            formatType = "PDF/X";
         }
         String version = null;
         if (pdfaVersion != null) {
-        	version = pdfaVersion;
+            version = pdfaVersion;
         } else if (pdfxVersion != null) {
-        	version = pdfxVersion;
+            version = pdfxVersion;
         } else if (pdfVersion != null) {
-        	version = pdfVersion;
+            version = pdfVersion;
         }
         if (version != null) {
-        	Element versionElem = new Element("version", fitsNS);
-        	versionElem.addContent(version);
-        	identityElem.addContent(versionElem);
+            Element versionElem = new Element("version", fitsNS);
+            versionElem.addContent(version);
+            identityElem.addContent(versionElem);
         }
 
-        Attribute attr = new Attribute ("format", formatType);
-        identityElem.setAttribute (attr);
-        attr = new Attribute ("mimetype", mimeType);
-        identityElem.setAttribute (attr);
-        idElem.addContent (identityElem);
-        Element fileInfoElem = buildFileInfoElement (metadata);
-        fitsElem.addContent (fileInfoElem);
+        Attribute attr = new Attribute("format", formatType);
+        identityElem.setAttribute(attr);
+        attr = new Attribute("mimetype", mimeType);
+        identityElem.setAttribute(attr);
+        idElem.addContent(identityElem);
+        Element fileInfoElem = buildFileInfoElement(metadata);
+        fitsElem.addContent(fileInfoElem);
 
-        Element metadataElem = buildMetadataElement (metadata, mimeType);
-        fitsElem.addContent (metadataElem);
+        Element metadataElem = buildMetadataElement(metadata, mimeType);
+        fitsElem.addContent(metadataElem);
 
         return toolDoc;
-	}
+    }
 
-	/* Create a dummy raw data object */
-	private Document buildRawData (Metadata metadata) throws FitsToolException {
-	    String xml = MetadataFormatter.toXML(metadata);
-	    xml = XmlUtils.cleanXmlNulls(xml);
-	    StringReader srdr = new StringReader (xml);
+    /* Create a dummy raw data object */
+    private Document buildRawData(Metadata metadata) throws FitsToolException {
+        String xml = MetadataFormatter.toXML(metadata);
+        xml = XmlUtils.cleanXmlNulls(xml);
+        StringReader srdr = new StringReader(xml);
 
-	    try {
-	        Document rawDoc = saxBuilder.build (srdr);
-	        return rawDoc;
-	    }
-	    catch (Exception e) {
-	        throw new FitsToolException ("Exception reading metadata", e);
-	    }
-	}
+        try {
+            Document rawDoc = saxBuilder.build(srdr);
+            return rawDoc;
+        } catch (Exception e) {
+            throw new FitsToolException("Exception reading metadata", e);
+        }
+    }
 
     /* Build the file information.
      * Tika can deliver the same property with different names, sometimes for
      * the same file.
      */
-    private Element buildFileInfoElement (Metadata metadata) {
+    private Element buildFileInfoElement(Metadata metadata) {
         String lastModified = metadata.get(TikaCoreProperties.MODIFIED);
         String created = metadata.get(TikaCoreProperties.CREATED);
         String contentLength = metadata.get(Metadata.CONTENT_LENGTH);
@@ -359,111 +367,107 @@ public class TikaTool extends ToolBase {
 
         // look for creating application
         String appName = "";
-        if(producer != null && creatorTool != null) {
-        	appName = producer + "/" + creatorTool;
-        }
-        else if(producer != null) {
-        	appName = producer;
-        }
-        else if(creatorTool != null) {
-        	appName = creatorTool;
-        }
-        else if (generator !=null) {
-        	appName = generator;
+        if (producer != null && creatorTool != null) {
+            appName = producer + "/" + creatorTool;
+        } else if (producer != null) {
+            appName = producer;
+        } else if (creatorTool != null) {
+            appName = creatorTool;
+        } else if (generator != null) {
+            appName = generator;
         }
         if (applicationName != null) {
-        	appName = applicationName;
+            appName = applicationName;
         }
 
 
         // Put together the fileinfo element
-        Element fileInfoElem = new Element ("fileinfo", fitsNS);
+        Element fileInfoElem = new Element("fileinfo", fitsNS);
         if (lastModified != null) {
-            Element lastModElem = new Element (FitsMetadataValues.LAST_MODIFIED, fitsNS);
-            lastModElem.addContent (DateTimeUtil.standardize(lastModified));
-            fileInfoElem.addContent (lastModElem);
+            Element lastModElem = new Element(FitsMetadataValues.LAST_MODIFIED, fitsNS);
+            lastModElem.addContent(DateTimeUtil.standardize(lastModified));
+            fileInfoElem.addContent(lastModElem);
         }
 
         if (created != null) {
-            Element createdElem = new Element (FitsMetadataValues.CREATED, fitsNS);
+            Element createdElem = new Element(FitsMetadataValues.CREATED, fitsNS);
             createdElem.addContent(DateTimeUtil.standardize(created));
             fileInfoElem.addContent(createdElem);
         }
 
         if (appName != null) {
-            Element appNameElem = new Element (FitsMetadataValues.CREATING_APPLICATION_NAME, fitsNS);
-            appNameElem.addContent (appName);
-            fileInfoElem.addContent (appNameElem);
+            Element appNameElem = new Element(FitsMetadataValues.CREATING_APPLICATION_NAME, fitsNS);
+            appNameElem.addContent(appName);
+            fileInfoElem.addContent(appNameElem);
         }
 
         if (applicationVersion != null) {
-            Element appVersionElem = new Element (FitsMetadataValues.CREATING_APPLICATION_VERSION, fitsNS);
-            appVersionElem.addContent (applicationVersion);
-            fileInfoElem.addContent (appVersionElem);
+            Element appVersionElem = new Element(FitsMetadataValues.CREATING_APPLICATION_VERSION, fitsNS);
+            appVersionElem.addContent(applicationVersion);
+            fileInfoElem.addContent(appVersionElem);
         }
 
         if (contentLength != null) {
-            Element sizeElem = new Element (FitsMetadataValues.SIZE, fitsNS);
-            sizeElem.addContent (contentLength);
-            fileInfoElem.addContent (sizeElem);
+            Element sizeElem = new Element(FitsMetadataValues.SIZE, fitsNS);
+            sizeElem.addContent(contentLength);
+            fileInfoElem.addContent(sizeElem);
         }
         return fileInfoElem;
 
-	}
+    }
 
-	private String getFormatType(String mime) throws FitsToolException {
-	    String format = "";
-	    try {
-	        MimeType mimeType = mimeTypes.forName(mime);
-	        format = mimeType.getDescription();
+    private String getFormatType(String mime) throws FitsToolException {
+        String format = "";
+        try {
+            MimeType mimeType = mimeTypes.forName(mime);
+            format = mimeType.getDescription();
 
-	        //try mapping the format to the standard form
-	        if(format != null) {
-	        	String stdFormat = FitsMetadataValues.getInstance().normalizeFormat(format);
-	        	if(stdFormat != null) {
-	        		format = stdFormat;
-	        	}
-	        }
+            //try mapping the format to the standard form
+            if (format != null) {
+                String stdFormat = FitsMetadataValues.getInstance().normalizeFormat(format);
+                if (stdFormat != null) {
+                    format = stdFormat;
+                }
+            }
 
-	        // check if we need to get the format name based on the mime type
-	        String stdText = FitsMetadataValues.getInstance().getFormatForMime(mime);
-	        if (stdText != null) {
-	            format = stdText;
-	        }
+            // check if we need to get the format name based on the mime type
+            String stdText = FitsMetadataValues.getInstance().getFormatForMime(mime);
+            if (stdText != null) {
+                format = stdText;
+            }
 
-	        // it may be necessary to get format name based on tool element rather than mime type
+            // it may be necessary to get format name based on tool element rather than mime type
 
 
+            return format;
+        } catch (MimeTypeException e) {
+            throw new FitsToolException("Tika error looking up mime type");
+        }
+    }
 
-	        return format;
-	    } catch (MimeTypeException e) {
-	        throw new FitsToolException("Tika error looking up mime type");
-	    }
-	}
-
-    private Element buildMetadataElement (Metadata metadata, String mimeType) {
+    private Element buildMetadataElement(Metadata metadata, String mimeType) {
         DocumentTypes.Doctype doctype = DocumentTypes.mimeToDoctype(mimeType);
-        Element metadataElem = new Element ("metadata", fitsNS);
+        Element metadataElem = new Element("metadata", fitsNS);
         switch (doctype) {
             case AUDIO:
-                Element audioElem = buildAudioElement (metadata);
-                metadataElem.addContent (audioElem);
+                Element audioElem = buildAudioElement(metadata);
+                metadataElem.addContent(audioElem);
                 break;
             case IMAGE:
-                Element imageElem = buildImageElement (metadata);
-                metadataElem.addContent (imageElem);
+                Element imageElem = buildImageElement(metadata);
+                metadataElem.addContent(imageElem);
                 break;
             case DOCUMENT:
-                Element docElem = buildDocElement (metadata, "application/pdf".equals(mimeType));
-                metadataElem.addContent (docElem);
+                Element docElem = buildDocElement(metadata, "application/pdf".equals(mimeType));
+                metadataElem.addContent(docElem);
                 break;
             case TEXT:
-                Element textElem = buildTextElement (metadata);
-                metadataElem.addContent (textElem);
+                Element textElem = buildTextElement(metadata);
+                metadataElem.addContent(textElem);
                 break;
             case VIDEO:
-                Element videoElem = buildVideoElement (metadata);
-                metadataElem.addContent (videoElem);
+                Element videoElem = buildVideoElement(metadata);
+                metadataElem.addContent(videoElem);
                 break;
             default:
                 break;
@@ -474,7 +478,7 @@ public class TikaTool extends ToolBase {
     /* Return an element for an audio file */
     private Element buildAudioElement(Metadata metadata) {
         String[] metadataNames = metadata.names();
-        Element elem = new Element (FitsMetadataValues.AUDIO, fitsNS);
+        Element elem = new Element(FitsMetadataValues.AUDIO, fitsNS);
         boolean titleReported = false;
         boolean authorReported = false;
         for (String name : metadataNames) {
@@ -487,29 +491,29 @@ public class TikaTool extends ToolBase {
             switch (prop) {
 
                 case BITS:
-                    addSimpleElement (elem, FitsMetadataValues.BIT_DEPTH, value);
+                    addSimpleElement(elem, FitsMetadataValues.BIT_DEPTH, value);
                     break;
 
                 case TITLE:
                     if (!titleReported) {
-                        addSimpleElement (elem, FitsMetadataValues.TITLE, value);
+                        addSimpleElement(elem, FitsMetadataValues.TITLE, value);
                         titleReported = true;
                     }
                     break;
 
                 case AUTHOR:
                     if (!authorReported) {
-                        addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
+                        addSimpleElement(elem, FitsMetadataValues.AUTHOR, value);
                         authorReported = true;
                     }
                     break;
 
                 case CHANNELS:
-                    addSimpleElement (elem, FitsMetadataValues.CHANNELS, value);
+                    addSimpleElement(elem, FitsMetadataValues.CHANNELS, value);
                     break;
 
                 case COMPRESSION_TYPE:
-                    addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
+                    addSimpleElement(elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
                     break;
 
 //			Tika is not outputting the correct bits per sample
@@ -518,65 +522,65 @@ public class TikaTool extends ToolBase {
 //               break;
 
                 case ENCODING:
-                    addSimpleElement (elem, FitsMetadataValues.AUDIO_DATA_ENCODING, value);
+                    addSimpleElement(elem, FitsMetadataValues.AUDIO_DATA_ENCODING, value);
                     break;
 
                 case SAMPLE_RATE:
-                    addSimpleElement (elem, FitsMetadataValues.SAMPLE_RATE, value);
+                    addSimpleElement(elem, FitsMetadataValues.SAMPLE_RATE, value);
             }
         }
         return elem;
     }
 
-	/* Return an element for an image file */
-	private Element buildImageElement(Metadata metadata) {
+    /* Return an element for an image file */
+    private Element buildImageElement(Metadata metadata) {
         String[] metadataNames = metadata.names();
-	    Element elem = new Element (FitsMetadataValues.IMAGE, fitsNS);
-	    boolean bpsReported = false;
-	    boolean widthReported = false;
-	    boolean heightReported = false;
-	    boolean xresReported = false;
+        Element elem = new Element(FitsMetadataValues.IMAGE, fitsNS);
+        boolean bpsReported = false;
+        boolean widthReported = false;
+        boolean heightReported = false;
+        boolean xresReported = false;
         boolean yresReported = false;
         boolean resUnitReported = false;
-	    for (String name : metadataNames) {
-	        TikaProperty prop = propertyNameMap.get(name);
-	        if (prop == null) {
-	            // a property we don't know about?
-	            continue;
-	        }
-	        String value = metadata.get(name);
+        for (String name : metadataNames) {
+            TikaProperty prop = propertyNameMap.get(name);
+            if (prop == null) {
+                // a property we don't know about?
+                continue;
+            }
+            String value = metadata.get(name);
 
             int idx;
             switch (prop) {
                 case DIMENSION_IMAGE_ORIENTATION:
-                    if ("Normal".equals (value)) {
-                        addSimpleElement (elem, FitsMetadataValues.ORIENTATION, "normal*");
+                    if ("Normal".equals(value)) {
+                        addSimpleElement(elem, FitsMetadataValues.ORIENTATION, "normal*");
                     }
                     break;
                 case IMAGE_WIDTH:
                     if (!widthReported) {
-                        idx = value.indexOf (" pixels");
+                        idx = value.indexOf(" pixels");
                         if (idx > 0) {
-                            value = value.substring (0, idx);
+                            value = value.substring(0, idx);
                         }
-                        addSimpleElement (elem, FitsMetadataValues.IMAGE_WIDTH, value);
+                        addSimpleElement(elem, FitsMetadataValues.IMAGE_WIDTH, value);
                         widthReported = true;
                     }
                     break;
 
                 case IMAGE_HEIGHT:
                     if (!heightReported) {
-                        idx = value.indexOf (" pixels");
+                        idx = value.indexOf(" pixels");
                         if (idx > 0) {
-                            value = value.substring (0, idx);
+                            value = value.substring(0, idx);
                         }
-                        addSimpleElement (elem, FitsMetadataValues.IMAGE_HEIGHT, value);
+                        addSimpleElement(elem, FitsMetadataValues.IMAGE_HEIGHT, value);
                         heightReported = true;
                     }
                     break;
 
                 case TIFF_SAMPLES_PER_PIXEL:
-                    addSimpleElement (elem, FitsMetadataValues.SAMPLES_PER_PIXEL, value);
+                    addSimpleElement(elem, FitsMetadataValues.SAMPLES_PER_PIXEL, value);
                     break;
 
                 case COMPRESSION_TYPE:
@@ -585,7 +589,7 @@ public class TikaTool extends ToolBase {
                     if (stdValue != null) {
                         value = stdValue;
                     }
-                    addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
+                    addSimpleElement(elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
                     break;
 
 // Tika is not outputting the correct bits per sample
@@ -600,32 +604,32 @@ public class TikaTool extends ToolBase {
 
                 case RESOLUTION_UNIT:
                     if (!resUnitReported) {
-                        if(value.equals("Inch")) {
+                        if (value.equals("Inch")) {
                             value = "In.";
                         }
-                        addSimpleElement (elem, FitsMetadataValues.SAMPLING_FREQUENCY_UNIT, value);
+                        addSimpleElement(elem, FitsMetadataValues.SAMPLING_FREQUENCY_UNIT, value);
                         resUnitReported = true;
                     }
                     break;
 
                 case X_RESOLUTION:
                     if (!xresReported) {
-                        int ix = value.indexOf (" dot");
+                        int ix = value.indexOf(" dot");
                         if (ix > 0) {
-                            value = value.substring (0, ix);
+                            value = value.substring(0, ix);
                         }
-                        addSimpleElement (elem, FitsMetadataValues.X_SAMPLING_FREQUENCY, value);
+                        addSimpleElement(elem, FitsMetadataValues.X_SAMPLING_FREQUENCY, value);
                         xresReported = true;
                     }
                     break;
 
                 case Y_RESOLUTION:
                     if (!yresReported) {
-                        int ix = value.indexOf (" dot");
+                        int ix = value.indexOf(" dot");
                         if (ix > 0) {
-                            value = value.substring (0, ix);
+                            value = value.substring(0, ix);
                         }
-                        addSimpleElement (elem, FitsMetadataValues.Y_SAMPLING_FREQUENCY, value);
+                        addSimpleElement(elem, FitsMetadataValues.Y_SAMPLING_FREQUENCY, value);
                         yresReported = true;
                     }
                     break;
@@ -638,11 +642,11 @@ public class TikaTool extends ToolBase {
     /* Return an element for an document file */
     private Element buildDocElement(Metadata metadata, boolean isPdf) {
         String[] metadataNames = metadata.names();
-        Element elem = new Element (FitsMetadataValues.DOCUMENT, fitsNS);
+        Element elem = new Element(FitsMetadataValues.DOCUMENT, fitsNS);
 
         String subject = metadata.get(TikaCoreProperties.SUBJECT.getName());
         if (subject != null) {
-            addSimpleElement (elem, FitsMetadataValues.SUBJECT, subject);
+            addSimpleElement(elem, FitsMetadataValues.SUBJECT, subject);
         }
 
         boolean titleReported = false;
@@ -663,7 +667,7 @@ public class TikaTool extends ToolBase {
             switch (prop) {
                 case TITLE:
                     if (!titleReported) {
-                        addSimpleElement (elem, FitsMetadataValues.TITLE, value);
+                        addSimpleElement(elem, FitsMetadataValues.TITLE, value);
                         titleReported = true;
                     }
                     break;
@@ -674,7 +678,7 @@ public class TikaTool extends ToolBase {
                         // otherwise will skip and let another tool deal with this.
                         String[] values = metadata.getValues(name);
                         if (values != null && values.length == 1) {
-                            addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
+                            addSimpleElement(elem, FitsMetadataValues.AUTHOR, value);
                         }
                         authorReported = true;
                     }
@@ -682,32 +686,32 @@ public class TikaTool extends ToolBase {
 
                 case PAGE_COUNT:
                     if (!pageCountReported) {
-                        addSimpleElement (elem, FitsMetadataValues.PAGE_COUNT, value);
+                        addSimpleElement(elem, FitsMetadataValues.PAGE_COUNT, value);
                         pageCountReported = true;
                     }
                     break;
 
                 case CATEGORY:
-                    addSimpleElement (elem, FitsMetadataValues.CATEGORY, value);
+                    addSimpleElement(elem, FitsMetadataValues.CATEGORY, value);
                     break;
 
                 case WORD_COUNT:
                     if (!wordCountReported) {
-                        addSimpleElement (elem, FitsMetadataValues.WORD_COUNT, value);
+                        addSimpleElement(elem, FitsMetadataValues.WORD_COUNT, value);
                         wordCountReported = true;
                     }
                     break;
 
                 case CHARACTER_COUNT:
-                    addSimpleElement (elem, FitsMetadataValues.CHARACTER_COUNT, value);
+                    addSimpleElement(elem, FitsMetadataValues.CHARACTER_COUNT, value);
                     break;
 
                 case LINE_COUNT:
-                    addSimpleElement (elem, FitsMetadataValues.LINE_COUNT, value);
+                    addSimpleElement(elem, FitsMetadataValues.LINE_COUNT, value);
                     break;
 
                 case PARAGRAPH_COUNT:
-                    addSimpleElement (elem, FitsMetadataValues.PARAGRAPH_COUNT, value);
+                    addSimpleElement(elem, FitsMetadataValues.PARAGRAPH_COUNT, value);
                     break;
 
                 case LANGUAGE:
@@ -717,7 +721,7 @@ public class TikaTool extends ToolBase {
                 case RIGHTS:
                     if (!rightsReported) {
                         value = "yes";
-                        addSimpleElement (elem, FitsMetadataValues.IS_RIGHTS_MANAGED, value);
+                        addSimpleElement(elem, FitsMetadataValues.IS_RIGHTS_MANAGED, value);
                         rightsReported = true;
                     }
                     break;
@@ -769,7 +773,7 @@ public class TikaTool extends ToolBase {
     /* Return an element for a text file */
     private Element buildTextElement(Metadata metadata) {
         String[] metadataNames = metadata.names();
-        Element elem = new Element (FitsMetadataValues.TEXT, fitsNS);
+        Element elem = new Element(FitsMetadataValues.TEXT, fitsNS);
         for (String name : metadataNames) {
             TikaProperty prop = propertyNameMap.get(name);
             if (prop == null) {
@@ -780,15 +784,15 @@ public class TikaTool extends ToolBase {
 
             switch (prop) {
                 case TITLE:
-                    addSimpleElement (elem, FitsMetadataValues.TITLE, value);
+                    addSimpleElement(elem, FitsMetadataValues.TITLE, value);
                     break;
 
                 case CONTENT_ENCODING:
-                    addSimpleElement (elem, FitsMetadataValues.CHARSET, value);
+                    addSimpleElement(elem, FitsMetadataValues.CHARSET, value);
                     break;
 
                 case WORD_COUNT:
-                    addSimpleElement (elem, FitsMetadataValues.WORD_COUNT, value);
+                    addSimpleElement(elem, FitsMetadataValues.WORD_COUNT, value);
                     break;
             }
         }
@@ -798,7 +802,7 @@ public class TikaTool extends ToolBase {
     /* Return an element for an video file */
     private Element buildVideoElement(Metadata metadata) {
         String[] metadataNames = metadata.names();
-        Element elem = new Element (FitsMetadataValues.VIDEO, fitsNS);
+        Element elem = new Element(FitsMetadataValues.VIDEO, fitsNS);
         boolean heightReported = false;
         boolean compressionTypeReported = false;
 
@@ -812,29 +816,29 @@ public class TikaTool extends ToolBase {
             switch (prop) {
 
                 case TITLE:
-                    addSimpleElement (elem, FitsMetadataValues.TITLE, value);
+                    addSimpleElement(elem, FitsMetadataValues.TITLE, value);
                     break;
 
                 case AUTHOR:
-                    addSimpleElement (elem, FitsMetadataValues.AUTHOR, value);
+                    addSimpleElement(elem, FitsMetadataValues.AUTHOR, value);
                     break;
 
                 case XMP_AUDIO_CHANNEL_TYPE:
-                    addSimpleElement (elem, FitsMetadataValues.AUDIO_CHANNEL_TYPE, value);
+                    addSimpleElement(elem, FitsMetadataValues.AUDIO_CHANNEL_TYPE, value);
                     break;
 
                 case SAMPLE_RATE:
-                    addSimpleElement (elem, FitsMetadataValues.AUDIO_SAMPLE_RATE, value);
+                    addSimpleElement(elem, FitsMetadataValues.AUDIO_SAMPLE_RATE, value);
                     break;
 
                 case XMP_AUDIO_SAMPLE_TYPE:
-                    addSimpleElement (elem, FitsMetadataValues.AUDIO_SAMPLE_TYPE, value);
+                    addSimpleElement(elem, FitsMetadataValues.AUDIO_SAMPLE_TYPE, value);
                     break;
 
                 case XMP_AUDIO_COMPRESSOR:
                 case COMPRESSION_TYPE:
                     if (!compressionTypeReported) {
-                        addSimpleElement (elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
+                        addSimpleElement(elem, FitsMetadataValues.COMPRESSION_SCHEME, value);
                         compressionTypeReported = true;
                     }
                     break;
@@ -848,20 +852,20 @@ public class TikaTool extends ToolBase {
                     break;
 
                 case XMP_VIDEO_PIXEL_DEPTH:
-                    addSimpleElement (elem, FitsMetadataValues.BIT_DEPTH, value);
+                    addSimpleElement(elem, FitsMetadataValues.BIT_DEPTH, value);
                     break;
 
                 case XMP_VIDEO_COLOR_SPACE:
-                    addSimpleElement (elem, FitsMetadataValues.COLOR_SPACE, value);
+                    addSimpleElement(elem, FitsMetadataValues.COLOR_SPACE, value);
                     break;
 
                 case IMAGE_HEIGHT:
                     if (!heightReported) {
-                        int idx = value.indexOf (" pixels");
+                        int idx = value.indexOf(" pixels");
                         if (idx > 0) {
-                            value = value.substring (0, idx);
+                            value = value.substring(0, idx);
                         }
-                        addSimpleElement (elem, FitsMetadataValues.IMAGE_HEIGHT, value);
+                        addSimpleElement(elem, FitsMetadataValues.IMAGE_HEIGHT, value);
                         heightReported = true;
                     }
                     break;
@@ -871,11 +875,10 @@ public class TikaTool extends ToolBase {
     }
 
 
-
-    private void addSimpleElement (Element parent, String tag, String value ) {
-        Element newElem = new Element (tag, fitsNS);
-        newElem.addContent (value);
-        parent.addContent (newElem);
+    private void addSimpleElement(Element parent, String tag, String value) {
+        Element newElem = new Element(tag, fitsNS);
+        newElem.addContent(value);
+        parent.addContent(newElem);
     }
 
 }

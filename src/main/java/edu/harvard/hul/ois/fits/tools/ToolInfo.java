@@ -10,99 +10,101 @@
 
 package edu.harvard.hul.ois.fits.tools;
 
-/** Holder of identifying information about one tool.
+/**
+ * Holder of identifying information about one tool.
  */
 public class ToolInfo {
 
-	private String name;
-	private String version;
-	private String date;
-	private String note;
+    private String name;
+    private String version;
+    private String date;
+    private String note;
 
-	public ToolInfo() {
+    public ToolInfo() {
 
-	}
+    }
 
-	public ToolInfo(String name, String version, String date) {
-		this.name = name;
-		this.version = version;
-		this.date = date;
-	}
+    public ToolInfo(String name, String version, String date) {
+        this.name = name;
+        this.version = version;
+        this.date = date;
+    }
 
-	/**
-	 * Returns the name of the software, not to be confused with
-	 * the name of the Tool object.
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Returns the name of the software, not to be confused with
+     * the name of the Tool object.
+     */
+    public String getName() {
+        return name;
+    }
 
 
     /**
      * Sets the name of the software, not to be confused with
      * the name of the Tool object.
      */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getVersion() {
-		return version;
-	}
-	
-	/**
-	 * Sets the current version of the tool.
-	 * 
-	 * @param version The current version of the tool.
-	 */
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * Returns the publication date reported by the software (or
-	 * which FITS has hard-coded based on available information).
-	 */
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	/**
-	 * Returns a String with human-readable information about the tool.
-	 */
-	public String print() {
-		String value = "Name= "+name+"\nVersion= "+version+"\nDate= "+date+"\n";
-		if(note != null && note.length() > 0) {
-			value = value +"Note= " + note + "\n";
-		}
-		return value;
-	}
+    /**
+     * Sets the current version of the tool.
+     *
+     * @param version The current version of the tool.
+     */
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public String getNote() {
-		return note;
-	}
+    /**
+     * Returns the publication date reported by the software (or
+     * which FITS has hard-coded based on available information).
+     */
+    public String getDate() {
+        return date;
+    }
 
-	/**
-	 * Set any optional additional information for a given tool.
-	 * 
-	 * @param note The information
-	 */
-	public void setNote(String note) {
-		this.note = note;
-	}
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder("ToolInfo: [");
-		sb.append("name: ");
-		sb.append(getName());
-		sb.append(", version: ");
-		sb.append(getVersion());
-		sb.append("]");
-		return sb.toString();
-	}
+    /**
+     * Returns a String with human-readable information about the tool.
+     */
+    public String print() {
+        String value = "Name= " + name + "\nVersion= " + version + "\nDate= " + date + "\n";
+        if (note != null && note.length() > 0) {
+            value = value + "Note= " + note + "\n";
+        }
+        return value;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    /**
+     * Set any optional additional information for a given tool.
+     *
+     * @param note The information
+     */
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("ToolInfo: [");
+        sb.append("name: ");
+        sb.append(getName());
+        sb.append(", version: ");
+        sb.append(getVersion());
+        sb.append("]");
+        return sb.toString();
+    }
 
 }

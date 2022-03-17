@@ -14,40 +14,46 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-/** This class holds standard element names for FITS metadata output, as well
- *  as some standard values. All components are static.
+/**
+ * This class holds standard element names for FITS metadata output, as well
+ * as some standard values. All components are static.
  */
 public class FitsMetadataValues {
 
-	private static FitsMetadataValues instance;
+    private static FitsMetadataValues instance;
 
     private static final Logger logger = LoggerFactory.getLogger(FitsMetadataValues.class);
 
-	private String mimeMapProperties = Fits.FITS_XML_DIR + "mime_map.txt";
-	private String formatMapProperties = Fits.FITS_XML_DIR + "format_map.txt";
-	private String mimeToFormatMapProperties = Fits.FITS_XML_DIR + "mime_to_format_map.txt";
+    private String mimeMapProperties = Fits.FITS_XML_DIR + "mime_map.txt";
+    private String formatMapProperties = Fits.FITS_XML_DIR + "format_map.txt";
+    private String mimeToFormatMapProperties = Fits.FITS_XML_DIR + "mime_to_format_map.txt";
 
     private HashMap<String, String> mimeMap = new HashMap<String, String>();
     private HashMap<String, String> formatMap = new HashMap<String, String>();
     private HashMap<String, String> mimeToFormatMap = new HashMap<String, String>();
 
-	public final static String DEFAULT_MIMETYPE="application/octet-stream";
-	public final static String DEFAULT_FORMAT="Unknown Binary";
+    public final static String DEFAULT_MIMETYPE = "application/octet-stream";
+    public final static String DEFAULT_FORMAT = "Unknown Binary";
 
-    /** Standard document element names. */
+    /**
+     * Standard document element names.
+     */
     public final static String AUDIO = "audio";
     public final static String DOCUMENT = "document";
     public final static String IMAGE = "image";
     public final static String TEXT = "text";
     public final static String VIDEO = "video";
 
-    /** Standard property element names. The idea is to include them
-     *  all here, even the ones that are generated only by
-     *  XSLT. */
+    /**
+     * Standard property element names. The idea is to include them
+     * all here, even the ones that are generated only by
+     * XSLT.
+     */
     public final static String APERTURE_VALUE = "apertureValue";
     public final static String AUDIO_BITS_PER_SAMPLE = "audioBitsPerSample";  // 11-Apr-2013
     public final static String AUDIO_CHANNEL_TYPE = "audioChannelType";  // 11-Apr-2013
@@ -159,7 +165,9 @@ public class FitsMetadataValues {
     public final static String YCBCR_POSITIONING = "YCbCrPositioning";
     public final static String YCBCR_SUBSAMPLING = "YCbCrSubSampling";
 
-    /** Standard compression values. */
+    /**
+     * Standard compression values.
+     */
     public final static String CMPR_NONE = "Uncompressed";
     public final static String CMPR_JP2 = "JPEG 2000";
     public final static String CMPR_JP2_LOSSY = "JPEG 2000 Lossy";
@@ -190,22 +198,24 @@ public class FitsMetadataValues {
 
     private FitsMetadataValues() {
 
-    	mimeMap = parseFile(mimeMapProperties);
-    	formatMap = parseFile(formatMapProperties);
-    	mimeToFormatMap = parseFile(mimeToFormatMapProperties);
+        mimeMap = parseFile(mimeMapProperties);
+        formatMap = parseFile(formatMapProperties);
+        mimeToFormatMap = parseFile(mimeToFormatMapProperties);
 
     }
 
-	public static synchronized FitsMetadataValues getInstance() {
-		if (instance == null)
-			instance = new FitsMetadataValues();
+    public static synchronized FitsMetadataValues getInstance() {
+        if (instance == null)
+            instance = new FitsMetadataValues();
 
-		return instance;
-	}
+        return instance;
+    }
 
-    /** Do some normalization on variant MIME types. */
+    /**
+     * Do some normalization on variant MIME types.
+     */
     public String normalizeMimeType(String mime) {
-        if (mime == null || mime.length()==0) {
+        if (mime == null || mime.length() == 0) {
             return DEFAULT_MIMETYPE;
         }
 
@@ -217,54 +227,54 @@ public class FitsMetadataValues {
         String normMime = mimeMap.get(mime);
         if (normMime != null) {
             return normMime;
-        }
-        else {
+        } else {
             return mime;
         }
     }
 
     public String normalizeFormat(String format) {
-        if (format == null || format.length()==0) {
+        if (format == null || format.length() == 0) {
             return DEFAULT_FORMAT;
         }
         String normformat = formatMap.get(format);
         if (normformat != null) {
             return normformat;
-        }
-        else {
+        } else {
             return format;
         }
     }
 
     public String getFormatForMime(String mime) {
-        if (mime == null || mime.length()==0) {
+        if (mime == null || mime.length() == 0) {
             return DEFAULT_FORMAT;
         }
         return mimeToFormatMap.get(mime);
     }
 
-    private HashMap<String,String> parseFile(String inputFile) {
-    	HashMap<String,String> map = new HashMap<String,String>();
-    	BufferedReader in = null;
-		try {
-			in = new BufferedReader(new FileReader(inputFile));
-			String line;
-			while ((line = in.readLine()) != null) {
-				if(!line.startsWith("#") && !line.startsWith("\"#") ) {
-					String[] parts = line.split("=");
-					if(parts.length != 2) {
-						logger.debug("Invalid map entry: " + line);
-						continue;
-					}
-					map.put(parts[0], parts[1]);
-				}
-			}
-		} catch (IOException e) {
-			logger.error("Error reading or parsing input file: " + inputFile, e);
-		}
-		finally {
-			if(in != null) try {in.close(); } catch (IOException e) { } // nothing to do if exception when closing file
-		}
-		return map;
+    private HashMap<String, String> parseFile(String inputFile) {
+        HashMap<String, String> map = new HashMap<String, String>();
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader(inputFile));
+            String line;
+            while ((line = in.readLine()) != null) {
+                if (!line.startsWith("#") && !line.startsWith("\"#")) {
+                    String[] parts = line.split("=");
+                    if (parts.length != 2) {
+                        logger.debug("Invalid map entry: " + line);
+                        continue;
+                    }
+                    map.put(parts[0], parts[1]);
+                }
+            }
+        } catch (IOException e) {
+            logger.error("Error reading or parsing input file: " + inputFile, e);
+        } finally {
+            if (in != null) try {
+                in.close();
+            } catch (IOException e) {
+            } // nothing to do if exception when closing file
+        }
+        return map;
     }
 }

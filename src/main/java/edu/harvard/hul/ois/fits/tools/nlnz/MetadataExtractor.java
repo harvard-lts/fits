@@ -38,7 +38,8 @@ import org.jdom.xpath.XPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**  The glue class for invoking the NLNZ Metadata Extractor under FITS.
+/**
+ * The glue class for invoking the NLNZ Metadata Extractor under FITS.
  */
 public class MetadataExtractor extends ToolBase {
 
@@ -47,112 +48,109 @@ public class MetadataExtractor extends ToolBase {
     private final static String TOOL_DATE = "06/05/2014";
 
     private static String nlnzFitsConfig;
-	private boolean enabled = true;
+    private boolean enabled = true;
     private Fits fits;
 
-	private static final Logger logger = LoggerFactory.getLogger(MetadataExtractor.class);
+    private static final Logger logger = LoggerFactory.getLogger(MetadataExtractor.class);
 
     static {
-    	nlnzFitsConfig = Fits.FITS_XML_DIR+"nlnz"+File.separator+"fits"+File.separator;
-    	logger.debug("nlnzFitsConfig: " + nlnzFitsConfig);
+        nlnzFitsConfig = Fits.FITS_XML_DIR + "nlnz" + File.separator + "fits" + File.separator;
+        logger.debug("nlnzFitsConfig: " + nlnzFitsConfig);
     }
 
-	public MetadataExtractor(Fits fits) throws FitsException {
-		super();
-		this.fits = fits;
-        logger.debug ("Initializing MetadataExtractor");
-		info = new ToolInfo(TOOL_NAME,TOOL_VERSION,TOOL_DATE);
-		transformMap = XsltTransformMap.getMap(nlnzFitsConfig+"nlnz_xslt_map.xml");
+    public MetadataExtractor(Fits fits) throws FitsException {
+        super();
+        this.fits = fits;
+        logger.debug("Initializing MetadataExtractor");
+        info = new ToolInfo(TOOL_NAME, TOOL_VERSION, TOOL_DATE);
+        transformMap = XsltTransformMap.getMap(nlnzFitsConfig + "nlnz_xslt_map.xml");
 
-		// HACK: need to set custom ClassLoader in NLNZ Config class so that it can find class names on Class.forName() call.
-		ClassLoader cl = MetadataExtractor.class.getClassLoader();
-		Config.setClassLoader(cl); // customized Config class; NOT the one supplied by NLNZ
-		// Use custom logger so that NLNZ code doesn't log to System.out by default
-		// (see what happens in nz.govt.natlib.meta.log.LogManager source code)
-		LogManager.getInstance().addLog(new SLF4JLogger());
-	}
+        // HACK: need to set custom ClassLoader in NLNZ Config class so that it can find class names on Class.forName() call.
+        ClassLoader cl = MetadataExtractor.class.getClassLoader();
+        Config.setClassLoader(cl); // customized Config class; NOT the one supplied by NLNZ
+        // Use custom logger so that NLNZ code doesn't log to System.out by default
+        // (see what happens in nz.govt.natlib.meta.log.LogManager source code)
+        LogManager.getInstance().addLog(new SLF4JLogger());
+    }
 
-	public ToolOutput extractInfo(File file) throws FitsToolException {
+    public ToolOutput extractInfo(File file) throws FitsToolException {
         logger.debug("MetadataExtractor.extractInfo starting on " + file.getName());
-		long startTime = System.currentTimeMillis();
-		Document dom = null;
-		//Document rawDom = null;
+        long startTime = System.currentTimeMillis();
+        Document dom = null;
+        //Document rawDom = null;
 
-		// Make sure the Harvester System is initialized.
-		//Config.getInstance();
+        // Make sure the Harvester System is initialized.
+        //Config.getInstance();
 
-		String baseUrl = Fits.FITS_XML_DIR+"nlnz";
-		Config.getInstance().setXMLBaseURL(baseUrl);
+        String baseUrl = Fits.FITS_XML_DIR + "nlnz";
+        Config.getInstance().setXMLBaseURL(baseUrl);
 
-		// Get the appropriate adapter.
-		DataAdapter adapter = AdapterFactory.getInstance().getAdapter(file);
+        // Get the appropriate adapter.
+        DataAdapter adapter = AdapterFactory.getInstance().getAdapter(file);
 
-		//The adapter's DTD to use for output
-		String outDTD = adapter.getOutputType();
+        //The adapter's DTD to use for output
+        String outDTD = adapter.getOutputType();
 
-		//output stream to hold raw output from adapter
-		ByteArrayOutputStream adapterOutput = new ByteArrayOutputStream(2048);
+        //output stream to hold raw output from adapter
+        ByteArrayOutputStream adapterOutput = new ByteArrayOutputStream(2048);
 
-		//holder for the transformed adapter output
-		//ByteArrayOutputStream tAdapterOutput = new ByteArrayOutputStream(2048);
+        //holder for the transformed adapter output
+        //ByteArrayOutputStream tAdapterOutput = new ByteArrayOutputStream(2048);
 
-		// Set up the parser context and listener to hold the adapter output
-		ParserContext pContext = new ParserContext();
+        // Set up the parser context and listener to hold the adapter output
+        ParserContext pContext = new ParserContext();
 
-		ParserListener listener= new DTDXmlParserListener(adapterOutput, outDTD == null ? null
-				: Config.getInstance().getXMLBaseURL() + "/" + outDTD);
-		pContext.addListener(listener);
+        ParserListener listener = new DTDXmlParserListener(adapterOutput, outDTD == null ? null
+                : Config.getInstance().getXMLBaseURL() + "/" + outDTD);
+        pContext.addListener(listener);
 
-		// Attempt to harvest the metadata.
-		try {
-			// Extract the metadata.
-			adapter.adapt(file, pContext);
-			dom = saxBuilder.build(new StringReader(adapterOutput.toString()));
-		}
-		catch (JDOMException e) {
+        // Attempt to harvest the metadata.
+        try {
+            // Extract the metadata.
+            adapter.adapt(file, pContext);
+            dom = saxBuilder.build(new StringReader(adapterOutput.toString()));
+        } catch (JDOMException e) {
             logger.error("Error parsing NLNZ Metadata Extractor XML output: " + e.getClass().getName());
-			throw new FitsToolException("Error parsing NLNZ Metadata Extractor XML output",e);
-		}
-		catch (Exception e) {
-			// harvesting metadata failed
+            throw new FitsToolException("Error parsing NLNZ Metadata Extractor XML output", e);
+        } catch (Exception e) {
+            // harvesting metadata failed
             logger.error("NLNZ Metadata Extractor error while harvesting file: " + e.getClass().getName());
-			throw new FitsToolException("NLNZ Metadata Extractor error while harvesting file "+file.getName(),e);
-		}
-		finally {
-			//done with the adapter output streams so close them
-			try {
-				adapterOutput.close();
-				//tAdapterOutput.close();
-			} catch (IOException e) {
-			    logger.error("Error closing NLNZ Metadata Extractor XML output stream: " + e.getClass().getName());
-				throw new FitsToolException("Error closing NLNZ Metadata Extractor XML output stream",e);
-			}
-		}
+            throw new FitsToolException("NLNZ Metadata Extractor error while harvesting file " + file.getName(), e);
+        } finally {
+            //done with the adapter output streams so close them
+            try {
+                adapterOutput.close();
+                //tAdapterOutput.close();
+            } catch (IOException e) {
+                logger.error("Error closing NLNZ Metadata Extractor XML output stream: " + e.getClass().getName());
+                throw new FitsToolException("Error closing NLNZ Metadata Extractor XML output stream", e);
+            }
+        }
 
-		//FileIdentity identity = null;
-		Document fitsXml = null;
-		if(dom != null) {
-			String format = dom.getRootElement().getName();
-			//String format = XmlUtils.getDomValue(dom,"Format");
-			if(format != null) {
-				String xsltTransform = (String)transformMap.get(format.toUpperCase());
-				if(xsltTransform != null) {
-					fitsXml = transform(nlnzFitsConfig+xsltTransform,dom);
-				}
-			}
-		}
+        //FileIdentity identity = null;
+        Document fitsXml = null;
+        if (dom != null) {
+            String format = dom.getRootElement().getName();
+            //String format = XmlUtils.getDomValue(dom,"Format");
+            if (format != null) {
+                String xsltTransform = (String) transformMap.get(format.toUpperCase());
+                if (xsltTransform != null) {
+                    fitsXml = transform(nlnzFitsConfig + xsltTransform, dom);
+                }
+            }
+        }
 
-		//XmlUtils.printToConsole(dom);
+        //XmlUtils.printToConsole(dom);
 
-		standardizeTimestamp("//fits:fileinfo/fits:created", fitsXml);
-		standardizeTimestamp("//fits:fileinfo/fits:lastmodified", fitsXml);
+        standardizeTimestamp("//fits:fileinfo/fits:created", fitsXml);
+        standardizeTimestamp("//fits:fileinfo/fits:lastmodified", fitsXml);
 
-		output = new ToolOutput(this,fitsXml,dom, fits);
-		duration = System.currentTimeMillis()-startTime;
+        output = new ToolOutput(this, fitsXml, dom, fits);
+        duration = System.currentTimeMillis() - startTime;
         logger.debug("MetadataExtractor.extractInfo finished on " + file.getName());
-		runStatus = RunStatus.SUCCESSFUL;
-		return output;
-	}
+        runStatus = RunStatus.SUCCESSFUL;
+        return output;
+    }
 	/*
 	public boolean isIdentityKnown(FileIdentity identity) {
 		if(identity == null
@@ -172,25 +170,25 @@ public class MetadataExtractor extends ToolBase {
 		}
 	}*/
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public void setEnabled(boolean value) {
-		enabled = value;
-	}
+    public void setEnabled(boolean value) {
+        enabled = value;
+    }
 
-	private void standardizeTimestamp(String path, Document document) {
-		try {
-			XPath xpath = XPath.newInstance(path);
-			xpath.addNamespace("fits",Fits.XML_NAMESPACE);
-			Element element = (Element) xpath.selectSingleNode(document);
-			if (element != null) {
-				element.setText(DateTimeUtil.standardize(element.getText()));
-			}
-		} catch (JDOMException e) {
-			logger.debug("Failed to standardize timestamp", e);
-		}
-	}
+    private void standardizeTimestamp(String path, Document document) {
+        try {
+            XPath xpath = XPath.newInstance(path);
+            xpath.addNamespace("fits", Fits.XML_NAMESPACE);
+            Element element = (Element) xpath.selectSingleNode(document);
+            if (element != null) {
+                element.setText(DateTimeUtil.standardize(element.getText()));
+            }
+        } catch (JDOMException e) {
+            logger.debug("Failed to standardize timestamp", e);
+        }
+    }
 
 }

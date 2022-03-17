@@ -124,7 +124,7 @@ public final class DateTimeUtil {
             .appendValue(DAY_OF_MONTH, 2)
             .toFormatter();
 
-    private static final DateTimeFormatter[] FORMATTERS = new DateTimeFormatter[] {
+    private static final DateTimeFormatter[] FORMATTERS = new DateTimeFormatter[]{
             DateTimeFormatter.ISO_DATE_TIME,
             DateTimeFormatter.ISO_DATE,
             DATE_TIME_WITH_SPACE,
@@ -192,7 +192,6 @@ public final class DateTimeUtil {
 
         return standardized;
     }
-
 
 
 }

@@ -50,20 +50,20 @@ public class DroidQuery {
     private long bytesToRead = -1;
     private List<String> fileExtensions; // file extensions for files on which to apply file read limit
     private File file; // input file that is being processed
-    
-    
+
+
     /**
      * Create a DroidQuery object. This can be retained for any number of
      * different queries.
      *
-     * @param sigIdentifier BinarySignatureIdentifier  for a Droid signature file
-     * @param containerIdentifierFactory container identifier
-     * @param containerFormatResolver container format resolver
-     * @param puidFormatMap map of puids to formats
+     * @param sigIdentifier                 BinarySignatureIdentifier  for a Droid signature file
+     * @param containerIdentifierFactory    container identifier
+     * @param containerFormatResolver       container format resolver
+     * @param puidFormatMap                 map of puids to formats
      * @param containerSignatureDefinitions container sig definitions
-     * @param includeExts File extensions to include for possibly limiting number of bytes to read of file to process.
-     * @param kbReadLimit Number of bytes to process in KB from the beginning of the file. -1 indicates read entire file.
-     * @param file The file to be processed by DROID.
+     * @param includeExts                   File extensions to include for possibly limiting number of bytes to read of file to process.
+     * @param kbReadLimit                   Number of bytes to process in KB from the beginning of the file. -1 indicates read entire file.
+     * @param file                          The file to be processed by DROID.
      * @throws SignatureParseException If there is a problem processing the DROID signature file.
      */
     public DroidQuery(BinarySignatureIdentifier sigIdentifier,
@@ -72,8 +72,8 @@ public class DroidQuery {
                       Map<String, Format> puidFormatMap,
                       ContainerSignatureDefinitions containerSignatureDefinitions,
                       List<String> includeExts,
-                      long kbReadLimit, File file)  throws SignatureParseException, FileNotFoundException    {
-    	this.sigIdentifier = sigIdentifier;
+                      long kbReadLimit, File file) throws SignatureParseException, FileNotFoundException {
+        this.sigIdentifier = sigIdentifier;
         this.containerIdentifierFactory = containerIdentifierFactory;
         this.containerFormatResolver = containerFormatResolver;
         this.puidFormatMap = puidFormatMap;
@@ -87,26 +87,27 @@ public class DroidQuery {
 
     /**
      * Process the file by DROID.
+     *
      * @return A collection of results from DROID. Usually a single result.
      * @throws IOException
      */
     IdentificationResultCollection queryFile()
             throws IOException {
-    	
+
         // For certain file types, set max. number of bytes at beginning of file to process.
         // See https://groups.google.com/forum/#!msg/droid-list/HqN6lKOATJk/i-qTEI-XEwAJ;context-place=forum/droid-list
         // which indicates minimum number of bytes required to identify certain input file types.    	
-    	long bytesToExamine = file.length();
-    	String filename = file.getName();
-    	int lastDot = filename.lastIndexOf('.');
-    	if (lastDot > 0 && filename.length() > lastDot) {
-    		String fileExtension = filename.substring(++lastDot).toLowerCase(); // examine extension past the last dot
-    		if (fileExtensions != null && fileExtensions.contains(fileExtension) && bytesToRead > 0) {
-    			bytesToExamine = Math.min(file.length(), bytesToRead);
-    		}
-    	}
+        long bytesToExamine = file.length();
+        String filename = file.getName();
+        int lastDot = filename.lastIndexOf('.');
+        if (lastDot > 0 && filename.length() > lastDot) {
+            String fileExtension = filename.substring(++lastDot).toLowerCase(); // examine extension past the last dot
+            if (fileExtensions != null && fileExtensions.contains(fileExtension) && bytesToRead > 0) {
+                bytesToExamine = Math.min(file.length(), bytesToRead);
+            }
+        }
         RequestMetaData metadata = new RequestMetaData(bytesToExamine, file.lastModified(), file.getName());
-        RequestIdentifier identifier = new RequestIdentifier (file.toURI());
+        RequestIdentifier identifier = new RequestIdentifier(file.toURI());
         FileSystemIdentificationRequest req = null;
         try {
             req = new FileSystemIdentificationRequest(metadata, identifier);
@@ -123,14 +124,13 @@ public class DroidQuery {
 
             sigIdentifier.removeLowerPriorityHits(results);
             if (results.getResults().isEmpty()) {
-                results = sigIdentifier.matchExtensions(req,false);
+                results = sigIdentifier.matchExtensions(req, false);
             }
 
             return results;
-        }
-        finally {
+        } finally {
             if (req != null) {
-                req.close ();
+                req.close();
             }
         }
     }
@@ -174,32 +174,32 @@ public class DroidQuery {
 
     /**
      * Provides additional results from DROID for processing ZIP files.
-     * 
+     *
      * @param results This is the same value returned from the call to queryFile().
      * @return Aggregated data of all files contained within the ZIP file.
-     * @throws IOException If the file cannot be read.
+     * @throws IOException       If the file cannot be read.
      * @throws FitsToolException If the file is not a ZIP file.
      */
     ContainerAggregator queryContainerData(IdentificationResultCollection results) throws IOException, FitsToolException {
 
         RequestMetaData metadata = new RequestMetaData(bytesToRead, file.lastModified(), file.getName());
-    	RequestIdentifier identifier = new RequestIdentifier (file.toURI());
-    	FileSystemIdentificationRequest request = null;
-    	request = new FileSystemIdentificationRequest(metadata, identifier);
-    	request.open(file.toPath());
-    	
-    	ZipArchiveContentIdentifier zipArchiveIdentifier =
+        RequestIdentifier identifier = new RequestIdentifier(file.toURI());
+        FileSystemIdentificationRequest request = null;
+        request = new FileSystemIdentificationRequest(metadata, identifier);
+        request.open(file.toPath());
+
+        ZipArchiveContentIdentifier zipArchiveIdentifier =
                 new ZipArchiveContentIdentifier(this.sigIdentifier,
-                    containerSignatureDefinitions, "", File.separator, File.separator, puidFormatMap);
+                        containerSignatureDefinitions, "", File.separator, File.separator, puidFormatMap);
         try {
-        	ContainerAggregator aggregator = zipArchiveIdentifier.identify(results.getUri(), request);
-        	return aggregator;
-		} catch (CommandExecutionException e) {
-			throw new FitsToolException("DROID can't execute zipArchiveIdentifier" , e);
-		} finally {
+            ContainerAggregator aggregator = zipArchiveIdentifier.identify(results.getUri(), request);
+            return aggregator;
+        } catch (CommandExecutionException e) {
+            throw new FitsToolException("DROID can't execute zipArchiveIdentifier", e);
+        } finally {
             if (request != null) {
-            	request.close();
+                request.close();
             }
-		}
+        }
     }
 }

@@ -12,34 +12,36 @@ package edu.harvard.hul.ois.fits.exceptions;
 
 public class FitsException extends Exception {
 
-	/**
-	 * generated serial id
-	 */
-	private static final long serialVersionUID = 1266363844796336485L;
-	private Throwable embeddedException = null;
-	private String message;
+    /**
+     * generated serial id
+     */
+    private static final long serialVersionUID = 1266363844796336485L;
+    private Throwable embeddedException = null;
+    private String message;
 
-	public FitsException() {
-		super();
-	}
+    public FitsException() {
+        super();
+    }
+
     public FitsException(String message) {
         this();
         this.message = message;
     }
+
     public FitsException(String message, Throwable e) {
         this();
         this.embeddedException = e;
         this.message = message;
-        if (e.getMessage() != null){
+        if (e.getMessage() != null) {
             this.message = this.message + " (" + e.getMessage() + ")";
         }
     }
 
     public String getMessage() {
-    	return message;
+        return message;
     }
 
     public Throwable getEmbeddedException() {
-    	return embeddedException;
+        return embeddedException;
     }
 }

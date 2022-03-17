@@ -13,19 +13,21 @@ package edu.harvard.hul.ois.fits.exceptions;
 
 public class FitsConfigurationException extends FitsException {
 
-	/**
-	 * generated serial id
-	 */
-	private static final long serialVersionUID = -513805006091059617L;
+    /**
+     * generated serial id
+     */
+    private static final long serialVersionUID = -513805006091059617L;
 
-	public FitsConfigurationException() {
-		super();
-	}
+    public FitsConfigurationException() {
+        super();
+    }
+
     public FitsConfigurationException(String message) {
         super(message);
     }
+
     public FitsConfigurationException(String message, Exception e) {
-    	super(message,e);
+        super(message, e);
     }
 
 }

@@ -21,43 +21,45 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class StreamGobbler extends Thread {
-	private InputStream is;
-	private OutputStream os;
+    private InputStream is;
+    private OutputStream os;
 
-	private static final Logger logger = LoggerFactory.getLogger(StreamGobbler.class);
+    private static final Logger logger = LoggerFactory.getLogger(StreamGobbler.class);
 
-	/** Constructor with no output stream. Output from the process
-	 *  will be discarded.
-	 */
-	StreamGobbler(InputStream is) {
-		this(is, null);
-	}
+    /**
+     * Constructor with no output stream. Output from the process
+     * will be discarded.
+     */
+    StreamGobbler(InputStream is) {
+        this(is, null);
+    }
 
-	/** Constructor with output stream. Output from the process will
-	 *  be sent to it on a line-by-line basis.
-	 */
-	StreamGobbler(InputStream is, OutputStream redirect) {
-		this.is = is;
-		this.os = redirect;
-	}
+    /**
+     * Constructor with output stream. Output from the process will
+     * be sent to it on a line-by-line basis.
+     */
+    StreamGobbler(InputStream is, OutputStream redirect) {
+        this.is = is;
+        this.os = redirect;
+    }
 
-	public void run() {
-		try {
-			PrintWriter pw = null;
-			if (os != null)
-				pw = new PrintWriter(os);
+    public void run() {
+        try {
+            PrintWriter pw = null;
+            if (os != null)
+                pw = new PrintWriter(os);
 
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(isr);
-			String line = null;
-			while ((line = br.readLine()) != null) {
-				if (pw != null)
-					pw.println(line);
-			}
-			if (pw != null)
-				pw.flush();
-		} catch (IOException ioe) {
-			logger.error("Error reading input command.", ioe);
-		}
-	}
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                if (pw != null)
+                    pw.println(line);
+            }
+            if (pw != null)
+                pw.flush();
+        } catch (IOException ioe) {
+            logger.error("Error reading input command.", ioe);
+        }
+    }
 }

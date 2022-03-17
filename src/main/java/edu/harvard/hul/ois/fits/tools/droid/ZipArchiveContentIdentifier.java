@@ -1,25 +1,25 @@
 /**
  * This file has been modified by Harvard University, June, 2017, for the purposes of incorporating
  * into the FITS application. The original can be found here: https://github.com/digital-preservation/droid
- * 
+ * <p>
  * Copyright (c) 2016, The National Archives <pronom@nationalarchives.gsi.gov.uk>
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following
  * conditions are met:
- *
- *  * Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- *  * Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- *  * Neither the name of the The National Archives nor the
- *    names of its contributors may be used to endorse or promote products
- *    derived from this software without specific prior written permission.
- *
+ * <p>
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * <p>
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * <p>
+ * * Neither the name of the The National Archives nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -56,15 +56,15 @@ import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 
 /**
  * Identifier for files held in a ZIP archive.
- * 
+ *
  * @author rbrennan
  */
 public class ZipArchiveContentIdentifier extends ArchiveContentIdentifier {
 
     private static final Logger logger = LoggerFactory.getLogger(ZipArchiveContentIdentifier.class);
-	 
+
     /**
-     * 
+     *
      * @param binarySignatureIdentifier     binary signature identifier
      * @param containerSignatureDefinitions container signatures
      * @param path                          current archive path 
@@ -73,14 +73,14 @@ public class ZipArchiveContentIdentifier extends ArchiveContentIdentifier {
      * @param puidFormatMap                 map of puids to formats
      */
     public ZipArchiveContentIdentifier(final BinarySignatureIdentifier binarySignatureIdentifier,
-            final ContainerSignatureDefinitions containerSignatureDefinitions,
-            final String path, final String slash, final String slash1,
+                                       final ContainerSignatureDefinitions containerSignatureDefinitions,
+                                       final String path, final String slash, final String slash1,
                                        final Map<String, Format> puidFormatMap) {
-    
-            super(binarySignatureIdentifier, containerSignatureDefinitions,
-        path, slash, slash1, false, puidFormatMap);
+
+        super(binarySignatureIdentifier, containerSignatureDefinitions,
+                path, slash, slash1, false, puidFormatMap);
     }
-    
+
     /**
      * @param uri The URI of the file to identify
      * @param request The Identification Request
@@ -88,8 +88,8 @@ public class ZipArchiveContentIdentifier extends ArchiveContentIdentifier {
      * @throws CommandExecutionException When an exception happens during execution
      * @throws CommandExecutionException When an exception happens during archive file access
      */
-    public ContainerAggregator identify(final URI uri, final IdentificationRequest  request)
-        throws CommandExecutionException {
+    public ContainerAggregator identify(final URI uri, final IdentificationRequest request)
+            throws CommandExecutionException {
 
         final String newPath = makeContainerURI("zip", request.getFileName());
         setSlash1("");
@@ -107,29 +107,29 @@ public class ZipArchiveContentIdentifier extends ArchiveContentIdentifier {
                         final RequestMetaData metaData = new RequestMetaData(entry.getSize(), 2L, name);
                         final RequestIdentifier identifier = new RequestIdentifier(uri);
                         final ZipEntryIdentificationRequest zipRequest =
-                            new ZipEntryIdentificationRequest(metaData, identifier, getTmpDir().toPath(), false);
-                        
+                                new ZipEntryIdentificationRequest(metaData, identifier, getTmpDir().toPath(), false);
+
                         if (compressionMethod != null && !compressionMethod.equals(entry.getMethod())) {
-                        	logger.warn("Different compression method: " + compressionMethod + ", entry method: " + entry.getMethod());
+                            logger.warn("Different compression method: " + compressionMethod + ", entry method: " + entry.getMethod());
                         }
 
                         compressionMethod = entry.getMethod(); // throws UnsupportedZipFeatureException
                         expandContainer(zipRequest, in, newPath, aggregator);  // zipRequest.size() is uncompressed
                         logger.debug("zipRequest size(): " + zipRequest.size() + " -- entry.getCompressedSize(): " + entry.getCompressedSize() + " -- entry.getSize(): " + entry.getSize());
                         if (entry.getCompressedSize() > 0) {
-                        	aggregator.incrementCompressedSize(entry.getCompressedSize());
+                            aggregator.incrementCompressedSize(entry.getCompressedSize());
                         }
                         // in some situations the value returned is -1
                         if (entry.getSize() > 0) {
-                        	aggregator.incrementOriginalSize(entry.getSize());
+                            aggregator.incrementOriginalSize(entry.getSize());
                         } else if (zipRequest.size() > 0) {
-                        	aggregator.incrementOriginalSize(zipRequest.size());
+                            aggregator.incrementOriginalSize(zipRequest.size());
                         }
                     }
                 }
             } catch (UnsupportedZipFeatureException e) {
-            	// For now this indicates that we're attempting (and failing) to read from an encrypted ZIP file.
-            	aggregator.setEncrypted(true);
+                // For now this indicates that we're attempting (and failing) to read from an encrypted ZIP file.
+                aggregator.setEncrypted(true);
             } finally {
                 if (in != null) {
                     in.close();
@@ -140,7 +140,7 @@ public class ZipArchiveContentIdentifier extends ArchiveContentIdentifier {
                 logger.debug("--------------");
             }
         } catch (IOException ioe) {
-        	logger.warn(ioe + " (" + newPath + ")"); // continue after corrupt archive 
+            logger.warn(ioe + " (" + newPath + ")"); // continue after corrupt archive
         } finally {
             if (zipIn != null) {
                 try {

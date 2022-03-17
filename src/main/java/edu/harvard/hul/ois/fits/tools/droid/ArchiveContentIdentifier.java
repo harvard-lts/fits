@@ -1,25 +1,25 @@
 /**
  * This file has been modified by Harvard University, June, 2017, for the purposes of incorporating
  * into the FITS application. The original can be found here: https://github.com/digital-preservation/droid
- * 
+ * <p>
  * Copyright (c) 2016, The National Archives <pronom@nationalarchives.gsi.gov.uk>
  * All rights reserved.
- *
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following
  * conditions are met:
- *
- *  * Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- *  * Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- *  * Neither the name of the The National Archives nor the
- *    names of its contributors may be used to endorse or promote products
- *    derived from this software without specific prior written permission.
- *
+ * <p>
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * <p>
+ * * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * <p>
+ * * Neither the name of the The National Archives nor the
+ * names of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
@@ -80,9 +80,9 @@ public abstract class ArchiveContentIdentifier {
      * @param puidFormatMap                 map of puids to formats
      */
     public ArchiveContentIdentifier(final BinarySignatureIdentifier binarySignatureIdentifier,
-                                       final ContainerSignatureDefinitions containerSignatureDefinitions,
-                                       final String path, final String slash, final String slash1,
-                                       final Boolean expandWebArchives, final Map<String, Format> puidFormatMap) {
+                                    final ContainerSignatureDefinitions containerSignatureDefinitions,
+                                    final String path, final String slash, final String slash1,
+                                    final Boolean expandWebArchives, final Map<String, Format> puidFormatMap) {
 
         synchronized (this) {
             setBinarySignatureIdentifier(binarySignatureIdentifier);
@@ -97,48 +97,56 @@ public abstract class ArchiveContentIdentifier {
             this.puidFormatMap = puidFormatMap;
         }
     }
+
     /**
      * @return local path element delimiter
      */
     protected String getSlash() {
         return slash;
     }
+
     /**
      * @param newSlash path element delimiter
      */
     protected void setSlash(String newSlash) {
         this.slash = newSlash;
     }
+
     /**
      * @return container element delimiter
      */
     protected String getSlash1() {
-        return  slash1;
+        return slash1;
     }
+
     /**
      * @param newSlash1 container element delimiter
      */
     protected void setSlash1(String newSlash1) {
         this.slash1 = newSlash1;
     }
+
     /**
      * @return binary signature identifier
      */
     protected BinarySignatureIdentifier getBinarySignatureIdentifier() {
-        return  binarySignatureIdentifier;
+        return binarySignatureIdentifier;
     }
+
     /**
      * @param bis binary signature identifier
      */
     protected void setBinarySignatureIdentifier(BinarySignatureIdentifier bis) {
         this.binarySignatureIdentifier = bis;
     }
+
     /**
      * @return container signatures
      */
     protected ContainerSignatureDefinitions getContainerSignatureDefinitions() {
         return containerSignatureDefinitions;
     }
+
     /**
      * @param csd container signatures
      */
@@ -152,30 +160,35 @@ public abstract class ArchiveContentIdentifier {
     protected File getTmpDir() {
         return tmpDir;
     }
+
     /**
      * @param tmpDir temporary file directory
      */
     protected void setTmpDir(File tmpDir) {
         this.tmpDir = tmpDir;
     }
+
     /**
      * @return archive path
      */
     protected String getPath() {
         return path;
     }
+
     /**
      * @param path archive path
      */
     protected void setPath(String path) {
         this.path = path;
     }
+
     /**
      * @return whether to expand (W)ARCs
      */
     protected Boolean getExpandWebArchives() {
         return expandWebArchives;
     }
+
     /**
      * @param ewa whether to expand (W)ARCs
      */
@@ -201,15 +214,15 @@ public abstract class ArchiveContentIdentifier {
      * @throws CommandExecutionException When an exception happens during execution
      */
     protected void expandContainer(IdentificationRequest request, InputStream in, String newPath, ContainerAggregator aggregator)
-        throws CommandExecutionException, UnsupportedZipFeatureException {
+            throws CommandExecutionException, UnsupportedZipFeatureException {
 
         try {
             request.open(in);
             IdentificationResultCollection results =
                     getBinarySignatureIdentifier().matchBinarySignatures(request);
-            
+
             if (results.getResults().isEmpty()) {
-            	results = binarySignatureIdentifier.matchExtensions(request, true);
+                results = binarySignatureIdentifier.matchExtensions(request, true);
             }
 
             final ResultPrinter resultPrinter =
@@ -220,9 +233,9 @@ public abstract class ArchiveContentIdentifier {
             resultPrinter.print(results, request);
             request.close();
         } catch (UnsupportedZipFeatureException e) {
-        	// output: org.apache.commons.compress.archivers.zip.UnsupportedZipFeatureException: unsupported feature encryption used in entry Book_pdfx1a.pdf
-        	throw e;
-        }  catch (IOException ioe) {
+            // output: org.apache.commons.compress.archivers.zip.UnsupportedZipFeatureException: unsupported feature encryption used in entry Book_pdfx1a.pdf
+            throw e;
+        } catch (IOException ioe) {
             logger.warn(ioe + " " + newPath);
         } finally {
             try {

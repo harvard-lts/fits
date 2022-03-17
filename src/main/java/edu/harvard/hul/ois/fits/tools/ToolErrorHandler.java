@@ -16,7 +16,9 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-/** Output error reports from validation of FITS output */
+/**
+ * Output error reports from validation of FITS output
+ */
 public class ToolErrorHandler implements ErrorHandler {
 
     private static Logger logger = LoggerFactory.getLogger(ToolErrorHandler.class);
@@ -33,6 +35,6 @@ public class ToolErrorHandler implements ErrorHandler {
 
     @Override
     public void warning(SAXParseException e) throws SAXException {
-    	logger.warn("SAX warning", e);
+        logger.warn("SAX warning", e);
     }
 }

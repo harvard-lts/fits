@@ -17,36 +17,39 @@ import org.jdom.Element;
 
 public class AttributeMap {
 
-	private String name;
-	private Hashtable<String,String> maps = new Hashtable<String,String>();
+    private String name;
+    private Hashtable<String, String> maps = new Hashtable<String, String>();
 
-	@SuppressWarnings("unchecked")
-	public AttributeMap(Element element) {
-		name = element.getAttributeValue("name");
-		//Get element mappings
-		List<Element> childMaps = element.getChildren("map");
-		for(Element map : childMaps) {
-			String from = map.getAttributeValue("from");
-			String to   = map.getAttributeValue("to");
-			maps.put(from,to);
-		}
-	}
+    @SuppressWarnings("unchecked")
+    public AttributeMap(Element element) {
+        name = element.getAttributeValue("name");
+        //Get element mappings
+        List<Element> childMaps = element.getChildren("map");
+        for (Element map : childMaps) {
+            String from = map.getAttributeValue("from");
+            String to = map.getAttributeValue("to");
+            maps.put(from, to);
+        }
+    }
 
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Hashtable<String, String> getMaps() {
-		return maps;
-	}
-	public void setMaps(Hashtable<String, String> maps) {
-		this.maps = maps;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void addMap(String from, String to) {
-		maps.put(from,to);
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Hashtable<String, String> getMaps() {
+        return maps;
+    }
+
+    public void setMaps(Hashtable<String, String> maps) {
+        this.maps = maps;
+    }
+
+    public void addMap(String from, String to) {
+        maps.put(from, to);
+    }
 
 }

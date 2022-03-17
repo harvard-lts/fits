@@ -16,105 +16,118 @@ import java.util.List;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.identity.ToolIdentity;
 
-/** All FITS tools implement this interface. */
+/**
+ * All FITS tools implement this interface.
+ */
 public interface Tool extends Runnable {
 
-	public enum RunStatus {SHOULDNOTRUN,SHOULDRUN,FAILED,SUCCESSFUL};
+    public enum RunStatus {SHOULDNOTRUN, SHOULDRUN, FAILED, SUCCESSFUL}
 
-	/**
-	 * Extracts the identification and metadata from the provided file
-	 * @param file the file to have its metadata extracted
-	 * @return tooloutput object containing the xml wrapping the tool raw output, fits compatible xml output
-	 * and the fits FileIdentity
-	 * @throws FitsToolException
-	 */
-	public ToolOutput extractInfo(File file) throws FitsToolException;
+    ;
 
-	/**
-	 * Checks if the value for the given field name is the
-	 * default value that the tool would report if it doesn't
-	 * understand the file that was processed
-	 * @param identity the identity to test
-	 * @return boolean indicating the file is a known or unknown type for the tool
-	 */
-	public boolean isIdentityKnown(ToolIdentity identity);
+    /**
+     * Extracts the identification and metadata from the provided file
+     *
+     * @param file the file to have its metadata extracted
+     * @return tooloutput object containing the xml wrapping the tool raw output, fits compatible xml output
+     * and the fits FileIdentity
+     * @throws FitsToolException
+     */
+    public ToolOutput extractInfo(File file) throws FitsToolException;
 
-	/**
-	 * Returns the information about the tool
-	 * @return ToolInfo
-	 */
-	public ToolInfo getToolInfo();
+    /**
+     * Checks if the value for the given field name is the
+     * default value that the tool would report if it doesn't
+     * understand the file that was processed
+     *
+     * @param identity the identity to test
+     * @return boolean indicating the file is a known or unknown type for the tool
+     */
+    public boolean isIdentityKnown(ToolIdentity identity);
 
-	/**
-	 * If the tool can identify mimetype and format of files.
-	 * @return Boolean
-	 */
-	public Boolean canIdentify();
+    /**
+     * Returns the information about the tool
+     *
+     * @return ToolInfo
+     */
+    public ToolInfo getToolInfo();
 
-	/**
-	 *  Returns the name of the tool object (not the name of the software).
-	 */
-	public String getName();
+    /**
+     * If the tool can identify mimetype and format of files.
+     *
+     * @return Boolean
+     */
+    public Boolean canIdentify();
 
-	/**
-	 *  Sets the name of the tool object (not the name of the software).
-	 */
-	public void setName(String name);
+    /**
+     * Returns the name of the tool object (not the name of the software).
+     */
+    public String getName();
 
-	/**
-	 * Add a file extension that the tool should not process
-	 * @param ext
-	 */
-	public void addExcludedExtension(String ext);
+    /**
+     * Sets the name of the tool object (not the name of the software).
+     */
+    public void setName(String name);
 
-	/**
-	 * Add a file extension that the tool should not process
-	 * @param ext
-	 */
-	public void addIncludedExtension(String ext);
+    /**
+     * Add a file extension that the tool should not process
+     *
+     * @param ext
+     */
+    public void addExcludedExtension(String ext);
 
-	/**
-	 * Checks if the tool excluded extensions list contains the provided extension
-	 * @param ext
-	 * @return boolean
-	 */
-	public boolean hasExcludedExtension(String ext);
+    /**
+     * Add a file extension that the tool should not process
+     *
+     * @param ext
+     */
+    public void addIncludedExtension(String ext);
 
-	/**
-	 * Checks if the tool included extensions list contains the provided extension
-	 * @param ext
-	 * @return boolean
-	 */
-	public boolean hasIncludedExtension(String ext);
+    /**
+     * Checks if the tool excluded extensions list contains the provided extension
+     *
+     * @param ext
+     * @return boolean
+     */
+    public boolean hasExcludedExtension(String ext);
 
-	/**
-	 * Checks if the tool uses an 'include-ext' list
-	 * @return boolean
-	 */
-	public boolean hasIncludedExtensions();
+    /**
+     * Checks if the tool included extensions list contains the provided extension
+     *
+     * @param ext
+     * @return boolean
+     */
+    public boolean hasIncludedExtension(String ext);
 
-	public boolean hasExcludedExtensions();
+    /**
+     * Checks if the tool uses an 'include-ext' list
+     *
+     * @return boolean
+     */
+    public boolean hasIncludedExtensions();
 
-	/**
-	 *  Applies the restrictions in a tools-used item to the tool
-	 */
-	public void applyToolsUsed (List<ToolBelt.ToolsUsedItem> toolsUsedItems);
+    public boolean hasExcludedExtensions();
 
-	public void resetOutput();
+    /**
+     * Applies the restrictions in a tools-used item to the tool
+     */
+    public void applyToolsUsed(List<ToolBelt.ToolsUsedItem> toolsUsedItems);
 
-	public boolean isEnabled();
+    public void resetOutput();
 
-	public void setEnabled(boolean value);
+    public boolean isEnabled();
 
-	public void setInputFile(File file);
+    public void setEnabled(boolean value);
 
-	public ToolOutput getOutput();
+    public void setInputFile(File file);
 
-	public long getDuration();
+    public ToolOutput getOutput();
 
-	public RunStatus getRunStatus();
+    public long getDuration();
 
-	public void setRunStatus(RunStatus runStatus);
+    public RunStatus getRunStatus();
 
-	public Throwable getCaughtThrowable();
+    public void setRunStatus(RunStatus runStatus);
+
+    public Throwable getCaughtThrowable();
 }

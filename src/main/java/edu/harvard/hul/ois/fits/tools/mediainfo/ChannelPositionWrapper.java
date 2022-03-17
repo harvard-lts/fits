@@ -13,22 +13,35 @@ package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 public class ChannelPositionWrapper {
 
-	private String name;
-	private int xPos;
-	private int yPos;
+    private String name;
+    private int xPos;
+    private int yPos;
 
-	public ChannelPositionWrapper(String name, int xPos, int yPos) {
-		this.name=name;
-		this.xPos=xPos;
-		this.yPos=yPos;
-	}
+    public ChannelPositionWrapper(String name, int xPos, int yPos) {
+        this.name = name;
+        this.xPos = xPos;
+        this.yPos = yPos;
+    }
 
-	public String getName() {return name;}
-	public int getXpos() {return xPos;}
-	public int getYpos() {return yPos;}
+    public String getName() {
+        return name;
+    }
 
-	//void setName(String name) {this.name=name;}
-	public void setXpos(int xPos) {this.xPos=xPos;}
-	public void setYpos(int yPos) {this.yPos=yPos;}
+    public int getXpos() {
+        return xPos;
+    }
+
+    public int getYpos() {
+        return yPos;
+    }
+
+    //void setName(String name) {this.name=name;}
+    public void setXpos(int xPos) {
+        this.xPos = xPos;
+    }
+
+    public void setYpos(int yPos) {
+        this.yPos = yPos;
+    }
 
 }

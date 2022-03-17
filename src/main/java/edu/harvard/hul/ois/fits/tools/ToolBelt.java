@@ -30,399 +30,410 @@ import org.slf4j.LoggerFactory;
 
 public class ToolBelt {
 
-	// Represent the URL of the fit.jar file (or class directory) where this file lives.
-	// This is used for building custom class loaders representing all FITS class files.
-	private URL fitsUrl;
+    // Represent the URL of the fit.jar file (or class directory) where this file lives.
+    // This is used for building custom class loaders representing all FITS class files.
+    private URL fitsUrl;
 
-	private static Logger logger = LoggerFactory.getLogger(ToolBelt.class);
+    private static Logger logger = LoggerFactory.getLogger(ToolBelt.class);
 
-    /** The representation of one tools-used element in the config file */
+    /**
+     * The representation of one tools-used element in the config file
+     */
     public class ToolsUsedItem {
         public List<String> extensions;
         public List<String> toolNames;
 
-        public ToolsUsedItem (List<String> exts, List<String> tools) {
+        public ToolsUsedItem(List<String> exts, List<String> tools) {
             extensions = exts;
             toolNames = tools;
         }
     }
 
-	private List<Tool> tools;
+    private List<Tool> tools;
 
-	/**
-	 * Constructor
-	 *
-	 * @param config XMLConfiguration of FITS configuration file.
-	 * @param fits Fits for referencing member variables.
-	 */
-	public ToolBelt(XMLConfiguration config, Fits fits) {
-		init(config, fits);
-	}
+    /**
+     * Constructor
+     *
+     * @param config XMLConfiguration of FITS configuration file.
+     * @param fits   Fits for referencing member variables.
+     */
+    public ToolBelt(XMLConfiguration config, Fits fits) {
+        init(config, fits);
+    }
 
-	/*
-	 * Common initialization of all constructors.
-	 */
-	private void init(XMLConfiguration config, Fits fits) {
+    /*
+     * Common initialization of all constructors.
+     */
+    private void init(XMLConfiguration config, Fits fits) {
 
-		fitsUrl = getClass().getProtectionDomain().getCodeSource().getLocation();
+        fitsUrl = getClass().getProtectionDomain().getCodeSource().getLocation();
 
-		// Collect the tools-used elements
-		List<ToolsUsedItem> toolsUsedList = processToolsUsed(config);
+        // Collect the tools-used elements
+        List<ToolsUsedItem> toolsUsedList = processToolsUsed(config);
 
-		tools = new ArrayList<Tool>();
+        tools = new ArrayList<Tool>();
 
-		// get number of tools
-		int size = config.getList("tools.tool[@class]").size();
-		ClassLoader savedClassLoader = ToolBelt.class.getClassLoader();
-		// for each tools get the class path and any excluded extensions
-		for(int i=0;i<size;i++) {
-			String tClass = config.getString("tools.tool("+i+")[@class]");
-			@SuppressWarnings("unchecked")
-			List<String> excludes = (List<String>)(List<?>)config.getList("tools.tool("+i+")[@exclude-exts]");
-			@SuppressWarnings("unchecked")
-			List<String> includes = (List<String>)(List<?>)config.getList("tools.tool("+i+")[@include-exts]");
-			@SuppressWarnings("unchecked")
-			List<String> classpathDirs = (List<String>)(List<?>)config.getList("tools.tool("+i+")[@classpath-dirs]");
-
-			ClassLoader toolClassLoader = null;
-			try {
-				// If fits.xml Tool element contains values in the classpath-dirs attribute that return files,
-				// it's necessary to create and use a custom class loader.
-				// Otherwise, just use the system (application) class loader.
-				// Will need to replace original class loader after (possibly) using a different one with current thread.
-				toolClassLoader = createClassLoader(classpathDirs);
-				if (toolClassLoader != null) {
-					Thread.currentThread().setContextClassLoader(toolClassLoader);
-				} else {
-					toolClassLoader = savedClassLoader;
-				}
-
-				logger.debug("Will attempt to load class: " + tClass + " -- with ClassLoader: " + toolClassLoader.getClass().getName());
-				Class<?> toolClass = Class.forName(tClass, true, toolClassLoader);
-
-				// Looooong debugging block if using custom class loader
-				// verify the tool's class loader is the custom one and that it's class loader has
-				// loaded the Tool interface from the main class loader so it can be cast here to Tool
-				if (toolClassLoader != savedClassLoader && logger.isTraceEnabled()) { // yes, we want an this type of exact equals comparison
-					ClassLoader tcl = toolClass.getClassLoader();
-					logger.trace("Specific tool: " + tClass + " -- ClassLoader: " + tcl);
-
-					// Tool interface loaded from custom class loader
-					Class<?> toolInterfaceCustomClassLoader = Class.forName("edu.harvard.hul.ois.fits.tools.Tool", true, tcl);
-					logger.trace("Tool ClassLoader via custom class loader: " + toolInterfaceCustomClassLoader.getClassLoader());
-
-					// Tool interface loaded from system class loader which will be used for casting immediately below.
-					Class<?> toolInterfaceClass = Tool.class.getClassLoader().loadClass(Tool.class.getName());
-					logger.trace("Tool ClassLoader " + Tool.class.getName() + " -- ClassLoader: " + Tool.class.getClassLoader());
-
-					// verify that specific tool from custom class loader can be assigned to Tool
-					boolean isAssignable = toolInterfaceClass.isAssignableFrom(toolClass);
-					logger.trace("Tool from custom ClassLoader isAssignableFrom(toolClass): " + isAssignable);
-				}
-
-				Tool t = createToolClassInstance(toolClass, fits);
-
-				if(t != null) {
-					t.setName(bareClassName(tClass));
-					for(String ext : excludes) {
-						t.addExcludedExtension(ext);
-					}
-					for(String ext : includes) {
-						t.addIncludedExtension(ext);
-					}
-					// Modify included and excluded extensions by tools-used
-					t.applyToolsUsed (toolsUsedList);
-					tools.add(t);
-				}
-			} catch(MalformedURLException | ReflectiveOperationException ex) {
-				// Catch and report any exception during tool instantiation.
-			    // Cannot use this particular tool, but continue with other tools.
-			    logger.error ("Thread ["+Thread.currentThread().getId() +
-			    				"] Error instantiating class: " + tClass +
-			    				" -- Exception thrown: " + ex.getClass().getName() +
-			    				" -- Error message: " + ex.getMessage());
-
-				// Capture exception so the failure can be reported later for this tool, then move on to next tool
-				ToolInfo info = new ToolInfo(bareClassName(tClass), "[could not launch tool]", null);
-				Tool tool = getFailedTool(info, ex);
-				tools.add(tool);
-
-			} finally {
-				// ***** IMPORTANT: set back original ClassLoader if changed *****
-				if (Thread.currentThread().getContextClassLoader() != savedClassLoader) {
-					Thread.currentThread().setContextClassLoader(savedClassLoader);
-				}
-			}
-		}
-	}
-	
-	/*
-	 * Instantiate a Tool class using Reflection by passing Fits into the constructor.
-	 * Note: All Tool class implementations can have a 1-argument constructor with Fits as the argument.
-	 * If it does not, then the standard newInstance() method fall-back will be used which results in a no-arg constructor being called.
-	 * Note: Any exception thrown in a Tool constructor will result in a ReflectiveOperationException, not the thrown exception
-	 * propagating up from the constructor.
-	 */
-	private Tool createToolClassInstance(Class<?> toolClass, Fits fits) throws ReflectiveOperationException {
-		Object instanceOfTheClass = null;
-		try {
-			Constructor<?> ctor = toolClass.getConstructor(Fits.class);
-			instanceOfTheClass = ctor.newInstance(fits);
-			logger.debug("1-arg constructor for instantiating tool class: {}", toolClass.getName());
-		} catch (NoSuchMethodException e) {
-			// now try a no-arg constructor
-			logger.debug("No Fits 1-arg constructor for tool class: {} -- trying no-arg constructor. Error message: {}", toolClass.getName(), e.getMessage());
-			instanceOfTheClass = toolClass.getDeclaredConstructor().newInstance();
-			logger.debug("Instantiated no-arg constructor for tool class: {}", toolClass.getName());
-		}
-		return (Tool)instanceOfTheClass;
-	}
-
-	public List<Tool> getTools() {
-		return tools;
-	}
-
-	public void printToolInfo(boolean includeSysInfo) {
-		if(includeSysInfo) {
-			//system info
-			logger.info("OS Name = "+System.getProperty("os.name"));
-			logger.info("OS Arch = "+System.getProperty("os.arch"));
-			logger.info("OS Version = "+System.getProperty("os.version"));
-			logger.info("------------------------------------");
-		}
-
-		for(Tool t : tools) {
-			logger.info(t.getToolInfo().print());
-		}
-
-	}
-
-	/* Process the tools-used elements and return a list of
-	 * ... something */
-	private List<ToolsUsedItem> processToolsUsed (XMLConfiguration config) {
-	    int size = config.getList("tools-used[@exts]").size();
-	    List<ToolsUsedItem> results = new ArrayList<ToolsUsedItem> (size);
-	    for (int i = 0; i < size; i++) {
+        // get number of tools
+        int size = config.getList("tools.tool[@class]").size();
+        ClassLoader savedClassLoader = ToolBelt.class.getClassLoader();
+        // for each tools get the class path and any excluded extensions
+        for (int i = 0; i < size; i++) {
+            String tClass = config.getString("tools.tool(" + i + ")[@class]");
             @SuppressWarnings("unchecked")
-            List<String> exts = (List<String>)(List<?>)config.getList("tools-used("+i+")[@exts]");
+            List<String> excludes = (List<String>) (List<?>) config.getList("tools.tool(" + i + ")[@exclude-exts]");
             @SuppressWarnings("unchecked")
-            List<String> tools = (List<String>)(List<?>)config.getList("tools-used("+i+")[@tools]");
-            results.add (new ToolsUsedItem (exts, tools));
-	    }
-	    return results;
-	}
+            List<String> includes = (List<String>) (List<?>) config.getList("tools.tool(" + i + ")[@include-exts]");
+            @SuppressWarnings("unchecked")
+            List<String> classpathDirs = (List<String>) (List<?>) config.getList("tools.tool(" + i + ")[@classpath-dirs]");
 
-	/* Extract the last component of the class name to use as the
-	 * tool's name field */
-	private String bareClassName(String cname) {
-	    int n = cname.lastIndexOf(".");
-	    return cname.substring(n + 1);
-	}
+            ClassLoader toolClassLoader = null;
+            try {
+                // If fits.xml Tool element contains values in the classpath-dirs attribute that return files,
+                // it's necessary to create and use a custom class loader.
+                // Otherwise, just use the system (application) class loader.
+                // Will need to replace original class loader after (possibly) using a different one with current thread.
+                toolClassLoader = createClassLoader(classpathDirs);
+                if (toolClassLoader != null) {
+                    Thread.currentThread().setContextClassLoader(toolClassLoader);
+                } else {
+                    toolClassLoader = savedClassLoader;
+                }
 
-	/*
-	 * Create a custom class loader specifically for a set of resources as designated by a list of directories
-	 * which are specified for each tool in fits.xml. If the parameter is null or empty OR
-	 * there are no resources within any of the list of given directories then this method will return null.
-	 *
-	 * @return custom class loader ONLY if JAR files in tool-specific lib directory; <code>null</code> otherwise.
-	 */
-	private ClassLoader createClassLoader(List<String> classpathDirs) throws MalformedURLException {
+                logger.debug("Will attempt to load class: " + tClass + " -- with ClassLoader: " + toolClassLoader.getClass().getName());
+                Class<?> toolClass = Class.forName(tClass, true, toolClassLoader);
 
-		if (classpathDirs == null || classpathDirs.isEmpty()) {
-			return null;
-		}
+                // Looooong debugging block if using custom class loader
+                // verify the tool's class loader is the custom one and that it's class loader has
+                // loaded the Tool interface from the main class loader so it can be cast here to Tool
+                if (toolClassLoader != savedClassLoader && logger.isTraceEnabled()) { // yes, we want an this type of exact equals comparison
+                    ClassLoader tcl = toolClass.getClassLoader();
+                    logger.trace("Specific tool: " + tClass + " -- ClassLoader: " + tcl);
 
-		// collect all files from all specified directories
-		List<URL> directoriesUrls = new ArrayList<URL>();
-		for (String dir : classpathDirs) {
-			List<URL> urls = gatherClassLoaderUrls(null, dir);
-			// special case: If a root directory contains artifacts then add that root directory
-			// so as to create a custom class loader.
-			if (urls != null & !urls.isEmpty()) {
-				File dirFile = getFileFromName(dir);
-				urls.add(  dirFile.toURI().toURL() );
-			}
-			directoriesUrls.addAll( urls );
-		}
+                    // Tool interface loaded from custom class loader
+                    Class<?> toolInterfaceCustomClassLoader = Class.forName("edu.harvard.hul.ois.fits.tools.Tool", true, tcl);
+                    logger.trace("Tool ClassLoader via custom class loader: " + toolInterfaceCustomClassLoader.getClassLoader());
 
-		// If nothing returned from directories then return null; Don't create ClassLoader if nothing to load.
-		if (directoriesUrls.isEmpty()) {
-			return null;
-		}
+                    // Tool interface loaded from system class loader which will be used for casting immediately below.
+                    Class<?> toolInterfaceClass = Tool.class.getClassLoader().loadClass(Tool.class.getName());
+                    logger.trace("Tool ClassLoader " + Tool.class.getName() + " -- ClassLoader: " + Tool.class.getClassLoader());
 
-		// Create list of resources for custom ClassLoader.
-		List<URL> classLoaderUrls = new ArrayList<URL>();
-		// Must always add FITS classes first
-		classLoaderUrls.add(fitsUrl);
-		// add all other resources next
-		classLoaderUrls.addAll(directoriesUrls);
-		logger.debug("URL's" + classLoaderUrls);
+                    // verify that specific tool from custom class loader can be assigned to Tool
+                    boolean isAssignable = toolInterfaceClass.isAssignableFrom(toolClass);
+                    logger.trace("Tool from custom ClassLoader isAssignableFrom(toolClass): " + isAssignable);
+                }
 
-		final ParentLastClassLoader cl = new ParentLastClassLoader(classLoaderUrls);
+                Tool t = createToolClassInstance(toolClass, fits);
 
-		return cl;
-	}
+                if (t != null) {
+                    t.setName(bareClassName(tClass));
+                    for (String ext : excludes) {
+                        t.addExcludedExtension(ext);
+                    }
+                    for (String ext : includes) {
+                        t.addIncludedExtension(ext);
+                    }
+                    // Modify included and excluded extensions by tools-used
+                    t.applyToolsUsed(toolsUsedList);
+                    tools.add(t);
+                }
+            } catch (MalformedURLException | ReflectiveOperationException ex) {
+                // Catch and report any exception during tool instantiation.
+                // Cannot use this particular tool, but continue with other tools.
+                logger.error("Thread [" + Thread.currentThread().getId() +
+                        "] Error instantiating class: " + tClass +
+                        " -- Exception thrown: " + ex.getClass().getName() +
+                        " -- Error message: " + ex.getMessage());
 
-	/*
-	 * Recursive method to create a list of URL's of all files in a directory and all of its sub-directories.
-	 * All files that end in ".txt" or begin with "." will be ignored. Also, simple directory URL's will not be added.
-	 */
-	private List<URL> gatherClassLoaderUrls(List<URL> urls, String rootDir) throws MalformedURLException {
+                // Capture exception so the failure can be reported later for this tool, then move on to next tool
+                ToolInfo info = new ToolInfo(bareClassName(tClass), "[could not launch tool]", null);
+                Tool tool = getFailedTool(info, ex);
+                tools.add(tool);
 
-		if (urls == null) {
-			urls = new ArrayList<URL>();
-		}
+            } finally {
+                // ***** IMPORTANT: set back original ClassLoader if changed *****
+                if (Thread.currentThread().getContextClassLoader() != savedClassLoader) {
+                    Thread.currentThread().setContextClassLoader(savedClassLoader);
+                }
+            }
+        }
+    }
 
-		File dirFile = getFileFromName(rootDir);
-		File[] directoryListing = dirFile.listFiles();
-		if (directoryListing != null) {
-			for (File file : directoryListing) {
-				// recursive call to sub-directories
-				if (file.isDirectory()) {
-					gatherClassLoaderUrls(urls, rootDir + File.separator + file.getName());
-					logger.debug("finished with directory: " + file.getAbsolutePath());
+    /*
+     * Instantiate a Tool class using Reflection by passing Fits into the constructor.
+     * Note: All Tool class implementations can have a 1-argument constructor with Fits as the argument.
+     * If it does not, then the standard newInstance() method fall-back will be used which results in a no-arg constructor being called.
+     * Note: Any exception thrown in a Tool constructor will result in a ReflectiveOperationException, not the thrown exception
+     * propagating up from the constructor.
+     */
+    private Tool createToolClassInstance(Class<?> toolClass, Fits fits) throws ReflectiveOperationException {
+        Object instanceOfTheClass = null;
+        try {
+            Constructor<?> ctor = toolClass.getConstructor(Fits.class);
+            instanceOfTheClass = ctor.newInstance(fits);
+            logger.debug("1-arg constructor for instantiating tool class: {}", toolClass.getName());
+        } catch (NoSuchMethodException e) {
+            // now try a no-arg constructor
+            logger.debug("No Fits 1-arg constructor for tool class: {} -- trying no-arg constructor. Error message: {}", toolClass.getName(), e.getMessage());
+            instanceOfTheClass = toolClass.getDeclaredConstructor().newInstance();
+            logger.debug("Instantiated no-arg constructor for tool class: {}", toolClass.getName());
+        }
+        return (Tool) instanceOfTheClass;
+    }
 
-				} else if (!file.exists() || !file.isFile() || !file.canRead() ||
-						file.getName().endsWith(".txt") ||file.getName().startsWith(".", 0)) {
-					// ignoring any .txt files -- used as placeholder for directories, OSX .DS_Store, etc.
-					logger.debug("Not processing file: " + file.getName());
-					continue;
-				}
-				urls.add( file.toURI().toURL() );
-			}
-		}
-		return urls;
-	}
+    public List<Tool> getTools() {
+        return tools;
+    }
 
-	/*
-	 * Creates and returns a File object from a full path to a directory (or file).
-	 */
-	private File getFileFromName(String dirName) throws MalformedURLException {
+    public void printToolInfo(boolean includeSysInfo) {
+        if (includeSysInfo) {
+            //system info
+            logger.info("OS Name = " + System.getProperty("os.name"));
+            logger.info("OS Arch = " + System.getProperty("os.arch"));
+            logger.info("OS Version = " + System.getProperty("os.version"));
+            logger.info("------------------------------------");
+        }
 
-		String fullPathPrefix = StringUtils.isEmpty(Fits.FITS_HOME) ? "" : Fits.FITS_HOME + File.separator;
-		File dirFile = new File(fullPathPrefix + dirName);
-		return dirFile;
-	}
-	
-	/*
-	 * Creates a skeletal instance of Tool when a tool's class cannot even be instantiated.
-	 * Minimal information about the tool is contained here.
-	 *  
-	 * @param toolInfo Contains tool name and version (which is unknown in this situation).
-	 * @param throwable The Throwable resulting from the inability to instantiate the tool.
-	 * @return Tool which indicates a failed state and not enabled.
-	 */
-	private Tool getFailedTool(final ToolInfo toolInfo, Throwable throwable) {
+        for (Tool t : tools) {
+            logger.info(t.getToolInfo().print());
+        }
 
-		final Throwable t = throwable;
+    }
 
-		Tool failedTool = new Tool() {
-			
-			
-			@Override
-			public void run() {}
+    /* Process the tools-used elements and return a list of
+     * ... something */
+    private List<ToolsUsedItem> processToolsUsed(XMLConfiguration config) {
+        int size = config.getList("tools-used[@exts]").size();
+        List<ToolsUsedItem> results = new ArrayList<ToolsUsedItem>(size);
+        for (int i = 0; i < size; i++) {
+            @SuppressWarnings("unchecked")
+            List<String> exts = (List<String>) (List<?>) config.getList("tools-used(" + i + ")[@exts]");
+            @SuppressWarnings("unchecked")
+            List<String> tools = (List<String>) (List<?>) config.getList("tools-used(" + i + ")[@tools]");
+            results.add(new ToolsUsedItem(exts, tools));
+        }
+        return results;
+    }
 
-			@Override
-			public ToolOutput extractInfo(File file) throws FitsToolException {
-				return null;
-			}
+    /* Extract the last component of the class name to use as the
+     * tool's name field */
+    private String bareClassName(String cname) {
+        int n = cname.lastIndexOf(".");
+        return cname.substring(n + 1);
+    }
 
-			@Override
-			public boolean isIdentityKnown(ToolIdentity identity) {
-				return false;
-			}
+    /*
+     * Create a custom class loader specifically for a set of resources as designated by a list of directories
+     * which are specified for each tool in fits.xml. If the parameter is null or empty OR
+     * there are no resources within any of the list of given directories then this method will return null.
+     *
+     * @return custom class loader ONLY if JAR files in tool-specific lib directory; <code>null</code> otherwise.
+     */
+    private ClassLoader createClassLoader(List<String> classpathDirs) throws MalformedURLException {
 
-			@Override
-			public ToolInfo getToolInfo() {
-				return toolInfo;
-			}
+        if (classpathDirs == null || classpathDirs.isEmpty()) {
+            return null;
+        }
 
-			@Override
-			public Boolean canIdentify() {
-				return false;
-			}
+        // collect all files from all specified directories
+        List<URL> directoriesUrls = new ArrayList<URL>();
+        for (String dir : classpathDirs) {
+            List<URL> urls = gatherClassLoaderUrls(null, dir);
+            // special case: If a root directory contains artifacts then add that root directory
+            // so as to create a custom class loader.
+            if (urls != null & !urls.isEmpty()) {
+                File dirFile = getFileFromName(dir);
+                urls.add(dirFile.toURI().toURL());
+            }
+            directoriesUrls.addAll(urls);
+        }
 
-			@Override
-			public String getName() {
-				return toolInfo.getName();
-			}
+        // If nothing returned from directories then return null; Don't create ClassLoader if nothing to load.
+        if (directoriesUrls.isEmpty()) {
+            return null;
+        }
 
-			@Override
-			public void setName(String name) {}
+        // Create list of resources for custom ClassLoader.
+        List<URL> classLoaderUrls = new ArrayList<URL>();
+        // Must always add FITS classes first
+        classLoaderUrls.add(fitsUrl);
+        // add all other resources next
+        classLoaderUrls.addAll(directoriesUrls);
+        logger.debug("URL's" + classLoaderUrls);
 
-			@Override
-			public void addExcludedExtension(String ext) {}
+        final ParentLastClassLoader cl = new ParentLastClassLoader(classLoaderUrls);
 
-			@Override
-			public void addIncludedExtension(String ext) {}
+        return cl;
+    }
 
-			@Override
-			public boolean hasExcludedExtension(String ext) {
-				return true;
-			}
+    /*
+     * Recursive method to create a list of URL's of all files in a directory and all of its sub-directories.
+     * All files that end in ".txt" or begin with "." will be ignored. Also, simple directory URL's will not be added.
+     */
+    private List<URL> gatherClassLoaderUrls(List<URL> urls, String rootDir) throws MalformedURLException {
 
-			@Override
-			public boolean hasIncludedExtension(String ext) {
-				return false;
-			}
+        if (urls == null) {
+            urls = new ArrayList<URL>();
+        }
 
-			@Override
-			public boolean hasIncludedExtensions() {
-				return false;
-			}
+        File dirFile = getFileFromName(rootDir);
+        File[] directoryListing = dirFile.listFiles();
+        if (directoryListing != null) {
+            for (File file : directoryListing) {
+                // recursive call to sub-directories
+                if (file.isDirectory()) {
+                    gatherClassLoaderUrls(urls, rootDir + File.separator + file.getName());
+                    logger.debug("finished with directory: " + file.getAbsolutePath());
 
-			@Override
-			public boolean hasExcludedExtensions() {
-				return false;
-			}
+                } else if (!file.exists() || !file.isFile() || !file.canRead() ||
+                        file.getName().endsWith(".txt") || file.getName().startsWith(".", 0)) {
+                    // ignoring any .txt files -- used as placeholder for directories, OSX .DS_Store, etc.
+                    logger.debug("Not processing file: " + file.getName());
+                    continue;
+                }
+                urls.add(file.toURI().toURL());
+            }
+        }
+        return urls;
+    }
 
-			@Override
-			public void applyToolsUsed(List<ToolsUsedItem> toolsUsedItems) {}
+    /*
+     * Creates and returns a File object from a full path to a directory (or file).
+     */
+    private File getFileFromName(String dirName) throws MalformedURLException {
 
-			@Override
-			public void resetOutput() {}
+        String fullPathPrefix = StringUtils.isEmpty(Fits.FITS_HOME) ? "" : Fits.FITS_HOME + File.separator;
+        File dirFile = new File(fullPathPrefix + dirName);
+        return dirFile;
+    }
 
-			/**
-			 * Indicates that the tool is not enabled so should be no attempt to run tool.
-			 */
-			@Override
-			public boolean isEnabled() {
-				return false;
-			}
+    /*
+     * Creates a skeletal instance of Tool when a tool's class cannot even be instantiated.
+     * Minimal information about the tool is contained here.
+     *
+     * @param toolInfo Contains tool name and version (which is unknown in this situation).
+     * @param throwable The Throwable resulting from the inability to instantiate the tool.
+     * @return Tool which indicates a failed state and not enabled.
+     */
+    private Tool getFailedTool(final ToolInfo toolInfo, Throwable throwable) {
 
-			@Override
-			public void setEnabled(boolean value) {}
+        final Throwable t = throwable;
 
-			@Override
-			public void setInputFile(File file) {}
+        Tool failedTool = new Tool() {
 
-			@Override
-			public ToolOutput getOutput() {
-				return null;
-			}
 
-			@Override
-			public long getDuration() {
-				return 0;
-			}
+            @Override
+            public void run() {
+            }
 
-			/**
-			 * Return status that shows the tool failed.
-			 */
-			@Override
-			public RunStatus getRunStatus() {
-				return RunStatus.FAILED;
-			}
+            @Override
+            public ToolOutput extractInfo(File file) throws FitsToolException {
+                return null;
+            }
 
-			@Override
-			public void setRunStatus(RunStatus runStatus) {}
+            @Override
+            public boolean isIdentityKnown(ToolIdentity identity) {
+                return false;
+            }
 
-			@Override
-			public Throwable getCaughtThrowable() {
-				return t;
-			}
-		};
+            @Override
+            public ToolInfo getToolInfo() {
+                return toolInfo;
+            }
 
-		return failedTool;
-	}
+            @Override
+            public Boolean canIdentify() {
+                return false;
+            }
+
+            @Override
+            public String getName() {
+                return toolInfo.getName();
+            }
+
+            @Override
+            public void setName(String name) {
+            }
+
+            @Override
+            public void addExcludedExtension(String ext) {
+            }
+
+            @Override
+            public void addIncludedExtension(String ext) {
+            }
+
+            @Override
+            public boolean hasExcludedExtension(String ext) {
+                return true;
+            }
+
+            @Override
+            public boolean hasIncludedExtension(String ext) {
+                return false;
+            }
+
+            @Override
+            public boolean hasIncludedExtensions() {
+                return false;
+            }
+
+            @Override
+            public boolean hasExcludedExtensions() {
+                return false;
+            }
+
+            @Override
+            public void applyToolsUsed(List<ToolsUsedItem> toolsUsedItems) {
+            }
+
+            @Override
+            public void resetOutput() {
+            }
+
+            /**
+             * Indicates that the tool is not enabled so should be no attempt to run tool.
+             */
+            @Override
+            public boolean isEnabled() {
+                return false;
+            }
+
+            @Override
+            public void setEnabled(boolean value) {
+            }
+
+            @Override
+            public void setInputFile(File file) {
+            }
+
+            @Override
+            public ToolOutput getOutput() {
+                return null;
+            }
+
+            @Override
+            public long getDuration() {
+                return 0;
+            }
+
+            /**
+             * Return status that shows the tool failed.
+             */
+            @Override
+            public RunStatus getRunStatus() {
+                return RunStatus.FAILED;
+            }
+
+            @Override
+            public void setRunStatus(RunStatus runStatus) {
+            }
+
+            @Override
+            public Throwable getCaughtThrowable() {
+                return t;
+            }
+        };
+
+        return failedTool;
+    }
 }

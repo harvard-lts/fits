@@ -39,36 +39,39 @@ import edu.harvard.hul.ois.ots.schemas.XmlContent.Rational;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContentException;
 
-/** This class handles conversion between FITS metadata and XmlContent
- *  implementations of metadata schemas.
- *  ots-schemas.jar (or the OTS-Schemas project in Eclipse) has to be on the build path
- *  for this to compile. */
+/**
+ * This class handles conversion between FITS metadata and XmlContent
+ * implementations of metadata schemas.
+ * ots-schemas.jar (or the OTS-Schemas project in Eclipse) has to be on the build path
+ * for this to compile.
+ */
 public class XmlContentConverter {
 
-	private static List<String> docMdNames;
+    private static List<String> docMdNames;
 
     private static final Logger logger = LoggerFactory.getLogger(XmlContentConverter.class);
 
-	private static final Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
+    private static final Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
-	static {
-    	// collect names of DocumentMD enums
-		docMdNames = new ArrayList<String>(DocumentMDElement.values().length);
-		for (DocumentMDElement elem : DocumentMDElement.values()) {
-			docMdNames.add(elem.getName());
-		}
-	}
+    static {
+        // collect names of DocumentMD enums
+        docMdNames = new ArrayList<String>(DocumentMDElement.values().length);
+        for (DocumentMDElement elem : DocumentMDElement.values()) {
+            docMdNames.add(elem.getName());
+        }
+    }
 
-    /** Converts an image element to a MIX object
+    /**
+     * Converts an image element to a MIX object
      *
-     *  @param  fitsImage   an image element in the FITS schema
+     * @param fitsImage an image element in the FITS schema
      */
-    public XmlContent toMix (Element fitsImage, Element fileinfo) {
-        MixModel mm = new MixModel ();
+    public XmlContent toMix(Element fitsImage, Element fileinfo) {
+        MixModel mm = new MixModel();
 
         for (ImageElement fitsElem : ImageElement.values()) {
-            String fitsName = fitsElem.getName ();
-            List<Element> dataElements = fitsImage.getChildren(fitsName,ns);
+            String fitsName = fitsElem.getName();
+            List<Element> dataElements = fitsImage.getChildren(fitsName, ns);
             if (dataElements == null || dataElements.isEmpty()) {
                 continue;
             }
@@ -554,14 +557,14 @@ public class XmlContentConverter {
                     // The first child element that is successfully processed terminates the iteration
                     break;
                 } catch (XmlContentException e) {
-                    logger.warn("Invalid MIX content for element [" + fitsElem + "]: " + e.getMessage ());
+                    logger.warn("Invalid MIX content for element [" + fitsElem + "]: " + e.getMessage());
                 }
             }
         }//end of for loop
 
-        if(fileinfo != null) {
-            Element created = fileinfo.getChild (ImageElement.created.toString(),ns);
-            if(created != null) {
+        if (fileinfo != null) {
+            Element created = fileinfo.getChild(ImageElement.created.toString(), ns);
+            if (created != null) {
                 try {
                     mm.icm.getGeneralCaptureInformation().setDateTimeCreated(created.getText().trim());
                 } catch (XmlContentException e) {
@@ -575,118 +578,119 @@ public class XmlContentConverter {
 
     /**
      * Converts a document element to a DocumentMD object
-     * @param  fitsDoc   a document element in the FITS schema
+     *
+     * @param fitsDoc a document element in the FITS schema
      */
     public XmlContent toDocumentMD(Element fitsDoc) {
-    	
-    	// The following values will only be set with the first value
-    	// in the case where there is more than one. That is,
-    	// the tool earlier in the list takes precedence.
-    	boolean isPageCountSet = false;
-    	boolean isWordCountSet = false;
-    	boolean isCharacterCountSet = false;
-    	boolean isParagraphCountSet = false;
-    	boolean isLineCountSet = false;
-    	boolean isGraphicsCountSet = false;
-    	boolean isTableCountSet = false;
-    	
+
+        // The following values will only be set with the first value
+        // in the case where there is more than one. That is,
+        // the tool earlier in the list takes precedence.
+        boolean isPageCountSet = false;
+        boolean isWordCountSet = false;
+        boolean isCharacterCountSet = false;
+        boolean isParagraphCountSet = false;
+        boolean isLineCountSet = false;
+        boolean isGraphicsCountSet = false;
+        boolean isTableCountSet = false;
+
         DocumentMDModel dm = new DocumentMDModel();
         @SuppressWarnings("unchecked")
-		List<Element> dataElements = fitsDoc.getChildren();
+        List<Element> dataElements = fitsDoc.getChildren();
         for (Element dataElement : dataElements) {
-        	// If element name is contained in enum then we're interested in it.
-        	DocumentMDElement fitsElem = null;
-        	if (docMdNames.contains(dataElement.getName())) {
-        		// If name of element is contained in list of enum names then we can safely use valueOf()
-        		// rather than having to trap potential exception whenever the dataElement name does not convert to an enum.
-        		fitsElem = DocumentMDElement.valueOf(dataElement.getName());
-        	} else {
-        		continue;
-        	}
+            // If element name is contained in enum then we're interested in it.
+            DocumentMDElement fitsElem = null;
+            if (docMdNames.contains(dataElement.getName())) {
+                // If name of element is contained in list of enum names then we can safely use valueOf()
+                // rather than having to trap potential exception whenever the dataElement name does not convert to an enum.
+                fitsElem = DocumentMDElement.valueOf(dataElement.getName());
+            } else {
+                continue;
+            }
             String dataValue = dataElement.getText().trim();
             Integer intValue = null;  // it's sometimes necessary to convert to Integer
             switch (fitsElem) {
                 case pageCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
-                    if(intValue != null) {
-                    	if (!isPageCountSet) {
-                    		dm.docMD.setPageCount(intValue);
-                    		isPageCountSet = true;
-                    	}
+                    if (intValue != null) {
+                        if (!isPageCountSet) {
+                            dm.docMD.setPageCount(intValue);
+                            isPageCountSet = true;
+                        }
                     }
                     break;
                 case wordCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
-                    if(intValue != null) {
-                    	if (!isWordCountSet) {
-                    		dm.docMD.setWordCount(intValue);
-                    		isWordCountSet = true;
-                    	}
+                    if (intValue != null) {
+                        if (!isWordCountSet) {
+                            dm.docMD.setWordCount(intValue);
+                            isWordCountSet = true;
+                        }
                     }
                     break;
                 case characterCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
-                    if(intValue != null) {
-                    	if (!isCharacterCountSet) {
-                    		dm.docMD.setCharacterCount(intValue);
-                    		isCharacterCountSet = true;
-                    	}
+                    if (intValue != null) {
+                        if (!isCharacterCountSet) {
+                            dm.docMD.setCharacterCount(intValue);
+                            isCharacterCountSet = true;
+                        }
                     }
                     break;
                 case paragraphCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
-                    if(intValue != null) {
-                    	if (!isParagraphCountSet) {
-                    		dm.docMD.setParagraphCount(intValue);
-                    		isParagraphCountSet = true;
-                    	}
+                    if (intValue != null) {
+                        if (!isParagraphCountSet) {
+                            dm.docMD.setParagraphCount(intValue);
+                            isParagraphCountSet = true;
+                        }
                     }
                     break;
                 case lineCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
-                    if(intValue != null) {
-                    	if (!isLineCountSet) {
-                    		dm.docMD.setLineCount(intValue);
-                    		isLineCountSet = true;
-                    	}
+                    if (intValue != null) {
+                        if (!isLineCountSet) {
+                            dm.docMD.setLineCount(intValue);
+                            isLineCountSet = true;
+                        }
                     }
                     break;
                 case graphicsCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
-                    if(intValue != null) {
-                    	if (!isGraphicsCountSet) {
-                    		dm.docMD.setGraphicsCount(intValue);
-                    		isGraphicsCountSet = true;
-                    	}
+                    if (intValue != null) {
+                        if (!isGraphicsCountSet) {
+                            dm.docMD.setGraphicsCount(intValue);
+                            isGraphicsCountSet = true;
+                        }
                     }
                     break;
                 case tableCount:
                     intValue = parseInt(dataValue, fitsElem.toString());
-                    if(intValue != null) {
-                    	if (!isTableCountSet) {
-                    		dm.docMD.setTableCount(intValue);
-                    		isTableCountSet = true;
-                    	}
+                    if (intValue != null) {
+                        if (!isTableCountSet) {
+                            dm.docMD.setTableCount(intValue);
+                            isTableCountSet = true;
+                        }
                     }
                     break;
                 case language:
-                    if(dataValue != null) {
+                    if (dataValue != null) {
                         dm.docMD.addLanguage(dataValue);
                     }
                     break;
                 case font:
                     // Need to look for sub-elements
-                	Element fontName = dataElement.getChild(DocumentMDElement.fontName.getName(), ns);
-                	Element fontIsEmbedded = dataElement.getChild(DocumentMDElement.fontIsEmbedded.getName(), ns);
-                	if (fontName != null && !fontName.getText().isEmpty()) {
-                		Font font = new Font();
-                		font.setName(fontName.getText());
-                		if (fontIsEmbedded != null) {
-                			boolean isEmbedded = !fontIsEmbedded.getText().isEmpty() && "true".equals(fontIsEmbedded.getText());
-                			font.setEmbedded(isEmbedded);
-                		}
-                		dm.docMD.addFont(font);
-                	}
+                    Element fontName = dataElement.getChild(DocumentMDElement.fontName.getName(), ns);
+                    Element fontIsEmbedded = dataElement.getChild(DocumentMDElement.fontIsEmbedded.getName(), ns);
+                    if (fontName != null && !fontName.getText().isEmpty()) {
+                        Font font = new Font();
+                        font.setName(fontName.getText());
+                        if (fontIsEmbedded != null) {
+                            boolean isEmbedded = !fontIsEmbedded.getText().isEmpty() && "true".equals(fontIsEmbedded.getText());
+                            font.setEmbedded(isEmbedded);
+                        }
+                        dm.docMD.addFont(font);
+                    }
                     break;
                 case isTagged:
                 case hasOutline:
@@ -698,59 +702,60 @@ public class XmlContentConverter {
                 case useTransparency:
                 case hasHyperlinks:
                 case hasEmbeddedResources:
-                    if(dataElement != null) {
+                    if (dataElement != null) {
                         dm.addFeature(dataElement);
                     }
                     break;
                 default:
-                	logger.warn("No case entry for : " + fitsElem.getName());
+                    logger.warn("No case entry for : " + fitsElem.getName());
             }
         }
         return dm.docMD;
     }
 
-    /** Converts a text element to a TextMD object
-     *  @param  fitsText   a text element in the FITS schema
+    /**
+     * Converts a text element to a TextMD object
+     *
+     * @param fitsText a text element in the FITS schema
      */
-    public XmlContent toTextMD (Element fitsText) {
-        TextMDModel tm = new TextMDModel ();
+    public XmlContent toTextMD(Element fitsText) {
+        TextMDModel tm = new TextMDModel();
         for (TextMDElement fitsElem : TextMDElement.values()) {
             try {
-                String fitsName = fitsElem.getName ();
-                Element dataElement = fitsText.getChild (fitsName,ns);
+                String fitsName = fitsElem.getName();
+                Element dataElement = fitsText.getChild(fitsName, ns);
                 if (dataElement == null)
                     continue;
                 String dataValue = dataElement.getText().trim();
                 switch (fitsElem) {
-                case linebreak:
-                    tm.attachCharacterInfo();
-                    tm.ci.setLinebreak(dataValue);
-                    break;
-                case charset:
-                    tm.attachCharacterInfo();
-                    tm.ci.setCharset(dataValue.toUpperCase());
-                    break;
-                case markupBasis:
-                    tm.attachMarkupBasis ();
-                    tm.mb.setValue(dataValue);
-                    break;
-                case markupBasisVersion:
-                    tm.attachMarkupBasis ();
-                    tm.mb.setVersion(dataValue);
-                    break;
-                case markupLanguage:
-                    tm.attachMarkupLanguage ();
-                    tm.ml.setValue(dataValue);
-                    break;
-                case markupLanguageVersion:
-                    tm.attachMarkupLanguage ();
-                    tm.ml.setVersion(dataValue);
-                    break;
+                    case linebreak:
+                        tm.attachCharacterInfo();
+                        tm.ci.setLinebreak(dataValue);
+                        break;
+                    case charset:
+                        tm.attachCharacterInfo();
+                        tm.ci.setCharset(dataValue.toUpperCase());
+                        break;
+                    case markupBasis:
+                        tm.attachMarkupBasis();
+                        tm.mb.setValue(dataValue);
+                        break;
+                    case markupBasisVersion:
+                        tm.attachMarkupBasis();
+                        tm.mb.setVersion(dataValue);
+                        break;
+                    case markupLanguage:
+                        tm.attachMarkupLanguage();
+                        tm.ml.setValue(dataValue);
+                        break;
+                    case markupLanguageVersion:
+                        tm.attachMarkupLanguage();
+                        tm.ml.setVersion(dataValue);
+                        break;
                 }
+            } catch (XmlContentException e) {
+                logger.warn("Invalid TextMD content for element [" + fitsElem + "]: " + e.getMessage());
             }
-	        catch (XmlContentException e) {
-            	logger.warn("Invalid TextMD content for element [" + fitsElem + "]: " + e.getMessage ());
-	        }
         }//end for
 
         return tm.textMD;
@@ -758,391 +763,392 @@ public class XmlContentConverter {
 
     /**
      * Converts a audio element into a AudioObject AES object
-     * @param fitsAudio	an audio element in the FITS schema
+     *
+     * @param fitsAudio an audio element in the FITS schema
      */
-    public XmlContent toAES (FitsOutput fitsOutput,Element fitsAudio) {
+    public XmlContent toAES(FitsOutput fitsOutput, Element fitsAudio) {
         AESModel aesModel = null;
 
-    	try {
-			aesModel = new AESModel ();
-		} catch (XmlContentException e2) {
-			logger.error("Invalid content: " + e2.getMessage ());
-		}
+        try {
+            aesModel = new AESModel();
+        } catch (XmlContentException e2) {
+            logger.error("Invalid content: " + e2.getMessage());
+        }
 
-    	String filename = fitsOutput.getMetadataElement("filename").getValue();
+        String filename = fitsOutput.getMetadataElement("filename").getValue();
 
 
-    	FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
-    	String version = null;
-    	if(fitsIdent.getFormatVersions().size() > 0) {
-    		version = fitsIdent.getFormatVersions().get(0).getValue();
-    	}
+        FitsIdentity fitsIdent = fitsOutput.getIdentities().get(0);
+        String version = null;
+        if (fitsIdent.getFormatVersions().size() > 0) {
+            version = fitsIdent.getFormatVersions().get(0).getValue();
+        }
 
-    	try {
-			aesModel.setFormat(fitsIdent.getFormat(),version);
-		} catch (XmlContentException e1) {
-			logger.error("Invalid content: " + e1.getMessage ());
-		}
+        try {
+            aesModel.setFormat(fitsIdent.getFormat(), version);
+        } catch (XmlContentException e1) {
+            logger.error("Invalid content: " + e1.getMessage());
+        }
 
-    	aesModel.aes.getPrimaryIdentifier().setText(new File(filename).getName());
+        aesModel.aes.getPrimaryIdentifier().setText(new File(filename).getName());
 
-    	int sampleRate = 0;
-    	int channelCnt = 0;
-    	long numSamples = 0;
-    	String duration = "0";
-    	String timeStampStart = "0";
+        int sampleRate = 0;
+        int channelCnt = 0;
+        long numSamples = 0;
+        String duration = "0";
+        String timeStampStart = "0";
 
         for (AudioElement fitsElem : AudioElement.values()) {
             try {
-                String fitsName = fitsElem.getName ();
-                Element dataElement = fitsAudio.getChild (fitsName,ns);
+                String fitsName = fitsElem.getName();
+                Element dataElement = fitsAudio.getChild(fitsName, ns);
                 if (dataElement == null)
                     continue;
                 String dataValue = dataElement.getText().trim();
                 Integer intValue = null;
                 switch (fitsElem) {
-                case duration:
-                	duration = dataValue;
-                    break;
-                case bitDepth:
-                	intValue = parseInt(dataValue, fitsElem.toString());
-                	if (intValue != null) {
-                		aesModel.setBitDepth(intValue);
-                	}
-                    break;
-                case sampleRate:
-            		if(dataValue.contains(".")) {
-            			String[] sampleParts = dataValue.split("\\.");
-            			if(sampleParts[sampleParts.length-1].equals("0")) {
-            				sampleRate = Integer.parseInt(sampleParts[0]);
-            			}
-            		}
-            		else {
-            			intValue = parseInt(dataValue, fitsElem.toString());
-                    	if (intValue != null) {
-                    		sampleRate = intValue;
-                    	}
-            		}
-            		Double doubleValue = parseDouble(dataValue, fitsElem.toString());
-            		if (doubleValue != null) {
-            			aesModel.genericFormatRegion.setSampleRate(doubleValue);
-            		}
-                    break;
-                case channels:
-                	intValue = parseInt(dataValue, fitsElem.toString());
-                	if (intValue != null) {
-                		channelCnt = intValue;
-                		//add streams and channel cnt
-                		aesModel.setNumChannels(channelCnt);
-                		for(int i=0;i<channelCnt;i++) {
-                			aesModel.addStream(i,0.0,0.0);
-                		}
-                	}
-                    break;
-                case offset:
-                	intValue = parseInt(dataValue, fitsElem.toString());
-                	if (intValue != null) {
-                		aesModel.aes.setFirstSampleOffset(intValue);
-                	}
-                    break;
-                case timeStampStart:
-                    timeStampStart = dataValue;
-                    break;
-                case byteOrder:
-                    aesModel.aes.setByteOrder(dataValue);
-                    break;
-                case bitRate:
-                    aesModel.setBitRate(dataValue);
-                    break;
-                case numSamples:
-                	Long longValue = parseLong(dataValue, fitsElem.toString());
-                	if (longValue != null) {
-                		numSamples = longValue;
-                	}
-                    break;
-                case wordSize:
-                	intValue = parseInt(dataValue, fitsElem.toString());
-                	if (intValue != null) {
-                		aesModel.setWordSize(intValue);
-                	}
-                	break;
-                case audioDataEncoding:
-                	aesModel.setAudioDataEncoding(dataValue);
-                	break;
-                case blockAlign:
-                	intValue = parseInt(dataValue, fitsElem.toString());
-                	if (intValue != null) {
-                		aesModel.setAudioDataBlockSize(intValue);
-                	}
-                	break;
-                case codecName:
-                	aesModel.setCodec(dataValue);
-                	break;
-                case codecNameVersion:
-                	aesModel.setCodecVersion(dataValue);
-                	break;
-                case codecCreatorApplication:
-                	aesModel.setCodecCreatorApplication(dataValue);
-                	break;
-                case codecCreatorApplicationVersion:
-                	aesModel.setCodecCreatorApplicationVersion(dataValue);
-                	break;
+                    case duration:
+                        duration = dataValue;
+                        break;
+                    case bitDepth:
+                        intValue = parseInt(dataValue, fitsElem.toString());
+                        if (intValue != null) {
+                            aesModel.setBitDepth(intValue);
+                        }
+                        break;
+                    case sampleRate:
+                        if (dataValue.contains(".")) {
+                            String[] sampleParts = dataValue.split("\\.");
+                            if (sampleParts[sampleParts.length - 1].equals("0")) {
+                                sampleRate = Integer.parseInt(sampleParts[0]);
+                            }
+                        } else {
+                            intValue = parseInt(dataValue, fitsElem.toString());
+                            if (intValue != null) {
+                                sampleRate = intValue;
+                            }
+                        }
+                        Double doubleValue = parseDouble(dataValue, fitsElem.toString());
+                        if (doubleValue != null) {
+                            aesModel.genericFormatRegion.setSampleRate(doubleValue);
+                        }
+                        break;
+                    case channels:
+                        intValue = parseInt(dataValue, fitsElem.toString());
+                        if (intValue != null) {
+                            channelCnt = intValue;
+                            //add streams and channel cnt
+                            aesModel.setNumChannels(channelCnt);
+                            for (int i = 0; i < channelCnt; i++) {
+                                aesModel.addStream(i, 0.0, 0.0);
+                            }
+                        }
+                        break;
+                    case offset:
+                        intValue = parseInt(dataValue, fitsElem.toString());
+                        if (intValue != null) {
+                            aesModel.aes.setFirstSampleOffset(intValue);
+                        }
+                        break;
+                    case timeStampStart:
+                        timeStampStart = dataValue;
+                        break;
+                    case byteOrder:
+                        aesModel.aes.setByteOrder(dataValue);
+                        break;
+                    case bitRate:
+                        aesModel.setBitRate(dataValue);
+                        break;
+                    case numSamples:
+                        Long longValue = parseLong(dataValue, fitsElem.toString());
+                        if (longValue != null) {
+                            numSamples = longValue;
+                        }
+                        break;
+                    case wordSize:
+                        intValue = parseInt(dataValue, fitsElem.toString());
+                        if (intValue != null) {
+                            aesModel.setWordSize(intValue);
+                        }
+                        break;
+                    case audioDataEncoding:
+                        aesModel.setAudioDataEncoding(dataValue);
+                        break;
+                    case blockAlign:
+                        intValue = parseInt(dataValue, fitsElem.toString());
+                        if (intValue != null) {
+                            aesModel.setAudioDataBlockSize(intValue);
+                        }
+                        break;
+                    case codecName:
+                        aesModel.setCodec(dataValue);
+                        break;
+                    case codecNameVersion:
+                        aesModel.setCodecVersion(dataValue);
+                        break;
+                    case codecCreatorApplication:
+                        aesModel.setCodecCreatorApplication(dataValue);
+                        break;
+                    case codecCreatorApplicationVersion:
+                        aesModel.setCodecCreatorApplicationVersion(dataValue);
+                        break;
                 }
 
-            }
-            catch (XmlContentException e) {
-            	logger.warn("Invalid AES content for element [" + fitsElem + "]: " + e.getMessage ());
+            } catch (XmlContentException e) {
+                logger.warn("Invalid AES content for element [" + fitsElem + "]: " + e.getMessage());
             }
         }//end for
 
-    	//set other requires values
-    	aesModel.aes.setAnalogDigitalFlag("FILE_DIGITAL");
-    	try {
-			aesModel.setDummyUseType();
-        	aesModel.setDuration(duration,sampleRate,numSamples);
-        	aesModel.setStartTime(timeStampStart,sampleRate);
-		} catch (XmlContentException e) {
-			logger.error("Invalid content: " + e.getMessage ());
-		}
+        //set other requires values
+        aesModel.aes.setAnalogDigitalFlag("FILE_DIGITAL");
+        try {
+            aesModel.setDummyUseType();
+            aesModel.setDuration(duration, sampleRate, numSamples);
+            aesModel.setStartTime(timeStampStart, sampleRate);
+        } catch (XmlContentException e) {
+            logger.error("Invalid content: " + e.getMessage());
+        }
 
         return aesModel.aes;
     }
 
     /**
      * Converts a container element to a ContainerMD object
-     * @param  fitsElement an element in the FITS schema
+     *
+     * @param fitsElement an element in the FITS schema
      */
     public XmlContent toContainerMD(Element fitsElement) {
-    	
-    	ContainerMd containerMd = new ContainerMd ();
 
-    	try {
-    		Container container = new Container();
-    		containerMd.setContainer(container);
-    		
-    		Encoding encoding = new Encoding();
-    		List<Encoding> encodings = new ArrayList<>();
-    		encodings.add(encoding);
-    		container.setEncodings(encodings);
-    		
-    		// TODO: get encryption element to pull value for either 'encryption' or 'compression'
-    		
-    		encoding.setAttribute("type", "compression");
-    		Element compressionMethod = fitsElement.getChild(ContainerMDElement.compressionMethod.getName(), ns);
-    		if (compressionMethod != null && !compressionMethod.getText().isEmpty()) {
-    			encoding.setAttribute("method", compressionMethod.getText());
-    		}
-    		Element originalSize = fitsElement.getChild(ContainerMDElement.originalSize.getName(), ns);
-    		if (originalSize != null && !originalSize.getText().isEmpty()) {
-    			encoding.setAttribute("originalSize", originalSize.getText());
-    		}
-    		
-    		Entries entries = new Entries();
-    		containerMd.setEntries(entries);
-    		
-    		EntriesInformation entriesInformation = new EntriesInformation();
-    		entries.setEntriesInformation(entriesInformation);
-    		
-    		
-    		Element entriesElement = fitsElement.getChild(ContainerMDElement.entries.getName(), ns);
-    		if (entriesElement != null) {
-    			String totalEntries = entriesElement.getAttributeValue(ContainerMDElement.totalEntries.getName());
-    			entriesInformation.setNumber( parseLong(totalEntries,
-    					ContainerMDElement.entries.getName() + " -- attr.: " + ContainerMDElement.totalEntries.getName()) );
-    			
-    			Formats formats = new Formats();
-    			entriesInformation.setFormats(formats);
-    			
-    			@SuppressWarnings("unchecked")
-    			List<Element> formatElements = entriesElement.getChildren(ContainerMDElement.format.getName(), ns);
-    			if (formatElements != null & formatElements.size() > 0) {
-    				for (Element formatElement : formatElements) {
-    					Format format = new Format();
-    					formats.addFormat(format);
-    					String formatName = formatElement.getAttributeValue(ContainerMDElement.formatName.getName());
-    					format.setNameAttribute(formatName);
-    					String number = formatElement.getAttributeValue(ContainerMDElement.number.getName());
-    					format.setNumber( parseLong(number, ContainerMDElement.formatName.getName() + " -- attr.: " + ContainerMDElement.number.getName()) );
-    				}
-    			}
-    		}
-		} catch (XmlContentException e1) {
-			logger.error("Invalid content: " + e1.getMessage ());
-		}
+        ContainerMd containerMd = new ContainerMd();
+
+        try {
+            Container container = new Container();
+            containerMd.setContainer(container);
+
+            Encoding encoding = new Encoding();
+            List<Encoding> encodings = new ArrayList<>();
+            encodings.add(encoding);
+            container.setEncodings(encodings);
+
+            // TODO: get encryption element to pull value for either 'encryption' or 'compression'
+
+            encoding.setAttribute("type", "compression");
+            Element compressionMethod = fitsElement.getChild(ContainerMDElement.compressionMethod.getName(), ns);
+            if (compressionMethod != null && !compressionMethod.getText().isEmpty()) {
+                encoding.setAttribute("method", compressionMethod.getText());
+            }
+            Element originalSize = fitsElement.getChild(ContainerMDElement.originalSize.getName(), ns);
+            if (originalSize != null && !originalSize.getText().isEmpty()) {
+                encoding.setAttribute("originalSize", originalSize.getText());
+            }
+
+            Entries entries = new Entries();
+            containerMd.setEntries(entries);
+
+            EntriesInformation entriesInformation = new EntriesInformation();
+            entries.setEntriesInformation(entriesInformation);
+
+
+            Element entriesElement = fitsElement.getChild(ContainerMDElement.entries.getName(), ns);
+            if (entriesElement != null) {
+                String totalEntries = entriesElement.getAttributeValue(ContainerMDElement.totalEntries.getName());
+                entriesInformation.setNumber(parseLong(totalEntries,
+                        ContainerMDElement.entries.getName() + " -- attr.: " + ContainerMDElement.totalEntries.getName()));
+
+                Formats formats = new Formats();
+                entriesInformation.setFormats(formats);
+
+                @SuppressWarnings("unchecked")
+                List<Element> formatElements = entriesElement.getChildren(ContainerMDElement.format.getName(), ns);
+                if (formatElements != null & formatElements.size() > 0) {
+                    for (Element formatElement : formatElements) {
+                        Format format = new Format();
+                        formats.addFormat(format);
+                        String formatName = formatElement.getAttributeValue(ContainerMDElement.formatName.getName());
+                        format.setNameAttribute(formatName);
+                        String number = formatElement.getAttributeValue(ContainerMDElement.number.getName());
+                        format.setNumber(parseLong(number, ContainerMDElement.formatName.getName() + " -- attr.: " + ContainerMDElement.number.getName()));
+                    }
+                }
+            }
+        } catch (XmlContentException e1) {
+            logger.error("Invalid content: " + e1.getMessage());
+        }
 
         return containerMd;
     }
 
     /**
      * Converts a video element into a VideoObject ??? object
-     * @param fitsVideo		a video element in the FITS schema
+     *
+     * @param fitsVideo a video element in the FITS schema
      */
-    public XmlContent toEbuCoreVideo (FitsOutput fitsOutput,Element fitsVideo) {
-    	
-    	//
-    	// NOTE:
-    	// The FitsOutput INPUT can be one of 3 types:
-    	// 1) "FITS"
-    	// 2) "Combined" (both FITS and Standard)
-    	// 3) "Standard" (Ebucore)
-    	// ... and either contain spaces in the XML, or not
-    	//
-    	// The XmlContent object returned output will be as follows for each
-    	// input type:
-    	// 1) FITS or Combined = Standard Ebucore
-    	// 2) Standard (Ebucore) = null XmlContent Object, as the fitsOutput
-    	// does not contain elements or data which can be parsed into Ebucore.
-    	// In other words, there is no data present which can be used to 
-    	// transform the data to Ebucore because it is ALREADY Ebucore.
-    	//
-    	// TODO: - Maybe return an Ebucore-based FitsOutput based upon the
-    	// Ebucore data contained in the Standard Element for FitsOutput input
-    	// objects of type "Standard".
+    public XmlContent toEbuCoreVideo(FitsOutput fitsOutput, Element fitsVideo) {
 
-    	EbuCoreModel ebucoreModel = null;
-    	String fitsName = null;
+        //
+        // NOTE:
+        // The FitsOutput INPUT can be one of 3 types:
+        // 1) "FITS"
+        // 2) "Combined" (both FITS and Standard)
+        // 3) "Standard" (Ebucore)
+        // ... and either contain spaces in the XML, or not
+        //
+        // The XmlContent object returned output will be as follows for each
+        // input type:
+        // 1) FITS or Combined = Standard Ebucore
+        // 2) Standard (Ebucore) = null XmlContent Object, as the fitsOutput
+        // does not contain elements or data which can be parsed into Ebucore.
+        // In other words, there is no data present which can be used to
+        // transform the data to Ebucore because it is ALREADY Ebucore.
+        //
+        // TODO: - Maybe return an Ebucore-based FitsOutput based upon the
+        // Ebucore data contained in the Standard Element for FitsOutput input
+        // objects of type "Standard".
 
-    	String framerate = "NOT_SET";
-    	String timecode = "NOT_SET";
+        EbuCoreModel ebucoreModel = null;
+        String fitsName = null;
 
-    	try {
-    		ebucoreModel = new EbuCoreModel();
-    		List<Object> videoElemList = fitsVideo.getContent();    		
+        String framerate = "NOT_SET";
+        String timecode = "NOT_SET";
 
-    		String mimeType = null;
+        try {
+            ebucoreModel = new EbuCoreModel();
+            List<Object> videoElemList = fitsVideo.getContent();
 
-    		// Walk through all of the elements and process them
-    		// skipping any Text Objects
-    		for(Object obj : videoElemList) {
-    			try {
-	    			// Skip the text object.
-	    			// This is most likely due to spaces preceding the real element
-	    			if(obj instanceof Text) {
-	    				continue;
-	    			}
-	    			
-	    			Element elem = (Element)obj;
-	    			fitsName = elem.getName ();
-	    			
-	    			// If we have a standard element, then we are done.
-	    			// We only wish to process the basic FITS output
-	    			if(fitsName.equals ("standard")) {
-	    				break;
-	    			}
-	    			
-	    	    	// Ebucore can only be generated from MediaInfo output
-	    	    	if(!isMediaInfoTool(fitsName, elem)) {
-	    	    		continue;
-	    	    	}
-	
-	    	    	// Set mime type - MXF codec generation needs it
-	    	    	if(fitsName.equals("mimeType")) {
-	    	    		mimeType = elem.getValue();
-	    	    	}
-	
-	    			// Process the tracks
-	    			if (fitsName.equals("track")) {
-	    				Attribute typeAttr = elem.getAttribute("type");
-	    				if(typeAttr != null) {
-	    					String type = typeAttr.getValue();
-	
-	    					if(type.toLowerCase().equals("video")) {
-	
-	    						// Set the framerate
-	    				   		Element dataElement = elem.getChild ("frameRate",ns);
-	    			    		if (dataElement != null) {
-	    			    			String dataValue = dataElement.getText().trim();
-	    		   					if (!StringUtils.isEmpty(dataValue)) {
-	            			    		framerate = dataValue;
-	    		   					}
-	
-	    			    		}
-	
-	    						ebucoreModel.createVideoFormatElement(elem, ns, mimeType);
-	
-	    					} // video format
-	
-	    					// Audio Format
-	    					else if (type.toLowerCase().equals("audio")) {
-	    						ebucoreModel.createAudioFormatElement(elem, ns);
-	    					}  // audio format
-	    				}
-	    			}  // track
-	    			else {
-	
-	    				// Set the timecode
-	    				if(fitsName.equals("timecodeStart")) {
-	    					String dataValue = elem.getText().trim();
-	    					if (!StringUtils.isEmpty(dataValue)) {
-	    						timecode = dataValue;
-	    					}
-	    				}
-	
-	    				// Process Elements directly off the root of the Format Element
-	    				ebucoreModel.createFormatElement(fitsName, elem);
-	    			}
+            String mimeType = null;
 
-    			} catch (XmlContentException e) {
-    				logger.warn("Invalid EbuCore content for element [" + fitsName + "]: " + e.getMessage ());
-    			}
-    		}  // for(Element elem : trackList)
+            // Walk through all of the elements and process them
+            // skipping any Text Objects
+            for (Object obj : videoElemList) {
+                try {
+                    // Skip the text object.
+                    // This is most likely due to spaces preceding the real element
+                    if (obj instanceof Text) {
+                        continue;
+                    }
 
-			// Process Elements directly off the root of the Format Element
-			ebucoreModel.createStart(timecode, framerate);
+                    Element elem = (Element) obj;
+                    fitsName = elem.getName();
 
-    	} catch (XmlContentException e) {
-    		// If we get here then construction of EbuCoreModel failed so
-    		// return null here to avoid NPE when dereferencing ebucoreMain below.
-    		logger.error("Could not create EbuCoreModel: " + e.getMessage(), e);
-    		return null;
-    	}
+                    // If we have a standard element, then we are done.
+                    // We only wish to process the basic FITS output
+                    if (fitsName.equals("standard")) {
+                        break;
+                    }
 
-    	return ebucoreModel.ebucoreMain;
+                    // Ebucore can only be generated from MediaInfo output
+                    if (!isMediaInfoTool(fitsName, elem)) {
+                        continue;
+                    }
+
+                    // Set mime type - MXF codec generation needs it
+                    if (fitsName.equals("mimeType")) {
+                        mimeType = elem.getValue();
+                    }
+
+                    // Process the tracks
+                    if (fitsName.equals("track")) {
+                        Attribute typeAttr = elem.getAttribute("type");
+                        if (typeAttr != null) {
+                            String type = typeAttr.getValue();
+
+                            if (type.toLowerCase().equals("video")) {
+
+                                // Set the framerate
+                                Element dataElement = elem.getChild("frameRate", ns);
+                                if (dataElement != null) {
+                                    String dataValue = dataElement.getText().trim();
+                                    if (!StringUtils.isEmpty(dataValue)) {
+                                        framerate = dataValue;
+                                    }
+
+                                }
+
+                                ebucoreModel.createVideoFormatElement(elem, ns, mimeType);
+
+                            } // video format
+
+                            // Audio Format
+                            else if (type.toLowerCase().equals("audio")) {
+                                ebucoreModel.createAudioFormatElement(elem, ns);
+                            }  // audio format
+                        }
+                    }  // track
+                    else {
+
+                        // Set the timecode
+                        if (fitsName.equals("timecodeStart")) {
+                            String dataValue = elem.getText().trim();
+                            if (!StringUtils.isEmpty(dataValue)) {
+                                timecode = dataValue;
+                            }
+                        }
+
+                        // Process Elements directly off the root of the Format Element
+                        ebucoreModel.createFormatElement(fitsName, elem);
+                    }
+
+                } catch (XmlContentException e) {
+                    logger.warn("Invalid EbuCore content for element [" + fitsName + "]: " + e.getMessage());
+                }
+            }  // for(Element elem : trackList)
+
+            // Process Elements directly off the root of the Format Element
+            ebucoreModel.createStart(timecode, framerate);
+
+        } catch (XmlContentException e) {
+            // If we get here then construction of EbuCoreModel failed so
+            // return null here to avoid NPE when dereferencing ebucoreMain below.
+            logger.error("Could not create EbuCoreModel: " + e.getMessage(), e);
+            return null;
+        }
+
+        return ebucoreModel.ebucoreMain;
     } // toEbuCoreVideo
 
     private boolean isMediaInfoTool(String fitsName, Element elem) {
 
-    	// Ebucore can only be generated from MediaInfo output
-		Attribute toolNameAttr = elem.getAttribute("toolname");
-    	String toolName = toolNameAttr.getValue();
-    	if(toolName == null)  // just in case
-    		return false;
-    	if(!toolName.equalsIgnoreCase("mediainfo"))
-    		return false;
+        // Ebucore can only be generated from MediaInfo output
+        Attribute toolNameAttr = elem.getAttribute("toolname");
+        String toolName = toolNameAttr.getValue();
+        if (toolName == null)  // just in case
+            return false;
+        if (!toolName.equalsIgnoreCase("mediainfo"))
+            return false;
 
-    	return true;
+        return true;
     }
 
     /* an enumeration for mapping symbols to FITS audio element names */
     public enum AudioElement {
-       	//samplingRate ("samplingRate"),
-       	//sampleSize ("sampleSize"),
-    	//bitRate ("bitRate"),
-    	//bitRateMode ("bitRateMode"),
-    	//channels ("channels");
+        //samplingRate ("samplingRate"),
+        //sampleSize ("sampleSize"),
+        //bitRate ("bitRate"),
+        //bitRateMode ("bitRateMode"),
+        //channels ("channels");
 
-    	bitsPerSample ("bitsPerSample"),
-    	duration ("duration"),
-    	bitDepth ("bitDepth"),
-    	sampleRate ("sampleRate"),
-    	channels ("channels"),
-    	dataFormatType ("dataFormatType"),
-    	offset ("offset"),
-    	timeStampStart ("timeStampStart"),
-    	byteOrder ("byteOrder"),
-    	bitRate ("bitRate"),
-    	numSamples ("numSamples"),
-    	wordSize ("wordSize"),
-    	audioDataEncoding ("audioDataEncoding"),
-    	blockAlign ("blockAlign"),
-    	codecName ("codecName"),
-        codecNameVersion ("codecNameVersion"),
-        codecCreatorApplication ("codecCreatorApplication"),
-        codecCreatorApplicationVersion ("codecCreatorApplicationVersion");
+        bitsPerSample("bitsPerSample"),
+        duration("duration"),
+        bitDepth("bitDepth"),
+        sampleRate("sampleRate"),
+        channels("channels"),
+        dataFormatType("dataFormatType"),
+        offset("offset"),
+        timeStampStart("timeStampStart"),
+        byteOrder("byteOrder"),
+        bitRate("bitRate"),
+        numSamples("numSamples"),
+        wordSize("wordSize"),
+        audioDataEncoding("audioDataEncoding"),
+        blockAlign("blockAlign"),
+        codecName("codecName"),
+        codecNameVersion("codecNameVersion"),
+        codecCreatorApplication("codecCreatorApplication"),
+        codecCreatorApplicationVersion("codecCreatorApplicationVersion");
 
-    	private String name;
+        private String name;
 
-    	private AudioElement(String name) {
+        private AudioElement(String name) {
             this.name = name;
         }
 
@@ -1153,99 +1159,99 @@ public class XmlContentConverter {
 
     /* An enumeration for mapping symbols to FITS image element names. */
     public enum ImageElement {
-        byteOrder ("byteOrder"),
-        compressionScheme ("compressionScheme"),
-        imageWidth ("imageWidth"),
-        imageHeight ("imageHeight"),
-        colorSpace ("colorSpace"),
-        referenceBlackWhite ("referenceBlackWhite"),
-        iccProfileName ("iccProfileName"),
-        iccProfileVersion ("iccProfileVersion"),
-        YCbCrSubSampling ("YCbCrSubSampling"),
-        YCbCrCoefficients ("YCbCrCoefficients"),
-        tileWidth ("tileWidth"),
-        tileHeight ("tileHeight"),
-        qualityLayers ("qualityLayers"),
-        resolutionLevels ("resolutionLevels"),
-        orientation ("orientation"),
-        samplingFrequencyUnit ("samplingFrequencyUnit"),
-        xSamplingFrequency ("xSamplingFrequency"),
-        ySamplingFrequency ("ySamplingFrequency"),
-        bitsPerSample ("bitsPerSample"),
-        samplesPerPixel ("samplesPerPixel"),
-        extraSamples ("extraSamples"),
-        colorMap ("colorMap"),
-        grayResponseCurve ("grayResponseCurve"),
-        grayResponseUnit ("grayResponseUnit"),
-        whitePointXValue ("whitePointXValue"),
-        whitePointYValue ("whitePointYValue"),
-        primaryChromaticitiesRedX ("primaryChromaticitiesRedX"),
-        primaryChromaticitiesRedY ("primaryChromaticitiesRedY"),
-        primaryChromaticitiesGreenX ("primaryChromaticitiesGreenX"),
-        primaryChromaticitiesGreenY ("primaryChromaticitiesGreenY"),
-        primaryChromaticitiesBlueX ("primaryChromaticitiesBlueX"),
-        primaryChromaticitiesBlueY ("primaryChromaticitiesBlueY"),
-        imageProducer ("imageProducer"),
-        captureDevice ("captureDevice"),
+        byteOrder("byteOrder"),
+        compressionScheme("compressionScheme"),
+        imageWidth("imageWidth"),
+        imageHeight("imageHeight"),
+        colorSpace("colorSpace"),
+        referenceBlackWhite("referenceBlackWhite"),
+        iccProfileName("iccProfileName"),
+        iccProfileVersion("iccProfileVersion"),
+        YCbCrSubSampling("YCbCrSubSampling"),
+        YCbCrCoefficients("YCbCrCoefficients"),
+        tileWidth("tileWidth"),
+        tileHeight("tileHeight"),
+        qualityLayers("qualityLayers"),
+        resolutionLevels("resolutionLevels"),
+        orientation("orientation"),
+        samplingFrequencyUnit("samplingFrequencyUnit"),
+        xSamplingFrequency("xSamplingFrequency"),
+        ySamplingFrequency("ySamplingFrequency"),
+        bitsPerSample("bitsPerSample"),
+        samplesPerPixel("samplesPerPixel"),
+        extraSamples("extraSamples"),
+        colorMap("colorMap"),
+        grayResponseCurve("grayResponseCurve"),
+        grayResponseUnit("grayResponseUnit"),
+        whitePointXValue("whitePointXValue"),
+        whitePointYValue("whitePointYValue"),
+        primaryChromaticitiesRedX("primaryChromaticitiesRedX"),
+        primaryChromaticitiesRedY("primaryChromaticitiesRedY"),
+        primaryChromaticitiesGreenX("primaryChromaticitiesGreenX"),
+        primaryChromaticitiesGreenY("primaryChromaticitiesGreenY"),
+        primaryChromaticitiesBlueX("primaryChromaticitiesBlueX"),
+        primaryChromaticitiesBlueY("primaryChromaticitiesBlueY"),
+        imageProducer("imageProducer"),
+        captureDevice("captureDevice"),
         scannerManufacturer("scannerManufacturer"),
-        scannerModelName ("scannerModelName"),
-        scannerModelNumber ("scannerModelNumber"),
-        scannerModelSerialNo ("scannerModelSerialNo"),
-        scanningSoftwareName ("scanningSoftwareName"),
-        scanningSoftwareVersionNo ("scanningSoftwareVersionNo"),
-        fNumber ("fNumber"),
-        exposureTime ("exposureTime"),
-        exposureProgram ("exposureProgram"),
-        spectralSensitivity ("spectralSensitivity"),
-        isoSpeedRating ("isoSpeedRating"),
-        oECF ("oECF"),
-        exifVersion ("exifVersion"),
-        shutterSpeedValue ("shutterSpeedValue"),
-        apertureValue ("apertureValue"),
-        brightnessValue ("brightnessValue"),
-        exposureBiasValue ("exposureBiasValue"),
-        maxApertureValue ("maxApertureValue"),
-        subjectDistance ("subjectDistance"),
-        meteringMode ("meteringMode"),
-        lightSource ("lightSource"),
-        flash ("flash"),
-        focalLength ("focalLength"),
-        flashEnergy ("flashEnergy"),
-        exposureIndex ("exposureIndex"),
-        sensingMethod ("sensingMethod"),
-        cfaPattern ("cfaPattern"),
-        cfaPattern2 ("cfaPattern2"),
-        gpsVersionID ("gpsVersionID"),
-        gpsLatitudeRef ("gpsLatitudeRef"),
-        gpsLatitude ("gpsLatitude"),
-        gpsLongitudeRef ("gpsLongitudeRef"),
-        gpsLongitude ("gpsLongitude"),
-        gpsAltitudeRef ("gpsAltitudeRef"),
-        gpsAltitude ("gpsAltitude"),
-        gpsTimeStamp ("gpsTimeStamp"),
-        gpsSatellites ("gpsSatellites"),
-        gpsStatus ("gpsStatus"),
-        gpsMeasureMode ("gpsMeasureMode"),
-        gpsDOP ("gpsDOP"),
-        gpsSpeedRef ("gpsSpeedRef"),
-        gpsSpeed ("gpsSpeed"),
-        gpsTrackRef ("gpsTrackRef"),
-        gpsTrack ("gpsTrack"),
-        gpsImgDirectionRef ("gpsImgDirectionRef"),
-        gpsImgDirection ("gpsImgDirection"),
-        gpsMapDatum ("gpsMapDatum"),
-        gpsDestLatitudeRef ("gpsDestLatitudeRef"),
-        gpsDestLatitude ("gpsDestLatitude"),
-        gpsDestLongitudeRef ("gpsDestLongitudeRef"),
-        gpsDestLongitude ("gpsDestLongitude"),
-        gpsDestBearingRef ("gpsDestBearingRef"),
-        gpsDestBearing ("gpsDestBearing"),
-        gpsDestDistanceRef ("gpsDestDistanceRef"),
-        gpsDestDistance ("gpsDestDistance"),
-        gpsProcessingMethod ("gpsProcessingMethod"),
-        gpsAreaInformation ("gpsAreaInformation"),
-        gpsDateStamp ("gpsDateStamp"),
-        gpsDifferential ("gpsDifferential"),
+        scannerModelName("scannerModelName"),
+        scannerModelNumber("scannerModelNumber"),
+        scannerModelSerialNo("scannerModelSerialNo"),
+        scanningSoftwareName("scanningSoftwareName"),
+        scanningSoftwareVersionNo("scanningSoftwareVersionNo"),
+        fNumber("fNumber"),
+        exposureTime("exposureTime"),
+        exposureProgram("exposureProgram"),
+        spectralSensitivity("spectralSensitivity"),
+        isoSpeedRating("isoSpeedRating"),
+        oECF("oECF"),
+        exifVersion("exifVersion"),
+        shutterSpeedValue("shutterSpeedValue"),
+        apertureValue("apertureValue"),
+        brightnessValue("brightnessValue"),
+        exposureBiasValue("exposureBiasValue"),
+        maxApertureValue("maxApertureValue"),
+        subjectDistance("subjectDistance"),
+        meteringMode("meteringMode"),
+        lightSource("lightSource"),
+        flash("flash"),
+        focalLength("focalLength"),
+        flashEnergy("flashEnergy"),
+        exposureIndex("exposureIndex"),
+        sensingMethod("sensingMethod"),
+        cfaPattern("cfaPattern"),
+        cfaPattern2("cfaPattern2"),
+        gpsVersionID("gpsVersionID"),
+        gpsLatitudeRef("gpsLatitudeRef"),
+        gpsLatitude("gpsLatitude"),
+        gpsLongitudeRef("gpsLongitudeRef"),
+        gpsLongitude("gpsLongitude"),
+        gpsAltitudeRef("gpsAltitudeRef"),
+        gpsAltitude("gpsAltitude"),
+        gpsTimeStamp("gpsTimeStamp"),
+        gpsSatellites("gpsSatellites"),
+        gpsStatus("gpsStatus"),
+        gpsMeasureMode("gpsMeasureMode"),
+        gpsDOP("gpsDOP"),
+        gpsSpeedRef("gpsSpeedRef"),
+        gpsSpeed("gpsSpeed"),
+        gpsTrackRef("gpsTrackRef"),
+        gpsTrack("gpsTrack"),
+        gpsImgDirectionRef("gpsImgDirectionRef"),
+        gpsImgDirection("gpsImgDirection"),
+        gpsMapDatum("gpsMapDatum"),
+        gpsDestLatitudeRef("gpsDestLatitudeRef"),
+        gpsDestLatitude("gpsDestLatitude"),
+        gpsDestLongitudeRef("gpsDestLongitudeRef"),
+        gpsDestLongitude("gpsDestLongitude"),
+        gpsDestBearingRef("gpsDestBearingRef"),
+        gpsDestBearing("gpsDestBearing"),
+        gpsDestDistanceRef("gpsDestDistanceRef"),
+        gpsDestDistance("gpsDestDistance"),
+        gpsProcessingMethod("gpsProcessingMethod"),
+        gpsAreaInformation("gpsAreaInformation"),
+        gpsDateStamp("gpsDateStamp"),
+        gpsDifferential("gpsDifferential"),
         digitalCameraModelName("digitalCameraModelName"),
         digitalCameraModelNumber("digitalCameraModelNumber"),
         digitalCameraModelSerialNo("digitalCameraModelSerialNo"),
@@ -1266,12 +1272,12 @@ public class XmlContentConverter {
 
     /* An enumeration for mapping symbols to FITS text metadata element names. */
     public enum TextMDElement {
-        linebreak ("linebreak"),
-        charset ("charset"),
-        markupBasis ("markupBasis"),
-        markupBasisVersion ("markupBasisVersion"),
-        markupLanguage ("markupLanguage"),
-        markupLanguageVersion ("markupLanguageVersion");
+        linebreak("linebreak"),
+        charset("charset"),
+        markupBasis("markupBasis"),
+        markupBasisVersion("markupBasisVersion"),
+        markupLanguage("markupLanguage"),
+        markupLanguageVersion("markupLanguageVersion");
 
         private String name;
 
@@ -1287,19 +1293,19 @@ public class XmlContentConverter {
 
     /* An enumeration for mapping symbols to FITS Document metadata element names. */
     public enum DocumentMDElement {
-        pageCount ("pageCount"),
-        wordCount ("wordCount"),
-        characterCount ("characterCount"),
-        paragraphCount ("paragraphCount"),
-        lineCount ("lineCount"),
-        graphicsCount ("graphicsCount"),
-        tableCount ("tableCount"),
+        pageCount("pageCount"),
+        wordCount("wordCount"),
+        characterCount("characterCount"),
+        paragraphCount("paragraphCount"),
+        lineCount("lineCount"),
+        graphicsCount("graphicsCount"),
+        tableCount("tableCount"),
         language("language"),
         font("font"),
         fontName("fontName"), // should only be sub-element of 'font'
         fontIsEmbedded("fontIsEmbedded"), // should only be sub-element of 'font'
         isTagged("isTagged"),
-        hasLayers ("hasLayers"),
+        hasLayers("hasLayers"),
         useTransparency("useTransparency"),
         hasOutline("hasOutline"),
         hasThumbnails("hasThumbnails"),
@@ -1322,15 +1328,15 @@ public class XmlContentConverter {
 
     /* an enumeration for mapping symbols to FITS audio element names */
     public enum AudioFormatElement {
-       	samplingRate ("samplingRate"),
-       	sampleSize ("sampleSize"),
-    	bitRate ("bitRate"),
-    	bitRateMode ("bitRateMode"),
-    	channels ("channels");
+        samplingRate("samplingRate"),
+        sampleSize("sampleSize"),
+        bitRate("bitRate"),
+        bitRateMode("bitRateMode"),
+        channels("channels");
 
-    	private String name;
+        private String name;
 
-    	private AudioFormatElement(String name) {
+        private AudioFormatElement(String name) {
             this.name = name;
         }
 
@@ -1338,21 +1344,21 @@ public class XmlContentConverter {
             return name;
         }
     }
-    
+
     /* An enumeration for mapping symbols to FITS container element names. */
     public enum ContainerMDElement {
-       	entries("entries"),
-       	totalEntries("totalEntries"),
-       	entry("entry"),
-       	format("format"),
-       	formatName("name"),
-       	number("number"),
-       	originalSize ("originalSize"),
-       	compressionMethod ("compressionMethod");
+        entries("entries"),
+        totalEntries("totalEntries"),
+        entry("entry"),
+        format("format"),
+        formatName("name"),
+        number("number"),
+        originalSize("originalSize"),
+        compressionMethod("compressionMethod");
 
-    	private String name;
+        private String name;
 
-    	private ContainerMDElement(String name) {
+        private ContainerMDElement(String name) {
             this.name = name;
         }
 
@@ -1365,83 +1371,78 @@ public class XmlContentConverter {
      * Parse a String value to Integer
      */
     private Integer parseInt(String valueToParse, String fitsElem) {
-    	Integer intValue = null;
-    	try {
-    		intValue = Integer.parseInt(valueToParse);
-    	}
-    	catch (NumberFormatException | NullPointerException e) {
-        	logger.info("Could not parse element [" + fitsElem + "] to Integer: " + valueToParse + " -- ignoring value. Exception message: " + e.getMessage());
-    	}
-    	return intValue;
+        Integer intValue = null;
+        try {
+            intValue = Integer.parseInt(valueToParse);
+        } catch (NumberFormatException | NullPointerException e) {
+            logger.info("Could not parse element [" + fitsElem + "] to Integer: " + valueToParse + " -- ignoring value. Exception message: " + e.getMessage());
+        }
+        return intValue;
     }
 
     /*
      * Parse a String value to Double
      */
     private Double parseDouble(String valueToParse, String fitsElem) {
-    	Double doubleValue = null;
-    	try {
-    		doubleValue = Double.parseDouble(valueToParse);
-    	}
-    	catch (NumberFormatException | NullPointerException e) {
-        	logger.info("Could not parse element [" + fitsElem + "] Double: " + valueToParse + " -- ignoring value.. Exception message: " + e.getMessage());
-    	}
-    	return doubleValue;
+        Double doubleValue = null;
+        try {
+            doubleValue = Double.parseDouble(valueToParse);
+        } catch (NumberFormatException | NullPointerException e) {
+            logger.info("Could not parse element [" + fitsElem + "] Double: " + valueToParse + " -- ignoring value.. Exception message: " + e.getMessage());
+        }
+        return doubleValue;
     }
 
     /*
      * Parse a String value to Long
      */
     private Long parseLong(String valueToParse, String fitsElem) {
-    	Long longValue = null;
-    	try {
-    		longValue = Long.parseLong(valueToParse);
-    	}
-    	catch (NumberFormatException | NullPointerException e) {
-        	logger.info("Could not parse element [" + fitsElem + "] to Long: " + valueToParse + " -- ignoring value.. Exception message: " + e.getMessage());
-    	}
-    	return longValue;
+        Long longValue = null;
+        try {
+            longValue = Long.parseLong(valueToParse);
+        } catch (NumberFormatException | NullPointerException e) {
+            logger.info("Could not parse element [" + fitsElem + "] to Long: " + valueToParse + " -- ignoring value.. Exception message: " + e.getMessage());
+        }
+        return longValue;
     }
-    
+
     /*
      * First convert String input to either Integer or Double then, subsequently, to an OTS Rational value.
      * The input could be fractional, separated by a '/' character which would then get converted to a Rational.
      */
     private Rational parseRational(String valueToParse, String fitsElem) {
-    	Rational rationalValue = null;
-    	Integer intValue = null;
-    	Double dblValue = null;
-    	
-    	try {
-    		intValue = Integer.parseInt(valueToParse);
-    	}
-    	catch(NumberFormatException | NullPointerException e) {} 
-    	
+        Rational rationalValue = null;
+        Integer intValue = null;
+        Double dblValue = null;
+
+        try {
+            intValue = Integer.parseInt(valueToParse);
+        } catch (NumberFormatException | NullPointerException e) {
+        }
+
         if (intValue != null) {
-            rationalValue = new Rational (intValue, 1);
+            rationalValue = new Rational(intValue, 1);
+        } else {
+            try {
+                dblValue = Double.parseDouble(valueToParse);
+            } catch (NumberFormatException | NullPointerException e) {
+            }
+
+            if (dblValue != null) {
+                rationalValue = new Rational((int) (dblValue * 100 + 0.5), 100);
+            } else if (valueToParse.contains("/")) {
+                try {
+                    int num = Integer.parseInt(valueToParse.substring(0, valueToParse.indexOf("/")));
+                    int den = Integer.parseInt(valueToParse.substring(valueToParse.indexOf("/") + 1));
+                    rationalValue = new Rational(num, den);
+                } catch (NumberFormatException | NullPointerException e) {
+                }
+            }
         }
-        else {
-        	try {
-        		dblValue = Double.parseDouble(valueToParse);
-        	}
-        	catch(NumberFormatException | NullPointerException e) {}
-        	
-        	if (dblValue != null) {
-        		rationalValue = new Rational ((int) (dblValue * 100 + 0.5), 100);
-        	}
-        	else if(valueToParse.contains("/")) {
-        		try {
-        			int num = Integer.parseInt(valueToParse.substring(0,valueToParse.indexOf("/")));
-        			int den = Integer.parseInt(valueToParse.substring(valueToParse.indexOf("/")+1));
-        			rationalValue = new Rational(num,den);
-        		}
-        		catch (NumberFormatException | NullPointerException e) {}
-        	}
-        }
-    	
+
         if (rationalValue == null) {
-        	logger.info("Could not parse element [" + fitsElem + "] to Rational -- ignoring valueToParse: [" + valueToParse + "]");
+            logger.info("Could not parse element [" + fitsElem + "] to Rational -- ignoring valueToParse: [" + valueToParse + "]");
         }
-    	return rationalValue;
+        return rationalValue;
     }
 }

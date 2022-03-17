@@ -49,11 +49,12 @@ import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 import uk.gov.nationalarchives.droid.signature.SaxSignatureFileParser;
 import uk.gov.nationalarchives.droid.signature.SignatureParser;
 
-/**  The principal glue class for invoking DROID under FITS.
+/**
+ * The principal glue class for invoking DROID under FITS.
  */
 public class Droid extends ToolBase {
 
-	private boolean enabled = true;
+    private boolean enabled = true;
     private final Fits fits;
     private final List<String> includeExts;
     private long kbReadLimit;
@@ -63,146 +64,144 @@ public class Droid extends ToolBase {
     private static final ContainerIdentifierFactory containerIdentifierFactory = new ContainerIdentifierFactoryImpl();
     private static final ArchiveFormatResolver containerFormatResolver = new ArchiveFormatResolverImpl();
     private static ContainerSignatureDefinitions containerSignatureDefinitions;
-	private static final Map<String, Format> puidFormatMap = new HashMap<>(2500);
+    private static final Map<String, Format> puidFormatMap = new HashMap<>(2500);
 
     private final static List<String> CONTAINER_TYPE_MIMETYPES = Arrays.asList("application/zip");
 
-	private static final Logger logger = LoggerFactory.getLogger(Droid.class);
+    private static final Logger logger = LoggerFactory.getLogger(Droid.class);
 
-	public Droid(Fits fits) throws FitsToolException {
-		super();
-		this.fits = fits;
-        logger.debug ("Initializing Droid");
-		info = new ToolInfo("Droid", getDroidVersion(), null);
+    public Droid(Fits fits) throws FitsToolException {
+        super();
+        this.fits = fits;
+        logger.debug("Initializing Droid");
+        info = new ToolInfo("Droid", getDroidVersion(), null);
 
-		try {
-			String droid_conf = Fits.FITS_TOOLS_DIR+"droid"+File.separator;
-			XMLConfiguration config = fits.getConfig();
-			// only need a single Droid signature file.
-			if (sigFile == null) {
-				synchronized(this) {
-					if (sigFile == null) {
-						sigFile = new File(droid_conf + config.getString("droid_sigfile"));
-						sigIdentifier.setSignatureFile(sigFile.getAbsolutePath());
-						sigIdentifier.init();
+        try {
+            String droid_conf = Fits.FITS_TOOLS_DIR + "droid" + File.separator;
+            XMLConfiguration config = fits.getConfig();
+            // only need a single Droid signature file.
+            if (sigFile == null) {
+                synchronized (this) {
+                    if (sigFile == null) {
+                        sigFile = new File(droid_conf + config.getString("droid_sigfile"));
+                        sigIdentifier.setSignatureFile(sigFile.getAbsolutePath());
+                        sigIdentifier.init();
 
-						// The following is necessary to init the code that identifies formats like docx, xlsx, etc
-						SignatureParser sigParser = new SaxSignatureFileParser(sigFile.toURI());
-						sigParser.formats(format -> {
-							puidFormatMap.put(format.getPuid(), format);
-						});
+                        // The following is necessary to init the code that identifies formats like docx, xlsx, etc
+                        SignatureParser sigParser = new SaxSignatureFileParser(sigFile.toURI());
+                        sigParser.formats(format -> {
+                            puidFormatMap.put(format.getPuid(), format);
+                        });
 
-						String containerSigFile = droid_conf + config.getString("droid_container_sigfile");
-						ContainerSignatureFileReader signatureReader = new ContainerSignatureFileReader(containerSigFile);
+                        String containerSigFile = droid_conf + config.getString("droid_container_sigfile");
+                        ContainerSignatureFileReader signatureReader = new ContainerSignatureFileReader(containerSigFile);
 
-						containerSignatureDefinitions = signatureReader.getDefinitions();
+                        containerSignatureDefinitions = signatureReader.getDefinitions();
 
-						ZipIdentifierEngine zipIdentifierEngine = new ZipIdentifierEngine();
-						zipIdentifierEngine.setRequestFactory(new ContainerFileIdentificationRequestFactory());
+                        ZipIdentifierEngine zipIdentifierEngine = new ZipIdentifierEngine();
+                        zipIdentifierEngine.setRequestFactory(new ContainerFileIdentificationRequestFactory());
 
-						ZipIdentifier zipIdentifier = new ZipIdentifier();
-						zipIdentifier.setContainerType("ZIP");
-						zipIdentifier.setContainerIdentifierFactory(containerIdentifierFactory);
-						zipIdentifier.setContainerFormatResolver(containerFormatResolver);
-						zipIdentifier.setDroidCore(sigIdentifier);
-						zipIdentifier.setIdentifierEngine(zipIdentifierEngine);
-						zipIdentifier.setSignatureReader(signatureReader);
-						zipIdentifier.init();
+                        ZipIdentifier zipIdentifier = new ZipIdentifier();
+                        zipIdentifier.setContainerType("ZIP");
+                        zipIdentifier.setContainerIdentifierFactory(containerIdentifierFactory);
+                        zipIdentifier.setContainerFormatResolver(containerFormatResolver);
+                        zipIdentifier.setDroidCore(sigIdentifier);
+                        zipIdentifier.setIdentifierEngine(zipIdentifierEngine);
+                        zipIdentifier.setSignatureReader(signatureReader);
+                        zipIdentifier.init();
 
-						Ole2IdentifierEngine ole2IdentifierEngine = new Ole2IdentifierEngine();
-						ole2IdentifierEngine.setRequestFactory(new ContainerFileIdentificationRequestFactory());
+                        Ole2IdentifierEngine ole2IdentifierEngine = new Ole2IdentifierEngine();
+                        ole2IdentifierEngine.setRequestFactory(new ContainerFileIdentificationRequestFactory());
 
-						Ole2Identifier ole2Identifier = new Ole2Identifier();
-						ole2Identifier.setContainerType("OLE2");
-						ole2Identifier.setContainerIdentifierFactory(containerIdentifierFactory);
-						ole2Identifier.setContainerFormatResolver(containerFormatResolver);
-						ole2Identifier.setDroidCore(sigIdentifier);
-						ole2Identifier.setIdentifierEngine(ole2IdentifierEngine);
-						ole2Identifier.setSignatureReader(signatureReader);
-						ole2Identifier.init();
-					}
-				}
-			}
-	        includeExts = (List<String>)(List<?>)config.getList("droid_read_limit[@include-exts]");
-	        String limit = config.getString("droid_read_limit[@read-limit-kb]");
-	        kbReadLimit = -1l;
-	        if (limit != null) {
-	        	try {
-	        		kbReadLimit = Long.parseLong(limit);
-	        	} catch (NumberFormatException nfe) {
-	        		throw new FitsToolException("Invalid long value in fits.xml droid_read_limit[@read-limit-kb]: " + limit, nfe);
-	        	}
-	        }
-		} catch (Throwable e) {
-			throw new FitsToolException("Error initilizing DROID",e);
-		}
-	}
+                        Ole2Identifier ole2Identifier = new Ole2Identifier();
+                        ole2Identifier.setContainerType("OLE2");
+                        ole2Identifier.setContainerIdentifierFactory(containerIdentifierFactory);
+                        ole2Identifier.setContainerFormatResolver(containerFormatResolver);
+                        ole2Identifier.setDroidCore(sigIdentifier);
+                        ole2Identifier.setIdentifierEngine(ole2IdentifierEngine);
+                        ole2Identifier.setSignatureReader(signatureReader);
+                        ole2Identifier.init();
+                    }
+                }
+            }
+            includeExts = (List<String>) (List<?>) config.getList("droid_read_limit[@include-exts]");
+            String limit = config.getString("droid_read_limit[@read-limit-kb]");
+            kbReadLimit = -1l;
+            if (limit != null) {
+                try {
+                    kbReadLimit = Long.parseLong(limit);
+                } catch (NumberFormatException nfe) {
+                    throw new FitsToolException("Invalid long value in fits.xml droid_read_limit[@read-limit-kb]: " + limit, nfe);
+                }
+            }
+        } catch (Throwable e) {
+            throw new FitsToolException("Error initilizing DROID", e);
+        }
+    }
 
-	@Override
-	public ToolOutput extractInfo(File file) throws FitsToolException {
+    @Override
+    public ToolOutput extractInfo(File file) throws FitsToolException {
         logger.debug("Droid.extractInfo starting on " + file.getName());
-		long startTime = System.currentTimeMillis();
-		IdentificationResultCollection results;
-		ContainerAggregator aggregator = null;
-		try {
-			DroidQuery droidQuery = new DroidQuery (sigIdentifier, containerIdentifierFactory, containerFormatResolver,
-					puidFormatMap, containerSignatureDefinitions, includeExts, kbReadLimit, file);
-			// the following will almost always return a single result
-		    results = droidQuery.queryFile();
-	        for (IdentificationResult res : results.getResults()) {
-	            String mimeType = res.getMimeType();
+        long startTime = System.currentTimeMillis();
+        IdentificationResultCollection results;
+        ContainerAggregator aggregator = null;
+        try {
+            DroidQuery droidQuery = new DroidQuery(sigIdentifier, containerIdentifierFactory, containerFormatResolver,
+                    puidFormatMap, containerSignatureDefinitions, includeExts, kbReadLimit, file);
+            // the following will almost always return a single result
+            results = droidQuery.queryFile();
+            for (IdentificationResult res : results.getResults()) {
+                String mimeType = res.getMimeType();
 
-	            if(FitsMetadataValues.getInstance().normalizeMimeType(mimeType) != null) {
-	            	mimeType = FitsMetadataValues.getInstance().normalizeMimeType(mimeType);
-	            }
-	            
-	            String fileName = file.getName();
-	            int lastDot = fileName.lastIndexOf('.');
-	            String extension = "";
-	            if (lastDot > -1) {
-	            	extension = fileName.substring(lastDot + 1);
-	            }
-	            
-	            if (CONTAINER_TYPE_MIMETYPES.contains(mimeType) && "zip".equals(extension)) {
-	            	aggregator = droidQuery.queryContainerData(results);
-	            }
-	        }
+                if (FitsMetadataValues.getInstance().normalizeMimeType(mimeType) != null) {
+                    mimeType = FitsMetadataValues.getInstance().normalizeMimeType(mimeType);
+                }
 
-		}
-		catch (IOException e) {
-		    throw new FitsToolException("DROID can't query file " + file.getAbsolutePath(),
-		            e);
-		} catch (SignatureParseException e) {
-			throw new FitsToolException("Problem with DROID signature file");
-		}
-		DroidToolOutputter outputter = new DroidToolOutputter(this, results, fits, aggregator);
-		ToolOutput output = outputter.toToolOutput();
+                String fileName = file.getName();
+                int lastDot = fileName.lastIndexOf('.');
+                String extension = "";
+                if (lastDot > -1) {
+                    extension = fileName.substring(lastDot + 1);
+                }
 
-		duration = System.currentTimeMillis()-startTime;
-		runStatus = RunStatus.SUCCESSFUL;
+                if (CONTAINER_TYPE_MIMETYPES.contains(mimeType) && "zip".equals(extension)) {
+                    aggregator = droidQuery.queryContainerData(results);
+                }
+            }
+
+        } catch (IOException e) {
+            throw new FitsToolException("DROID can't query file " + file.getAbsolutePath(),
+                    e);
+        } catch (SignatureParseException e) {
+            throw new FitsToolException("Problem with DROID signature file");
+        }
+        DroidToolOutputter outputter = new DroidToolOutputter(this, results, fits, aggregator);
+        ToolOutput output = outputter.toToolOutput();
+
+        duration = System.currentTimeMillis() - startTime;
+        runStatus = RunStatus.SUCCESSFUL;
         logger.debug("Droid.extractInfo finished on " + file.getName());
-		return output;
-	}
+        return output;
+    }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public void setEnabled(boolean value) {
-		enabled = value;
-	}
+    public void setEnabled(boolean value) {
+        enabled = value;
+    }
 
-	private String getDroidVersion () {
-	    StringWriter sw = new StringWriter ();
-	    PrintWriter pw = new PrintWriter (sw);
-	    VersionCommand vcmd = new VersionCommand (pw);
-	    try {
-	        vcmd.execute ();
-	    }
-	    catch (Exception e) {
-	        return "(Version unknown)";
-	    }
-	    return sw.toString().trim();
-	}
+    private String getDroidVersion() {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        VersionCommand vcmd = new VersionCommand(pw);
+        try {
+            vcmd.execute();
+        } catch (Exception e) {
+            return "(Version unknown)";
+        }
+        return sw.toString().trim();
+    }
 
 }

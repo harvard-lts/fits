@@ -10,23 +10,24 @@
 
 package edu.harvard.hul.ois.fits;
 
-/** This class handles the creation of a numerator and denominator for a Video
+/**
+ * This class handles the creation of a numerator and denominator for a Video
  * Frame Rate, based upon the value passed in, as well as the transformation of
  * actual the value passed in based upon the following logic:
- *
+ * <p>
  * If FrameRate from MediaInfo is a whole number, then the following is true:
- *
- *   frameRate = the value remains the same
- *   numerator = 1
- *   denominator = 1
- *
+ * <p>
+ * frameRate = the value remains the same
+ * numerator = 1
+ * denominator = 1
+ * <p>
  * Otherwise the following is true:
- *
- *   frameRate = the value is rounded to the nearest whole integer
- *   numerator = 1000
- *   denominator = 1001
- *
- *
+ * <p>
+ * frameRate = the value is rounded to the nearest whole integer
+ * numerator = 1000
+ * denominator = 1001
+ * <p>
+ * <p>
  * For example, if the value passed in is 20, then both the the numerator and
  * denominator are set to 1, and the frame rate is unchanged (20).
  * If the value passed in is 29.970 fps, the numerator is set to 1000, the
@@ -34,48 +35,48 @@ package edu.harvard.hul.ois.fits;
  */
 public class EbuCoreFrameRateRatio {
 
-	private String numerator = "1";
-	private String denominator = "1";
-	private String value;
-	private final static String DECIMAL = ".";
-	private final static String SPACE = " ";
+    private String numerator = "1";
+    private String denominator = "1";
+    private String value;
+    private final static String DECIMAL = ".";
+    private final static String SPACE = " ";
 
-	public EbuCoreFrameRateRatio(String value) {
+    public EbuCoreFrameRateRatio(String value) {
 
-		// the string might have fps, or a identifier at the end, so we need to
-		// remove it
-		String[] parts = value.split(SPACE);
-		this.value = parts[0];
+        // the string might have fps, or a identifier at the end, so we need to
+        // remove it
+        String[] parts = value.split(SPACE);
+        this.value = parts[0];
 
-		// If a decimal value, revise members
-    	if(value.contains(DECIMAL)) {
-        	this.numerator = "1000";
-        	this.denominator = "1001";
+        // If a decimal value, revise members
+        if (value.contains(DECIMAL)) {
+            this.numerator = "1000";
+            this.denominator = "1001";
 
-        	// Round FrameRate to whole number
+            // Round FrameRate to whole number
             Double dblValue = null;
             try {
-                dblValue = Double.parseDouble (this.value);
+                dblValue = Double.parseDouble(this.value);
+            } catch (NumberFormatException e) {
             }
-            catch (NumberFormatException e) {}
 
             int a = (int) Math.round(dblValue);
 
-        	this.value = ""+a;
-    	}
+            this.value = "" + a;
+        }
 
-	}
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public String getNumerator() {
-		return numerator;
-	}
+    public String getNumerator() {
+        return numerator;
+    }
 
-	public String getDenominator() {
-		return denominator;
-	}
+    public String getDenominator() {
+        return denominator;
+    }
 
 }

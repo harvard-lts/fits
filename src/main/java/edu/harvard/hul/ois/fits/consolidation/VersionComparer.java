@@ -21,6 +21,7 @@ import java.util.StringTokenizer;
 /**
  * This class represents a plug-in version identifier.
  * <br>
+ *
  * @version $Id: VersionComparer.java,v 1.2 2009/07/28 18:04:11 spencer Exp $
  */
 public final class VersionComparer implements Serializable, Comparable<VersionComparer> {
@@ -35,6 +36,7 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
      * Parses given string as version identifier. All missing parts will be
      * initialized to 0 or empty string. Parsing starts from left side of the
      * string.
+     *
      * @param str version identifier as string
      * @return version identifier object
      */
@@ -115,13 +117,14 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
      * Creates version identifier object from given parts. No validation
      * performed during object instantiation, all values become parts of
      * version identifier as they are.
+     *
      * @param aMajor major version number
      * @param aMinor minor version number
      * @param aBuild build number
-     * @param aName build name, <code>null</code> value becomes empty string
+     * @param aName  build name, <code>null</code> value becomes empty string
      */
     public VersionComparer(final int aMajor, final int aMinor, final int aBuild,
-            final String aName) {
+                           final String aName) {
         major = aMajor;
         minor = aMinor;
         build = aBuild;
@@ -170,8 +173,8 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
      *
      * @param other the other version identifier
      * @return <code>true</code> if this version identifier
-     *         is compatible with the given version identifier, and
-     *         <code>false</code> otherwise
+     * is compatible with the given version identifier, and
+     * <code>false</code> otherwise
      */
     public boolean isGreaterOrEqualTo(final VersionComparer other) {
         if (other == null) {
@@ -208,8 +211,8 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
      *
      * @param other the other version identifier
      * @return <code>true</code> if this version identifier
-     *         is compatible with the given version identifier, and
-     *         <code>false</code> otherwise
+     * is compatible with the given version identifier, and
+     * <code>false</code> otherwise
      */
     public boolean isCompatibleWith(final VersionComparer other) {
         if (other == null) {
@@ -240,8 +243,8 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
      *
      * @param other the other version identifier
      * @return <code>true</code> if this version identifier
-     *         is equivalent to the given version identifier, and
-     *         <code>false</code> otherwise
+     * is equivalent to the given version identifier, and
+     * <code>false</code> otherwise
      */
     public boolean isEquivalentTo(final VersionComparer other) {
         if (other == null) {
@@ -265,8 +268,8 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
      *
      * @param other the other version identifier
      * @return <code>true</code> if this version identifier
-     *         is greater than the given version identifier, and
-     *         <code>false</code> otherwise
+     * is greater than the given version identifier, and
+     * <code>false</code> otherwise
      */
     public boolean isGreaterThan(final VersionComparer other) {
         if (other == null) {
@@ -323,13 +326,14 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
      * Returns the string representation of this version identifier.
      * The result satisfies
      * <code>version.equals(new Version(version.toString()))</code>.
+     *
      * @return the string representation of this version identifier
      */
     @Override
     public String toString() {
         if (asString == null) {
             asString = "" + major + SEPARATOR + minor + SEPARATOR + build //$NON-NLS-1$
-                + (name.length() == 0 ? "" : SEPARATOR + name); //$NON-NLS-1$
+                    + (name.length() == 0 ? "" : SEPARATOR + name); //$NON-NLS-1$
         }
         return asString;
     }

@@ -1,18 +1,18 @@
-/* 
+/*
  * Copyright 2016 Harvard University Library
- * 
+ *
  * This file is part of FITS (File Information Tool Set).
- * 
+ *
  * FITS is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * FITS is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with FITS.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,62 +34,62 @@ import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 
 public class VTTToolTest extends AbstractLoggingTest {
 
-	/*
-	 *  Only one Fits instance is needed to run all tests.
-	 *  This also speeds up the tests.
-	 */
-	private static Fits fits;
+    /*
+     *  Only one Fits instance is needed to run all tests.
+     *  This also speeds up the tests.
+     */
+    private static Fits fits;
 
-	@BeforeClass
-	public static void beforeClass() throws Exception {
-		// Set up FITS for entire class.
-		File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
-		fits = new Fits(null, fitsConfigFile);
-	}
-	
-	@AfterClass
-	public static void afterClass() {
-		fits = null;
-	}
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        // Set up FITS for entire class.
+        File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
+        fits = new Fits(null, fitsConfigFile);
+    }
 
-	@Test  
-	public void testVttRead() throws Exception {   
+    @AfterClass
+    public static void afterClass() {
+        fits = null;
+    }
 
-		String inputFilename = "simple_webvtt.vtt";
-		File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-		fitsOut.addStandardCombinedFormat();
-		fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+    @Test
+    public void testVttRead() throws Exception {
 
-		List <FitsIdentity> identities = fitsOut.getIdentities();
-		
-		for(FitsIdentity identity : identities) {
-			if(!identity.getMimetype().contains("text/vtt")) {
-				fail("This should be identified as a WebVTT file with mimetype of text/vtt");
-			}
-		}
+        String inputFilename = "simple_webvtt.vtt";
+        File input = new File("testfiles/" + inputFilename);
+        FitsOutput fitsOut = fits.examine(input);
+        fitsOut.addStandardCombinedFormat();
+        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 
-	}
+        List<FitsIdentity> identities = fitsOut.getIdentities();
+
+        for (FitsIdentity identity : identities) {
+            if (!identity.getMimetype().contains("text/vtt")) {
+                fail("This should be identified as a WebVTT file with mimetype of text/vtt");
+            }
+        }
+
+    }
 
 
-	@Test  
-	public void testInvalidVttRead() throws Exception {   
+    @Test
+    public void testInvalidVttRead() throws Exception {
 
-		String inputFilename = "invalid_webvtt.vtt";
-		File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-		fitsOut.addStandardCombinedFormat();
-		fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        String inputFilename = "invalid_webvtt.vtt";
+        File input = new File("testfiles/" + inputFilename);
+        FitsOutput fitsOut = fits.examine(input);
+        fitsOut.addStandardCombinedFormat();
+        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 
-		List <FitsIdentity> identities = fitsOut.getIdentities();
-		
-		// Since this is an invalid VTT file, it should be identified as "text/plain"
-		for(FitsIdentity identity : identities) {
-			if(!identity.getMimetype().contains("text/plain")) {
-				fail("This should not be identified as a text/plain file");
-			}
-		}
+        List<FitsIdentity> identities = fitsOut.getIdentities();
 
-	}    
+        // Since this is an invalid VTT file, it should be identified as "text/plain"
+        for (FitsIdentity identity : identities) {
+            if (!identity.getMimetype().contains("text/plain")) {
+                fail("This should not be identified as a text/plain file");
+            }
+        }
+
+    }
 
 }

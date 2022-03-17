@@ -18,51 +18,51 @@ import org.jdom.Element;
 
 public class ToolMap {
 
-	private String toolName;
-	private List<ElementMap> elements = new ArrayList<ElementMap>();
+    private String toolName;
+    private List<ElementMap> elements = new ArrayList<ElementMap>();
 
-	public ToolMap(Element element) {
-		 toolName = element.getAttribute("name").getValue();
+    public ToolMap(Element element) {
+        toolName = element.getAttribute("name").getValue();
 
-		 List<Element> tool_children = element.getChildren("mime");
-		 for(Element mime : tool_children) {
-			 String types = mime.getAttributeValue("type");
-			 String[] alltypes = types.split(",");
-			 List<Element> mime_children = mime.getChildren("element");
-			 for(Element e : mime_children) {
-				 ElementMap xmlMapElement = new ElementMap(e, Arrays.asList(alltypes));
-				 elements.add(xmlMapElement);
-			 }
-		 }
-	}
+        List<Element> tool_children = element.getChildren("mime");
+        for (Element mime : tool_children) {
+            String types = mime.getAttributeValue("type");
+            String[] alltypes = types.split(",");
+            List<Element> mime_children = mime.getChildren("element");
+            for (Element e : mime_children) {
+                ElementMap xmlMapElement = new ElementMap(e, Arrays.asList(alltypes));
+                elements.add(xmlMapElement);
+            }
+        }
+    }
 
-	public String getToolName() {
-		return toolName;
-	}
+    public String getToolName() {
+        return toolName;
+    }
 
-	public void setToolName(String toolName) {
-		this.toolName = toolName;
-	}
+    public void setToolName(String toolName) {
+        this.toolName = toolName;
+    }
 
-	public List<ElementMap> getElements() {
-		return elements;
-	}
+    public List<ElementMap> getElements() {
+        return elements;
+    }
 
-	public void setElements(List<ElementMap> elements) {
-		this.elements = elements;
-	}
+    public void setElements(List<ElementMap> elements) {
+        this.elements = elements;
+    }
 
-	public void addElement(ElementMap element) {
-		elements.add(element);
-	}
+    public void addElement(ElementMap element) {
+        elements.add(element);
+    }
 
-	public ElementMap getXmlMapElement(String name, String mime) {
-		for(ElementMap xmlMapElement : elements) {
-			if(xmlMapElement.getName().equalsIgnoreCase(name)
-					&& xmlMapElement.isForType(mime)) {
-				return xmlMapElement;
-			}
-		}
-		return null;
-	}
+    public ElementMap getXmlMapElement(String name, String mime) {
+        for (ElementMap xmlMapElement : elements) {
+            if (xmlMapElement.getName().equalsIgnoreCase(name)
+                    && xmlMapElement.isForType(mime)) {
+                return xmlMapElement;
+            }
+        }
+        return null;
+    }
 }
