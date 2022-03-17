@@ -109,6 +109,11 @@
 				<map from="Centered" to="1"/>
 				<map from="Co-sited" to="2"/>
 			</element>
+			<element name="identity">
+				<attribute name="format">
+					<map from="DPX" to="Digital Picture Exchange"/>
+				</attribute>
+			</element>
 		</mime>
 	</tool>
 
@@ -158,7 +163,17 @@
                 <map from="MXF" to="Material Exchange Format (MXF)"/>
 			</element>
 		</mime>
-	</tool>	
+	</tool>
+
+	<tool name="Tika">
+		<mime type="all">
+			<element name="identity">
+				<attribute name="format">
+					<map from="Digital Picture Exchange from SMPTE" to="Digital Picture Exchange"/>
+				</attribute>
+			</element>
+		</mime>
+	</tool>
 
 
 <!-- METADATA EXTRACTION TOOLS -->
