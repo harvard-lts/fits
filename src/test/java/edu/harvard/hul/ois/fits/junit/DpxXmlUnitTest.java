@@ -55,9 +55,9 @@ public class DpxXmlUnitTest extends AbstractXmlUnitTest {
 	@Test
 	public void testDpxOutput() throws Exception {
 		String inputFilename = "00266.dpx";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
+		File input = new File("testfiles/" + inputFilename);
+		FitsOutput fitsOut = fits.examine(input);
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
 
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
@@ -75,10 +75,10 @@ public class DpxXmlUnitTest extends AbstractXmlUnitTest {
 	@Test
 	public void testDpxStandardCombinedOutput() throws Exception {
 		String inputFilename = "00266.dpx";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
-    	fitsOut.addStandardCombinedFormat();
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-standard-combined" + ACTUAL_OUTPUT_FILE_SUFFIX);
+		File input = new File("testfiles/" + inputFilename);
+		FitsOutput fitsOut = fits.examine(input);
+		fitsOut.addStandardCombinedFormat();
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-standard-combined" + ACTUAL_OUTPUT_FILE_SUFFIX);
 
 		XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
 		String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
@@ -96,13 +96,13 @@ public class DpxXmlUnitTest extends AbstractXmlUnitTest {
 	@Test
 	public void testDpxStandardOnlyOutput() throws Exception {
 		String inputFilename = "00266.dpx";
-    	File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
+		File input = new File("testfiles/" + inputFilename);
+		FitsOutput fitsOut = fits.examine(input);
 
-    	ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-    	Fits.outputStandardSchemaXml(fitsOut, out);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
+		Fits.outputStandardSchemaXml(fitsOut, out);
+		fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
 
 		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
 

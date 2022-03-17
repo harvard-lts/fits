@@ -28,14 +28,12 @@ import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
 import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import edu.harvard.hul.ois.fits.util.DateTimeUtil;
 
 public class EmbARC extends ToolBase {
 	private boolean enabled = true;
 	private Fits fits;
 	private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
-
-	private File inputFile;
-	private FileFormat fileFormat;
 
 	private static final Logger logger = LoggerFactory.getLogger(EmbARC.class);
 
@@ -48,12 +46,11 @@ public class EmbARC extends ToolBase {
 
 	@Override
 	public ToolOutput extractInfo(File file) throws FitsToolException {
-		logger.debug("embARC extractInfo starting on " + file.getName());
+		logger.debug("embARC extractInfo starting on {}", file.getName());
 		long startTime = System.currentTimeMillis();
 
-		inputFile = file;
-		String absPath = inputFile.getAbsolutePath();
-		fileFormat = FileFormatDetection.getFileFormat(absPath);
+		String absPath = file.getAbsolutePath();
+		FileFormat fileFormat = FileFormatDetection.getFileFormat(absPath);
 
 		// embARC should only run for dpx files
 		if (fileFormat != FileFormat.DPX) {
@@ -62,18 +59,18 @@ public class EmbARC extends ToolBase {
 
 		DPXFileInformation dpxFileInfo = DPXFileListHelper.createDPXFileInformation(absPath);
 
-		Document fitsXml = createToolData(dpxFileInfo);
-		Document rawData = new Document();
+		Document fitsXml = createToolData(file, dpxFileInfo);
+		Document rawData = null;
 		try {
 			rawData = createRawDataXml(dpxFileInfo);
 		} catch (FitsToolException ex) {
-			ex.printStackTrace();
+			logger.debug("embARC caught error creating raw tool output {}", ex.toString());
 		}
 		ToolOutput output = new ToolOutput(this, fitsXml, rawData, fits);
 
 		duration = System.currentTimeMillis()-startTime;
 		runStatus = RunStatus.SUCCESSFUL;
-		logger.debug("embARC extractInfo finished on " + file.getName());
+		logger.debug("embARC extractInfo finished on {}", file.getName());
 		return output;
 	}
 
@@ -87,14 +84,14 @@ public class EmbARC extends ToolBase {
 		enabled = value;
 	}
 
-	private Document createToolData(DPXFileInformation dpxFileInfo) {
+	private Document createToolData(File file, DPXFileInformation dpxFileInfo) {
 		Element fitsElement = new Element("fits", fitsNS);
 		Document toolDocument = new Document(fitsElement);
 
 		Element identificationElement = createIdentificationElement(dpxFileInfo);
 		fitsElement.addContent(identificationElement);
 
-		Element fileInfoElement = createFileInfoElement(dpxFileInfo);
+		Element fileInfoElement = createFileInfoElement(file, dpxFileInfo);
 		fitsElement.addContent(fileInfoElement);
 
 		Element metadataElement = createMetadataElement(dpxFileInfo);
@@ -107,7 +104,7 @@ public class EmbARC extends ToolBase {
 		Element identificationElement = new Element("identification", fitsNS);
 		Element identityElem = new Element("identity", fitsNS);
 
-		String format = fileFormat == FileFormat.DPX ? "Digital Picture Exchange" : "";
+		String format = "Digital Picture Exchange";
 		String mimeType = FitsMetadataValues.getInstance().normalizeMimeType(dpxFileInfo.getMimeType());
 
 		identityElem.setAttribute(new Attribute("format", format));
@@ -117,33 +114,33 @@ public class EmbARC extends ToolBase {
 		return identificationElement;
 	}
 
-	private Element createFileInfoElement(DPXFileInformation dpxFileInfo) {
+	private Element createFileInfoElement(File file, DPXFileInformation dpxFileInfo) {
 		DPXMetadata metadata = dpxFileInfo.getFileData();
 		Element fileInfoElement = new Element("fileinfo", fitsNS);
 
 		String copyrightNote = getValueForColumn(metadata, DPXColumn.COPYRIGHT_STATEMENT);
-		String created = getValueForColumn(metadata, DPXColumn.CREATION_DATETIME);
-		String filePath = inputFile.getAbsolutePath();
-		String fileName = inputFile.getName();
-		String fileSize = Long.toString(inputFile.length());
+		String created = DateTimeUtil.standardize(getValueForColumn(metadata, DPXColumn.CREATION_DATETIME));
+		String filePath = file.getAbsolutePath();
+		String fileName = file.getName();
+		String fileSize = Long.toString(file.length());
 
-		if (created != null && !created.isEmpty()) {
+		if (!created.isEmpty()) {
 			addElement(fileInfoElement, FitsMetadataValues.CREATED, created);
 		}
 
-		if (copyrightNote != null && !copyrightNote.isEmpty()) {
+		if (!copyrightNote.isEmpty()) {
 			addElement(fileInfoElement, FitsMetadataValues.COPYRIGHT_NOTE, copyrightNote);
 		}
 
-		if (filePath != null) {
+		if (!filePath.isEmpty()) {
 			addElement(fileInfoElement, "filepath", filePath);
 		}
 
-		if (fileName != null) {
+		if (!fileName.isEmpty()) {
 			addElement(fileInfoElement, "filename", fileName);
 		}
 
-		if (fileSize != null) {
+		if (!fileSize.isEmpty()) {
 			addElement(fileInfoElement, FitsMetadataValues.SIZE, fileSize);
 		}
 
@@ -165,39 +162,39 @@ public class EmbARC extends ToolBase {
 		String inputDeviceName = getValueForColumn(metadata, DPXColumn.INPUT_DEVICE_NAME);
 		String inputDeviceSerialNumber = getValueForColumn(metadata, DPXColumn.INPUT_DEVICE_SERIAL_NUMBER);
 
-		if (bitDepth != null && !bitDepth.isEmpty()) {
+		if (!bitDepth.isEmpty()) {
 			addElement(imageElement, FitsMetadataValues.BITS_PER_SAMPLE, bitDepth);
 		}
 
-		if (byteOrder != null && !byteOrder.isEmpty()) {
+		if (!byteOrder.isEmpty()) {
 			addElement(imageElement, FitsMetadataValues.BYTE_ORDER, byteOrder);
 		}
 
-		if (colorSpace != null && !colorSpace.isEmpty()) {
+		if (!colorSpace.isEmpty()) {
 			addElement(imageElement, FitsMetadataValues.COLOR_SPACE, colorSpace);
 		}
 
-		if (linesPerImageElement != null && !linesPerImageElement.isEmpty()) {
+		if (!linesPerImageElement.isEmpty()) {
 			addElement(imageElement, FitsMetadataValues.IMAGE_HEIGHT, linesPerImageElement);
 		}
 
-		if (pixelsPerLine != null && !pixelsPerLine.isEmpty()) {
+		if (!pixelsPerLine.isEmpty()) {
 			addElement(imageElement, FitsMetadataValues.IMAGE_WIDTH, pixelsPerLine);
 		}
 
-		if (creator != null && !creator.isEmpty()) {
+		if (!creator.isEmpty()) {
 			addElement(imageElement, FitsMetadataValues.IMAGE_PRODUCER, creator);
 		}
 
-		if (orientation != null && !orientation.isEmpty()) {
+		if (!orientation.isEmpty()) {
 			addElement(imageElement, FitsMetadataValues.ORIENTATION, orientation);
 		}
 
-		if (inputDeviceName != null && !inputDeviceName.isEmpty()) {
+		if (!inputDeviceName.isEmpty()) {
 			addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_NAME, inputDeviceName);
 		}
 
-		if (inputDeviceSerialNumber != null && !inputDeviceSerialNumber.isEmpty()) {
+		if (!inputDeviceSerialNumber.isEmpty()) {
 			addElement(imageElement, FitsMetadataValues.SCANNER_MODEL_SERIAL_NO, inputDeviceSerialNumber);
 		}
 
@@ -228,20 +225,17 @@ public class EmbARC extends ToolBase {
 			throw new FitsToolException("Error closing embARC tool XML output stream");
 		}
 
-		Document doc = null;
 		try {
-			doc = saxBuilder.build(new StringReader(out.toString()));
+			return saxBuilder.build(new StringReader(out.toString()));
 		} catch (Exception e) {
 			throw new FitsToolException("Error parsing embARC tool XML raw output");
 		}
-
-		return doc;
 	}
 
 	private String getValueForColumn(DPXMetadata metadata, DPXColumn column) {
 		MetadataColumn metadataColumn = metadata.getColumn(column);
 		String stdValue = metadataColumn.getStandardizedValue();
-		if (metadataColumn.isNull() || stdValue == "NULL") {
+		if (metadataColumn == null || metadataColumn.isNull() || "NULL".equals(stdValue)) {
 			return "";
 		}
 		return stripInvalidXmlChars(stdValue);
@@ -249,12 +243,12 @@ public class EmbARC extends ToolBase {
 
 	private String stripInvalidXmlChars(String input) {
 		String invalidChars = "[^"
-                + "\u0001-\uD7FF"
-                + "\u0009\r\n"
-                + "\u0020-\uD7FF"
-                + "\uE000-\uFFFD"
-                + "\ud800\udc00-\udbff\udfff"
-                + "]";
+			+ "\u0001-\uD7FF"
+			+ "\u0009\r\n"
+			+ "\u0020-\uD7FF"
+			+ "\uE000-\uFFFD"
+			+ "\ud800\udc00-\udbff\udfff"
+			+ "]";
 		return input.replaceAll(invalidChars, "");
 	}
 

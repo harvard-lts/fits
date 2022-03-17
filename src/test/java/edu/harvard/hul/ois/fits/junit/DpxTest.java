@@ -56,11 +56,11 @@ public class DpxTest extends AbstractLoggingTest {
 	public void testDpxFormatDetection() throws Exception {
 		String inputFilename = "00266.dpx";
 		File input = new File("testfiles/" + inputFilename);
-    	FitsOutput fitsOut = fits.examine(input);
+		FitsOutput fitsOut = fits.examine(input);
 		fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
 
 		List <FitsIdentity> identities = fitsOut.getIdentities();
-		
+
 		for (FitsIdentity identity : identities) {
 			if (!identity.getMimetype().contains("image/x-dpx")) {
 				fail(inputFilename + " should be identified as a DPX file with mimetype of image/x-dpx");
