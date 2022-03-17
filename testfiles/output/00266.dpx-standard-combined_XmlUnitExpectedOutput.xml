@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.2-SNAPSHOT" timestamp="3/17/22 10:11 AM">
+  <identification>
+    <identity format="Digital Picture Exchange" mimetype="image/x-dpx" toolname="FITS" toolversion="1.5.2-SNAPSHOT">
+      <tool toolname="embARC" toolversion="0.2" />
+      <tool toolname="Exiftool" toolversion="12.40" />
+      <tool toolname="Tika" toolversion="2.3.0" />
+    </identity>
+  </identification>
+  <fileinfo>
+    <created toolname="embARC" toolversion="0.2">2010-12-24</created>
+    <copyrightNote toolname="embARC" toolversion="0.2" status="SINGLE_RESULT">Copyright info</copyrightNote>
+    <filepath toolname="embARC" toolversion="0.2">/Users/cpm/Projects/fits-pm/fits/testfiles/00266.dpx</filepath>
+    <filename toolname="embARC" toolversion="0.2">00266.dpx</filename>
+    <size toolname="embARC" toolversion="0.2">12697608</size>
+    <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">a269fe44030b4d58cfa710947e5b95a2</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1647523929469</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <image>
+      <bitsPerSample toolname="embARC" toolversion="0.2" status="SINGLE_RESULT">10</bitsPerSample>
+      <byteOrder toolname="embARC" toolversion="0.2" status="SINGLE_RESULT">big endian</byteOrder>
+      <colorSpace toolname="embARC" toolversion="0.2" status="SINGLE_RESULT">R,G,B</colorSpace>
+      <imageHeight toolname="embARC" toolversion="0.2" status="SINGLE_RESULT">1556</imageHeight>
+      <imageWidth toolname="embARC" toolversion="0.2" status="SINGLE_RESULT">2048</imageWidth>
+      <imageProducer toolname="embARC" toolversion="0.2" status="SINGLE_RESULT">US,,,</imageProducer>
+      <orientation toolname="embARC" toolversion="0.2" status="SINGLE_RESULT">normal*</orientation>
+      <scannerModelName toolname="embARC" toolversion="0.2" status="SINGLE_RESULT">SPIRIT-4K DATACINE</scannerModelName>
+      <scannerModelSerialNo toolname="embARC" toolversion="0.2" status="SINGLE_RESULT">01018</scannerModelSerialNo>
+      <standard>
+        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
+          <mix:BasicDigitalObjectInformation>
+            <mix:byteOrder>big endian</mix:byteOrder>
+          </mix:BasicDigitalObjectInformation>
+          <mix:BasicImageInformation>
+            <mix:BasicImageCharacteristics>
+              <mix:imageWidth>2048</mix:imageWidth>
+              <mix:imageHeight>1556</mix:imageHeight>
+              <mix:PhotometricInterpretation>
+                <mix:colorSpace>R,G,B</mix:colorSpace>
+              </mix:PhotometricInterpretation>
+            </mix:BasicImageCharacteristics>
+          </mix:BasicImageInformation>
+          <mix:ImageCaptureMetadata>
+            <mix:GeneralCaptureInformation>
+              <mix:dateTimeCreated>2010-12-24</mix:dateTimeCreated>
+              <mix:imageProducer>US,,,</mix:imageProducer>
+            </mix:GeneralCaptureInformation>
+            <mix:ScannerCapture>
+              <mix:ScannerModel>
+                <mix:scannerModelName>SPIRIT-4K DATACINE</mix:scannerModelName>
+                <mix:scannerModelSerialNo>01018</mix:scannerModelSerialNo>
+              </mix:ScannerModel>
+            </mix:ScannerCapture>
+            <mix:orientation>normal*</mix:orientation>
+          </mix:ImageCaptureMetadata>
+          <mix:ImageAssessmentMetadata>
+            <mix:SpatialMetrics />
+            <mix:ImageColorEncoding>
+              <mix:BitsPerSample>
+                <mix:bitsPerSampleValue>10</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleUnit>integer</mix:bitsPerSampleUnit>
+              </mix:BitsPerSample>
+            </mix:ImageColorEncoding>
+          </mix:ImageAssessmentMetadata>
+        </mix:mix>
+      </standard>
+    </image>
+  </metadata>
+  <statistics fitsExecutionTime="4064">
+    <tool toolname="MediaInfo" toolversion="21.09" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="97" />
+    <tool toolname="Jhove" toolversion="1.24.9" executionTime="4049" />
+    <tool toolname="embARC" toolversion="0.2" executionTime="96" />
+    <tool toolname="file utility" toolversion="5.40" status="did not run" />
+    <tool toolname="Exiftool" toolversion="12.40" executionTime="690" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="95" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="680" />
+    <tool toolname="Tika" toolversion="2.3.0" executionTime="141" />
+  </statistics>
+</fits>

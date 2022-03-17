@@ -75,6 +75,7 @@ public class FitsMetadataValues {
     public final static String COLOR_SPACE = "colorSpace";
     public final static String COMPANY = "company";
     public final static String COMPRESSION_SCHEME = "compressionScheme";
+    public final static String COPYRIGHT_NOTE = "copyrightNote";
     public final static String CREATED = "created";
     public final static String CREATING_APPLICATION_NAME = "creatingApplicationName";
     public final static String CREATING_APPLICATION_VERSION = "creatingApplicationVersion";
@@ -102,6 +103,7 @@ public class FitsMetadataValues {
     public final static String IMAGE_COUNT = "graphicsCount";
     public final static String IMAGE_HEIGHT = "imageHeight";
     public final static String IMAGE_WIDTH = "imageWidth";
+    public final static String IMAGE_PRODUCER = "imageProducer";
     public final static String ISO_SPEED_RATING = "isoSpeedRating";
     public final static String LANGUAGE = "language";      // may be useful someday
     public final static String LAST_MODIFIED = "lastmodified";
@@ -138,6 +140,7 @@ public class FitsMetadataValues {
     public final static String SAMPLING_FREQUENCY_UNIT = "samplingFrequencyUnit";
     public final static String SCANNER_MANUFACTURER = "scannerManufacturer";
     public final static String SCANNER_MODEL_NAME = "scannerModelName";
+    public final static String SCANNER_MODEL_SERIAL_NO = "scannerModelSerialNo";
     public final static String SCANNING_SOFTWARE_NAME = "scanningSoftwareName";
     public final static String SENSING_METHOD = "sensingMethod";
     public final static String SHUTTER_SPEED_VALUE = "shutterSpeedValue";

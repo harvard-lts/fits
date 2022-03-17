@@ -44,6 +44,7 @@
 		<xerces-impl.version>2.12.2</xerces-impl.version>
 		<saxon.version>11.2</saxon.version>
 		<mvn-compiler-plgn.version>3.0</mvn-compiler-plgn.version>
+		<embarc.version>0.2</embarc.version>
 	</properties>
 
 	<build>
@@ -320,6 +321,12 @@
 			<artifactId>metadata</artifactId>
 			<version>${nzmetool.version}</version>
 			<!-- not included in main lib directory - only in subdirectory -->
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.portalmedia</groupId>
+			<artifactId>embarc</artifactId>
+			<version>${embarc.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
