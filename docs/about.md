@@ -8,7 +8,7 @@ permalink: /about
 
 The File Information Tool Set (FITS) identifies, validates and extracts technical metadata for a wide range of file formats. It acts as a wrapper, invoking and managing the output from several other open source tools. Output from these tools are converted into a common format, compared to one another and consolidated into a single XML output file. FITS is written in Java and is **compatible with Java 1.8 or higher**.
 
-<p><a class="page-link" href="https://github.com/harvard-lts/fits/releases"><svg class="svg-icon"><use xlink:href="/fits.github.io/assets/minima-social-icons.svg#github"></use></svg>Release Notes & Downloads</a></p>
+<p><a class="page-link" href="https://github.com/harvard-lts/fits/releases"><svg class="svg-icon"><use xlink:href="/fits/assets/minima-social-icons.svg#github"></use></svg>Release Notes & Downloads</a></p>
 
 <h2>FITS Web Service</h2>
 
@@ -18,4 +18,4 @@ The source code and further documentation for this project and using GET and POS
 
 Note: The latest and future versions of this project are built and tested using Java 8. 
 
-<p><a class="page-link" href="https://github.com/harvard-lts/FITSservlet/releases"><svg class="svg-icon"><use xlink:href="/fits.github.io/assets/minima-social-icons.svg#github"></use></svg>Release Notes & Source Code</a></p>
+<p><a class="page-link" href="https://github.com/harvard-lts/FITSservlet/releases"><svg class="svg-icon"><use xlink:href="/fits/assets/minima-social-icons.svg#github"></use></svg>Release Notes & Source Code</a></p>
