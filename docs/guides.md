@@ -10,7 +10,13 @@ permalink: /user-manual
 </nav>
 
 <div markdown="1" class="main">
-{% include_relative guides/introduction.md %}
+
+## Getting Started
+
+{% include_relative guides/getting-started.md %}
+
+## Using FITS
+
 {% include_relative guides/overview-of-fits-processing.md %}
 {% include_relative guides/understanding-the-output.md %}
 

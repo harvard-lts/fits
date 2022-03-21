@@ -64,12 +64,34 @@ hr {
   } 
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+}
+h5 {
+  font-size: 16px;
+}
+.post-content h4, .post-content h5 {
+  margin-top: 30px;
+}
 
 /* Table of Contents styles */
-#markdown-toc {
+#markdown-toc, 
+#markdown-toc > li > ul {
   list-style: none;
   margin-left: 0;
 }
 #markdown-toc > li {
   margin: 15px 0;
+}
+#markdown-toc > li > a {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+}
+#markdown-toc > li > ul {
+	margin-left: 15px;
+}
+
+#markdown-toc-references + ul > li {
+  padding: 5px 0;
 }
