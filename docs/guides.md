@@ -13,13 +13,6 @@ permalink: /user-manual
 {% include_relative guides/introduction.md %}
 {% include_relative guides/overview-of-fits-processing.md %}
 {% include_relative guides/understanding-the-output.md %}
-
-## References
-
-{% include_relative guides/command-line-options.md %}
-{% include_relative guides/fits-xml.md %}
-{% include_relative guides/standard-metadata-schemas.md %}
-{% include_relative guides/fits-configuration-files.md %}
-{% include_relative guides/tools.md %}
+{% include_relative guides/references.md %}
 
 </div>

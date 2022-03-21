@@ -1,7 +1,7 @@
 ## References
 
-{% include_relative guides/references/command-line-options.md %}
-{% include_relative guides/references/fits-xml.md %}
-{% include_relative guides/references/standard-metadata-schemas.md %}
-{% include_relative guides/references/fits-configuration-files.md %}
-{% include_relative guides/references/tools.md %}
+{% include_relative guides/command-line-options.md %}
+{% include_relative guides/fits-xml.md %}
+{% include_relative guides/standard-metadata-schemas.md %}
+{% include_relative guides/fits-configuration-files.md %}
+{% include_relative guides/tools.md %}
