@@ -63,3 +63,13 @@ hr {
     max-width: calc(75% - 40px); 
   } 
 }
+
+
+/* Table of Contents styles */
+#markdown-toc {
+  list-style: none;
+  margin-left: 0;
+}
+#markdown-toc > li {
+  margin: 15px 0;
+}
