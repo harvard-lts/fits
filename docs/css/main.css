@@ -95,3 +95,42 @@ h5 {
 #markdown-toc-references + ul > li {
   padding: 5px 0;
 }
+
+/* Homepage */
+.site-title {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.home h1, .home h1 + p {
+  text-align: center;
+}
+.home h1 {
+  font-size: 42px;
+  letter-spacing: 1.2px;
+}
+.home h1 + p {
+  font-size: 19px;
+  color: #424242;
+}
+
+
+.post-title {
+  letter-spacing: 1.2px;
+}
+a {
+  font-weight: 500;
+}
+
+.quick-cards {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 40px 0;
+}
+.quick-cards h2 {
+	margin-bottom: 0;
+	min-width: 200px;
+	text-align: center;
+	padding: 20px;
+}

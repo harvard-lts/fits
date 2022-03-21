@@ -18,8 +18,8 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: FITS
-email: your-email@example.com
+title: File Information Tool Set (FITS)
+email: fits-users@googlegroups.com
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation and official code release of the FITS and the FITS Web Service projects
 baseurl: "/fits" # the subpath of your site, e.g. /blog
