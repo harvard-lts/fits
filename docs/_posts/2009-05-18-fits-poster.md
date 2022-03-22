@@ -1,10 +1,9 @@
 ---
 layout: post
+categories: blog
 title:  Video support in FITS
 date:   2015-06-01
-categories: blog
 # author: author
-# author_link: author_link
 ---
 
 Harvard is in the process of integrating the [MediaInfo](https://mediaarea.net/en/MediaInfo) tool into FITS! When complete, the tool will provide format identification and technical metadata extraction for video file formats, allow FITS XML to represent technical metadata for video file formats, and support the creation of [EBUCore](https://tech.ebu.ch/MetadataEbuCore) XML metadata through the use of the embedded OTS package.

@@ -1,10 +1,9 @@
 ---
 layout: post
+categories: blog
 title:  FITS Blitz
 date:   2013-11-20
-categories: blog
 # author: author
-# author_link: author_link
 ---
 
 We're almost finished with the 2-week project to merge the different forks of FITS on GitHub and to make it easier for others to contribute code to the FITS test base. This was done as a joint project between Harvard Library and the Open Planets Foundation with funding by the SPRUCE project. Learn more about the FITS blitz at:

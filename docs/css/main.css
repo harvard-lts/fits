@@ -109,7 +109,7 @@ h5 {
   font-size: 42px;
   letter-spacing: 1.2px;
 }
-.home h1 + p {
+.home h1 + p, h1.post-title + p {
   font-size: 19px;
   color: #424242;
 }
@@ -133,4 +133,34 @@ a {
 	min-width: 200px;
 	text-align: center;
 	padding: 20px;
+}
+
+
+.connect-cards > div {
+  margin-bottom: 30px;
+}
+.connect-cards h2 {
+  font-size: 24px;
+  line-height: 32px;
+  margin-bottom: 5px;
+}
+@media(min-width:620px){
+  .connect-cards {
+    display: grid;
+    grid-template-columns: calc(50% - 15px) calc(50% - 15px);
+    grid-gap: 30px;
+  }
+  .connect-cards > div {
+    margin-bottom: 0;
+  }
+}
+
+
+.news-grid {
+  list-style: none;
+  margin-left: 0;
+}
+.news-grid h2 {
+  font-size: 20px;
+  line-height: 30px;
 }
