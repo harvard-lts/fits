@@ -1,1 +1,0 @@
-#### fits_xml_map.xml
