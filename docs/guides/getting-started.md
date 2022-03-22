@@ -15,7 +15,7 @@ The external tools currently used are:
 
 ### Why use FITS?
 
-EVERYBODY SHOULD JUST DO IT.
+Preservationists and digital curators who are concerned with long-term access and use of digital files might extract technical metadata from digital files to troubleshoot problems and to create a record of the file’s properties. A number of tools can reliably extract technical metadata, but the File Information Tool Set combines these tools and compares the results of their output; this saves time and effort.
 
 ### Installing FITS
 

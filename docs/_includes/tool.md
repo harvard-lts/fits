@@ -10,8 +10,9 @@
 | Maintenance organization | {% if post.maintenance-organization %} {{ post.maintenance-organization }} {% endif %} |
 | Capabilities | {% if post.capabilities %} {{ post.capabilities }} {% endif %} |
 | Formats supported | {% if post.formats %} {{ post.formats }} {% endif %} |
-| Details | {% if post.details %} {{ post.details }} {% endif %} |
-| More information | {% if post.more-info-url %} {% if post.more-info %}{{post.more-info}}<br><br>{% endif %}<a href="{{ post.more-info-url }}">{{ post.more-info-url }}</a>{% else if post.more-info %} {{ post.more-info }} {% endif %}|
+| Description | {% if post.description %} {{ post.description }} {% endif %} |
+| Usage notes | {% if post.usage-note %}{{post.usage-note}}{% endif %} |
+| More information | {% if post.more-info-url %}<a href="{{ post.more-info-url }}">{{ post.more-info-url }}</a>{% endif %} |
 
 </section>
 

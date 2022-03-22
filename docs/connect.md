@@ -15,8 +15,8 @@ permalink: /connect
     <p>Join the FITS Slack channel #fits-community-sprint in the code4lib workspace to chat with others in the community.</p>
   </div>
   <div>
-    <h2><a href="#">Participate in a Community Sprint</a></h2>
-    <p>Sign up to get involved the community's next 2-week sprint (date TBD).</p>
+    <h2>Participate in a Community Sprint></h2>
+    <p>Get involved the community's next 2-week sprint (date TBD). Sign up for the FITS Google Group to learn when the next sprint will be.</p>
   </div>
   <div>
     <h2><a href="https://github.com/harvard-lts/fits/issues">Discuss on GitHub</a></h2>
