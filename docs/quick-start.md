@@ -70,6 +70,6 @@ See the [Developer Manual](https://github.com/harvard-lts/fits/wiki/Developer-Ma
 
 ## 6. Next steps
 
-After you are up and running see the [User Manual]() for more documentation. 
+After you are up and running see the [User Manual](/fits/user-manual) for more documentation. 
 
 </div>
