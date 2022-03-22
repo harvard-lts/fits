@@ -13,7 +13,6 @@
 | Details | {% if post.details %} {{ post.details }} {% endif %} |
 | More information | {% if post.more-info-url %} {% if post.more-info %}{{post.more-info}}<br><br>{% endif %}<a href="{{ post.more-info-url }}">{{ post.more-info-url }}</a>{% else if post.more-info %} {{ post.more-info }} {% endif %}|
 
-
 </section>
 
 {% endfor %}
