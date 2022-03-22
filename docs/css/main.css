@@ -45,7 +45,7 @@ hr {
 
   .sidebar {
     overflow-y: auto;
-    height: 100vh;
+    height: calc(100vh - 80px);
     flex: 0 0 25%;
     max-width: 25%;
   }
