@@ -2,7 +2,7 @@
 
 {% for post in sorted_posts %}
 
-<section id="categories" markdown="1">
+<section markdown="1">
 
 #### {{ post.title }}
 
@@ -12,7 +12,7 @@
 | Formats supported | {% if post.formats %} {{ post.formats }} {% endif %} |
 | Description | {% if post.description %} {{ post.description }} {% endif %} |
 | Usage notes | {% if post.usage-note %}{{post.usage-note}}{% endif %} |
-| More information | {% if post.more-info-url %}<a href="{{ post.more-info-url }}">{{ post.more-info-url }}</a>{% endif %} |
+| More information | {% if post.more-info-url %} [{{ post.more-info-url }}]({{ post.more-info-url }}) {% endif %} |
 
 </section>
 
