@@ -172,6 +172,7 @@ code {
 .highlighter-rouge .highlight {
   background: #f5f5f5; 
   border-left: 3px solid #426ea8;
+  border-radius: 0;
 }
 .highlight code {
 	background: #f5f5f5;

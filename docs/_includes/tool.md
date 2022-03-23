@@ -15,11 +15,11 @@
 {% endif %}
 
 | --------- | ----------- |
-| Maintenance organization | {% if post.maintenance-organization %} {{ post.maintenance-organization }} {% endif %} |
-| Capabilities | {% if post.capabilities %} {{ post.capabilities }} {% endif %} |
-| Formats supported | {% if post.formats %} {{ post.formats }} {% endif %} |
-| Description | {% if post.description %} {{ post.description }} {% endif %} |
-| Usage notes | {% if post.usage-note %}{{post.usage-note}}{% endif %} |
+| **Maintenance organization** | {% if post.maintenance-organization %} {{ post.maintenance-organization }} {% endif %} |
+| **Capabilities** | {% if post.capabilities %} {{ post.capabilities }} {% endif %} |
+| **Formats supported** | {% if post.formats %} {{ post.formats }} {% endif %} |
+| **Description** | {% if post.description %} {{ post.description }} {% endif %} |
+| **Usage notes** | {% if post.usage-note %}{{post.usage-note}}{% endif %} |
 
 </section>
 
