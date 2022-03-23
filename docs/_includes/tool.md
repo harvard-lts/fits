@@ -4,7 +4,15 @@
 
 <section markdown="1">
 
+{% if post.more-info-url %}
+
+#### [{{ post.title }}]({{ post.more-info-url }})
+
+{% else %}
+
 #### {{ post.title }}
+
+{% endif %}
 
 | --------- | ----------- |
 | Maintenance organization | {% if post.maintenance-organization %} {{ post.maintenance-organization }} {% endif %} |
@@ -12,7 +20,6 @@
 | Formats supported | {% if post.formats %} {{ post.formats }} {% endif %} |
 | Description | {% if post.description %} {{ post.description }} {% endif %} |
 | Usage notes | {% if post.usage-note %}{{post.usage-note}}{% endif %} |
-| More information | {% if post.more-info-url %} [{{ post.more-info-url }}]({{ post.more-info-url }}) {% endif %} |
 
 </section>
 
