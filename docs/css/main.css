@@ -164,3 +164,15 @@ a {
   font-size: 20px;
   line-height: 30px;
 }
+
+/* styling code boxes */
+code {
+  font-size: 90%;
+}
+.highlighter-rouge .highlight {
+  background: #f5f5f5; 
+  border-left: 3px solid #426ea8;
+}
+.highlight code {
+	background: #f5f5f5;
+}
