@@ -35,9 +35,9 @@
 		<ots-schemas.version>1.0.56</ots-schemas.version>
 		<jhove.version>1.24.9</jhove.version>
 		<jna.version>5.9.0</jna.version>
-		<hclaps.version>2.2.0-SNAPSHOT</hclaps.version>
+		<hclaps.version>2.2.0</hclaps.version>
 		<fast-md5.version>2.7.1</fast-md5.version>
-		<aes31.version>31.4.0-SNAPSHOT</aes31.version>
+		<aes31.version>31.4.0</aes31.version>
 		<gson.version>2.9.0</gson.version>
 		<nzmetool.version>3.6GA</nzmetool.version>
 		<xerces-impl.version>2.12.2</xerces-impl.version>

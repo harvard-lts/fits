@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.harvard.lts.tools</groupId>
-  <artifactId>hclaps</artifactId>
-  <version>2.2.0-SNAPSHOT</version>
+  <artifactId>aes</artifactId>
+  <version>31.4.0</version>
   <description>POM was created from install:install-file</description>
 </project>
