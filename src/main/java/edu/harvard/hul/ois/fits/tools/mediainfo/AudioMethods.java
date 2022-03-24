@@ -20,7 +20,9 @@ public enum AudioMethods {
 	duration ("duration"),
 	trackSize ("trackSize"),
 	samplingRate ("samplingRate"),
-	channels ("channels");
+	channels ("channels"),
+	soundField ("soundField"),
+	byteOrder ("byteOrder");
 
 	private String name;
 

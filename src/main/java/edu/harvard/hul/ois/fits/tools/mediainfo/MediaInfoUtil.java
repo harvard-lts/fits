@@ -309,7 +309,7 @@ public class MediaInfoUtil {
 		    // for MXF, we use the codecId.
 		    // String codecFamily = getMediaInfoString(ndx, "Codec/Family",
 		    //		MediaInfoNativeWrapper.StreamKind.Video);
-		    String codecFamily = CODEC_4CC_TO_FAMILY.get(codecCC);
+		    String codecFamily = CODEC_4CC_TO_FAMILY.get(codecId);
 		    // Now try for MXF files, if we haven't gotten a Codec Family
 		    if(codecFamily == null) {
 		    	codecFamily = CODEC_MXF_TO_FAMILY.get(codecId);
@@ -401,6 +401,14 @@ public class MediaInfoUtil {
 		    String channels = getMediaInfoString(ndx, "Channels",
 		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    addDataToMap(audioTrackValuesMap, id, "channels", channels);
+
+		    String channelPositions = getMediaInfoString(ndx, "ChannelPositions",
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
+		    addDataToMap(audioTrackValuesMap, id, "soundField", channelPositions);
+
+		    String byteOrder = getMediaInfoString(ndx, "Format_Settings_Endianness",
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
+		    addDataToMap(audioTrackValuesMap, id, "byteOrder", byteOrder);
 
 		    // Additional Codec stuff:
 		    String codecId = getMediaInfoString(ndx, "CodecID",
@@ -744,7 +752,7 @@ public class MediaInfoUtil {
     			// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
     			// BitRateMax
     			String bitRateMode = videoTrackValuesMap.get(id).get("bitRateMode");
-    			if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+    			if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.equals("Variable")) {
     				String bitRateMax = videoTrackValuesMap.get(id).get("bitRateMax");
     				if(!StringUtils.isEmpty(bitRateMax)) {
     					childElement.setText(bitRateMax);
@@ -753,10 +761,10 @@ public class MediaInfoUtil {
     			}
     			break;
     		case frameRate:
-    			// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+    			// NOTE: If the bitRateMode is Variable (VFR), set it to the value for
     			// BitRateMax
     			String frameRateMode = videoTrackValuesMap.get(id).get("frameRateMode");
-    			if(!StringUtils.isEmpty(frameRateMode) && frameRateMode.toUpperCase().equals("VFR")) {
+    			if(!StringUtils.isEmpty(frameRateMode) && (frameRateMode.equals("Variable") || frameRateMode.equals("VFR"))) {
     				String frameRateMax = videoTrackValuesMap.get(id).get("frameRateMax");
     				if(!StringUtils.isEmpty(frameRateMax)) {
     					childElement.setText(frameRateMax);
@@ -828,7 +836,7 @@ public class MediaInfoUtil {
     			// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
     			// BitRateMax
     			String bitRateMode = audioTrackValuesMap.get(id).get("bitRateMode");
-    			if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+    			if(!StringUtils.isEmpty(bitRateMode) && (bitRateMode.equals("Variable") || bitRateMode.equals("VBR"))) {
     				String bitRateMax = audioTrackValuesMap.get(id).get("bitRateMax");
     				if(!StringUtils.isEmpty(bitRateMax)) {
     					childElement.setText(bitRateMax);
