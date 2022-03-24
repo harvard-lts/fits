@@ -438,6 +438,9 @@ public class MediaInfoUtil {
 		try {
 			reviseIdentification(fitsXml);
 
+            // NOTE: We need to add a namespace to xpath, because JDom XPath
+            // does not support default namespaces. It requires you to add a
+            // fake namespace to the XPath instance.
 	        XPathExpression<Element> expr = xFactory.compile("//x:fits/x:metadata/x:video", Filters.element(), null, fitsNamespace);
 		    Element videoElement = expr.evaluateFirst(fitsXml);
 		    List<Content>elementList = videoElement.getContent();
@@ -554,6 +557,9 @@ public class MediaInfoUtil {
 		// Normalize the format and mimetype to "video/quicktime" and
 	    // Quicktime
 		//
+        // NOTE: We need to add a namespace to xpath, because JDom XPath
+        // does not support default namespaces. It requires you to add a
+        // fake namespace to the XPath instance.
         XPathExpression<Element> identityExpr = xFactory.compile("//x:fits/x:identification", Filters.element(), null, fitsNamespace);
 	    Element identityElement = identityExpr.evaluateFirst(fitsXml);
 	    List<Content>elementIdentityList = identityElement.getContent();
