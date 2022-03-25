@@ -2,7 +2,7 @@
 layout: post
 categories: data-dictionary
 semantic-unit: 1.0 identification
-semantic-components: 1.1 identity <br> 1.2 tool <br> 1.3 version <br> 1.4 externalIdentifier
+semantic-components: <span>1.1</span>identity<br><span>1.2</span>tool<br><span>1.3</span>version<br><span>1.4</span>externalIdentifier
 definition: This section contains the file format in one or more identity blocks.
 rationale: Each file processed with FITS should have a unique format to support use and rendering.
 data-constraint: Container

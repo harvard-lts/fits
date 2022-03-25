@@ -2,7 +2,7 @@
 layout: post
 categories: data-dictionary
 semantic-unit: 3.0 fileStatus
-semantic-components: 3.01 messageElements <br> 3.01.1 well-formed <br> 3.01.2 valid <br> 3.01.3 message
+semantic-components: <span>3.01</span>messageElements<br><span>3.01.1</span>well-formed<br><span>3.01.2</span>valid<br><span>3.01.3</span>message
 definition: This section contains validity information if the tools are able to identify a valid format.
 rationale: Each file processed with FITS should have a declaration of validity.
 data-constraint: Container

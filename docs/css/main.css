@@ -46,8 +46,10 @@ hr {
   .sidebar {
     overflow-y: auto;
     height: calc(100vh - 80px);
-    flex: 0 0 25%;
-    max-width: 25%;
+    /* flex: 0 0 25%;
+    max-width: 25%; */
+    flex: 0 0 250px;
+    max-width: 250px;
   }
   .sidebar {
     border-right: 1px solid black;
@@ -59,8 +61,10 @@ hr {
 
   .main {
     padding-left: 20px;
-    flex: 0 0 calc(75% - 40px);
-    max-width: calc(75% - 40px); 
+    /* flex: 0 0 calc(75% - 40px);
+    max-width: calc(75% - 40px);  */
+    flex: 0 0 calc(100% - 290px);
+    max-width: calc(100% - 290px); 
   } 
 }
 
@@ -176,4 +180,73 @@ code {
 }
 .highlight code {
 	background: #f5f5f5;
+}
+
+
+/* semantic components within table */
+table td span {
+  display: inline-block;
+  min-width: 43px;
+}
+#identification + table td span {
+  min-width: 30px;
+}
+#filestatus + table td span {
+  min-width: 55px;
+}
+
+/* semantic components dropdowns */
+#audio-elements + table, #document-elements + table, #text-elements + table, #image-elements + table, #video-elements + table {
+  margin-bottom: -50px;
+}
+#semantic-audio, #semantic-document, #semantic-text, #semantic-image, #semantic-video {
+  padding-top: 80px;
+}
+ 
+summary {
+  font-weight: 600;
+  padding: 10px;
+  background: #f5f5f5;
+}
+summary::marker {
+  color: #426ea8
+}
+summary:hover {
+  cursor: pointer;
+}
+details dl {
+  font-size: 90%;
+	column-count: 3;
+  column-gap: 40px;
+  column-rule: 2px solid #426ea8;
+	padding: 5px 15px 15px;
+	background: #f5f5f5;
+	
+}
+details dt {
+  display: inline-block;
+  width: 60px;
+}
+details dd {
+  display: inline-block;
+  width: calc(100% - 65px);
+}
+@media(max-width:1170px){
+  details dl {
+    column-count: 2;
+  }
+}
+@media(max-width:480px){
+  details dl {
+    column-count: 1;
+  }
+}
+
+/* noramlize table rows */
+table tr td:first-child {
+  width: 150px;
+}
+/* excluse command line table */
+#command-line-options + p + table tr td:first-child {
+	width: auto;
 }
