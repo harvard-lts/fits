@@ -17,6 +17,19 @@ hr {
   vertical-align: middle; 
 }
 
+a, a:visited, a:hover, a:focus {
+  color: #1756a9;
+}
+
+.site-header {
+  background: #426ea8;
+}
+.site-title, .site-title:visited {
+  color: white;
+}
+.site-nav .page-link {
+  color: white;
+}
 
 /* anchor links need an offset to clear the fixed header */
 :target::before {
@@ -128,15 +141,23 @@ a {
 
 .quick-cards {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-wrap: wrap;
   margin: 40px 0;
 }
+.quick-cards a {
+  background: #f5f5f5;
+  border: 1px solid #e8e8e8;
+  color: black;
+}
+.quick-cards a > div {
+  margin-bottom: 0;
+  min-width: 200px;
+  text-align: center;
+  padding: 20px;
+}
 .quick-cards h2 {
 	margin-bottom: 0;
-	min-width: 200px;
-	text-align: center;
-	padding: 20px;
 }
 
 
@@ -249,4 +270,30 @@ table tr td:first-child {
 /* excluse command line table */
 #command-line-options + p + table tr td:first-child {
 	width: auto;
+}
+
+
+/* ALERT BOX */
+a.alert-box {
+	padding: 20px;
+	margin-bottom: 40px;
+	background: #f5f5f5;
+	color: black;
+	display: block;
+	font-size: 19px;
+  line-height: 21px;
+	border: 1px solid #e8e8e8;
+	border-left: 15px solid #426ea8;
+  display: flex;
+}
+a.alert-box svg {
+  padding-right: 10px;
+}
+
+/* FOOTER */
+.contact-list li + li {
+  padding-top: 5px; 
+}
+.footer-col-wrapper {
+  color: #111;
 }
