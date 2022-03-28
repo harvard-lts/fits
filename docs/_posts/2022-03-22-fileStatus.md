@@ -6,7 +6,7 @@ semantic-components: <span>3.01</span>messageElements<br><span>3.01.1</span>well
 definition: This section contains validity information if the tools are able to identify a valid format.
 rationale: Each file processed with FITS should have a declaration of validity.
 data-constraint: Container
-repeatability: Repeatable
+repeatability: Not repeatable
 obligation: Automatic
 usage-notes: Well-formed and valid elements will indicate a boolean value (true or false) depending on the validation status of the file.
 ---
