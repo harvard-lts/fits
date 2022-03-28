@@ -12,6 +12,7 @@
 | **Definition** | {% if post.definition %} {{ post.definition }} {% endif %} |
 | **Rationale** | {% if post.rationale %} {{ post.rationale }} {% endif %} |
 | **Data constraint** | {% if post.data-constraint %} {{ post.data-constraint }} {% endif %} |
+| **Repeatability** | {% if post.repeatability %} {{ post.drepeatability }} {% endif %} |
 | **Obligation** | {% if post.obligation %} {{ post.obligation }} {% endif %} |
 | **Usage notes** | {% if post.usage-notes %}{{ post.usage-notes }}{% endif %} |
 {% if post.metadata-standard %}| **Metadata standard** | {{ post.metadata-standard }} |
