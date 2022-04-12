@@ -144,15 +144,18 @@ a {
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 40px 0;
+  gap: 40px;
 }
 .quick-cards a {
+  flex: 1 1 200px;
   background: #f5f5f5;
   border: 1px solid #e8e8e8;
   color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .quick-cards a > div {
-  margin-bottom: 0;
-  min-width: 200px;
   text-align: center;
   padding: 20px;
 }
