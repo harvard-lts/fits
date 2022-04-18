@@ -56,6 +56,8 @@ public class ParentLastClassLoader extends ClassLoader {
 		loadByParentClassLoader.add("org.apache.xerces");
 		loadByParentClassLoader.add("org.w3c");
 		loadByParentClassLoader.add("org.jdom");
+		loadByParentClassLoader.add("org.slf4j");
+		loadByParentClassLoader.add("org.apache.log4j"); // can be removed once upgrade to Droid containing log4j2
 	}
 
 	/**
