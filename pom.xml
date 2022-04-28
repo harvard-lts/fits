@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.harvard.huit.lts</groupId>
 	<artifactId>fits</artifactId>
-	<version>1.5.2</version>
+	<version>1.6.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>FITS</name>
@@ -354,7 +354,7 @@
 		<connection>scm:git:git://github.com:harvard-lts/fits.git</connection>
 		<developerConnection>scm:git:git@github.com:harvard-lts/fits.git</developerConnection>
 		<url>https://github.com/harvard-lts/fits</url>
-	  <tag>1.5.2</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<licenses>
