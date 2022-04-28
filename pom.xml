@@ -353,9 +353,9 @@
 	</distributionManagement>
 
 	<scm>
-		<connection>scm:git:git://github.com/harvard-lts/fits.git</connection>
-		<developerConnection>https://github.com/harvard-lts/fits.git</developerConnection>
-		<url>https://github.com/harvard-lts/fits/tree/master</url>
+		<connection>scm:git:git://github.com:harvard-lts/fits.git</connection>
+		<developerConnection>scm:git:git@github.com:harvard-lts/fits.git</developerConnection>
+		<url>https://github.com/harvard-lts/fits</url>
 	</scm>
 
 	<licenses>
