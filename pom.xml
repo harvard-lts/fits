@@ -42,6 +42,7 @@
 		<gson.version>2.4</gson.version>
 		<nzmetool.version>3.6GA</nzmetool.version>
 		<xerces-impl.version>2.12.1</xerces-impl.version>
+		<xml-apis.version>1.4.01</xml-apis.version>
 		<saxon.version>9.8.0-10</saxon.version>
 		<mvn-compiler-plgn.version>3.0</mvn-compiler-plgn.version>
 	</properties>
@@ -132,6 +133,11 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>${xml-apis.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>
