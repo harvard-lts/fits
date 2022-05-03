@@ -16,8 +16,9 @@
 		<java.version>1.8</java.version>
 		<java.target>1.8</java.target>
 		<bcmail.version>132</bcmail.version>
-		<log4j.version>1.2.17</log4j.version>
-		<slf4j.version>1.7.22</slf4j.version>
+		<reload4j.version>1.2.20</reload4j.version>
+		<slf4j.version>1.7.36</slf4j.version>
+		<slf4j-reload.version>1.7.36</slf4j-reload.version>
 		<tika.version>1.22</tika.version>
 		<jdom.version>1.1.3</jdom.version>
 		<woodstox.version>4.4.1</woodstox.version>
@@ -137,9 +138,9 @@
 			<version>${xerces-impl.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
+			<groupId>ch.qos.reload4j</groupId>
+			<artifactId>reload4j</artifactId>
+			<version>${reload4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -148,8 +149,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
+			<artifactId>slf4j-reload4j</artifactId>
+			<version>${slf4j-reload.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jdom</groupId>
