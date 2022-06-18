@@ -33,7 +33,7 @@
 		<commons-configuration.version>1.10</commons-configuration.version>
 		<droid.version>6.5.2</droid.version>
 		<ots-schemas.version>1.0.58</ots-schemas.version>
-		<jhove.version>1.24.9</jhove.version>
+		<jhove.version>1.26.0</jhove.version>
 		<jna.version>5.9.0</jna.version>
 		<hclaps.version>2.2.0</hclaps.version>
 		<fast-md5.version>2.7.1</fast-md5.version>
