@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0" timestamp="12/6/21 3:32 PM">
-  <identification status="SINGLE_RESULT">
-    <identity format="TIFF EXIF" mimetype="image/tiff" toolname="FITS" toolversion="1.5.0">
-      <tool toolname="Jhove" toolversion="1.20.1" />
-      <version toolname="Jhove" toolversion="1.20.1">6.0</version>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="6/11/22, 9:41 AM">
+  <identification>
+    <identity format="Tagged Image File Format" mimetype="image/tiff" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
+      <tool toolname="Droid" toolversion="6.5.2" />
+      <tool toolname="Jhove" toolversion="1.26.0" />
+      <tool toolname="Exiftool" toolversion="12.40" />
+      <tool toolname="ffident" toolversion="0.2" />
+      <tool toolname="Tika" toolversion="2.3.0" />
+      <version toolname="Jhove" toolversion="1.26.0">6.0</version>
+      <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/353</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
@@ -24,20 +29,23 @@
   </filestatus>
   <metadata>
     <image>
-      <byteOrder toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">big endian</byteOrder>
-      <compressionScheme toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">Uncompressed</compressionScheme>
-      <imageWidth toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">1060</imageWidth>
-      <imageHeight toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">1611</imageHeight>
-      <colorSpace toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">RGB</colorSpace>
-      <referenceBlackWhite toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">0 255 0 255 0 255</referenceBlackWhite>
-      <iccProfileName toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">Adobe RGB (1998)</iccProfileName>
-      <orientation toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">normal*</orientation>
-      <samplingFrequencyUnit toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">in.</samplingFrequencyUnit>
-      <xSamplingFrequency toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">1200</xSamplingFrequency>
-      <ySamplingFrequency toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">1200</ySamplingFrequency>
-      <bitsPerSample toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">8 8 8</bitsPerSample>
-      <samplesPerPixel toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">3</samplesPerPixel>
-      <scanningSoftwareName toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">Adobe Photoshop CS Macintosh</scanningSoftwareName>
+      <byteOrder toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">big endian</byteOrder>
+      <compressionScheme toolname="Jhove" toolversion="1.26.0">Uncompressed</compressionScheme>
+      <imageWidth toolname="Jhove" toolversion="1.26.0">1060</imageWidth>
+      <imageHeight toolname="Jhove" toolversion="1.26.0">1611</imageHeight>
+      <colorSpace toolname="Jhove" toolversion="1.26.0">RGB</colorSpace>
+      <referenceBlackWhite toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">0 255 0 255 0 255</referenceBlackWhite>
+      <iccProfileName toolname="Jhove" toolversion="1.26.0">Adobe RGB (1998)</iccProfileName>
+      <orientation toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">normal*</orientation>
+      <samplingFrequencyUnit toolname="Jhove" toolversion="1.26.0">in.</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Jhove" toolversion="1.26.0">1200</xSamplingFrequency>
+      <ySamplingFrequency toolname="Jhove" toolversion="1.26.0">1200</ySamplingFrequency>
+      <bitsPerSample toolname="Jhove" toolversion="1.26.0">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Jhove" toolversion="1.26.0">3</samplesPerPixel>
+      <scanningSoftwareName toolname="Jhove" toolversion="1.26.0">Adobe Photoshop CS Macintosh</scanningSoftwareName>
+      <iccProfileVersion toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
+      <scannerManufacturer toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">HDPPKIEL</scannerManufacturer>
+      <scannerModelName toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">TOPAZ iX Scanner</scannerModelName>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -55,6 +63,7 @@
                 <mix:ColorProfile>
                   <mix:IccProfile>
                     <mix:iccProfileName>Adobe RGB (1998)</mix:iccProfileName>
+                    <mix:iccProfileVersion>2.1.0</mix:iccProfileVersion>
                   </mix:IccProfile>
                 </mix:ColorProfile>
                 <mix:ReferenceBlackWhite>
@@ -100,6 +109,10 @@
               <mix:dateTimeCreated>2006-11-28T17:22:59Z</mix:dateTimeCreated>
             </mix:GeneralCaptureInformation>
             <mix:ScannerCapture>
+              <mix:scannerManufacturer>HDPPKIEL</mix:scannerManufacturer>
+              <mix:ScannerModel>
+                <mix:scannerModelName>TOPAZ iX Scanner</mix:scannerModelName>
+              </mix:ScannerModel>
               <mix:ScanningSystemSoftware>
                 <mix:scanningSoftwareName>Adobe Photoshop CS Macintosh</mix:scanningSoftwareName>
               </mix:ScanningSystemSoftware>

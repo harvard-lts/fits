@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/8/16 1:33 PM">
-  <identification status="SINGLE_RESULT">
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
-      <tool toolname="Jhove" toolversion="1.11" />
-      <version toolname="Jhove" toolversion="1.11">1b</version>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="6/18/22, 7:51 AM">
+  <identification>
+    <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
+      <tool toolname="Droid" toolversion="6.5.2" />
+      <tool toolname="Jhove" toolversion="1.26.0" />
+      <tool toolname="Exiftool" toolversion="12.40" />
+      <tool toolname="Tika" toolversion="2.3.0" />
+      <version toolname="Jhove" toolversion="1.26.0">3:2003</version>
+      <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/158</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
@@ -22,11 +26,12 @@
   </filestatus>
   <metadata>
     <document>
-      <title toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Untitled-2</title>
-      <pageCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">16</pageCount>
-      <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
-      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <title toolname="Jhove" toolversion="1.26.0">Untitled-2</title>
+      <author toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">Adobe InDesign CS6 (Windows)</author>
+      <pageCount toolname="Jhove" toolversion="1.26.0">16</pageCount>
+      <hasOutline toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">no</hasAnnotations>
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>MyriadPro-Regular</fontName>
       </font>
       <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">

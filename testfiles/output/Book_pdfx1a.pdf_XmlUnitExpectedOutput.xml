@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.0.0" timestamp="6/8/16 1:32 PM">
-  <identification status="SINGLE_RESULT">
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.0.0">
-      <tool toolname="Jhove" toolversion="1.11" />
-      <version toolname="Jhove" toolversion="1.11">1b</version>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="6/11/22, 9:41 AM">
+  <identification>
+    <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
+      <tool toolname="Droid" toolversion="6.5.2" />
+      <tool toolname="Jhove" toolversion="1.26.0" />
+      <tool toolname="Exiftool" toolversion="12.40" />
+      <tool toolname="Tika" toolversion="2.3.0" />
+      <version toolname="Jhove" toolversion="1.26.0">1a:2003</version>
+      <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/157</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
@@ -22,8 +26,9 @@
   </filestatus>
   <metadata>
     <document>
-      <title toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">Book.indd</title>
-      <pageCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">8</pageCount>
+      <title toolname="Jhove" toolversion="1.11">Book.indd</title>
+      <author toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">Adobe InDesign CS6 (Windows)</author>
+      <pageCount toolname="Jhove" toolversion="1.11">8</pageCount>
       <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
       <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
       <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">21</graphicsCount>
