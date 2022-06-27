@@ -154,7 +154,12 @@ public class VideoStdSchemaXmlUnitTest extends AbstractXmlUnitTest {
 		
 		// Create standard output in the stream passed in
 		Fits.outputStandardSchemaXml(fitsOut, out);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
+
+        File file = new File("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(out.toByteArray());
+        fos.flush();
+        fos.close();
 		
 		// Turn output stream into a String HtmlUnit can use
 		String actualXmlStr = new String(out.toByteArray(),"UTF-8");
