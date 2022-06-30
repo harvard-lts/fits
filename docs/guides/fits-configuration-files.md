@@ -72,7 +72,7 @@ The above snippet of the format tree should be interpreted as: JPEG 2000 JP2 and
 
 
 #### [fits_output.xsd](https://github.com/harvard-lts/fits/blob/dev/xml/fits_output.xsd)
-**Not listed on site, but located in xml directory - should we expand on this?**
+Schema for the output of FITS XML files.
 
 
 #### [fits_xml_map.xml](https://github.com/harvard-lts/fits/blob/dev/xml/fits_xml_map.xml)
@@ -94,10 +94,10 @@ Used to map format names to MIME media types for some of the tools that FITS wra
 
 
 #### [prettyprint.xslt](https://github.com/harvard-lts/fits/blob/dev/xml/prettyprint.xslt)
-**Not listed on site, but located in xml directory - should we expand on this?**
+Transforms the standard FITS output into “pretty print” XML formatting for easier human readability.
 
 
 #### [xslt_map.xsd](https://github.com/harvard-lts/fits/blob/dev/xml/xslt_map.xsd)
-**Not listed on site, but located in xml directory - should we expand on this?**
+Schema for transformation maps for these tools: exiftool_xslt_map.xml, jhove_xslt_map.xml, nlnx_xslt_map.xml.
 
 ---
