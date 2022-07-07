@@ -163,6 +163,20 @@ a {
 	margin-bottom: 0;
 }
 
+.fits-contributors {
+  column-gap: 20px;
+}
+@media(min-width:480px){
+  .fits-contributors {
+    column-count: 2;
+  }
+}
+@media(min-width:780px){
+  .fits-contributors {
+    column-count: 4;
+  }
+}
+
 
 .connect-cards > div {
   margin-bottom: 30px;
