@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="6/18/22, 7:51 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="7/14/22, 4:44 PM">
   <identification>
     <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
@@ -11,18 +11,18 @@
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.11">592522</size>
-    <creatingApplicationName toolname="Jhove" toolversion="1.11">Adobe PDF Library 10.0.1/Adobe InDesign CS6 (Windows)</creatingApplicationName>
+    <size toolname="Jhove" toolversion="1.26.0">592522</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.26.0">Adobe PDF Library 10.0.1/Adobe InDesign CS6 (Windows)</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="12.40">2015-08-20T22:22:09Z</lastmodified>
     <created toolname="Exiftool" toolversion="12.40">2015-08-20T22:22:08Z</created>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/PDFx3.pdf</filepath>
-    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFx3.pdf</filename>
-    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">745c9a202265d728d5cd21f86f1d411f</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1464898750000</fslastmodified>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/PDFx3.pdf</filepath>
+    <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">PDFx3.pdf</filename>
+    <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">745c9a202265d728d5cd21f86f1d411f</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1466791807000</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+    <well-formed toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</valid>
   </filestatus>
   <metadata>
     <document>
@@ -34,10 +34,10 @@
       <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>MyriadPro-Regular</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>OpenSans</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>OpenSans-Bold</fontName>
       </font>
       <standard>
@@ -50,21 +50,21 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="251">
-    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+  <statistics fitsExecutionTime="340">
+    <tool toolname="MediaInfo" toolversion="21.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="32" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="133" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="54" />
+    <tool toolname="Jhove" toolversion="1.26.0" executionTime="182" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="101" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="234" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="69" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="6" />
+    <tool toolname="file utility" toolversion="5.41" executionTime="138" />
+    <tool toolname="Exiftool" toolversion="12.40" executionTime="329" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="48" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="8" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="114" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="69" />
+    <tool toolname="Tika" toolversion="2.3.0" executionTime="153" />
   </statistics>
 </fits>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="6/11/22, 9:41 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="7/14/22, 4:31 PM">
   <identification>
     <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
@@ -11,34 +11,34 @@
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.11">962199</size>
-    <creatingApplicationName toolname="Jhove" toolversion="1.11">Adobe PDF Library 10.0.1/Adobe InDesign CS6 (Windows)</creatingApplicationName>
+    <size toolname="Jhove" toolversion="1.26.0">962199</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.26.0">Adobe PDF Library 10.0.1/Adobe InDesign CS6 (Windows)</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="12.40">2015-08-20T22:29:04Z</lastmodified>
     <created toolname="Exiftool" toolversion="12.40">2015-08-20T22:29:00Z</created>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/fits-daveneiman/fits/testfiles/Book_pdfx1a.pdf</filepath>
-    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Book_pdfx1a.pdf</filename>
-    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">2d4fc60b4498c7cb63a95d7d247f6160</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1464898750000</fslastmodified>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/Book_pdfx1a.pdf</filepath>
+    <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">Book_pdfx1a.pdf</filename>
+    <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">2d4fc60b4498c7cb63a95d7d247f6160</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1466791806000</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">true</valid>
+    <well-formed toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</valid>
   </filestatus>
   <metadata>
     <document>
-      <title toolname="Jhove" toolversion="1.11">Book.indd</title>
+      <title toolname="Jhove" toolversion="1.26.0">Book.indd</title>
       <author toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">Adobe InDesign CS6 (Windows)</author>
-      <pageCount toolname="Jhove" toolversion="1.11">8</pageCount>
-      <hasOutline toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasOutline>
-      <hasAnnotations toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">no</hasAnnotations>
-      <graphicsCount toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">21</graphicsCount>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <pageCount toolname="Jhove" toolversion="1.26.0">8</pageCount>
+      <hasOutline toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">no</hasAnnotations>
+      <graphicsCount toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">21</graphicsCount>
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>MyriadPro-Regular</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>MyriadPro-Regular-SC700</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.11" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>Verdana</fontName>
       </font>
       <standard>
@@ -52,21 +52,21 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="763">
-    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+  <statistics fitsExecutionTime="436">
+    <tool toolname="MediaInfo" toolversion="21.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.1.5" executionTime="55" />
-    <tool toolname="Jhove" toolversion="1.11" executionTime="742" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="50" />
+    <tool toolname="Jhove" toolversion="1.26.0" executionTime="331" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.04" executionTime="115" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="254" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="97" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="13" />
+    <tool toolname="file utility" toolversion="5.41" executionTime="135" />
+    <tool toolname="Exiftool" toolversion="12.40" executionTime="429" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="40" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="26" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="293" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="73" />
+    <tool toolname="Tika" toolversion="2.3.0" executionTime="133" />
   </statistics>
 </fits>
 

@@ -1,55 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.3.1" timestamp="9/18/18 4:40 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="7/14/22, 5:11 PM">
   <identification>
-    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.3.1">
-      <tool toolname="Droid" toolversion="6.4" />
-      <tool toolname="Exiftool" toolversion="11.01" />
-      <tool toolname="Tika" toolversion="1.18" />
-      <version toolname="Droid" toolversion="6.4">1a</version>
-      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">fmt/95</externalIdentifier>
+    <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
+      <tool toolname="Droid" toolversion="6.5.2" />
+      <tool toolname="Exiftool" toolversion="12.40" />
+      <tool toolname="Tika" toolversion="2.3.0" />
+      <version toolname="Droid" toolversion="6.5.2">1a</version>
+      <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/95</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.20">248559</size>
-    <creatingApplicationName toolname="Jhove" toolversion="1.20">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
+    <size toolname="Jhove" toolversion="1.26.0">248559</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.26.0">Adobe PDF Library 11.0/Acrobat PDFMaker 11 for Word</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="12.40">2015-08-19T22:32:33Z</lastmodified>
     <created toolname="Exiftool" toolversion="12.40">2015-08-19T22:32:31Z</created>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/PDFA_Document with tables.pdf</filepath>
-    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">PDFA_Document with tables.pdf</filename>
-    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">fd8c309140462d55d6a76e5e3ec709ee</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/PDFA_Document with tables.pdf</filepath>
+    <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">PDFA_Document with tables.pdf</filename>
+    <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">fd8c309140462d55d6a76e5e3ec709ee</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1466791806000</fslastmodified>
   </fileinfo>
-  <filestatus />
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</valid>
+  </filestatus>
   <metadata>
     <document>
-      <pageCount toolname="Exiftool" toolversion="12.40">3</pageCount>
-      <author toolname="Exiftool" toolversion="12.40">Zakuta, Vitaly</author>
-      <language toolname="Exiftool" toolversion="12.40">EN-US</language>
-      <isTagged toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">yes</isTagged>
+      <author toolname="Jhove" toolversion="1.26.0">Zakuta, Vitaly</author>
+      <language toolname="Jhove" toolversion="1.26.0">EN-US</language>
+      <pageCount toolname="Jhove" toolversion="1.26.0">3</pageCount>
+      <isTagged toolname="Jhove" toolversion="1.26.0">yes</isTagged>
+      <hasOutline toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">yes</hasAnnotations>
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+        <fontName>ArialMT</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+        <fontName>ArialUnicodeMS</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+        <fontName>Calibri</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+        <fontName>Calibri-Bold</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+        <fontName>TimesNewRomanPS-BoldMT</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+        <fontName>TimesNewRomanPSMT</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+        <fontName>Wingdings-Regular</fontName>
+      </font>
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+        <fontName>Wingdings2</fontName>
+      </font>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>3</docmd:PageCount>
           <docmd:Language>EN-US</docmd:Language>
+          <docmd:Font FontName="ArialMT" />
+          <docmd:Font FontName="ArialUnicodeMS" />
+          <docmd:Font FontName="Calibri" />
+          <docmd:Font FontName="Calibri-Bold" />
+          <docmd:Font FontName="TimesNewRomanPS-BoldMT" />
+          <docmd:Font FontName="TimesNewRomanPSMT" />
+          <docmd:Font FontName="Wingdings-Regular" />
+          <docmd:Font FontName="Wingdings2" />
           <docmd:Features>isTagged</docmd:Features>
+          <docmd:Features>hasAnnotations</docmd:Features>
         </docmd:document>
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="217">
-    <tool toolname="MediaInfo" toolversion="18.08.1" status="did not run" />
+  <statistics fitsExecutionTime="483">
+    <tool toolname="MediaInfo" toolversion="21.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.4" executionTime="11" />
-    <tool toolname="Jhove" toolversion="1.20" executionTime="90" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="52" />
+    <tool toolname="Jhove" toolversion="1.26.0" executionTime="174" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.31" executionTime="64" />
-    <tool toolname="Exiftool" toolversion="11.01" executionTime="209" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="33" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="7" />
+    <tool toolname="file utility" toolversion="5.41" executionTime="135" />
+    <tool toolname="Exiftool" toolversion="12.40" executionTime="471" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="51" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="8" />
-    <tool toolname="Tika" toolversion="1.18" executionTime="56" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="84" />
+    <tool toolname="Tika" toolversion="2.3.0" executionTime="129" />
   </statistics>
 </fits>
 
