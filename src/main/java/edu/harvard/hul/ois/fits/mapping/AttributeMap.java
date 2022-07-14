@@ -13,14 +13,13 @@ package edu.harvard.hul.ois.fits.mapping;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 
 public class AttributeMap {
 
 	private String name;
 	private Hashtable<String,String> maps = new Hashtable<String,String>();
 
-	@SuppressWarnings("unchecked")
 	public AttributeMap(Element element) {
 		name = element.getAttributeValue("name");
 		//Get element mappings

@@ -11,6 +11,25 @@
 
 package edu.harvard.hul.ois.fits.tools.exiftool;
 
+
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
 import edu.harvard.hul.ois.fits.exceptions.FitsToolCLIException;
@@ -21,21 +40,6 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.CommandLine;
 import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
 import edu.harvard.hul.ois.fits.util.DateTimeUtil;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.xpath.XPath;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  *  The glue class for invoking Exiftool under FITS.
@@ -53,6 +57,9 @@ public class Exiftool extends ToolBase {
 
     private final static String exiftoolFitsConfig = Fits.FITS_XML_DIR+"exiftool"+File.separator;
     private final static String genericTransform = "exiftool_generic_to_fits.xslt";
+
+    private static Namespace fitsNS = Namespace.getNamespace("fits",Fits.XML_NAMESPACE);
+    private XPathFactory xFactory = XPathFactory.instance();
 
 	private static final Logger logger = LoggerFactory.getLogger(Exiftool.class);
 
@@ -245,15 +252,10 @@ public class Exiftool extends ToolBase {
 	}
 
 	private void standardizeTimestamp(String path, Document document) {
-		try {
-			XPath xpath = XPath.newInstance(path);
-			xpath.addNamespace("fits",Fits.XML_NAMESPACE);
-			Element element = (Element) xpath.selectSingleNode(document);
-			if (element != null) {
-				element.setText(DateTimeUtil.standardize(element.getText()));
-			}
-		} catch (JDOMException e) {
-			logger.debug("Failed to standardize timestamp", e);
+        XPathExpression<Element> expr = xFactory.compile(path, Filters.element(), null, fitsNS);
+        Element element = (Element) expr.evaluateFirst(document);
+		if (element != null) {
+			element.setText(DateTimeUtil.standardize(element.getText()));
 		}
 	}
 

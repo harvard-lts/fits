@@ -23,8 +23,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Scanner;
 
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -33,7 +33,7 @@ import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
 
-public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
+public class VideoStdSchemaXmlUnitTest extends AbstractXmlUnitTest {
 	
 	// These override the values in the parent class.
 	private static final String[] OVERRIDING_IGNORED_XML_ELEMENTS = {
@@ -154,7 +154,12 @@ public class VideoStdSchemaTestXmlUnit extends AbstractXmlUnitTest {
 		
 		// Create standard output in the stream passed in
 		Fits.outputStandardSchemaXml(fitsOut, out);
-    	fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
+
+        File file = new File("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(out.toByteArray());
+        fos.flush();
+        fos.close();
 		
 		// Turn output stream into a String HtmlUnit can use
 		String actualXmlStr = new String(out.toByteArray(),"UTF-8");

@@ -15,10 +15,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 
-import edu.harvard.hul.ois.fits.util.DateTimeUtil;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
@@ -27,6 +32,7 @@ import edu.harvard.hul.ois.fits.tools.ToolBase;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.fits.tools.utils.XsltTransformMap;
+import edu.harvard.hul.ois.fits.util.DateTimeUtil;
 import nz.govt.natlib.AdapterFactory;
 import nz.govt.natlib.adapter.DataAdapter;
 import nz.govt.natlib.fx.ParserContext;
@@ -34,9 +40,6 @@ import nz.govt.natlib.fx.ParserListener;
 import nz.govt.natlib.meta.config.Config;
 import nz.govt.natlib.meta.harvester.DTDXmlParserListener;
 import nz.govt.natlib.meta.log.LogManager;
-import org.jdom.xpath.XPath;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**  The glue class for invoking the NLNZ Metadata Extractor under FITS.
  */
@@ -49,6 +52,9 @@ public class MetadataExtractor extends ToolBase {
     private static String nlnzFitsConfig;
 	private boolean enabled = true;
     private Fits fits;
+
+    private static Namespace fitsNS = Namespace.getNamespace("fits",Fits.XML_NAMESPACE);
+    private XPathFactory xFactory = XPathFactory.instance();
 
 	private static final Logger logger = LoggerFactory.getLogger(MetadataExtractor.class);
 
@@ -181,16 +187,11 @@ public class MetadataExtractor extends ToolBase {
 	}
 
 	private void standardizeTimestamp(String path, Document document) {
-		try {
-			XPath xpath = XPath.newInstance(path);
-			xpath.addNamespace("fits",Fits.XML_NAMESPACE);
-			Element element = (Element) xpath.selectSingleNode(document);
-			if (element != null) {
-				element.setText(DateTimeUtil.standardize(element.getText()));
-			}
-		} catch (JDOMException e) {
-			logger.debug("Failed to standardize timestamp", e);
-		}
+        XPathExpression<Element> expr = xFactory.compile(path, Filters.element(), null, fitsNS);
+    	Element element = (Element) expr.evaluateFirst(document);
+    	if (element != null) {
+    		element.setText(DateTimeUtil.standardize(element.getText()));
+    	}
 	}
 
 }

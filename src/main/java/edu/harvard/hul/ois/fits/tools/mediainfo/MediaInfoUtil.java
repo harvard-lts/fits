@@ -17,16 +17,21 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.jdom.Attribute;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.xpath.XPath;
-
-import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
-import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
+import org.jdom2.Attribute;
+import org.jdom2.Content;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.exceptions.FitsToolException;
+import edu.harvard.hul.ois.fits.tools.utils.XmlUtils;
 
 /**
  * This is a helper class for the MediaInfo tool class. The main purpose of
@@ -36,6 +41,9 @@ import org.slf4j.LoggerFactory;
  * doesn't handle or can't handle.
  */
 public class MediaInfoUtil {
+
+    private XPathFactory xFactory = XPathFactory.instance();
+    private Namespace fitsNamespace = Namespace.getNamespace("x", Fits.XML_NAMESPACE);
 
 	public static final String CODEC_FAMILY_AVID_DNXHD = "Avid DNxHD";
 	public static final String CODEC_FAMILY_JPG2000 = "JPEG 2000";
@@ -301,7 +309,7 @@ public class MediaInfoUtil {
 		    // for MXF, we use the codecId.
 		    // String codecFamily = getMediaInfoString(ndx, "Codec/Family",
 		    //		MediaInfoNativeWrapper.StreamKind.Video);
-		    String codecFamily = CODEC_4CC_TO_FAMILY.get(codecCC);
+		    String codecFamily = CODEC_4CC_TO_FAMILY.get(codecId);
 		    // Now try for MXF files, if we haven't gotten a Codec Family
 		    if(codecFamily == null) {
 		    	codecFamily = CODEC_MXF_TO_FAMILY.get(codecId);
@@ -394,6 +402,14 @@ public class MediaInfoUtil {
 		    		MediaInfoNativeWrapper.StreamKind.Audio);
 		    addDataToMap(audioTrackValuesMap, id, "channels", channels);
 
+		    String channelPositions = getMediaInfoString(ndx, "ChannelPositions",
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
+		    addDataToMap(audioTrackValuesMap, id, "soundField", channelPositions);
+
+		    String byteOrder = getMediaInfoString(ndx, "Format_Settings_Endianness",
+		    		MediaInfoNativeWrapper.StreamKind.Audio);
+		    addDataToMap(audioTrackValuesMap, id, "byteOrder", byteOrder);
+
 		    // Additional Codec stuff:
 		    String codecId = getMediaInfoString(ndx, "CodecID",
 		    		MediaInfoNativeWrapper.StreamKind.Audio);
@@ -430,22 +446,20 @@ public class MediaInfoUtil {
 		try {
 			reviseIdentification(fitsXml);
 
-		    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");
-
-		    // NOTE: We need to add a namespace	to xpath, because JDom XPath
-		    // does not support default namespaces. It requires you to add a
-		    // fake namespace to the XPath instance.
-		    xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
-
-		    Element videoElement = (Element)xpathFits.selectSingleNode(fitsXml);
-		    List <Element>elementList = videoElement.getContent();
+            // NOTE: We need to add a namespace to xpath, because JDom XPath
+            // does not support default namespaces. It requires you to add a
+            // fake namespace to the XPath instance.
+	        XPathExpression<Element> expr = xFactory.compile("//x:fits/x:metadata/x:video", Filters.element(), null, fitsNamespace);
+		    Element videoElement = expr.evaluateFirst(fitsXml);
+		    List<Content>elementList = videoElement.getContent();
 
 		    // --------------------------------------------
 		    // We need to normalize the format for files with MIME Type of
 		    // "video/quicktime" to Format of "Quicktime" in some cases
 		    String mimeType = null;
 		    String format = null;
-		    for (Element element : elementList) {
+		    for (Content content : elementList) {
+		        Element element = (Element)content;
 		    	if(element.getName().equals("mimeType")) {
 					mimeType = element.getText();
 		    	}
@@ -460,8 +474,9 @@ public class MediaInfoUtil {
 	    	}
 		    // --------------------------------------------
 
-		    for (Element element : elementList) {
+		    for (Content content : elementList) {
 
+		        Element element = (Element)content;
 		    	// First revise the general data right off the video element
 		    	reviseGeneralSection(element,  generalValuesDataMap);
 
@@ -528,16 +543,16 @@ public class MediaInfoUtil {
 		//
 		String videoFormat = "";
 		String videoFormatProfile = "";
-	    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");
 
 	    // NOTE: We need to add a namespace	to xpath, because JDom XPath
 	    // does not support default namespaces. It requires you to add a
 	    // fake namespace to the XPath instance.
-	    xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
+        XPathExpression<Element> expr = xFactory.compile("//x:fits/x:metadata/x:video", Filters.element(), null, fitsNamespace);
 
-	    Element videoElement = (Element)xpathFits.selectSingleNode(fitsXml);
-	    List <Element>elementList = videoElement.getContent();
-	    for (Element element : elementList) {
+	    Element videoElement = expr.evaluateFirst(fitsXml);
+	    List <Content>elementList = videoElement.getContent();
+	    for (Content content : elementList) {
+	        Element element = (Element)content;
 	    	if(element.getName().equals("format")) {
 	    		videoFormat = element.getText();
 	    	}
@@ -550,17 +565,15 @@ public class MediaInfoUtil {
 		// Normalize the format and mimetype to "video/quicktime" and
 	    // Quicktime
 		//
-	    XPath xpathFitsIdentity = XPath.newInstance("//x:fits/x:identification");
+        // NOTE: We need to add a namespace to xpath, because JDom XPath
+        // does not support default namespaces. It requires you to add a
+        // fake namespace to the XPath instance.
+        XPathExpression<Element> identityExpr = xFactory.compile("//x:fits/x:identification", Filters.element(), null, fitsNamespace);
+	    Element identityElement = identityExpr.evaluateFirst(fitsXml);
+	    List<Content>elementIdentityList = identityElement.getContent();
+	    for (Content content : elementIdentityList) {
 
-	    // NOTE: We need to add a namespace	to xpath, because JDom XPath
-	    // does not support default namespaces. It requires you to add a
-	    // fake namespace to the XPath instance.
-	    xpathFitsIdentity.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
-
-	    Element identityElement = (Element)xpathFitsIdentity.selectSingleNode(fitsXml);
-	    List <Element>elementIdentityList = identityElement.getContent();
-	    for (Element elementIdentity : elementIdentityList) {
-
+	        Element elementIdentity = (Element)content;
 	    	Attribute formatAttrib = elementIdentity.getAttribute("format");
 	    	Attribute mimeAttrib = elementIdentity.getAttribute("mimetype");
 
@@ -711,8 +724,9 @@ public class MediaInfoUtil {
     	// Right now it is only scanning order
     	List<Element> elementsToRemove = new ArrayList<Element>();
 
-    	List <Element>contents = element.getContent();
-    	for (Element childElement : contents) {
+    	List<Content>contents = element.getContent();
+    	for (Content content : contents) {
+    	    Element childElement = (Element)content;
     		String name = childElement.getName();
 
        		// If the element name is one which has to be normalized, do so.
@@ -744,7 +758,7 @@ public class MediaInfoUtil {
     			// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
     			// BitRateMax
     			String bitRateMode = videoTrackValuesMap.get(id).get("bitRateMode");
-    			if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+    			if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.equals("Variable")) {
     				String bitRateMax = videoTrackValuesMap.get(id).get("bitRateMax");
     				if(!StringUtils.isEmpty(bitRateMax)) {
     					childElement.setText(bitRateMax);
@@ -753,10 +767,10 @@ public class MediaInfoUtil {
     			}
     			break;
     		case frameRate:
-    			// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
+    			// NOTE: If the bitRateMode is Variable (VFR), set it to the value for
     			// BitRateMax
     			String frameRateMode = videoTrackValuesMap.get(id).get("frameRateMode");
-    			if(!StringUtils.isEmpty(frameRateMode) && frameRateMode.toUpperCase().equals("VFR")) {
+    			if(!StringUtils.isEmpty(frameRateMode) && (frameRateMode.equals("Variable") || frameRateMode.equals("VFR"))) {
     				String frameRateMax = videoTrackValuesMap.get(id).get("frameRateMax");
     				if(!StringUtils.isEmpty(frameRateMax)) {
     					childElement.setText(frameRateMax);
@@ -809,8 +823,9 @@ public class MediaInfoUtil {
     private void reviseAudioSection(Element element, String id,
     		Map<String, Map<String, String>> audioTrackValuesMap) {
 
-    	List <Element>contents = element.getContent();
-    	for (Element childElement : contents) {
+    	List<Content>contents = element.getContent();
+    	for (Content content : contents) {
+    	    Element childElement = (Element)content;
     		String name = childElement.getName();
 
     		// If the "name" is not contained in the enum, continue
@@ -827,7 +842,7 @@ public class MediaInfoUtil {
     			// NOTE: If the bitRateMode is Variable (VBR), set it to the value for
     			// BitRateMax
     			String bitRateMode = audioTrackValuesMap.get(id).get("bitRateMode");
-    			if(!StringUtils.isEmpty(bitRateMode) && bitRateMode.toUpperCase().equals("VBR")) {
+    			if(!StringUtils.isEmpty(bitRateMode) && (bitRateMode.equals("Variable") || bitRateMode.equals("VBR"))) {
     				String bitRateMax = audioTrackValuesMap.get(id).get("bitRateMax");
     				if(!StringUtils.isEmpty(bitRateMax)) {
     					childElement.setText(bitRateMax);
@@ -853,44 +868,36 @@ public class MediaInfoUtil {
     	// Right now it is only scanning order
     	List<Element> elementsToRemove = new ArrayList<Element>();
 
-		try {
+	    // NOTE: We need to add a namespace	to xpath, because JDom XPath
+	    // does not support default namespaces. It requires you to add a
+	    // fake namespace to the XPath instance.
+        XPathExpression<Element> expr = xFactory.compile("//x:fits/x:metadata/x:video", Filters.element(), null, fitsNamespace);
 
-		    XPath xpathFits = XPath.newInstance("//x:fits/x:metadata/x:video");
+	    Element videoElement = (Element)expr.evaluateFirst(fitsXml);
+	    List<Content>elementList = videoElement.getContent();
+	    for (Content content : elementList) {
 
-		    // NOTE: We need to add a namespace	to xpath, because JDom XPath
-		    // does not support default namespaces. It requires you to add a
-		    // fake namespace to the XPath instance.
-		    xpathFits.addNamespace("x", fitsXml.getRootElement().getNamespaceURI());
+	        Element element = (Element)content;
+	    	// Tracks
+	    	if(element.getName().equals("track")) {
 
-		    Element videoElement = (Element)xpathFits.selectSingleNode(fitsXml);
-		    List <Element>elementList = videoElement.getContent();
-		    for (Element element : elementList) {
+	        	List<Content>contents = element.getContent();
+	        	
+	        	for (Content subContent  : contents) {
+	        	    Element childElement = (Element)subContent;
+	        		String value = childElement.getText();
+	        		if(StringUtils.isEmpty(value)) {
+	        			elementsToRemove.add(childElement);
+	        		}
+	        	}
 
-		    	// Tracks
-		    	if(element.getName().equals("track")) {
-
-		        	List <Element>contents = element.getContent();
-		        	for (Element childElement : contents) {
-		        		String name = childElement.getName();
-
-		        		String value = childElement.getText();
-		        		if(StringUtils.isEmpty(value)) {
-		        			elementsToRemove.add(childElement);
-		        		}
-		        	}
-
-		    	}
-		    }
-
-		} catch(JDOMException e) {
-			throw new FitsToolException("Error revising xml node values " + TOOL_NAME);
-		}
+	    	}
+	    }
 
     	// Remove all elements marked as empty
     	for (Element elementToRemove : elementsToRemove) {
     		elementToRemove.getParent().removeContent(elementToRemove);
     	}
-
 	}
 
 }
