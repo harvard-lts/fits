@@ -156,8 +156,7 @@ public class FitsOutput {
     }
 
 	public FitsMetadataElement getMetadataElement(String name) {
-        XPathExpression<Element> expr = xFactory.compile("//fits:"+name, Filters.element(), null, fitsNamespace);
-//		XPathExpression<Element> expr = xFactory.compile("//fits:"+name, Filters.element(), null, fitsNamespace);
+		XPathExpression<Element> expr = xFactory.compile("//fits:"+name, Filters.element(), null, fitsNamespace);
 		Element node = expr.evaluateFirst(fitsXml);
 		if(node != null) {
 			FitsMetadataElement element = buildMetdataIElements(node);
