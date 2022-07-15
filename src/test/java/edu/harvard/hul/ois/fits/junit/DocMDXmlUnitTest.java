@@ -663,8 +663,8 @@ public class DocMDXmlUnitTest extends AbstractXmlUnitTest {
 		
     	String[] inputFilenames = {
     			"altona_technical_1v2_x3_has_annotations.pdf",
-    			"Book_pdfx1a.pdf", // converts to PDF/A
-    			"PDFx3.pdf" // converts to PDF/A
+    			"Book_pdfx1a.pdf",
+    			"PDFx3.pdf"
     			};
 
     	for (String inputFilename : inputFilenames) {

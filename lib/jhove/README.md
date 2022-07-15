@@ -20,5 +20,5 @@ rm "${PATH_TO_FITS}"/lib/jhove/*.jar
 cp * "${PATH_TO_FITS}/lib/jhove"
 cd /var/tmp
 rm -r jhove-downloader
-cd PATH_TO_FITS
+cd "${PATH_TO_FITS}"
 ```
