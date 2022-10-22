@@ -1,8 +1,3 @@
-# [Just](https://github.com/casey/just) convenience bindings.
-
-default:
-    just --list
-
 # Builds FITS
 build:
     mvn -DskipTests clean package
@@ -22,6 +17,10 @@ test-build-image:
 # Runs the tests within a Docker container. This requires that the image has already been built.
 test:
     docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
+
+# Runs the tests that match the pattern within a Docker container. This requires that the image has already been built.
+test-filter PATTERN:
+    docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test -Dtest={{PATTERN}}
 
 # Applys the code formatter
 format:
