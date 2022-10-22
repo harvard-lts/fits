@@ -8,38 +8,36 @@
 // See the License for the specific language governing permission and limitations under the License.
 //
 
-
 package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 public enum ElementsToNormalize {
-	height ("height", " pixels"),
-	width ("width", " pixels");
+    height("height", " pixels"),
+    width("width", " pixels");
 
-	private String name;
-	private String unitsToAdd;
+    private String name;
+    private String unitsToAdd;
 
-	ElementsToNormalize(String name, String unitsToAdd) {
+    ElementsToNormalize(String name, String unitsToAdd) {
         this.unitsToAdd = unitsToAdd;
         this.name = name;
     }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
     public String getUnits() {
         return unitsToAdd;
     }
 
-    static public ElementsToNormalize lookup(String name) {
-    	ElementsToNormalize retMethod = null;
-    	for(ElementsToNormalize method : ElementsToNormalize.values()) {
-    		if (method.getName().equals(name)) {
-    			retMethod = method;
-    			break;
-    		}
-    	}
-    	return retMethod;
+    public static ElementsToNormalize lookup(String name) {
+        ElementsToNormalize retMethod = null;
+        for (ElementsToNormalize method : ElementsToNormalize.values()) {
+            if (method.getName().equals(name)) {
+                retMethod = method;
+                break;
+            }
+        }
+        return retMethod;
     }
-
 }

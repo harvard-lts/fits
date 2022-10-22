@@ -13,7 +13,6 @@ package edu.harvard.hul.ois.fits.tools.utils;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -36,74 +35,70 @@ public class XmlUtils {
      * @param element
      * @return the element value or empty string
      */
-	public static String getDomValue(Document dom, String element) {
-        XPathExpression<Element> expr = xFactory.compile("//"+element, Filters.element());
+    public static String getDomValue(Document dom, String element) {
+        XPathExpression<Element> expr = xFactory.compile("//" + element, Filters.element());
         Element e = expr.evaluateFirst(dom);
-		if(e != null) {
-			return e.getText();
-		}
-		return null;
-	}
+        if (e != null) {
+            return e.getText();
+        }
+        return null;
+    }
 
-	/**
-	 * concatenates the values of all elements children into a single string and returns it
-	 * @param dom
-	 * @param element
-	 * @return String
-	 */
-	public static String getChildDomValues(Document dom, String element) {
-		String s = "";
-        XPathExpression<Element> expr = xFactory.compile("//"+element, Filters.element());
+    /**
+     * concatenates the values of all elements children into a single string and returns it
+     * @param dom
+     * @param element
+     * @return String
+     */
+    public static String getChildDomValues(Document dom, String element) {
+        String s = "";
+        XPathExpression<Element> expr = xFactory.compile("//" + element, Filters.element());
         Element e = expr.evaluateFirst(dom);
-		if(e != null) {
-			for(Element ee : (List<Element>)e.getChildren()) {
-				s = s + ee.getText() + " ";
-			}
-			return s;
-		}
-		return null;
-	}
+        if (e != null) {
+            for (Element ee : (List<Element>) e.getChildren()) {
+                s = s + ee.getText() + " ";
+            }
+            return s;
+        }
+        return null;
+    }
 
-	public static Element getChildWithAttribute(Element e, Attribute a) {
-		Element foundE = null;
-		Attribute aa = e.getAttribute(a.getName());
-		if(aa != null && aa.getValue().equalsIgnoreCase(a.getValue())) {
-			return e;
-		}
-		for(Element ee:(List<Element>)e.getChildren()) {
-			foundE = getChildWithAttribute(ee,a);
-			if(foundE != null) {
-				break;
-			}
-		}
-		return foundE;
-	}
+    public static Element getChildWithAttribute(Element e, Attribute a) {
+        Element foundE = null;
+        Attribute aa = e.getAttribute(a.getName());
+        if (aa != null && aa.getValue().equalsIgnoreCase(a.getValue())) {
+            return e;
+        }
+        for (Element ee : (List<Element>) e.getChildren()) {
+            foundE = getChildWithAttribute(ee, a);
+            if (foundE != null) {
+                break;
+            }
+        }
+        return foundE;
+    }
 
-	public static String cleanXmlNulls(String xml) {
-		Pattern pattern = null;
-		Matcher matcher = null;
-		pattern = Pattern.compile("[\\000]*");
-		matcher = pattern.matcher(xml);
-		if (matcher.find()) {
-		   xml = matcher.replaceAll("");
-		}
-		return xml;
-	}
+    public static String cleanXmlNulls(String xml) {
+        Pattern pattern = null;
+        Matcher matcher = null;
+        pattern = Pattern.compile("[\\000]*");
+        matcher = pattern.matcher(xml);
+        if (matcher.find()) {
+            xml = matcher.replaceAll("");
+        }
+        return xml;
+    }
 
-	/**
-	 * Determines if a String contains all numeric values.
-	 * Returns true if it does, otherwise return false.
-	 * @param str
-	 * @return boolean
-	 */
-	public static boolean isNumeric(String str)
-	{
-	    for (char c : str.toCharArray())
-	    {
-	        if (!Character.isDigit(c)) return false;
-	    }
-	    return true;
-	}
-
-
+    /**
+     * Determines if a String contains all numeric values.
+     * Returns true if it does, otherwise return false.
+     * @param str
+     * @return boolean
+     */
+    public static boolean isNumeric(String str) {
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) return false;
+        }
+        return true;
+    }
 }

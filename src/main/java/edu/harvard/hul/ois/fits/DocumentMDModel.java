@@ -12,26 +12,25 @@ package edu.harvard.hul.ois.fits;
 
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD.Feature;
-
 import org.jdom2.Element;
 
 public class DocumentMDModel {
 
     protected DocumentMD docMD;
 
-    protected DocumentMDModel () {
-        docMD = new DocumentMD ();
+    protected DocumentMDModel() {
+        docMD = new DocumentMD();
     }
 
     /** Adds a feature to the document metadata. The element name needs to
      *  be the same as a value of the Enum Feature, or nothing will happen.
      */
-    protected void addFeature (Element featureElem) {
-        String name = featureElem.getName ();
+    protected void addFeature(Element featureElem) {
+        String name = featureElem.getName();
         String text = featureElem.getText().trim();
         if ("yes".equals(text)) {
-            for (Feature ftr: Feature.values()) {
-                if (ftr.toString().equals (name)) {
+            for (Feature ftr : Feature.values()) {
+                if (ftr.toString().equals(name)) {
                     docMD.addFeature(ftr);
                     break;
                 }

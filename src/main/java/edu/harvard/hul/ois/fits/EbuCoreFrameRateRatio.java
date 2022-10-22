@@ -34,48 +34,46 @@ package edu.harvard.hul.ois.fits;
  */
 public class EbuCoreFrameRateRatio {
 
-	private String numerator = "1";
-	private String denominator = "1";
-	private String value;
-	private final static String DECIMAL = ".";
-	private final static String SPACE = " ";
+    private String numerator = "1";
+    private String denominator = "1";
+    private String value;
+    private static final String DECIMAL = ".";
+    private static final String SPACE = " ";
 
-	public EbuCoreFrameRateRatio(String value) {
+    public EbuCoreFrameRateRatio(String value) {
 
-		// the string might have fps, or a identifier at the end, so we need to
-		// remove it
-		String[] parts = value.split(SPACE);
-		this.value = parts[0];
+        // the string might have fps, or a identifier at the end, so we need to
+        // remove it
+        String[] parts = value.split(SPACE);
+        this.value = parts[0];
 
-		// If a decimal value, revise members
-    	if(value.contains(DECIMAL)) {
-        	this.numerator = "1000";
-        	this.denominator = "1001";
+        // If a decimal value, revise members
+        if (value.contains(DECIMAL)) {
+            this.numerator = "1000";
+            this.denominator = "1001";
 
-        	// Round FrameRate to whole number
+            // Round FrameRate to whole number
             Double dblValue = null;
             try {
-                dblValue = Double.parseDouble (this.value);
+                dblValue = Double.parseDouble(this.value);
+            } catch (NumberFormatException e) {
             }
-            catch (NumberFormatException e) {}
 
             int a = (int) Math.round(dblValue);
 
-        	this.value = ""+a;
-    	}
+            this.value = "" + a;
+        }
+    }
 
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getNumerator() {
+        return numerator;
+    }
 
-	public String getNumerator() {
-		return numerator;
-	}
-
-	public String getDenominator() {
-		return denominator;
-	}
-
+    public String getDenominator() {
+        return denominator;
+    }
 }

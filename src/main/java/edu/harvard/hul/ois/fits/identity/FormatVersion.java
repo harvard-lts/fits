@@ -18,26 +18,27 @@ import edu.harvard.hul.ois.fits.tools.ToolInfo;
  */
 public class FormatVersion {
 
-	private ToolInfo toolInfo;
-	private String value;
+    private ToolInfo toolInfo;
+    private String value;
 
-	public FormatVersion(String value, ToolInfo toolInfo) {
-		this.value = value;
-		this.toolInfo = toolInfo;
-	}
+    public FormatVersion(String value, ToolInfo toolInfo) {
+        this.value = value;
+        this.toolInfo = toolInfo;
+    }
 
-	public ToolInfo getToolInfo() {
-		return toolInfo;
-	}
-	public void setInfo(ToolInfo info) {
-		this.toolInfo = info;
-	}
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String version) {
-		this.value = version;
-	}
+    public ToolInfo getToolInfo() {
+        return toolInfo;
+    }
 
+    public void setInfo(ToolInfo info) {
+        this.toolInfo = info;
+    }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String version) {
+        this.value = version;
+    }
 }

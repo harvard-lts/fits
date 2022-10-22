@@ -97,6 +97,16 @@ Learn more
 ----------
 After you are up and running see the [User Manual](http://fitstool.org/user-manual) for more documentation.
 
+
+Development
+-----------
+
+This project uses a code formatter to ensure consist formatting. To run the formatter:
+
+    mvn spotless:apply
+
+When the project builds, it checks the formatting and will fail if there are any files that are not formatted per the standard.
+
 License Details
 ---------------
 FITS is released under the [GNU LGPL](http://www.gnu.org/licenses/lgpl.html) open source license. The source code for FITS is included in the downloadable ZIP files.

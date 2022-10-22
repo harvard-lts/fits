@@ -8,16 +8,7 @@
 // See the License for the specific language governing permission and limitations under the License.
 //
 
-
 package edu.harvard.hul.ois.fits.tools.jhove;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringReader;
-
-import org.jdom2.Document;
 
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.exceptions.FitsException;
@@ -32,6 +23,12 @@ import edu.harvard.hul.ois.jhove.JhoveBase;
 import edu.harvard.hul.ois.jhove.JhoveException;
 import edu.harvard.hul.ois.jhove.Module;
 import edu.harvard.hul.ois.jhove.handler.XmlHandler;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import org.jdom2.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,38 +43,38 @@ public class Jhove extends ToolBase {
     private boolean enabled = true;
     private Fits fits;
 
-    private final static String jhoveFitsConfig = Fits.FITS_XML_DIR + "jhove" + File.separator;
-	private static final Logger logger = LoggerFactory.getLogger(Jhove.class);
+    private static final String jhoveFitsConfig = Fits.FITS_XML_DIR + "jhove" + File.separator;
+    private static final Logger logger = LoggerFactory.getLogger(Jhove.class);
 
-	public Jhove(Fits fits) throws FitsException {
-		super();
-		this.fits = fits;
-        logger.debug ("Initializing Jhove");
+    public Jhove(Fits fits) throws FitsException {
+        super();
+        this.fits = fits;
+        logger.debug("Initializing Jhove");
 
-		try {
-            //Initialize Jhove
-            File config = new File(Fits.FITS_XML_DIR+"jhove"+File.separator+"jhove.conf");
-            //= new File((this.getClass().getResource("jhove.conf")).toURI());
+        try {
+            // Initialize Jhove
+            File config = new File(Fits.FITS_XML_DIR + "jhove" + File.separator + "jhove.conf");
+            // = new File((this.getClass().getResource("jhove.conf")).toURI());
             jhoveConf = config.getPath();
-            jhove = new JhoveBase ();
-            jhove.init (jhoveConf, "org.apache.xerces.parsers.SAXParser");
+            jhove = new JhoveBase();
+            jhove.init(jhoveConf, "org.apache.xerces.parsers.SAXParser");
             jhove.setChecksumFlag(false);
             jhove.setSignatureFlag(false);
             jhove.setShowRawFlag(false);
-      	    xh = new XmlHandler();
-            jhoveApp = new App ("Jhove","1.26.0", new int[] {2022, 6, 9}, "","");
+            xh = new XmlHandler();
+            jhoveApp = new App("Jhove", "1.26.0", new int[] {2022, 6, 9}, "", "");
             xh.setApp(jhoveApp);
             xh.setBase(jhove);
-		}
-		catch (JhoveException e) {
-		    logger.error ("Error initializing Jhove: " + e.getClass().getName());
-			throw new FitsToolException("Error initializing Jhove",e);
-		}
+        } catch (JhoveException e) {
+            logger.error("Error initializing Jhove: " + e.getClass().getName());
+            throw new FitsToolException("Error initializing Jhove", e);
+        }
 
-		//initialize tool info
-		info = new ToolInfo(jhoveApp.getName(),jhoveApp.getRelease(),jhove.getDate().toString());
-		transformMap = XsltTransformMap.getMap(jhoveFitsConfig+"jhove_xslt_map.xml");
-	}
+        // initialize tool info
+        info = new ToolInfo(
+                jhoveApp.getName(), jhoveApp.getRelease(), jhove.getDate().toString());
+        transformMap = XsltTransformMap.getMap(jhoveFitsConfig + "jhove_xslt_map.xml");
+    }
 
     /**
      * Invokes Jhove in 'signature mode', where the header of the file is examined to determine
@@ -87,10 +84,10 @@ public class Jhove extends ToolBase {
      * @throws Exception
      */
     private Document characterize(File file) throws Exception {
-    	jhove.setSignatureFlag(true);
-    	Document dom = getFileInfo(file,null);
-    	jhove.setSignatureFlag(false);
-		return dom;
+        jhove.setSignatureFlag(true);
+        Document dom = getFileInfo(file, null);
+        jhove.setSignatureFlag(false);
+        return dom;
     }
 
     /**
@@ -100,65 +97,63 @@ public class Jhove extends ToolBase {
      * @return Document object
      * @throws Exception
      */
-    private Document getFileInfo(File file,Module mod) throws Exception {
+    private Document getFileInfo(File file, Module mod) throws Exception {
         String filepath = file.getAbsolutePath();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-		OutputStreamWriter out2 = new OutputStreamWriter(out,"UTF-8");
-		PrintWriter pWriter = new PrintWriter(out2);
-		xh.setWriter(pWriter);
-		jhove.process(jhoveApp, mod, xh, filepath);
-		pWriter.close();
-		out2.close();
-		Document dom = saxBuilder.build(new StringReader(out.toString()));
-		out.close();
-		return dom;
+        OutputStreamWriter out2 = new OutputStreamWriter(out, "UTF-8");
+        PrintWriter pWriter = new PrintWriter(out2);
+        xh.setWriter(pWriter);
+        jhove.process(jhoveApp, mod, xh, filepath);
+        pWriter.close();
+        out2.close();
+        Document dom = saxBuilder.build(new StringReader(out.toString()));
+        out.close();
+        return dom;
     }
 
-	/**
-	 * processes the file with Jhove using the automatically determined module
-	 * @throws FitsToolException
-	 */
-	public ToolOutput extractInfo(File file) throws FitsToolException {
+    /**
+     * processes the file with Jhove using the automatically determined module
+     * @throws FitsToolException
+     */
+    public ToolOutput extractInfo(File file) throws FitsToolException {
         logger.debug("Jhove.extractInfo starting on " + file.getName());
-		long startTime = System.currentTimeMillis();
-		Document dom = null;
-		try {
-			dom = characterize(file);
-			String jhoveModule = XmlUtils.getDomValue(dom,"reportingModule");
-			Module mod = jhove.getModule(jhoveModule);
-			dom = getFileInfo(file,mod);
-		} catch (Exception e) {
-		    logger.error("Jhove error while processing "+file.getName() + ": " +
-                    e.getClass().getName() + ", message = " + e.getMessage());
-			throw new FitsToolException("Jhove error while processing "+file.getName(),e);
-		}
-		catch (OutOfMemoryError e) {
-            logger.error("Jhove OutOfMemoryError while processing "+file.getName());
-			throw new FitsToolException("Jhove OutOfMemoryError while processing "+file.getName(), e);
-		}
-		String format = XmlUtils.getDomValue(dom,"format");
-		String xsltTransform = (String)transformMap.get(format.toUpperCase());
+        long startTime = System.currentTimeMillis();
+        Document dom = null;
+        try {
+            dom = characterize(file);
+            String jhoveModule = XmlUtils.getDomValue(dom, "reportingModule");
+            Module mod = jhove.getModule(jhoveModule);
+            dom = getFileInfo(file, mod);
+        } catch (Exception e) {
+            logger.error("Jhove error while processing " + file.getName() + ": "
+                    + e.getClass().getName() + ", message = " + e.getMessage());
+            throw new FitsToolException("Jhove error while processing " + file.getName(), e);
+        } catch (OutOfMemoryError e) {
+            logger.error("Jhove OutOfMemoryError while processing " + file.getName());
+            throw new FitsToolException("Jhove OutOfMemoryError while processing " + file.getName(), e);
+        }
+        String format = XmlUtils.getDomValue(dom, "format");
+        String xsltTransform = (String) transformMap.get(format.toUpperCase());
 
-		Document fitsXml = null;
-		if(xsltTransform != null) {
-			fitsXml = transform(jhoveFitsConfig+xsltTransform,dom);
-		}
-		else {
-			fitsXml = transform(jhoveFitsConfig+"jhove_text_to_fits.xslt",dom);
-		}
+        Document fitsXml = null;
+        if (xsltTransform != null) {
+            fitsXml = transform(jhoveFitsConfig + xsltTransform, dom);
+        } else {
+            fitsXml = transform(jhoveFitsConfig + "jhove_text_to_fits.xslt", dom);
+        }
 
-		output = new ToolOutput(this,fitsXml,dom, fits);
-		duration = System.currentTimeMillis()-startTime;
-		runStatus = RunStatus.SUCCESSFUL;
+        output = new ToolOutput(this, fitsXml, dom, fits);
+        duration = System.currentTimeMillis() - startTime;
+        runStatus = RunStatus.SUCCESSFUL;
         logger.debug("Jhove.extractInfo finished on " + file.getName());
-		return output;
-	}
+        return output;
+    }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public void setEnabled(boolean value) {
-		enabled = value;
-	}
+    public void setEnabled(boolean value) {
+        enabled = value;
+    }
 }

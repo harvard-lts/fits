@@ -33,6 +33,6 @@ public class ToolErrorHandler implements ErrorHandler {
 
     @Override
     public void warning(SAXParseException e) throws SAXException {
-    	logger.warn("SAX warning", e);
+        logger.warn("SAX warning", e);
     }
 }

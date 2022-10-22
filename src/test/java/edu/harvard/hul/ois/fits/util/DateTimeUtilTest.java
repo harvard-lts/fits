@@ -10,9 +10,9 @@
 
 package edu.harvard.hul.ois.fits.util;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 public class DateTimeUtilTest {
 
@@ -62,5 +62,4 @@ public class DateTimeUtilTest {
         assertEquals("bogus", DateTimeUtil.standardize("bogus"));
         assertEquals("2020-02-20 01", DateTimeUtil.standardize("2020-02-20 01"));
     }
-
 }

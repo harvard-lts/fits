@@ -10,16 +10,6 @@
 
 package edu.harvard.hul.ois.fits.util;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.SignStyle;
-import java.time.temporal.TemporalAccessor;
-
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_TIME;
 import static java.time.temporal.ChronoField.DAY_OF_MONTH;
@@ -29,6 +19,16 @@ import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
 import static java.time.temporal.ChronoField.NANO_OF_SECOND;
 import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 import static java.time.temporal.ChronoField.YEAR;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.SignStyle;
+import java.time.temporal.TemporalAccessor;
 
 /**
  * Utility class for working with timestamps
@@ -125,15 +125,15 @@ public final class DateTimeUtil {
             .toFormatter();
 
     private static final DateTimeFormatter[] FORMATTERS = new DateTimeFormatter[] {
-            DateTimeFormatter.ISO_DATE_TIME,
-            DateTimeFormatter.ISO_DATE,
-            DATE_TIME_WITH_SPACE,
-            DateTimeFormatter.BASIC_ISO_DATE,
-            DateTimeFormatter.RFC_1123_DATE_TIME,
-            DATE_TIME_WITH_COLON,
-            DATE_WITH_COLON,
-            DATE_TIME_WITH_PERIOD,
-            DATE_WITH_PERIOD
+        DateTimeFormatter.ISO_DATE_TIME,
+        DateTimeFormatter.ISO_DATE,
+        DATE_TIME_WITH_SPACE,
+        DateTimeFormatter.BASIC_ISO_DATE,
+        DateTimeFormatter.RFC_1123_DATE_TIME,
+        DATE_TIME_WITH_COLON,
+        DATE_WITH_COLON,
+        DATE_TIME_WITH_PERIOD,
+        DATE_WITH_PERIOD
     };
 
     private DateTimeUtil() {
@@ -167,7 +167,8 @@ public final class DateTimeUtil {
 
         for (DateTimeFormatter formatter : FORMATTERS) {
             try {
-                parsed = formatter.parseBest(originalTimestamp,
+                parsed = formatter.parseBest(
+                        originalTimestamp,
                         OffsetDateTime::from,
                         ZonedDateTime::from,
                         LocalDateTime::from,
@@ -192,7 +193,4 @@ public final class DateTimeUtil {
 
         return standardized;
     }
-
-
-
 }

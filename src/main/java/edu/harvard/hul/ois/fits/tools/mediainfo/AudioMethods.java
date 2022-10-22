@@ -8,40 +8,39 @@
 // See the License for the specific language governing permission and limitations under the License.
 //
 
-
 package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 public enum AudioMethods {
-	delay ("delay"),
-	numSamples ("numSamples"),
-	bitRate ("bitRate"),
-	codecId ("codecId"),
-	codeFamily ("codecFamily"),
-	duration ("duration"),
-	trackSize ("trackSize"),
-	samplingRate ("samplingRate"),
-	channels ("channels"),
-	soundField ("soundField"),
-	byteOrder ("byteOrder");
+    delay("delay"),
+    numSamples("numSamples"),
+    bitRate("bitRate"),
+    codecId("codecId"),
+    codeFamily("codecFamily"),
+    duration("duration"),
+    trackSize("trackSize"),
+    samplingRate("samplingRate"),
+    channels("channels"),
+    soundField("soundField"),
+    byteOrder("byteOrder");
 
-	private String name;
+    private String name;
 
-	AudioMethods(String name) {
+    AudioMethods(String name) {
         this.name = name;
     }
 
-    public String getName () {
+    public String getName() {
         return name;
     }
 
-    static public AudioMethods lookup(String name) {
-    	AudioMethods retMethod = null;
-    	for(AudioMethods method : AudioMethods.values()) {
-    		if (method.getName().equals(name)) {
-    			retMethod = method;
-    			break;
-    		}
-    	}
-    	return retMethod;
+    public static AudioMethods lookup(String name) {
+        AudioMethods retMethod = null;
+        for (AudioMethods method : AudioMethods.values()) {
+            if (method.getName().equals(name)) {
+                retMethod = method;
+                break;
+            }
+        }
+        return retMethod;
     }
 }

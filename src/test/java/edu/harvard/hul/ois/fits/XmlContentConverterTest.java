@@ -25,18 +25,10 @@
  * (617)495-3724
  * hulois@hulmail.harvard.edu
  **********************************************************************/
-
 package edu.harvard.hul.ois.fits;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.Namespace;
-import org.junit.Test;
 
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
 import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
@@ -59,86 +51,91 @@ import edu.harvard.hul.ois.ots.schemas.TextMD.CharacterInfo;
 import edu.harvard.hul.ois.ots.schemas.TextMD.MarkupBasis;
 import edu.harvard.hul.ois.ots.schemas.TextMD.MarkupLanguage;
 import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
+import java.util.List;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class XmlContentConverterTest extends AbstractLoggingTest {
-	
-	private final static Namespace fitsNS = Namespace.getNamespace (Fits.XML_NAMESPACE);
-	
+
+    private static final Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
+
     private static final Logger logger = LoggerFactory.getLogger(XmlContentConverterTest.class);
 
-	@Test
-    public void testToMix () {
+    @Test
+    public void testToMix() {
         // Construct a document using JDOM
-        Document jdoc = new Document ();
-        Element imgElem = new Element ("image", fitsNS);
+        Document jdoc = new Document();
+        Element imgElem = new Element("image", fitsNS);
         jdoc.addContent(imgElem);
-        
-        Element elem = new Element ("byteOrder", fitsNS);
+
+        Element elem = new Element("byteOrder", fitsNS);
         elem.addContent("big endian");
-        imgElem.addContent (elem);
-        
-        elem = new Element ("gpsVersionID", fitsNS);
-        elem.addContent ("99.5");
-        imgElem.addContent (elem);
-        
-        elem = new Element ("gpsDestLatitude", fitsNS);
-        elem.addContent ("33 deg 24' 51.40\" N");
-        imgElem.addContent (elem);
-        
-        elem = new Element ("referenceBlackWhite", fitsNS);
-        elem.addContent ("0.0 255.0 0.0 255.0 0.0 255.0");
-        imgElem.addContent (elem);
-        
-        elem = new Element ("YCbCrCoefficients", fitsNS);
-        elem.addContent ("10.0 20.0 30.0");
-        imgElem.addContent (elem);
-        
-        XmlContentConverter conv = new XmlContentConverter ();
-        Mix mix = (Mix) conv.toMix (imgElem,null);
+        imgElem.addContent(elem);
+
+        elem = new Element("gpsVersionID", fitsNS);
+        elem.addContent("99.5");
+        imgElem.addContent(elem);
+
+        elem = new Element("gpsDestLatitude", fitsNS);
+        elem.addContent("33 deg 24' 51.40\" N");
+        imgElem.addContent(elem);
+
+        elem = new Element("referenceBlackWhite", fitsNS);
+        elem.addContent("0.0 255.0 0.0 255.0 0.0 255.0");
+        imgElem.addContent(elem);
+
+        elem = new Element("YCbCrCoefficients", fitsNS);
+        elem.addContent("10.0 20.0 30.0");
+        imgElem.addContent(elem);
+
+        XmlContentConverter conv = new XmlContentConverter();
+        Mix mix = (Mix) conv.toMix(imgElem, null);
         BasicDigitalObjectInformation bdoi = mix.getBasicDigitalObjectInformation();
-        String byteOrder = bdoi.getByteOrder().toString ();
-        assertEquals ("big endian", byteOrder);
-        
+        String byteOrder = bdoi.getByteOrder().toString();
+        assertEquals("big endian", byteOrder);
+
         ImageCaptureMetadata icm = mix.getImageCaptureMetadata();
         DigitalCameraCapture dcc = icm.getDigitalCameraCapture();
         CameraCaptureSettings ccs = dcc.getCameraCaptureSettings();
         GPSData gps = ccs.getGPSData();
         String gpsVersionID = gps.getGpsVersionID().toString();
-        assertEquals ("99.5", gpsVersionID);
-        
+        assertEquals("99.5", gpsVersionID);
+
         GPSDestLatitude dlat = gps.getGPSDestLatitude();
         double deg = dlat.getDegrees().toRational().getDouble();
         double min = dlat.getMinutes().toRational().getDouble();
         double sec = dlat.getSeconds().toRational().getDouble();
-        assertEquals (33.0, deg, 0.0);
-        assertEquals (24.0, min, 0.0);
-        assertEquals (51.0, sec, 0.4);
-        
+        assertEquals(33.0, deg, 0.0);
+        assertEquals(24.0, min, 0.0);
+        assertEquals(51.0, sec, 0.4);
+
         BasicImageInformation bii = mix.getBasicImageInformation();
         BasicImageCharacteristics bic = bii.getBasicImageCharacteristics();
         PhotometricInterpretation phi = bic.getPhotometricInterpretation();
         List<ReferenceBlackWhite> rbwList = phi.getReferenceBlackWhites();
         ReferenceBlackWhite rbw = rbwList.get(0);
         List<Component> compList = rbw.getComponents();
-        assertEquals (3, compList.size());
+        assertEquals(3, compList.size());
         Component comp = compList.get(0);
-        assertEquals ("Y", comp.getComponentPhotometricInterpretation().toString ());
+        assertEquals("Y", comp.getComponentPhotometricInterpretation().toString());
         double headroom = comp.getHeadroom().toRational().getDouble();
-        assertEquals (0.0, headroom, 0.0);
-        
+        assertEquals(0.0, headroom, 0.0);
+
         YCbCr ycbcr = phi.getYCbCr();
         YCbCrCoefficients ycbcrc = ycbcr.getYCbCrCoefficients();
-        double lumaRed = ycbcrc.getLumaRed().toRational().getDouble ();
-        assertEquals (10.0, lumaRed, 0.0);
-        double lumaGreen = ycbcrc.getLumaGreen().toRational().getDouble ();
-        assertEquals (20.0, lumaGreen, 0.0);
-        double lumaBlue = ycbcrc.getLumaBlue().toRational().getDouble ();
-        assertEquals (30.0, lumaBlue, 0.0);    
+        double lumaRed = ycbcrc.getLumaRed().toRational().getDouble();
+        assertEquals(10.0, lumaRed, 0.0);
+        double lumaGreen = ycbcrc.getLumaGreen().toRational().getDouble();
+        assertEquals(20.0, lumaGreen, 0.0);
+        double lumaBlue = ycbcrc.getLumaBlue().toRational().getDouble();
+        assertEquals(30.0, lumaBlue, 0.0);
     }
 
-	@Test
+    @Test
     public void testToDocumentMD() {
         // Construct a document using JDOM
         Document jdoc = new Document();
@@ -148,35 +145,35 @@ public class XmlContentConverterTest extends AbstractLoggingTest {
         Element elem = new Element("isTagged", fitsNS); // a feature
         elem.addContent("yes");
         docElem.addContent(elem);
-        
+
         elem = new Element("hasOutline", fitsNS); // a feature
         elem.addContent("yes");
         docElem.addContent(elem);
-        
+
         elem = new Element("hasAnnotations", fitsNS); // a feature
         elem.addContent("yes");
         docElem.addContent(elem);
-        
+
         elem = new Element("pageCount", fitsNS);
         elem.addContent("6");
         docElem.addContent(elem);
-        
+
         elem = new Element("isRightsManaged", fitsNS);
         elem.addContent("yes");
         docElem.addContent(elem);
-        
+
         elem = new Element("isProtected", fitsNS);
         elem.addContent("no");
         docElem.addContent(elem);
-        
+
         elem = new Element("hasForms", fitsNS); // a feature
         elem.addContent("yes");
         docElem.addContent(elem);
-        
+
         elem = new Element("hasHyperlinks", fitsNS);
         elem.addContent("yes");
         docElem.addContent(elem);
-        
+
         elem = new Element("hasEmbeddedResources", fitsNS);
         elem.addContent("yes");
         docElem.addContent(elem);
@@ -196,7 +193,7 @@ public class XmlContentConverterTest extends AbstractLoggingTest {
         docElem.addContent(fontElem2);
 
         XmlContentConverter conv = new XmlContentConverter();
-        DocumentMD dmd =(DocumentMD) conv.toDocumentMD(docElem);
+        DocumentMD dmd = (DocumentMD) conv.toDocumentMD(docElem);
         assertEquals(6, dmd.getPageCount());
         List<Feature> features = dmd.getFeatures();
         assertEquals(6, features.size());
@@ -204,59 +201,58 @@ public class XmlContentConverterTest extends AbstractLoggingTest {
         assertTrue(features.contains(Feature.hasOutline));
         assertTrue(features.contains(Feature.hasAnnotations));
         assertTrue(features.contains(Feature.isTagged));
-//        assertTrue(features.contains(Feature.hasHyperlinks));
-//        assertTrue(features.contains(Feature.hasEmbeddedResources));
-        
-        assertEquals(2, dmd.getFonts().size());
-	}
+        //        assertTrue(features.contains(Feature.hasHyperlinks));
+        //        assertTrue(features.contains(Feature.hasEmbeddedResources));
 
-	@Test
-    public void testToTextMD () {
+        assertEquals(2, dmd.getFonts().size());
+    }
+
+    @Test
+    public void testToTextMD() {
         final String mln = "http://www.loc.gov/standards/mets/mets.xsd";
         // Construct a document using JDOM
-        Document jdoc = new Document ();
-        Element textElem = new Element ("text", fitsNS);
+        Document jdoc = new Document();
+        Element textElem = new Element("text", fitsNS);
         jdoc.addContent(textElem);
-        
-        Element elem = new Element ("linebreak", fitsNS);
-        elem.addContent ("LF");
-        textElem.addContent (elem);
-        
-        elem = new Element ("charset", fitsNS);
-        elem.addContent ("US-ASCII");
-        textElem.addContent (elem);
 
-        elem = new Element ("markupBasis", fitsNS);
-        elem.addContent ("HTML");
-        textElem.addContent (elem);
-        
-        elem = new Element ("markupBasisVersion", fitsNS);
-        elem.addContent ("1.0");
-        textElem.addContent (elem);
-        
-        elem = new Element ("markupLanguage", fitsNS);
-        elem.addContent (mln);
-        textElem.addContent (elem);
-        
-        XmlContentConverter conv = new XmlContentConverter ();
-        TextMD tmd = (TextMD) conv.toTextMD (textElem);
-        
+        Element elem = new Element("linebreak", fitsNS);
+        elem.addContent("LF");
+        textElem.addContent(elem);
+
+        elem = new Element("charset", fitsNS);
+        elem.addContent("US-ASCII");
+        textElem.addContent(elem);
+
+        elem = new Element("markupBasis", fitsNS);
+        elem.addContent("HTML");
+        textElem.addContent(elem);
+
+        elem = new Element("markupBasisVersion", fitsNS);
+        elem.addContent("1.0");
+        textElem.addContent(elem);
+
+        elem = new Element("markupLanguage", fitsNS);
+        elem.addContent(mln);
+        textElem.addContent(elem);
+
+        XmlContentConverter conv = new XmlContentConverter();
+        TextMD tmd = (TextMD) conv.toTextMD(textElem);
+
         List<CharacterInfo> chinfos = tmd.getCharacterInfos();
         assertEquals(1, chinfos.size());
         CharacterInfo chinfo = chinfos.get(0);
         assertEquals("US-ASCII", chinfo.getCharset());
-        assertEquals("LF", chinfo.getLinebreak ());
-        
+        assertEquals("LF", chinfo.getLinebreak());
+
         List<MarkupBasis> mkbases = tmd.getMarkupBases();
         assertEquals(1, mkbases.size());
         MarkupBasis mkbas = mkbases.get(0);
-        assertEquals ("HTML", mkbas.getValue());
-        assertEquals ("1.0", mkbas.getVersion());
-        
+        assertEquals("HTML", mkbas.getValue());
+        assertEquals("1.0", mkbas.getVersion());
+
         List<MarkupLanguage> mklangs = tmd.getMarkupLanguages();
         assertEquals(1, mklangs.size());
         MarkupLanguage mklang = mklangs.get(0);
         assertEquals(mln, mklang.getValue());
     }
-
 }
