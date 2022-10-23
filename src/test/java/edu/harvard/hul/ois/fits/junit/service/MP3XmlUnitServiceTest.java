@@ -18,17 +18,10 @@
  */
 package edu.harvard.hul.ois.fits.junit.service;
 
-import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
-import java.io.File;
+import edu.harvard.hul.ois.fits.tests.AbstractWebAppTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -40,17 +33,7 @@ import org.junit.Test;
  * @author dan179
  */
 @Ignore
-public class MP3XmlUnitServiceTest extends AbstractXmlUnitTest {
-
-    @BeforeClass
-    public static void initializeHttpClient() throws Exception {
-        AbstractXmlUnitTest.beforeServiceTest();
-    }
-
-    @AfterClass
-    public static void afterClass() throws Exception {
-        AbstractXmlUnitTest.afterServiceTest();
-    }
+public class MP3XmlUnitServiceTest extends AbstractWebAppTest {
 
     @Override
     protected String[] getIgnoredXmlElements() {
@@ -68,21 +51,6 @@ public class MP3XmlUnitServiceTest extends AbstractXmlUnitTest {
 
     @Test
     public void testMP3() throws Exception {
-
-        String inputFilename = "Jess26676_Pugua.mp3";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = super.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFileInWebApp("Jess26676_Pugua.mp3");
     }
 }

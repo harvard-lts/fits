@@ -18,20 +18,16 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
+import edu.harvard.hul.ois.fits.tests.AbstractOutputTest;
 import edu.harvard.hul.ois.fits.tools.Tool;
-import java.io.File;
+import org.junit.Ignore;
 import org.junit.Test;
 
-public class FitsBasicAudioTest extends AbstractLoggingTest {
+@Ignore("These tests have no asserts and just generate output files")
+public class FitsBasicAudioTest extends AbstractOutputTest {
 
     @Test
     public void testFitsAudio() throws Exception {
-        Fits fits = new Fits("");
-        File input = new File("testfiles/test.wav");
-
         for (Tool t : fits.getToolbelt().getTools()) {
             if (t.getToolInfo().getName().equals("Jhove")) {
                 // t.setEnabled(false);
@@ -41,7 +37,6 @@ public class FitsBasicAudioTest extends AbstractLoggingTest {
             }
         }
 
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.saveToDisk("test-generated-output/fitsBasicAudioTestOutput.xml");
+        writeOutput("test.wav");
     }
 }

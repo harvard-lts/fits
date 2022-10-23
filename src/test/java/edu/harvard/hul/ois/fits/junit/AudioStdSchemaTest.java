@@ -18,53 +18,20 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
-import java.io.File;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import edu.harvard.hul.ois.fits.tests.AbstractOutputTest;
+import org.junit.Ignore;
 import org.junit.Test;
 
-public class AudioStdSchemaTest extends AbstractXmlUnitTest {
-
-    /*
-     *  Only one Fits instance is needed to run all tests.
-     *  This also speeds up the tests.
-     */
-    private static Fits fits;
-
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        // Set up FITS for entire class.
-        File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
-        fits = new Fits(null, fitsConfigFile);
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        fits = null;
-    }
+@Ignore("These tests have no asserts and just generate output files")
+public class AudioStdSchemaTest extends AbstractOutputTest {
 
     @Test
     public void testAudioChunk() throws Exception {
-
-        String inputFilename = "testchunk.wav";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-
-        fitsOut.addStandardCombinedFormat(); // output all data to file
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("testchunk.wav");
     }
 
     @Test
     public void testAudioMD_() throws Exception {
-
-        String inputFilename = "test.wav";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-
-        fitsOut.addStandardCombinedFormat(); // output all data to file
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("test.wav");
     }
 }

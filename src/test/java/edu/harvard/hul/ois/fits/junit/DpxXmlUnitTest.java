@@ -18,94 +18,23 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.Scanner;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class DpxXmlUnitTest extends AbstractXmlUnitTest {
 
-    /*
-     *  Only one Fits instance is needed to run all tests.
-     *  This also speeds up the tests.
-     */
-    private static Fits fits;
-
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        // Set up FITS for entire class.
-        fits = new Fits();
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        fits = null;
-    }
-
     @Test
     public void testDpxOutput() throws Exception {
-        String inputFilename = "00266.dpx";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFile("00266.dpx", fits, OutputType.DEFAULT);
     }
 
     @Test
     public void testDpxStandardCombinedOutput() throws Exception {
-        String inputFilename = "00266.dpx";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-standard-combined" + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(
-                new File("testfiles/output/" + inputFilename + "-standard-combined" + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFile("00266.dpx");
     }
 
     @Test
     public void testDpxStandardOnlyOutput() throws Exception {
-        String inputFilename = "00266.dpx";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-        Fits.outputStandardSchemaXml(fitsOut, out);
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        String actualXmlStr = new String(out.toByteArray(), "UTF-8");
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(
-                new File("testfiles/output/" + inputFilename + "-standard-only" + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFile("00266.dpx", fits, OutputType.STANDARD);
     }
 }

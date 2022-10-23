@@ -18,15 +18,11 @@
  */
 package edu.harvard.hul.ois.fits.junit.service;
 
+import static edu.harvard.hul.ois.fits.FitsPaths.PROPS_DIR;
+
 import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
+import edu.harvard.hul.ois.fits.tests.AbstractWebAppTest;
 import java.io.File;
-import java.util.Scanner;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -38,58 +34,20 @@ import org.junit.Test;
  * @author dan179
  */
 @Ignore
-public class AudioStdSchemaTestXmlServiceUnit_NoMD5 extends AbstractXmlUnitTest {
-
-    @BeforeClass
-    public static void initializeHttpClient() throws Exception {
-        AbstractXmlUnitTest.beforeServiceTest();
-    }
-
-    @AfterClass
-    public static void afterClass() throws Exception {
-        AbstractXmlUnitTest.afterServiceTest();
-    }
+public class AudioStdSchemaTestXmlServiceUnit_NoMD5 extends AbstractWebAppTest {
 
     @Test
     public void testAudioChunk() throws Exception {
-
-        String inputFilename = "testchunk.wav";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = super.examine(input);
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFileInWebApp("testchunk.wav");
     }
 
     @Test
     public void testAudioMD_noMD5() throws Exception {
-
         // use an alternate fits.xml file where a MD5 checksum is not generated
-        File fitsConfigFile = new File("testfiles/properties/fits_no_md5_audio.xml");
+        File fitsConfigFile = new File(PROPS_DIR + "fits_no_md5_audio.xml");
         Fits fits = new Fits(null, fitsConfigFile);
 
         // First generate the FITS output
-        String inputFilename = "test.wav";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFile("test.wav", fits, OutputType.DEFAULT);
     }
 }

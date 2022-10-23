@@ -18,6 +18,7 @@
  */
 package edu.harvard.hul.ois.fits.tools;
 
+import static edu.harvard.hul.ois.fits.FitsPaths.PROPS_DIR;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
@@ -38,7 +39,7 @@ public class ToolBeltTest extends AbstractLoggingTest {
      */
     @Test
     public void noArgumentConstructorToolTest() {
-        File fitsConfigFile = new File("testfiles/properties/fits_test_no_arg_tool.xml");
+        File fitsConfigFile = new File(PROPS_DIR + "fits_test_no_arg_tool.xml");
         assertNotNull(fitsConfigFile);
         try {
             // Instantiating Fits will exercise the ToolBelt.
@@ -58,7 +59,7 @@ public class ToolBeltTest extends AbstractLoggingTest {
      */
     @Test
     public void oneArgumentConstructorToolTest() {
-        File fitsConfigFile = new File("testfiles/properties/fits_test_one_arg_tool.xml");
+        File fitsConfigFile = new File(PROPS_DIR + "fits_test_one_arg_tool.xml");
         assertNotNull(fitsConfigFile);
         try {
             // Instantiating Fits will exercise the ToolBelt.

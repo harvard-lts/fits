@@ -18,14 +18,7 @@
  */
 package edu.harvard.hul.ois.fits.junit.service;
 
-import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
-import java.io.File;
-import java.util.Scanner;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import edu.harvard.hul.ois.fits.tests.AbstractWebAppTest;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -38,133 +31,35 @@ import org.junit.Test;
  * @author dan179
  */
 @Ignore
-public class ZipXmlUnitServiceTest extends AbstractXmlUnitTest {
-
-    @BeforeClass
-    public static void initializeHttpClient() throws Exception {
-        AbstractXmlUnitTest.beforeServiceTest();
-    }
-
-    @AfterClass
-    public static void afterClass() throws Exception {
-        AbstractXmlUnitTest.afterServiceTest();
-    }
+public class ZipXmlUnitServiceTest extends AbstractWebAppTest {
 
     @Test
     public void testUncompressedZipFile() throws Exception {
-
-        String inputFilename = "32044020597662.zip";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = super.examine(input);
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFileInWebApp("32044020597662.zip");
     }
 
     @Test
     public void testCompressedZipFile() throws Exception {
-
-        String inputFilename = "assorted-files.zip";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = super.examine(input);
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFileInWebApp("assorted-files.zip");
     }
 
     @Test
     public void testSingleFileZipFile() throws Exception {
-
-        String inputFilename = "40415587.zip";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = super.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFileInWebApp("40415587.zip");
     }
 
     @Test
     public void testCompressedEncryptedZipFile() throws Exception {
-
-        String inputFilename = "compressed-encrypted.zip"; // 0sample1-compressed
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = super.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFileInWebApp("compressed-encrypted.zip"); // 0sample1-compressed
     }
 
     @Test
     public void testUncompressedEncryptedZipFile() throws Exception {
-
-        String inputFilename = "uncompressed-encrypted.zip";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = super.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFileInWebApp("uncompressed-encrypted.zip");
     }
 
     @Test
     public void testEmbeddedDirectoriesZipFile() throws Exception {
-
-        String inputFilename = "multiple-file-types-and-folders.zip";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = super.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFileInWebApp("multiple-file-types-and-folders.zip");
     }
 }

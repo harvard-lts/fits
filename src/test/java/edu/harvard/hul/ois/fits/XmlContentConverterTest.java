@@ -56,14 +56,10 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class XmlContentConverterTest extends AbstractLoggingTest {
 
     private static final Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
-
-    private static final Logger logger = LoggerFactory.getLogger(XmlContentConverterTest.class);
 
     @Test
     public void testToMix() {

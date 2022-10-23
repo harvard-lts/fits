@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/standards/mix/mix20/mix20.xsd">
+   <mix:BasicDigitalObjectInformation>
+      <mix:byteOrder>big endian</mix:byteOrder>
+   </mix:BasicDigitalObjectInformation>
+   <mix:BasicImageInformation>
+      <mix:BasicImageCharacteristics>
+         <mix:imageWidth>2048</mix:imageWidth>
+         <mix:imageHeight>1556</mix:imageHeight>
+         <mix:PhotometricInterpretation>
+            <mix:colorSpace>R,G,B</mix:colorSpace>
+         </mix:PhotometricInterpretation>
+      </mix:BasicImageCharacteristics>
+   </mix:BasicImageInformation>
+   <mix:ImageCaptureMetadata>
+      <mix:GeneralCaptureInformation>
+         <mix:dateTimeCreated>2010-12-24</mix:dateTimeCreated>
+         <mix:imageProducer>US,,,</mix:imageProducer>
+      </mix:GeneralCaptureInformation>
+      <mix:ScannerCapture>
+         <mix:ScannerModel>
+            <mix:scannerModelName>SPIRIT-4K DATACINE</mix:scannerModelName>
+            <mix:scannerModelSerialNo>01018</mix:scannerModelSerialNo>
+         </mix:ScannerModel>
+      </mix:ScannerCapture>
+      <mix:orientation>normal*</mix:orientation>
+   </mix:ImageCaptureMetadata>
+   <mix:ImageAssessmentMetadata>
+      <mix:SpatialMetrics/>
+      <mix:ImageColorEncoding>
+         <mix:BitsPerSample>
+            <mix:bitsPerSampleValue>10</mix:bitsPerSampleValue>
+            <mix:bitsPerSampleUnit>integer</mix:bitsPerSampleUnit>
+         </mix:BitsPerSample>
+      </mix:ImageColorEncoding>
+   </mix:ImageAssessmentMetadata>
+</mix:mix>

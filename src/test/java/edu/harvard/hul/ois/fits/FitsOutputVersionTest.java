@@ -1,11 +1,11 @@
 package edu.harvard.hul.ois.fits;
 
+import static edu.harvard.hul.ois.fits.FitsPaths.INPUT_DIR;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -13,12 +13,8 @@ import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class FitsOutputVersionTest extends AbstractLoggingTest {
-
-    private static Logger logger = LoggerFactory.getLogger(FitsOutputVersionTest.class);
 
     /**
      * Test output of Fits version from the input file to FitsOutput.
@@ -27,7 +23,7 @@ public class FitsOutputVersionTest extends AbstractLoggingTest {
     public void testFitsOutputVersion() {
 
         try {
-            Reader in = new FileReader(new File("testfiles/FitsOutputTest.xml"));
+            Reader in = new FileReader(INPUT_DIR + "FitsOutputTest.xml");
             SAXBuilder builder = new SAXBuilder();
             Document fitsXml = builder.build(in);
             FitsOutput fitsOutput = new FitsOutput(fitsXml);
