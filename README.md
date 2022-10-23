@@ -115,6 +115,25 @@ To run the formatter:
 
 When the project builds, it checks the formatting and will fail if there are any files that are not formatted per the standard.
 
+### Just
+
+You can optionally install [Just](https://github.com/casey/just) and use it to execute shortcut commands within the
+project for doing things like running tests, formatting, and building. Execute `just` to see the available commands:
+
+```shell
+Available recipes:
+    build               # Builds FITS
+    build-image         # Builds the Docker image
+    default             # Lists available commands
+    format              # Applies the code formatter
+    run +ARGS           # Executes FITS within a Docker container. This requires that the image has already been built (just build-image).
+    test                # Runs the tests within a Docker container. Requires the image to already exist (just test-build-image). The image does NOT need to be rebuilt between runs.
+    test-build-image    # Builds the Docker image that's used for running the tests
+    test-filter PATTERN # Runs the tests that match the pattern within a Docker container. Requires the image to already exist (just test-build-image). The image does NOT need to be rebuilt between runs.
+```
+
+The commands are defined in [justfile](justfile).
+
 License Details
 ---------------
 FITS is released under the [GNU LGPL](http://www.gnu.org/licenses/lgpl.html) open source license. The source code for FITS is included in the downloadable ZIP files.
