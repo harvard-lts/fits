@@ -20,42 +20,18 @@ package edu.harvard.hul.ois.fits.junit;
 
 import static org.junit.Assert.fail;
 
-import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
-import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
-import java.io.File;
+import edu.harvard.hul.ois.fits.tests.AbstractOutputTest;
 import java.util.List;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class DpxTest extends AbstractLoggingTest {
-
-    /*
-     *  Only one Fits instance is needed to run all tests.
-     *  This also speeds up the tests.
-     */
-    private static Fits fits;
-
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        // Set up FITS for entire class.
-        fits = new Fits();
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        fits = null;
-    }
+public class DpxTest extends AbstractOutputTest {
 
     @Test
     public void testDpxFormatDetection() throws Exception {
         String inputFilename = "00266.dpx";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
-
+        FitsOutput fitsOut = writeOutput(inputFilename);
         List<FitsIdentity> identities = fitsOut.getIdentities();
 
         for (FitsIdentity identity : identities) {

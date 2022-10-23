@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0-SNAPSHOT" timestamp="7/10/19 9:19 AM">
+  <identification>
+    <identity format="ZIP Format" mimetype="application/zip" toolname="FITS" toolversion="1.5.0-SNAPSHOT">
+      <tool toolname="Droid" toolversion="6.4" />
+      <tool toolname="file utility" toolversion="5.31" />
+      <tool toolname="Exiftool" toolversion="11.54" />
+      <tool toolname="ffident" toolversion="0.2" />
+      <tool toolname="Tika" toolversion="1.21" />
+      <version toolname="file utility" toolversion="5.31">1.0</version>
+      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">x-fmt/263</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/32044020597662.zip</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">32044020597662.zip</filename>
+    <size toolname="OIS File Information" toolversion="0.2">95270</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">7c64750915af83a39c35f0e836d3690f</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117982000</fslastmodified>
+  </fileinfo>
+  <filestatus />
+  <metadata>
+    <container>
+      <originalSize toolname="Droid" toolversion="6.4" status="SINGLE_RESULT">83996</originalSize>
+      <compressionMethod toolname="Droid" toolversion="6.4" status="SINGLE_RESULT">stored</compressionMethod>
+      <entries totalEntries="84" toolname="Droid" toolversion="6.4" status="SINGLE_RESULT">
+        <format name="Hypertext Markup Language" number="1" />
+        <format name="JPEG 2000 JP2" number="40" />
+        <format name="MD5 File" number="1" />
+        <format name="Plain text" number="42" />
+      </entries>
+    </container>
+  </metadata>
+  <statistics fitsExecutionTime="556">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="122" />
+    <tool toolname="Jhove" toolversion="1.20.1" status="did not run" />
+    <tool toolname="embARC" toolversion="0.2" status="did not run" />
+    <tool toolname="file utility" toolversion="5.31" executionTime="551" />
+    <tool toolname="Exiftool" toolversion="11.54" executionTime="538" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="26" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="31" />
+    <tool toolname="Tika" toolversion="1.21" executionTime="534" />
+  </statistics>
+</fits>
+

@@ -18,13 +18,18 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
+import static edu.harvard.hul.ois.fits.FitsPaths.ACTUAL_OUTPUT_FILE_SUFFIX;
+import static edu.harvard.hul.ois.fits.FitsPaths.EXPECTED_OUTPUT_FILE_SUFFIX;
+import static edu.harvard.hul.ois.fits.FitsPaths.INPUT_DIR;
+import static edu.harvard.hul.ois.fits.FitsPaths.OUTPUT_DIR;
+import static edu.harvard.hul.ois.fits.FitsPaths.PROPS_DIR;
+
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
+import org.apache.commons.io.FileUtils;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.junit.AfterClass;
@@ -69,130 +74,27 @@ public class VideoStdSchemaXmlUnitTest extends AbstractXmlUnitTest {
 
     @Test
     public void testVideoXmlUnitFitsOutput_AVC() throws Exception {
-
-        String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFile("FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4", fits, OutputType.DEFAULT);
     }
 
     @Test
     public void testVideoXmlUnitFitsOutput_DV() throws Exception {
-
-        String inputFilename = "FITS-SAMPLE-26.mov";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFile("FITS-SAMPLE-26.mov", fits, OutputType.DEFAULT);
     }
 
     @Test
     public void testVideoXmlUnitStandardOutput_AVC() throws Exception {
-
-        String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-
-        // Output stream for FITS to write to
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-        // Create standard output in the stream passed in
-        Fits.outputStandardSchemaXml(fitsOut, out);
-
-        File file = new File("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(out.toByteArray());
-        fos.flush();
-        fos.close();
-
-        // Turn output stream into a String HtmlUnit can use
-        String actualXmlStr = new String(out.toByteArray(), "UTF-8");
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(
-                new File("testfiles/output/" + inputFilename + "-standard-only" + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFile("FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4", fits, OutputType.STANDARD);
     }
 
     @Test
     public void testVideoXmlUnitStandardOutput_DV() throws Exception {
-
-        String inputFilename = "FITS-SAMPLE-26.mov";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-
-        // Output stream for FITS to write to
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-        // Create standard output in the stream passed in
-        Fits.outputStandardSchemaXml(fitsOut, out);
-
-        File file = new File("test-generated-output/" + inputFilename + "-standard-only" + ACTUAL_OUTPUT_FILE_SUFFIX);
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(out.toByteArray());
-        fos.flush();
-        fos.close();
-
-        // Turn output stream into a String HtmlUnit can use
-        String actualXmlStr = new String(out.toByteArray(), "UTF-8");
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(
-                new File("testfiles/output//" + inputFilename + "-standard-only" + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFile("FITS-SAMPLE-26.mov", fits, OutputType.STANDARD);
     }
 
     @Test
     public void testVideoXmlUnitCombinedOutput_DV() throws Exception {
-
-        String inputFilename = "FITS-SAMPLE-26.mov";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        // Include standard schema output
-        fitsOut.addStandardCombinedFormat();
-
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        // Turn output stream into a String HtmlUnit can use
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // also save file to disk for visual examination
-        File file = new File("test-generated-output/" + inputFilename + "-combined" + ACTUAL_OUTPUT_FILE_SUFFIX);
-        FileOutputStream fos = new FileOutputStream(file);
-        fitsOut.output(fos);
-        fos.close();
-
-        // Read in the expected XML file
-        Scanner scan =
-                new Scanner(new File("testfiles/output/" + inputFilename + "-combined" + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFile("FITS-SAMPLE-26.mov");
     }
 
     /**
@@ -200,68 +102,32 @@ public class VideoStdSchemaXmlUnitTest extends AbstractXmlUnitTest {
      */
     @Test
     public void testVideoXmlUnitOutput_MXF() throws Exception {
-
-        String inputFilename = "freeMXF-mxf1a.mxf";
-
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        // Turn output stream into a String HtmlUnit can use
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFile("freeMXF-mxf1a.mxf", fits, OutputType.DEFAULT);
     }
 
     @Test
     public void testVideoXmlUnitCombinedOutput() throws Exception {
-
-        String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        // Create combined output in the stream passed in
-        fitsOut.addStandardCombinedFormat();
-
-        // Turn output stream into a String HtmlUnit can use
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + ACTUAL_OUTPUT_FILE_SUFFIX);
-
-        // Read in the expected XML file
-        Scanner scan = new Scanner(new File("testfiles/output/" + inputFilename + EXPECTED_OUTPUT_FILE_SUFFIX));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
-
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testFile("FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_4_8_1_2_1_1.mov");
     }
 
     @Test
     public void testVideoXmlUnitFitsOutput_AVC_NO_MD5() throws Exception {
-
-        File fitsConfigFile = new File("testfiles/properties/fits_no_md5_video.xml");
+        File fitsConfigFile = new File(PROPS_DIR + "fits_no_md5_video.xml");
         Fits fits = new Fits(null, fitsConfigFile);
 
         // First generate the FITS output
         String inputFilename = "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4";
-        File input = new File("testfiles/" + inputFilename);
+        String namePart = "-no-md5";
+        File input = new File(INPUT_DIR + inputFilename);
         FitsOutput fitsOut = fits.examine(input);
-        fitsOut.saveToDisk("test-generated-output/"
-                + "FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_FITS_NO_MD5_XmlUnitActualOutput.xml");
+        fitsOut.saveToDisk(OUTPUT_DIR + inputFilename + namePart + ACTUAL_OUTPUT_FILE_SUFFIX);
 
         XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
         String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
         // Read in the expected XML file
-        Scanner scan =
-                new Scanner(new File("testfiles/output/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1_mp4_FITS_NO_MD5.xml"));
-        String expectedXmlStr = scan.useDelimiter("\\Z").next();
-        scan.close();
+        String expectedXmlStr = FileUtils.readFileToString(
+                new File(OUTPUT_DIR + inputFilename + namePart + EXPECTED_OUTPUT_FILE_SUFFIX), StandardCharsets.UTF_8);
 
         testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
     }

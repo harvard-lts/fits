@@ -18,12 +18,8 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
-import java.io.File;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import edu.harvard.hul.ois.fits.tests.AbstractOutputTest;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -31,73 +27,31 @@ import org.junit.Test;
  *
  * @author dan179
  */
-public class ZipTest extends AbstractXmlUnitTest {
-
-    /*
-     *  Only one Fits instance is needed to run all tests.
-     *  This also speeds up the tests.
-     */
-    private static Fits fits;
-
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        // Set up FITS for entire class.
-        File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
-        fits = new Fits(null, fitsConfigFile);
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        fits = null;
-    }
+@Ignore("These tests have no asserts and just generate output files")
+public class ZipTest extends AbstractOutputTest {
 
     @Test
     public void testZipFile() throws Exception {
-
-        String inputFilename = "assorted-files.zip";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("assorted-files.zip");
     }
 
     @Test
     public void testSingleFileZipFile() throws Exception {
-
-        String inputFilename = "40415587.zip";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("40415587.zip");
     }
 
     @Test
     public void testCompressedEncryptedZipFile() throws Exception {
-
-        String inputFilename = "compressed-encrypted.zip";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("compressed-encrypted.zip");
     }
 
     @Test
     public void testUncompressedEncryptedZipFile() throws Exception {
-
-        String inputFilename = "uncompressed-encrypted.zip";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("uncompressed-encrypted.zip");
     }
 
     @Test
     public void testEmbeddedDirectoriesZipFile() throws Exception {
-
-        String inputFilename = "multiple-file-types-and-folders.zip";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("multiple-file-types-and-folders.zip");
     }
 }

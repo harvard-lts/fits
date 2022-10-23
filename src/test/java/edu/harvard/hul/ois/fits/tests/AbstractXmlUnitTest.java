@@ -18,30 +18,32 @@
  */
 package edu.harvard.hul.ois.fits.tests;
 
+import static edu.harvard.hul.ois.fits.FitsPaths.ACTUAL_OUTPUT_FILE_SUFFIX;
+import static edu.harvard.hul.ois.fits.FitsPaths.EXPECTED_OUTPUT_FILE_SUFFIX;
+import static edu.harvard.hul.ois.fits.FitsPaths.INPUT_DIR;
+import static edu.harvard.hul.ois.fits.FitsPaths.OUTPUT_DIR;
+import static edu.harvard.hul.ois.fits.FitsPaths.OUTPUT_FILE_SUFFIX;
+import static edu.harvard.hul.ois.fits.FitsPaths.PROPS_DIR;
 import static org.custommonkey.xmlunit.XMLAssert.assertXMLIdentical;
 
+import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
+import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 import edu.harvard.hul.ois.fits.junit.IgnoreNamedElementsDifferenceListener;
-import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import org.apache.commons.io.FileUtils;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
+import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,12 +55,6 @@ import org.xml.sax.SAXException;
  * @author dan179
  */
 public class AbstractXmlUnitTest extends AbstractLoggingTest {
-
-    // Suffix added to input file name for actual FITS output file used for test comparison.
-    protected static final String ACTUAL_OUTPUT_FILE_SUFFIX = "_XmlUnitActualOutput.xml";
-
-    // Suffix added to input file name for finding expected FITS output file.
-    protected static final String EXPECTED_OUTPUT_FILE_SUFFIX = "_XmlUnitExpectedOutput.xml";
 
     // These are the attributes that should be ignored when comparing actual FITS output with
     // the expected output file.
@@ -78,19 +74,48 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
         "lastmodified"
     };
 
-    // To be used when accessing an external FITS Servlet deployment.
-    private static CloseableHttpClient httpclient;
-    // Location of external FITS Servlet instance.
-    private static String servicePostURL = "http://localhost:8080/fits/examine?includeStandardOutput=false";
-
     private static Logger logger = null;
 
+    /*
+     *  Only one Fits instance is needed to run all tests.
+     *  This also speeds up the tests.
+     */
+    protected static Fits fits;
+
     @BeforeClass
-    public static void abstractClassSetup() throws Exception {
+    public static void abstractClassSetup() throws FitsConfigurationException {
         // Set up XMLUnit for all classes.
         logger = LoggerFactory.getLogger(AbstractXmlUnitTest.class);
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setNormalizeWhitespace(true);
+    }
+
+    @AfterClass
+    public static void abstractAfterClass() {
+        fits = null;
+    }
+
+    @Before
+    public void abstractSetup() throws FitsConfigurationException {
+        // Same FITS instance is used for all of the tests in a class
+        if (fits == null) {
+            String configFile = fitsConfigFile();
+            if (configFile == null) {
+                fits = new Fits();
+            } else {
+                fits = new Fits(null, new File(PROPS_DIR + configFile));
+            }
+        }
+    }
+
+    /**
+     * Subclasses should override this method if they want to start FITS using a custom config file. The returned
+     * config file name should be relative to `testfiles/properties`.
+     *
+     * @return the name of the config file in testfiles/properties to use
+     */
+    protected String fitsConfigFile() {
+        return null;
     }
 
     /**
@@ -98,6 +123,83 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
      */
     protected String[] getIgnoredXmlElements() {
         return IGNORED_XML_ELEMENTS;
+    }
+
+    /**
+     * Examines the specified file (relative to the `testfiles/input` directory) and compares the output to the expected
+     * output. The expected output file must exist at `testfiles/output/INPUT_NAME_XmlUnitExpectedOutput.xml`.
+     * The generated output file will be at `testfiles/output/INPUT_NAME_XmlUnitActualOutput.xml`.
+     *
+     * @param inputFilename the name of the file to examine relative testfiles/input
+     * @throws Exception
+     */
+    protected void testFile(String inputFilename) throws Exception {
+        testFile(inputFilename, fits, OutputType.COMBINED);
+    }
+
+    /**
+     * Examines the specified file (relative to the `testfiles/input` directory) and compares the output to the expected
+     * output. The expected output file must exist at `testfiles/output/INPUT_NAME_XmlUnitExpectedOutput.xml`.
+     * The generated output file will be at `testfiles/output/INPUT_NAME_XmlUnitActualOutput.xml`.
+     *
+     * @param inputFilename the name of the file to examine relative testfiles/input
+     * @param fits the fits instance to use
+     * @throws Exception
+     */
+    protected void testFile(String inputFilename, Fits fits, OutputType outputType) throws Exception {
+        File input = new File(INPUT_DIR + inputFilename);
+        FitsOutput fitsOut = fits.examine(input);
+        writeAndValidate(fitsOut, inputFilename, outputType);
+    }
+
+    protected void writeAndValidate(FitsOutput fitsOut, String inputFilename, OutputType outputType) throws Exception {
+        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+        String actualXmlStr;
+        String namePart = "";
+
+        switch (outputType) {
+            case COMBINED:
+                fitsOut.addStandardCombinedFormat();
+                actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+                break;
+            case STANDARD:
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                Fits.outputStandardSchemaXml(fitsOut, out);
+                actualXmlStr = out.toString();
+                namePart = "-standard-only";
+                break;
+            case DEFAULT:
+                actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
+                namePart = "-default";
+                break;
+            default:
+                throw new IllegalStateException();
+        }
+
+        String className = this.getClass().getSimpleName();
+        fitsOut.saveToDisk(OUTPUT_DIR + inputFilename + namePart + "_" + className + ACTUAL_OUTPUT_FILE_SUFFIX);
+
+        // Read in the expected XML file
+        String expectedXmlStr = FileUtils.readFileToString(
+                new File(OUTPUT_DIR + inputFilename + namePart + EXPECTED_OUTPUT_FILE_SUFFIX), StandardCharsets.UTF_8);
+
+        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+    }
+
+    /**
+     * Examines the specified file (relative to the `testfiles/input` directory) and writes the standard combined
+     * output to `testfiles/output/INPUT_NAME_Output.xml`. This DOES NOT make any assertions on the output.
+     *
+     * @param inputFilename the name of the file to examine relative testfiles/input
+     * @return the FitsOutput object
+     * @throws Exception
+     */
+    protected FitsOutput writeOutput(String inputFilename) throws Exception {
+        File input = new File(INPUT_DIR + inputFilename);
+        FitsOutput fitsOut = fits.examine(input);
+        fitsOut.addStandardCombinedFormat();
+        fitsOut.saveToDisk(OUTPUT_DIR + inputFilename + OUTPUT_FILE_SUFFIX);
+        return fitsOut;
     }
 
     /**
@@ -116,10 +218,7 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
         @SuppressWarnings("unchecked")
         List<Difference> diffs = detailedDiff.getAllDifferences();
         if (!diff.identical()) {
-            StringBuffer differenceDescription = new StringBuffer();
-            differenceDescription.append(diffs.size()).append(" differences for input file: " + inputFilename);
-
-            System.out.println(differenceDescription.toString());
+            System.out.println(diffs.size() + " differences for input file: " + inputFilename);
             for (Difference difference : diffs) {
                 System.out.println(difference.toString());
             }
@@ -127,63 +226,9 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
         assertXMLIdentical("Differences in XML for file: " + inputFilename, diff, true);
     }
 
-    /**
-     * To be called from a @BeforeClass method in a class that is testing an external FITS web application.
-     */
-    protected static void beforeServiceTest() throws Exception {
-        httpclient = HttpClients.createDefault();
-    }
-
-    /**
-     * To be called from a @AfterClass method in a class that is testing an external FITS web application.
-     */
-    protected static void afterServiceTest() throws Exception {
-        if (httpclient != null) {
-            httpclient.close();
-        }
-    }
-
-    /**
-     * To be called from a method in a class that is testing an external FITS web application.
-     */
-    protected FitsOutput examine(File inputFile) throws Exception {
-
-        HttpPost httpPost = new HttpPost(servicePostURL);
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.addBinaryBody("datafile", inputFile, ContentType.APPLICATION_OCTET_STREAM, inputFile.getName());
-        HttpEntity reqEntity = builder.build();
-        httpPost.setEntity(reqEntity);
-
-        logger.info("executing request " + httpPost.getRequestLine());
-        CloseableHttpResponse response = httpclient.execute(httpPost);
-
-        FitsOutput fitsOutput = null;
-        try {
-            logger.info("HTTP Response Status Line: " + response.getStatusLine());
-            // Expecting a 200 Status Code
-            if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-                String reason = response.getStatusLine().getReasonPhrase();
-                logger.warn("Unexpected HTTP response status code:["
-                        + response.getStatusLine().getStatusCode() + "] -- Reason (if available): " + reason);
-            } else {
-                HttpEntity resEntity = response.getEntity();
-                InputStream is = resEntity.getContent();
-                BufferedReader in = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8.name()));
-
-                String output;
-                StringBuilder sb = new StringBuilder();
-                while ((output = in.readLine()) != null) {
-                    sb.append(output);
-                    sb.append(System.getProperty("line.separator"));
-                }
-                logger.info(sb.toString());
-                in.close();
-                EntityUtils.consume(resEntity);
-                fitsOutput = new FitsOutput(sb.toString());
-            }
-        } finally {
-            response.close();
-        }
-        return fitsOutput;
+    public enum OutputType {
+        DEFAULT,
+        STANDARD,
+        COMBINED
     }
 }

@@ -18,6 +18,9 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
+import static edu.harvard.hul.ois.fits.FitsPaths.OUTPUT_DIR;
+import static edu.harvard.hul.ois.fits.FitsPaths.OUTPUT_FILE_SUFFIX;
+
 import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
@@ -45,7 +48,6 @@ public class BulkDirectoryTest extends AbstractLoggingTest {
 
     private static final String FITS_CONFIG_FILE = "<some_directory>/some-fits.xml";
     private static final String FITS_INPUT_DIRECTORY = "<some_directory_for_input_files>";
-    private static final String FITS_OUTPUT_DIRECTORY = "test-generated-output";
 
     private static Logger logger = LoggerFactory.getLogger(BulkDirectoryTest.class);
 
@@ -76,7 +78,7 @@ public class BulkDirectoryTest extends AbstractLoggingTest {
             logger.info("processsing file: " + fileName);
             FitsOutput fitsOut = fits.examine(input);
             fitsOut.addStandardCombinedFormat();
-            fitsOut.saveToDisk(FITS_OUTPUT_DIRECTORY + File.separator + fileName + OUTPUT_FILE_SUFFIX);
+            fitsOut.saveToDisk(OUTPUT_DIR + fileName + OUTPUT_FILE_SUFFIX);
         }
     }
 
@@ -87,7 +89,7 @@ public class BulkDirectoryTest extends AbstractLoggingTest {
         File input = new File(FITS_INPUT_DIRECTORY + File.separator + fileName);
         FitsOutput fitsOut = fits.examine(input);
         fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk(FITS_OUTPUT_DIRECTORY + File.separator + fileName + OUTPUT_FILE_SUFFIX);
+        fitsOut.saveToDisk(OUTPUT_DIR + fileName + OUTPUT_FILE_SUFFIX);
         fits.getToolbelt().printToolInfo(true);
     }
 }

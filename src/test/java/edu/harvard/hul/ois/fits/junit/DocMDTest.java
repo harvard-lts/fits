@@ -18,12 +18,8 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
-import java.io.File;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import edu.harvard.hul.ois.fits.tests.AbstractOutputTest;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -32,174 +28,82 @@ import org.junit.Test;
  *
  * @author dan179
  */
-public class DocMDTest extends AbstractLoggingTest {
-
-    /*
-     *  Only one Fits instance is needed to run all tests.
-     *  This also speeds up the tests.
-     */
-    private static Fits fits;
-
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        // Set up FITS for entire class.
-        File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
-        fits = new Fits(null, fitsConfigFile);
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        fits = null;
-    }
+@Ignore("These tests have no asserts and just generate output files")
+public class DocMDTest extends AbstractOutputTest {
 
     @Test
     public void testWordDocUrlEmbeddedResources() throws Exception {
-
-        String inputFilename = "Word2003_has_URLs_has_embedded_resources.doc";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("Word2003_has_URLs_has_embedded_resources.doc");
     }
 
     @Test
     public void testWordDocGraphics() throws Exception {
-
-        String inputFilename = "Word2003_many_graphics.doc";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("Word2003_many_graphics.doc");
     }
 
     @Test
     public void testWordDocPasswordProtected() throws Exception {
-
-        String inputFilename = "Word2003PasswordProtected.doc";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("Word2003PasswordProtected.doc");
     }
 
     @Test
     public void testWordDoc2011() throws Exception {
-
-        String inputFilename = "Word2011_Has_Outline.doc";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("Word2011_Has_Outline.doc");
     }
 
     @Test
     public void testWordDocLibreOffice() throws Exception {
-
-        String inputFilename = "LibreOffice.doc";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("LibreOffice.doc");
     }
 
     @Test
     public void testWordDocHyperlinks() throws Exception {
-
-        String inputFilename = "Word2003_has_table_of_contents.doc";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("Word2003_has_table_of_contents.doc");
     }
 
     @Test
     public void testWordDocPasswordAndEncrypted() throws Exception {
-
-        String inputFilename = "Word_protected_encrypted.doc";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("Word_protected_encrypted.doc");
     }
 
     @Test
     public void testWordDocV2() throws Exception {
-
-        String inputFilename = "NEWSSLID_Word2_0.DOC";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("NEWSSLID_Word2_0.DOC");
     }
 
     @Test
     public void testOpenOfficeDoc() throws Exception {
-
-        String inputFilename = "LibreODT-Ur-doc.odt";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("LibreODT-Ur-doc.odt");
     }
 
     @Test
     public void testOpenOfficeDocEmbeddedResources() throws Exception {
-
-        String inputFilename = "LibreODTwFormulas.odt";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("LibreODTwFormulas.odt");
     }
 
     @Test
     public void testOpenOfficeDocHasTables() throws Exception {
-
-        String inputFilename = "LibreODT-hasTables.odt";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("LibreODT-hasTables.odt");
     }
 
     @Test
     public void testOpenOfficeDocUnparseableDate() throws Exception {
-
-        String inputFilename = "UnparseableDate.odt";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("UnparseableDate.odt");
     }
 
     @Test
     public void testWordDocxOutput() throws Exception {
-
-        String inputFilename = "Word_has_index.docx";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("Word_has_index.docx");
     }
 
     @Test
     public void testWordDocxPasswordProtected() throws Exception {
-
-        String inputFilename = "WordPasswordProtected.docx";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("WordPasswordProtected.docx");
     }
 
     @Test
     public void testWordDocmOutput() throws Exception {
-
-        String inputFilename = "Document_Has_Form_Controls.docm";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("Document_Has_Form_Controls.docm");
     }
 
     @Test
@@ -215,12 +119,7 @@ public class DocMDTest extends AbstractLoggingTest {
         };
 
         for (String inputFilename : inputFilenames) {
-
-            String outputFilename = "test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX;
-            File input = new File("testfiles/" + inputFilename);
-            FitsOutput fitsOut = fits.examine(input);
-            fitsOut.addStandardCombinedFormat();
-            fitsOut.saveToDisk(outputFilename);
+            writeOutput(inputFilename);
         }
     }
 
@@ -232,47 +131,28 @@ public class DocMDTest extends AbstractLoggingTest {
         //    			"WordPerfectCompoundFile.wpd"};  // (not identified as a WordPerfect document)
 
         for (String inputFilename : inputFilenames) {
-            String outputFilename = "test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX;
-            File input = new File("testfiles/" + inputFilename);
-            FitsOutput fitsOut = fits.examine(input);
-            fitsOut.addStandardCombinedFormat();
-            fitsOut.saveToDisk(outputFilename);
+            writeOutput(inputFilename);
         }
     }
 
     @Test
     public void testRtfOutput() throws Exception {
-
-        String inputFilename = "TestDoc.rtf";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("TestDoc.rtf");
     }
 
     @Test
     public void testRtfWithCompanyOutput() throws Exception {
-
-        String inputFilename = "Doc2.rtf";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
+        writeOutput("Doc2.rtf");
     }
 
     @Test
     public void testPdf() throws Exception {
-
         String[] inputFilenames = {
             "PDF_embedded_resources.pdf", "HasChangeHistory.pdf", "PDF_eng.pdf", "HasAnnotations.pdf"
         };
 
         for (String inputFilename : inputFilenames) {
-            String outputFilename = "test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX;
-            File input = new File("testfiles/" + inputFilename);
-            FitsOutput fitsOut = fits.examine(input);
-            fitsOut.addStandardCombinedFormat();
-            fitsOut.saveToDisk(outputFilename);
+            writeOutput(inputFilename);
         }
     }
 
@@ -290,11 +170,7 @@ public class DocMDTest extends AbstractLoggingTest {
         };
 
         for (String inputFilename : inputFilenames) {
-            String outputFilename = "test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX;
-            File input = new File("testfiles/" + inputFilename);
-            FitsOutput fitsOut = fits.examine(input);
-            fitsOut.addStandardCombinedFormat();
-            fitsOut.saveToDisk(outputFilename);
+            writeOutput(inputFilename);
         }
     }
 
@@ -308,11 +184,7 @@ public class DocMDTest extends AbstractLoggingTest {
         }; // converts to PDF/A
 
         for (String inputFilename : inputFilenames) {
-            String outputFilename = "test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX;
-            File input = new File("testfiles/" + inputFilename);
-            FitsOutput fitsOut = fits.examine(input);
-            fitsOut.addStandardCombinedFormat();
-            fitsOut.saveToDisk(outputFilename);
+            writeOutput(inputFilename);
         }
     }
 }

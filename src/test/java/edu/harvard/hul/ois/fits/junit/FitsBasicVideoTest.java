@@ -18,39 +18,16 @@
  */
 package edu.harvard.hul.ois.fits.junit;
 
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.FitsOutput;
-import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
+import edu.harvard.hul.ois.fits.tests.AbstractOutputTest;
 import edu.harvard.hul.ois.fits.tools.Tool;
-import java.io.File;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
-public class FitsBasicVideoTest extends AbstractLoggingTest {
-
-    /*
-     *  Only one Fits instance is needed to run all tests.
-     *  This also speeds up the tests.
-     */
-    private static Fits fits;
-
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        // Set up FITS for entire class.
-        fits = new Fits();
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        fits = null;
-    }
+@Ignore("These tests have no asserts and just generate output files")
+public class FitsBasicVideoTest extends AbstractOutputTest {
 
     @Test
     public void testFitsVideo_AVC() throws Exception {
-
-        File input = new File("testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
-
         for (Tool t : fits.getToolbelt().getTools()) {
             if (t.getToolInfo().getName().equals("Jhove")) {
                 // t.setEnabled(false);
@@ -60,15 +37,11 @@ public class FitsBasicVideoTest extends AbstractLoggingTest {
             }
         }
 
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.saveToDisk("test-generated-output/fitsBasicVideoTestOutput.xml");
+        writeOutput("FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4");
     }
 
     @Test
     public void testFitsVideo_DV() throws Exception {
-
-        File input = new File("testfiles/FITS-SAMPLE-26.mov");
-
         for (Tool t : fits.getToolbelt().getTools()) {
             if (t.getToolInfo().getName().equals("Jhove")) {
                 // t.setEnabled(false);
@@ -78,7 +51,6 @@ public class FitsBasicVideoTest extends AbstractLoggingTest {
             }
         }
 
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.saveToDisk("test-generated-output/fitsBasicVideoTestOutput.xml");
+        writeOutput("FITS-SAMPLE-26.mov");
     }
 }

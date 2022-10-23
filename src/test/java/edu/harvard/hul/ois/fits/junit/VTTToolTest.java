@@ -20,45 +20,17 @@ package edu.harvard.hul.ois.fits.junit;
 
 import static org.junit.Assert.fail;
 
-import edu.harvard.hul.ois.fits.Fits;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.identity.FitsIdentity;
-import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
-import java.io.File;
+import edu.harvard.hul.ois.fits.tests.AbstractOutputTest;
 import java.util.List;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class VTTToolTest extends AbstractLoggingTest {
-
-    /*
-     *  Only one Fits instance is needed to run all tests.
-     *  This also speeds up the tests.
-     */
-    private static Fits fits;
-
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        // Set up FITS for entire class.
-        File fitsConfigFile = new File("testfiles/properties/fits-full-with-tool-output.xml");
-        fits = new Fits(null, fitsConfigFile);
-    }
-
-    @AfterClass
-    public static void afterClass() {
-        fits = null;
-    }
+public class VTTToolTest extends AbstractOutputTest {
 
     @Test
     public void testVttRead() throws Exception {
-
-        String inputFilename = "simple_webvtt.vtt";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
-
+        FitsOutput fitsOut = writeOutput("simple_webvtt.vtt");
         List<FitsIdentity> identities = fitsOut.getIdentities();
 
         for (FitsIdentity identity : identities) {
@@ -70,13 +42,7 @@ public class VTTToolTest extends AbstractLoggingTest {
 
     @Test
     public void testInvalidVttRead() throws Exception {
-
-        String inputFilename = "invalid_webvtt.vtt";
-        File input = new File("testfiles/" + inputFilename);
-        FitsOutput fitsOut = fits.examine(input);
-        fitsOut.addStandardCombinedFormat();
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + OUTPUT_FILE_SUFFIX);
-
+        FitsOutput fitsOut = writeOutput("invalid_webvtt.vtt");
         List<FitsIdentity> identities = fitsOut.getIdentities();
 
         // Since this is an invalid VTT file, it should be identified as "text/plain"

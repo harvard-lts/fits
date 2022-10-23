@@ -18,6 +18,9 @@
  */
 package edu.harvard.hul.ois.fits.consolidation;
 
+import static edu.harvard.hul.ois.fits.FitsPaths.INPUT_DIR;
+import static edu.harvard.hul.ois.fits.FitsPaths.OUTPUT_DIR;
+import static edu.harvard.hul.ois.fits.FitsPaths.PROPS_DIR;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -33,8 +36,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This test class is to verify output created by the OISConsolidator class.
@@ -43,8 +44,6 @@ import org.slf4j.LoggerFactory;
  */
 public class OISConsolidatorTest extends AbstractLoggingTest {
 
-    private static Logger logger = LoggerFactory.getLogger(OISConsolidatorTest.class);
-
     /**
      * This is a trivial test of passing a single ToolOutput from the Droid tool into the OISConsolidator
      * to verify its identity output.
@@ -52,8 +51,8 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
     @Test
     public void singleTool() throws Exception {
         String inputFilename = "Winnie-the-Pooh-protected.epub";
-        File input = new File("testfiles/" + inputFilename);
-        File fitsConfigFile = new File("testfiles/properties/fits_droid_only.xml");
+        File input = new File(INPUT_DIR + inputFilename);
+        File fitsConfigFile = new File(PROPS_DIR + "fits_droid_only.xml");
 
         // Make sure ToolOutput for each tool not reset after examine() so it can be reused for test.
         Fits fits = new Fits(null, fitsConfigFile) {
@@ -68,7 +67,7 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
         FitsOutput fitsOut = fits.examine(input);
 
         // output to file and console to view output if necessary, before running assertions
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_droid_only_Output.xml");
+        fitsOut.saveToDisk(OUTPUT_DIR + inputFilename + "_droid_only_Output.xml");
         fitsOut.addStandardCombinedFormat();
 
         ToolBelt toolBelt = fits.getToolbelt();
@@ -99,8 +98,8 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
     @Test
     public void droidBeforeJhove() throws Exception {
         String inputFilename = "image-vectorgraphic.svg";
-        File input = new File("testfiles/" + inputFilename);
-        File fitsConfigFile = new File("testfiles/properties/fits_droid_jhove.xml");
+        File input = new File(INPUT_DIR + inputFilename);
+        File fitsConfigFile = new File(PROPS_DIR + "fits_droid_jhove.xml");
 
         // Make sure ToolOutput for each tool not reset after examine() so it can be reused for test.
         Fits fits = new Fits(null, fitsConfigFile) {
@@ -115,7 +114,7 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
         FitsOutput fitsOut = fits.examine(input);
 
         // output to file and console to view output if necessary, before running assertions
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_droid_tika_Output.xml");
+        fitsOut.saveToDisk(OUTPUT_DIR + inputFilename + "_droid_tika_Output.xml");
         fitsOut.addStandardCombinedFormat();
 
         ToolBelt toolBelt = fits.getToolbelt();
@@ -147,8 +146,8 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
     @Test
     public void jhoveBeforeDroid() throws Exception {
         String inputFilename = "image-vectorgraphic.svg";
-        File input = new File("testfiles/" + inputFilename);
-        File fitsConfigFile = new File("testfiles/properties/fits_jhove_droid.xml");
+        File input = new File(INPUT_DIR + inputFilename);
+        File fitsConfigFile = new File(PROPS_DIR + "fits_jhove_droid.xml");
 
         // Make sure ToolOutput for each tool not reset after examine() so it can be reused for test.
         Fits fits = new Fits(null, fitsConfigFile) {
@@ -163,7 +162,7 @@ public class OISConsolidatorTest extends AbstractLoggingTest {
         FitsOutput fitsOut = fits.examine(input);
 
         // output to file and console to view output if necessary, before running assertions
-        fitsOut.saveToDisk("test-generated-output/" + inputFilename + "_jhove_droid_Output.xml");
+        fitsOut.saveToDisk(OUTPUT_DIR + inputFilename + "_jhove_droid_Output.xml");
         fitsOut.addStandardCombinedFormat();
 
         ToolBelt toolBelt = fits.getToolbelt();
