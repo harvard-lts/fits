@@ -120,16 +120,17 @@ public class VideoStdSchemaXmlUnitTest extends AbstractXmlUnitTest {
         String namePart = "-no-md5";
         File input = new File(INPUT_DIR + inputFilename);
         FitsOutput fitsOut = fits.examine(input);
-        fitsOut.saveToDisk(OUTPUT_DIR + inputFilename + namePart + ACTUAL_OUTPUT_FILE_SUFFIX);
+        String actualFile = OUTPUT_DIR + inputFilename + namePart + ACTUAL_OUTPUT_FILE_SUFFIX;
+        fitsOut.saveToDisk(actualFile);
 
         XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
         String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
         // Read in the expected XML file
-        String expectedXmlStr = FileUtils.readFileToString(
-                new File(OUTPUT_DIR + inputFilename + namePart + EXPECTED_OUTPUT_FILE_SUFFIX), StandardCharsets.UTF_8);
+        String expectedFile = OUTPUT_DIR + inputFilename + namePart + EXPECTED_OUTPUT_FILE_SUFFIX;
+        String expectedXmlStr = FileUtils.readFileToString(new File(expectedFile), StandardCharsets.UTF_8);
 
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testActualAgainstExpected(actualXmlStr, expectedXmlStr, actualFile, expectedFile);
     }
 
     /**

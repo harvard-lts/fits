@@ -177,13 +177,14 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
         }
 
         String className = this.getClass().getSimpleName();
-        fitsOut.saveToDisk(OUTPUT_DIR + inputFilename + namePart + "_" + className + ACTUAL_OUTPUT_FILE_SUFFIX);
+        String actualFile = OUTPUT_DIR + inputFilename + namePart + "_" + className + ACTUAL_OUTPUT_FILE_SUFFIX;
+        fitsOut.saveToDisk(actualFile);
 
         // Read in the expected XML file
-        String expectedXmlStr = FileUtils.readFileToString(
-                new File(OUTPUT_DIR + inputFilename + namePart + EXPECTED_OUTPUT_FILE_SUFFIX), StandardCharsets.UTF_8);
+        String expectedFile = OUTPUT_DIR + inputFilename + namePart + EXPECTED_OUTPUT_FILE_SUFFIX;
+        String expectedXmlStr = FileUtils.readFileToString(new File(expectedFile), StandardCharsets.UTF_8);
 
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, inputFilename);
+        testActualAgainstExpected(actualXmlStr, expectedXmlStr, actualFile, expectedFile);
     }
 
     /**
@@ -205,7 +206,8 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
     /**
      * This method performs the actual test of actual FITS output against expected.
      */
-    protected void testActualAgainstExpected(String actualXmlStr, String expectedXmlStr, String inputFilename)
+    protected void testActualAgainstExpected(
+            String actualXmlStr, String expectedXmlStr, String actualFile, String expectedFile)
             throws SAXException, IOException {
         Diff diff = new Diff(expectedXmlStr, actualXmlStr);
 
@@ -218,12 +220,14 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
         @SuppressWarnings("unchecked")
         List<Difference> diffs = detailedDiff.getAllDifferences();
         if (!diff.identical()) {
-            System.out.println(diffs.size() + " differences for input file: " + inputFilename);
+            System.out.printf(
+                    "%s differences between actual %s and expected %s%n", diffs.size(), actualFile, expectedFile);
             for (Difference difference : diffs) {
                 System.out.println(difference.toString());
             }
         }
-        assertXMLIdentical("Differences in XML for file: " + inputFilename, diff, true);
+        assertXMLIdentical(
+                String.format("Differences between actual %s and expected %s", actualFile, expectedFile), diff, true);
     }
 
     public enum OutputType {
