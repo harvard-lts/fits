@@ -124,12 +124,12 @@ project for doing things like running tests, formatting, and building. Execute `
 Available recipes:
     build               # Builds FITS
     build-image         # Builds the Docker image
+    build-test-image    # Builds the Docker image that's used for running the tests
     default             # Lists available commands
     format              # Applies the code formatter
     run +ARGS           # Executes FITS within a Docker container. This requires that the image has already been built (just build-image).
-    test                # Runs the tests within a Docker container. Requires the image to already exist (just test-build-image). The image does NOT need to be rebuilt between runs.
-    test-build-image    # Builds the Docker image that's used for running the tests
-    test-filter PATTERN # Runs the tests that match the pattern within a Docker container. Requires the image to already exist (just test-build-image). The image does NOT need to be rebuilt between runs.
+    test                # Runs the tests within a Docker container. Requires the image to already exist (just build-test-image). The image does NOT need to be rebuilt between runs.
+    test-filter PATTERN # Runs the tests that match the pattern within a Docker container. Requires the image to already exist (just build-test-image). The image does NOT need to be rebuilt between runs.
 ```
 
 The commands are defined in [justfile](justfile).
