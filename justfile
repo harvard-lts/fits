@@ -15,14 +15,14 @@ run +ARGS:
     docker run --rm -v `pwd`:/work:z fits {{ARGS}}
 
 # Builds the Docker image that's used for running the tests
-test-build-image:
+build-test-image:
     docker build -f docker/Dockerfile-test -t fits-test .
 
-# Runs the tests within a Docker container. Requires the image to already exist (just test-build-image). The image does NOT need to be rebuilt between runs.
+# Runs the tests within a Docker container. Requires the image to already exist (just build-test-image). The image does NOT need to be rebuilt between runs.
 test:
     docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
 
-# Runs the tests that match the pattern within a Docker container. Requires the image to already exist (just test-build-image). The image does NOT need to be rebuilt between runs.
+# Runs the tests that match the pattern within a Docker container. Requires the image to already exist (just build-test-image). The image does NOT need to be rebuilt between runs.
 test-filter PATTERN:
     docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test -Dtest={{PATTERN}}
 
