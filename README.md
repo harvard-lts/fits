@@ -101,7 +101,8 @@ After you are up and running see the [User Manual](http://fitstool.org/user-manu
 Development
 -----------
 
-This project uses a code formatter to ensure consist formatting. To run the formatter:
+This project uses a code formatter to apply the [palantir-java-format](https://github.com/palantir/palantir-java-format)
+to ensure consist formatting. To run the formatter:
 
     mvn spotless:apply
 
