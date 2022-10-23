@@ -102,7 +102,8 @@ Development
 -----------
 
 This project uses a code formatter to apply the [palantir-java-format](https://github.com/palantir/palantir-java-format)
-to ensure consist formatting. To run the formatter:
+to ensure consist formatting based on the [Google Style Guide](https://google.github.io/styleguide/javaguide.html).
+To run the formatter:
 
     mvn spotless:apply
 
