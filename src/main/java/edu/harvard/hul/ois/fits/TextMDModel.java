@@ -22,28 +22,28 @@ public class TextMDModel {
     protected MarkupBasis mb;
     protected CharacterInfo ci;
 
-    protected TextMDModel () {
-        textMD = new TextMD ();
+    protected TextMDModel() {
+        textMD = new TextMD();
         ml = null;
     }
 
-    protected void attachMarkupLanguage () {
+    protected void attachMarkupLanguage() {
         if (ml == null) {
-            ml = new MarkupLanguage ();
+            ml = new MarkupLanguage();
             textMD.addMarkupLanguage(ml);
         }
     }
 
-    protected void attachMarkupBasis () {
+    protected void attachMarkupBasis() {
         if (mb == null) {
-            mb = new MarkupBasis ();
+            mb = new MarkupBasis();
             textMD.addMarkupBasis(mb);
         }
     }
 
-    protected void attachCharacterInfo () {
+    protected void attachCharacterInfo() {
         if (ci == null) {
-            ci = new CharacterInfo ();
+            ci = new CharacterInfo();
             textMD.addCharacterInfo(ci);
         }
     }

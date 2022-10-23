@@ -14,52 +14,52 @@ import edu.harvard.hul.ois.fits.tools.ToolInfo;
 
 public class ExternalIdentifier {
 
-	private String name;
-	private String value;
-	private ToolInfo toolInfo;
+    private String name;
+    private String value;
+    private ToolInfo toolInfo;
 
-	public ExternalIdentifier() {
+    public ExternalIdentifier() {}
 
-	}
+    public ExternalIdentifier(String name, String value, ToolInfo toolInfo) {
+        this.name = name;
+        this.value = value;
+        this.toolInfo = toolInfo;
+    }
 
-	public ExternalIdentifier(String name, String value, ToolInfo toolInfo) {
-		this.name = name;
-		this.value = value;
-		this.toolInfo = toolInfo;
-	}
+    public ToolInfo getToolInfo() {
+        return toolInfo;
+    }
 
-	public ToolInfo getToolInfo() {
-		return toolInfo;
-	}
+    public void setToolInfo(ToolInfo toolInfo) {
+        this.toolInfo = toolInfo;
+    }
 
-	public void setToolInfo(ToolInfo toolInfo) {
-		this.toolInfo = toolInfo;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("ExternalIdentifier [name=");
-		builder.append(name);
-		builder.append(", value=");
-		builder.append(value);
-		builder.append(", toolInfo=");
-		builder.append(toolInfo);
-		builder.append("]");
-		return builder.toString();
-	}
+    public String getValue() {
+        return value;
+    }
 
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("ExternalIdentifier [name=");
+        builder.append(name);
+        builder.append(", value=");
+        builder.append(value);
+        builder.append(", toolInfo=");
+        builder.append(toolInfo);
+        builder.append("]");
+        return builder.toString();
+    }
 }

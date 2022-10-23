@@ -12,79 +12,76 @@ package edu.harvard.hul.ois.fits;
 
 public class FitsMetadataElement {
 
-	private String name;
-	private String value;
-	private String reportingToolName;
-	private String reportingToolVersion;
-	private String status;
+    private String name;
+    private String value;
+    private String reportingToolName;
+    private String reportingToolVersion;
+    private String status;
 
-	public FitsMetadataElement() {
+    public FitsMetadataElement() {}
 
-	}
+    public FitsMetadataElement(String name, String value, String tName, String tVersion, String status) {
+        this.name = name;
+        this.value = value;
+        this.reportingToolName = tName;
+        this.reportingToolVersion = tVersion;
+        this.status = status;
+    }
 
-	public FitsMetadataElement(String name, String value, String tName, String tVersion, String status) {
-		this.name = name;
-		this.value = value;
-		this.reportingToolName = tName;
-		this.reportingToolVersion = tVersion;
-		this.status = status;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public String getReportingToolName() {
+        return reportingToolName;
+    }
 
-	public String getReportingToolName() {
-		return reportingToolName;
-	}
+    public void setReportingToolName(String reportingToolName) {
+        this.reportingToolName = reportingToolName;
+    }
 
-	public void setReportingToolName(String reportingToolName) {
-		this.reportingToolName = reportingToolName;
-	}
+    public String getReportingToolVersion() {
+        return reportingToolVersion;
+    }
 
-	public String getReportingToolVersion() {
-		return reportingToolVersion;
-	}
+    public void setReportingToolVersion(String reportingToolVersion) {
+        this.reportingToolVersion = reportingToolVersion;
+    }
 
-	public void setReportingToolVersion(String reportingToolVersion) {
-		this.reportingToolVersion = reportingToolVersion;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("FitsMetadataElement [name=");
-		builder.append(name);
-		builder.append(", value=");
-		builder.append(value);
-		builder.append(", reportingToolName=");
-		builder.append(reportingToolName);
-		builder.append(", reportingToolVersion=");
-		builder.append(reportingToolVersion);
-		builder.append(", status=");
-		builder.append(status);
-		builder.append("]");
-		return builder.toString();
-	}
-
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("FitsMetadataElement [name=");
+        builder.append(name);
+        builder.append(", value=");
+        builder.append(value);
+        builder.append(", reportingToolName=");
+        builder.append(reportingToolName);
+        builder.append(", reportingToolVersion=");
+        builder.append(reportingToolVersion);
+        builder.append(", status=");
+        builder.append(status);
+        builder.append("]");
+        return builder.toString();
+    }
 }

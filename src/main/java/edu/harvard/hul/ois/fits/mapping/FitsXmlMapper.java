@@ -10,10 +10,12 @@
 
 package edu.harvard.hul.ois.fits.mapping;
 
+import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.tools.Tool;
+import edu.harvard.hul.ois.fits.tools.ToolInfo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -25,89 +27,85 @@ import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.harvard.hul.ois.fits.Fits;
-import edu.harvard.hul.ois.fits.tools.Tool;
-import edu.harvard.hul.ois.fits.tools.ToolInfo;
-
 /**
  * Transform FITS output as configured in fits_xml_map.xml. Transformations will happen only
  * if configured in the XML file. Otherwise, the output will pass directly through without transformation.
  */
 public class FitsXmlMapper {
 
-	private static final String FITS_XML_MAP_PATH = Fits.FITS_XML_DIR+"fits_xml_map.xml";
-	private List<ToolMap> toolMaps = new ArrayList<ToolMap>();
+    private static final String FITS_XML_MAP_PATH = Fits.FITS_XML_DIR + "fits_xml_map.xml";
+    private List<ToolMap> toolMaps = new ArrayList<ToolMap>();
     private static Logger logger = LoggerFactory.getLogger(FitsXmlMapper.class);
     private XPathFactory xFactory = XPathFactory.instance();
 
-	public FitsXmlMapper() throws JDOMException, IOException {
-		 SAXBuilder saxBuilder = new SAXBuilder();
-		 Document doc = saxBuilder.build(FITS_XML_MAP_PATH);
-		 List<Element> tElements = doc.getRootElement().getChildren("tool");
-		 for(Element tElement : tElements) {
-			 ToolMap xmlMap = new ToolMap(tElement);
-			 toolMaps.add(xmlMap);
-		 }
-	}
+    public FitsXmlMapper() throws JDOMException, IOException {
+        SAXBuilder saxBuilder = new SAXBuilder();
+        Document doc = saxBuilder.build(FITS_XML_MAP_PATH);
+        List<Element> tElements = doc.getRootElement().getChildren("tool");
+        for (Element tElement : tElements) {
+            ToolMap xmlMap = new ToolMap(tElement);
+            toolMaps.add(xmlMap);
+        }
+    }
 
-	public Document applyMap(Tool tool,Document doc) {
-		//apply mapping
-		ToolMap map = getElementMapsForTool(tool.getToolInfo());
-		//If no maps exist for this tool return original doc
-		if(map == null) {
-			return doc;
-		}
-		//get mimetype from first identity in doc
-		String mime = "";
-		XPathExpression<Element> expr = xFactory.compile("//identity", Filters.element());
-		Element e = expr.evaluateFirst(doc);
-		if(e != null) {
-			mime = e.getAttributeValue("mimetype"); // (This code is never accessed from any of the unit tests. Is it ever?)
-		}
-		//iterate through all elements in doc
-		Element root = doc.getRootElement();
-		for(Element child : (List<Element>)root.getChildren()) {
-			doMapping(map,child,mime);
-		}
-		return doc;
-	}
+    public Document applyMap(Tool tool, Document doc) {
+        // apply mapping
+        ToolMap map = getElementMapsForTool(tool.getToolInfo());
+        // If no maps exist for this tool return original doc
+        if (map == null) {
+            return doc;
+        }
+        // get mimetype from first identity in doc
+        String mime = "";
+        XPathExpression<Element> expr = xFactory.compile("//identity", Filters.element());
+        Element e = expr.evaluateFirst(doc);
+        if (e != null) {
+            mime = e.getAttributeValue(
+                    "mimetype"); // (This code is never accessed from any of the unit tests. Is it ever?)
+        }
+        // iterate through all elements in doc
+        Element root = doc.getRootElement();
+        for (Element child : (List<Element>) root.getChildren()) {
+            doMapping(map, child, mime);
+        }
+        return doc;
+    }
 
-	private void doMapping(ToolMap map_t, Element element, String mime) {
-		List<Element> children = element.getChildren();
-		for(Element element2 : children) {
-			doMapping(map_t, element2,mime);
-		}
+    private void doMapping(ToolMap map_t, Element element, String mime) {
+        List<Element> children = element.getChildren();
+        for (Element element2 : children) {
+            doMapping(map_t, element2, mime);
+        }
 
-		//get the maps for the element name in the given tool maps for the provided mime type
-		ElementMap map_e = map_t.getXmlMapElement(element.getName(), mime);
-		if(map_e != null) {
-			//check if the map contains a mapped element value
-			String newValue = map_e.getMaps().get(element.getText());
-			if(newValue != null) {
-				element.setText(newValue);
-			}
-			//also check all attributes for element
-			List<Attribute> attributes = element.getAttributes();
-			for(Attribute attr : attributes) {
-				AttributeMap map_a = map_e.getAttribute(attr.getName());
-				if(map_a != null) {
-					String newAttrValue = map_a.getMaps().get(attr.getValue());
-					if(newAttrValue != null) {
-						attr.setValue(newAttrValue);
-					}
-				}
-			}
-		}
-	}
+        // get the maps for the element name in the given tool maps for the provided mime type
+        ElementMap map_e = map_t.getXmlMapElement(element.getName(), mime);
+        if (map_e != null) {
+            // check if the map contains a mapped element value
+            String newValue = map_e.getMaps().get(element.getText());
+            if (newValue != null) {
+                element.setText(newValue);
+            }
+            // also check all attributes for element
+            List<Attribute> attributes = element.getAttributes();
+            for (Attribute attr : attributes) {
+                AttributeMap map_a = map_e.getAttribute(attr.getName());
+                if (map_a != null) {
+                    String newAttrValue = map_a.getMaps().get(attr.getValue());
+                    if (newAttrValue != null) {
+                        attr.setValue(newAttrValue);
+                    }
+                }
+            }
+        }
+    }
 
-	private ToolMap getElementMapsForTool(ToolInfo tInfo) {
-		for(ToolMap map : toolMaps) {
-			String tName = map.getToolName();
-			if(tName.equalsIgnoreCase(tInfo.getName())) {
-				return map;
-			}
-		}
-		return null;
-	}
-
+    private ToolMap getElementMapsForTool(ToolInfo tInfo) {
+        for (ToolMap map : toolMaps) {
+            String tName = map.getToolName();
+            if (tName.equalsIgnoreCase(tInfo.getName())) {
+                return map;
+            }
+        }
+        return null;
+    }
 }

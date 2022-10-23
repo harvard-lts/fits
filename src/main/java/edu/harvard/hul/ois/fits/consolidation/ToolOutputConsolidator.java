@@ -8,16 +8,13 @@
 // See the License for the specific language governing permission and limitations under the License.
 //
 
-
 package edu.harvard.hul.ois.fits.consolidation;
-
-import java.util.List;
 
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
+import java.util.List;
 
 public interface ToolOutputConsolidator {
 
-	public FitsOutput processResults(List<ToolOutput> results);
-
+    public FitsOutput processResults(List<ToolOutput> results);
 }

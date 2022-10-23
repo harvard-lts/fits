@@ -18,42 +18,34 @@ import java.io.Reader;
  * Read {@link edu.harvard.hul.ois.fits.tools.ffident.FormatDescription} objects from a semicolon-separated text file.
  * @author Marco Schmidt
  */
-public class FormatDescriptionReader
-{
-	private BufferedReader in;
+public class FormatDescriptionReader {
+    private BufferedReader in;
 
-	public FormatDescriptionReader(Reader reader)
-	{
-		in = new BufferedReader(reader);
-	}
+    public FormatDescriptionReader(Reader reader) {
+        in = new BufferedReader(reader);
+    }
 
-	public FormatDescription read() throws IOException
-	{
-		String line;
-		do
-		{
-			line = in.readLine();
-			if (line == null)
-			{
-				return null;
-			}
-		}
-		while (line.length() < 1 || line.charAt(0) == '#');
-		String[] items = line.split(";");
-		if (items == null || items.length < 8)
-		{
-			throw new IOException("Could not interpret line: " +
-				line);
-		}
-		FormatDescription desc = new FormatDescription();
-		desc.setGroup(items[0]);
-		desc.setShortName(items[1]);
-		desc.setLongName(items[2]);
-		desc.addMimeTypes(items[3]);
-		desc.addFileExtensions(items[4]);
-		desc.setOffset(Integer.parseInt(items[5]));
-		desc.setMagicBytes(items[6]);
-		desc.setMinimumSize(Integer.parseInt(items[7]));
-		return desc;
-	}
+    public FormatDescription read() throws IOException {
+        String line;
+        do {
+            line = in.readLine();
+            if (line == null) {
+                return null;
+            }
+        } while (line.length() < 1 || line.charAt(0) == '#');
+        String[] items = line.split(";");
+        if (items == null || items.length < 8) {
+            throw new IOException("Could not interpret line: " + line);
+        }
+        FormatDescription desc = new FormatDescription();
+        desc.setGroup(items[0]);
+        desc.setShortName(items[1]);
+        desc.setLongName(items[2]);
+        desc.addMimeTypes(items[3]);
+        desc.addFileExtensions(items[4]);
+        desc.setOffset(Integer.parseInt(items[5]));
+        desc.setMagicBytes(items[6]);
+        desc.setMinimumSize(Integer.parseInt(items[7]));
+        return desc;
+    }
 }

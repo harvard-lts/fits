@@ -8,7 +8,6 @@
 // See the License for the specific language governing permission and limitations under the License.
 //
 
-
 package edu.harvard.hul.ois.fits.consolidation;
 
 import java.io.IOException;
@@ -58,8 +57,8 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
         major = 0;
         minor = 0;
         build = 0;
-        name = ""; //$NON-NLS-1$
-        StringTokenizer st = new StringTokenizer(str, "" + SEPARATOR, false); //$NON-NLS-1$
+        name = ""; // $NON-NLS-1$
+        StringTokenizer st = new StringTokenizer(str, "" + SEPARATOR, false); // $NON-NLS-1$
         // major segment
         if (!st.hasMoreTokens()) {
             return;
@@ -120,12 +119,11 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
      * @param aBuild build number
      * @param aName build name, <code>null</code> value becomes empty string
      */
-    public VersionComparer(final int aMajor, final int aMinor, final int aBuild,
-            final String aName) {
+    public VersionComparer(final int aMajor, final int aMinor, final int aBuild, final String aName) {
         major = aMajor;
         minor = aMinor;
         build = aBuild;
-        name = (aName == null) ? "" : aName; //$NON-NLS-1$
+        name = (aName == null) ? "" : aName; // $NON-NLS-1$
     }
 
     /**
@@ -183,11 +181,11 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
         if ((major == other.major) && (minor > other.minor)) {
             return true;
         }
-        if ((major == other.major) && (minor == other.minor)
-                && (build > other.build)) {
+        if ((major == other.major) && (minor == other.minor) && (build > other.build)) {
             return true;
         }
-        if ((major == other.major) && (minor == other.minor)
+        if ((major == other.major)
+                && (minor == other.minor)
                 && (build == other.build)
                 && name.equalsIgnoreCase(other.name)) {
             return true;
@@ -288,7 +286,6 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
             return true;
         }
         return false;
-
     }
 
     /**
@@ -311,7 +308,8 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
             return false;
         }
         VersionComparer other = (VersionComparer) obj;
-        if ((major != other.major) || (minor != other.minor)
+        if ((major != other.major)
+                || (minor != other.minor)
                 || (build != other.build)
                 || !name.equalsIgnoreCase(other.name)) {
             return false;
@@ -329,7 +327,7 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
     public String toString() {
         if (asString == null) {
             asString = "" + major + SEPARATOR + minor + SEPARATOR + build //$NON-NLS-1$
-                + (name.length() == 0 ? "" : SEPARATOR + name); //$NON-NLS-1$
+                    + (name.length() == 0 ? "" : SEPARATOR + name); // $NON-NLS-1$
         }
         return asString;
     }
@@ -352,8 +350,7 @@ public final class VersionComparer implements Serializable, Comparable<VersionCo
         if (build != obj.build) {
             return build - obj.build;
         }
-        return name.toLowerCase(Locale.ENGLISH).compareTo(
-                obj.name.toLowerCase(Locale.ENGLISH));
+        return name.toLowerCase(Locale.ENGLISH).compareTo(obj.name.toLowerCase(Locale.ENGLISH));
     }
 
     // Serialization related stuff.

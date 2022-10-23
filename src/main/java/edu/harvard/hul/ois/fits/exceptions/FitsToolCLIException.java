@@ -12,19 +12,20 @@ package edu.harvard.hul.ois.fits.exceptions;
 
 public class FitsToolCLIException extends FitsToolException {
 
-	/**
-	 * generated serial id
-	 */
-	private static final long serialVersionUID = 7600086963317407645L;
+    /**
+     * generated serial id
+     */
+    private static final long serialVersionUID = 7600086963317407645L;
 
-	public FitsToolCLIException() {
-		super();
-	}
+    public FitsToolCLIException() {
+        super();
+    }
+
     public FitsToolCLIException(String message) {
         super(message);
     }
-    public FitsToolCLIException(String message, Exception e) {
-    	super(message,e);
-    }
 
+    public FitsToolCLIException(String message, Exception e) {
+        super(message, e);
+    }
 }

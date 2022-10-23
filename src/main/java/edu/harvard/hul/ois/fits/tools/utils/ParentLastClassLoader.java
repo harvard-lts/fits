@@ -14,7 +14,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,168 +41,172 @@ import org.slf4j.LoggerFactory;
  */
 public class ParentLastClassLoader extends ClassLoader {
 
-    private static final Logger logger = LoggerFactory.getLogger( ParentLastClassLoader.class );
+    private static final Logger logger = LoggerFactory.getLogger(ParentLastClassLoader.class);
 
     private static List<String> loadByParentClassLoader;
-	private ChildClassLoader childClassLoader;
+    private ChildClassLoader childClassLoader;
 
-	static {
-		loadByParentClassLoader = new ArrayList<String>();
-		loadByParentClassLoader.add("edu.harvard.hul.ois.fits.Fits"); // So there's access to FITS_HOME from all class loaders.
-		loadByParentClassLoader.add("edu.harvard.hul.ois.fits.exceptions.FitsToolException");
-		loadByParentClassLoader.add("edu.harvard.hul.ois.fits.tools.Tool");
-		loadByParentClassLoader.add("edu.harvard.hul.ois.fits.tools.ToolInfo");
-		loadByParentClassLoader.add("org.apache.xerces");
-		loadByParentClassLoader.add("org.w3c");
-		loadByParentClassLoader.add("org.jdom2");
-		// Needed so tools can access FITS config
-		loadByParentClassLoader.add("org.apache.commons.configuration.XMLConfiguration");
-	}
+    static {
+        loadByParentClassLoader = new ArrayList<String>();
+        loadByParentClassLoader.add(
+                "edu.harvard.hul.ois.fits.Fits"); // So there's access to FITS_HOME from all class loaders.
+        loadByParentClassLoader.add("edu.harvard.hul.ois.fits.exceptions.FitsToolException");
+        loadByParentClassLoader.add("edu.harvard.hul.ois.fits.tools.Tool");
+        loadByParentClassLoader.add("edu.harvard.hul.ois.fits.tools.ToolInfo");
+        loadByParentClassLoader.add("org.apache.xerces");
+        loadByParentClassLoader.add("org.w3c");
+        loadByParentClassLoader.add("org.jdom2");
+        // Needed so tools can access FITS config
+        loadByParentClassLoader.add("org.apache.commons.configuration.XMLConfiguration");
+    }
 
-	/**
-	 * Construct this class loader with the list of URL's which will be searched
-	 * first for loading classes and resources.
-	 *
-	 * @param classpathUrls List of URL's.
-	 */
-	public ParentLastClassLoader(List<URL> classpathUrls){
-		super(Thread.currentThread().getContextClassLoader());
-		URL[] urls = classpathUrls.toArray(new URL[classpathUrls.size()]);
-		childClassLoader = new ChildClassLoader(urls, new DetectClass(this.getParent()));
-	}
+    /**
+     * Construct this class loader with the list of URL's which will be searched
+     * first for loading classes and resources.
+     *
+     * @param classpathUrls List of URL's.
+     */
+    public ParentLastClassLoader(List<URL> classpathUrls) {
+        super(Thread.currentThread().getContextClassLoader());
+        URL[] urls = classpathUrls.toArray(new URL[classpathUrls.size()]);
+        childClassLoader = new ChildClassLoader(urls, new DetectClass(this.getParent()));
+    }
 
-	@Override
-	protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException{
-		try	{
-			// Attempt to load class locally first
-			if (logger.isTraceEnabled()) {
-				logger.trace("looking to loadClass() class name: " + name);
-			}
-			Class<?> clazz = childClassLoader.findClass(name);
-			return clazz;
-		} catch (ClassNotFoundException e) {
-			if (logger.isTraceEnabled()) {
-				logger.trace("ClassNotFoundException caught -- attempting to loadClass() in class loader: " +
-						super.getClass().getSimpleName());
-			}
-			return super.loadClass(name, resolve);
-		}
-	}
+    @Override
+    protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
+        try {
+            // Attempt to load class locally first
+            if (logger.isTraceEnabled()) {
+                logger.trace("looking to loadClass() class name: " + name);
+            }
+            Class<?> clazz = childClassLoader.findClass(name);
+            return clazz;
+        } catch (ClassNotFoundException e) {
+            if (logger.isTraceEnabled()) {
+                logger.trace("ClassNotFoundException caught -- attempting to loadClass() in class loader: "
+                        + super.getClass().getSimpleName());
+            }
+            return super.loadClass(name, resolve);
+        }
+    }
 
-	@Override
-	 public URL getResource(String name) {
-		// Attempt to load resource locally first.
-		URL url = childClassLoader.findResource(name);
-		if (logger.isTraceEnabled()) {
-			logger.trace("looking to getResource() resource name: " + name);
-			logger.trace("found resource: " + name);
-		}
-		return url;
-	}
+    @Override
+    public URL getResource(String name) {
+        // Attempt to load resource locally first.
+        URL url = childClassLoader.findResource(name);
+        if (logger.isTraceEnabled()) {
+            logger.trace("looking to getResource() resource name: " + name);
+            logger.trace("found resource: " + name);
+        }
+        return url;
+    }
 
-	// Class that wraps URLClassLoader so as to check locally first rather than parent first.
-	private static class ChildClassLoader extends URLClassLoader {
+    // Class that wraps URLClassLoader so as to check locally first rather than parent first.
+    private static class ChildClassLoader extends URLClassLoader {
 
-		private DetectClass realParent;
+        private DetectClass realParent;
 
-		private ChildClassLoader(URL[] urls, DetectClass realParent) {
-			super(urls, null);
-			this.realParent = realParent;
-		}
+        private ChildClassLoader(URL[] urls, DetectClass realParent) {
+            super(urls, null);
+            this.realParent = realParent;
+        }
 
-		@Override
-		public Class<?> findClass(String name) throws ClassNotFoundException {
-			try	{
-				// If attempting to load one of "exclusion" classes, go directly to parent class loader.
-				if (loadByParentClassLoader.contains(name) || beginsWith(name)) {
-					if (logger.isTraceEnabled()) {
-						logger.trace("****** SPECIAL -- going directly to parent ClassLoader for class : " + name);
-					}
-					Class<?> clazz = realParent.loadClass(name);
-					if (logger.isTraceEnabled()) {
-						logger.trace("***** SPECIAL --  Found in : " + realParent.getClass().getSimpleName());
-					}
-					return clazz;
-				}
+        @Override
+        public Class<?> findClass(String name) throws ClassNotFoundException {
+            try {
+                // If attempting to load one of "exclusion" classes, go directly to parent class loader.
+                if (loadByParentClassLoader.contains(name) || beginsWith(name)) {
+                    if (logger.isTraceEnabled()) {
+                        logger.trace("****** SPECIAL -- going directly to parent ClassLoader for class : " + name);
+                    }
+                    Class<?> clazz = realParent.loadClass(name);
+                    if (logger.isTraceEnabled()) {
+                        logger.trace("***** SPECIAL --  Found in : "
+                                + realParent.getClass().getSimpleName());
+                    }
+                    return clazz;
+                }
 
-				// See if class has already been loaded
-				if (logger.isTraceEnabled()) {
-					logger.trace(" findLoadedClass(name) to see if class already loaded: " + name);
-				}
-				Class<?> loaded = super.findLoadedClass(name);
-				if (loaded != null) {
-					if (logger.isTraceEnabled()) {
-						logger.trace("Already loaded - found class in: " + this.getClass().getSimpleName());
-					}
-					return loaded;
-				}
+                // See if class has already been loaded
+                if (logger.isTraceEnabled()) {
+                    logger.trace(" findLoadedClass(name) to see if class already loaded: " + name);
+                }
+                Class<?> loaded = super.findLoadedClass(name);
+                if (loaded != null) {
+                    if (logger.isTraceEnabled()) {
+                        logger.trace("Already loaded - found class in: "
+                                + this.getClass().getSimpleName());
+                    }
+                    return loaded;
+                }
 
-				// Not already loaded so attempt to load.
-				String superClassLoaderName = super.getClass().getSimpleName();
-				if (logger.isTraceEnabled()) {
-					logger.trace("NOT already loaded: attemt to load from: " + superClassLoaderName);
-				}
-				Class<?> clazz = super.findClass(name);
-				// will only reach here if class found, otherwise ClassNotFoundException will have been thrown
-				if (logger.isTraceEnabled()) {
-					logger.trace("loaded class in: " + super.getClass().getSimpleName());
-				}
-				return clazz;
-			} catch (ClassNotFoundException e){
-				String parentClassLoaderName = realParent.getParent().getClass().getSimpleName();
-				if (logger.isTraceEnabled()) {
-					logger.trace("ClassNotFoundException, attempt to load from: " + parentClassLoaderName);
-				}
-				Class<?> clazz = realParent.loadClass(name);
-				if (logger.isTraceEnabled()) {
-					logger.trace("Loaded class " + name + " from: " + parentClassLoaderName);
-				}
-				return clazz;
-			}
-		}
+                // Not already loaded so attempt to load.
+                String superClassLoaderName = super.getClass().getSimpleName();
+                if (logger.isTraceEnabled()) {
+                    logger.trace("NOT already loaded: attemt to load from: " + superClassLoaderName);
+                }
+                Class<?> clazz = super.findClass(name);
+                // will only reach here if class found, otherwise ClassNotFoundException will have been thrown
+                if (logger.isTraceEnabled()) {
+                    logger.trace("loaded class in: " + super.getClass().getSimpleName());
+                }
+                return clazz;
+            } catch (ClassNotFoundException e) {
+                String parentClassLoaderName = realParent.getParent().getClass().getSimpleName();
+                if (logger.isTraceEnabled()) {
+                    logger.trace("ClassNotFoundException, attempt to load from: " + parentClassLoaderName);
+                }
+                Class<?> clazz = realParent.loadClass(name);
+                if (logger.isTraceEnabled()) {
+                    logger.trace("Loaded class " + name + " from: " + parentClassLoaderName);
+                }
+                return clazz;
+            }
+        }
 
-		@Override
-		public URL findResource(String name) {
-			URL url = super.findResource(name);
-			if (logger.isTraceEnabled()) {
-				logger.trace("looking in findResource() for: " + name + " in class loader: " + super.getClass().getSimpleName());
-				logger.trace( (url == null ? "NOT" : "") + " found resource: " + name );
-			}
-			if (url == null) {
-				url = realParent.getResource(name);
-				if (logger.isTraceEnabled()) {
-					logger.trace("looking in parent class loader: " + realParent.getClass().getName() +
-							" -- found: " + (url == null ? "NO" : "YES"));
-				}
-			}
-			return url;
-		}
-	}
+        @Override
+        public URL findResource(String name) {
+            URL url = super.findResource(name);
+            if (logger.isTraceEnabled()) {
+                logger.trace("looking in findResource() for: " + name + " in class loader: "
+                        + super.getClass().getSimpleName());
+                logger.trace((url == null ? "NOT" : "") + " found resource: " + name);
+            }
+            if (url == null) {
+                url = realParent.getResource(name);
+                if (logger.isTraceEnabled()) {
+                    logger.trace("looking in parent class loader: "
+                            + realParent.getClass().getName() + " -- found: " + (url == null ? "NO" : "YES"));
+                }
+            }
+            return url;
+        }
+    }
 
-	// Wrapper for parent class loader.
-	private static class DetectClass extends ClassLoader {
+    // Wrapper for parent class loader.
+    private static class DetectClass extends ClassLoader {
 
-		private DetectClass(ClassLoader parent) {
-			super(parent);
-		}
+        private DetectClass(ClassLoader parent) {
+            super(parent);
+        }
 
-		@Override
-		public Class<?> findClass(String name) throws ClassNotFoundException {
-			return super.findClass(name);
-		}
-	}
+        @Override
+        public Class<?> findClass(String name) throws ClassNotFoundException {
+            return super.findClass(name);
+        }
+    }
 
-	// check if class name begins with any of the package names in "exclusion" list
-	private static boolean beginsWith(String className) {
-		boolean isContained = false;
-		if (className != null) {
-			for (String val : loadByParentClassLoader) {
-				if (className.startsWith(val)) {
-					isContained = true;
-					break;
-				}
-			}
-		}
-		return isContained;
-	}
+    // check if class name begins with any of the package names in "exclusion" list
+    private static boolean beginsWith(String className) {
+        boolean isContained = false;
+        if (className != null) {
+            for (String val : loadByParentClassLoader) {
+                if (className.startsWith(val)) {
+                    isContained = true;
+                    break;
+                }
+            }
+        }
+        return isContained;
+    }
 }

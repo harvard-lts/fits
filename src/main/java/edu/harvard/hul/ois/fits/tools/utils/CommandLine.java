@@ -10,49 +10,46 @@
 
 package edu.harvard.hul.ois.fits.tools.utils;
 
+import edu.harvard.hul.ois.fits.exceptions.FitsToolCLIException;
 import java.io.*;
 import java.util.List;
-
-import edu.harvard.hul.ois.fits.exceptions.FitsToolCLIException;
 
 /**
  *  A static class for command line invocation.
  */
 public abstract class CommandLine {
-	public static String exec(List<String> cmd, String directory) throws FitsToolCLIException {
-		String output = null;
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		try {
-			//Runtime rt = Runtime.getRuntime();
-			//Process proc = rt.exec(cmd.toString());
+    public static String exec(List<String> cmd, String directory) throws FitsToolCLIException {
+        String output = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            // Runtime rt = Runtime.getRuntime();
+            // Process proc = rt.exec(cmd.toString());
 
-			ProcessBuilder builder = new ProcessBuilder(cmd);
-			if(directory != null) {
-				builder.directory(new File(directory));
-			}
-			Process proc = builder.start();
+            ProcessBuilder builder = new ProcessBuilder(cmd);
+            if (directory != null) {
+                builder.directory(new File(directory));
+            }
+            Process proc = builder.start();
 
-			StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(),bos);
-			StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(),bos);
-			errorGobbler.start();
-			outputGobbler.start();
-			proc.waitFor();
-		    errorGobbler.join();
-		    outputGobbler.join();
-		    //output = sb.toString();
-		    bos.flush();
-			output = new String(bos.toByteArray());
-		}
-		catch (Exception e) {
-			throw new FitsToolCLIException("Error calling external command line routine",e);
-		}
-		finally {
-			try {
-				bos.close();
-			} catch (IOException e) {
-				throw new FitsToolCLIException("Error closing external command line output stream",e);
-			}
-		}
-		return output;
-	}
+            StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), bos);
+            StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), bos);
+            errorGobbler.start();
+            outputGobbler.start();
+            proc.waitFor();
+            errorGobbler.join();
+            outputGobbler.join();
+            // output = sb.toString();
+            bos.flush();
+            output = new String(bos.toByteArray());
+        } catch (Exception e) {
+            throw new FitsToolCLIException("Error calling external command line routine", e);
+        } finally {
+            try {
+                bos.close();
+            } catch (IOException e) {
+                throw new FitsToolCLIException("Error closing external command line output stream", e);
+            }
+        }
+        return output;
+    }
 }

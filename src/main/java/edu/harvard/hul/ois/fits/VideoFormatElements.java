@@ -11,42 +11,42 @@
 package edu.harvard.hul.ois.fits;
 
 public enum VideoFormatElements {
-	width ("width"),
-	height ("height"),
-	frameRate ("frameRate"),
-	bitRate ("bitRate"),
-	bitRateMax ("bitRateMax"),
-	bitRateMode ("bitRateMode"),
-	scanningFormat ("scanningFormat"),
-	videoDataEncoding ("videoDataEncoding"),
-	aspectRatio ("aspectRatio"),
-	chromaSubsampling ("chromaSubsampling"),
-	colorspace ("colorspace"),
-	frameRateMode ("frameRateMode"),
-	byteOrder ("byteOrder"),
-	delay ("delay"),
-	compression ("compression"),
+    width("width"),
+    height("height"),
+    frameRate("frameRate"),
+    bitRate("bitRate"),
+    bitRateMax("bitRateMax"),
+    bitRateMode("bitRateMode"),
+    scanningFormat("scanningFormat"),
+    videoDataEncoding("videoDataEncoding"),
+    aspectRatio("aspectRatio"),
+    chromaSubsampling("chromaSubsampling"),
+    colorspace("colorspace"),
+    frameRateMode("frameRateMode"),
+    byteOrder("byteOrder"),
+    delay("delay"),
+    compression("compression"),
 
-	// NOTE the difference between the name and the ebucoreName so that .name()
-	// and .getEbucoreName() are different
-	trackSize ("streamSize"),
+    // NOTE the difference between the name and the ebucoreName so that .name()
+    // and .getEbucoreName() are different
+    trackSize("streamSize"),
 
-	broadcastStandard ("broadcastStandard"),
-	frameCount ("frameCount"),
-	bitDepth ("bitDepth"),
-	duration ("duration");
+    broadcastStandard("broadcastStandard"),
+    frameCount("frameCount"),
+    bitDepth("bitDepth"),
+    duration("duration");
 
-	private String name;
+    private String name;
 
-	VideoFormatElements(String name) {
+    VideoFormatElements(String name) {
         this.name = name;
     }
 
-    public String getName () {
+    public String getName() {
         return name;
     }
 
-    //static public VideoFormatElements lookup(String name) {
+    // static public VideoFormatElements lookup(String name) {
     //	VideoFormatElements retMethod = null;
     //	for(VideoFormatElements method : VideoFormatElements.values()) {
     //		if (method.Name().equals(name)) {
@@ -55,5 +55,5 @@ public enum VideoFormatElements {
     //		}
     //	}
     //	return retMethod;
-    //}
+    // }
 }
