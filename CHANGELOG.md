@@ -24,15 +24,15 @@ to `true` in your `fits.xml`.
 - Do not infer a timezone for exif timestamps.
 - General internal dependency upgrades.
 
-## Version 1.5.5 (10/5/2022)
+## Version 1.5.5 (5/10/2022)
 
 - Upgrade to ots 1.0.58
 
-## Version 1.5.4 (3/5/2022)
+## Version 1.5.4 (5/3/2022)
 
 - Revert the move to log4j2 and switch to reload4j instead
 
-## Version 1.5.3 (2/5/2022)
+## Version 1.5.3 (5/2/2022)
 
 - Move off log4j and onto log4j2 with slf4j
 
