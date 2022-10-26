@@ -39,7 +39,7 @@ public class XmlMetadata extends ToolBase {
     private static final String TOOL_DATE = "12/22/10";
 
     private boolean enabled = true;
-    private Fits fits;
+    private final Fits fits;
 
     private static final Logger logger = LoggerFactory.getLogger(XmlMetadata.class);
 
@@ -56,7 +56,7 @@ public class XmlMetadata extends ToolBase {
         logger.debug("XmlMetadata.extractInfo starting on " + file.getName());
         long startTime = System.currentTimeMillis();
         Document doc = createXml(file);
-        output = new ToolOutput(this, (Document) doc.clone(), doc, fits);
+        output = new ToolOutput(this, doc.clone(), doc, fits);
         duration = System.currentTimeMillis() - startTime;
         runStatus = RunStatus.SUCCESSFUL;
         logger.debug("XmlMetadata.extractInfo finished on " + file.getName());

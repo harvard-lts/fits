@@ -25,12 +25,12 @@ import org.apache.tika.mime.MediaType;
  * @author <a href="mailto:carl@openplanetsfoundation.org">Carl Wilson</a>
  */
 public final class MetadataFormatter {
-    private static MetadataFormatter INSTANCE = new MetadataFormatter();
+    private static final MetadataFormatter INSTANCE = new MetadataFormatter();
 
     private MetadataFormatter() {}
 
-    private static NumberFormat FORMATTER = NumberFormat.getInstance();
-    private static Gson GSON = new Gson();
+    private static final NumberFormat FORMATTER = NumberFormat.getInstance();
+    private static final Gson GSON = new Gson();
 
     public static MetadataFormatter getInstance() {
         return INSTANCE;

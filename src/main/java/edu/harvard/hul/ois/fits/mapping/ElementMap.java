@@ -18,9 +18,9 @@ import org.jdom2.Element;
 public class ElementMap {
 
     private String name;
-    private List<String> mimetypes = new ArrayList<String>();
-    private Hashtable<String, String> maps = new Hashtable<String, String>();
-    private List<AttributeMap> attributes = new ArrayList<AttributeMap>();
+    private List<String> mimetypes = new ArrayList<>();
+    private Hashtable<String, String> maps = new Hashtable<>();
+    private List<AttributeMap> attributes = new ArrayList<>();
 
     public ElementMap(Element element, List<String> mimetypes) {
         name = element.getAttributeValue("name");

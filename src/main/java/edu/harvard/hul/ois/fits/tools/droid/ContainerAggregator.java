@@ -23,7 +23,7 @@ import java.util.zip.ZipEntry;
 public class ContainerAggregator {
 
     // Maps format type to number of these types of files with a ZIP file
-    private Map<String, Integer> formatToCount;
+    private final Map<String, Integer> formatToCount;
 
     // Aggregated original size of all files contained within the ZIP file.
     private long originalSize;

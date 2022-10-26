@@ -69,16 +69,16 @@ public class ResultPrinter {
     private static final String R_BRACKET = ")";
     private static final String SPACE = " ";
 
-    private BinarySignatureIdentifier binarySignatureIdentifier;
-    private ContainerSignatureDefinitions containerSignatureDefinitions;
+    private final BinarySignatureIdentifier binarySignatureIdentifier;
+    private final ContainerSignatureDefinitions containerSignatureDefinitions;
     private List<TriggerPuid> triggerPuids;
     private IdentificationRequestFactory requestFactory;
-    private String path;
-    private String slash;
-    private String slash1;
-    private String wrongSlash;
-    private boolean archives;
-    private boolean webArchives;
+    private final String path;
+    private final String slash;
+    private final String slash1;
+    private final String wrongSlash;
+    private final boolean archives;
+    private final boolean webArchives;
     private final String OLE2_CONTAINER = "OLE2";
     private final String ZIP_CONTAINER = "ZIP";
     private final String ZIP_ARCHIVE = "x-fmt/263";
@@ -89,8 +89,8 @@ public class ResultPrinter {
     private final String OTHERARC_ARCHIVE = "fmt/410";
     private final String WARC_ARCHIVE = "fmt/289";
 
-    private ContainerAggregator aggregator;
-    private Map<String, Format> puidFormatMap;
+    private final ContainerAggregator aggregator;
+    private final Map<String, Format> puidFormatMap;
 
     private static final Logger logger = LoggerFactory.getLogger(ResultPrinter.class);
 

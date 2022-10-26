@@ -57,7 +57,7 @@ public class ChannelPositionParser {
             throw new XmlContentException("Channel String " + channelsStr + "is null or empty");
         }
 
-        ArrayList<ChannelPositionWrapper> channelList = new ArrayList<ChannelPositionWrapper>();
+        ArrayList<ChannelPositionWrapper> channelList = new ArrayList<>();
 
         String[] positionCoordStr = channelsStr.split(",");
         for (String coord : positionCoordStr) {
@@ -90,7 +90,7 @@ public class ChannelPositionParser {
 
     private static List<ChannelPositionWrapper> parseDirection(String position, String positionSegment)
             throws XmlContentException {
-        ArrayList<ChannelPositionWrapper> directionList = new ArrayList<ChannelPositionWrapper>();
+        ArrayList<ChannelPositionWrapper> directionList = new ArrayList<>();
 
         String[] positionCoordStr = position.split(" ");
 
@@ -118,7 +118,7 @@ public class ChannelPositionParser {
         C("Center"),
         R("Right");
 
-        private String name;
+        private final String name;
 
         LCREnum(String name) {
             this.name = name;
@@ -148,7 +148,7 @@ public class ChannelPositionParser {
         SIDE(100),
         BACK(200);
 
-        private int position;
+        private final int position;
 
         private ChannelPositionEnum(int p) {
             position = p;

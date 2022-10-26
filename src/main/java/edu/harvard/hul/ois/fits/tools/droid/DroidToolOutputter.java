@@ -45,10 +45,10 @@ public class DroidToolOutputter {
 
     private static final Logger logger = LoggerFactory.getLogger(DroidToolOutputter.class);
 
-    private IdentificationResultCollection results;
-    private ToolBase toolBase;
-    private Fits fits;
-    private ContainerAggregator aggregator; // could be null!!!
+    private final IdentificationResultCollection results;
+    private final ToolBase toolBase;
+    private final Fits fits;
+    private final ContainerAggregator aggregator; // could be null!!!
 
     static {
         COMPRESSION_METHOD_TO_STRING_VALUE = new HashMap<>();

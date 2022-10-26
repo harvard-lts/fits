@@ -16,7 +16,7 @@ import org.jdom2.Element;
 
 public class DocumentMDModel {
 
-    protected DocumentMD docMD;
+    protected final DocumentMD docMD;
 
     protected DocumentMDModel() {
         docMD = new DocumentMD();

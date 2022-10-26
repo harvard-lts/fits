@@ -33,9 +33,9 @@ public class FitsIdentity {
     private String mimetype;
     private String toolName;
     private String toolVersion;
-    private List<FormatVersion> formatVersions = new ArrayList<FormatVersion>();
-    private List<ToolInfo> reportingTools = new ArrayList<ToolInfo>();
-    private List<ExternalIdentifier> externalIDs = new ArrayList<ExternalIdentifier>();
+    private List<FormatVersion> formatVersions = new ArrayList<>();
+    private final List<ToolInfo> reportingTools = new ArrayList<>();
+    private final List<ExternalIdentifier> externalIDs = new ArrayList<>();
 
     public FitsIdentity() {
         toolName = "FITS";

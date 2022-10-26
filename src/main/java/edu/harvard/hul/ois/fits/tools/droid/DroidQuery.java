@@ -38,15 +38,15 @@ import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 
 public class DroidQuery {
 
-    private BinarySignatureIdentifier sigIdentifier;
-    private ContainerIdentifierFactory containerIdentifierFactory;
-    private ArchiveFormatResolver containerFormatResolver;
-    private Map<String, Format> puidFormatMap;
-    private ContainerSignatureDefinitions containerSignatureDefinitions;
+    private final BinarySignatureIdentifier sigIdentifier;
+    private final ContainerIdentifierFactory containerIdentifierFactory;
+    private final ArchiveFormatResolver containerFormatResolver;
+    private final Map<String, Format> puidFormatMap;
+    private final ContainerSignatureDefinitions containerSignatureDefinitions;
     // Certain file types (possibly really large file), we only want to examine the beginning of the file.
     private long bytesToRead = -1;
-    private List<String> fileExtensions; // file extensions for files on which to apply file read limit
-    private File file; // input file that is being processed
+    private final List<String> fileExtensions; // file extensions for files on which to apply file read limit
+    private final File file; // input file that is being processed
 
     /**
      * Create a DroidQuery object. This can be retained for any number of

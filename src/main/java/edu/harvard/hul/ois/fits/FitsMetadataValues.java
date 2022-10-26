@@ -26,13 +26,13 @@ public class FitsMetadataValues {
 
     private static final Logger logger = LoggerFactory.getLogger(FitsMetadataValues.class);
 
-    private String mimeMapProperties = Fits.FITS_XML_DIR + "mime_map.txt";
-    private String formatMapProperties = Fits.FITS_XML_DIR + "format_map.txt";
-    private String mimeToFormatMapProperties = Fits.FITS_XML_DIR + "mime_to_format_map.txt";
+    private final String mimeMapProperties = Fits.FITS_XML_DIR + "mime_map.txt";
+    private final String formatMapProperties = Fits.FITS_XML_DIR + "format_map.txt";
+    private final String mimeToFormatMapProperties = Fits.FITS_XML_DIR + "mime_to_format_map.txt";
 
-    private HashMap<String, String> mimeMap = new HashMap<String, String>();
-    private HashMap<String, String> formatMap = new HashMap<String, String>();
-    private HashMap<String, String> mimeToFormatMap = new HashMap<String, String>();
+    private HashMap<String, String> mimeMap = new HashMap<>();
+    private HashMap<String, String> formatMap = new HashMap<>();
+    private HashMap<String, String> mimeToFormatMap = new HashMap<>();
 
     public static final String DEFAULT_MIMETYPE = "application/octet-stream";
     public static final String DEFAULT_FORMAT = "Unknown Binary";
@@ -244,7 +244,7 @@ public class FitsMetadataValues {
     }
 
     private HashMap<String, String> parseFile(String inputFile) {
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         BufferedReader in = null;
         try {
             in = new BufferedReader(new FileReader(inputFile));

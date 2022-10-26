@@ -45,8 +45,8 @@ public abstract class ToolBase implements Tool {
     private File inputFile;
     private String name;
 
-    private List<String> excludedExtensions;
-    private List<String> includedExtensions;
+    private final List<String> excludedExtensions;
+    private final List<String> includedExtensions;
 
     private Throwable caughtThrowable;
 
@@ -66,8 +66,8 @@ public abstract class ToolBase implements Tool {
         }
 
         saxBuilder = new SAXBuilder();
-        excludedExtensions = new ArrayList<String>();
-        includedExtensions = new ArrayList<String>();
+        excludedExtensions = new ArrayList<>();
+        includedExtensions = new ArrayList<>();
     }
 
     /** Returns the name. This should be the name of the tool class,

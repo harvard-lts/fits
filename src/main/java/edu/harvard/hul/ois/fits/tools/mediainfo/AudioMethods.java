@@ -23,7 +23,7 @@ public enum AudioMethods {
     soundField("soundField"),
     byteOrder("byteOrder");
 
-    private String name;
+    private final String name;
 
     AudioMethods(String name) {
         this.name = name;

@@ -37,21 +37,21 @@ import org.xml.sax.InputSource;
  */
 public class ToolOutput {
 
-    private static Logger logger = LoggerFactory.getLogger(ToolOutput.class);
+    private static final Logger logger = LoggerFactory.getLogger(ToolOutput.class);
 
-    private DocumentBuilderFactory docBuilderFactory;
+    private final DocumentBuilderFactory docBuilderFactory;
 
-    private static Namespace fitsNS = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
-    private XPathFactory xFactory = XPathFactory.instance();
+    private static final Namespace fitsNS = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
+    private final XPathFactory xFactory = XPathFactory.instance();
 
     // The FITS formatted XML
     private Document fitsXml = null;
     // Wrapper for raw output from the tool
     private Document toolOutput = null;
     // Reference to the tool the output was created with
-    private Tool tool;
+    private final Tool tool;
     // Identification data about the input file
-    private List<ToolIdentity> identity = new ArrayList<ToolIdentity>();
+    private List<ToolIdentity> identity = new ArrayList<>();
 
     /** Constructor
      *
@@ -136,9 +136,9 @@ public class ToolOutput {
     }
 
     private List<ToolIdentity> createFileIdentities(Document dom, ToolInfo info) {
-        List<ToolIdentity> identities = new ArrayList<ToolIdentity>();
+        List<ToolIdentity> identities = new ArrayList<>();
         XPathExpression<Element> expr = xFactory.compile("//fits:identity", Filters.element(), null, fitsNS);
-        List<Element> identElements = (List<Element>) expr.evaluate(dom);
+        List<Element> identElements = expr.evaluate(dom);
         for (Element element : identElements) {
             Attribute formatAttr = element.getAttribute("format");
             Attribute mimetypeAttr = element.getAttribute("mimetype");

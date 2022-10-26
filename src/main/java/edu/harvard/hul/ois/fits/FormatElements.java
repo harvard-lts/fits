@@ -22,7 +22,7 @@ public enum FormatElements {
     format("format"),
     duration("duration");
 
-    private String ebucoreName;
+    private final String ebucoreName;
 
     FormatElements(String ebucoreName) {
         this.ebucoreName = ebucoreName;

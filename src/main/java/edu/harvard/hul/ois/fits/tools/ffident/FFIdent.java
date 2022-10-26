@@ -38,7 +38,7 @@ public class FFIdent extends ToolBase {
     private FormatIdentification identifier = null;
     private static final String xslt = Fits.FITS_XML_DIR + "/ffident/ffident_to_fits.xslt";
     private boolean enabled = true;
-    private Fits fits;
+    private final Fits fits;
 
     private static final Logger logger = LoggerFactory.getLogger(FFIdent.class);
 
@@ -83,8 +83,8 @@ public class FFIdent extends ToolBase {
         String shortname;
         String longname;
         String group;
-        List<String> mimetypes = new ArrayList<String>();
-        List<String> exts = new ArrayList<String>();
+        List<String> mimetypes = new ArrayList<>();
+        List<String> exts = new ArrayList<>();
 
         if (desc == null) {
             shortname = "";

@@ -26,11 +26,11 @@ public class DocumentTypes {
         IMAGE,
         TEXT,
         VIDEO
-    };
+    }
 
     /** Map of MIME types to FITS doctypes.
      *  exiftool_xslt_map.xml is a good reference to use. */
-    private static final Map<String, Doctype> doctypeMap = new HashMap<String, Doctype>();
+    private static final Map<String, Doctype> doctypeMap = new HashMap<>();
 
     static {
         doctypeMap.put("audio/basic", Doctype.AUDIO);
@@ -43,7 +43,6 @@ public class DocumentTypes {
         doctypeMap.put("audio/x-wave", Doctype.AUDIO);
         doctypeMap.put("audio/x-mid", Doctype.AUDIO);
         doctypeMap.put("audio/x-midi", Doctype.AUDIO);
-        doctypeMap.put("audio/x-wave", Doctype.AUDIO);
         doctypeMap.put("audio/x-aiff", Doctype.AUDIO);
 
         doctypeMap.put("application/epub+zip", Doctype.DOCUMENT);

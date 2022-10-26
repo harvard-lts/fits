@@ -19,6 +19,7 @@
 
 package nz.govt.natlib.meta.config;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -194,9 +195,9 @@ public class Config {
 
     private HashMap adapterJarLocations = new HashMap();
 
-    private HashSet userListeners = new HashSet();
+    private final HashSet userListeners = new HashSet();
 
-    private HashSet profileListeners = new HashSet();
+    private final HashSet profileListeners = new HashSet();
 
     private String adminPassword;
 
@@ -567,14 +568,10 @@ public class Config {
             DocumentBuilder builder = factory.newDocumentBuilder();
 
             // find the file...
-            InputStream cfgFile = null;
-            try {
-                cfgFile = classLoader.getResourceAsStream("config.xml");
+            try (InputStream cfgFile = new BufferedInputStream(classLoader.getResourceAsStream("config.xml"))) {
                 configDoc = builder.parse(cfgFile);
             } catch (Throwable t) {
                 throw new RuntimeException("Config file not found - make sure it is in the classpath", t);
-            } finally {
-                cfgFile.close();
             }
             // configDoc = builder.parse(configFile);
 

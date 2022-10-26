@@ -34,9 +34,9 @@ import org.slf4j.LoggerFactory;
 public class FitsXmlMapper {
 
     private static final String FITS_XML_MAP_PATH = Fits.FITS_XML_DIR + "fits_xml_map.xml";
-    private List<ToolMap> toolMaps = new ArrayList<ToolMap>();
-    private static Logger logger = LoggerFactory.getLogger(FitsXmlMapper.class);
-    private XPathFactory xFactory = XPathFactory.instance();
+    private final List<ToolMap> toolMaps = new ArrayList<>();
+    private static final Logger logger = LoggerFactory.getLogger(FitsXmlMapper.class);
+    private final XPathFactory xFactory = XPathFactory.instance();
 
     public FitsXmlMapper() throws JDOMException, IOException {
         SAXBuilder saxBuilder = new SAXBuilder();
@@ -65,7 +65,7 @@ public class FitsXmlMapper {
         }
         // iterate through all elements in doc
         Element root = doc.getRootElement();
-        for (Element child : (List<Element>) root.getChildren()) {
+        for (Element child : root.getChildren()) {
             doMapping(map, child, mime);
         }
         return doc;

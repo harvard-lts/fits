@@ -10,7 +10,7 @@
 
 package edu.harvard.hul.ois.fits.tools.ffident;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,7 +38,7 @@ public class FormatDescription implements Comparable<FormatDescription> {
             return;
         }
         if (fileExtensions == null) {
-            fileExtensions = new ArrayList<String>();
+            fileExtensions = new ArrayList<>();
         }
         fileExtensions.add(ext);
     }
@@ -70,7 +70,7 @@ public class FormatDescription implements Comparable<FormatDescription> {
             return;
         }
         if (mimeTypes == null) {
-            mimeTypes = new ArrayList<String>();
+            mimeTypes = new ArrayList<>();
         }
         mimeTypes.add(mimeType);
     }
@@ -124,7 +124,7 @@ public class FormatDescription implements Comparable<FormatDescription> {
 
     public String getMimeType(int index) {
         if (mimeTypes != null && index >= 0 && index < mimeTypes.size()) {
-            return (String) mimeTypes.get(index);
+            return mimeTypes.get(index);
         } else {
             return null;
         }
@@ -151,7 +151,7 @@ public class FormatDescription implements Comparable<FormatDescription> {
             return false;
         }
         int index1 = 0;
-        int index2 = offset.intValue();
+        int index2 = offset;
         if (index2 + magicBytes.length > data.length) {
             return false;
         }
@@ -184,11 +184,7 @@ public class FormatDescription implements Comparable<FormatDescription> {
         }
         if (newValue.length() > 2 && newValue.charAt(0) == '"' && newValue.charAt(newValue.length() - 1) == '"') {
             newValue = newValue.substring(1, newValue.length() - 1);
-            try {
-                magicBytes = newValue.getBytes("iso-8859-1");
-            } catch (UnsupportedEncodingException uee) {
-                magicBytes = null;
-            }
+            magicBytes = newValue.getBytes(StandardCharsets.ISO_8859_1);
             return;
         }
         if ((newValue.length() % 2) == 0) {
@@ -231,7 +227,7 @@ public class FormatDescription implements Comparable<FormatDescription> {
     public String toString() {
         final String PRIMARY_SEPARATOR = "\t";
         final String SECONDARY_SEPARATOR = ",";
-        StringBuffer sb = new StringBuffer(80);
+        StringBuilder sb = new StringBuilder(80);
         sb.append(getGroup());
         sb.append(PRIMARY_SEPARATOR);
         sb.append(getShortName());

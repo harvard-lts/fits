@@ -40,8 +40,8 @@ import org.slf4j.LoggerFactory;
  */
 public class MediaInfoUtil {
 
-    private XPathFactory xFactory = XPathFactory.instance();
-    private Namespace fitsNamespace = Namespace.getNamespace("x", Fits.XML_NAMESPACE);
+    private final XPathFactory xFactory = XPathFactory.instance();
+    private final Namespace fitsNamespace = Namespace.getNamespace("x", Fits.XML_NAMESPACE);
 
     public static final String CODEC_FAMILY_AVID_DNXHD = "Avid DNxHD";
     public static final String CODEC_FAMILY_JPG2000 = "JPEG 2000";
@@ -143,7 +143,7 @@ public class MediaInfoUtil {
     }
 
     protected Map<String, String> loadGeneralDataMap() {
-        Map<String, String> generalValuesDataMap = new HashMap<String, String>();
+        Map<String, String> generalValuesDataMap = new HashMap<>();
 
         generalValuesDataMap.put(
                 "dateModified", getMediaInfoString("File_Modified_Date", MediaInfoNativeWrapper.StreamKind.General));
@@ -193,14 +193,14 @@ public class MediaInfoUtil {
      */
     protected void addDataToMap(Map<String, Map<String, String>> trackValuesMap, String id, String key, String value) {
         if (!StringUtils.isEmpty(value)) {
-            if (trackValuesMap.get(id) == null) trackValuesMap.put(id, new HashMap<String, String>());
+            if (trackValuesMap.get(id) == null) trackValuesMap.put(id, new HashMap<>());
             trackValuesMap.get(id).put(key, value);
         }
     }
 
     protected Map<String, Map<String, String>> loadVideoDataMap(Map<String, String> generalValuesDataMap) {
 
-        Map<String, Map<String, String>> videoTrackValuesMap = new HashMap<String, Map<String, String>>();
+        Map<String, Map<String, String>> videoTrackValuesMap = new HashMap<>();
 
         int numVideoTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Video);
         for (int ndx = 0; ndx < numVideoTracks; ndx++) {
@@ -316,7 +316,7 @@ public class MediaInfoUtil {
 
     protected Map<String, Map<String, String>> loadAudioDataMap() {
 
-        Map<String, Map<String, String>> audioTrackValuesMap = new HashMap<String, Map<String, String>>();
+        Map<String, Map<String, String>> audioTrackValuesMap = new HashMap<>();
 
         int numAudioTracks = mi.Count_Get(MediaInfoNativeWrapper.StreamKind.Audio);
         for (int ndx = 0; ndx < numAudioTracks; ndx++) {
@@ -360,7 +360,6 @@ public class MediaInfoUtil {
             // ----------------------------------------------------------------
 
             String duration = getMediaInfoString(ndx, "Duration", MediaInfoNativeWrapper.StreamKind.Audio);
-            ;
             addDataToMap(audioTrackValuesMap, id, "duration", duration);
 
             String trackSize = getMediaInfoString(ndx, "StreamSize", MediaInfoNativeWrapper.StreamKind.Audio);
@@ -685,7 +684,7 @@ public class MediaInfoUtil {
 
         // Remove any empty elements
         // Right now it is only scanning order
-        List<Element> elementsToRemove = new ArrayList<Element>();
+        List<Element> elementsToRemove = new ArrayList<>();
 
         List<Content> contents = element.getContent();
         for (Content content : contents) {
@@ -819,7 +818,7 @@ public class MediaInfoUtil {
 
         // Remove any empty elements
         // Right now it is only scanning order
-        List<Element> elementsToRemove = new ArrayList<Element>();
+        List<Element> elementsToRemove = new ArrayList<>();
 
         // NOTE: We need to add a namespace	to xpath, because JDom XPath
         // does not support default namespaces. It requires you to add a
@@ -827,7 +826,7 @@ public class MediaInfoUtil {
         XPathExpression<Element> expr =
                 xFactory.compile("//x:fits/x:metadata/x:video", Filters.element(), null, fitsNamespace);
 
-        Element videoElement = (Element) expr.evaluateFirst(fitsXml);
+        Element videoElement = expr.evaluateFirst(fitsXml);
         List<Content> elementList = videoElement.getContent();
         for (Content content : elementList) {
 

@@ -124,7 +124,7 @@ public class Droid extends ToolBase {
             }
             includeExts = (List<String>) (List<?>) config.getList("droid_read_limit[@include-exts]");
             String limit = config.getString("droid_read_limit[@read-limit-kb]");
-            kbReadLimit = -1l;
+            kbReadLimit = -1L;
             if (limit != null) {
                 try {
                     kbReadLimit = Long.parseLong(limit);

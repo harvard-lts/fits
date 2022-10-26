@@ -19,7 +19,7 @@ import java.io.Reader;
  * @author Marco Schmidt
  */
 public class FormatDescriptionReader {
-    private BufferedReader in;
+    private final BufferedReader in;
 
     public FormatDescriptionReader(Reader reader) {
         in = new BufferedReader(reader);

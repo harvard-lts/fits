@@ -23,8 +23,8 @@ public class ToolIdentity {
     private String mime = new String();
     private String format = new String();
     private FormatVersion formatVersion;
-    private List<ExternalIdentifier> externalIds = new ArrayList<ExternalIdentifier>();
-    private ToolInfo toolInfo;
+    private final List<ExternalIdentifier> externalIds = new ArrayList<>();
+    private final ToolInfo toolInfo;
 
     public ToolIdentity(String mime, String format, ToolInfo toolInfo) {
         this.mime = mime;

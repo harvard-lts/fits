@@ -31,7 +31,7 @@ public final class OsCheck {
         MacOS,
         Linux,
         Other
-    };
+    }
 
     // cached result of OS detection
     protected static OSType detectedOS;

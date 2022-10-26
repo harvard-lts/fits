@@ -19,7 +19,7 @@ import org.xml.sax.SAXParseException;
 /** Output error reports from validation of FITS output */
 public class ToolErrorHandler implements ErrorHandler {
 
-    private static Logger logger = LoggerFactory.getLogger(ToolErrorHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ToolErrorHandler.class);
 
     @Override
     public void error(SAXParseException e) throws SAXException {

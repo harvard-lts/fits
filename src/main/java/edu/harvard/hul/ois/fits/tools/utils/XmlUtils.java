@@ -10,7 +10,6 @@
 
 package edu.harvard.hul.ois.fits.tools.utils;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.jdom2.Attribute;
@@ -24,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 public class XmlUtils {
 
-    private static XPathFactory xFactory = XPathFactory.instance();
+    private static final XPathFactory xFactory = XPathFactory.instance();
 
     private static final Logger logger = LoggerFactory.getLogger(XmlUtils.class);
 
@@ -55,7 +54,7 @@ public class XmlUtils {
         XPathExpression<Element> expr = xFactory.compile("//" + element, Filters.element());
         Element e = expr.evaluateFirst(dom);
         if (e != null) {
-            for (Element ee : (List<Element>) e.getChildren()) {
+            for (Element ee : e.getChildren()) {
                 s = s + ee.getText() + " ";
             }
             return s;
@@ -69,7 +68,7 @@ public class XmlUtils {
         if (aa != null && aa.getValue().equalsIgnoreCase(a.getValue())) {
             return e;
         }
-        for (Element ee : (List<Element>) e.getChildren()) {
+        for (Element ee : e.getChildren()) {
             foundE = getChildWithAttribute(ee, a);
             if (foundE != null) {
                 break;

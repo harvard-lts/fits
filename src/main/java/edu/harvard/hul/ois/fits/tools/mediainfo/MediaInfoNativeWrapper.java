@@ -137,7 +137,7 @@ class MediaInfoNativeWrapper {
         Text,
         Other,
         Image,
-        Menu;
+        Menu
     }
 
     // Enums
@@ -183,7 +183,7 @@ class MediaInfoNativeWrapper {
         /**
          * Domain of this piece of information.
          */
-        Domain;
+        Domain
     }
 
     public enum Status {
@@ -193,7 +193,7 @@ class MediaInfoNativeWrapper {
         Updated(0x04),
         Finalized(0x08);
 
-        private int value;
+        private final int value;
 
         private Status(int value) {
             this.value = value;

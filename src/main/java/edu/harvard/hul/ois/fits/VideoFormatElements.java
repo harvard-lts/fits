@@ -36,7 +36,7 @@ public enum VideoFormatElements {
     bitDepth("bitDepth"),
     duration("duration");
 
-    private String name;
+    private final String name;
 
     VideoFormatElements(String name) {
         this.name = name;

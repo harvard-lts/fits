@@ -50,7 +50,7 @@ import nz.govt.natlib.meta.log.LogMessage;
 public class WPAdapter extends DataAdapter {
 
     // header
-    private Element wpHeaderElement = new CompoundElement(
+    private final Element wpHeaderElement = new CompoundElement(
             new String[] {
                 "marker",
                 "file-type",
@@ -156,14 +156,14 @@ public class WPAdapter extends DataAdapter {
             });
 
     // graphics
-    private Element graphicElement = new CompoundElement(new String[] {"graphic-images"}, new Element[] {
+    private final Element graphicElement = new CompoundElement(new String[] {"graphic-images"}, new Element[] {
         new IntegerElement(IntegerElement.SHORT_SIZE, false, IntegerElement.DECIMAL_FORMAT),
         // :
         // : note: there's more but only the image data itself...
     });
 
     // printer
-    private Element printerElement = new CompoundElement(
+    private final Element printerElement = new CompoundElement(
             new String[] {
                 "name",
                 "filename",
@@ -210,7 +210,7 @@ public class WPAdapter extends DataAdapter {
             });
 
     // document flags
-    private Element documentElement = new CompoundElement(
+    private final Element documentElement = new CompoundElement(
             new String[] {
                 "flags",
                 "quality",
@@ -261,7 +261,7 @@ public class WPAdapter extends DataAdapter {
             });
 
     // document summary part1 (5.0)
-    private Element summaryElement = new CompoundElement(
+    private final Element summaryElement = new CompoundElement(
             new String[] {"created", "name", "type", "subject", "author", "typist", "abstract"}, new Element[] {
                 new StringElement(),
                 new StringElement(),
@@ -273,7 +273,7 @@ public class WPAdapter extends DataAdapter {
             });
 
     // document summary part2 (5.1+)
-    private Element summary2Element =
+    private final Element summary2Element =
             new CompoundElement(new String[] {"account", "keywords", "", "created-ISO", ""}, new Element[] {
                 new StringElement(), new StringElement(),
                 new ByteChomperElement(1), new StringElement(),
@@ -409,7 +409,7 @@ public class WPAdapter extends DataAdapter {
         ctx.fireEndParseEvent("wordperfect");
     }
 
-    private class IndexHeaderElement extends Element {
+    private static class IndexHeaderElement extends Element {
         int type = 0;
 
         int count = 0;
@@ -462,7 +462,7 @@ public class WPAdapter extends DataAdapter {
         }
     }
 
-    private class PacketHeaderElement extends Element {
+    private static class PacketHeaderElement extends Element {
         int type = 0;
 
         int length = 0;

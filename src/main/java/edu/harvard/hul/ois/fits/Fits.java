@@ -20,15 +20,18 @@ import edu.harvard.hul.ois.fits.tools.Tool.RunStatus;
 import edu.harvard.hul.ois.fits.tools.ToolBelt;
 import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -72,18 +75,19 @@ public class Fits {
     public static final String XML_NAMESPACE = "http://hul.harvard.edu/ois/xml/ns/fits/fits_output";
 
     private static boolean traverseDirs;
-    private static boolean
-            nestDirs; // whether traversing nested directories of input files creates nest output directories - if
+
+    // whether traversing nested directories of input files creates nest output directories - if
     // false, all output goes in same output directory
-    private static XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
+    private static boolean nestDirs;
+    private static final XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
     private static boolean rawToolOutput = false;
 
     private static final String FITS_CONFIG_FILE_NAME = "fits.xml";
     private static final String VERSION_PROPERTIES_FILE = "version.properties";
     private static final int DEFAULT_MAX_THREADS = 20;
 
-    private XMLConfiguration config;
-    private FitsXmlMapper mapper;
+    private final XMLConfiguration config;
+    private final FitsXmlMapper mapper;
     private boolean enableStatistics;
     private boolean consolidateFirstIdentity;
     private String externalOutputSchema;
@@ -365,8 +369,8 @@ public class Fits {
 
         File versionFile = new File(versionPropFileFullPath + VERSION_PROPERTIES_FILE);
         Properties versionProps = new Properties();
-        try {
-            versionProps.load(new FileInputStream(versionFile));
+        try (InputStream is = Files.newInputStream(versionFile.toPath())) {
+            versionProps.load(is);
             String version = versionProps.getProperty("build.version");
             if (version != null && !version.isEmpty()) {
                 Fits.VERSION = version;
@@ -470,12 +474,14 @@ public class Fits {
         try {
             // figure out the output location
             if (outputLocation != null) {
-                out = new FileOutputStream(outputLocation);
+                out = Files.newOutputStream(Paths.get(outputLocation));
             } else if (!dirMode) {
                 out = System.out;
             } else {
                 throw new FitsException("The output location must be provided when running FITS in directory mode");
             }
+
+            out = new BufferedOutputStream(out);
 
             // if -x is set, then convert to standard metadata schema and output to -o
             if (standardSchema) {
@@ -559,7 +565,7 @@ public class Fits {
                 transformer.transform(source, rstream);
 
                 // send to the providedOutpuStream
-                out.write(xsltOutStream.toString().getBytes("UTF-8"));
+                out.write(xsltOutStream.toString().getBytes(StandardCharsets.UTF_8));
                 out.flush();
 
             } catch (Exception e) {
@@ -587,14 +593,14 @@ public class Fits {
             throw new FitsConfigurationException(input.getAbsolutePath() + " does not exist or is not readable");
         }
 
-        List<ToolOutput> toolResults = new ArrayList<ToolOutput>();
+        List<ToolOutput> toolResults = new ArrayList<>();
 
         // run file through each tool, catching exceptions thrown by tools
-        List<Throwable> caughtThrowables = new ArrayList<Throwable>();
+        List<Throwable> caughtThrowables = new ArrayList<>();
         String path = input.getPath().toLowerCase();
         String ext = path.substring(path.lastIndexOf(".") + 1);
 
-        ArrayList<Thread> threads = new ArrayList<Thread>();
+        ArrayList<Thread> threads = new ArrayList<>();
         // GDM 16-Nov-12: Implement limit on maximum threads
         for (Tool t : toolbelt.getTools()) {
             if (t.isEnabled()) {

@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 public class FileInfo extends ToolBase {
 
     private boolean enabled = true;
-    private Fits fits;
+    private final Fits fits;
 
     private static final String TOOL_NAME = "OIS File Information";
     private static final String TOOL_VERSION = "1.0";
@@ -58,7 +58,7 @@ public class FileInfo extends ToolBase {
         logger.debug("FileInfo.extractInfo starting on " + file.getName());
         long startTime = System.currentTimeMillis();
         Document doc = createXml(file);
-        output = new ToolOutput(this, (Document) doc.clone(), doc, fits);
+        output = new ToolOutput(this, doc.clone(), doc, fits);
         duration = System.currentTimeMillis() - startTime;
         runStatus = RunStatus.SUCCESSFUL;
         logger.debug("FileInfo.extractInfo finished on " + file.getName());

@@ -18,20 +18,17 @@ import edu.harvard.hul.ois.fits.tools.Tool;
 import edu.harvard.hul.ois.fits.tools.Tool.RunStatus;
 import edu.harvard.hul.ois.fits.tools.ToolBelt;
 import edu.harvard.hul.ois.fits.tools.ToolInfo;
-import edu.harvard.hul.ois.ots.schemas.AES.AudioObject;
-import edu.harvard.hul.ois.ots.schemas.ContainerMD.ContainerMd;
-import edu.harvard.hul.ois.ots.schemas.DocumentMD.DocumentMD;
-import edu.harvard.hul.ois.ots.schemas.Ebucore.EbuCoreMain;
-import edu.harvard.hul.ois.ots.schemas.MIX.Mix;
-import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 import edu.harvard.hul.ois.ots.schemas.XmlContent.XmlContent;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.stream.XMLOutputFactory;
@@ -61,10 +58,10 @@ import org.slf4j.LoggerFactory;
 public class FitsOutput {
 
     private Document fitsXml; // This is in the FITS XML format
-    private List<Throwable> caughtThrowables = new ArrayList<Throwable>();
-    private XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
-    private Namespace fitsNamespace = Namespace.getNamespace(Fits.XML_NAMESPACE);
-    private XPathFactory xFactory = XPathFactory.instance();
+    private List<Throwable> caughtThrowables = new ArrayList<>();
+    private final XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
+    private final Namespace fitsNamespace = Namespace.getNamespace(Fits.XML_NAMESPACE);
+    private final XPathFactory xFactory = XPathFactory.instance();
 
     private static final Logger logger = LoggerFactory.getLogger(FitsOutput.class);
 
@@ -112,9 +109,9 @@ public class FitsOutput {
     @SuppressWarnings("unchecked")
     public List<FitsMetadataElement> getTechMetadataElements() {
         Element root = fitsXml.getRootElement();
-        Element metadata = (Element) root.getChild("metadata", fitsNamespace);
+        Element metadata = root.getChild("metadata", fitsNamespace);
         if (metadata.getChildren().size() > 0) {
-            Element techMetadata = (Element)
+            Element techMetadata =
                     root.getChild("metadata", fitsNamespace).getChildren().get(0);
             return buildMetadataList(techMetadata);
         } else {
@@ -124,9 +121,9 @@ public class FitsOutput {
 
     public String getTechMetadataType() {
         Element root = fitsXml.getRootElement();
-        Element metadata = (Element) root.getChild("metadata", fitsNamespace);
+        Element metadata = root.getChild("metadata", fitsNamespace);
         if (metadata.getChildren().size() > 0) {
-            Element techMetadata = (Element)
+            Element techMetadata =
                     root.getChild("metadata", fitsNamespace).getChildren().get(0);
             return techMetadata.getName();
         } else {
@@ -136,9 +133,9 @@ public class FitsOutput {
 
     public FitsMetadataElement getFileInfoElement(String name) {
         Element root = fitsXml.getRootElement();
-        Element fileInfo = (Element) root.getChild("fileinfo", fitsNamespace);
+        Element fileInfo = root.getChild("fileinfo", fitsNamespace);
         if (fileInfo.getChildren().size() > 0) {
-            Element element = (Element) fileInfo.getChild(name, fitsNamespace);
+            Element element = fileInfo.getChild(name, fitsNamespace);
             if (element != null) {
                 return buildMetdataIElements(element);
             } else {
@@ -160,7 +157,7 @@ public class FitsOutput {
     }
 
     public List<FitsMetadataElement> getMetadataElements(String name) {
-        List<FitsMetadataElement> elements = new ArrayList<FitsMetadataElement>();
+        List<FitsMetadataElement> elements = new ArrayList<>();
         XPathExpression<Element> expr = xFactory.compile("//fits:" + name, Filters.element(), null, fitsNamespace);
         List<Element> nodes = expr.evaluate(fitsXml);
         for (Element e : nodes) {
@@ -193,11 +190,11 @@ public class FitsOutput {
     }
 
     private List buildMetadataList(Element parent) {
-        List<FitsMetadataElement> data = new ArrayList<FitsMetadataElement>();
+        List<FitsMetadataElement> data = new ArrayList<>();
         if (parent == null) {
             return null;
         }
-        for (Element child : (List<Element>) parent.getChildren()) {
+        for (Element child : parent.getChildren()) {
             data.add(buildMetdataIElements(child));
         }
         return data;
@@ -224,16 +221,16 @@ public class FitsOutput {
 
     public void saveToDisk(String location) throws IOException {
         XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(location), "UTF-8");
-        serializer.output(fitsXml, out);
-        out.close();
+        try (Writer out = Files.newBufferedWriter(Paths.get(location))) {
+            serializer.output(fitsXml, out);
+        }
     }
 
     public void output(OutputStream outstream) throws IOException {
         XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
-        OutputStreamWriter out = new OutputStreamWriter(outstream, "UTF-8");
-        serializer.output(fitsXml, out);
-        out.close();
+        try (Writer out = new BufferedWriter(new OutputStreamWriter(outstream))) {
+            serializer.output(fitsXml, out);
+        }
     }
 
     public Boolean checkWellFormed() {
@@ -256,7 +253,7 @@ public class FitsOutput {
         List<FitsMetadataElement> statusElements = getFileStatusElements();
         String errorMessages = new String();
         for (FitsMetadataElement element : statusElements) {
-            if (element.getName() == "message") {
+            if ("message".equals(element.getName())) {
                 errorMessages = errorMessages + "\n" + element.getValue();
             }
         }
@@ -280,32 +277,32 @@ public class FitsOutput {
         if (subElem != null) {
             Element fileinfo = fitsXml.getRootElement().getChild("fileinfo", fitsNamespace);
             // Process image metadata...
-            return (Mix) conv.toMix(subElem, fileinfo);
+            return conv.toMix(subElem, fileinfo);
         }
         subElem = metadata.getChild("text", fitsNamespace);
         if (subElem != null) {
             // Process text metadata...
-            return (TextMD) conv.toTextMD(subElem);
+            return conv.toTextMD(subElem);
         }
         subElem = metadata.getChild("document", fitsNamespace);
         if (subElem != null) {
             // Process document metadata...
-            return (DocumentMD) conv.toDocumentMD(subElem);
+            return conv.toDocumentMD(subElem);
         }
         subElem = metadata.getChild("audio", fitsNamespace);
         if (subElem != null) {
             // Process audio metadata...
-            return (AudioObject) conv.toAES(this, subElem);
+            return conv.toAES(this, subElem);
         }
         subElem = metadata.getChild("video", fitsNamespace);
         if (subElem != null) {
             // Process video metadata...
-            return (EbuCoreMain) conv.toEbuCoreVideo(this, subElem);
+            return conv.toEbuCoreVideo(this, subElem);
         }
         subElem = metadata.getChild("container", fitsNamespace);
         if (subElem != null) {
             // Process container metadata...
-            return (ContainerMd) conv.toContainerMD(subElem);
+            return conv.toContainerMD(subElem);
         }
 
         return null;
@@ -315,10 +312,10 @@ public class FitsOutput {
         // get the normal fits xml output
         Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
-        Element metadata = (Element) fitsXml.getRootElement().getChild("metadata", ns);
+        Element metadata = fitsXml.getRootElement().getChild("metadata", ns);
         Element techmd = null;
         if (metadata.getChildren().size() > 0) {
-            techmd = (Element) metadata.getChildren().get(0);
+            techmd = metadata.getChildren().get(0);
         }
 
         // if we have technical metadata convert it to the standard form
@@ -348,10 +345,10 @@ public class FitsOutput {
     }
 
     public List<FitsIdentity> getIdentities() {
-        List<FitsIdentity> identities = new ArrayList<FitsIdentity>();
+        List<FitsIdentity> identities = new ArrayList<>();
         Namespace ns = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
         XPathExpression<Element> expr = xFactory.compile("//fits:identity", Filters.element(), null, ns);
-        List<Element> identElements = (List<Element>) expr.evaluate(fitsXml);
+        List<Element> identElements = expr.evaluate(fitsXml);
         for (Element element : identElements) {
             FitsIdentity fileIdentSect = new FitsIdentity();
 

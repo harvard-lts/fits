@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 
 public class EmbARC extends ToolBase {
     private boolean enabled = true;
-    private Fits fits;
+    private final Fits fits;
     private static final Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
     private static final Logger logger = LoggerFactory.getLogger(EmbARC.class);
