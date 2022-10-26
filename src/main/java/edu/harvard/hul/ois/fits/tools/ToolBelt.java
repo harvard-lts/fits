@@ -31,12 +31,12 @@ public class ToolBelt {
     // This is used for building custom class loaders representing all FITS class files.
     private URL fitsUrl;
 
-    private static Logger logger = LoggerFactory.getLogger(ToolBelt.class);
+    private static final Logger logger = LoggerFactory.getLogger(ToolBelt.class);
 
     /** The representation of one tools-used element in the config file */
-    public class ToolsUsedItem {
-        public List<String> extensions;
-        public List<String> toolNames;
+    public static class ToolsUsedItem {
+        public final List<String> extensions;
+        public final List<String> toolNames;
 
         public ToolsUsedItem(List<String> exts, List<String> tools) {
             extensions = exts;
@@ -66,7 +66,7 @@ public class ToolBelt {
         // Collect the tools-used elements
         List<ToolsUsedItem> toolsUsedList = processToolsUsed(config);
 
-        tools = new ArrayList<Tool>();
+        tools = new ArrayList<>();
 
         // get number of tools
         int size = config.getList("tools.tool[@class]").size();
@@ -207,7 +207,7 @@ public class ToolBelt {
      * ... something */
     private List<ToolsUsedItem> processToolsUsed(XMLConfiguration config) {
         int size = config.getList("tools-used[@exts]").size();
-        List<ToolsUsedItem> results = new ArrayList<ToolsUsedItem>(size);
+        List<ToolsUsedItem> results = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             @SuppressWarnings("unchecked")
             List<String> exts = (List<String>) (List<?>) config.getList("tools-used(" + i + ")[@exts]");
@@ -239,7 +239,7 @@ public class ToolBelt {
         }
 
         // collect all files from all specified directories
-        List<URL> directoriesUrls = new ArrayList<URL>();
+        List<URL> directoriesUrls = new ArrayList<>();
         for (String dir : classpathDirs) {
             List<URL> urls = gatherClassLoaderUrls(null, dir);
             // special case: If a root directory contains artifacts then add that root directory
@@ -257,7 +257,7 @@ public class ToolBelt {
         }
 
         // Create list of resources for custom ClassLoader.
-        List<URL> classLoaderUrls = new ArrayList<URL>();
+        List<URL> classLoaderUrls = new ArrayList<>();
         // Must always add FITS classes first
         classLoaderUrls.add(fitsUrl);
         // add all other resources next
@@ -276,7 +276,7 @@ public class ToolBelt {
     private List<URL> gatherClassLoaderUrls(List<URL> urls, String rootDir) throws MalformedURLException {
 
         if (urls == null) {
-            urls = new ArrayList<URL>();
+            urls = new ArrayList<>();
         }
 
         File dirFile = getFileFromName(rootDir);

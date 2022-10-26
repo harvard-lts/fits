@@ -42,7 +42,7 @@ public class FormatIdentification {
         }
         Iterator<FormatDescription> iter = descriptions.iterator();
         while (iter.hasNext()) {
-            FormatDescription desc = (FormatDescription) iter.next();
+            FormatDescription desc = iter.next();
             if (desc.matches(data)) {
                 return desc;
             }
@@ -82,7 +82,7 @@ public class FormatIdentification {
     }
 
     private static void init(String configFile) throws FileNotFoundException {
-        descriptions = new ArrayList<FormatDescription>();
+        descriptions = new ArrayList<>();
         minBufferSize = 1;
 
         FileReader fr = new FileReader(configFile);
@@ -94,8 +94,8 @@ public class FormatIdentification {
             while ((desc = in.read()) != null) {
                 byte[] magic = desc.getMagicBytes();
                 Integer offset = desc.getOffset();
-                if (magic != null && offset != null && offset.intValue() + magic.length > minBufferSize) {
-                    minBufferSize = offset.intValue() + magic.length;
+                if (magic != null && offset != null && offset + magic.length > minBufferSize) {
+                    minBufferSize = offset + magic.length;
                 }
                 descriptions.add(desc);
             }

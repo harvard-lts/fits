@@ -23,7 +23,7 @@ public interface Tool extends Runnable {
         SHOULDRUN,
         FAILED,
         SUCCESSFUL
-    };
+    }
 
     /**
      * Extracts the identification and metadata from the provided file

@@ -101,7 +101,7 @@ public class ZipArchiveContentIdentifier extends ArchiveContentIdentifier {
             try {
                 ZipArchiveEntry entry = null;
                 Integer compressionMethod = null;
-                while ((entry = (ZipArchiveEntry) in.getNextZipEntry()) != null) {
+                while ((entry = in.getNextZipEntry()) != null) {
                     final String name = entry.getName();
                     if (!entry.isDirectory()) {
                         final RequestMetaData metaData = new RequestMetaData(entry.getSize(), 2L, name);

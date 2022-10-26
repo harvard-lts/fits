@@ -25,7 +25,7 @@ public enum VideoMethods {
     frameRate("frameRate"),
     scanningOrder("scanningOrder");
 
-    private String name;
+    private final String name;
 
     VideoMethods(String name) {
         this.name = name;

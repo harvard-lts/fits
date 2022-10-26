@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 public class ADLTool extends ToolBase {
 
     private boolean enabled = true;
-    private Fits fits;
+    private final Fits fits;
     private static final Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
     private static final Namespace xsiNS = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
     private static final Logger logger = LoggerFactory.getLogger(ADLTool.class);
@@ -50,7 +50,7 @@ public class ADLTool extends ToolBase {
         logger.debug("ADLTool.extractInfo starting on " + file.getName());
         long startTime = System.currentTimeMillis();
         Document doc = createXml(file);
-        output = new ToolOutput(this, (Document) doc.clone(), doc, fits);
+        output = new ToolOutput(this, doc.clone(), doc, fits);
         duration = System.currentTimeMillis() - startTime;
         runStatus = RunStatus.SUCCESSFUL;
         logger.debug("ADLTool.extractInfo finishing on " + file.getName());

@@ -17,7 +17,7 @@ import edu.harvard.hul.ois.ots.schemas.TextMD.TextMD;
 
 public class TextMDModel {
 
-    protected TextMD textMD;
+    protected final TextMD textMD;
     protected MarkupLanguage ml;
     protected MarkupBasis mb;
     protected CharacterInfo ci;

@@ -32,13 +32,13 @@ public class FileUtility extends ToolBase {
 
     private boolean osIsWindows = false;
     private boolean osHasTool = false;
-    private List<String> WIN_COMMAND =
-            new ArrayList<String>(Arrays.asList(Fits.FITS_TOOLS_DIR + "file_utility_windows/bin/file.exe"));
-    private List<String> UNIX_COMMAND = new ArrayList<String>(Arrays.asList("file"));
-    private List<String> FILE_TEST_COMMAND = new ArrayList<String>(Arrays.asList("which", "file"));
+    private final List<String> WIN_COMMAND =
+            new ArrayList<>(Arrays.asList(Fits.FITS_TOOLS_DIR + "file_utility_windows/bin/file.exe"));
+    private final List<String> UNIX_COMMAND = new ArrayList<>(Arrays.asList("file"));
+    private final List<String> FILE_TEST_COMMAND = new ArrayList<>(Arrays.asList("which", "file"));
     private static final String WIN_FILE_DATE = "6/7/2008";
     private boolean enabled = true;
-    private Fits fits;
+    private final Fits fits;
 
     private static final Logger logger = LoggerFactory.getLogger(FileUtility.class);
 
@@ -51,7 +51,7 @@ public class FileUtility extends ToolBase {
         String osName = System.getProperty("os.name");
         info = new ToolInfo();
         String versionOutput = null;
-        List<String> infoCommand = new ArrayList<String>();
+        List<String> infoCommand = new ArrayList<>();
         info.setName("file utility");
         if (osName.startsWith("Windows")) {
             // use provided Windows File Utility
@@ -83,7 +83,7 @@ public class FileUtility extends ToolBase {
         logger.debug("FileUtility.extractInfo starting");
         long startTime = System.currentTimeMillis();
 
-        List<String> execCommand = new ArrayList<String>();
+        List<String> execCommand = new ArrayList<>();
         if (osIsWindows) {
             // use provided Windows File Utility
             execCommand.addAll(WIN_COMMAND);
@@ -116,7 +116,7 @@ public class FileUtility extends ToolBase {
         String format = null;
         String mime = null;
         String charset = null;
-        List<String> linebreaks = new ArrayList<String>();
+        List<String> linebreaks = new ArrayList<>();
 
         // if mime indicates plain text (except if RTF files)
         if (execMimeOut.startsWith("text/plain")
@@ -243,7 +243,7 @@ public class FileUtility extends ToolBase {
     }
 
     public String stripNonValidXMLCharacters(String in) {
-        StringBuffer out = new StringBuffer(); // Used to hold the output.
+        StringBuilder out = new StringBuilder(); // Used to hold the output.
         char current; // Used to reference the current character.
 
         if (in == null || ("".equals(in))) return ""; // vacancy test.

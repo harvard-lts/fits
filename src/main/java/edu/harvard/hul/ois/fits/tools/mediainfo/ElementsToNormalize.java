@@ -14,8 +14,8 @@ public enum ElementsToNormalize {
     height("height", " pixels"),
     width("width", " pixels");
 
-    private String name;
-    private String unitsToAdd;
+    private final String name;
+    private final String unitsToAdd;
 
     ElementsToNormalize(String name, String unitsToAdd) {
         this.unitsToAdd = unitsToAdd;

@@ -21,7 +21,7 @@ import org.apache.commons.configuration.XMLConfiguration;
 public class XsltTransformMap {
 
     public static Hashtable<String, String> getMap(String config) throws FitsConfigurationException {
-        Hashtable<String, String> mappings = new Hashtable<String, String>();
+        Hashtable<String, String> mappings = new Hashtable<>();
         XMLConfiguration conf = null;
         try {
             conf = new XMLConfiguration(config);

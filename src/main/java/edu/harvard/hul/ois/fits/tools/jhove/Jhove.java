@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import org.jdom2.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,12 +37,12 @@ import org.slf4j.LoggerFactory;
  */
 public class Jhove extends ToolBase {
 
-    private App jhoveApp;
-    private JhoveBase jhove;
-    private XmlHandler xh;
-    private String jhoveConf;
+    private final App jhoveApp;
+    private final JhoveBase jhove;
+    private final XmlHandler xh;
+    private final String jhoveConf;
     private boolean enabled = true;
-    private Fits fits;
+    private final Fits fits;
 
     private static final String jhoveFitsConfig = Fits.FITS_XML_DIR + "jhove" + File.separator;
     private static final Logger logger = LoggerFactory.getLogger(Jhove.class);
@@ -100,7 +101,7 @@ public class Jhove extends ToolBase {
     private Document getFileInfo(File file, Module mod) throws Exception {
         String filepath = file.getAbsolutePath();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        OutputStreamWriter out2 = new OutputStreamWriter(out, "UTF-8");
+        OutputStreamWriter out2 = new OutputStreamWriter(out, StandardCharsets.UTF_8);
         PrintWriter pWriter = new PrintWriter(out2);
         xh.setWriter(pWriter);
         jhove.process(jhoveApp, mod, xh, filepath);
@@ -133,7 +134,7 @@ public class Jhove extends ToolBase {
             throw new FitsToolException("Jhove OutOfMemoryError while processing " + file.getName(), e);
         }
         String format = XmlUtils.getDomValue(dom, "format");
-        String xsltTransform = (String) transformMap.get(format.toUpperCase());
+        String xsltTransform = transformMap.get(format.toUpperCase());
 
         Document fitsXml = null;
         if (xsltTransform != null) {

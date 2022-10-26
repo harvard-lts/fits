@@ -59,7 +59,7 @@ import java.util.StringTokenizer;
  */
 public class MixModel {
 
-    protected Mix mix;
+    protected final Mix mix;
     protected BasicDigitalObjectInformation bdoi;
     protected BasicImageInformation bii;
     protected BasicImageCharacteristics bic;
@@ -326,7 +326,7 @@ public class MixModel {
          */
         StringTokenizer tok = new StringTokenizer(data);
         boolean rgb = ("RGB".equals(colorspace));
-        double rbwVal[] = new double[6];
+        double[] rbwVal = new double[6];
         try {
             for (int i = 0; i < 6; i++) {
                 rbwVal[i] = Double.parseDouble(tok.nextToken());
@@ -395,7 +395,7 @@ public class MixModel {
      *  33 deg 24' 51.80" N
      */
     private void parseItude(GPSItudeElement elem, String itude) {
-        StringBuffer itudeBuf = new StringBuffer(itude);
+        StringBuilder itudeBuf = new StringBuilder(itude);
         // Get rid of the non-number portions
         try {
             int pos = itudeBuf.indexOf("deg ");

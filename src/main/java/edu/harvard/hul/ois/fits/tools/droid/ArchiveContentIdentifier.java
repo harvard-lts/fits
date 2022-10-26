@@ -63,7 +63,7 @@ public abstract class ArchiveContentIdentifier {
     protected File tmpDir;
     protected String path;
     private Boolean expandWebArchives;
-    private Map<String, Format> puidFormatMap;
+    private final Map<String, Format> puidFormatMap;
 
     private static final Logger logger = LoggerFactory.getLogger(ArchiveContentIdentifier.class);
 

@@ -47,12 +47,12 @@ public class MetadataExtractor extends ToolBase {
     private static final String TOOL_VERSION = "3.6GA";
     private static final String TOOL_DATE = "06/05/2014";
 
-    private static String nlnzFitsConfig;
+    private static final String nlnzFitsConfig;
     private boolean enabled = true;
-    private Fits fits;
+    private final Fits fits;
 
-    private static Namespace fitsNS = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
-    private XPathFactory xFactory = XPathFactory.instance();
+    private static final Namespace fitsNS = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
+    private final XPathFactory xFactory = XPathFactory.instance();
 
     private static final Logger logger = LoggerFactory.getLogger(MetadataExtractor.class);
 
@@ -140,7 +140,7 @@ public class MetadataExtractor extends ToolBase {
             String format = dom.getRootElement().getName();
             // String format = XmlUtils.getDomValue(dom,"Format");
             if (format != null) {
-                String xsltTransform = (String) transformMap.get(format.toUpperCase());
+                String xsltTransform = transformMap.get(format.toUpperCase());
                 if (xsltTransform != null) {
                     fitsXml = transform(nlnzFitsConfig + xsltTransform, dom);
                 }
@@ -187,7 +187,7 @@ public class MetadataExtractor extends ToolBase {
 
     private void standardizeTimestamp(String path, Document document) {
         XPathExpression<Element> expr = xFactory.compile(path, Filters.element(), null, fitsNS);
-        Element element = (Element) expr.evaluateFirst(document);
+        Element element = expr.evaluateFirst(document);
         if (element != null) {
             element.setText(DateTimeUtil.standardize(element.getText()));
         }

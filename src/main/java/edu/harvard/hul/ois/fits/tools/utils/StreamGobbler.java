@@ -20,8 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class StreamGobbler extends Thread {
-    private InputStream is;
-    private OutputStream os;
+    private final InputStream is;
+    private final OutputStream os;
 
     private static final Logger logger = LoggerFactory.getLogger(StreamGobbler.class);
 

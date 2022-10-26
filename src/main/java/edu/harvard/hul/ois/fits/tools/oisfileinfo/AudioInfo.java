@@ -40,9 +40,9 @@ public class AudioInfo extends ToolBase {
     private static final String TOOL_DATE = "2/17/11";
 
     private boolean enabled = true;
-    private Fits fits;
-    private static Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
-    private static Namespace xsiNS = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+    private final Fits fits;
+    private static final Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
+    private static final Namespace xsiNS = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 
     private static final Logger logger = LoggerFactory.getLogger(AudioInfo.class);
 
@@ -58,7 +58,7 @@ public class AudioInfo extends ToolBase {
         logger.debug("AudioInfo.extractInfo starting on " + file.getName());
         long startTime = System.currentTimeMillis();
         Document doc = createXml(file);
-        output = new ToolOutput(this, (Document) doc.clone(), doc, fits);
+        output = new ToolOutput(this, doc.clone(), doc, fits);
         duration = System.currentTimeMillis() - startTime;
         runStatus = RunStatus.SUCCESSFUL;
         logger.debug("AudioInfo.extractInfo finished on " + file.getName());
@@ -178,9 +178,9 @@ public class AudioInfo extends ToolBase {
         byte[] mn = new byte[12];
         int rval = -1;
 
-        FileInputStream fis = new FileInputStream(file);
-        fis.read(mn);
-        fis.close();
+        try (FileInputStream fis = new FileInputStream(file)) {
+            fis.read(mn);
+        }
 
         byte[] buffer = new byte[4];
         for (int i = 0; i < 4; i++) {

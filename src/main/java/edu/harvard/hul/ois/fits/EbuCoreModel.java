@@ -51,12 +51,12 @@ public class EbuCoreModel {
 
     private static final String UTC_TEXT = "UTC ";
 
-    protected EbuCoreMain ebucoreMain;
-    protected Format format;
+    protected final EbuCoreMain ebucoreMain;
+    protected final Format format;
 
     protected AudioFormatExtended audioFmtExt;
-    protected ContainerFormat containerFormat;
-    protected Duration duration;
+    protected final ContainerFormat containerFormat;
+    protected final Duration duration;
 
     protected EbuCoreModel() throws XmlContentException {
 
@@ -417,7 +417,7 @@ public class EbuCoreModel {
                 break;
             case dateCreated:
             case dateModified:
-                String parts[] = dataValue.replace(UTC_TEXT, "").split(" ");
+                String[] parts = dataValue.replace(UTC_TEXT, "").split(" ");
                 DateTime dateTime = new DateTime(formatElem.getEbucoreName());
                 dateTime.setStartDate(parts[0]);
                 dateTime.setStartTime(parts[1] + "Z");

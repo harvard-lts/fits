@@ -41,16 +41,16 @@ import org.slf4j.LoggerFactory;
 
 public class OISConsolidator implements ToolOutputConsolidator {
 
-    private static Namespace xsiNS = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-    private static Namespace fitsNamespace = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
+    private static final Namespace xsiNS = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+    private static final Namespace fitsNamespace = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
 
     private static final Logger logger = LoggerFactory.getLogger(OISConsolidator.class);
 
-    private boolean reportConflicts;
+    private final boolean reportConflicts;
     private boolean displayToolOutput;
-    private Document formatTree;
-    private Fits fits;
-    private XPathFactory xFactory = XPathFactory.instance();
+    private final Document formatTree;
+    private final Fits fits;
+    private final XPathFactory xFactory = XPathFactory.instance();
 
     private static final int CONFLICT = 0;
     private static final int SINGLE_RESULT = 1;
@@ -60,8 +60,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 
     private static final String REAL_NUMBER = "^[-+]?\\d+(\\.\\d+)?$";
 
-    private static final List<String> repeatableElements = new ArrayList<String>(Arrays.asList("linebreak"));
-    ;
+    private static final List<String> repeatableElements = new ArrayList<>(Arrays.asList("linebreak"));
 
     private static final Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
@@ -69,7 +68,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
         SINGLE_RESULT,
         PARTIAL,
         CONFLICT,
-        UNKNOWN;
+        UNKNOWN
     }
 
     // This class is instantiated by Reflection in the Fits class using a 1-arg constructor
@@ -116,7 +115,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
 
                 if (e != null && e.getChildren().size() > 0) {
                     if (useChildren) {
-                        e = (Element) e.getChildren().get(0);
+                        e = e.getChildren().get(0);
                     }
                     List children = e.getChildren();
                     if (children.size() > 0) {
@@ -135,7 +134,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
      * @return
      */
     private List<ToolOutput> cullResults(List<ToolOutput> results) {
-        List<ToolOutput> newResults = new ArrayList<ToolOutput>();
+        List<ToolOutput> newResults = new ArrayList<>();
         for (ToolOutput result : results) {
             if (result != null) {
                 Tool t = result.getTool();
@@ -156,7 +155,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
      * @return
      */
     private List<FitsIdentity> getFirstUnknownIdentity(List<ToolOutput> results) {
-        List<FitsIdentity> identities = new ArrayList<FitsIdentity>();
+        List<FitsIdentity> identities = new ArrayList<>();
         for (ToolOutput result : results) {
             // if result is null skip it
             if (result == null) {
@@ -179,7 +178,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
      * @return
      */
     private List<FitsIdentity> getFirstPartialIdentity(List<ToolOutput> results) {
-        List<FitsIdentity> identities = new ArrayList<FitsIdentity>();
+        List<FitsIdentity> identities = new ArrayList<>();
         for (ToolOutput result : results) {
             // if result is null skip it
             if (result == null) {
@@ -216,9 +215,9 @@ public class OISConsolidator implements ToolOutputConsolidator {
 
     private List<Element> mergeXmlResults(List<ToolOutput> results, Element element) {
         // holder for consolidated elements
-        List<Element> consolidatedElements = new ArrayList<Element>();
+        List<Element> consolidatedElements = new ArrayList<>();
         // Get the element from each ToolOutput result
-        List<Element> fitsElements = new ArrayList<Element>();
+        List<Element> fitsElements = new ArrayList<>();
         for (ToolOutput result : results) {
             Document dom = result.getFitsXml();
             // if dom is null there is nothing to merge
@@ -291,7 +290,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
     }
 
     private List<Element> consolidateFitsElements(List<Element> fitsElements) {
-        List<Element> conElements = new ArrayList<Element>();
+        List<Element> conElements = new ArrayList<>();
         for (Element e : fitsElements) {
             ListIterator<Element> iter = conElements.listIterator();
             boolean anyMatches = false;
@@ -363,13 +362,11 @@ public class OISConsolidator implements ToolOutputConsolidator {
     }
 
     private List<ToolIdentity> getAllIdentities(List<ToolOutput> results) {
-        List<ToolIdentity> identities = new ArrayList<ToolIdentity>();
+        List<ToolIdentity> identities = new ArrayList<>();
         for (ToolOutput result : results) {
             if (result.getTool().canIdentify()) {
                 List<ToolIdentity> identList = result.getFileIdentity();
-                for (ToolIdentity ident : identList) {
-                    identities.add(ident);
-                }
+                identities.addAll(identList);
             }
         }
         return identities;
@@ -405,14 +402,14 @@ public class OISConsolidator implements ToolOutputConsolidator {
     }
 
     private List<FitsIdentity> consolidateIdentities(List<ToolIdentity> identities) {
-        List<FitsIdentity> consolidatedIdentities = new ArrayList<FitsIdentity>();
+        List<FitsIdentity> consolidatedIdentities = new ArrayList<>();
         for (ToolIdentity ident : identities) {
             ListIterator<FitsIdentity> iter = consolidatedIdentities.listIterator();
             boolean anyMatches = false;
             boolean formatTreeMatch = false;
             while (iter.hasNext()) {
                 // compare ident with conIdent
-                FitsIdentity identitySection = (FitsIdentity) iter.next();
+                FitsIdentity identitySection = iter.next();
                 if (identitiesMatch(ident, identitySection)) {
                     // Add external identifiers from ident to the existing item
                     mergeExternalIdentifiers(ident, identitySection);
@@ -536,7 +533,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
         // check identities
         // one "identity" per unique combination of format and mimetype
         List<ToolIdentity> identities = getAllIdentities(culledResults);
-        List<FitsIdentity> identitySections = new ArrayList<FitsIdentity>();
+        List<FitsIdentity> identitySections = new ArrayList<>();
         boolean unknownStatus = false;
         boolean partialStatus = false;
         // If there are no known identities in the culled results
@@ -625,7 +622,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
                 status = STATUS_VALUE.UNKNOWN.name();
             }
 
-            if (status != "") {
+            if (!"".equals(status)) {
                 identificationsection.setAttribute("status", status);
             }
 
@@ -736,7 +733,7 @@ public class OISConsolidator implements ToolOutputConsolidator {
                     tool.setAttribute("version", output.getTool().getToolInfo().getVersion());
                     Document doc = output.getToolOutput();
                     if (doc != null) {
-                        Element root = (Element) doc.getRootElement().detach();
+                        Element root = doc.getRootElement().detach();
                         tool.addContent(root);
                         toolOutput.addContent(tool);
                     }

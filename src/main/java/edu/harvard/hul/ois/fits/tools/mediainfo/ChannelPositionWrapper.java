@@ -12,7 +12,7 @@ package edu.harvard.hul.ois.fits.tools.mediainfo;
 
 public class ChannelPositionWrapper {
 
-    private String name;
+    private final String name;
     private int xPos;
     private int yPos;
 

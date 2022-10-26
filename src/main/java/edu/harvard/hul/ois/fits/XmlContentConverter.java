@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  *  for this to compile. */
 public class XmlContentConverter {
 
-    private static List<String> docMdNames;
+    private static final List<String> docMdNames;
 
     private static final Logger logger = LoggerFactory.getLogger(XmlContentConverter.class);
 
@@ -50,7 +50,7 @@ public class XmlContentConverter {
 
     static {
         // collect names of DocumentMD enums
-        docMdNames = new ArrayList<String>(DocumentMDElement.values().length);
+        docMdNames = new ArrayList<>(DocumentMDElement.values().length);
         for (DocumentMDElement elem : DocumentMDElement.values()) {
             docMdNames.add(elem.getName());
         }
@@ -1091,9 +1091,13 @@ public class XmlContentConverter {
         // Ebucore can only be generated from MediaInfo output
         Attribute toolNameAttr = elem.getAttribute("toolname");
         String toolName = toolNameAttr.getValue();
-        if (toolName == null) // just in case
-        return false;
-        if (!toolName.equalsIgnoreCase("mediainfo")) return false;
+        // just in case
+        if (toolName == null) {
+            return false;
+        }
+        if (!toolName.equalsIgnoreCase("mediainfo")) {
+            return false;
+        }
 
         return true;
     }
@@ -1125,7 +1129,7 @@ public class XmlContentConverter {
         codecCreatorApplication("codecCreatorApplication"),
         codecCreatorApplicationVersion("codecCreatorApplicationVersion");
 
-        private String name;
+        private final String name;
 
         private AudioElement(String name) {
             this.name = name;
@@ -1237,7 +1241,7 @@ public class XmlContentConverter {
         digitalCameraManufacturer("digitalCameraManufacturer"),
         created("created");
 
-        private String name;
+        private final String name;
 
         private ImageElement(String name) {
             this.name = name;
@@ -1257,7 +1261,7 @@ public class XmlContentConverter {
         markupLanguage("markupLanguage"),
         markupLanguageVersion("markupLanguageVersion");
 
-        private String name;
+        private final String name;
 
         private TextMDElement(String name) {
             this.name = name;
@@ -1292,7 +1296,7 @@ public class XmlContentConverter {
         hasHyperlinks("hasHyperlinks"),
         hasEmbeddedResources("hasEmbeddedResources");
 
-        private String name;
+        private final String name;
 
         private DocumentMDElement(String name) {
             this.name = name;
@@ -1311,7 +1315,7 @@ public class XmlContentConverter {
         bitRateMode("bitRateMode"),
         channels("channels");
 
-        private String name;
+        private final String name;
 
         private AudioFormatElement(String name) {
             this.name = name;
@@ -1333,7 +1337,7 @@ public class XmlContentConverter {
         originalSize("originalSize"),
         compressionMethod("compressionMethod");
 
-        private String name;
+        private final String name;
 
         private ContainerMDElement(String name) {
             this.name = name;

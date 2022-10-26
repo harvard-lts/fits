@@ -44,20 +44,20 @@ public class Exiftool extends ToolBase {
 
     private boolean osIsWindows = false;
     private boolean osHasPerl = false;
-    private List<String> winCommand =
-            new ArrayList<String>(Arrays.asList(Fits.FITS_TOOLS_DIR + "exiftool/windows/exiftool.exe"));
-    private List<String> unixCommand =
-            new ArrayList<String>(Arrays.asList("perl", Fits.FITS_TOOLS_DIR + "exiftool/perl/exiftool"));
-    private List<String> perlTestCommand = Arrays.asList("which", "perl");
+    private final List<String> winCommand =
+            new ArrayList<>(Arrays.asList(Fits.FITS_TOOLS_DIR + "exiftool/windows/exiftool.exe"));
+    private final List<String> unixCommand =
+            new ArrayList<>(Arrays.asList("perl", Fits.FITS_TOOLS_DIR + "exiftool/perl/exiftool"));
+    private final List<String> perlTestCommand = Arrays.asList("which", "perl");
     private static final String TOOL_NAME = "Exiftool";
     private boolean enabled = true;
-    private Fits fits;
+    private final Fits fits;
 
     private static final String exiftoolFitsConfig = Fits.FITS_XML_DIR + "exiftool" + File.separator;
     private static final String genericTransform = "exiftool_generic_to_fits.xslt";
 
-    private static Namespace fitsNS = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
-    private XPathFactory xFactory = XPathFactory.instance();
+    private static final Namespace fitsNS = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
+    private final XPathFactory xFactory = XPathFactory.instance();
 
     private static final Logger logger = LoggerFactory.getLogger(Exiftool.class);
 
@@ -70,7 +70,7 @@ public class Exiftool extends ToolBase {
         info = new ToolInfo();
         info.setName(TOOL_NAME);
         String versionOutput = null;
-        List<String> infoCommand = new ArrayList<String>();
+        List<String> infoCommand = new ArrayList<>();
         if (osName.startsWith("Windows")) {
             // use provided Windows exiftool.exe
             osIsWindows = true;
@@ -96,7 +96,7 @@ public class Exiftool extends ToolBase {
     public ToolOutput extractInfo(File file) throws FitsToolException {
         logger.debug("Exiftool.extractInfo starting on " + file.getName());
         long startTime = System.currentTimeMillis();
-        List<String> execCommand = new ArrayList<String>();
+        List<String> execCommand = new ArrayList<>();
         // determine if the file can be used on the current platform
         if (osIsWindows) {
             // use provided Windows File Utility
@@ -148,7 +148,7 @@ public class Exiftool extends ToolBase {
 
         String xsltTransform = null;
         if (format != null) {
-            xsltTransform = (String) transformMap.get(format.toUpperCase());
+            xsltTransform = transformMap.get(format.toUpperCase());
         }
 
         Document fitsXml = null;
@@ -244,7 +244,7 @@ public class Exiftool extends ToolBase {
 
     private void standardizeTimestamp(String path, Document document) {
         XPathExpression<Element> expr = xFactory.compile(path, Filters.element(), null, fitsNS);
-        Element element = (Element) expr.evaluateFirst(document);
+        Element element = expr.evaluateFirst(document);
         if (element != null) {
             element.setText(DateTimeUtil.standardize(element.getText()));
         }

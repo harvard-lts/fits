@@ -17,7 +17,7 @@ import org.jdom2.Element;
 public class AttributeMap {
 
     private String name;
-    private Hashtable<String, String> maps = new Hashtable<String, String>();
+    private Hashtable<String, String> maps = new Hashtable<>();
 
     public AttributeMap(Element element) {
         name = element.getAttributeValue("name");

@@ -18,7 +18,7 @@ import org.jdom2.Element;
 public class ToolMap {
 
     private String toolName;
-    private List<ElementMap> elements = new ArrayList<ElementMap>();
+    private List<ElementMap> elements = new ArrayList<>();
 
     public ToolMap(Element element) {
         toolName = element.getAttribute("name").getValue();

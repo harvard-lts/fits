@@ -135,7 +135,7 @@ public class TikaTool extends ToolBase {
 
     /** Map of Tika properties to TikaProperty
      */
-    private static final Map<String, TikaProperty> propertyNameMap = new HashMap<String, TikaProperty>();
+    private static final Map<String, TikaProperty> propertyNameMap = new HashMap<>();
 
     static {
         propertyNameMap.put(TikaCoreProperties.CREATOR.getName(), TikaProperty.AUTHOR);
@@ -189,7 +189,7 @@ public class TikaTool extends ToolBase {
     }
 
     /** Map of Tika compression types to FITS compression types */
-    private static final Map<String, String> compressionTypeMap = new HashMap<String, String>();
+    private static final Map<String, String> compressionTypeMap = new HashMap<>();
 
     static {
         compressionTypeMap.put("lzw", FitsMetadataValues.CMPR_LZW);
@@ -208,7 +208,7 @@ public class TikaTool extends ToolBase {
 
     private static final Logger logger = LoggerFactory.getLogger(TikaTool.class);
     private boolean enabled = true;
-    private Fits fits;
+    private final Fits fits;
 
     public TikaTool(Fits fits) throws FitsToolException {
         super();

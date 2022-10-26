@@ -28,7 +28,7 @@ public class MediaInfo extends ToolBase {
 
     private static final String TOOL_NAME = "MediaInfo";
     private boolean enabled = true;
-    private Fits fits;
+    private final Fits fits;
 
     private static final String mediaInfoFitsConfig = Fits.FITS_XML_DIR + "mediainfo" + File.separator;
     private static final String xsltTransform = "mediainfo_video_to_fits.xslt";

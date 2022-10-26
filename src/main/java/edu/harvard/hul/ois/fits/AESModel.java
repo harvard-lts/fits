@@ -30,7 +30,7 @@ import java.util.UUID;
 
 public class AESModel {
 
-    protected AudioObject aes;
+    protected final AudioObject aes;
     protected Face face;
     protected FaceRegion region;
     protected FormatRegion formatRegion;
@@ -40,10 +40,10 @@ public class AESModel {
     protected TimeRange timeRange;
     protected BitrateReduction brr;
 
-    protected final String audioObjectID = "AUDIO_OBJECT_" + UUID.randomUUID().toString();
-    protected final String faceID = "FACE_" + UUID.randomUUID().toString();
-    protected final String regionID = "REGION_" + UUID.randomUUID().toString();
-    protected final String formatRegionID = "FORMAT_REGION_" + UUID.randomUUID().toString();
+    protected final String audioObjectID = "AUDIO_OBJECT_" + UUID.randomUUID();
+    protected final String faceID = "FACE_" + UUID.randomUUID();
+    protected final String regionID = "REGION_" + UUID.randomUUID();
+    protected final String formatRegionID = "FORMAT_REGION_" + UUID.randomUUID();
 
     protected AESModel() throws XmlContentException {
 
@@ -197,20 +197,20 @@ public class AESModel {
         // hours:minutes:seconds:milliseconds
         if (parts.length >= 3) {
             // hours
-            seconds = (Long.valueOf(parts[0]) * 60 * 60);
+            seconds = (Long.parseLong(parts[0]) * 60 * 60);
             // minutes
-            seconds += Long.valueOf(parts[1]) * 60;
+            seconds += Long.parseLong(parts[1]) * 60;
             // seconds
-            seconds += Long.valueOf(parts[2]);
+            seconds += Long.parseLong(parts[2]);
             // milliseconds
-            if (parts.length == 4) seconds += Long.valueOf(parts[3]) / 1000.000;
+            if (parts.length == 4) seconds += Long.parseLong(parts[3]) / 1000.000;
         }
         // minutes:seconds
         else if (parts.length == 2) {
             // minutes
-            seconds += Long.valueOf(parts[0]) * 60;
+            seconds += Long.parseLong(parts[0]) * 60;
             // seconds
-            seconds += Long.valueOf(parts[1]);
+            seconds += Long.parseLong(parts[1]);
         }
         return seconds;
     }
@@ -249,7 +249,7 @@ public class AESModel {
 
     protected void addStream(int channelNum, double leftRightPos, double frontRearPos) throws XmlContentException {
         Stream stream = new Stream();
-        stream.setID("STREAM_" + UUID.randomUUID().toString());
+        stream.setID("STREAM_" + UUID.randomUUID());
         stream.setFaceRegionRef(regionID);
         stream.setLabel("stream " + channelNum);
         ChannelAssignment channelAssignment = new ChannelAssignment();

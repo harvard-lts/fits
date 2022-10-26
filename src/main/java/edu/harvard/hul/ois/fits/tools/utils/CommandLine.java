@@ -40,7 +40,7 @@ public abstract class CommandLine {
             outputGobbler.join();
             // output = sb.toString();
             bos.flush();
-            output = new String(bos.toByteArray());
+            output = bos.toString();
         } catch (Exception e) {
             throw new FitsToolCLIException("Error calling external command line routine", e);
         } finally {

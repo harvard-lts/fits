@@ -43,11 +43,11 @@ public class ParentLastClassLoader extends ClassLoader {
 
     private static final Logger logger = LoggerFactory.getLogger(ParentLastClassLoader.class);
 
-    private static List<String> loadByParentClassLoader;
-    private ChildClassLoader childClassLoader;
+    private static final List<String> loadByParentClassLoader;
+    private final ChildClassLoader childClassLoader;
 
     static {
-        loadByParentClassLoader = new ArrayList<String>();
+        loadByParentClassLoader = new ArrayList<>();
         loadByParentClassLoader.add(
                 "edu.harvard.hul.ois.fits.Fits"); // So there's access to FITS_HOME from all class loaders.
         loadByParentClassLoader.add("edu.harvard.hul.ois.fits.exceptions.FitsToolException");
@@ -104,7 +104,7 @@ public class ParentLastClassLoader extends ClassLoader {
     // Class that wraps URLClassLoader so as to check locally first rather than parent first.
     private static class ChildClassLoader extends URLClassLoader {
 
-        private DetectClass realParent;
+        private final DetectClass realParent;
 
         private ChildClassLoader(URL[] urls, DetectClass realParent) {
             super(urls, null);

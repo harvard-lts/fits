@@ -28,7 +28,7 @@ public enum AudioFormatElements {
 
     duration("duration");
 
-    private String ebucoreName;
+    private final String ebucoreName;
 
     AudioFormatElements(String ebcoreName) {
         this.ebucoreName = ebcoreName;
