@@ -115,6 +115,13 @@ To run the formatter:
 
 When the project builds, it checks the formatting and will fail if there are any files that are not formatted per the standard.
 
+### Tools
+
+The tools that FITS bundles, such as exiftool, are download and installed using the scripts in `src/main/script`.
+These scripts are run automatically as part of the `generate-resources` phase, but can also be invoked directly via
+`mvn dependency:copy@script-lib-copy exec:exec@install-exiftool`. The tools are installed into the `tools` directory.
+The tool versions and other settings are defined in the `tools.properties` file.
+
 ### Just
 
 You can optionally install [Just](https://github.com/casey/just) and use it to execute shortcut commands within the
@@ -127,6 +134,7 @@ Available recipes:
     build-test-image    # Builds the Docker image that's used for running the tests
     default             # Lists available commands
     format              # Applies the code formatter
+    install-tools       # Install FITS tool dependencies into the tools directory
     run +ARGS           # Executes FITS within a Docker container. This requires that the image has already been built (just build-image).
     test                # Runs the tests within a Docker container. Requires the image to already exist (just build-test-image). The image does NOT need to be rebuilt between runs.
     test-filter PATTERN # Runs the tests that match the pattern within a Docker container. Requires the image to already exist (just build-test-image). The image does NOT need to be rebuilt between runs.
