@@ -81,6 +81,7 @@ public class Fits {
     private static boolean nestDirs;
     private static final XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
     private static boolean rawToolOutput = false;
+    private static boolean debug = false;
 
     private static final String FITS_CONFIG_FILE_NAME = "fits.xml";
     private static final String VERSION_PROPERTIES_FILE = "version.properties";
@@ -248,6 +249,7 @@ public class Fits {
         options.addOption("v", false, "print version information");
         options.addOption("f", true, "alternate fits.xml configuration file location (optional)");
         options.addOption("t", false, "include all raw tool output");
+        options.addOption("d", false, "include debug output");
         OptionGroup outputOptions = new OptionGroup();
         Option stdxml = new Option(
                 "x",
@@ -275,17 +277,10 @@ public class Fits {
             System.out.println(Fits.VERSION);
             System.exit(0);
         }
-        if (cmd.hasOption("r")) {
-            traverseDirs = true;
-        } else {
-            traverseDirs = false;
-        }
-        if (cmd.hasOption("n")) {
-            nestDirs = true;
-        } else {
-            nestDirs = false;
-        }
+        traverseDirs = cmd.hasOption("r");
+        nestDirs = cmd.hasOption("n");
         rawToolOutput = cmd.hasOption("t");
+        debug = cmd.hasOption("d");
 
         File fitsConfigFile = null;
         try {
@@ -328,8 +323,12 @@ public class Fits {
                 System.exit(1);
             }
         } catch (FitsException fe) {
-            System.err.println(fe.getMessage());
-            System.exit(1);
+            if (debug) {
+                throw fe;
+            } else {
+                System.err.println(fe.getMessage());
+                System.exit(1);
+            }
         }
 
         System.exit(0);
