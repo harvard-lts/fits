@@ -12,6 +12,7 @@ all tools that identify a file is included, even if the identified format is _no
 identity. This is a behavior change from previous versions. If you prefer the old behavior, set the value
 to `true` in your `fits.xml`.
 - Add CLI option `-t` for including raw tool output in the report.
+- Add CLI option `-d` for enabling debug output.
 - Fix DROID container format identification.
 - exiftool raw output now only outputs XML.
 - Fix bug where errors from one run were being incorrectly reported on subsequent runs.
