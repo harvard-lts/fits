@@ -232,7 +232,7 @@ public class Fits {
         toolbelt = new ToolBelt(config, this);
     }
 
-    public static void main(String[] args) throws FitsException, IOException, ParseException, XMLStreamException {
+    public static void main(String[] args) throws Exception {
 
         setFitsVersionFromFile();
 
@@ -322,7 +322,7 @@ public class Fits {
                 printHelp(options);
                 System.exit(1);
             }
-        } catch (FitsException fe) {
+        } catch (Exception fe) {
             if (debug) {
                 throw fe;
             } else {
