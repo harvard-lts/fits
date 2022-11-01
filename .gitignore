@@ -6,11 +6,15 @@
 /testfiles/output/*Actual*
 /testfiles/output/*_Output.xml
 
+# Ignore tools that are installed via scripts
+/tools/exiftool
+
 # Directory created by fits-blackbox-tester
 .bb-testing/
 
 # Intellij project files
 /.idea/
+*.iml
 
 # Mac OS X system file
 .DS_Store

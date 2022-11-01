@@ -3,7 +3,7 @@
 - Add embARC tool integration for processing DPX files.
 - Tool upgrades
   - DROID 6.5.2
-  - exiftool 12.40
+  - exiftool 12.42
   - Jhove 1.26.0
   - MediaInfo 21.09
   - Tika 2.3.0

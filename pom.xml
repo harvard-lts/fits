@@ -157,6 +157,59 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<!-- Tool install related plugins follow -->
+
+			<!-- Copy script related dependencies -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<id>script-lib-copy</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.apache.commons</groupId>
+									<artifactId>commons-compress</artifactId>
+									<version>1.21</version>
+									<overWrite>false</overWrite>
+									<outputDirectory>target/script-lib</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<!-- Install exiftool -->
+					<execution>
+						<id>install-exiftool</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<workingDirectory>src/main/script</workingDirectory>
+							<executable>java</executable>
+							<arguments>
+								<argument>-cp</argument>
+								<argument>../../../target/script-lib/*</argument>
+								<argument>ExiftoolInstall.java</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -387,6 +440,14 @@
 			<artifactId>httpmime</artifactId>
 			<version>4.5.13</version>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- Script related dependencies. These are copied to target by the script-lib-copy execution -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>1.21</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

@@ -10,6 +10,10 @@ build:
 build-image: build
     docker build -f docker/Dockerfile -t fits .
 
+# Install FITS tool dependencies into the tools directory
+install-tools:
+    mvn dependency:copy@script-lib-copy exec:exec@install-exiftool
+
 # Executes FITS within a Docker container. This requires that the image has already been built (just build-image).
 run +ARGS:
     docker run --rm -v `pwd`:/work:z fits {{ARGS}}
