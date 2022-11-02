@@ -29,7 +29,9 @@
         <videoDataEncoding>avc1</videoDataEncoding>
         <codecId>avc1</codecId>
         <codecCC>avc1</codecCC>
+        <codecName>AVC</codecName>
         <codecFamily>H.264</codecFamily>
+        <codecInfo>Advanced Video Codec</codecInfo>
         <compression>Unknown</compression>
         <byteOrder>Unknown</byteOrder>
         <bitDepth>8 bits</bitDepth>
@@ -51,6 +53,7 @@
       <track type="audio" id="2" toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">
         <audioDataEncoding>AAC LC</audioDataEncoding>
         <codecId>mp4a-40-2</codecId>
+        <codecFamily>AAC</codecFamily>
         <compression>Lossy</compression>
         <bitRate>228374</bitRate>
         <bitRateMode>Variable</bitRateMode>
