@@ -32,6 +32,7 @@
         <videoDataEncoding>AVdv</videoDataEncoding>
         <codecId>AVdv</codecId>
         <codecCC>AVdv</codecCC>
+        <codecName>DV</codecName>
         <compression>Lossy</compression>
         <byteOrder>Unknown</byteOrder>
         <bitDepth>8 bits</bitDepth>
@@ -55,6 +56,7 @@
       <track type="audio" id="3" toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">
         <audioDataEncoding>PCM</audioDataEncoding>
         <codecId>twos</codecId>
+        <codecFamily>PCM</codecFamily>
         <compression>none</compression>
         <bitRate>1536000</bitRate>
         <bitRateMode>Constant</bitRateMode>

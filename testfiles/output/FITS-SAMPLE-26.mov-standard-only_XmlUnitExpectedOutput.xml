@@ -15,6 +15,7 @@
                    <ebucore:codecIdentifier>
                       <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">AVdv</dc:identifier>
                    </ebucore:codecIdentifier>
+                   <ebucore:name>DV</ebucore:name>
                 </ebucore:codec>
                 <ebucore:bitRate>24417183</ebucore:bitRate>
                 <ebucore:bitRateMode>constant</ebucore:bitRateMode>

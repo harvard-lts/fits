@@ -29,6 +29,8 @@
         <videoDataEncoding>rle </videoDataEncoding>
         <codecId>rle </codecId>
         <codecCC>rle </codecCC>
+        <codecName>RLE</codecName>
+        <codecInfo>Run-length encoding</codecInfo>
         <compression>Unknown</compression>
         <byteOrder>Unknown</byteOrder>
         <bitDepth>8 bits</bitDepth>
@@ -61,6 +63,7 @@
                   <ebucore:codecIdentifier>
                     <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">rle </dc:identifier>
                   </ebucore:codecIdentifier>
+                  <ebucore:name>RLE</ebucore:name>
                 </ebucore:codec>
                 <ebucore:bitRate>553887</ebucore:bitRate>
                 <ebucore:bitRateMode>variable</ebucore:bitRateMode>
