@@ -28,6 +28,7 @@
       <track type="video" id="1" toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">
         <videoDataEncoding>m2v1</videoDataEncoding>
         <codecId>m2v1</codecId>
+        <codecCC>m2v1</codecCC>
         <codecFamily>MPEG-2</codecFamily>
         <compression>Lossy</compression>
         <byteOrder>Unknown</byteOrder>
@@ -75,6 +76,12 @@
                   <ebucore:factorDenominator>3</ebucore:factorDenominator>
                 </ebucore:aspectRatio>
                 <ebucore:videoEncoding typeLabel="m2v1" />
+                <ebucore:codec>
+                  <ebucore:codecIdentifier>
+                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">m2v1</dc:identifier>
+                  </ebucore:codecIdentifier>
+                  <ebucore:family>MPEG-2</ebucore:family>
+                </ebucore:codec>
                 <ebucore:bitRate>2153111</ebucore:bitRate>
                 <ebucore:bitRateMode>variable</ebucore:bitRateMode>
                 <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>

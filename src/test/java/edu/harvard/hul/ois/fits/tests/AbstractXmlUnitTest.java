@@ -156,6 +156,7 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
         XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
         String actualXmlStr;
         String namePart = "";
+        boolean writeStr = false;
 
         switch (outputType) {
             case COMBINED:
@@ -167,6 +168,7 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
                 Fits.outputStandardSchemaXml(fitsOut, out);
                 actualXmlStr = out.toString();
                 namePart = "-standard-only";
+                writeStr = true;
                 break;
             case DEFAULT:
                 actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
@@ -178,7 +180,12 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
 
         String className = this.getClass().getSimpleName();
         String actualFile = OUTPUT_DIR + inputFilename + namePart + "_" + className + ACTUAL_OUTPUT_FILE_SUFFIX;
-        fitsOut.saveToDisk(actualFile);
+
+        if (writeStr) {
+            FileUtils.writeStringToFile(new File(actualFile), actualXmlStr, StandardCharsets.UTF_8);
+        } else {
+            fitsOut.saveToDisk(actualFile);
+        }
 
         // Read in the expected XML file
         String expectedFile = OUTPUT_DIR + inputFilename + namePart + EXPECTED_OUTPUT_FILE_SUFFIX;

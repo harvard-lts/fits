@@ -11,6 +11,12 @@
                    <ebucore:factorDenominator>3</ebucore:factorDenominator>
                 </ebucore:aspectRatio>
                 <ebucore:videoEncoding typeLabel="avc1"/>
+                <ebucore:codec>
+                   <ebucore:codecIdentifier>
+                      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">avc1</dc:identifier>
+                   </ebucore:codecIdentifier>
+                   <ebucore:family>H.264</ebucore:family>
+                </ebucore:codec>
                 <ebucore:bitRate>17375067</ebucore:bitRate>
                 <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
                 <ebucore:videoTrack trackId="1"/>

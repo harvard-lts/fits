@@ -73,6 +73,11 @@ public class VideoStdSchemaXmlUnitTest extends AbstractXmlUnitTest {
     }
 
     @Test
+    public void shouldIncludeTrailingWhitespaceIn4cc() throws Exception {
+        testFile("aletrek-rle.mov");
+    }
+
+    @Test
     public void testVideoXmlUnitFitsOutput_AVC() throws Exception {
         testFile("FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4", fits, OutputType.DEFAULT);
     }
