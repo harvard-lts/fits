@@ -199,7 +199,7 @@
 				<xsl:when test="$mime='image/jpeg'">
 					<xsl:choose>
 						<xsl:when test="//mix:ScannerModelName">
-							<xsl:value-of select="//mix:ScannerModelName"/>	
+							<xsl:value-of select="//mix:ScannerModelName"/>
 						</xsl:when>
 						<xsl:when test="//property[name='Comments']/values/value">						
 						    <xsl:for-each select="//property[name='Comments']/values/value">

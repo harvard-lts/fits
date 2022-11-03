@@ -23,8 +23,7 @@ public enum VideoMethods {
     duration("duration"),
     trackSize("trackSize"),
     frameRate("frameRate"),
-    scanningOrder("scanningOrder"),
-    videoDataEncoding("videoDataEncoding");
+    scanningOrder("scanningOrder");
 
     private final String name;
 

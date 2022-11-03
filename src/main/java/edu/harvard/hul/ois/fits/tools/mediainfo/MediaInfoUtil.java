@@ -747,20 +747,6 @@ public class MediaInfoUtil {
                         elementsToRemove.add(childElement);
                     }
                     break;
-                case codecId:
-                case codecCC:
-                case videoDataEncoding:
-                    // The fallthrough here is intentional
-                    // The contents of these elements is space sensitive, and all whitespace must be preserved
-
-                    String currentValue = ((Element) content).getText();
-
-                    // If either current value or new value have a leading/trailing space, then we need to preserve it
-                    if ((value != null && (value.startsWith(" ") || value.endsWith(" ")))
-                            || (currentValue != null && (currentValue.startsWith(" ") || currentValue.endsWith(" ")))) {
-                        childElement.setAttribute("space", "preserve", Namespace.XML_NAMESPACE);
-                    }
-                    break;
                 default:
                     break;
             } // switch

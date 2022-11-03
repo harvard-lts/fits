@@ -19,6 +19,7 @@
 package edu.harvard.hul.ois.fits.tests;
 
 import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsFormat;
 import edu.harvard.hul.ois.fits.FitsMetadataElement;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import java.io.BufferedReader;
@@ -31,7 +32,6 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.DifferenceListener;
 import org.jdom2.Document;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 public class TestOutput {
@@ -109,7 +109,7 @@ public class TestOutput {
     private static void test(String input, String output) throws Exception {
         Fits fits = new Fits("");
         SAXBuilder builder = new SAXBuilder();
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+        XMLOutputter serializer = new XMLOutputter(FitsFormat.xmlFormat());
 
         File inputDir = new File(input);
         File outputDir = new File(output);

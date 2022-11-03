@@ -96,7 +96,9 @@
 								<xsl:value-of select="./mix:footroom/mix:numerator"/>
 								<xsl:value-of select="string(' ')"/>
 								<xsl:value-of select="./mix:headroom/mix:numerator"/>
-								<xsl:value-of select="string(' ')"/>
+								<xsl:if test="not(position() = last())">
+									<xsl:value-of select="string(' ')"/>
+								</xsl:if>
 						</xsl:for-each>
 					</referenceBlackWhite>
 				</xsl:when>
@@ -319,7 +321,7 @@
 
 			<!--  digitalCameraModelName -->
 			<digitalCameraModelName>
-		  		<xsl:value-of select="//mix:digitalCameraModelName"/>
+		  		<xsl:value-of select="normalize-space(//mix:digitalCameraModelName)"/>
 			</digitalCameraModelName>
 			
 			<!--  fNumber -->

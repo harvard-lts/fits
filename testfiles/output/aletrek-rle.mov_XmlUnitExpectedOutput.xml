@@ -26,9 +26,9 @@
       <dateCreated toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">UTC 2002-10-18 17:15:11</dateCreated>
       <dateModified toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">UTC 2022-11-01 23:49:26</dateModified>
       <track type="video" id="1" toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">
-        <videoDataEncoding xml:space="preserve">rle </videoDataEncoding>
-        <codecId xml:space="preserve">rle </codecId>
-        <codecCC xml:space="preserve">rle </codecCC>
+        <videoDataEncoding>rle </videoDataEncoding>
+        <codecId>rle </codecId>
+        <codecCC>rle </codecCC>
         <compression>Unknown</compression>
         <byteOrder>Unknown</byteOrder>
         <bitDepth>8 bits</bitDepth>
@@ -59,7 +59,7 @@
                 <ebucore:videoEncoding typeLabel="rle " />
                 <ebucore:codec>
                   <ebucore:codecIdentifier>
-                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">rle</dc:identifier>
+                    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">rle </dc:identifier>
                   </ebucore:codecIdentifier>
                 </ebucore:codec>
                 <ebucore:bitRate>553887</ebucore:bitRate>

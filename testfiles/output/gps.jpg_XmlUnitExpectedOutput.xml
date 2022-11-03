@@ -48,8 +48,7 @@
       <bitsPerSample toolname="Jhove" toolversion="1.20.1">8 8 8</bitsPerSample>
       <samplesPerPixel toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">3</samplesPerPixel>
       <scanningSoftwareName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Digital Camera FinePix F30     Ver1.02</scanningSoftwareName>
-      <digitalCameraModelName toolname="Jhove" toolversion="1.20.1" status="CONFLICT">FinePix F30</digitalCameraModelName>
-      <digitalCameraModelName toolname="Exiftool" toolversion="11.54" status="CONFLICT">FinePix F30</digitalCameraModelName>
+      <digitalCameraModelName toolname="Jhove" toolversion="1.26.0">FinePix F30</digitalCameraModelName>
       <fNumber toolname="Jhove" toolversion="1.20.1">2.8</fNumber>
       <exposureTime toolname="Jhove" toolversion="1.20.1" status="CONFLICT">0.008</exposureTime>
       <exposureTime toolname="Exiftool" toolversion="11.54" status="CONFLICT">0.0083</exposureTime>

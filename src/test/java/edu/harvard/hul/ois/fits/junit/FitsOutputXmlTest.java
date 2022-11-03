@@ -21,6 +21,7 @@ package edu.harvard.hul.ois.fits.junit;
 import static org.custommonkey.xmlunit.XMLAssert.assertXMLIdentical;
 
 import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsFormat;
 import edu.harvard.hul.ois.fits.FitsMetadataElement;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractLoggingTest;
@@ -35,7 +36,6 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.DifferenceListener;
 import org.jdom2.Document;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -52,7 +52,7 @@ public class FitsOutputXmlTest extends AbstractLoggingTest {
 
     private FitsOutput expected;
     private FitsOutput actual;
-    private XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+    private XMLOutputter serializer = new XMLOutputter(FitsFormat.xmlFormat());
 
     public FitsOutputXmlTest() {
         super();
