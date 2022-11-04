@@ -1,0 +1,90 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>fits-tika</artifactId>
+    <packaging>pom</packaging>
+
+    <name>FITS Tika</name>
+    <description>FITS tool install for Tika</description>
+
+    <parent>
+        <groupId>edu.harvard.huit.lts</groupId>
+        <artifactId>fits-parent</artifactId>
+        <version>1.6.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <build>
+        <plugins>
+            <!-- Remove all Tika jars currently in the Tika dir -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>clean-tika</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <configuration>
+                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                            <filesets>
+                                <fileset>
+                                    <directory>../${tika.dir}</directory>
+                                    <followSymlinks>false</followSymlinks>
+                                    <includes>
+                                        <include>*.jar</include>
+                                    </includes>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Copy all Tika jars into the Tika dir -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-tika</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!-- These logging jars cause problems if they're on the classpath and must be excluded -->
+                            <excludeGroupIds>org.apache.logging</excludeGroupIds>
+                            <excludeArtifactIds>slf4j-api</excludeArtifactIds>
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>../${tika.dir}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- These dependencies are based on https://github.com/apache/tika/blob/main/tika-bundles/tika-bundle-standard/pom.xml -->
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>${tika.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-parsers-standard-package</artifactId>
+            <version>${tika.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-parser-html-commons</artifactId>
+            <version>${tika.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

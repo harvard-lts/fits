@@ -117,10 +117,14 @@ When the project builds, it checks the formatting and will fail if there are any
 
 ### Tools
 
-The tools that FITS bundles, such as exiftool, are downloaded and installed using the scripts in `src/main/script`.
-These scripts are run automatically as part of the `generate-resources` phase, but can also be invoked directly via
-`mvn dependency:copy@script-lib-copy exec:exec@install-exiftool`. The tools are installed into the `tools` directory.
-The tool versions and other settings are defined in the `tools.properties` file.
+Some of the tools that FITS uses are not bundled in the source tree, and are pulled in when Maven is run. They
+are downloaded as part of the normal build process, but can also be installed directly using `mvn generate-resources`.
+Each tool that's installed has a pom file in the `tool-poms` directory that defines how it's installed.
+
+exiftool is installed using the script at `src/main/script/ExiftoolInstall` and is configured using the properties file
+`tools.properties`.
+
+Tika is installed exclusive through its pom file `tika-pom.xml`. 
 
 ### Just
 

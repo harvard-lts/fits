@@ -12,7 +12,7 @@ build-image: build
 
 # Install FITS tool dependencies into the tools directory
 install-tools:
-    mvn dependency:copy@script-lib-copy exec:exec@install-exiftool
+    mvn generate-resources
 
 # Executes FITS within a Docker container. This requires that the image has already been built (just build-image).
 run +ARGS:
