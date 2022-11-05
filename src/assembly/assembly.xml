@@ -16,7 +16,8 @@
 	<dependencySets>
 		<dependencySet>
 			<useProjectArtifact>true</useProjectArtifact>
-			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<useTransitiveDependencies>true</useTransitiveDependencies>
+			<useTransitiveFiltering>true</useTransitiveFiltering>
 			<unpack>false</unpack>
 			<scope>runtime</scope>
 			<outputDirectory>lib</outputDirectory>

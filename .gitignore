@@ -8,6 +8,7 @@
 
 # Ignore tools that are installed via scripts
 /tools/exiftool
+/lib/tika
 
 # Directory created by fits-blackbox-tester
 .bb-testing/
