@@ -13,7 +13,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- TODO revert -->
         <java.version>11</java.version>
         <java.target>11</java.target>
         <bcmail.version>132</bcmail.version>
