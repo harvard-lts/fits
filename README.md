@@ -127,6 +127,10 @@ exiftool is installed using the script at `src/main/script/ExiftoolInstall` and 
 
 Tika is installed exclusively through its pom file `tika-pom.xml`. 
 
+DROID is installed via the `droid-pom.xml` file, and its signatures are updated by invoking `mvn -P update-droid-sigs generate-resources`.
+The signature file updates must be invoked specifically, and do not automatically run. Additionally, the signature file
+changes must be committed into git.
+
 ### Just
 
 You can optionally install [Just](https://github.com/casey/just) and use it to execute shortcut commands within the

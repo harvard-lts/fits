@@ -48,12 +48,12 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <workingDirectory>../src/main/script</workingDirectory>
+                            <workingDirectory>..</workingDirectory>
                             <executable>java</executable>
                             <arguments>
                                 <argument>-cp</argument>
-                                <argument>../../../target/exiftool-lib/*</argument>
-                                <argument>ExiftoolInstall.java</argument>
+                                <argument>target/exiftool-lib/*</argument>
+                                <argument>src/main/script/ExiftoolInstall.java</argument>
                             </arguments>
                         </configuration>
                     </execution>

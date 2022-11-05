@@ -13,8 +13,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
-        <java.target>1.8</java.target>
+        <!-- TODO revert -->
+        <java.version>11</java.version>
+        <java.target>11</java.target>
         <bcmail.version>132</bcmail.version>
         <log4j.version>2.17.2</log4j.version>
         <slf4j.version>1.7.36</slf4j.version>
@@ -30,7 +31,6 @@
         <commons-io.version>2.11.0</commons-io.version>
         <commons-cli.version>1.5.0</commons-cli.version>
         <commons-configuration.version>1.10</commons-configuration.version>
-        <droid.version>6.5.2</droid.version>
         <ots-schemas.version>1.0.58</ots-schemas.version>
         <jhove.version>1.26.0</jhove.version>
         <jna.version>5.9.0</jna.version>
@@ -47,15 +47,35 @@
         <!-- Tool properties -->
         <tika.version>2.3.0</tika.version>
         <tika.dir>lib/tika</tika.dir>
+        <droid.version>6.5.2</droid.version>
+        <droid.dir>lib/droid</droid.dir>
     </properties>
 
-    <modules>
-        <!-- These modules are used to pull in the tools -->
-        <module>tool-poms/tika-pom.xml</module>
-        <module>tool-poms/exiftool-pom.xml</module>
-        <!-- This is the main FITS pom -->
-        <module>fits-pom.xml</module>
-    </modules>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <!-- These modules are used to pull in the tools -->
+                <module>tool-poms/tika-pom.xml</module>
+                <module>tool-poms/droid-pom.xml</module>
+                <module>tool-poms/exiftool-pom.xml</module>
+                <!-- This is the main FITS pom -->
+                <module>fits-pom.xml</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>update-droid-sigs</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>tool-poms/droid-sig-pom.xml</module>
+            </modules>
+        </profile>
+    </profiles>
 
     <build>
         <!-- Defines the versions of the plugins that are used in child poms -->

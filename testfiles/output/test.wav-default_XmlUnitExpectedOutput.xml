@@ -8,7 +8,6 @@
       <tool toolname="file utility" toolversion="5.04" />
       <tool toolname="Exiftool" toolversion="10.00" />
       <version toolname="Droid" toolversion="6.1.5">0 PCM Encoding</version>
-      <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/142</externalIdentifier>
       <externalIdentifier toolname="Droid" toolversion="6.1.5" type="puid">fmt/703</externalIdentifier>
     </identity>
   </identification>
