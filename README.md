@@ -5,36 +5,18 @@ FITS
 
 System Requirements
 -------------------
-FITS is a Java program and requires Java version 11 or higher. To find out your Java version type java -version in a command-line window.
 
-Building FITS
--------------
-As of release 1.3.0 FITS is built using [Apache Maven](https://maven.apache.org/).
-The build artifacts are fits-<version>.jar and fits-<version>.zip. The JAR file contains the compiled Java source files contained in this project whereas the ZIP file contains the final artifact which can be extracted and used to process input files for analysis.
-The ZIP file can be built with the following command, which will also run the entire test suite:
-
-    mvn clean package
-
-Because the outcome of some of the tests is system dependent, it is
-recommended to run them in a Docker container so that the results are
-consistent. To do so, first install Docker, Podman, or an equivalent
-container service, and execute the following:
-
-    # The build only needs to be run once
-    docker build -f docker/Dockerfile-test -t fits-test .
-    docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
-
-To build yet skip the tests, use the following command:
-
-    mvn clean package -DskipTests
-
-NOTE: A few Maven dependencies are not in public repositories. These are within the source tree in the lib-local directory. Other dependencies are within the lib directory for use by the FITS custom classloader.
+FITS is a Java program and requires Java version 11 or higher. To find out your Java version type java -version in a
+command-line window.
 
 Installation
 ------------
 Download the latest official binary release from our [Downloads](http://fitstool.org/downloads) page.
 
-**IMPORTANT NOTE**: The code on this GitHub site is not meant for direct installation since it does NOT include the necessary fits.jar file (which is a primary build artifact of this project). If you want to use this GitHub site for installing FITS, you must first download (or Git clone) the code then build the project using Maven. (See above.)
+**IMPORTANT NOTE**: The code on this GitHub site is not meant for direct installation since it does NOT include the
+necessary fits.jar file (which is a primary build artifact of this project). If you want to use this GitHub site for
+installing FITS, you must first download (or Git clone) the code then build the project using Maven. For the "Development"
+section for more details.
 
 If this is your first time downloading FITS, create a directory for FITS, for example:
 
@@ -42,7 +24,8 @@ If this is your first time downloading FITS, create a directory for FITS, for ex
     On Mac OS X: /Applications/Fits
     On *nix: /home/myuser/Fits
 
-Extract the contents of your ZIP file to your FITS directory. You should end up with a another directory under your top-level FITS directory that has a version number embedded in it, for example on Windows:
+Extract the contents of your ZIP file to your FITS directory. You should end up with a another directory under your
+top-level FITS directory that has a version number embedded in it, for example on Windows:
 
     C:\Program Files\Fits\fits-1.4.1 (or whatever the current version is)
 
@@ -69,25 +52,59 @@ For example on *nix:
     Run the script named fits.sh
         ./fits.sh
 
-Here are a couple examples of running FITS to get you started. These are relatively simple examples assuming Windows - more complex examples can be found in the on-line user manual. 
+Here are a couple examples of running FITS to get you started. These are relatively simple examples assuming Windows -
+more complex examples can be found in the on-line user manual. 
 
     Run FITS against its release text file printing the FITS output to the terminal: fits.bat -i version.properties (or, on Linux, ./fits.sh -i version.properties)
     Run FITS against its release text file saving the FITS output to a file: fits.bat -i version.properties -o myoutput.txt
     Output the technical metadata only (in the TextMD format) for the file to the terminal: fits.bat -x -i version.properties
     Output the FITS output plus technical metadata (in the TextMD format) for the text file to the terminal: fits.bat -xc -i version.properties
 
+FITS through Docker
+-------------------
+In the root of the FITS distribution zip is a Dockerfile that can be used to build a FITS Docker image. To build the
+image, execute the following from within the FITS root directory:
+
+```shell
+docker build -f Dockerfile -t fits:latest -t fits:1.6.0 .
+```
+
+After building the image, you can use it directly to analyze files. The following are some examples. Note these
+examples mount the current working directly within the Docker container, which means that the only files that are
+accessible within the container are files that are relative the current working directory. Additionally, these commands
+**do not** need to be run within the FITS root and can be run anywhere on the system.
+
+```shell
+# Run FITS on a file
+docker run --rm -v `pwd`:/work:z fits -i file.txt
+
+# Run a specific version of FITS on a file
+docker run --rm -v `pwd`:/work:z fits:1.6.0 -i file.txt
+
+# Run FITS on a directory
+docker run --rm -v `pwd`:/work:z fits -r -n -i in-dir -o out-dir
+
+# Run FITS with alternate configuration
+docker run --rm -v `pwd`:/work:z fits -f fits-custom.xml -i file.txt
+```
+
 Logging
 -------
-Whether using the default log4j2.xml configuration file contained within the application deployment or configuring an external log4j2.xml file, the default logging output file, fits.log, is configured to be written to the directory from which the FITS is launched. This can be modified by finding the following line within the log4j2.xml file in the top-level directory of the FITS deployment:
+Whether using the default log4j2.xml configuration file contained within the application deployment or configuring an
+external log4j2.xml file, the default logging output file, fits.log, is configured to be written to the directory from
+which FITS is launched. This can be modified by finding the following line within the log4j2.xml file in the
+top-level directory of the FITS deployment:
 
     fileName="./fits.log"
 
 Modify the path to fits.log to have this log file written to a different place on the file system.
-To use a log4j2.xml (or log4j2.properties) file external to the FITS deployment, when launching FITS add the following property to the deployment script:
+To use a log4j2.xml (or log4j2.properties) file external to the FITS deployment, when launching FITS add the following
+property to the deployment script:
 
     -Dlog4j2.configurationFile=/path/to/log4j2.xml
 
-For more information on configuring the verboseness of logging using ERROR, WARN, INFO, DEBUG, see the [log4j site](https://logging.apache.org/log4j/2.x/manual/)
+For more information on configuring the verboseness of logging using ERROR, WARN, INFO, DEBUG, see the
+[log4j site](https://logging.apache.org/log4j/2.x/manual/)
 
 Using FITS Java API
 -------------------
@@ -100,6 +117,33 @@ After you are up and running see the [User Manual](http://fitstool.org/user-manu
 
 Development
 -----------
+
+### Building
+
+As of release 1.3.0 FITS is built using [Apache Maven](https://maven.apache.org/).
+The build artifacts are fits-<version>.jar and fits-<version>.zip. The JAR file contains the compiled Java source files
+contained in this project whereas the ZIP file contains the final artifact which can be extracted and used to process
+input files for analysis.
+
+The ZIP file can be built with the following command, which will also run the entire test suite:
+
+    mvn clean package
+
+Because the outcome of some of the tests is system dependent, it is
+recommended to run them in a Docker container so that the results are
+consistent. To do so, first install Docker, Podman, or an equivalent
+container service, and execute the following:
+
+    # The build only needs to be run once
+    docker build -f docker/Dockerfile-test -t fits-test .
+    docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
+
+To build yet skip the tests, use the following command:
+
+    mvn clean package -DskipTests
+
+NOTE: A few Maven dependencies are not in public repositories. These are within the source tree in the lib-local
+directory. Other dependencies are within the lib directory for use by the FITS custom classloader.
 
 ### Formatting
 
@@ -149,7 +193,8 @@ The commands are defined in [justfile](justfile).
 
 License Details
 ---------------
-FITS is released under the [GNU LGPL](http://www.gnu.org/licenses/lgpl.html) open source license. The source code for FITS is included in the downloadable ZIP files.
+FITS is released under the [GNU LGPL](http://www.gnu.org/licenses/lgpl.html) open source license. The source code for
+FITS is included in the downloadable ZIP files.
 
 The tools bundled with FITS use the following open source licenses:
 

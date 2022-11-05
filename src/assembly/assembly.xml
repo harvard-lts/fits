@@ -61,5 +61,9 @@
 			<!-- should be copied and filtered to base directory during build -->
 			<source>${project.basedir}/version.properties</source>
 		</file>
+		<file>
+			<source>docker/Dockerfile-release</source>
+			<destName>Dockerfile</destName>
+		</file>
 	</files>
 </assembly>
