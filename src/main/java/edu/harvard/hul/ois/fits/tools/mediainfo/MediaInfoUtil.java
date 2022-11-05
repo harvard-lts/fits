@@ -269,6 +269,8 @@ public class MediaInfoUtil {
             String codecId = getMediaInfoString(ndx, "CodecID", MediaInfoNativeWrapper.StreamKind.Video);
             addDataToMap(videoTrackValuesMap, id, "codecId", codecId);
 
+            // If the codec id is 4 characters then it a "four character code". MediaInfo does not return this code
+            // as a distinct field, and not every codec id is a 4cc.
             if (codecId.length() == 4) {
                 addDataToMap(videoTrackValuesMap, id, "codecCC", codecId);
             }
