@@ -5,7 +5,7 @@
 - Tool upgrades
   - DROID 6.5.2
   - exiftool 12.42
-  - Jhove 1.26.0
+  - Jhove 1.26.1
   - MediaInfo 21.09
   - Tika 2.3.0
 - Add FITS config option `consolidate-first-identity`, defaulted to `false`. This means that metadata from

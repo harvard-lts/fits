@@ -121,7 +121,7 @@ installed.
 exiftool is installed using the script at `src/main/script/ExiftoolInstall` and is configured using the properties file
 `tools.properties`.
 
-Tika is installed exclusively through its pom file `tika-pom.xml`. 
+Tika and JHOVE are installed exclusive through their pom files `tika-pom.xml` and `jhove-pom.xml` respectively. 
 
 DROID is installed via the `droid-pom.xml` file, and its signatures are updated by invoking `mvn -P update-droid-sigs generate-resources`.
 The signature file updates must be invoked specifically, and do not automatically run. Additionally, the signature file
