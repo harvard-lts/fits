@@ -95,7 +95,7 @@ public class EbuCoreModel {
             String fitsName = videoElem.name();
             Element dataElement = elem.getChild(fitsName, ns);
             if (dataElement == null) continue;
-            String dataValue = dataElement.getText().trim();
+            String dataValue = dataElement.getText();
             if (StringUtils.isEmpty(dataValue)) continue;
             switch (videoElem) {
                 case width:
@@ -191,7 +191,7 @@ public class EbuCoreModel {
         String codecIdentifierValue = null;
         Element dataElement = elem.getChild("codecCC", ns);
         if (dataElement != null) {
-            codecIdentifierValue = dataElement.getText().trim();
+            codecIdentifierValue = dataElement.getText();
         }
         //
         // Sometimes the codeId will not be returned by MediaInfo.
@@ -200,7 +200,7 @@ public class EbuCoreModel {
         else if (mimeType != null && mimeType.equals("application/mxf")) { // no codecCC and mxf
             dataElement = elem.getChild("codecId", ns);
             if (dataElement != null) {
-                codecIdentifierValue = dataElement.getText().trim();
+                codecIdentifierValue = dataElement.getText();
             }
         }
 
@@ -213,22 +213,22 @@ public class EbuCoreModel {
 
             // Element codecElement = elem.getChild ("codecInfo",ns);
             // if(codecElement != null) {
-            //	dataValue = codecElement.getText().trim();
+            //	dataValue = codecElement.getText();
             //	codec.setNameField(dataValue);
             // }
             Element codecElement = elem.getChild("codecName", ns);
             if (codecElement != null) {
-                String dataValue = codecElement.getText().trim();
+                String dataValue = codecElement.getText();
                 codec.setNameField(dataValue);
             }
             codecElement = elem.getChild("codecVersion", ns);
             if (codecElement != null) {
-                String dataValue = codecElement.getText().trim();
+                String dataValue = codecElement.getText();
                 codec.setVersion(dataValue);
             }
             codecElement = elem.getChild("codecFamily", ns);
             if (codecElement != null) {
-                String dataValue = codecElement.getText().trim();
+                String dataValue = codecElement.getText();
                 codec.setFamily(dataValue);
             }
             vfmt.setCodec(codec);
@@ -244,7 +244,7 @@ public class EbuCoreModel {
 
         Element encodingDataElement = elem.getChild("audioDataEncoding", ns);
         if (encodingDataElement != null) {
-            String dataValue = encodingDataElement.getText().trim();
+            String dataValue = encodingDataElement.getText();
             AudioEncoding ae = new AudioEncoding();
             ae.setTypeLabel(dataValue);
             // Type Link NOT in AVPreserve example, so don't expose
@@ -266,7 +266,7 @@ public class EbuCoreModel {
             String fitsName = audioElem.name();
             Element dataElement = elem.getChild(fitsName, ns);
             if (dataElement == null) continue;
-            String dataValue = dataElement.getText().trim();
+            String dataValue = dataElement.getText();
             if (StringUtils.isEmpty(dataValue)) continue;
 
             switch (audioElem) {
@@ -342,7 +342,7 @@ public class EbuCoreModel {
         // Codec element
         Element dataElement = elem.getChild("codecId", ns);
         if (dataElement != null) {
-            String dataValue = dataElement.getText().trim();
+            String dataValue = dataElement.getText();
             CodecIdentifier ci = new CodecIdentifier("codecIdentifier");
             ci.setIdentifier(dataValue);
 
@@ -351,12 +351,12 @@ public class EbuCoreModel {
 
             Element codecElement = elem.getChild("codecInfo", ns);
             if (codecElement != null) {
-                dataValue = codecElement.getText().trim();
+                dataValue = codecElement.getText();
                 codec.setNameField(dataValue);
             }
             // codecElement = elem.getChild ("codecFamily",ns);
             // if(codecElement != null) {
-            //	dataValue = codecElement.getText().trim();
+            //	dataValue = codecElement.getText();
             //	codec.setFamily(dataValue);
             // }
             afmt.setCodec(codec);
@@ -367,7 +367,7 @@ public class EbuCoreModel {
         //        //
         //   		dataElement = elem.getChild ("soundField",ns);
         //        if(dataElement != null) {
-        //        	String dataValue = dataElement.getText().trim();
+        //        	String dataValue = dataElement.getText();
         //
         //        	//if(StringUtilts.)
         //        	if(dataValue != null) {
@@ -381,7 +381,7 @@ public class EbuCoreModel {
 
     protected void createFormatElement(String fitsName, Element elem) throws XmlContentException {
 
-        String dataValue = elem.getText().trim();
+        String dataValue = elem.getText();
         if (StringUtils.isEmpty(dataValue)) {
             // TODO: Log and throw Error
             return;

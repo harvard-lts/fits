@@ -269,7 +269,7 @@ public class EmbARC extends ToolBase {
 
     private void addElement(Element parent, String tag, String value) {
         Element newElem = new Element(tag, fitsNS);
-        newElem.addContent(value);
+        newElem.addContent(value.trim());
         parent.addContent(newElem);
     }
 

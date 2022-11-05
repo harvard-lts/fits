@@ -41,7 +41,6 @@ import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.filter.Filters;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
@@ -220,14 +219,14 @@ public class FitsOutput {
     }
 
     public void saveToDisk(String location) throws IOException {
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+        XMLOutputter serializer = new XMLOutputter(FitsFormat.xmlFormat());
         try (Writer out = Files.newBufferedWriter(Paths.get(location))) {
             serializer.output(fitsXml, out);
         }
     }
 
     public void output(OutputStream outstream) throws IOException {
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+        XMLOutputter serializer = new XMLOutputter(FitsFormat.xmlFormat());
         try (Writer out = new BufferedWriter(new OutputStreamWriter(outstream))) {
             serializer.output(fitsXml, out);
         }

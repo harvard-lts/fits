@@ -25,12 +25,12 @@ import static edu.harvard.hul.ois.fits.FitsPaths.OUTPUT_DIR;
 import static edu.harvard.hul.ois.fits.FitsPaths.PROPS_DIR;
 
 import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsFormat;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.tests.AbstractXmlUnitTest;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.FileUtils;
-import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -70,6 +70,11 @@ public class VideoStdSchemaXmlUnitTest extends AbstractXmlUnitTest {
     @AfterClass
     public static void afterClass() {
         fits = null;
+    }
+
+    @Test
+    public void shouldIncludeTrailingWhitespaceIn4cc() throws Exception {
+        testFile("aletrek-rle.mov");
     }
 
     @Test
@@ -123,7 +128,7 @@ public class VideoStdSchemaXmlUnitTest extends AbstractXmlUnitTest {
         String actualFile = OUTPUT_DIR + inputFilename + namePart + ACTUAL_OUTPUT_FILE_SUFFIX;
         fitsOut.saveToDisk(actualFile);
 
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+        XMLOutputter serializer = new XMLOutputter(FitsFormat.xmlFormat());
         String actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
 
         // Read in the expected XML file

@@ -31,6 +31,7 @@
       <track type="video" id="1" toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">
         <videoDataEncoding>AVdv</videoDataEncoding>
         <codecId>AVdv</codecId>
+        <codecCC>AVdv</codecCC>
         <compression>Lossy</compression>
         <byteOrder>Unknown</byteOrder>
         <bitDepth>8 bits</bitDepth>

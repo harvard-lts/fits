@@ -27,6 +27,7 @@ import static edu.harvard.hul.ois.fits.FitsPaths.PROPS_DIR;
 import static org.custommonkey.xmlunit.XMLAssert.assertXMLIdentical;
 
 import edu.harvard.hul.ois.fits.Fits;
+import edu.harvard.hul.ois.fits.FitsFormat;
 import edu.harvard.hul.ois.fits.FitsOutput;
 import edu.harvard.hul.ois.fits.exceptions.FitsConfigurationException;
 import edu.harvard.hul.ois.fits.junit.IgnoreNamedElementsDifferenceListener;
@@ -39,8 +40,6 @@ import org.apache.commons.io.FileUtils;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
-import org.custommonkey.xmlunit.XMLUnit;
-import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -86,8 +85,6 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
     public static void abstractClassSetup() throws FitsConfigurationException {
         // Set up XMLUnit for all classes.
         logger = LoggerFactory.getLogger(AbstractXmlUnitTest.class);
-        XMLUnit.setIgnoreWhitespace(true);
-        XMLUnit.setNormalizeWhitespace(true);
     }
 
     @AfterClass
@@ -153,9 +150,10 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
     }
 
     protected void writeAndValidate(FitsOutput fitsOut, String inputFilename, OutputType outputType) throws Exception {
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+        XMLOutputter serializer = new XMLOutputter(FitsFormat.xmlFormat());
         String actualXmlStr;
         String namePart = "";
+        boolean writeStr = false;
 
         switch (outputType) {
             case COMBINED:
@@ -167,6 +165,7 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
                 Fits.outputStandardSchemaXml(fitsOut, out);
                 actualXmlStr = out.toString();
                 namePart = "-standard-only";
+                writeStr = true;
                 break;
             case DEFAULT:
                 actualXmlStr = serializer.outputString(fitsOut.getFitsXml());
@@ -178,7 +177,12 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
 
         String className = this.getClass().getSimpleName();
         String actualFile = OUTPUT_DIR + inputFilename + namePart + "_" + className + ACTUAL_OUTPUT_FILE_SUFFIX;
-        fitsOut.saveToDisk(actualFile);
+
+        if (writeStr) {
+            FileUtils.writeStringToFile(new File(actualFile), actualXmlStr, StandardCharsets.UTF_8);
+        } else {
+            fitsOut.saveToDisk(actualFile);
+        }
 
         // Read in the expected XML file
         String expectedFile = OUTPUT_DIR + inputFilename + namePart + EXPECTED_OUTPUT_FILE_SUFFIX;

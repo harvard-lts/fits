@@ -23,6 +23,8 @@ to `true` in your `fits.xml`.
 - Improve MIX generation by cycling through all available metadata elements looking for valid values.
 - Add support for processing plaintext documents with exiftool.
 - Do not infer a timezone for exif timestamps.
+- Preserve whitespace within text elements. This ensures that significant spaces aren't trimmed from codec codes,
+but could also result in unwanted whitespace in other elements.
 - General internal dependency upgrades.
 
 ## Version 1.5.5 (5/10/2022)

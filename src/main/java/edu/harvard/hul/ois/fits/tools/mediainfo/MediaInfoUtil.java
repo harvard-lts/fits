@@ -54,7 +54,6 @@ public class MediaInfoUtil {
     public static final String QUICKTIME_FORMAT = "Quicktime";
     public static final String MPEG4_FORMAT = "MPEG-4";
 
-    @SuppressWarnings("serial")
     private static final Map<String, String> CODEC_4CC_TO_FAMILY =
             Collections.unmodifiableMap(new HashMap<String, String>() {
                 {
@@ -76,7 +75,7 @@ public class MediaInfoUtil {
                     put("dv1n", CODEC_FAMILY_DV);
                     put("dv5n", CODEC_FAMILY_DV);
                     put("dv5p", CODEC_FAMILY_DV);
-                    put("dvc", CODEC_FAMILY_DV);
+                    put("dvc ", CODEC_FAMILY_DV);
                     put("dvcp", CODEC_FAMILY_DV);
                     put("dvh2", CODEC_FAMILY_DV);
                     put("dvh3", CODEC_FAMILY_DV);
@@ -106,7 +105,6 @@ public class MediaInfoUtil {
                 }
             });
 
-    @SuppressWarnings("serial")
     private static final Map<String, String> CODEC_MXF_TO_FAMILY =
             Collections.unmodifiableMap(new HashMap<String, String>() {
                 {
@@ -193,8 +191,7 @@ public class MediaInfoUtil {
      */
     protected void addDataToMap(Map<String, Map<String, String>> trackValuesMap, String id, String key, String value) {
         if (!StringUtils.isEmpty(value)) {
-            if (trackValuesMap.get(id) == null) trackValuesMap.put(id, new HashMap<>());
-            trackValuesMap.get(id).put(key, value);
+            trackValuesMap.computeIfAbsent(id, k -> new HashMap<>()).put(key, value);
         }
     }
 
@@ -272,11 +269,11 @@ public class MediaInfoUtil {
             String codecId = getMediaInfoString(ndx, "CodecID", MediaInfoNativeWrapper.StreamKind.Video);
             addDataToMap(videoTrackValuesMap, id, "codecId", codecId);
 
-            String codecCC = getMediaInfoString(ndx, "Codec/CC", MediaInfoNativeWrapper.StreamKind.Video);
-            if (codecCC != null) {
-                codecCC = codecCC.trim();
+            // If the codec id is 4 characters then it a "four character code". MediaInfo does not return this code
+            // as a distinct field, and not every codec id is a 4cc.
+            if (codecId.length() == 4) {
+                addDataToMap(videoTrackValuesMap, id, "codecCC", codecId);
             }
-            addDataToMap(videoTrackValuesMap, id, "codecCC", codecCC);
 
             String codecName = getMediaInfoString(ndx, "Codec", MediaInfoNativeWrapper.StreamKind.Video);
             addDataToMap(videoTrackValuesMap, id, "codecName", codecName);
@@ -757,7 +754,9 @@ public class MediaInfoUtil {
             } // switch
 
             // If we got here, then we need to update the element's text
-            if (!StringUtils.isEmpty(value)) childElement.setText(value);
+            if (!StringUtils.isEmpty(value)) {
+                childElement.setText(value);
+            }
         } // childElement
 
         // Remove all elements marked as empty

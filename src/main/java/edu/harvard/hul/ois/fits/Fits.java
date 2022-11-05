@@ -57,7 +57,6 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.lang.StringUtils;
 import org.jdom2.Document;
-import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -492,7 +491,7 @@ public class Fits {
             // else output FITS XML to -o
             else {
                 Document doc = result.getFitsXml();
-                XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+                XMLOutputter serializer = new XMLOutputter(FitsFormat.xmlFormat());
                 serializer.output(doc, out);
             }
 
@@ -509,7 +508,7 @@ public class Fits {
         result.addStandardCombinedFormat();
 
         // output the merged JDOM Document
-        XMLOutputter serializer = new XMLOutputter(Format.getPrettyFormat());
+        XMLOutputter serializer = new XMLOutputter(FitsFormat.xmlFormat());
         serializer.output(result.getFitsXml(), out);
     }
 
