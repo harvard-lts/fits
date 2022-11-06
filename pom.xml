@@ -62,7 +62,7 @@
                 <module>tool-poms/tika-pom.xml</module>
                 <module>tool-poms/droid-pom.xml</module>
                 <module>tool-poms/jhove-pom.xml</module>
-                <module>tool-poms/exiftool-pom.xml</module>
+                <module>tool-poms/tool-installer-pom.xml</module>
                 <!-- This is the main FITS pom -->
                 <module>fits-pom.xml</module>
             </modules>

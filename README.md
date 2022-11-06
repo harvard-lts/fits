@@ -162,8 +162,8 @@ Maven is run. They are downloaded as part of the normal build process, but can a
 `mvn generate-resources`. Each tool that's installed has a pom file in the `tool-poms` directory that defines how it's
 installed.
 
-exiftool is installed using the script at `src/main/script/ExiftoolInstall` and is configured using the properties file
-`tools.properties`.
+Exiftool and MediaInfo are installed using the script at `src/main/script/ToolInstaller` and are configured using the
+properties file `tools.properties`.
 
 Tika and JHOVE are installed exclusively through their pom files `tika-pom.xml` and `jhove-pom.xml` respectively. 
 
