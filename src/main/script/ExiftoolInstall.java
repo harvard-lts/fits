@@ -32,7 +32,7 @@ import java.util.Properties;
  */
 public class ExiftoolInstall {
 
-    private static final Path PROJECT_ROOT = Paths.get("../../../");
+    private static final Path PROJECT_ROOT = Paths.get("");
     private static final Path PROPS_FILE = PROJECT_ROOT.resolve("tools.properties");
     private static final Path TOOL_DIR = PROJECT_ROOT.resolve("tools/exiftool");
     private static final Path TOOL_VERSION_FILE = TOOL_DIR.resolve("version");

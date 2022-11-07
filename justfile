@@ -14,6 +14,10 @@ build-image: build
 install-tools:
     mvn generate-resources
 
+# Update DROID signature files
+update-droid-sigs:
+    mvn -P update-droid-sigs generate-resources
+
 # Executes FITS within a Docker container. This requires that the image has already been built (just build-image).
 run +ARGS:
     docker run --rm -v `pwd`:/work:z fits {{ARGS}}

@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>fits-droid</artifactId>
+    <packaging>pom</packaging>
+
+    <name>FITS DROID</name>
+    <description>FITS tool install for DROID</description>
+
+    <parent>
+        <groupId>edu.harvard.huit.lts</groupId>
+        <artifactId>fits-parent</artifactId>
+        <version>1.6.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <build>
+        <plugins>
+            <!-- Remove all DROID jars currently in the DROID dir -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>clean-droid</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <configuration>
+                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                            <filesets>
+                                <fileset>
+                                    <directory>../${droid.dir}</directory>
+                                    <followSymlinks>false</followSymlinks>
+                                    <includes>
+                                        <include>*.jar</include>
+                                    </includes>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Copy all DROID jars into the DROID dir -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-droid</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!-- These logging jars cause problems if they're on the classpath and must be excluded -->
+                            <excludeArtifactIds>slf4j-api,log4j-core,log4j-slf4j-impl</excludeArtifactIds>
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>../${droid.dir}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>uk.gov.nationalarchives</groupId>
+            <artifactId>droid-command-line</artifactId>
+            <version>${droid.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

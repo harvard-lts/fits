@@ -23,7 +23,7 @@
     <container>
       <originalSize toolname="Droid" toolversion="6.4" status="SINGLE_RESULT">34318329</originalSize>
       <compressionMethod toolname="Droid" toolversion="6.4" status="SINGLE_RESULT">deflate</compressionMethod>
-      <entries totalEntries="17" toolname="Droid" toolversion="6.4" status="SINGLE_RESULT">
+      <entries totalEntries="16" toolname="Droid" toolversion="6.4" status="SINGLE_RESULT">
         <format name="EPUB" number="1" />
         <format name="Extensible Markup Language" number="1" />
         <format name="Graphics Interchange Format" number="1" />
@@ -38,7 +38,7 @@
         <format name="Portable Network Graphics" number="1" />
         <format name="Rich Text Format (RTF)" number="1" />
         <format name="TIFF EXIF" number="1" />
-        <format name="Waveform Audio" number="2" />
+        <format name="Waveform Audio" number="1" />
         <format name="ZIP Format" number="1" />
       </entries>
     </container>

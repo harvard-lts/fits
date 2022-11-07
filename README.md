@@ -5,7 +5,7 @@ FITS
 
 System Requirements
 -------------------
-FITS is a Java program and requires Java version 1.8 or higher. To find out your Java version type java -version in a command-line window.
+FITS is a Java program and requires Java version 11 or higher. To find out your Java version type java -version in a command-line window.
 
 Building FITS
 -------------
@@ -101,10 +101,6 @@ After you are up and running see the [User Manual](http://fitstool.org/user-manu
 Development
 -----------
 
-### JDK
-
-While FITS only requires Java 8 to run, it requires **Java 11** or later to _build_.
-
 ### Formatting
 
 This project uses a code formatter to apply the [palantir-java-format](https://github.com/palantir/palantir-java-format)
@@ -126,6 +122,10 @@ exiftool is installed using the script at `src/main/script/ExiftoolInstall` and 
 `tools.properties`.
 
 Tika is installed exclusively through its pom file `tika-pom.xml`. 
+
+DROID is installed via the `droid-pom.xml` file, and its signatures are updated by invoking `mvn -P update-droid-sigs generate-resources`.
+The signature file updates must be invoked specifically, and do not automatically run. Additionally, the signature file
+changes must be committed into git.
 
 ### Just
 

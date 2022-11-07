@@ -3,11 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>fits-exiftool</artifactId>
+    <artifactId>fits-droid-sig</artifactId>
     <packaging>pom</packaging>
 
-    <name>FITS exiftool</name>
-    <description>FITS tool install for exiftool</description>
+    <name>FITS DROID Sig</name>
+    <description>FITS tool updating DROID signatures</description>
 
     <parent>
         <groupId>edu.harvard.huit.lts</groupId>
@@ -24,25 +24,26 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>copy-exiftool</id>
+                        <id>copy-droid-sig</id>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
                             <includeScope>runtime</includeScope>
-                            <outputDirectory>../target/exiftool-lib</outputDirectory>
+                            <excludeArtifactIds>log4j-core,log4j-slf4j-impl</excludeArtifactIds>
+                            <outputDirectory>../target/droid-sig-lib</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!-- Run the script to install exiftool -->
+            <!-- Run the script to update DROID sig files -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>install-exiftool</id>
+                        <id>update-droid-sig</id>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -52,8 +53,8 @@
                             <executable>java</executable>
                             <arguments>
                                 <argument>-cp</argument>
-                                <argument>target/exiftool-lib/*</argument>
-                                <argument>src/main/script/ExiftoolInstall.java</argument>
+                                <argument>target/droid-sig-lib/*</argument>
+                                <argument>src/main/script/DroidSigFileUpdater.java</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -64,9 +65,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-compress</artifactId>
-            <version>1.21</version>
+            <groupId>uk.gov.nationalarchives</groupId>
+            <artifactId>droid-command-line</artifactId>
+            <version>${droid.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>${jdom2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.2.0</version>
         </dependency>
     </dependencies>
 

@@ -1,5 +1,6 @@
 ## Unreleased (TBD)
 
+- Java 11 or later is now required to run FITS
 - Add embARC tool integration for processing DPX files.
 - Tool upgrades
   - DROID 6.5.2
