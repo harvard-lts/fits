@@ -18,7 +18,7 @@
 
     <build>
         <plugins>
-            <!-- Remove all JHOVE jars currently in the JHVOE dir -->
+            <!-- Remove all JHOVE jars currently in the JHOVE dir -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
