@@ -31,7 +31,6 @@
         <commons-cli.version>1.5.0</commons-cli.version>
         <commons-configuration.version>1.10</commons-configuration.version>
         <ots-schemas.version>1.0.58</ots-schemas.version>
-        <jhove.version>1.26.0</jhove.version>
         <jna.version>5.9.0</jna.version>
         <hclaps.version>2.2.0</hclaps.version>
         <fast-md5.version>2.7.1</fast-md5.version>
@@ -48,6 +47,8 @@
         <tika.dir>lib/tika</tika.dir>
         <droid.version>6.5.2</droid.version>
         <droid.dir>lib/droid</droid.dir>
+        <jhove.version>1.26.1</jhove.version>
+        <jhove.dir>lib/jhove</jhove.dir>
     </properties>
 
     <profiles>
@@ -60,6 +61,7 @@
                 <!-- These modules are used to pull in the tools -->
                 <module>tool-poms/tika-pom.xml</module>
                 <module>tool-poms/droid-pom.xml</module>
+                <module>tool-poms/jhove-pom.xml</module>
                 <module>tool-poms/exiftool-pom.xml</module>
                 <!-- This is the main FITS pom -->
                 <module>fits-pom.xml</module>
