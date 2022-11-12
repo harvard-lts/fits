@@ -7,6 +7,7 @@
       <tool toolname="file utility" toolversion="5.31" />
       <tool toolname="Exiftool" toolversion="11.14" />
       <tool toolname="Tika" toolversion="1.19.1" />
+      <tool toolname="jpylyzer" toolversion="2.1.0" />
       <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">x-fmt/392</externalIdentifier>
     </identity>
   </identification>
@@ -18,8 +19,8 @@
     <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1446674963000</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">true</valid>
+    <well-formed toolname="Jhove" toolversion="1.16">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.16">true</valid>
   </filestatus>
   <metadata>
     <image>
@@ -120,6 +121,7 @@
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
     <tool toolname="ffident" toolversion="0.2" executionTime="475" />
     <tool toolname="Tika" toolversion="1.10" executionTime="174" />
+    <tool toolname="jpylyzer" toolversion="2.1.0" executionTime="76" />
   </statistics>
 </fits>
 

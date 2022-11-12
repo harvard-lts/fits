@@ -51,6 +51,7 @@
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
     <tool toolname="ffident" toolversion="0.2" status="did not run" />
     <tool toolname="Tika" toolversion="1.18" executionTime="6" />
+    <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
   </statistics>
 </fits>
 

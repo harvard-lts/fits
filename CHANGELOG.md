@@ -2,11 +2,12 @@
 
 - Java 11 or later is now required to run FITS
 - Add embARC tool integration for processing DPX files.
+- Add jpylyzer 2.1.0 for processing jp2 files.
 - Tool upgrades
   - DROID 6.5.2
-  - exiftool 12.42
+  - ExifTool 12.42
   - Jhove 1.26.1
-  - MediaInfo 21.09
+  - MediaInfo 22.09
   - Tika 2.3.0
 - Add FITS config option `consolidate-first-identity`, defaulted to `false`. This means that metadata from
 all tools that identify a file is included, even if the identified format is _not_ the highest ranked

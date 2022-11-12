@@ -9,6 +9,21 @@ System Requirements
 FITS is a Java program and requires Java version 11 or higher. To find out your Java version type java -version in a
 command-line window.
 
+Some of the tools that FITS uses have additionally requirements. If you are not using these tools, then you can safely
+ignore the requirements.
+
+- ExifTool
+  - Perl 5.004 or later
+  - Optional Perl modula dependencies as described in the "DEPENDENCIES" section of the [ExifTool README](https://github.com/exiftool/exiftool).
+- Jpylyzer
+  - Python 2.7 or 3.2+
+- File
+  - The "file" command is expected to be installed on non-Windows systems
+- MediaInfo
+  - The linux copy of MediaInfo distributed with FITS was built for Ubuntu Jammy. It _may_ work on other distributions
+    as well, but, if it doesn't, install MediaInfo directly on your system **and** delete the copy in FITS at `tools/mediainfo`.
+    After deleting the copy in FITS, it will then use the system copy.
+
 Installation
 ------------
 Download the latest official binary release from our [Downloads](http://fitstool.org/downloads) page.
@@ -136,7 +151,7 @@ container service, and execute the following:
 
     # The build only needs to be run once
     docker build -f docker/Dockerfile-test -t fits-test .
-    docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
+    docker run --rm -v `pwd`:/fits -v ~/.m2:/root/.m2 fits-test mvn clean test
 
 To build yet skip the tests, use the following command:
 
@@ -162,7 +177,7 @@ Maven is run. They are downloaded as part of the normal build process, but can a
 `mvn generate-resources`. Each tool that's installed has a pom file in the `tool-poms` directory that defines how it's
 installed.
 
-Exiftool, MediaInfo, and the Windows file utility are installed using the script at `src/main/script/ToolInstaller`,
+ExifTool, MediaInfo, jpylyzer, and the Windows file utility are installed using the script at `src/main/script/ToolInstaller`,
 and are configured using the properties file `tools.properties`.
 
 Tika and JHOVE are installed exclusively through their pom files `tika-pom.xml` and `jhove-pom.xml` respectively. 
@@ -187,6 +202,7 @@ Available recipes:
     run +ARGS           # Executes FITS within a Docker container. This requires that the image has already been built (just build-image).
     test                # Runs the tests within a Docker container. Requires the image to already exist (just build-test-image). The image does NOT need to be rebuilt between runs.
     test-filter PATTERN # Runs the tests that match the pattern within a Docker container. Requires the image to already exist (just build-test-image). The image does NOT need to be rebuilt between runs.
+    update-droid-sigs   # Update DROID signature files
 ```
 
 The commands are defined in [justfile](justfile).
@@ -199,12 +215,13 @@ FITS is included in the downloadable ZIP files.
 The tools bundled with FITS use the following open source licenses:
 
   * Jhove (LGPL version 2.1 or any later version)
-  * Exiftool (GPL version 1 or any later version; or the artistic license)
+  * ExifTool (GPL version 1 or any later version; or the artistic license)
   * National Library of New Zealand Metadata Extractor (Apache Public License version 2)
   * DROID (BSD (new version))
   * FFIdent (LGPL)
   * Tika (Apache Public License version 2)
   * MediaInfo [BSD-like](https://mediaarea.net/en-us/MediaInfo/License)
+  * Jpylyzer (LGPL version 3)
 
 The source code for each of the above tools is available on their websites.
 

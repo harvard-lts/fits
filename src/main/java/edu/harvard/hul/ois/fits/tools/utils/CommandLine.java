@@ -18,7 +18,12 @@ import java.util.List;
  *  A static class for command line invocation.
  */
 public abstract class CommandLine {
+
     public static String exec(List<String> cmd, String directory) throws FitsToolCLIException {
+        return exec(cmd, directory, true);
+    }
+
+    public static String exec(List<String> cmd, String directory, boolean includeStdErr) throws FitsToolCLIException {
         String output = null;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
@@ -31,12 +36,18 @@ public abstract class CommandLine {
             }
             Process proc = builder.start();
 
-            StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), bos);
+            StreamGobbler errorGobbler = null;
+            if (includeStdErr) {
+                errorGobbler = new StreamGobbler(proc.getErrorStream(), bos);
+                errorGobbler.start();
+            }
+
             StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), bos);
-            errorGobbler.start();
             outputGobbler.start();
             proc.waitFor();
-            errorGobbler.join();
+            if (errorGobbler != null) {
+                errorGobbler.join();
+            }
             outputGobbler.join();
             // output = sb.toString();
             bos.flush();
