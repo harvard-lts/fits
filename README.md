@@ -15,7 +15,7 @@ Download the latest official binary release from our [Downloads](http://fitstool
 
 **IMPORTANT NOTE**: The code on this GitHub site is not meant for direct installation since it does NOT include the
 necessary fits.jar file (which is a primary build artifact of this project). If you want to use this GitHub site for
-installing FITS, you must first download (or Git clone) the code then build the project using Maven. For the "Development"
+installing FITS, you must first download (or Git clone) the code then build the project using Maven. See the "Development"
 section for more details.
 
 If this is your first time downloading FITS, create a directory for FITS, for example:
@@ -70,22 +70,22 @@ docker build -f Dockerfile -t fits:latest -t fits:1.6.0 .
 ```
 
 After building the image, you can use it directly to analyze files. The following are some examples. Note these
-examples mount the current working directly within the Docker container, which means that the only files that are
+examples mount the current working directory within the Docker container, which means that the only files that are
 accessible within the container are files that are relative the current working directory. Additionally, these commands
 **do not** need to be run within the FITS root and can be run anywhere on the system.
 
 ```shell
 # Run FITS on a file
-docker run --rm -v `pwd`:/work:z fits -i file.txt
+docker run --rm -v `pwd`:/work fits -i file.txt
 
 # Run a specific version of FITS on a file
-docker run --rm -v `pwd`:/work:z fits:1.6.0 -i file.txt
+docker run --rm -v `pwd`:/work fits:1.6.0 -i file.txt
 
 # Run FITS on a directory
-docker run --rm -v `pwd`:/work:z fits -r -n -i in-dir -o out-dir
+docker run --rm -v `pwd`:/work fits -r -n -i in-dir -o out-dir
 
 # Run FITS with alternate configuration
-docker run --rm -v `pwd`:/work:z fits -f fits-custom.xml -i file.txt
+docker run --rm -v `pwd`:/work fits -f fits-custom.xml -i file.txt
 ```
 
 Logging
