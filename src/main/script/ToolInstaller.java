@@ -364,17 +364,19 @@ public class ToolInstaller {
     }
 
     private void deleteDir(Path dir) {
-        try (var files = Files.walk(dir)) {
-            files.sorted(Comparator.reverseOrder())
-                    .forEach(path -> {
-                        try {
-                            Files.deleteIfExists(path);
-                        } catch (IOException e) {
-                            throw new UncheckedIOException(e);
-                        }
-                    });
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+        if (Files.exists(dir)) {
+            try (var files = Files.walk(dir)) {
+                files.sorted(Comparator.reverseOrder())
+                        .forEach(path -> {
+                            try {
+                                Files.deleteIfExists(path);
+                            } catch (IOException e) {
+                                throw new UncheckedIOException(e);
+                            }
+                        });
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
         }
     }
 
