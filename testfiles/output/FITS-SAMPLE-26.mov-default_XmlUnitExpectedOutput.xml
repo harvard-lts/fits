@@ -39,7 +39,7 @@
         <bitRate>24417183</bitRate>
         <bitRateMode>Constant</bitRateMode>
         <duration>3971</duration>
-        <delay>7121900</delay>
+        <delay>7129029</delay>
         <trackSize>12120079</trackSize>
         <width>720 pixels</width>
         <height>480 pixels</height>
@@ -62,7 +62,7 @@
         <bitRateMode>Constant</bitRateMode>
         <bitDepth>16 bits</bitDepth>
         <duration>3967</duration>
-        <delay>7121900</delay>
+        <delay>7129029</delay>
         <trackSize>761656</trackSize>
         <soundField>Front: L R</soundField>
         <samplingRate>48000</samplingRate>
