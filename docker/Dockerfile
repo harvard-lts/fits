@@ -17,14 +17,36 @@
 FROM docker.io/eclipse-temurin:17-jre-focal
 
 ARG FILE_VERSION=5.41
+ARG FILE_SHA256=13e532c7b364f7d57e23dfeea3147103150cb90593a57af86c10e4f6e411603f
 
 RUN apt-get update && \
-    apt-get install -yqq make gcc unzip && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -yqq \
+    # exiftool dependencies https://github.com/exiftool/exiftool
+    libarchive-zip-perl \
+    libio-compress-perl \
+    libcompress-raw-zlib-perl \
+    libcompress-bzip2-perl \
+    libcompress-raw-bzip2-perl \
+    libio-digest-perl \
+    libdigest-md5-file-perl \
+    libdigest-perl-md5-perl \
+    libdigest-sha-perl \
+    libposix-strptime-perl \
+    libunicode-linebreak-perl\
+    # file dependencies
+    make \
+    gcc \
+    # mediainfo dependencies
+    libmms0 \
+    libcurl3-gnutls \
+    # FITS
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install file https://github.com/file/file
 RUN cd /var/tmp && \
     curl -so file-${FILE_VERSION}.tar.gz https://astron.com/pub/file/file-${FILE_VERSION}.tar.gz && \
+    echo "${FILE_SHA256}  file-${FILE_VERSION}.tar.gz" | sha256sum --check && \
     tar xzf file-${FILE_VERSION}.tar.gz && \
     cd file-${FILE_VERSION} && \
     ./configure && \

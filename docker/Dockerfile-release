@@ -1,22 +1,28 @@
-# This file creates an image that can be used to execute the unit tests.
+# This file can be used to create a FITS Docker image.
 #
 # Usage:
 #   # Build the image
-#   docker build -f docker/Dockerfile-test -t fits-test .
+#   docker build -f Dockerfile -t fits .
 #
-#   # Run the tests
-#   docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test
+#   # Build the image with version tags (replace with the correct version)
+#   docker build -f Dockerfile -t fits:latest -t fits:1.6.0 .
 #
-#   # Interactive container access
-#   docker run --rm -it -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test
+#   # Run FITS on a file
+#   docker run --rm -v `pwd`:/work:z fits -i file.txt
+#
+#   # Run a specific version of FITS on a file
+#   docker run --rm -v `pwd`:/work:z fits:1.6.0 -i file.txt
+#
+#   # Run FITS on a directory
+#   docker run --rm -v `pwd`:/work:z fits -r -n -i in-dir -o out-dir
+#
+#   # Run FITS with alternate configuration
+#   docker run --rm -v `pwd`:/work:z fits -f fits-custom.xml -i file.txt
 
-FROM docker.io/maven:3-eclipse-temurin-17
+FROM docker.io/eclipse-temurin:17-jre-focal
 
 ARG FILE_VERSION=5.41
 ARG FILE_SHA256=13e532c7b364f7d57e23dfeea3147103150cb90593a57af86c10e4f6e411603f
-
-# Set timezone to eastern because some of the tests need this
-RUN echo 'America/New_York' > /etc/timezone
 
 RUN apt-get update && \
     apt-get install -yqq \
@@ -53,6 +59,10 @@ RUN cd /var/tmp && \
     cd .. && \
     rm -rf file-${FILE_VERSION}*
 
-WORKDIR /fits
+# Install FITS
+ADD . /opt/fits
 
-CMD ["bash"]
+# Bind the current working directory here so that FITS can access files on the host
+WORKDIR /work
+
+ENTRYPOINT ["/opt/fits/fits.sh"]
