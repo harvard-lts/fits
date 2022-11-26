@@ -122,10 +122,10 @@ public class EbuCoreModel {
                     // workaround for handling multiple bitrate values that are sometimes returned by mediainfo
                     String[] bitRateParts = dataValue.split(" ");
                     dataValue = bitRateParts[0];
-                    vfmt.setBitRate(Integer.parseInt(dataValue));
+                    vfmt.setBitRate(Long.parseLong(dataValue));
                     break;
                 case bitRateMax:
-                    vfmt.setBitRateMax(Integer.parseInt(dataValue));
+                    vfmt.setBitRateMax(Long.parseLong(dataValue));
                     break;
                 case bitRateMode:
                     vfmt.setBitRateMode(dataValue.toLowerCase());
