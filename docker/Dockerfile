@@ -14,7 +14,7 @@
 #   # Run FITS with alternate configuration
 #   docker run --rm -v `pwd`:/work:z fits -f fits-custom.xml -i file.txt
 
-FROM docker.io/eclipse-temurin:17-jre-focal
+FROM docker.io/eclipse-temurin:17-jre-jammy
 
 ARG FILE_VERSION=5.41
 ARG FILE_SHA256=13e532c7b364f7d57e23dfeea3147103150cb90593a57af86c10e4f6e411603f
