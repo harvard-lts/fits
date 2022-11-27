@@ -39,7 +39,7 @@
         <bitRate>24417183</bitRate>
         <bitRateMode>Constant</bitRateMode>
         <duration>3971</duration>
-        <delay>7121900</delay>
+        <delay>7129029</delay>
         <trackSize>12120079</trackSize>
         <width>720 pixels</width>
         <height>480 pixels</height>
@@ -62,7 +62,7 @@
         <bitRateMode>Constant</bitRateMode>
         <bitDepth>16 bits</bitDepth>
         <duration>3967</duration>
-        <delay>7121900</delay>
+        <delay>7129029</delay>
         <trackSize>761656</trackSize>
         <soundField>Front: L R</soundField>
         <samplingRate>48000</samplingRate>
@@ -97,7 +97,7 @@
                 <ebucore:technicalAttributeString typeLabel="colorspace">YUV</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="frameRateMode">constant</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="byteOrder">unknown</ebucore:technicalAttributeString>
-                <ebucore:technicalAttributeString typeLabel="delay">7121900</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="delay">7129029</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="compression">lossy</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="broadcastStandard">NTSC</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeLong typeLabel="streamSize">12120079</ebucore:technicalAttributeLong>
@@ -119,7 +119,7 @@
                 <ebucore:audioTrack trackId="3" />
                 <ebucore:channels>2</ebucore:channels>
                 <ebucore:technicalAttributeString typeLabel="byteOrder">big</ebucore:technicalAttributeString>
-                <ebucore:technicalAttributeString typeLabel="delay">7121900</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="delay">7129029</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="compression">none</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeLong typeLabel="streamSize">761656</ebucore:technicalAttributeLong>
                 <ebucore:technicalAttributeLong typeLabel="sampleCount">190416</ebucore:technicalAttributeLong>

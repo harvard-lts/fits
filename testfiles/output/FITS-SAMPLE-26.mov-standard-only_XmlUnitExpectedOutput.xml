@@ -25,7 +25,7 @@
                 <ebucore:technicalAttributeString typeLabel="colorspace">YUV</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="frameRateMode">constant</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="byteOrder">unknown</ebucore:technicalAttributeString>
-                <ebucore:technicalAttributeString typeLabel="delay">7121900</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="delay">7129029</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="compression">lossy</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="broadcastStandard">NTSC</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeLong typeLabel="streamSize">12120079</ebucore:technicalAttributeLong>
@@ -47,7 +47,7 @@
                 <ebucore:audioTrack trackId="3"/>
                 <ebucore:channels>2</ebucore:channels>
                 <ebucore:technicalAttributeString typeLabel="byteOrder">big</ebucore:technicalAttributeString>
-                <ebucore:technicalAttributeString typeLabel="delay">7121900</ebucore:technicalAttributeString>
+                <ebucore:technicalAttributeString typeLabel="delay">7129029</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeString typeLabel="compression">none</ebucore:technicalAttributeString>
                 <ebucore:technicalAttributeLong typeLabel="streamSize">761656</ebucore:technicalAttributeLong>
                 <ebucore:technicalAttributeLong typeLabel="sampleCount">190416</ebucore:technicalAttributeLong>

@@ -11,6 +11,7 @@
 
 # Ignore tools that are installed via scripts
 /tools/exiftool
+/tools/mediainfo
 /lib/tika
 /lib/droid
 /lib/jhove
