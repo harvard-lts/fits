@@ -26,27 +26,31 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 /**
- * This script is used to install non-Maven based tools into the tools directory. It currently supports exiftool and
- * MediaInfo. the tool.properties file in the project root defines what versions of the tools to install, as well as
- * the locations to download the tools from. The pom file at tool-poms/tool-installer-pom.xml describes the dependencies
- * and execution of this script. It is expected to be run as part of mvn generate-resources, but can be invoked manually
- * so long as the dependencies are on the classpath.
+ * This script is used to install non-Maven based tools into the tools directory. It currently supports exiftool,
+ * MediaInfo, and the Windows file utility. the tool.properties file in the project root defines what versions of the
+ * tools to install, as well as the locations to download the tools from. The pom file at tool-poms/tool-installer-pom.xml
+ * describes the dependencies and execution of this script. It is expected to be run as part of mvn generate-resources,
+ * but can be invoked manually so long as the dependencies are on the classpath.
  */
 public class ToolInstaller {
 
     public enum Tool {
-        EXIFTOOL("exiftool", "perl", "perl", "windows"),
-        MEDIA_INFO("mediainfo", "linux", "mac", "windows/64");
+        EXIFTOOL("exiftool", "exiftool", "perl", "perl", "windows"),
+        MEDIA_INFO("mediainfo", "mediainfo", "linux", "mac", "windows/64"),
+        FILE("file", "file_utility_windows", null, null, "");
 
         private final String name;
+        private final String toolDir;
         private final String linuxDir;
         private final String macDir;
         private final String windowsDir;
 
-        Tool(String name, String linuxDir, String macDir, String windowsDir) {
+        Tool(String name, String toolDir, String linuxDir, String macDir, String windowsDir) {
             this.name = name;
+            this.toolDir = toolDir;
             this.linuxDir = linuxDir;
             this.macDir = macDir;
             this.windowsDir = windowsDir;
@@ -86,12 +90,18 @@ public class ToolInstaller {
     private static final String MD5_SUFFIX = "md5";
 
     public static void main(String[] args) throws IOException {
-        var tool = Tool.fromString(args[0]);
+        var tools = Arrays.stream(args)
+                .map(Tool::fromString)
+                .collect(Collectors.toList());
+
         var props = new Properties();
         try (var is = Files.newInputStream(PROPS_FILE)) {
             props.load(is);
         }
-        new ToolInstaller(tool, props).execute();
+
+        for (var tool : tools) {
+            new ToolInstaller(tool, props).execute();
+        }
     }
 
     private final Tool tool;
@@ -102,8 +112,10 @@ public class ToolInstaller {
     public ToolInstaller(Tool tool, Properties props) {
         this.tool = tool;
         this.props = props;
-        this.toolDir = TOOLS_ROOT.resolve(tool.name);
-        this.httpClient = HttpClient.newHttpClient();
+        this.toolDir = TOOLS_ROOT.resolve(tool.toolDir);
+        this.httpClient = HttpClient.newBuilder()
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .build();
     }
 
     public void execute() throws IOException {
@@ -112,7 +124,7 @@ public class ToolInstaller {
 
         if (Objects.equals(targetVersion, currentVersion)) {
             printf("%s %s is already installed", tool, targetVersion);
-            System.exit(0);
+            return;
         }
 
         printf("Installing %s %s", tool, targetVersion);
@@ -125,6 +137,9 @@ public class ToolInstaller {
                 break;
             case MEDIA_INFO:
                 installMediaInfo();
+                break;
+            case FILE:
+                installFileUtility();
                 break;
             default:
                 throw new UnsupportedOperationException("Unsupported tool: " + tool);
@@ -243,6 +258,20 @@ public class ToolInstaller {
         Files.deleteIfExists(archive);
     }
 
+    private void installFileUtility() throws IOException {
+        var target = toolDir.resolve(tool.windowsDir);
+
+        // Install file utility
+        var archive = downloadAndVerify(WINDOWS);
+        extractZip(archive, target);
+        Files.deleteIfExists(archive);
+
+        // Install deps
+        archive = downloadAndVerify(WINDOWS + "deps.");
+        extractZip(archive, target);
+        Files.deleteIfExists(archive);
+    }
+
     private Path downloadAndVerify(String osPart) {
         var url = requireProp(tool.prop(osPart + URL_SUFFIX));
         var digest = requireProp(tool.prop(osPart + MD5_SUFFIX));
@@ -342,6 +371,8 @@ public class ToolInstaller {
             if (entry.isDirectory()) {
                 Files.createDirectories(file);
             } else {
+                // This create is weirdly necessary because one of the file utility zips is malformed
+                Files.createDirectories(file.getParent());
                 Files.copy(is, file);
             }
         }
