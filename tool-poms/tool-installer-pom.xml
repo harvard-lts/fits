@@ -36,13 +36,13 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Run the script to install exiftool -->
+            <!-- Run the script to install the tools -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>install-exiftool</id>
+                        <id>install-tools</id>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -55,41 +55,7 @@
                                 <argument>target/tool-installer-lib/*</argument>
                                 <argument>src/main/script/ToolInstaller.java</argument>
                                 <argument>exiftool</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <!-- Run the script to install MediaInfo -->
-                    <execution>
-                        <id>install-mediainfo</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <workingDirectory>..</workingDirectory>
-                            <executable>java</executable>
-                            <arguments>
-                                <argument>-cp</argument>
-                                <argument>target/tool-installer-lib/*</argument>
-                                <argument>src/main/script/ToolInstaller.java</argument>
                                 <argument>mediainfo</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <!-- Run the script to install file utility for Windows -->
-                    <execution>
-                        <id>install-file</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <workingDirectory>..</workingDirectory>
-                            <executable>java</executable>
-                            <arguments>
-                                <argument>-cp</argument>
-                                <argument>target/tool-installer-lib/*</argument>
-                                <argument>src/main/script/ToolInstaller.java</argument>
                                 <argument>file</argument>
                             </arguments>
                         </configuration>

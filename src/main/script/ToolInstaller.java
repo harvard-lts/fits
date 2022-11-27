@@ -26,6 +26,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 /**
  * This script is used to install non-Maven based tools into the tools directory. It currently supports exiftool,
@@ -89,12 +90,18 @@ public class ToolInstaller {
     private static final String MD5_SUFFIX = "md5";
 
     public static void main(String[] args) throws IOException {
-        var tool = Tool.fromString(args[0]);
+        var tools = Arrays.stream(args)
+                .map(Tool::fromString)
+                .collect(Collectors.toList());
+
         var props = new Properties();
         try (var is = Files.newInputStream(PROPS_FILE)) {
             props.load(is);
         }
-        new ToolInstaller(tool, props).execute();
+
+        for (var tool : tools) {
+            new ToolInstaller(tool, props).execute();
+        }
     }
 
     private final Tool tool;
