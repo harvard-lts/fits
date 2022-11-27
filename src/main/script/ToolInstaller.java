@@ -124,7 +124,7 @@ public class ToolInstaller {
 
         if (Objects.equals(targetVersion, currentVersion)) {
             printf("%s %s is already installed", tool, targetVersion);
-            System.exit(0);
+            return;
         }
 
         printf("Installing %s %s", tool, targetVersion);
