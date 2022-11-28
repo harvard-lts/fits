@@ -117,7 +117,7 @@ public class Jpylyzer extends ToolBase {
 
         duration = System.currentTimeMillis() - start;
         runStatus = RunStatus.SUCCESSFUL;
-        log.debug("jpylyzer finished on {} in {}ms", file.getName(), start);
+        log.debug("jpylyzer finished on {} in {}ms", file.getName(), duration);
         return output;
     }
 
