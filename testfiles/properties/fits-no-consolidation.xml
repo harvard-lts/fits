@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fits_configuration>
-	<!-- Order of the tools determines preference -->
-	<tools>
-		<!-- exclude-exts attribute is a comma delimited list of file extensions that the tool should not try to process -->
+    <!-- Order of the tools determines preference -->
+    <tools>
+        <!-- exclude-exts attribute is a comma delimited list of file extensions that the tool should not try to process -->
         <!-- include-exts attribute is a comma delimited list of file extensions that are the only ones the tool will process -->
         <!-- classpath-dirs attribute is a list of directories where any tool-specific Java JAR files and configuration files used solely by these JAR files -->
         <tool class="edu.harvard.hul.ois.fits.tools.mediainfo.MediaInfo" include-exts="avi,mov,mpg,mpeg,mkv,mp4,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv,m2ts,mpeg4,rmvb,wmv,3gp,3g2,rm" classpath-dirs="lib/mediainfo" />
@@ -18,35 +18,36 @@
         <tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.XmlMetadata" include-exts="xml" classpath-dirs="lib/xmlmetadata" />
         <tool class="edu.harvard.hul.ois.fits.tools.ffident.FFIdent" exclude-exts="dng,wps,vsd,jar,ppt,rtf" classpath-dirs="lib/ffident" />
         <tool class="edu.harvard.hul.ois.fits.tools.tika.TikaTool" exclude-exts="adl,vtt,csv,jar,avi,mov,mpg,mpeg,mkv,mp4,mpeg4,m2ts,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv" classpath-dirs="lib/tika"/>
-	</tools>
-	
-	<output>
-		<dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
-		<consolidate-first-identity>false</consolidate-first-identity>
-		<display-tool-output>false</display-tool-output>
-		<report-conflicts>true</report-conflicts>
-		<validate-tool-output>false</validate-tool-output>
-		<internal-output-schema>xml/fits_output.xsd</internal-output-schema>
-		<external-output-schema>http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd</external-output-schema>
-		<fits-xml-namespace>http://hul.harvard.edu/ois/xml/ns/fits/fits_output</fits-xml-namespace>
-		<enable-statistics>true</enable-statistics>
-		<enable-checksum>true</enable-checksum>
-		<!-- The below controls the exclusion of the checksum for certain files, even if enable-checksum is true -->
-		<!-- Video Exclusions -->
-		<!-- <checksum-exclusions exclude-exts="avi,mov,mpg,mkv,mp4,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv"/> -->
-		<!-- Audio Exclusions -->
-		<!-- <checksum-exclusions exclude-exts="wav,aif,mp3,mp4,m4a,ra,rm"/> -->
-	</output>
-	
-	<process>
-		<max-threads>20</max-threads>
-	</process>
-	
-	<!-- file name of the droid signature file to use in tools/droid/-->
-	<droid_sigfile>DROID_SignatureFile_V109_Alt.xml</droid_sigfile>
-	<droid_container_sigfile>container-signature-20221102.xml</droid_container_sigfile>
-	<!-- Limits number of bytes DROID reads in (in KB) for processing large files for the listed file extensions. -->
-	<!-- Note: This should only be used with files that can provide sufficient metadata at beginning of the file -->
-	<!-- <droid_read_limit include-exts="mov,mxf" read-limit-kb="64" /> -->
-		
+        <tool class="edu.harvard.hul.ois.fits.tools.jpylyzer.Jpylyzer" include-exts="jp2" />
+    </tools>
+    
+    <output>
+        <dataConsolidator class="edu.harvard.hul.ois.fits.consolidation.OISConsolidator"/>
+        <consolidate-first-identity>false</consolidate-first-identity>
+        <display-tool-output>false</display-tool-output>
+        <report-conflicts>true</report-conflicts>
+        <validate-tool-output>false</validate-tool-output>
+        <internal-output-schema>xml/fits_output.xsd</internal-output-schema>
+        <external-output-schema>http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd</external-output-schema>
+        <fits-xml-namespace>http://hul.harvard.edu/ois/xml/ns/fits/fits_output</fits-xml-namespace>
+        <enable-statistics>true</enable-statistics>
+        <enable-checksum>true</enable-checksum>
+        <!-- The below controls the exclusion of the checksum for certain files, even if enable-checksum is true -->
+        <!-- Video Exclusions -->
+        <!-- <checksum-exclusions exclude-exts="avi,mov,mpg,mkv,mp4,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv"/> -->
+        <!-- Audio Exclusions -->
+        <!-- <checksum-exclusions exclude-exts="wav,aif,mp3,mp4,m4a,ra,rm"/> -->
+    </output>
+    
+    <process>
+        <max-threads>20</max-threads>
+    </process>
+    
+    <!-- file name of the droid signature file to use in tools/droid/-->
+    <droid_sigfile>DROID_SignatureFile_V109_Alt.xml</droid_sigfile>
+    <droid_container_sigfile>container-signature-20221102.xml</droid_container_sigfile>
+    <!-- Limits number of bytes DROID reads in (in KB) for processing large files for the listed file extensions. -->
+    <!-- Note: This should only be used with files that can provide sufficient metadata at beginning of the file -->
+    <!-- <droid_read_limit include-exts="mov,mxf" read-limit-kb="64" /> -->
+        
 </fits_configuration>

@@ -20,6 +20,9 @@ RUN echo 'America/New_York' > /etc/timezone
 
 RUN apt-get update && \
     apt-get install -yqq \
+    # jpylyzer dependencies
+    python3 \
+    python-is-python3 \
     # exiftool dependencies https://github.com/exiftool/exiftool
     libarchive-zip-perl \
     libio-compress-perl \

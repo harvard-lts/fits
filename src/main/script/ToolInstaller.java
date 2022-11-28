@@ -5,6 +5,7 @@ import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+import org.apache.commons.compress.compressors.xz.XZCompressorInputStream;
 import org.apache.commons.compress.compressors.zstandard.ZstdCompressorInputStream;
 
 import java.io.BufferedInputStream;
@@ -40,7 +41,8 @@ public class ToolInstaller {
     public enum Tool {
         EXIFTOOL("exiftool", "exiftool", "perl", "perl", "windows"),
         MEDIA_INFO("mediainfo", "mediainfo", "linux", "mac", "windows/64"),
-        FILE("file", "file_utility_windows", null, null, "");
+        FILE("file", "file_utility_windows", null, null, ""),
+        JPYLYZER("jpylyzer", "jpylyzer", "unix", "unix", "windows");
 
         private final String name;
         private final String toolDir;
@@ -140,6 +142,9 @@ public class ToolInstaller {
                 break;
             case FILE:
                 installFileUtility();
+                break;
+            case JPYLYZER:
+                installJpylyzer();
                 break;
             default:
                 throw new UnsupportedOperationException("Unsupported tool: " + tool);
@@ -272,6 +277,35 @@ public class ToolInstaller {
         Files.deleteIfExists(archive);
     }
 
+    private void installJpylyzer() throws IOException {
+        installJpylyzerWindows();
+        installJpylyzerUnix();
+    }
+
+    private void installJpylyzerWindows() throws IOException {
+        var archive = downloadAndVerify(WINDOWS);
+        var targetDir = Files.createDirectories(toolDir.resolve(tool.windowsDir));
+        var temp = toolDir.resolve("temp");
+        extractZip(archive, temp);
+        moveContentsToDir(temp.resolve("jpylyzer"), targetDir);
+        deleteDir(targetDir.resolve("doc"));
+        deleteDir(targetDir.resolve("example_files"));
+        deleteDir(targetDir.resolve("license"));
+        deleteDir(temp);
+        Files.deleteIfExists(archive);
+    }
+
+    private void installJpylyzerUnix() throws IOException {
+        var archive = downloadAndVerify(UNIX);
+        var targetDir = Files.createDirectories(toolDir.resolve(tool.linuxDir));
+        var temp = toolDir.resolve("temp");
+        extractAr(archive, temp);
+        extractTarXz(temp.resolve("data.tar.xz"), temp);
+        Files.move(temp.resolve("usr/lib/python3/dist-packages/jpylyzer"), targetDir.resolve("jpylyzer"));
+        deleteDir(temp);
+        Files.deleteIfExists(archive);
+    }
+
     private Path downloadAndVerify(String osPart) {
         var url = requireProp(tool.prop(osPart + URL_SUFFIX));
         var digest = requireProp(tool.prop(osPart + MD5_SUFFIX));
@@ -335,6 +369,15 @@ public class ToolInstaller {
         }
     }
 
+    private void extractTarXz(Path source, Path destination) {
+        try (var is = new TarArchiveInputStream(new XZCompressorInputStream(new BufferedInputStream(
+                Files.newInputStream(source))))) {
+            extractArchive(is, destination);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to extract archive " + source, e);
+        }
+    }
+
     private void extractTarGzip(Path source, Path destination) {
         try (var is = new TarArchiveInputStream(new GzipCompressorInputStream(new BufferedInputStream(
                 Files.newInputStream(source))))) {
@@ -382,6 +425,18 @@ public class ToolInstaller {
         for (var file : sourceFiles) {
             var sourceFile = source.resolve(file);
             Files.move(sourceFile, target.resolve(sourceFile.getFileName()));
+        }
+    }
+
+    private void moveContentsToDir(Path source, Path target) throws IOException {
+        try (var files = Files.list(source)) {
+            files.forEach(file -> {
+                try {
+                    Files.move(file, target.resolve(file.getFileName()));
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            });
         }
     }
 

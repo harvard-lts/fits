@@ -26,6 +26,9 @@ ARG FILE_SHA256=13e532c7b364f7d57e23dfeea3147103150cb90593a57af86c10e4f6e411603f
 
 RUN apt-get update && \
     apt-get install -yqq \
+    # jpylyzer dependencies
+    python3 \
+    python-is-python3 \
     # exiftool dependencies https://github.com/exiftool/exiftool
     libarchive-zip-perl \
     libio-compress-perl \
