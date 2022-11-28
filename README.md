@@ -9,7 +9,7 @@ System Requirements
 FITS is a Java program and requires Java version 11 or higher. To find out your Java version type java -version in a
 command-line window.
 
-Some of the tools that FITS uses have additionally requirements. If you are not using these tools, then you can safely
+Some of the tools that FITS uses have additional requirements. If you are not using these tools, then you can safely
 ignore the requirements.
 
 - ExifTool
