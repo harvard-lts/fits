@@ -5,7 +5,7 @@
 - Add jpylyzer 2.1.0 for processing jp2 files.
 - Tool upgrades
   - DROID 6.5.2
-  - ExifTool 12.42
+  - ExifTool 12.50
   - File 5.43
   - Jhove 1.26.1
   - MediaInfo 22.09
