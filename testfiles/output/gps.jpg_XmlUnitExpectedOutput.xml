@@ -6,7 +6,6 @@
       <tool toolname="Jhove" toolversion="1.20.1" />
       <tool toolname="file utility" toolversion="5.39" />
       <tool toolname="Exiftool" toolversion="11.54" />
-      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
       <version toolname="Droid" toolversion="6.4" status="CONFLICT">2.2.1</version>
       <version toolname="Jhove" toolversion="1.20.1" status="CONFLICT">1.01</version>
       <version toolname="file utility" toolversion="5.39" status="CONFLICT">13</version>
@@ -15,11 +14,9 @@
   </identification>
   <fileinfo>
     <size toolname="Jhove" toolversion="1.20.1">41851</size>
-    <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="CONFLICT">FinePix F30</creatingApplicationName>
-    <creatingApplicationName toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">Digital Camera FinePix F30     Ver1.02</creatingApplicationName>
+    <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">FinePix F30</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="12.50">2006-11-03T02:26:02</lastmodified>
-    <created toolname="Exiftool" toolversion="12.40" status="CONFLICT">2006-11-03T07:14:39</created>
-    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2006-11-03T02:26:02</created>
+    <created toolname="Exiftool" toolversion="12.40">2006-11-03T07:14:39</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/gps.jpg</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">gps.jpg</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">201f1db44775631d307b3ffd62acb3ac</md5checksum>
@@ -38,8 +35,8 @@
       <imageHeight toolname="Jhove" toolversion="1.20.1">800</imageHeight>
       <colorSpace toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">YCbCr</colorSpace>
       <YCbCrSubSampling toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2 2</YCbCrSubSampling>
-      <YCbCrPositioning toolname="Exiftool" toolversion="11.54">2</YCbCrPositioning>
-      <orientation toolname="Exiftool" toolversion="11.54">normal*</orientation>
+      <YCbCrPositioning toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2</YCbCrPositioning>
+      <orientation toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">normal*</orientation>
       <samplingFrequencyUnit toolname="Jhove" toolversion="1.20.1">in.</samplingFrequencyUnit>
       <xSamplingFrequency toolname="Exiftool" toolversion="11.54">72</xSamplingFrequency>
       <ySamplingFrequency toolname="Exiftool" toolversion="11.54">72</ySamplingFrequency>
@@ -50,7 +47,6 @@
       <fNumber toolname="Jhove" toolversion="1.20.1">2.8</fNumber>
       <exposureTime toolname="Jhove" toolversion="1.20.1" status="CONFLICT">0.008</exposureTime>
       <exposureTime toolname="Exiftool" toolversion="11.54" status="CONFLICT">0.0083</exposureTime>
-      <exposureTime toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">0.008333333333333333</exposureTime>
       <isoSpeedRating toolname="Jhove" toolversion="1.20.1">400</isoSpeedRating>
       <brightnessValue toolname="Jhove" toolversion="1.24.9" status="CONFLICT">302100</brightnessValue>
       <brightnessValue toolname="Exiftool" toolversion="12.40" status="CONFLICT">3.02</brightnessValue>
@@ -61,15 +57,12 @@
       <focalLength toolname="Jhove" toolversion="1.20.1">8</focalLength>
       <captureDevice toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">digital still camera</captureDevice>
       <digitalCameraManufacturer toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">FUJIFILM</digitalCameraManufacturer>
-      <exposureProgram toolname="Exiftool" toolversion="11.54">Normal program</exposureProgram>
-      <exifVersion toolname="Exiftool" toolversion="11.54" status="CONFLICT">0221</exifVersion>
-      <exifVersion toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">1220</exifVersion>
+      <exposureProgram toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Normal program</exposureProgram>
+      <exifVersion toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">0221</exifVersion>
       <shutterSpeedValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">1/124</shutterSpeedValue>
-      <apertureValue toolname="Exiftool" toolversion="11.54" status="CONFLICT">2.8</apertureValue>
-      <apertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">3.0</apertureValue>
-      <maxApertureValue toolname="Exiftool" toolversion="11.54" status="CONFLICT">2.8</maxApertureValue>
-      <maxApertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">3.0</maxApertureValue>
-      <sensingMethod toolname="Exiftool" toolversion="11.54">One-chip color area sensor</sensingMethod>
+      <apertureValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.8</apertureValue>
+      <maxApertureValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.8</maxApertureValue>
+      <sensingMethod toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">One-chip color area sensor</sensingMethod>
       <gpsVersionID toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.2.0.0</gpsVersionID>
       <gpsLatitudeRef toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">N</gpsLatitudeRef>
       <gpsLatitude toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">33 deg 24' 51.80" N</gpsLatitude>
@@ -79,7 +72,6 @@
       <gpsStatus toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">A</gpsStatus>
       <gpsMapDatum toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">WGS-84</gpsMapDatum>
       <gpsDateStamp toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2006-11-02</gpsDateStamp>
-      <brightnessvalue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">3737910</brightnessvalue>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -228,7 +220,7 @@
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
     <tool toolname="file utility" toolversion="5.39" executionTime="41" />
     <tool toolname="Exiftool" toolversion="11.54" executionTime="251" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="27" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
     <tool toolname="OIS File Information" toolversion="1.0" executionTime="2" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
     <tool toolname="ffident" toolversion="0.2" executionTime="6" />
