@@ -4,6 +4,7 @@
     <identity format="WebVTT" mimetype="text/vtt" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="VTT Tool" toolversion="0.1" />
       <tool toolname="Droid" toolversion="6.5.2" />
+      <tool toolname="file utility" toolversion="5.43" />
       <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/1454</externalIdentifier>
     </identity>
   </identification>
@@ -21,7 +22,7 @@
   <metadata>
     <text>
       <linebreak toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">LF</linebreak>
-      <charset toolname="Jhove" toolversion="1.26.0">US-ASCII</charset>
+      <charset toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">US-ASCII</charset>
       <standard>
         <textMD:textMD xmlns:textMD="info:lc/xmlns/textMD-v3">
           <textMD:character_info>

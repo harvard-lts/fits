@@ -2,7 +2,6 @@
 <fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="11/12/22, 9:17 AM">
   <identification>
     <identity format="JPEG 2000 JP2" mimetype="image/jp2" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
-      <tool toolname="file utility" toolversion="5.41" />
       <tool toolname="Tika" toolversion="2.3.0" />
       <tool toolname="jpylyzer" toolversion="2.1.0" />
     </identity>

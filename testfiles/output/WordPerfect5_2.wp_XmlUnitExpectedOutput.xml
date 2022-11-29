@@ -3,6 +3,7 @@
   <identification>
     <identity format="WordPerfect Document" mimetype="application/vnd.wordperfect" toolname="FITS" toolversion="1.2.x">
       <tool toolname="Droid" toolversion="6.3" />
+      <tool toolname="file utility" toolversion="5.43" />
       <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
       <version toolname="Droid" toolversion="6.3">5.1</version>
       <externalIdentifier toolname="Droid" toolversion="6.3" type="puid">x-fmt/394</externalIdentifier>

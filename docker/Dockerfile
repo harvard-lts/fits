@@ -16,8 +16,8 @@
 
 FROM docker.io/eclipse-temurin:17-jre-jammy
 
-ARG FILE_VERSION=5.41
-ARG FILE_SHA256=13e532c7b364f7d57e23dfeea3147103150cb90593a57af86c10e4f6e411603f
+ARG FILE_VERSION=5.43
+ARG FILE_SHA256=8c8015e91ae0e8d0321d94c78239892ef9dbc70c4ade0008c0e95894abfb1991
 
 RUN apt-get update && \
     apt-get install -yqq \
