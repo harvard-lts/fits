@@ -43,7 +43,7 @@
         <embarc.version>0.2</embarc.version>
 
         <!-- Tool properties -->
-        <tika.version>2.3.0</tika.version>
+        <tika.version>2.6.0</tika.version>
         <tika.dir>lib/tika</tika.dir>
         <droid.version>6.5.2</droid.version>
         <droid.dir>lib/droid</droid.dir>

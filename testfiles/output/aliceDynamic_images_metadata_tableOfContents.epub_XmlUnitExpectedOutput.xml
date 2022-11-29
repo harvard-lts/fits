@@ -21,8 +21,8 @@
       <subject toolname="Tika" toolversion="2.3.0" status="SINGLE_RESULT">fiction</subject>
       <identifier toolname="Tika" toolversion="2.3.0" status="SINGLE_RESULT">urn:uuid:1a16ce38-82bd-4e9b-861e-773c2e787a50</identifier>
       <language toolname="Tika" toolversion="2.3.0" status="SINGLE_RESULT">en-GB</language>
-      <title toolname="Tika" toolversion="2.3.0" status="SINGLE_RESULT">Alice's Adventures in Wonderland</title>
       <author toolname="Tika" toolversion="2.3.0" status="SINGLE_RESULT">Lewis Carroll</author>
+      <title toolname="Tika" toolversion="2.3.0" status="SINGLE_RESULT">Alice's Adventures in Wonderland</title>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:Language>en-GB</docmd:Language>

@@ -13,10 +13,9 @@
   <fileinfo>
     <size toolname="Jhove" toolversion="1.20.1">13941032</size>
     <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Adobe Photoshop CS Macintosh</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="12.40" status="CONFLICT">2005-12-15T12:46:50</lastmodified>
-    <lastmodified toolname="Tika" toolversion="2.3.0" status="CONFLICT">2005-12-15T07:46:50</lastmodified>
+    <lastmodified toolname="Exiftool" toolversion="12.50">2005-12-15T12:46:50</lastmodified>
     <created toolname="Exiftool" toolversion="12.40" status="CONFLICT">2005-12-15T15:56:19Z</created>
-    <created toolname="Tika" toolversion="2.3.0" status="CONFLICT">2005-12-15T05:56:19</created>
+    <created toolname="Tika" toolversion="2.3.0" status="CONFLICT">2005-12-15T10:56:19</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/4072820.tif</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">4072820.tif</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">4a333061a5619b94aa5afc3bb106eb54</md5checksum>

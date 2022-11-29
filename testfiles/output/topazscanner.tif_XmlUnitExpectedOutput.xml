@@ -14,10 +14,9 @@
   <fileinfo>
     <size toolname="Jhove" toolversion="1.20.1">5146108</size>
     <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Adobe Photoshop CS Macintosh</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="12.40" status="CONFLICT">2006-11-28T13:30:06</lastmodified>
-    <lastmodified toolname="Tika" toolversion="2.3.0" status="CONFLICT">2006-11-28T08:30:06</lastmodified>
+    <lastmodified toolname="Exiftool" toolversion="12.50">2006-11-28T13:30:06</lastmodified>
     <created toolname="Exiftool" toolversion="12.40" status="CONFLICT">2006-11-28T17:22:59Z</created>
-    <created toolname="Tika" toolversion="2.3.0" status="CONFLICT">2006-11-28T08:30:06</created>
+    <created toolname="Tika" toolversion="2.3.0" status="CONFLICT">2006-11-28T13:30:06</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/topazscanner.tif</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">topazscanner.tif</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">c2c36f561b1da65ff74ea2b22fe3fba0</md5checksum>
