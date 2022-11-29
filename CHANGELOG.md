@@ -6,6 +6,7 @@
 - Tool upgrades
   - DROID 6.5.2
   - ExifTool 12.42
+  - File 5.43
   - Jhove 1.26.1
   - MediaInfo 22.09
   - Tika 2.3.0

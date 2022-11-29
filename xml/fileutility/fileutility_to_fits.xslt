@@ -558,14 +558,25 @@
 		  			<!-- WORD PERFECT -->
                     <xsl:when test="$format='(Corel/WP)'">
                         <xsl:attribute name="format">
-                            <xsl:value-of select="string('WordPerfect Document')"/>
+                            <xsl:value-of select="'WordPerfect Document'"/>
                         </xsl:attribute>
-                    </xsl:when>     
+                    </xsl:when>
+					<xsl:when test="starts-with($format, 'WordPerfect')">
+						<xsl:attribute name="format">
+							<xsl:value-of select="'WordPerfect Document'" />
+						</xsl:attribute>
+					</xsl:when>
+					<!-- VTT -->
+					<xsl:when test="starts-with($format, 'WebVTT')">
+						<xsl:attribute name="format">
+							<xsl:value-of select="'WebVTT'" />
+						</xsl:attribute>
+					</xsl:when>
 					<xsl:otherwise>
 						<xsl:attribute name="format">
 							<xsl:value-of select="$format"/>
 						</xsl:attribute>
-					</xsl:otherwise>							
+					</xsl:otherwise>
 				</xsl:choose>
 			
 			</identity>
