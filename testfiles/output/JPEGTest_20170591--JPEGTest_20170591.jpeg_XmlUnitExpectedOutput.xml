@@ -6,7 +6,6 @@
       <tool toolname="Jhove" toolversion="1.20.1" />
       <tool toolname="file utility" toolversion="5.39" />
       <tool toolname="Exiftool" toolversion="11.54" />
-      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
       <version toolname="Droid" toolversion="6.4" status="CONFLICT">2.2.1</version>
       <version toolname="file utility" toolversion="5.39" status="CONFLICT">16</version>
       <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">fmt/645</externalIdentifier>
@@ -14,11 +13,9 @@
   </identification>
   <fileinfo>
     <size toolname="Jhove" toolversion="1.20.1">4324778</size>
-    <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="CONFLICT">HERO3+ Black Edition</creatingApplicationName>
-    <creatingApplicationName toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">Adobe Photoshop CS6 (Macintosh)</creatingApplicationName>
+    <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">HERO3+ Black Edition</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="12.50">2015-06-25T11:03:38</lastmodified>
-    <created toolname="Exiftool" toolversion="12.40" status="CONFLICT">2014-10-27T12:34:43</created>
-    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015-06-25T11:03:38</created>
+    <created toolname="Exiftool" toolversion="12.40">2014-10-27T12:34:43</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/JPEGTest_20170591--JPEGTest_20170591.jpeg</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">JPEGTest_20170591--JPEGTest_20170591.jpeg</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">3c5a86c471809d347e99d19c51bd1b94</md5checksum>
@@ -37,8 +34,8 @@
       <colorSpace toolname="Jhove" toolversion="1.24.9">RGB</colorSpace>
       <iccProfileName toolname="Jhove" toolversion="1.20.1">sRGB IEC61966-2.1</iccProfileName>
       <YCbCrSubSampling toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">1 1</YCbCrSubSampling>
-      <YCbCrPositioning toolname="Exiftool" toolversion="11.54">1</YCbCrPositioning>
-      <orientation toolname="Exiftool" toolversion="11.54">normal*</orientation>
+      <YCbCrPositioning toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">1</YCbCrPositioning>
+      <orientation toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">normal*</orientation>
       <samplingFrequencyUnit toolname="Jhove" toolversion="1.20.1">in.</samplingFrequencyUnit>
       <xSamplingFrequency toolname="Jhove" toolversion="1.20.1">72</xSamplingFrequency>
       <ySamplingFrequency toolname="Jhove" toolversion="1.20.1">72</ySamplingFrequency>
@@ -49,12 +46,10 @@
       <fNumber toolname="Jhove" toolversion="1.20.1">2.8</fNumber>
       <exposureTime toolname="Jhove" toolversion="1.20.1" status="CONFLICT">0.008</exposureTime>
       <exposureTime toolname="Exiftool" toolversion="11.54" status="CONFLICT">0.0083</exposureTime>
-      <exposureTime toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">0.008340283569641367</exposureTime>
       <isoSpeedRating toolname="Jhove" toolversion="1.20.1">142</isoSpeedRating>
       <exposureBiasValue toolname="Jhove" toolversion="1.20.1">0</exposureBiasValue>
       <lightSource toolname="Jhove" toolversion="1.20.1">unknown</lightSource>
-      <subjectDistance toolname="Exiftool" toolversion="11.54" status="CONFLICT">undef</subjectDistance>
-      <subjectDistance toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">NaN</subjectDistance>
+      <subjectDistance toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">undef</subjectDistance>
       <meteringMode toolname="Jhove" toolversion="1.20.1">Center weighted average</meteringMode>
       <flash toolname="Jhove" toolversion="1.20.1">No flash function</flash>
       <focalLength toolname="Jhove" toolversion="1.20.1" status="CONFLICT">2.77</focalLength>
@@ -64,14 +59,12 @@
       <iccProfileVersion toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
       <captureDevice toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">digital still camera</captureDevice>
       <digitalCameraManufacturer toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">GoPro</digitalCameraManufacturer>
-      <exposureProgram toolname="Exiftool" toolversion="11.54">Normal program</exposureProgram>
-      <exifVersion toolname="Exiftool" toolversion="11.54">0221</exifVersion>
+      <exposureProgram toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Normal program</exposureProgram>
+      <exifVersion toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">0221</exifVersion>
       <shutterSpeedValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">1/120</shutterSpeedValue>
-      <apertureValue toolname="Exiftool" toolversion="11.54" status="CONFLICT">2.8</apertureValue>
-      <apertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2.97</apertureValue>
-      <maxApertureValue toolname="Exiftool" toolversion="11.54" status="CONFLICT">2.8</maxApertureValue>
-      <maxApertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2.97</maxApertureValue>
-      <sensingMethod toolname="Exiftool" toolversion="11.54">One-chip color area sensor</sensingMethod>
+      <apertureValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.8</apertureValue>
+      <maxApertureValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.8</maxApertureValue>
+      <sensingMethod toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">One-chip color area sensor</sensingMethod>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -185,7 +178,7 @@
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
     <tool toolname="file utility" toolversion="5.39" executionTime="53" />
     <tool toolname="Exiftool" toolversion="11.54" executionTime="352" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="31" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
     <tool toolname="OIS File Information" toolversion="1.0" executionTime="49" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
     <tool toolname="ffident" toolversion="0.2" executionTime="6" />

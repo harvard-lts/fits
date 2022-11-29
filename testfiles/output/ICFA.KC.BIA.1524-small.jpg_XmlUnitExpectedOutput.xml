@@ -6,7 +6,6 @@
       <tool toolname="Jhove" toolversion="1.20.1" />
       <tool toolname="file utility" toolversion="5.39" />
       <tool toolname="Exiftool" toolversion="11.54" />
-      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
       <version toolname="Droid" toolversion="6.4" status="CONFLICT">2.2.1</version>
       <version toolname="file utility" toolversion="5.39" status="CONFLICT">16</version>
       <version toolname="Exiftool" toolversion="11.54" status="CONFLICT">5.5</version>
@@ -15,11 +14,9 @@
   </identification>
   <fileinfo>
     <size toolname="Jhove" toolversion="1.20.1">38829</size>
-    <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="CONFLICT">Canon EOS 5D Mark II</creatingApplicationName>
-    <creatingApplicationName toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">Adobe Photoshop CS6 (Windows)</creatingApplicationName>
+    <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Canon EOS 5D Mark II</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="12.50">2017-01-30T11:39:51</lastmodified>
-    <created toolname="Exiftool" toolversion="12.40" status="CONFLICT">2010-07-07T14:22:53</created>
-    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2017-01-30T11:39:51</created>
+    <created toolname="Exiftool" toolversion="12.40">2010-07-07T14:22:53</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/ICFA.KC.BIA.1524-small.jpg</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">ICFA.KC.BIA.1524-small.jpg</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">0108175c9153da1d41278066a2e3c1a2</md5checksum>
@@ -43,7 +40,7 @@
       <colorSpace toolname="Exiftool" toolversion="12.40" status="CONFLICT">RGB</colorSpace>
       <iccProfileName toolname="Jhove" toolversion="1.20.1">Adobe RGB (1998)</iccProfileName>
       <YCbCrSubSampling toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">1 1</YCbCrSubSampling>
-      <orientation toolname="Exiftool" toolversion="11.54">normal*</orientation>
+      <orientation toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">normal*</orientation>
       <samplingFrequencyUnit toolname="Jhove" toolversion="1.20.1">in.</samplingFrequencyUnit>
       <xSamplingFrequency toolname="Jhove" toolversion="1.20.1">350</xSamplingFrequency>
       <ySamplingFrequency toolname="Jhove" toolversion="1.20.1">350</ySamplingFrequency>
@@ -55,18 +52,14 @@
       <exposureTime toolname="Jhove" toolversion="1.20.1">0.125</exposureTime>
       <isoSpeedRating toolname="Jhove" toolversion="1.20.1">100</isoSpeedRating>
       <exposureBiasValue toolname="Jhove" toolversion="1.20.1">0</exposureBiasValue>
-      <lightSource toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">unknown</lightSource>
       <flash toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">Flash did not fire, compulsory flash mode</flash>
       <focalLength toolname="Jhove" toolversion="1.20.1">50</focalLength>
       <iccProfileVersion toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
       <digitalCameraManufacturer toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Canon</digitalCameraManufacturer>
-      <exifVersion toolname="Exiftool" toolversion="11.54" status="CONFLICT">0221</exifVersion>
-      <exifVersion toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">1220</exifVersion>
+      <exifVersion toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">0221</exifVersion>
       <shutterSpeedValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">1/8</shutterSpeedValue>
-      <apertureValue toolname="Exiftool" toolversion="11.54" status="CONFLICT">11.0</apertureValue>
-      <apertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">6.918863</apertureValue>
-      <maxApertureValue toolname="Exiftool" toolversion="11.54" status="CONFLICT">2.5</maxApertureValue>
-      <maxApertureValue toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2.625</maxApertureValue>
+      <apertureValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">11.0</apertureValue>
+      <maxApertureValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.5</maxApertureValue>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -132,7 +125,6 @@
                     <mix:numerator>250</mix:numerator>
                     <mix:denominator>100</mix:denominator>
                   </mix:maxApertureValue>
-                  <mix:lightSource>unknown</mix:lightSource>
                   <mix:flash>Flash did not fire, compulsory flash mode</mix:flash>
                   <mix:focalLength>50.0</mix:focalLength>
                 </mix:ImageData>
@@ -176,7 +168,7 @@
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
     <tool toolname="file utility" toolversion="5.39" executionTime="45" />
     <tool toolname="Exiftool" toolversion="11.54" executionTime="401" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="154" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
     <tool toolname="OIS File Information" toolversion="1.0" executionTime="5" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
     <tool toolname="ffident" toolversion="0.2" executionTime="10" />

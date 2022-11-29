@@ -6,7 +6,6 @@
       <tool toolname="Jhove" toolversion="1.26.0" />
       <tool toolname="file utility" toolversion="5.41" />
       <tool toolname="Exiftool" toolversion="12.40" />
-      <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" />
       <version toolname="Droid" toolversion="6.5.2">1.01</version>
       <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/43</externalIdentifier>
     </identity>
@@ -35,7 +34,6 @@
       <ySamplingFrequency toolname="Exiftool" toolversion="12.40">1</ySamplingFrequency>
       <bitsPerSample toolname="Jhove" toolversion="1.26.0">8 8 8</bitsPerSample>
       <samplesPerPixel toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">3</samplesPerPixel>
-      <lightSource toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">unknown</lightSource>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -61,14 +59,6 @@
           </mix:BasicImageInformation>
           <mix:ImageCaptureMetadata>
             <mix:GeneralCaptureInformation />
-            <mix:DigitalCameraCapture>
-              <mix:DigitalCameraModel />
-              <mix:CameraCaptureSettings>
-                <mix:ImageData>
-                  <mix:lightSource>unknown</mix:lightSource>
-                </mix:ImageData>
-              </mix:CameraCaptureSettings>
-            </mix:DigitalCameraCapture>
           </mix:ImageCaptureMetadata>
           <mix:ImageAssessmentMetadata>
             <mix:SpatialMetrics>
@@ -106,7 +96,7 @@
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
     <tool toolname="file utility" toolversion="5.41" executionTime="117" />
     <tool toolname="Exiftool" toolversion="12.40" executionTime="319" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="116" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
     <tool toolname="OIS File Information" toolversion="1.0" executionTime="37" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
     <tool toolname="ffident" toolversion="0.2" executionTime="60" />

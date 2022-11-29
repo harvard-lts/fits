@@ -28,6 +28,7 @@ to `true` in your `fits.xml`.
 - Do not infer a timezone for exif timestamps.
 - Preserve whitespace within text elements. This ensures that significant spaces aren't trimmed from codec codes,
 but could also result in unwanted whitespace in other elements.
+- No longer run NZME on image files by default.
 - General internal dependency upgrades.
 
 ## Version 1.5.5 (5/10/2022)
