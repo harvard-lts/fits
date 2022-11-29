@@ -9,7 +9,7 @@
   - File 5.43
   - Jhove 1.26.1
   - MediaInfo 22.09
-  - Tika 2.3.0
+  - Tika 2.6.0
 - Add FITS config option `consolidate-first-identity`, defaulted to `false`. This means that metadata from
 all tools that identify a file is included, even if the identified format is _not_ the highest ranked
 identity. This is a behavior change from previous versions. If you prefer the old behavior, set the value
