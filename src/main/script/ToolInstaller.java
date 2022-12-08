@@ -176,10 +176,7 @@ public class ToolInstaller {
                 List.of("MediaInfoLib/libmediainfo.0.dylib", "MediaInfoLib/ReadMe.txt",
                         "MediaInfoLib/Changes.txt", "MediaInfoLib/History.txt"));
 
-        // TODO verify if both are actually needed
-        // There is supposed to be a symlink from libmediainfo.dylib to libmediainfo.0.dylib, but it's a bit of a
-        // headache with archiving, so we'll just make a copy of the file
-        Files.copy(target.resolve("libmediainfo.0.dylib"), target.resolve("libmediainfo.dylib"));
+        Files.move(target.resolve("libmediainfo.0.dylib"), target.resolve("libmediainfo.dylib"));
 
         deleteDir(temp);
         Files.deleteIfExists(archive);
