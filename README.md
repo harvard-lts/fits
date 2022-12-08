@@ -1,10 +1,8 @@
-FITS
-====
+# FITS
 
 ![build status](https://github.com/harvard-lts/fits/actions/workflows/build.yml/badge.svg)
 
-System Requirements
--------------------
+## System Requirements
 
 FITS is a Java program and requires Java version 11 or higher. To find out your Java version type java -version in a
 command-line window.
@@ -24,32 +22,107 @@ ignore the requirements.
     as well, but, if it doesn't, install MediaInfo directly on your system **and** delete the copy in FITS at `tools/mediainfo`.
     After deleting the copy in FITS, it will then use the system copy.
 
-Installation
-------------
-Download the latest official binary release from our [Downloads](http://fitstool.org/downloads) page.
+## Installation
 
-**IMPORTANT NOTE**: The code on this GitHub site is not meant for direct installation since it does NOT include the
-necessary fits.jar file (which is a primary build artifact of this project). If you want to use this GitHub site for
-installing FITS, you must first download (or Git clone) the code then build the project using Maven. See the "Development"
-section for more details.
+You can either install FITS directly on your system or run it through a Docker container.
 
-If this is your first time downloading FITS, create a directory for FITS, for example:
+### Direct Installation
 
-    On Windows: C:\Program Files\Fits
-    On Mac OS X: /Applications/Fits
-    On *nix: /home/myuser/Fits
+**IMPORTANT NOTE**: The git source code repository is not meant for direct installation. If you want to install directly
+from the source instead of using a release artifact, then refer to the [Development](#Development) section.
 
-Extract the contents of your ZIP file to your FITS directory. You should end up with a another directory under your
-top-level FITS directory that has a version number embedded in it, for example on Windows:
+1. Download the latest official release artifact from our [Downloads](http://fitstool.org/downloads) page.
+2. Create a FITS directory, and unzip the artifact into it.
 
-    C:\Program Files\Fits\fits-1.4.1 (or whatever the current version is)
+For example:
 
-Running FITS
-------------
+```shell
+mkdir ~/fits
+unzip -d ~/Downloads/fits-1.6.0.zip ~/fits/fits-1.6.0
+```
+
+#### Media Info
+
+If you install FITS on Linux, and you are **not** using Ubuntu, then you may need to manually install Media Info. To
+do this, you can either replace the Media Info binaries that are distributed with FITS, or you can delete the distributed
+binaries and install Media Info at the system level.
+
+Whichever approach you use, first, delete `tools/mediainfo/linux/libmediainfo.so.0` and `tools/mediainfo/linux/libzen.so.0`.
+Then, if you're installing it at the system level, use your system's package manager to install Media Info.
+
+If, instead, you'd like to replace the binaries:
+
+1. Download the packages that were built for your system from the [Media Info download page](https://mediaarea.net/en/MediaInfo/Download).
+   You want the `libmediainfo` and `libzen` packages. The packages will likely be either rpm or deb packages.
+2. You need to extract the packages and locate the `libmediainfo.so.0` and `libzen.so.0` binaries within them.
+3. Copy these binaries into `tools/mediainfo/linux`
+4. If Media Info is still not working on your system, it's possible that your system is missing a required Media Info
+   dependency. You will need to identify what is missing, and install it. This is not an issue, if you install Media
+   Info directly through your system's package manager.
+
+### Docker Installation
+
+To run FITS using Docker, you'll need Docker (or Docker-compatible service) installed.
+
+1. Download a copy of the [release artifact](http://fitstool.org/downloads).
+2. Extract it to any directory.
+3. Build the Docker image using the distributed Dockerfile.
+4. Optionally, delete the FITS directory as it is no longer needed.
+
+For example:
+
+```shell
+mkdir ~/fits
+unzip -d ~/Downloads/fits-1.6.0.zip ~/fits/fits-1.6.0
+cd ~/fits/fits-1.6.0
+docker build -f Dockerfile -t fits:latest -t fits:1.6.0 .
+```
+
+After building the image, you can use it directly to analyze files. The following are some examples. Note these
+examples mount the current working directory within the Docker container, which means that the only files that are
+accessible within the container are files that are relative the current working directory. Additionally, these commands
+**do not** need to be run within the FITS root and can be run anywhere on the system.
+
+```shell
+# Run FITS on a file
+docker run --rm -v `pwd`:/work fits -i file.txt
+
+# Run a specific version of FITS on a file
+docker run --rm -v `pwd`:/work fits:1.6.0 -i file.txt
+
+# Run FITS on a directory
+docker run --rm -v `pwd`:/work fits -r -n -i in-dir -o out-dir
+
+# Run FITS with alternate configuration
+docker run --rm -v `pwd`:/work fits -f fits-custom.xml -i file.txt
+```
+
+## Configuration
+
+### Logging
+
+Whether using the default `log4j2.xml` configuration file contained within the application deployment or configuring an
+external `log4j2.xml` file, the default logging output file, fits.log, is configured to be written to the directory from
+which FITS is launched. This can be modified by finding the following line within the `log4j2.xml` file in the
+top-level directory of the FITS deployment:
+
+    fileName="./fits.log"
+
+Modify the path to fits.log to have this log file written to a different place on the file system.
+To use a `log4j2.xml` file external to the FITS deployment, when launching FITS add the following
+property to the deployment script:
+
+    -Dlog4j2.configurationFile=/path/to/log4j2.xml
+
+For more information on configuring the verboseness of logging using ERROR, WARN, INFO, DEBUG, see the
+[log4j site](https://logging.apache.org/log4j/2.x/manual/)
+
+## Running FITS
+
 FITS can be run on a command-line or within a program using the Java API.
 
-FITS from the command-line
---------------------------
+### FITS from the command-line
+
 Run FITS on the command-line using one of the start-up scripts (fits.bat on Windows, fits.sh on Mac OS X and *nix). 
 
 For example on Windows:
@@ -75,63 +148,15 @@ more complex examples can be found in the on-line user manual.
     Output the technical metadata only (in the TextMD format) for the file to the terminal: fits.bat -x -i version.properties
     Output the FITS output plus technical metadata (in the TextMD format) for the text file to the terminal: fits.bat -xc -i version.properties
 
-FITS through Docker
--------------------
-In the root of the FITS distribution zip is a Dockerfile that can be used to build a FITS Docker image. To build the
-image, execute the following from within the FITS root directory:
+## Using FITS Java API
 
-```shell
-docker build -f Dockerfile -t fits:latest -t fits:1.6.0 .
-```
-
-After building the image, you can use it directly to analyze files. The following are some examples. Note these
-examples mount the current working directory within the Docker container, which means that the only files that are
-accessible within the container are files that are relative the current working directory. Additionally, these commands
-**do not** need to be run within the FITS root and can be run anywhere on the system.
-
-```shell
-# Run FITS on a file
-docker run --rm -v `pwd`:/work fits -i file.txt
-
-# Run a specific version of FITS on a file
-docker run --rm -v `pwd`:/work fits:1.6.0 -i file.txt
-
-# Run FITS on a directory
-docker run --rm -v `pwd`:/work fits -r -n -i in-dir -o out-dir
-
-# Run FITS with alternate configuration
-docker run --rm -v `pwd`:/work fits -f fits-custom.xml -i file.txt
-```
-
-Logging
--------
-Whether using the default log4j2.xml configuration file contained within the application deployment or configuring an
-external log4j2.xml file, the default logging output file, fits.log, is configured to be written to the directory from
-which FITS is launched. This can be modified by finding the following line within the log4j2.xml file in the
-top-level directory of the FITS deployment:
-
-    fileName="./fits.log"
-
-Modify the path to fits.log to have this log file written to a different place on the file system.
-To use a log4j2.xml (or log4j2.properties) file external to the FITS deployment, when launching FITS add the following
-property to the deployment script:
-
-    -Dlog4j2.configurationFile=/path/to/log4j2.xml
-
-For more information on configuring the verboseness of logging using ERROR, WARN, INFO, DEBUG, see the
-[log4j site](https://logging.apache.org/log4j/2.x/manual/)
-
-Using FITS Java API
--------------------
 See the [Developer Manual](http://fitstool.org/developer-manual).
 
-Learn more
-----------
+## Learn more
+
 After you are up and running see the [User Manual](http://fitstool.org/user-manual) for more documentation.
 
-
-Development
------------
+## Development
 
 ### Building
 
@@ -207,8 +232,8 @@ Available recipes:
 
 The commands are defined in [justfile](justfile).
 
-License Details
----------------
+## License Details
+
 FITS is released under the [GNU LGPL](http://www.gnu.org/licenses/lgpl.html) open source license. The source code for
 FITS is included in the downloadable ZIP files.
 
