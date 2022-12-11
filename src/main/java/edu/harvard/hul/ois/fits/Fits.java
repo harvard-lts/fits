@@ -163,7 +163,8 @@ public class Fits {
         String log4jSystemProp = System.getProperty("log4j2.configurationFile");
         if (log4jSystemProp == null) {
             File log4jProperties = new File(FITS_HOME + "log4j2.xml");
-            System.setProperty("log4j2.configurationFile", log4jProperties.getPath());
+            System.setProperty(
+                    "log4j2.configurationFile", log4jProperties.toURI().toString());
         }
         logger = LoggerFactory.getLogger(Fits.class);
         logger.info("Logging initialized with: " + System.getProperty("log4j2.configurationFile"));
