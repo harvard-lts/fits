@@ -63,7 +63,8 @@ public class Jpylyzer extends ToolBase {
 
         if (osName.startsWith("Windows")) {
             workingDir = WINDOWS_ROOT;
-            command = List.of("jpylyzer.exe");
+            command = List.of(
+                    WINDOWS_ROOT.resolve("jpylyzer.exe").toAbsolutePath().toString());
             info.setNote("jpylyzer for windows");
             log.debug("jpylyzer will use Windows environment");
         } else if (isPythonAvailable()) {
