@@ -59,7 +59,8 @@ public class FitsOutput {
     private Document fitsXml; // This is in the FITS XML format
     private List<Throwable> caughtThrowables = new ArrayList<>();
     private final XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
-    private final Namespace fitsNamespace = Namespace.getNamespace(Fits.XML_NAMESPACE);
+    private final Namespace fitsNamespace = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
+    private final Namespace noPrefixFitsNamespace = Namespace.getNamespace(Fits.XML_NAMESPACE);
     private final XPathFactory xFactory = XPathFactory.instance();
 
     private static final Logger logger = LoggerFactory.getLogger(FitsOutput.class);
@@ -417,13 +418,13 @@ public class FitsOutput {
 
     public void createStatistics(ToolBelt toolBelt, long totalExecutionTime) {
         Element root = fitsXml.getRootElement();
-        Element statistics = new Element("statistics", fitsNamespace);
+        Element statistics = new Element("statistics", noPrefixFitsNamespace);
 
         for (Tool t : toolBelt.getTools()) {
 
             // if the tool should have been used for the file, else ignore it because it did not run
             ToolInfo info = t.getToolInfo();
-            Element tool = new Element("tool", fitsNamespace);
+            Element tool = new Element("tool", noPrefixFitsNamespace);
             tool.setAttribute("toolname", info.getName());
             tool.setAttribute("toolversion", info.getVersion());
 
