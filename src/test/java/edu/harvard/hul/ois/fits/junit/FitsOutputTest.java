@@ -30,8 +30,7 @@ public class FitsOutputTest extends AbstractLoggingTest {
     public void testFitsOutput() throws Exception {
 
         FitsOutput fitsOutput = new FitsOutput(fitsMetadata);
-        FitsMetadataElement element = fitsOutput.getMetadataElement("fileinfo");
-        element = fitsOutput.getMetadataElement("filepath");
+        FitsMetadataElement element = fitsOutput.getMetadataElement("filepath");
         String filePath = element.getValue();
         Assert.assertEquals("/home/drs2_fits/tomcat8_dev/webapps/fits/upload/1474662914011/400201494.mov", filePath);
         String version = fitsOutput.getFitsVersion();
