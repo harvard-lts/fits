@@ -54,6 +54,7 @@ public class ParentLastClassLoader extends ClassLoader {
         loadByParentClassLoader.add("edu.harvard.hul.ois.fits.tools.Tool");
         loadByParentClassLoader.add("edu.harvard.hul.ois.fits.tools.ToolInfo");
         loadByParentClassLoader.add("org.apache.xerces");
+        loadByParentClassLoader.add("org.apache.commons.configuration");
         loadByParentClassLoader.add("org.w3c");
         loadByParentClassLoader.add("org.jdom2");
         // Needed so tools can access FITS config
