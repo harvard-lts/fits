@@ -27,6 +27,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -44,8 +45,6 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class acts as a wrapper around the fitsXML JDOM Document and provides
@@ -57,26 +56,27 @@ import org.slf4j.LoggerFactory;
 public class FitsOutput {
 
     private Document fitsXml; // This is in the FITS XML format
+    private Namespace defaultFitsNamespace;
+    private Namespace prefixedFitsNamespace;
     private List<Throwable> caughtThrowables = new ArrayList<>();
     private final XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
-    private final Namespace fitsNamespace = Namespace.getNamespace(Fits.XML_NAMESPACE);
     private final XPathFactory xFactory = XPathFactory.instance();
-
-    private static final Logger logger = LoggerFactory.getLogger(FitsOutput.class);
 
     public FitsOutput(String fitsXmlStr) throws JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();
         Reader in = new StringReader(fitsXmlStr);
         Document fitsXml = builder.build(in);
-        this.fitsXml = fitsXml;
+        setFitsXml(fitsXml);
     }
 
     public FitsOutput(Document fitsXml) {
-        this.fitsXml = fitsXml;
+        setFitsXml(fitsXml);
     }
 
     public void setFitsXml(Document fitsXml) {
         this.fitsXml = fitsXml;
+        this.defaultFitsNamespace = fitsXml.getRootElement().getNamespace();
+        this.prefixedFitsNamespace = Namespace.getNamespace("fits", defaultFitsNamespace.getURI());
     }
 
     public Document getFitsXml() {
@@ -94,24 +94,25 @@ public class FitsOutput {
     @SuppressWarnings("unchecked")
     public List<FitsMetadataElement> getFileInfoElements() {
         Element root = fitsXml.getRootElement();
-        Element fileInfo = root.getChild("fileinfo", fitsNamespace);
+        Element fileInfo = root.getChild("fileinfo", defaultFitsNamespace);
         return buildMetadataList(fileInfo);
     }
 
     @SuppressWarnings("unchecked")
     public List<FitsMetadataElement> getFileStatusElements() {
         Element root = fitsXml.getRootElement();
-        Element fileStatus = root.getChild("filestatus", fitsNamespace);
+        Element fileStatus = root.getChild("filestatus", defaultFitsNamespace);
         return buildMetadataList(fileStatus);
     }
 
     @SuppressWarnings("unchecked")
     public List<FitsMetadataElement> getTechMetadataElements() {
         Element root = fitsXml.getRootElement();
-        Element metadata = root.getChild("metadata", fitsNamespace);
+        Element metadata = root.getChild("metadata", defaultFitsNamespace);
         if (metadata.getChildren().size() > 0) {
-            Element techMetadata =
-                    root.getChild("metadata", fitsNamespace).getChildren().get(0);
+            Element techMetadata = root.getChild("metadata", defaultFitsNamespace)
+                    .getChildren()
+                    .get(0);
             return buildMetadataList(techMetadata);
         } else {
             return null;
@@ -120,10 +121,11 @@ public class FitsOutput {
 
     public String getTechMetadataType() {
         Element root = fitsXml.getRootElement();
-        Element metadata = root.getChild("metadata", fitsNamespace);
+        Element metadata = root.getChild("metadata", defaultFitsNamespace);
         if (metadata.getChildren().size() > 0) {
-            Element techMetadata =
-                    root.getChild("metadata", fitsNamespace).getChildren().get(0);
+            Element techMetadata = root.getChild("metadata", defaultFitsNamespace)
+                    .getChildren()
+                    .get(0);
             return techMetadata.getName();
         } else {
             return null;
@@ -132,11 +134,11 @@ public class FitsOutput {
 
     public FitsMetadataElement getFileInfoElement(String name) {
         Element root = fitsXml.getRootElement();
-        Element fileInfo = root.getChild("fileinfo", fitsNamespace);
+        Element fileInfo = root.getChild("fileinfo", defaultFitsNamespace);
         if (fileInfo.getChildren().size() > 0) {
-            Element element = fileInfo.getChild(name, fitsNamespace);
+            Element element = fileInfo.getChild(name, defaultFitsNamespace);
             if (element != null) {
-                return buildMetdataIElements(element);
+                return buildMetadataIElements(element);
             } else {
                 return null;
             }
@@ -146,10 +148,11 @@ public class FitsOutput {
     }
 
     public FitsMetadataElement getMetadataElement(String name) {
-        XPathExpression<Element> expr = xFactory.compile("//fits:" + name, Filters.element(), null, fitsNamespace);
+        XPathExpression<Element> expr =
+                xFactory.compile("//fits:" + name, Filters.element(), null, prefixedFitsNamespace);
         Element node = expr.evaluateFirst(fitsXml);
         if (node != null) {
-            FitsMetadataElement element = buildMetdataIElements(node);
+            FitsMetadataElement element = buildMetadataIElements(node);
             return element;
         }
         return null;
@@ -157,10 +160,11 @@ public class FitsOutput {
 
     public List<FitsMetadataElement> getMetadataElements(String name) {
         List<FitsMetadataElement> elements = new ArrayList<>();
-        XPathExpression<Element> expr = xFactory.compile("//fits:" + name, Filters.element(), null, fitsNamespace);
+        XPathExpression<Element> expr =
+                xFactory.compile("//fits:" + name, Filters.element(), null, prefixedFitsNamespace);
         List<Element> nodes = expr.evaluate(fitsXml);
         for (Element e : nodes) {
-            elements.add(buildMetdataIElements(e));
+            elements.add(buildMetadataIElements(e));
         }
         return elements;
     }
@@ -194,12 +198,12 @@ public class FitsOutput {
             return null;
         }
         for (Element child : parent.getChildren()) {
-            data.add(buildMetdataIElements(child));
+            data.add(buildMetadataIElements(child));
         }
         return data;
     }
 
-    private FitsMetadataElement buildMetdataIElements(Element node) {
+    private FitsMetadataElement buildMetadataIElements(Element node) {
         FitsMetadataElement element = new FitsMetadataElement();
         element.setName(node.getName());
         element.setValue(node.getValue());
@@ -262,7 +266,7 @@ public class FitsOutput {
     /** Return an XmlContent object representing the data from fitsXml. */
     public XmlContent getStandardXmlContent() {
 
-        Element metadata = fitsXml.getRootElement().getChild("metadata", fitsNamespace);
+        Element metadata = fitsXml.getRootElement().getChild("metadata", defaultFitsNamespace);
 
         if (metadata == null) {
             return null;
@@ -272,33 +276,33 @@ public class FitsOutput {
 
         // Element metadata = root.getChild("metadata");
         // This can have an image, document, text, or audio subelement.
-        Element subElem = metadata.getChild("image", fitsNamespace);
+        Element subElem = metadata.getChild("image", defaultFitsNamespace);
         if (subElem != null) {
-            Element fileinfo = fitsXml.getRootElement().getChild("fileinfo", fitsNamespace);
+            Element fileinfo = fitsXml.getRootElement().getChild("fileinfo", defaultFitsNamespace);
             // Process image metadata...
             return conv.toMix(subElem, fileinfo);
         }
-        subElem = metadata.getChild("text", fitsNamespace);
+        subElem = metadata.getChild("text", defaultFitsNamespace);
         if (subElem != null) {
             // Process text metadata...
             return conv.toTextMD(subElem);
         }
-        subElem = metadata.getChild("document", fitsNamespace);
+        subElem = metadata.getChild("document", defaultFitsNamespace);
         if (subElem != null) {
             // Process document metadata...
             return conv.toDocumentMD(subElem);
         }
-        subElem = metadata.getChild("audio", fitsNamespace);
+        subElem = metadata.getChild("audio", defaultFitsNamespace);
         if (subElem != null) {
             // Process audio metadata...
             return conv.toAES(this, subElem);
         }
-        subElem = metadata.getChild("video", fitsNamespace);
+        subElem = metadata.getChild("video", defaultFitsNamespace);
         if (subElem != null) {
             // Process video metadata...
             return conv.toEbuCoreVideo(this, subElem);
         }
-        subElem = metadata.getChild("container", fitsNamespace);
+        subElem = metadata.getChild("container", defaultFitsNamespace);
         if (subElem != null) {
             // Process container metadata...
             return conv.toContainerMD(subElem);
@@ -309,9 +313,8 @@ public class FitsOutput {
 
     public void addStandardCombinedFormat() throws XMLStreamException, IOException, FitsException {
         // get the normal fits xml output
-        Namespace ns = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
-        Element metadata = fitsXml.getRootElement().getChild("metadata", ns);
+        Element metadata = fitsXml.getRootElement().getChild("metadata", defaultFitsNamespace);
         Element techmd = null;
         if (metadata.getChildren().size() > 0) {
             techmd = metadata.getChildren().get(0);
@@ -325,14 +328,14 @@ public class FitsOutput {
                 XMLStreamWriter sw = xmlOutputFactory.createXMLStreamWriter(baos);
                 xml.output(sw);
 
-                String stdxml = baos.toString("UTF-8");
+                String stdxml = baos.toString(StandardCharsets.UTF_8);
 
                 // convert the std xml back to a JDOM element so we can insert it back into the fitsXml Document
                 try {
                     StringReader sReader = new StringReader(stdxml);
                     SAXBuilder saxBuilder = new SAXBuilder();
                     Document stdXmlDoc = saxBuilder.build(sReader);
-                    Element stdElement = new Element("standard", ns);
+                    Element stdElement = new Element("standard", defaultFitsNamespace);
                     stdElement.addContent(stdXmlDoc.getRootElement().detach());
                     techmd.addContent(stdElement);
 
@@ -345,8 +348,8 @@ public class FitsOutput {
 
     public List<FitsIdentity> getIdentities() {
         List<FitsIdentity> identities = new ArrayList<>();
-        Namespace ns = Namespace.getNamespace("fits", Fits.XML_NAMESPACE);
-        XPathExpression<Element> expr = xFactory.compile("//fits:identity", Filters.element(), null, ns);
+        XPathExpression<Element> expr =
+                xFactory.compile("//fits:identity", Filters.element(), null, prefixedFitsNamespace);
         List<Element> identElements = expr.evaluate(fitsXml);
         for (Element element : identElements) {
             FitsIdentity fileIdentSect = new FitsIdentity();
@@ -362,7 +365,7 @@ public class FitsOutput {
             }
 
             // get the tool elements
-            List<Element> toolElements = element.getChildren("tool", fitsNamespace);
+            List<Element> toolElements = element.getChildren("tool", defaultFitsNamespace);
             for (Element toolElement : toolElements) {
                 ToolInfo toolInfo = new ToolInfo();
                 Attribute toolNameAttr = toolElement.getAttribute("toolname");
@@ -377,7 +380,7 @@ public class FitsOutput {
             }
 
             // get the version elements
-            List<Element> versionElements = element.getChildren("version", fitsNamespace);
+            List<Element> versionElements = element.getChildren("version", defaultFitsNamespace);
             for (Element versionElement : versionElements) {
                 ToolInfo toolInfo = new ToolInfo();
                 Attribute toolNameAttr = versionElement.getAttribute("toolname");
@@ -394,7 +397,7 @@ public class FitsOutput {
             }
 
             // get the externalIdentifier elements
-            List<Element> xIDElements = element.getChildren("externalIdentifier", fitsNamespace);
+            List<Element> xIDElements = element.getChildren("externalIdentifier", defaultFitsNamespace);
             for (Element xIDElement : xIDElements) {
                 String type = xIDElement.getAttributeValue("type");
                 String value = xIDElement.getText();
@@ -417,13 +420,13 @@ public class FitsOutput {
 
     public void createStatistics(ToolBelt toolBelt, long totalExecutionTime) {
         Element root = fitsXml.getRootElement();
-        Element statistics = new Element("statistics", fitsNamespace);
+        Element statistics = new Element("statistics", defaultFitsNamespace);
 
         for (Tool t : toolBelt.getTools()) {
 
             // if the tool should have been used for the file, else ignore it because it did not run
             ToolInfo info = t.getToolInfo();
-            Element tool = new Element("tool", fitsNamespace);
+            Element tool = new Element("tool", defaultFitsNamespace);
             tool.setAttribute("toolname", info.getName());
             tool.setAttribute("toolversion", info.getVersion());
 
