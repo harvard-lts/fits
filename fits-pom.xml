@@ -307,8 +307,6 @@
             <groupId>edu.harvard.lts.tools</groupId>
             <artifactId>hclaps</artifactId>
             <version>${hclaps.version}</version>
-            <!-- not included in main lib directory - only in subdirectory -->
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>nz.govt.natlib</groupId>
