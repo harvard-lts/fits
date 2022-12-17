@@ -16,6 +16,7 @@
                       <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">avc1</dc:identifier>
                    </ebucore:codecIdentifier>
                    <ebucore:name>AVC</ebucore:name>
+                   <ebucore:version>Main@L4.1</ebucore:version>
                    <ebucore:family>H.264</ebucore:family>
                 </ebucore:codec>
                 <ebucore:bitRate>17375067</ebucore:bitRate>

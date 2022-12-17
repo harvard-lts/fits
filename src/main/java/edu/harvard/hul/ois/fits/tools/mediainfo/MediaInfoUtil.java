@@ -278,7 +278,7 @@ public class MediaInfoUtil {
             String codecName = getMediaInfoString(ndx, "Format", MediaInfoNativeWrapper.StreamKind.Video);
             addDataToMap(videoTrackValuesMap, id, "codecName", codecName);
 
-            String codecVersion = getMediaInfoString(ndx, "Format_profile", MediaInfoNativeWrapper.StreamKind.Video);
+            String codecVersion = getMediaInfoString(ndx, "Format_Profile", MediaInfoNativeWrapper.StreamKind.Video);
             addDataToMap(videoTrackValuesMap, id, "codecVersion", codecVersion);
 
             // By design - if the 4CC code is not one expected, then don't
