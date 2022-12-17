@@ -29,6 +29,7 @@
         <videoDataEncoding>m2v1</videoDataEncoding>
         <codecId>m2v1</codecId>
         <codecCC>m2v1</codecCC>
+        <codecVersion>Main@Main</codecVersion>
         <codecName>MPEG Video</codecName>
         <codecFamily>MPEG-2</codecFamily>
         <compression>Lossy</compression>
@@ -83,6 +84,7 @@
                     <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">m2v1</dc:identifier>
                   </ebucore:codecIdentifier>
                   <ebucore:name>MPEG Video</ebucore:name>
+                  <ebucore:version>Main@Main</ebucore:version>
                   <ebucore:family>MPEG-2</ebucore:family>
                 </ebucore:codec>
                 <ebucore:bitRate>2153111</ebucore:bitRate>

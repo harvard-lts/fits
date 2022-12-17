@@ -30,6 +30,7 @@
         <videoDataEncoding>avc1</videoDataEncoding>
         <codecId>avc1</codecId>
         <codecCC>avc1</codecCC>
+        <codecVersion>Main@L4.1</codecVersion>
         <codecName>AVC</codecName>
         <codecFamily>H.264</codecFamily>
         <codecInfo>Advanced Video Codec</codecInfo>

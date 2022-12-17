@@ -31,6 +31,7 @@
       <track type="video" id="2" toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">
         <videoDataEncoding>0D01030102046001</videoDataEncoding>
         <codecId>0D01030102046001</codecId>
+        <codecVersion>Main@Main</codecVersion>
         <codecName>MPEG Video</codecName>
         <compression>Lossy</compression>
         <byteOrder>Unknown</byteOrder>
