@@ -713,7 +713,7 @@ public class MediaInfoUtil {
                     // NOTE: If the bitRateMode is Variable (VBR), set it to the value for
                     // BitRateMax
                     String bitRateMode = videoTrackValuesMap.get(id).get("bitRateMode");
-                    if (!StringUtils.isEmpty(bitRateMode) && bitRateMode.equals("Variable")) {
+                    if (isVariableBitRate(bitRateMode)) {
                         String bitRateMax = videoTrackValuesMap.get(id).get("bitRateMax");
                         if (!StringUtils.isEmpty(bitRateMax)) {
                             childElement.setText(bitRateMax);
@@ -794,8 +794,7 @@ public class MediaInfoUtil {
                     // NOTE: If the bitRateMode is Variable (VBR), set it to the value for
                     // BitRateMax
                     String bitRateMode = audioTrackValuesMap.get(id).get("bitRateMode");
-                    if (!StringUtils.isEmpty(bitRateMode)
-                            && (bitRateMode.equals("Variable") || bitRateMode.equals("VBR"))) {
+                    if (isVariableBitRate(bitRateMode)) {
                         String bitRateMax = audioTrackValuesMap.get(id).get("bitRateMax");
                         if (!StringUtils.isEmpty(bitRateMax)) {
                             childElement.setText(bitRateMax);
@@ -848,5 +847,9 @@ public class MediaInfoUtil {
         for (Element elementToRemove : elementsToRemove) {
             elementToRemove.getParent().removeContent(elementToRemove);
         }
+    }
+
+    private boolean isVariableBitRate(String mode) {
+        return !StringUtils.isEmpty(mode) && (mode.equals("Variable") || mode.equals("VBR"));
     }
 }
