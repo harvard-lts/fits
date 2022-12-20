@@ -35,7 +35,7 @@
         <compression>Lossy</compression>
         <byteOrder>Unknown</byteOrder>
         <bitDepth>8 bits</bitDepth>
-        <bitRate>2153111</bitRate>
+        <bitRate>6000000</bitRate>
         <bitRateMode>Variable</bitRateMode>
         <duration>4138</duration>
         <delay>7141968</delay>
@@ -87,7 +87,7 @@
                   <ebucore:version>Main@Main</ebucore:version>
                   <ebucore:family>MPEG-2</ebucore:family>
                 </ebucore:codec>
-                <ebucore:bitRate>2153111</ebucore:bitRate>
+                <ebucore:bitRate>6000000</ebucore:bitRate>
                 <ebucore:bitRateMode>variable</ebucore:bitRateMode>
                 <ebucore:scanningFormat>interlaced</ebucore:scanningFormat>
                 <ebucore:videoTrack trackId="1" />
