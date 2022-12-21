@@ -28,6 +28,11 @@ import org.junit.Test;
 public class AudioStdSchemaXmlUnitTest extends AbstractXmlUnitTest {
 
     @Test
+    public void testFlac() throws Exception {
+        testFile("test.flac");
+    }
+
+    @Test
     public void testAudioChunk() throws Exception {
         testFile("testchunk.wav", fits, OutputType.DEFAULT);
     }

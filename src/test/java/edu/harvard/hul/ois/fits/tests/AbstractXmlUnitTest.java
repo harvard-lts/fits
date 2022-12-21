@@ -70,7 +70,13 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
         "executionTime",
         "filepath",
         "location",
-        "lastmodified"
+        "lastmodified",
+        "audioObjectRef",
+        "faceRef",
+        "ID",
+        "ownerRef",
+        "formatRef",
+        "faceRegionRef"
     };
 
     private static Logger logger = null;
