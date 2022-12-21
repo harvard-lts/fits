@@ -51,3 +51,4 @@ TEI P4 XML - Single Text File=TEI
 TEI P4 XML - Corpus File=TEI
 TEI P5 - Single Text File=TEI
 TEI P5 XML - Corpus File=TEI
+FLAC (Free Lossless Audio Codec)=Free Lossless Audio Codec

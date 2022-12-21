@@ -149,8 +149,10 @@ public class MetadataExtractor extends ToolBase {
 
         // XmlUtils.printToConsole(dom);
 
-        standardizeTimestamp("//fits:fileinfo/fits:created", fitsXml);
-        standardizeTimestamp("//fits:fileinfo/fits:lastmodified", fitsXml);
+        if (fitsXml != null) {
+            standardizeTimestamp("//fits:fileinfo/fits:created", fitsXml);
+            standardizeTimestamp("//fits:fileinfo/fits:lastmodified", fitsXml);
+        }
 
         output = new ToolOutput(this, fitsXml, dom, fits);
         duration = System.currentTimeMillis() - startTime;
