@@ -30,7 +30,7 @@
         <commons-io.version>2.11.0</commons-io.version>
         <commons-cli.version>1.5.0</commons-cli.version>
         <commons-configuration.version>1.10</commons-configuration.version>
-        <ots-schemas.version>1.0.61</ots-schemas.version>
+        <ots-schemas.version>1.0.62</ots-schemas.version>
         <jna.version>5.9.0</jna.version>
         <hclaps.version>2.2.0</hclaps.version>
         <fast-md5.version>2.7.1</fast-md5.version>

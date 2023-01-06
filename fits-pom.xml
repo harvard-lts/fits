@@ -291,12 +291,6 @@
             <groupId>edu.harvard.huit.lts</groupId>
             <artifactId>ots</artifactId>
             <version>${ots-schemas.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jdom</groupId>
-                    <artifactId>jdom</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>edu.harvard.lts.tools</groupId>
