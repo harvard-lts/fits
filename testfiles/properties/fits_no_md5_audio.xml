@@ -7,6 +7,7 @@
         <tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.AudioInfo" include-exts="wav" classpath-dirs="lib/audioinfo" />
         <tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.ADLTool" include-exts="adl" classpath-dirs="lib/adltool" />
         <tool class="edu.harvard.hul.ois.fits.tools.droid.Droid"  exclude-exts="odm,m4a" classpath-dirs="lib/droid" />
+        <tool class="edu.harvard.hul.ois.fits.tools.jpylyzer.Jpylyzer" include-exts="jp2" />
         <tool class="edu.harvard.hul.ois.fits.tools.jhove.Jhove" exclude-exts="dng,mbx,mbox,arw,adl,eml,java,doc,docx,docm,odt,rtf,pages,wpd,wp,epub,csv,avi,mov,mpg,mpeg,mkv,mp3,mp4,mpeg4,m2ts,mxf,ogv,mj2,divx,dv,m4v,m2v,ismv,pcd,zip" classpath-dirs="lib/jhove" />
         <tool class="edu.harvard.hul.ois.fits.tools.embarc.EmbARC" include-exts="dpx" />
         <tool class="edu.harvard.hul.ois.fits.tools.fileutility.FileUtility" exclude-exts="dng,wps,adl,jar,epub,csv,m4a" classpath-dirs="lib/fileutility" />
@@ -16,7 +17,6 @@
         <tool class="edu.harvard.hul.ois.fits.tools.oisfileinfo.XmlMetadata" include-exts="xml" classpath-dirs="lib/xmlmetadata" />
         <tool class="edu.harvard.hul.ois.fits.tools.ffident.FFIdent" exclude-exts="dng,wps,vsd,jar,ppt" classpath-dirs="lib/ffident" />
         <tool class="edu.harvard.hul.ois.fits.tools.tika.TikaTool" exclude-exts="jar" classpath-dirs="lib/tika"/>
-        <tool class="edu.harvard.hul.ois.fits.tools.jpylyzer.Jpylyzer" include-exts="jp2" />
     </tools>
     
     <output>
