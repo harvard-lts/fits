@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/12/23, 1:38 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/12/23, 8:26 PM">
   <identification>
     <identity format="Rich Text Format (RTF)" mimetype="application/rtf" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
@@ -36,21 +36,21 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="323">
+  <statistics fitsExecutionTime="276">
     <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="37" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="29" />
+    <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
     <tool toolname="Jhove" toolversion="1.26.1" status="did not run" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.43" executionTime="114" />
-    <tool toolname="Exiftool" toolversion="12.50" executionTime="313" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="123" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="266" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="51" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="53" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
     <tool toolname="ffident" toolversion="0.2" status="did not run" />
-    <tool toolname="Tika" toolversion="2.6.0" executionTime="38" />
-    <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="51" />
   </statistics>
 </fits>
