@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 10:59 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="7/14/22, 5:08 PM">
   <identification>
     <identity format="PDF/A" mimetype="application/pdf" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
-      <tool toolname="Exiftool" toolversion="12.50" />
-      <tool toolname="Tika" toolversion="2.6.0" />
+      <tool toolname="Exiftool" toolversion="12.40" />
+      <tool toolname="Tika" toolversion="2.3.0" />
       <version toolname="Droid" toolversion="6.5.2">1b</version>
       <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/354</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.26.1">397527</size>
-    <creatingApplicationName toolname="Jhove" toolversion="1.26.1">Mac OS X 10.5.6 Quartz PDFContext/XPP</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="12.50">2015-08-19T22:29:41Z</lastmodified>
-    <created toolname="Exiftool" toolversion="12.50">2009-04-13T18:38:02Z</created>
-    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/PDFa_has_tables.pdf</filepath>
+    <size toolname="Jhove" toolversion="1.26.0">397527</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.26.0">Mac OS X 10.5.6 Quartz PDFContext/XPP</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="12.40">2015-08-19T22:29:41Z</lastmodified>
+    <created toolname="Exiftool" toolversion="12.40">2009-04-13T18:38:02Z</created>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/PDFa_has_tables.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">PDFa_has_tables.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">fd321cedf56dec077704cfd5e0b6dbca</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358186788</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1466791807000</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">true</valid>
+    <well-formed toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</valid>
   </filestatus>
   <metadata>
     <document>
-      <author toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">XPP</author>
-      <pageCount toolname="Jhove" toolversion="1.26.1">4</pageCount>
-      <hasOutline toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">no</hasOutline>
-      <hasAnnotations toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">yes</hasAnnotations>
-      <graphicsCount toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">5</graphicsCount>
-      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
+      <author toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">XPP</author>
+      <pageCount toolname="Jhove" toolversion="1.26.0">4</pageCount>
+      <hasOutline toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">yes</hasAnnotations>
+      <graphicsCount toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">5</graphicsCount>
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>Helvetica</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>Helvetica-Bold</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>MathematicalPi-One</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>MathematicalPi-Three</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>Times-Bold</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>Times-Italic</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>Times-Roman</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
         <fontName>Universal-GreekwithMathPi</fontName>
       </font>
       <standard>
@@ -71,21 +71,22 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="684">
-    <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
+  <statistics fitsExecutionTime="551">
+    <tool toolname="MediaInfo" toolversion="21.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="53" />
-    <tool toolname="Jhove" toolversion="1.26.1" executionTime="165" />
-    <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.43" executionTime="140" />
-    <tool toolname="Exiftool" toolversion="12.50" executionTime="672" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="33" />
-    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="46" />
-    <tool toolname="Tika" toolversion="2.6.0" executionTime="173" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="40" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.26.0" executionTime="168" />
+    <tool toolname="embARC" toolversion="0.2" status="did not run" />
+    <tool toolname="file utility" toolversion="5.41" executionTime="131" />
+    <tool toolname="Exiftool" toolversion="12.40" executionTime="541" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="30" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="80" />
+    <tool toolname="Tika" toolversion="2.3.0" executionTime="161" />
   </statistics>
 </fits>
+

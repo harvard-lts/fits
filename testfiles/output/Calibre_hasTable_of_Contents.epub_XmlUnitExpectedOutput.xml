@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 11:00 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0-SNAPSHOT" timestamp="7/9/19 4:59 PM">
   <identification>
-    <identity format="EPUB" mimetype="application/epub+zip" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
-      <tool toolname="Droid" toolversion="6.5.2" />
-      <tool toolname="file utility" toolversion="5.43" />
-      <tool toolname="Exiftool" toolversion="12.50" />
-      <tool toolname="Tika" toolversion="2.6.0" />
-      <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/483</externalIdentifier>
+    <identity format="EPUB" mimetype="application/epub+zip" toolname="FITS" toolversion="1.5.0-SNAPSHOT">
+      <tool toolname="Droid" toolversion="6.4" />
+      <tool toolname="file utility" toolversion="5.41" />
+      <tool toolname="Exiftool" toolversion="11.54" />
+      <tool toolname="Tika" toolversion="1.21" />
+      <externalIdentifier toolname="Droid" toolversion="6.5" type="puid">fmt/483</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <created toolname="Tika" toolversion="2.6.0" status="SINGLE_RESULT">2015-08-01T08:34:26.276379Z</created>
-    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/Calibre_hasTable_of_Contents.epub</filepath>
-    <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">Calibre_hasTable_of_Contents.epub</filename>
-    <size toolname="OIS File Information" toolversion="1.0">465875</size>
-    <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1e107d085c284806cd32029021152478</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358186550</fslastmodified>
+    <created toolname="Tika" toolversion="2.2.1" status="SINGLE_RESULT">2015-08-01T08:34:26.276379+00:00</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/Calibre_hasTable_of_Contents.epub</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">Calibre_hasTable_of_Contents.epub</filename>
+    <size toolname="OIS File Information" toolversion="0.2">465875</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1e107d085c284806cd32029021152478</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117982000</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
     <document>
-      <title toolname="Exiftool" toolversion="12.50">The Republic</title>
-      <author toolname="Exiftool" toolversion="12.50">Plato</author>
-      <isRightsManaged toolname="Exiftool" toolversion="12.50">yes</isRightsManaged>
-      <subject toolname="Exiftool" toolversion="12.50" status="CONFLICT">Classical literature, Political science -- Early works to 1800, Utopias -- Early works to 1800, Justice -- Early works to 1800</subject>
-      <subject toolname="Tika" toolversion="2.6.0" status="CONFLICT">Classical literature</subject>
-      <identifier toolname="Exiftool" toolversion="12.50" status="CONFLICT">http://www.gutenberg.org/ebooks/1497</identifier>
-      <identifier toolname="Tika" toolversion="2.6.0" status="CONFLICT">e8238742-96ac-4a7c-b997-ab0eeb905569</identifier>
-      <source toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">http://www.gutenberg.org/files/1497/1497-h/1497-h.htm</source>
-      <language toolname="Exiftool" toolversion="12.50">en</language>
+      <title toolname="Exiftool" toolversion="11.54">The Republic</title>
+      <author toolname="Exiftool" toolversion="11.54">Plato</author>
+      <isRightsManaged toolname="Exiftool" toolversion="11.54">yes</isRightsManaged>
+      <subject toolname="Exiftool" toolversion="11.54" status="CONFLICT">Classical literature, Political science -- Early works to 1800, Utopias -- Early works to 1800, Justice -- Early works to 1800</subject>
+      <subject toolname="Tika" toolversion="1.21" status="CONFLICT">Classical literature</subject>
+      <identifier toolname="Exiftool" toolversion="11.54" status="CONFLICT">http://www.gutenberg.org/ebooks/1497</identifier>
+      <identifier toolname="Tika" toolversion="1.21" status="CONFLICT">e8238742-96ac-4a7c-b997-ab0eeb905569</identifier>
+      <source toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">http://www.gutenberg.org/files/1497/1497-h/1497-h.htm</source>
+      <language toolname="Exiftool" toolversion="11.54">en</language>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:Language>en</docmd:Language>
@@ -36,21 +36,22 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="407">
-    <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
+  <statistics fitsExecutionTime="284">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="48" />
-    <tool toolname="Jhove" toolversion="1.26.1" status="did not run" />
-    <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.43" executionTime="109" />
-    <tool toolname="Exiftool" toolversion="12.50" executionTime="402" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="46" />
-    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="50" />
-    <tool toolname="Tika" toolversion="2.6.0" executionTime="104" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="10" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.20.1" status="did not run" />
+    <tool toolname="embARC" toolversion="0.2" status="did not run" />
+    <tool toolname="file utility" toolversion="5.41" executionTime="77" />
+    <tool toolname="Exiftool" toolversion="11.54" executionTime="277" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="7" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="10" />
+    <tool toolname="Tika" toolversion="1.21" executionTime="22" />
   </statistics>
 </fits>
+

@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 11:00 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0-SNAPSHOT" timestamp="7/9/19 4:59 PM">
   <identification>
-    <identity format="EPUB" mimetype="application/epub+zip" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
-      <tool toolname="Droid" toolversion="6.5.2" />
-      <tool toolname="file utility" toolversion="5.43" />
-      <tool toolname="Exiftool" toolversion="12.50" />
-      <tool toolname="Tika" toolversion="2.6.0" />
-      <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/483</externalIdentifier>
+    <identity format="EPUB" mimetype="application/epub+zip" toolname="FITS" toolversion="1.5.0-SNAPSHOT">
+      <tool toolname="Droid" toolversion="6.4" />
+      <tool toolname="file utility" toolversion="5.41" />
+      <tool toolname="Exiftool" toolversion="11.54" />
+      <tool toolname="Tika" toolversion="1.21" />
+      <externalIdentifier toolname="Droid" toolversion="6.5" type="puid">fmt/483</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <created toolname="Tika" toolversion="2.6.0" status="SINGLE_RESULT">2008-01-03</created>
-    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/GeographyofBliss_oneChapter.epub</filepath>
-    <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">GeographyofBliss_oneChapter.epub</filename>
-    <size toolname="OIS File Information" toolversion="1.0">198197</size>
-    <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">52c6dedc6e49c0e8bdd3ac85016640e3</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358186698</fslastmodified>
+    <created toolname="Tika" toolversion="2.2.1" status="SINGLE_RESULT">2008-01-03</created>
+    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/GeographyofBliss_oneChapter.epub</filepath>
+    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">GeographyofBliss_oneChapter.epub</filename>
+    <size toolname="OIS File Information" toolversion="0.2">198197</size>
+    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">52c6dedc6e49c0e8bdd3ac85016640e3</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1516117983000</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
     <document>
-      <title toolname="Exiftool" toolversion="12.50">The Geography of Bliss: One Grump's Search for the Happiest Places in the World</title>
-      <author toolname="Exiftool" toolversion="12.50">Eric Weiner</author>
-      <isRightsManaged toolname="Exiftool" toolversion="12.50">yes</isRightsManaged>
-      <subject toolname="Exiftool" toolversion="12.50">TRV000000</subject>
-      <description toolname="Exiftool" toolversion="12.50">Part foreign affairs discourse, part humor, and part twisted self-help guide, The Geography of Bliss takes the reader from America to Iceland to India in search of happiness, or, in the crabby author's case, moments of 'un-unhappiness.' The book uses a beguiling mixture of travel, psychology, science and humor to investigate not what happiness is, but where it is. Are people in Switzerland happier because it is the most democratic country in the world? Do citizens of Singapore benefit psychologically by having their options limited by the government? Is the King of Bhutan a visionary for his initiative to calculate Gross National Happiness? Why is Asheville, North Carolina so damn happy? With engaging wit and surprising insights, Eric Weiner answers those questions and many others, offering travelers of all moods some interesting new ideas for sunnier destinations and dispositions.</description>
-      <identifier toolname="Exiftool" toolversion="12.50">9780446511070</identifier>
-      <language toolname="Exiftool" toolversion="12.50">en-US</language>
+      <title toolname="Exiftool" toolversion="11.54">The Geography of Bliss: One Grump's Search for the Happiest Places in the World</title>
+      <author toolname="Exiftool" toolversion="11.54">Eric Weiner</author>
+      <isRightsManaged toolname="Exiftool" toolversion="11.54">yes</isRightsManaged>
+      <subject toolname="Exiftool" toolversion="11.54">TRV000000</subject>
+      <description toolname="Exiftool" toolversion="11.54">Part foreign affairs discourse, part humor, and part twisted self-help guide, The Geography of Bliss takes the reader from America to Iceland to India in search of happiness, or, in the crabby author's case, moments of 'un-unhappiness.' The book uses a beguiling mixture of travel, psychology, science and humor to investigate not what happiness is, but where it is. Are people in Switzerland happier because it is the most democratic country in the world? Do citizens of Singapore benefit psychologically by having their options limited by the government? Is the King of Bhutan a visionary for his initiative to calculate Gross National Happiness? Why is Asheville, North Carolina so damn happy? With engaging wit and surprising insights, Eric Weiner answers those questions and many others, offering travelers of all moods some interesting new ideas for sunnier destinations and dispositions.</description>
+      <identifier toolname="Exiftool" toolversion="11.54">9780446511070</identifier>
+      <language toolname="Exiftool" toolversion="11.54">en-US</language>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:Language>en-US</docmd:Language>
@@ -34,21 +34,22 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="427">
-    <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
+  <statistics fitsExecutionTime="279">
+    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="38" />
-    <tool toolname="Jhove" toolversion="1.26.1" status="did not run" />
-    <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.43" executionTime="82" />
-    <tool toolname="Exiftool" toolversion="12.50" executionTime="421" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="34" />
-    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="43" />
-    <tool toolname="Tika" toolversion="2.6.0" executionTime="106" />
+    <tool toolname="Droid" toolversion="6.4" executionTime="17" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.20.1" status="did not run" />
+    <tool toolname="embARC" toolversion="0.2" status="did not run" />
+    <tool toolname="file utility" toolversion="5.41" executionTime="78" />
+    <tool toolname="Exiftool" toolversion="11.54" executionTime="270" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="0.2" executionTime="10" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="18" />
+    <tool toolname="Tika" toolversion="1.21" executionTime="29" />
   </statistics>
 </fits>
+

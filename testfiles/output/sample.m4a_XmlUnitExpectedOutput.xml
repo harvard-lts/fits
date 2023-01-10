@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 10:42 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/10/23, 10:04 AM">
   <identification status="SINGLE_RESULT">
     <identity format="MPEG-4 Audio" mimetype="audio/mp4" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="Exiftool" toolversion="12.50" />
@@ -22,31 +22,31 @@
       <sampleRate toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">44100</sampleRate>
       <channels toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2</channels>
       <standard>
-        <aes:audioObject xmlns:aes="http://www.aes.org/audioObject" xsi:schemaLocation="http://www.aes.org/audioObject http://www.aes.org/standards/schemas/aes57-2011-08-27.xsd" disposition="" schemaVersion="1.0.0" analogDigitalFlag="FILE_DIGITAL" ID="AUDIO_OBJECT_54f4835f-d2cf-4498-945c-4f58ce3a348b">
+        <aes:audioObject xmlns:aes="http://www.aes.org/audioObject" xsi:schemaLocation="http://www.aes.org/audioObject http://www.aes.org/standards/schemas/aes57-2011-08-27.xsd" disposition="" schemaVersion="1.0.0" analogDigitalFlag="FILE_DIGITAL" ID="AUDIO_OBJECT_c2bcfe7b-9249-40f0-a3f9-11025ca66106">
           <aes:format>MPEG-4 Audio</aes:format>
           <aes:use useType="OTHER" otherType="unknown" />
           <aes:primaryIdentifier identifierType="FILE_NAME">sample.m4a</aes:primaryIdentifier>
-          <aes:face audioObjectRef="AUDIO_OBJECT_54f4835f-d2cf-4498-945c-4f58ce3a348b" label="face 1" ID="FACE_3d1cf7a5-3bda-4f2a-aed4-62258125f089" direction="NONE">
+          <aes:face audioObjectRef="AUDIO_OBJECT_c2bcfe7b-9249-40f0-a3f9-11025ca66106" label="face 1" ID="FACE_0c4e3d87-4e9a-4c5b-abf0-bcf49d809777" direction="NONE">
             <aes:timeline>
               <aes:startTime editRate="1">0</aes:startTime>
               <aes:duration editRate="1">0</aes:duration>
             </aes:timeline>
-            <aes:region faceRef="FACE_3d1cf7a5-3bda-4f2a-aed4-62258125f089" formatRef="FORMAT_REGION_67b611c1-c456-45df-ab66-54b9b5ecb888" ID="REGION_06543fc3-8595-4ab2-aad8-47937b36c32b" label="region 1">
+            <aes:region faceRef="FACE_0c4e3d87-4e9a-4c5b-abf0-bcf49d809777" formatRef="FORMAT_REGION_29b850ec-e63a-41a8-85a5-b1607b4cfce1" ID="REGION_25b1a8b3-e3b0-44b8-bf8d-a8154655dce1" label="region 1">
               <aes:timeRange>
                 <aes:startTime editRate="1">0</aes:startTime>
                 <aes:duration editRate="1">0</aes:duration>
               </aes:timeRange>
               <aes:numChannels>2</aes:numChannels>
-              <aes:stream ID="STREAM_051f0cfb-f0eb-4cff-a1f4-4c388fd32473" label="stream 0" faceRegionRef="REGION_06543fc3-8595-4ab2-aad8-47937b36c32b">
+              <aes:stream ID="STREAM_78944dfe-9d7d-44cc-a657-a98a80a85aa2" label="stream 0" faceRegionRef="REGION_25b1a8b3-e3b0-44b8-bf8d-a8154655dce1">
                 <aes:channelAssignment leftRightPosition="0.0" channelNum="0" frontRearPosition="0.0" />
               </aes:stream>
-              <aes:stream ID="STREAM_24223571-f35d-4ff2-aff2-8387a57a2ed1" label="stream 1" faceRegionRef="REGION_06543fc3-8595-4ab2-aad8-47937b36c32b">
+              <aes:stream ID="STREAM_304b7912-5c34-4090-aec9-fc24df3d08ec" label="stream 1" faceRegionRef="REGION_25b1a8b3-e3b0-44b8-bf8d-a8154655dce1">
                 <aes:channelAssignment leftRightPosition="0.0" channelNum="1" frontRearPosition="0.0" />
               </aes:stream>
             </aes:region>
           </aes:face>
           <aes:formatList>
-            <aes:formatRegion ownerRef="REGION_06543fc3-8595-4ab2-aad8-47937b36c32b" xsi:type="aes:formatRegionType" ID="FORMAT_REGION_67b611c1-c456-45df-ab66-54b9b5ecb888" label="format region 1">
+            <aes:formatRegion ownerRef="REGION_25b1a8b3-e3b0-44b8-bf8d-a8154655dce1" xsi:type="aes:formatRegionType" ID="FORMAT_REGION_29b850ec-e63a-41a8-85a5-b1607b4cfce1" label="format region 1">
               <aes:bitDepth>16</aes:bitDepth>
               <aes:sampleRate>44100.0</aes:sampleRate>
               <aes:soundField>STEREO</aes:soundField>
@@ -56,21 +56,21 @@
       </standard>
     </audio>
   </metadata>
-  <statistics fitsExecutionTime="328">
+  <statistics fitsExecutionTime="338">
     <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
     <tool toolname="Droid" toolversion="6.5.2" status="did not run" />
-    <tool toolname="Jhove" toolversion="1.26.1" executionTime="212" />
+    <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.26.1" executionTime="205" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
     <tool toolname="file utility" toolversion="5.43" status="did not run" />
-    <tool toolname="Exiftool" toolversion="12.50" executionTime="320" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="332" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="38" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="30" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="67" />
-    <tool toolname="Tika" toolversion="2.6.0" executionTime="321" />
-    <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="64" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="303" />
   </statistics>
 </fits>
