@@ -153,10 +153,8 @@ public class DocMDXmlUnitTest extends AbstractXmlUnitTest {
     public void testWPDOutput() throws Exception {
 
         // process multiple files to examine different types of output
-        String[] inputFilenames = { // "WordPerfect6-7.wpd",
-            "WordPerfect4_2.wp", "WordPerfect5_0.wp", "WordPerfect5_2.wp"
-        };
-        //    			"WordPerfectCompoundFile.wpd"};  // (not identified as a WordPerfect document)
+        String[] inputFilenames = {"WordPerfect6-7.wpd", "WordPerfect4_2.wp", "WordPerfect5_0.wp", "WordPerfect5_2.wp"};
+        // "WordPerfectCompoundFile.wpd"}; // (not identified as a WordPerfect document)
 
         for (String inputFilename : inputFilenames) {
             testFile(inputFilename);
