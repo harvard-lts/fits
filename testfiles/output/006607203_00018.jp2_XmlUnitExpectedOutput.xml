@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.2.x" timestamp="2/13/18 2:58 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/10/23, 10:05 AM">
   <identification>
-    <identity format="JPEG 2000 JP2" mimetype="image/jp2" toolname="FITS" toolversion="1.4.1">
-      <tool toolname="Droid" toolversion="6.4" />
-      <tool toolname="Jhove" toolversion="1.20.1" />
-      <tool toolname="file utility" toolversion="5.31" />
-      <tool toolname="Exiftool" toolversion="11.14" />
-      <tool toolname="Tika" toolversion="1.19.1" />
+    <identity format="JPEG 2000 JP2" mimetype="image/jp2" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
+      <tool toolname="Droid" toolversion="6.5.2" />
       <tool toolname="jpylyzer" toolversion="2.1.0" />
-      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">x-fmt/392</externalIdentifier>
+      <tool toolname="Jhove" toolversion="1.26.1" />
+      <tool toolname="file utility" toolversion="5.43" />
+      <tool toolname="Exiftool" toolversion="12.50" />
+      <tool toolname="Tika" toolversion="2.6.0" />
+      <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">x-fmt/392</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.16">3916234</size>
-    <filepath toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/006607203_00018.jp2</filepath>
-    <filename toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">006607203_00018.jp2</filename>
-    <md5checksum toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">38fada2603f695bc5c5e4255c8167f33</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="0.2" status="SINGLE_RESULT">1446674963000</fslastmodified>
+    <size toolname="Jhove" toolversion="1.26.1">3916234</size>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/006607203_00018.jp2</filepath>
+    <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">006607203_00018.jp2</filename>
+    <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">38fada2603f695bc5c5e4255c8167f33</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358186263</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.16">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.16">true</valid>
+    <well-formed toolname="jpylyzer" toolversion="2.1.0">true</well-formed>
+    <valid toolname="jpylyzer" toolversion="2.1.0">true</valid>
   </filestatus>
   <metadata>
     <image>
-      <byteOrder toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">big endian</byteOrder>
-      <compressionScheme toolname="Jhove" toolversion="1.16" status="CONFLICT">JPEG 2000 Lossy</compressionScheme>
-      <compressionScheme toolname="Exiftool" toolversion="10.00" status="CONFLICT">JPEG 2000</compressionScheme>
-      <imageWidth toolname="Jhove" toolversion="1.16">1729</imageWidth>
-      <imageHeight toolname="Jhove" toolversion="1.16">2537</imageHeight>
-      <iccProfileName toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">sRGB IEC61966-2.1</iccProfileName>
-      <tileWidth toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">512</tileWidth>
-      <tileHeight toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">512</tileHeight>
-      <qualityLayers toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">1</qualityLayers>
-      <resolutionLevels toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">5</resolutionLevels>
-      <samplingFrequencyUnit toolname="Jhove" toolversion="1.16" status="CONFLICT">cm</samplingFrequencyUnit>
-      <samplingFrequencyUnit toolname="Exiftool" toolversion="10.00" status="CONFLICT">0.1 mm</samplingFrequencyUnit>
-      <xSamplingFrequency toolname="Jhove" toolversion="1.16" status="CONFLICT">118</xSamplingFrequency>
-      <xSamplingFrequency toolname="Exiftool" toolversion="10.00" status="CONFLICT">1.181102</xSamplingFrequency>
-      <ySamplingFrequency toolname="Jhove" toolversion="1.16" status="CONFLICT">118</ySamplingFrequency>
-      <ySamplingFrequency toolname="Exiftool" toolversion="10.00" status="CONFLICT">1.181102</ySamplingFrequency>
-      <bitsPerSample toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">8 8 8</bitsPerSample>
-      <samplesPerPixel toolname="Jhove" toolversion="1.16" status="SINGLE_RESULT">3</samplesPerPixel>
-      <iccProfileVersion toolname="Exiftool" toolversion="10.00" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
+      <byteOrder toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">big endian</byteOrder>
+      <compressionScheme toolname="Jhove" toolversion="1.26.1" status="CONFLICT">JPEG 2000 Lossy</compressionScheme>
+      <compressionScheme toolname="Exiftool" toolversion="12.50" status="CONFLICT">JPEG 2000</compressionScheme>
+      <imageWidth toolname="Jhove" toolversion="1.26.1">1729</imageWidth>
+      <imageHeight toolname="Jhove" toolversion="1.26.1">2537</imageHeight>
+      <iccProfileName toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">sRGB IEC61966-2.1</iccProfileName>
+      <tileWidth toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">512</tileWidth>
+      <tileHeight toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">512</tileHeight>
+      <qualityLayers toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">1</qualityLayers>
+      <resolutionLevels toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">5</resolutionLevels>
+      <samplingFrequencyUnit toolname="Jhove" toolversion="1.26.1" status="CONFLICT">cm</samplingFrequencyUnit>
+      <samplingFrequencyUnit toolname="Exiftool" toolversion="12.50" status="CONFLICT">0.1 mm</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Jhove" toolversion="1.26.1" status="CONFLICT">118</xSamplingFrequency>
+      <xSamplingFrequency toolname="Exiftool" toolversion="12.50" status="CONFLICT">1.181102</xSamplingFrequency>
+      <ySamplingFrequency toolname="Jhove" toolversion="1.26.1" status="CONFLICT">118</ySamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="12.50" status="CONFLICT">1.181102</ySamplingFrequency>
+      <bitsPerSample toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">3</samplesPerPixel>
+      <iccProfileVersion toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -106,22 +106,21 @@
       </standard>
     </image>
   </metadata>
-  <statistics fitsExecutionTime="670">
-    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+  <statistics fitsExecutionTime="415">
+    <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.3" executionTime="119" />
-    <tool toolname="Jhove" toolversion="1.16" executionTime="606" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="158" />
+    <tool toolname="jpylyzer" toolversion="2.1.0" executionTime="240" />
+    <tool toolname="Jhove" toolversion="1.26.1" executionTime="225" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.31" executionTime="498" />
-    <tool toolname="Exiftool" toolversion="10.00" executionTime="547" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="188" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="404" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="0.2" executionTime="114" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="164" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="475" />
-    <tool toolname="Tika" toolversion="1.10" executionTime="174" />
-    <tool toolname="jpylyzer" toolversion="2.1.0" executionTime="76" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="123" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="99" />
   </statistics>
 </fits>
-

@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="7/14/22, 4:03 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/10/23, 10:05 AM">
   <identification>
     <identity format="JPEG File Interchange Format" mimetype="image/jpeg" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
-      <tool toolname="Jhove" toolversion="1.26.0" />
-      <tool toolname="file utility" toolversion="5.41" />
-      <tool toolname="Exiftool" toolversion="12.40" />
+      <tool toolname="Jhove" toolversion="1.26.1" />
+      <tool toolname="file utility" toolversion="5.43" />
+      <tool toolname="Exiftool" toolversion="12.50" />
       <version toolname="Droid" toolversion="6.5.2">1.01</version>
       <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/43</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.26.0">49220</size>
-    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/GLOBE1.JPG</filepath>
+    <size toolname="Jhove" toolversion="1.26.1">49220</size>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/GLOBE1.JPG</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">GLOBE1.JPG</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">97a5f169b4e0db02a982af7fcc5433de</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1488467748000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358186697</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</valid>
+    <well-formed toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">true</valid>
   </filestatus>
   <metadata>
     <image>
-      <byteOrder toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">big endian</byteOrder>
-      <compressionScheme toolname="Jhove" toolversion="1.26.0">JPEG</compressionScheme>
-      <imageWidth toolname="Jhove" toolversion="1.26.0">582</imageWidth>
-      <imageHeight toolname="Jhove" toolversion="1.26.0">597</imageHeight>
-      <colorSpace toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">YCbCr</colorSpace>
-      <YCbCrSubSampling toolname="Exiftool" toolversion="12.40" status="SINGLE_RESULT">2 2</YCbCrSubSampling>
-      <samplingFrequencyUnit toolname="Jhove" toolversion="1.26.0">no absolute unit of measurement</samplingFrequencyUnit>
-      <xSamplingFrequency toolname="Exiftool" toolversion="12.40">1</xSamplingFrequency>
-      <ySamplingFrequency toolname="Exiftool" toolversion="12.40">1</ySamplingFrequency>
-      <bitsPerSample toolname="Jhove" toolversion="1.26.0">8 8 8</bitsPerSample>
-      <samplesPerPixel toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">3</samplesPerPixel>
+      <byteOrder toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">big endian</byteOrder>
+      <compressionScheme toolname="Jhove" toolversion="1.26.1">JPEG</compressionScheme>
+      <imageWidth toolname="Jhove" toolversion="1.26.1">582</imageWidth>
+      <imageHeight toolname="Jhove" toolversion="1.26.1">597</imageHeight>
+      <colorSpace toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">YCbCr</colorSpace>
+      <YCbCrSubSampling toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2 2</YCbCrSubSampling>
+      <samplingFrequencyUnit toolname="Jhove" toolversion="1.26.1">no absolute unit of measurement</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Exiftool" toolversion="12.50">1</xSamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="12.50">1</ySamplingFrequency>
+      <bitsPerSample toolname="Jhove" toolversion="1.26.1">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">3</samplesPerPixel>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -86,22 +86,21 @@
       </standard>
     </image>
   </metadata>
-  <statistics fitsExecutionTime="333">
-    <tool toolname="MediaInfo" toolversion="21.09" status="did not run" />
+  <statistics fitsExecutionTime="288">
+    <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="56" />
-    <tool toolname="Jhove" toolversion="1.26.0" executionTime="129" />
-    <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.41" executionTime="117" />
-    <tool toolname="Exiftool" toolversion="12.40" executionTime="319" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="37" />
-    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="60" />
-    <tool toolname="Tika" toolversion="2.3.0" executionTime="82" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="40" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.26.1" executionTime="122" />
+    <tool toolname="embARC" toolversion="0.2" status="did not run" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="117" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="277" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="30" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="56" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="51" />
   </statistics>
 </fits>
-

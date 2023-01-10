@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="6/27/22, 11:46 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/10/23, 10:06 AM">
   <identification>
     <identity format="Material Exchange Format (MXF)" mimetype="application/mxf" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
-      <tool toolname="MediaInfo" toolversion="21.09" />
+      <tool toolname="MediaInfo" toolversion="22.09" />
       <tool toolname="Droid" toolversion="6.5.2" />
-      <tool toolname="file utility" toolversion="5.41" />
+      <tool toolname="file utility" toolversion="5.43" />
       <version toolname="Droid" toolversion="6.5.2">Operational Pattern 1a</version>
       <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/200</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/freeMXF-mxf1a.mxf</filepath>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/freeMXF-mxf1a.mxf</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">freeMXF-mxf1a.mxf</filename>
-    <size toolname="MediaInfo" toolversion="21.09">623664</size>
+    <size toolname="MediaInfo" toolversion="22.09">623664</size>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">6ed70658f07daccac680a52fe2273b71</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1457973381000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358187150</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
     <video>
-      <location toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">/fits/testfiles/freeMXF-mxf1a.mxf</location>
-      <mimeType toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">application/mxf</mimeType>
-      <format toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">Material Exchange Format (MXF)</format>
-      <formatProfile toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">OP-1a</formatProfile>
-      <duration toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">10640</duration>
-      <timecodeStart toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">00:00:00:00</timecodeStart>
-      <bitRate toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">468920</bitRate>
-      <dateCreated toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">2006-01-11 18:59:25.708</dateCreated>
-      <dateModified toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">UTC 2016-03-14 16:36:21</dateModified>
-      <track type="video" id="2" toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">
+      <location toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">/fits/testfiles/input/freeMXF-mxf1a.mxf</location>
+      <mimeType toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">application/mxf</mimeType>
+      <format toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">Material Exchange Format (MXF)</format>
+      <formatProfile toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">OP-1a</formatProfile>
+      <duration toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">10640</duration>
+      <timecodeStart toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">00:00:00:00</timecodeStart>
+      <bitRate toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">468920</bitRate>
+      <dateCreated toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">2006-01-11 18:59:25.708</dateCreated>
+      <dateModified toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">UTC 2023-01-10 13:43:07</dateModified>
+      <track type="video" id="2" toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">
         <videoDataEncoding>0D01030102046001</videoDataEncoding>
         <codecId>0D01030102046001</codecId>
         <codecVersion>Main@Main</codecVersion>
@@ -54,21 +54,21 @@
       </track>
     </video>
   </metadata>
-  <statistics fitsExecutionTime="157">
-    <tool toolname="MediaInfo" toolversion="21.09" executionTime="141" />
+  <statistics fitsExecutionTime="128">
+    <tool toolname="MediaInfo" toolversion="22.09" executionTime="122" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="52" />
-    <tool toolname="Jhove" toolversion="1.24.9" status="did not run" />
-    <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.41" executionTime="146" />
-    <tool toolname="Exiftool" toolversion="12.40" status="did not run" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="58" />
-    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="72" />
-    <tool toolname="Tika" toolversion="2.3.0" status="did not run" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="72" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.26.1" status="did not run" />
+    <tool toolname="embARC" toolversion="0.2" status="did not run" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="103" />
+    <tool toolname="Exiftool" toolversion="12.50" status="did not run" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="70" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="59" />
+    <tool toolname="Tika" toolversion="2.6.0" status="did not run" />
   </statistics>
 </fits>

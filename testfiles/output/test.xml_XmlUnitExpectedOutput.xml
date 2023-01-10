@@ -39,6 +39,7 @@
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
     <tool toolname="Droid" toolversion="6.3" executionTime="270" />
+    <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
     <tool toolname="Jhove" toolversion="1.20" executionTime="1386" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
     <tool toolname="file utility" toolversion="5.31" executionTime="613" />
@@ -48,7 +49,6 @@
     <tool toolname="OIS XML Metadata" toolversion="0.2" executionTime="261" />
     <tool toolname="ffident" toolversion="0.2" executionTime="586" />
     <tool toolname="Tika" toolversion="1.10" executionTime="438" />
-    <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
   </statistics>
 </fits>
 

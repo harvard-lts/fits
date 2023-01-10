@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="7/14/22, 3:59 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/10/23, 10:02 AM">
   <identification>
     <identity format="PDF/X" mimetype="application/pdf" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
-      <tool toolname="Jhove" toolversion="1.26.0" />
-      <tool toolname="Exiftool" toolversion="12.40" />
-      <tool toolname="Tika" toolversion="2.3.0" />
-      <version toolname="Jhove" toolversion="1.26.0">3:2003</version>
+      <tool toolname="Jhove" toolversion="1.26.1" />
+      <tool toolname="Exiftool" toolversion="12.50" />
+      <tool toolname="Tika" toolversion="2.6.0" />
+      <version toolname="Jhove" toolversion="1.26.1">3:2003</version>
       <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/158</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.26.0">4274074</size>
-    <creatingApplicationName toolname="Jhove" toolversion="1.26.0">Acrobat Distiller 5.0.5 f.r Macintosh/QuarkXPress(R) 4.04</creatingApplicationName>
-    <lastmodified toolname="Exiftool" toolversion="12.40">2004-05-09T12:07:13Z</lastmodified>
-    <created toolname="Exiftool" toolversion="12.40">2002-09-21T19:25:36Z</created>
-    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/altona_technical_1v2_x3_has_annotations.pdf</filepath>
+    <size toolname="Jhove" toolversion="1.26.1">4274074</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.26.1">Acrobat Distiller 5.0.5 f.r Macintosh/QuarkXPress(R) 4.04</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="12.50">2004-05-09T12:07:13Z</lastmodified>
+    <created toolname="Exiftool" toolversion="12.50">2002-09-21T19:25:36Z</created>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/altona_technical_1v2_x3_has_annotations.pdf</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">altona_technical_1v2_x3_has_annotations.pdf</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">c524ab2cd02240b12eab3ee9f8887a9f</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1466791807000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358186943</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">true</valid>
+    <well-formed toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">true</valid>
   </filestatus>
   <metadata>
     <document>
-      <title toolname="Jhove" toolversion="1.26.0">Altona_Technical_1v2_x3.pdf</title>
-      <author toolname="Jhove" toolversion="1.26.0">ECI (www.eci.org), bvdm (www.bvdm-online.de), FOGRA (www.fogra.org), ugra (www.ugra.ch)</author>
-      <pageCount toolname="Jhove" toolversion="1.26.0">1</pageCount>
-      <hasOutline toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">no</hasOutline>
-      <hasAnnotations toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">yes</hasAnnotations>
-      <graphicsCount toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">44</graphicsCount>
-      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+      <title toolname="Jhove" toolversion="1.26.1">Altona_Technical_1v2_x3.pdf</title>
+      <author toolname="Jhove" toolversion="1.26.1">ECI (www.eci.org), bvdm (www.bvdm-online.de), FOGRA (www.fogra.org), ugra (www.ugra.ch)</author>
+      <pageCount toolname="Jhove" toolversion="1.26.1">1</pageCount>
+      <hasOutline toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">no</hasOutline>
+      <hasAnnotations toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">yes</hasAnnotations>
+      <graphicsCount toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">44</graphicsCount>
+      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
         <fontName>Courier-Oblique</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
         <fontName>Helvetica</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
         <fontName>Helvetica-Bold</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
         <fontName>Metabook01</fontName>
       </font>
-      <font toolname="Jhove" toolversion="1.26.0" status="SINGLE_RESULT">
+      <font toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">
         <fontName>Metanormal01-Bold</fontName>
       </font>
-      <subject toolname="Exiftool" toolversion="12.40" status="CONFLICT">Altona Test Suite – Online Version</subject>
-      <subject toolname="Tika" toolversion="2.3.0" status="CONFLICT">PDF/X-3 (ISO 15930-3), ICC Color Management, Standard Printing Conditions: Offset printing, according to ISO/DIS 12647-2:2003, OFCOM,  paper type 1+2 = coated art, 115 g/m2, screen ruling 60 cm-1, positive-acting plates (FOGRA27L)</subject>
-      <description toolname="Exiftool" toolversion="12.40">Altona Test Suite – Online Version</description>
+      <subject toolname="Exiftool" toolversion="12.50" status="CONFLICT">Altona Test Suite – Online Version</subject>
+      <subject toolname="Tika" toolversion="2.6.0" status="CONFLICT">PDF/X-3 (ISO 15930-3), ICC Color Management, Standard Printing Conditions: Offset printing, according to ISO/DIS 12647-2:2003, OFCOM,  paper type 1+2 = coated art, 115 g/m2, screen ruling 60 cm-1, positive-acting plates (FOGRA27L)</subject>
+      <description toolname="Exiftool" toolversion="12.50">Altona Test Suite – Online Version</description>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:PageCount>1</docmd:PageCount>
@@ -64,22 +64,21 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="475">
-    <tool toolname="MediaInfo" toolversion="21.09" status="did not run" />
+  <statistics fitsExecutionTime="1121">
+    <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="109" />
-    <tool toolname="Jhove" toolversion="1.26.0" executionTime="227" />
-    <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.41" executionTime="124" />
-    <tool toolname="Exiftool" toolversion="12.40" executionTime="463" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="68" />
-    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="49" />
-    <tool toolname="Tika" toolversion="2.3.0" executionTime="419" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="430" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.26.1" executionTime="800" />
+    <tool toolname="embARC" toolversion="0.2" status="did not run" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="423" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="891" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="208" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="148" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="1000" />
   </statistics>
 </fits>
-
