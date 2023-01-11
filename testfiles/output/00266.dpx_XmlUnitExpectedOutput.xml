@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.2-SNAPSHOT" timestamp="3/17/22 10:11 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 10:42 AM">
   <identification>
-    <identity format="Digital Picture Exchange" mimetype="image/x-dpx" toolname="FITS" toolversion="1.5.2-SNAPSHOT">
+    <identity format="Digital Picture Exchange" mimetype="image/x-dpx" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="embARC" toolversion="0.2" />
-      <tool toolname="Exiftool" toolversion="12.40" />
-      <tool toolname="Tika" toolversion="2.3.0" />
+      <tool toolname="Exiftool" toolversion="12.50" />
+      <tool toolname="Tika" toolversion="2.6.0" />
     </identity>
   </identification>
   <fileinfo>
     <created toolname="embARC" toolversion="0.2">2010-12-24</created>
     <copyrightNote toolname="embARC" toolversion="0.2" status="SINGLE_RESULT">Copyright info</copyrightNote>
-    <filepath toolname="embARC" toolversion="0.2">/Users/cpm/Projects/fits-pm/fits/testfiles/00266.dpx</filepath>
+    <filepath toolname="embARC" toolversion="0.2">/fits/testfiles/input/00266.dpx</filepath>
     <filename toolname="embARC" toolversion="0.2">00266.dpx</filename>
     <size toolname="embARC" toolversion="0.2">12697608</size>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">a269fe44030b4d58cfa710947e5b95a2</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1647523929469</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358186250</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
@@ -68,21 +68,21 @@
       </standard>
     </image>
   </metadata>
-  <statistics fitsExecutionTime="4064">
-    <tool toolname="MediaInfo" toolversion="21.09" status="did not run" />
+  <statistics fitsExecutionTime="2753">
+    <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="97" />
-    <tool toolname="Jhove" toolversion="1.24.9" executionTime="4049" />
-    <tool toolname="embARC" toolversion="0.2" executionTime="96" />
-    <tool toolname="file utility" toolversion="5.40" status="did not run" />
-    <tool toolname="Exiftool" toolversion="12.40" executionTime="690" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="151" />
+    <tool toolname="Jhove" toolversion="1.26.1" executionTime="2748" />
+    <tool toolname="embARC" toolversion="0.2" executionTime="48" />
+    <tool toolname="file utility" toolversion="5.43" status="did not run" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="350" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="95" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="183" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="680" />
-    <tool toolname="Tika" toolversion="2.3.0" executionTime="141" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="53" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="148" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
   </statistics>
 </fits>

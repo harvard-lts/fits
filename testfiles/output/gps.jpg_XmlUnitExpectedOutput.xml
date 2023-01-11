@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.5.0" timestamp="12/6/21 3:32 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 10:43 AM">
   <identification>
-    <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="1.5.0">
-      <tool toolname="Droid" toolversion="6.4" />
-      <tool toolname="Jhove" toolversion="1.20.1" />
-      <tool toolname="file utility" toolversion="5.39" />
-      <tool toolname="Exiftool" toolversion="11.54" />
-      <version toolname="Droid" toolversion="6.4" status="CONFLICT">2.2.1</version>
-      <version toolname="Jhove" toolversion="1.20.1" status="CONFLICT">1.01</version>
-      <version toolname="file utility" toolversion="5.39" status="CONFLICT">13</version>
-      <externalIdentifier toolname="Droid" toolversion="6.4" type="puid">fmt/645</externalIdentifier>
+    <identity format="JPEG EXIF" mimetype="image/jpeg" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
+      <tool toolname="Droid" toolversion="6.5.2" />
+      <tool toolname="Jhove" toolversion="1.26.1" />
+      <tool toolname="file utility" toolversion="5.43" />
+      <tool toolname="Exiftool" toolversion="12.50" />
+      <version toolname="Droid" toolversion="6.5.2" status="CONFLICT">2.2.1</version>
+      <version toolname="Jhove" toolversion="1.26.1" status="CONFLICT">1.01</version>
+      <version toolname="file utility" toolversion="5.43" status="CONFLICT">012</version>
+      <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/645</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <size toolname="Jhove" toolversion="1.20.1">41851</size>
-    <creatingApplicationName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">FinePix F30</creatingApplicationName>
+    <size toolname="Jhove" toolversion="1.26.1">41851</size>
+    <creatingApplicationName toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">FinePix F30</creatingApplicationName>
     <lastmodified toolname="Exiftool" toolversion="12.50">2006-11-03T02:26:02</lastmodified>
-    <created toolname="Exiftool" toolversion="12.40">2006-11-03T07:14:39</created>
-    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/Users/dan179/git/git-daveneiman/fits/testfiles/gps.jpg</filepath>
+    <created toolname="Exiftool" toolversion="12.50">2006-11-03T07:14:39</created>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/gps.jpg</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">gps.jpg</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">201f1db44775631d307b3ffd62acb3ac</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1516117983000</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358187151</fslastmodified>
   </fileinfo>
   <filestatus>
-    <well-formed toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">true</well-formed>
-    <valid toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">true</valid>
-    <message toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">Unknown TIFF IFD tag: 50341 severity=info offset=278</message>
+    <well-formed toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">true</valid>
+    <message toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">Unknown TIFF IFD tag: 50341 severity=info offset=278</message>
   </filestatus>
   <metadata>
     <image>
-      <byteOrder toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">big endian</byteOrder>
-      <compressionScheme toolname="Jhove" toolversion="1.20.1">JPEG</compressionScheme>
-      <imageWidth toolname="Jhove" toolversion="1.20.1">600</imageWidth>
-      <imageHeight toolname="Jhove" toolversion="1.20.1">800</imageHeight>
-      <colorSpace toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">YCbCr</colorSpace>
-      <YCbCrSubSampling toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2 2</YCbCrSubSampling>
-      <YCbCrPositioning toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2</YCbCrPositioning>
-      <orientation toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">normal*</orientation>
-      <samplingFrequencyUnit toolname="Jhove" toolversion="1.20.1">in.</samplingFrequencyUnit>
-      <xSamplingFrequency toolname="Exiftool" toolversion="11.54">72</xSamplingFrequency>
-      <ySamplingFrequency toolname="Exiftool" toolversion="11.54">72</ySamplingFrequency>
-      <bitsPerSample toolname="Jhove" toolversion="1.20.1">8 8 8</bitsPerSample>
-      <samplesPerPixel toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">3</samplesPerPixel>
-      <scanningSoftwareName toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Digital Camera FinePix F30     Ver1.02</scanningSoftwareName>
-      <digitalCameraModelName toolname="Jhove" toolversion="1.26.0">FinePix F30</digitalCameraModelName>
-      <fNumber toolname="Jhove" toolversion="1.20.1">2.8</fNumber>
-      <exposureTime toolname="Jhove" toolversion="1.20.1" status="CONFLICT">0.008</exposureTime>
-      <exposureTime toolname="Exiftool" toolversion="11.54" status="CONFLICT">0.0083</exposureTime>
-      <isoSpeedRating toolname="Jhove" toolversion="1.20.1">400</isoSpeedRating>
-      <brightnessValue toolname="Jhove" toolversion="1.24.9" status="CONFLICT">302100</brightnessValue>
-      <brightnessValue toolname="Exiftool" toolversion="12.40" status="CONFLICT">3.02</brightnessValue>
-      <exposureBiasValue toolname="Jhove" toolversion="1.20.1">0</exposureBiasValue>
-      <lightSource toolname="Jhove" toolversion="1.20.1">unknown</lightSource>
-      <meteringMode toolname="Jhove" toolversion="1.20.1">Pattern</meteringMode>
-      <flash toolname="Jhove" toolversion="1.20.1" status="SINGLE_RESULT">Flash did not fire, compulsory flash mode</flash>
-      <focalLength toolname="Jhove" toolversion="1.20.1">8</focalLength>
-      <captureDevice toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">digital still camera</captureDevice>
-      <digitalCameraManufacturer toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">FUJIFILM</digitalCameraManufacturer>
-      <exposureProgram toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">Normal program</exposureProgram>
-      <exifVersion toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">0221</exifVersion>
-      <shutterSpeedValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">1/124</shutterSpeedValue>
-      <apertureValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.8</apertureValue>
-      <maxApertureValue toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.8</maxApertureValue>
-      <sensingMethod toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">One-chip color area sensor</sensingMethod>
-      <gpsVersionID toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2.2.0.0</gpsVersionID>
-      <gpsLatitudeRef toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">N</gpsLatitudeRef>
-      <gpsLatitude toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">33 deg 24' 51.80" N</gpsLatitude>
-      <gpsLongitudeRef toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">E</gpsLongitudeRef>
-      <gpsLongitude toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">130 deg 33' 31.40" E</gpsLongitude>
-      <gpsTimeStamp toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">22:14:39</gpsTimeStamp>
-      <gpsStatus toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">A</gpsStatus>
-      <gpsMapDatum toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">WGS-84</gpsMapDatum>
-      <gpsDateStamp toolname="Exiftool" toolversion="11.54" status="SINGLE_RESULT">2006-11-02</gpsDateStamp>
+      <byteOrder toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">big endian</byteOrder>
+      <compressionScheme toolname="Jhove" toolversion="1.26.1">JPEG</compressionScheme>
+      <imageWidth toolname="Jhove" toolversion="1.26.1">600</imageWidth>
+      <imageHeight toolname="Jhove" toolversion="1.26.1">800</imageHeight>
+      <colorSpace toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">YCbCr</colorSpace>
+      <YCbCrSubSampling toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2 2</YCbCrSubSampling>
+      <YCbCrPositioning toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2</YCbCrPositioning>
+      <orientation toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">normal*</orientation>
+      <samplingFrequencyUnit toolname="Jhove" toolversion="1.26.1">in.</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Exiftool" toolversion="12.50">72</xSamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="12.50">72</ySamplingFrequency>
+      <bitsPerSample toolname="Jhove" toolversion="1.26.1">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">3</samplesPerPixel>
+      <scanningSoftwareName toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">Digital Camera FinePix F30     Ver1.02</scanningSoftwareName>
+      <digitalCameraModelName toolname="Jhove" toolversion="1.26.1">FinePix F30</digitalCameraModelName>
+      <fNumber toolname="Jhove" toolversion="1.26.1">2.8</fNumber>
+      <exposureTime toolname="Jhove" toolversion="1.26.1" status="CONFLICT">0.008</exposureTime>
+      <exposureTime toolname="Exiftool" toolversion="12.50" status="CONFLICT">0.0083</exposureTime>
+      <isoSpeedRating toolname="Jhove" toolversion="1.26.1">400</isoSpeedRating>
+      <brightnessValue toolname="Jhove" toolversion="1.26.1" status="CONFLICT">302100</brightnessValue>
+      <brightnessValue toolname="Exiftool" toolversion="12.50" status="CONFLICT">3.02</brightnessValue>
+      <exposureBiasValue toolname="Jhove" toolversion="1.26.1">0</exposureBiasValue>
+      <lightSource toolname="Jhove" toolversion="1.26.1">unknown</lightSource>
+      <meteringMode toolname="Jhove" toolversion="1.26.1">Pattern</meteringMode>
+      <flash toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">Flash did not fire, compulsory flash mode</flash>
+      <focalLength toolname="Jhove" toolversion="1.26.1">8</focalLength>
+      <captureDevice toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">digital still camera</captureDevice>
+      <digitalCameraManufacturer toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">FUJIFILM</digitalCameraManufacturer>
+      <exposureProgram toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">Normal program</exposureProgram>
+      <exifVersion toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">0221</exifVersion>
+      <shutterSpeedValue toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">1/124</shutterSpeedValue>
+      <apertureValue toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2.8</apertureValue>
+      <maxApertureValue toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2.8</maxApertureValue>
+      <sensingMethod toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">One-chip color area sensor</sensingMethod>
+      <gpsVersionID toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2.2.0.0</gpsVersionID>
+      <gpsLatitudeRef toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">N</gpsLatitudeRef>
+      <gpsLatitude toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">33 deg 24' 51.80" N</gpsLatitude>
+      <gpsLongitudeRef toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">E</gpsLongitudeRef>
+      <gpsLongitude toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">130 deg 33' 31.40" E</gpsLongitude>
+      <gpsTimeStamp toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">22:14:39</gpsTimeStamp>
+      <gpsStatus toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">A</gpsStatus>
+      <gpsMapDatum toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">WGS-84</gpsMapDatum>
+      <gpsDateStamp toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2006-11-02</gpsDateStamp>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -210,22 +210,21 @@
       </standard>
     </image>
   </metadata>
-  <statistics fitsExecutionTime="262">
-    <tool toolname="MediaInfo" toolversion="0.7.75" status="did not run" />
+  <statistics fitsExecutionTime="319">
+    <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.4" executionTime="7" />
-    <tool toolname="Jhove" toolversion="1.20.1" executionTime="38" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="70" />
+    <tool toolname="Jhove" toolversion="1.26.1" executionTime="123" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.39" executionTime="41" />
-    <tool toolname="Exiftool" toolversion="11.54" executionTime="251" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="101" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="306" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="2" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="25" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="6" />
-    <tool toolname="Tika" toolversion="1.21" executionTime="22" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="64" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="82" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
   </statistics>
 </fits>
-

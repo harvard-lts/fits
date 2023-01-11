@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="11/12/22, 9:17 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 10:42 AM">
   <identification>
     <identity format="JPEG 2000 JP2" mimetype="image/jp2" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
       <tool toolname="Jhove" toolversion="1.26.1" />
-      <tool toolname="file utility" toolversion="5.41" />
-      <tool toolname="Exiftool" toolversion="12.42" />
-      <tool toolname="Tika" toolversion="2.3.0" />
+      <tool toolname="file utility" toolversion="5.43" />
+      <tool toolname="Exiftool" toolversion="12.50" />
+      <tool toolname="Tika" toolversion="2.6.0" />
       <tool toolname="jpylyzer" toolversion="2.1.0" />
       <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">x-fmt/392</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
     <size toolname="Jhove" toolversion="1.26.1">670265</size>
-    <lastmodified toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">2008-07-19T16:14:14</lastmodified>
-    <created toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">2008-07-19T23:14:14Z</created>
+    <lastmodified toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2008-07-19T16:14:14</lastmodified>
+    <created toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2008-07-19T23:14:14Z</created>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/reference.jp2</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">reference.jp2</filename>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">e2e918578d2a25fc6a6f377e4082d634</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1668263430500</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358187183</fslastmodified>
   </fileinfo>
   <filestatus>
     <well-formed toolname="Jhove" toolversion="1.26.1" status="CONFLICT">false</well-formed>
@@ -29,16 +29,16 @@
   </filestatus>
   <metadata>
     <image>
-      <compressionScheme toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">JPEG 2000</compressionScheme>
-      <imageWidth toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">2717</imageWidth>
-      <imageHeight toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">3701</imageHeight>
-      <colorSpace toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">sRGB</colorSpace>
-      <samplingFrequencyUnit toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">2</samplingFrequencyUnit>
-      <xSamplingFrequency toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">72</xSamplingFrequency>
-      <ySamplingFrequency toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">72</ySamplingFrequency>
-      <samplesPerPixel toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">4</samplesPerPixel>
-      <scanningSoftwareName toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">Adobe Photoshop CS3 Windows</scanningSoftwareName>
-      <bitsPerSample toolname="Exiftool" toolversion="12.42" status="SINGLE_RESULT">8</bitsPerSample>
+      <compressionScheme toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">JPEG 2000</compressionScheme>
+      <imageWidth toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2717</imageWidth>
+      <imageHeight toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">3701</imageHeight>
+      <colorSpace toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">sRGB</colorSpace>
+      <samplingFrequencyUnit toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">72</xSamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">72</ySamplingFrequency>
+      <samplesPerPixel toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">4</samplesPerPixel>
+      <scanningSoftwareName toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">Adobe Photoshop CS3 Windows</scanningSoftwareName>
+      <bitsPerSample toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">8</bitsPerSample>
       <standard>
         <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
           <mix:BasicDigitalObjectInformation>
@@ -88,21 +88,21 @@
       </standard>
     </image>
   </metadata>
-  <statistics fitsExecutionTime="243">
+  <statistics fitsExecutionTime="417">
     <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="10" />
-    <tool toolname="Jhove" toolversion="1.26.1" executionTime="90" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="58" />
+    <tool toolname="Jhove" toolversion="1.26.1" executionTime="224" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.41" executionTime="57" />
-    <tool toolname="Exiftool" toolversion="12.42" executionTime="230" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="182" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="388" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="5" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="28" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="11" />
-    <tool toolname="Tika" toolversion="2.3.0" executionTime="134" />
-    <tool toolname="jpylyzer" toolversion="2.1.0" executionTime="104" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="45" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="36" />
+    <tool toolname="jpylyzer" toolversion="2.1.0" executionTime="231" />
   </statistics>
 </fits>

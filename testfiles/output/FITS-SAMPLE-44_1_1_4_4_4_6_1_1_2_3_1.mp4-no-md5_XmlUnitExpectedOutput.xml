@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="6/27/22, 11:47 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 10:45 AM">
   <identification>
     <identity format="MPEG-4" mimetype="video/mp4" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
-      <tool toolname="MediaInfo" toolversion="21.09" />
+      <tool toolname="MediaInfo" toolversion="22.09" />
       <tool toolname="Droid" toolversion="6.5.2" />
-      <tool toolname="file utility" toolversion="5.41" />
+      <tool toolname="file utility" toolversion="5.43" />
       <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/199</externalIdentifier>
     </identity>
   </identification>
   <fileinfo>
-    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filepath>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</filename>
-    <size toolname="MediaInfo" toolversion="21.09">9093784</size>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1439308612000</fslastmodified>
+    <size toolname="MediaInfo" toolversion="22.09">9093784</size>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358186680</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
     <video>
-      <location toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">/fits/testfiles/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</location>
-      <mimeType toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">video/quicktime</mimeType>
-      <format toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">MPEG-4</format>
-      <formatProfile toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">Base Media / Version 2</formatProfile>
-      <duration toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">4137</duration>
-      <bitRate toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">17585272</bitRate>
-      <dateCreated toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">UTC 2015-03-13 19:21:21</dateCreated>
-      <dateModified toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">UTC 2015-08-11 15:56:52</dateModified>
-      <track type="video" id="1" toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">
+      <location toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">/fits/testfiles/input/FITS-SAMPLE-44_1_1_4_4_4_6_1_1_2_3_1.mp4</location>
+      <mimeType toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">video/quicktime</mimeType>
+      <format toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">MPEG-4</format>
+      <formatProfile toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">Base Media / Version 2</formatProfile>
+      <duration toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">4137</duration>
+      <bitRate toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">17585272</bitRate>
+      <dateCreated toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">UTC 2015-03-13 19:21:21</dateCreated>
+      <dateModified toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">UTC 2023-01-10 13:43:06</dateModified>
+      <track type="video" id="1" toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">
         <videoDataEncoding>avc1</videoDataEncoding>
         <codecId>avc1</codecId>
         <codecCC>avc1</codecCC>
@@ -51,7 +51,7 @@
         <colorspace>YUV</colorspace>
         <broadcastStandard>NTSC</broadcastStandard>
       </track>
-      <track type="audio" id="2" toolname="MediaInfo" toolversion="21.09" status="SINGLE_RESULT">
+      <track type="audio" id="2" toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">
         <audioDataEncoding>AAC LC</audioDataEncoding>
         <codecId>mp4a-40-2</codecId>
         <codecFamily>AAC</codecFamily>
@@ -67,20 +67,20 @@
       </track>
     </video>
   </metadata>
-  <statistics fitsExecutionTime="1862">
-    <tool toolname="MediaInfo" toolversion="21.09" executionTime="231" />
+  <statistics fitsExecutionTime="3078">
+    <tool toolname="MediaInfo" toolversion="22.09" executionTime="278" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="212" />
-    <tool toolname="Jhove" toolversion="1.24.9" status="did not run" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="355" />
+    <tool toolname="Jhove" toolversion="1.26.1" status="did not run" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.41" executionTime="158" />
-    <tool toolname="Exiftool" toolversion="12.40" status="did not run" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="1855" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="14" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="178" />
+    <tool toolname="Exiftool" toolversion="12.50" status="did not run" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="3070" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="53" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="93" />
-    <tool toolname="Tika" toolversion="2.3.0" executionTime="799" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="158" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="757" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
   </statistics>
 </fits>
