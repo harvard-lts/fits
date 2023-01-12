@@ -35,6 +35,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.custommonkey.xmlunit.DetailedDiff;
@@ -87,10 +90,17 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
      */
     protected static Fits fits;
 
+    /**
+     * true if the expected test result xml files should be overwritten with the current results. This is useful for
+     * doing a bulk expectation update.
+     */
+    private static boolean overwrite;
+
     @BeforeClass
     public static void abstractClassSetup() throws FitsConfigurationException {
         // Set up XMLUnit for all classes.
         logger = LoggerFactory.getLogger(AbstractXmlUnitTest.class);
+        overwrite = Boolean.parseBoolean(System.getProperty("overwrite", "false"));
     }
 
     @AfterClass
@@ -194,7 +204,12 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
         String expectedFile = OUTPUT_DIR + inputFilename + namePart + EXPECTED_OUTPUT_FILE_SUFFIX;
         String expectedXmlStr = FileUtils.readFileToString(new File(expectedFile), StandardCharsets.UTF_8);
 
-        testActualAgainstExpected(actualXmlStr, expectedXmlStr, actualFile, expectedFile);
+        if (overwrite) {
+            System.out.println("Overwriting test expectations at: " + expectedFile);
+            Files.copy(Paths.get(actualFile), Paths.get(expectedFile), StandardCopyOption.REPLACE_EXISTING);
+        } else {
+            testActualAgainstExpected(actualXmlStr, expectedXmlStr, actualFile, expectedFile);
+        }
     }
 
     /**
