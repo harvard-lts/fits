@@ -195,6 +195,18 @@ To run the formatter:
 
 When the project builds, it checks the formatting and will fail if there are any files that are not formatted per the standard.
 
+### Overwriting test expectations
+
+The test expectation xml files can be overwritten with the current FITS output by running the tests with the
+`-Doverwrite=true` flag. For example:
+
+```shell
+docker run --rm -v `pwd`:/fits -v ~/.m2:/root/.m2 fits-test mvn -Doverwrite=true clean test
+```
+
+However, generally speaking, test expectation files should be changed as little as possible so that the diffs are
+as clear as possible.
+
 ### Tools
 
 Some of the tools that FITS is distributed with are not bundled in the source tree. Instead, they are pulled in when
@@ -227,6 +239,7 @@ Available recipes:
     run +ARGS           # Executes FITS within a Docker container. This requires that the image has already been built (just build-image).
     test                # Runs the tests within a Docker container. Requires the image to already exist (just build-test-image). The image does NOT need to be rebuilt between runs.
     test-filter PATTERN # Runs the tests that match the pattern within a Docker container. Requires the image to already exist (just build-test-image). The image does NOT need to be rebuilt between runs.
+    test-overwrite      # Overwrites all of the test expecation xmls with the current FITS output
     update-droid-sigs   # Update DROID signature files
 ```
 

@@ -34,6 +34,10 @@ test:
 test-filter PATTERN:
     docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn clean test -Dtest={{PATTERN}}
 
+# Overwrites all of the test expecation xmls with the current FITS output
+test-overwrite:
+    docker run --rm -v `pwd`:/fits:z -v ~/.m2:/root/.m2:z fits-test mvn -Doverwrite=true clean test
+
 # Applies the code formatter
 format:
     mvn spotless:apply
