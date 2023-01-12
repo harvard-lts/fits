@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 10:59 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/12/23, 1:38 PM">
   <identification>
     <identity format="WordPerfect Document" mimetype="application/vnd.wordperfect" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
@@ -16,7 +16,7 @@
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">WordPerfect5_0.wp</filename>
     <size toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">3329</size>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">dd08b1df84b3d38736ac777795566b42</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358186909</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1667144388045</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
@@ -28,21 +28,21 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="300">
+  <statistics fitsExecutionTime="477">
     <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="18" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="78" />
     <tool toolname="Jhove" toolversion="1.26.1" status="did not run" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.43" executionTime="142" />
-    <tool toolname="Exiftool" toolversion="12.50" executionTime="272" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="87" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="29" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="170" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="467" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="181" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="81" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="57" />
-    <tool toolname="Tika" toolversion="2.6.0" executionTime="25" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="99" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="94" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
   </statistics>
 </fits>
