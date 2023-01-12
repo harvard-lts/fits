@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 11:00 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/12/23, 1:38 PM">
   <identification>
     <identity format="Microsoft Word Binary File Format" mimetype="application/msword" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
@@ -11,13 +11,13 @@
     </identity>
   </identification>
   <fileinfo>
-    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">Tue Mar 09 16:31:02 EST 1993</created>
+    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">Tue Mar 09 16:31:51 EST 1993</created>
     <creatingApplicationName toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="SINGLE_RESULT">Word 2.0</creatingApplicationName>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/NEWSSLID_Word2_0.DOC</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">NEWSSLID_Word2_0.DOC</filename>
     <size toolname="OIS File Information" toolversion="1.0">10405</size>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">71649cd49b8cd0bc37f8643b2ee84c75</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358186764</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1667144387815</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
@@ -38,21 +38,21 @@
       </standard>
     </document>
   </metadata>
-  <statistics fitsExecutionTime="309">
+  <statistics fitsExecutionTime="426">
     <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="19" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="52" />
     <tool toolname="Jhove" toolversion="1.26.1" status="did not run" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.43" executionTime="117" />
-    <tool toolname="Exiftool" toolversion="12.50" executionTime="297" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="86" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="16" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="180" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="413" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="176" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="41" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="48" />
-    <tool toolname="Tika" toolversion="2.6.0" executionTime="39" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="133" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="79" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
   </statistics>
 </fits>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 10:40 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/12/23, 1:37 PM">
   <identification>
     <identity format="Waveform Audio" mimetype="audio/x-wave" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="OIS Audio Information" toolversion="0.1" />
@@ -15,7 +15,7 @@
     <size toolname="Jhove" toolversion="1.26.1">898136</size>
     <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/test.wav</filepath>
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">test.wav</filename>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358187202</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1667144388585</fslastmodified>
   </fileinfo>
   <filestatus>
     <well-formed toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">true</well-formed>
@@ -38,20 +38,20 @@
       <duration toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">3.12 s</duration>
     </audio>
   </metadata>
-  <statistics fitsExecutionTime="767">
+  <statistics fitsExecutionTime="858">
     <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
-    <tool toolname="OIS Audio Information" toolversion="0.1" executionTime="515" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" executionTime="499" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="605" />
-    <tool toolname="Jhove" toolversion="1.26.1" executionTime="551" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="846" />
+    <tool toolname="Jhove" toolversion="1.26.1" executionTime="587" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.43" executionTime="476" />
-    <tool toolname="Exiftool" toolversion="12.50" executionTime="751" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="473" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="734" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="104" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="64" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="212" />
-    <tool toolname="Tika" toolversion="2.6.0" executionTime="743" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="241" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="775" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
   </statistics>
 </fits>

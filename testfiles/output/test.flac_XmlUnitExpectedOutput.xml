@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/11/23, 10:40 AM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/12/23, 1:37 PM">
   <identification status="CONFLICT">
     <identity format="Free Lossless Audio Codec" mimetype="audio/x-flac" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="Droid" toolversion="6.5.2" />
@@ -17,7 +17,7 @@
     <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">test.flac</filename>
     <size toolname="OIS File Information" toolversion="1.0">1053366</size>
     <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">4cb69c7c0902b0ac3223bc6f46ca62d4</md5checksum>
-    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673358187195</fslastmodified>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1673361836377</fslastmodified>
   </fileinfo>
   <filestatus />
   <metadata>
@@ -30,31 +30,31 @@
       <blockSizeMin toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">4608</blockSizeMin>
       <blockSizeMax toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">4608</blockSizeMax>
       <standard>
-        <aes:audioObject xmlns:aes="http://www.aes.org/audioObject" xsi:schemaLocation="http://www.aes.org/audioObject http://www.aes.org/standards/schemas/aes57-2011-08-27.xsd" disposition="" schemaVersion="1.0.0" analogDigitalFlag="FILE_DIGITAL" ID="AUDIO_OBJECT_4215c792-5dac-4a00-bb05-da644fd95ef1">
+        <aes:audioObject xmlns:aes="http://www.aes.org/audioObject" xsi:schemaLocation="http://www.aes.org/audioObject http://www.aes.org/standards/schemas/aes57-2011-08-27.xsd" disposition="" schemaVersion="1.0.0" analogDigitalFlag="FILE_DIGITAL" ID="AUDIO_OBJECT_395e4208-045e-41a2-b254-11a5e9749509">
           <aes:format specificationVersion="1.2.1">Free Lossless Audio Codec</aes:format>
           <aes:use useType="OTHER" otherType="unknown" />
           <aes:primaryIdentifier identifierType="FILE_NAME">test.flac</aes:primaryIdentifier>
-          <aes:face audioObjectRef="AUDIO_OBJECT_4215c792-5dac-4a00-bb05-da644fd95ef1" label="face 1" ID="FACE_89aacf31-fd5b-4502-a083-32eee2c6d12a" direction="NONE">
+          <aes:face audioObjectRef="AUDIO_OBJECT_395e4208-045e-41a2-b254-11a5e9749509" label="face 1" ID="FACE_00fe9b90-ebb4-4819-9fba-d59af464789e" direction="NONE">
             <aes:timeline>
               <aes:startTime editRate="1">0</aes:startTime>
               <aes:duration editRate="44100">411840</aes:duration>
             </aes:timeline>
-            <aes:region faceRef="FACE_89aacf31-fd5b-4502-a083-32eee2c6d12a" formatRef="FORMAT_REGION_cbebacb2-6a96-487f-9921-70cd69ee1a29" ID="REGION_77513a79-c856-4115-939a-80acd0ab0c40" label="region 1">
+            <aes:region faceRef="FACE_00fe9b90-ebb4-4819-9fba-d59af464789e" formatRef="FORMAT_REGION_2ca61921-1572-4c68-8a8c-bfe2feccd919" ID="REGION_fa16884d-a23f-4672-a3e2-26ac659a24e3" label="region 1">
               <aes:timeRange>
                 <aes:startTime editRate="1">0</aes:startTime>
                 <aes:duration editRate="44100">411840</aes:duration>
               </aes:timeRange>
               <aes:numChannels>2</aes:numChannels>
-              <aes:stream ID="STREAM_24915268-8edd-43e0-b3fc-dd715fde7f75" label="stream 0" faceRegionRef="REGION_77513a79-c856-4115-939a-80acd0ab0c40">
+              <aes:stream ID="STREAM_6316ae96-b30c-4493-85b5-1239ead7a868" label="stream 0" faceRegionRef="REGION_fa16884d-a23f-4672-a3e2-26ac659a24e3">
                 <aes:channelAssignment leftRightPosition="0.0" channelNum="0" frontRearPosition="0.0" />
               </aes:stream>
-              <aes:stream ID="STREAM_240d9c77-6595-4805-88ec-b4dd221398a7" label="stream 1" faceRegionRef="REGION_77513a79-c856-4115-939a-80acd0ab0c40">
+              <aes:stream ID="STREAM_5fcf854e-0c2f-4c18-b01b-85d7bb106a03" label="stream 1" faceRegionRef="REGION_fa16884d-a23f-4672-a3e2-26ac659a24e3">
                 <aes:channelAssignment leftRightPosition="0.0" channelNum="1" frontRearPosition="0.0" />
               </aes:stream>
             </aes:region>
           </aes:face>
           <aes:formatList>
-            <aes:formatRegion ownerRef="REGION_77513a79-c856-4115-939a-80acd0ab0c40" xsi:type="aes:formatRegionType" ID="FORMAT_REGION_cbebacb2-6a96-487f-9921-70cd69ee1a29" label="format region 1">
+            <aes:formatRegion ownerRef="REGION_fa16884d-a23f-4672-a3e2-26ac659a24e3" xsi:type="aes:formatRegionType" ID="FORMAT_REGION_2ca61921-1572-4c68-8a8c-bfe2feccd919" label="format region 1">
               <aes:bitDepth>16</aes:bitDepth>
               <aes:sampleRate>44100.0</aes:sampleRate>
               <aes:soundField>STEREO</aes:soundField>
@@ -64,21 +64,21 @@
       </standard>
     </audio>
   </metadata>
-  <statistics fitsExecutionTime="1561">
+  <statistics fitsExecutionTime="3615">
     <tool toolname="MediaInfo" toolversion="22.09" status="did not run" />
     <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
     <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
     <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
-    <tool toolname="Droid" toolversion="6.5.2" executionTime="303" />
-    <tool toolname="Jhove" toolversion="1.26.1" executionTime="1548" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="963" />
+    <tool toolname="Jhove" toolversion="1.26.1" executionTime="3597" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
-    <tool toolname="file utility" toolversion="5.43" executionTime="259" />
-    <tool toolname="Exiftool" toolversion="12.50" executionTime="639" />
-    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="959" />
-    <tool toolname="OIS File Information" toolversion="1.0" executionTime="65" />
+    <tool toolname="file utility" toolversion="5.43" executionTime="839" />
+    <tool toolname="Exiftool" toolversion="12.50" executionTime="1164" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="2651" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="99" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
-    <tool toolname="ffident" toolversion="0.2" executionTime="85" />
-    <tool toolname="Tika" toolversion="2.6.0" executionTime="1018" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="283" />
+    <tool toolname="Tika" toolversion="2.6.0" executionTime="2956" />
     <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
   </statistics>
 </fits>

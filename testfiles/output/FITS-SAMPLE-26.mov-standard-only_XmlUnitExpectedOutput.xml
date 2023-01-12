@@ -78,9 +78,9 @@
                 <ebucore:editUnitNumber editRate="1000" factorNumerator="1" factorDenominator="1">3971</ebucore:editUnitNumber>
              </ebucore:duration>
              <ebucore:mimeType typeLabel="video/quicktime"/>
-             <ebucore:locator>/fits/testfiles/FITS-SAMPLE-26.mov</ebucore:locator>
+             <ebucore:locator>/fits/testfiles/input/FITS-SAMPLE-26.mov</ebucore:locator>
              <ebucore:technicalAttributeString typeLabel="overallBitRate">30341389</ebucore:technicalAttributeString>
-             <ebucore:dateModified startTime="15:56:52Z" startDate="2015-08-11"/>
+             <ebucore:dateModified startTime="15:39:47Z" startDate="2022-10-30"/>
           </ebucore:format>
        </ebucore:coreMetadata>
     </ebucore:ebuCoreMain>
