@@ -1,4 +1,7 @@
 ## Unreleased (TBD)
+- ?
+
+## Version 1.6.0 (1/16/2023)
 
 - Java 11 or later is now required to run FITS
 - Add embARC tool integration for processing DPX files.
