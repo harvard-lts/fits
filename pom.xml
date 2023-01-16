@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.harvard.huit.lts</groupId>
     <artifactId>fits-parent</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>FITS Parent</name>
@@ -167,7 +167,7 @@
         <connection>scm:git:git@github.com:harvard-lts/fits.git</connection>
         <developerConnection>scm:git:git@github.com:harvard-lts/fits.git</developerConnection>
         <url>https://github.com/harvard-lts/fits</url>
-      <tag>1.6.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <licenses>
