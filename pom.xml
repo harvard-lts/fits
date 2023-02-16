@@ -11,6 +11,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sonatype.host>s01.oss.sonatype.org</sonatype.host>
+        <gpg.plugin.version>3.0.1</gpg.plugin.version>
         <java.version>11</java.version>
         <java.target>11</java.target>
         <bcmail.version>132</bcmail.version>
@@ -73,6 +75,54 @@
             <modules>
                 <module>tool-poms/droid-sig-pom.xml</module>
             </modules>
+        </profile>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                        </plugin>
+                        <plugin>
+                            <artifactId>maven-gpg-plugin</artifactId>
+                            <version>${gpg.plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <id>sign-artifacts</id>
+                                    <phase>verify</phase>
+                                    <goals>
+                                        <goal>sign</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <useAgent>true</useAgent>
+                                <!-- https://github.com/actions/setup-java/issues/91 -->
+                                <gpgArguments>
+                                    <arg>--pinentry-mode</arg>
+                                    <arg>loopback</arg>
+                                </gpgArguments>
+                                <!-- This is needed for github actions -->
+                                <passphraseServerId>gpg.passphrase</passphraseServerId>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
@@ -152,14 +202,14 @@
     <distributionManagement>
         <!-- repository URL and credentials set up in local .m2/settings.xml -->
         <repository>
-            <id>harvard-lts-internal-release-repository</id>
-            <name>Harvard LTS internal Release Repository</name>
-            <url>${lts-artifactory-url}/lts-libs-release-local</url>
+            <id>sonatype-nexus-staging</id>
+            <name>Sonatype Nexus Staging</name>
+            <url>https://${sonatype.host}/service/local/staging/deploy/maven2/</url>
         </repository>
         <snapshotRepository>
-            <id>harvard-lts-internal-snapshot-repository</id>
-            <name>Harvard LTS internal Snapshot Repository</name>
-            <url>${lts-artifactory-url}/lts-libs-snapshot-local</url>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Shapshots</name>
+            <url>https://${sonatype.host}/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -167,7 +217,7 @@
         <connection>scm:git:git@github.com:harvard-lts/fits.git</connection>
         <developerConnection>scm:git:git@github.com:harvard-lts/fits.git</developerConnection>
         <url>https://github.com/harvard-lts/fits</url>
-      <tag>HEAD</tag>
+        <tag>HEAD</tag>
   </scm>
 
     <licenses>
