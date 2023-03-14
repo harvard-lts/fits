@@ -53,7 +53,9 @@
         <profile>
             <id>default</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>!skipDefault</name>
+                </property>
             </activation>
             <modules>
                 <!-- These modules are used to pull in the tools -->
@@ -67,12 +69,94 @@
         </profile>
         <profile>
             <id>update-droid-sigs</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
             <modules>
                 <module>tool-poms/droid-sig-pom.xml</module>
             </modules>
+        </profile>
+        <profile>
+            <!-- Disable the default Harvard config with -P-harvard -->
+            <id>harvard</id>
+            <activation>
+                <property>
+                    <name>!releaseCentral</name>
+                </property>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>maven-central</id>
+                    <name>Maven repo</name>
+                    <url>https://repo1.maven.org/maven2/</url>
+                </repository>
+                <repository>
+                    <id>local-maven-repo</id>
+                    <name>Local file system for temporarily holding non-repo JAR files</name>
+                    <url>file://${project.basedir}/lib-local/</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>maven2-repository.dev.java.net</id>
+                    <name>Java.net Maven 2 Repository</name>
+                    <url>https://repo1.maven.org/maven2/</url>
+                </pluginRepository>
+            </pluginRepositories>
+            <distributionManagement>
+                <!-- repository URL and credentials set up in local .m2/settings.xml -->
+                <repository>
+                    <id>harvard-lts-internal-release-repository</id>
+                    <name>Harvard LTS internal Release Repository</name>
+                    <url>${lts-artifactory-url}/lts-libs-release-local</url>
+                </repository>
+                <snapshotRepository>
+                    <id>harvard-lts-internal-snapshot-repository</id>
+                    <name>Harvard LTS internal Snapshot Repository</name>
+                    <url>${lts-artifactory-url}/lts-libs-snapshot-local</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <!-- Profile for releasing to Maven Central: -DreleaseCentral -->
+            <id>release-central</id>
+            <activation>
+                <property>
+                    <name>releaseCentral</name>
+                </property>
+            </activation>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.13</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
@@ -101,11 +185,6 @@
                     <version>3.0.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.4.1</version>
-                </plugin>
-                <plugin>
                     <groupId>com.diffplug.spotless</groupId>
                     <artifactId>spotless-maven-plugin</artifactId>
                     <version>2.27.2</version>
@@ -125,55 +204,31 @@
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.2.0</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.2.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
-
-    <repositories>
-        <repository>
-            <id>maven-central</id>
-            <name>Maven repo</name>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>
-        <repository>
-            <id>local-maven-repo</id>
-            <name>Local file system for temporarily holding non-repo JAR files</name>
-            <url>file://${project.basedir}/lib-local/</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>maven2-repository.dev.java.net</id>
-            <name>Java.net Maven 2 Repository</name>
-            <url>https://repo1.maven.org/maven2/</url>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <distributionManagement>
-        <!-- repository URL and credentials set up in local .m2/settings.xml -->
-        <repository>
-            <id>harvard-lts-internal-release-repository</id>
-            <name>Harvard LTS internal Release Repository</name>
-            <url>${lts-artifactory-url}/lts-libs-release-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>harvard-lts-internal-snapshot-repository</id>
-            <name>Harvard LTS internal Snapshot Repository</name>
-            <url>${lts-artifactory-url}/lts-libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <scm>
         <connection>scm:git:git@github.com:harvard-lts/fits.git</connection>
         <developerConnection>scm:git:git@github.com:harvard-lts/fits.git</developerConnection>
         <url>https://github.com/harvard-lts/fits</url>
       <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <licenses>
         <license>
-            <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <name>GNU Lesser General Public License (LGPL), Version 2.1</name>
+            <url>http://www.fsf.org/licensing/licenses/lgpl.txt</url>
         </license>
     </licenses>
 
@@ -185,8 +240,8 @@
             <organizationUrl>https://huit.harvard.edu</organizationUrl>
         </developer>
         <developer>
-            <name>Spencer McEwen</name>
-            <email>spencer_mcewen@harvard.edu</email>
+            <name>Andrew Woods</name>
+            <email>andrew_woods@harvard.edu</email>
             <organization>Harvard University Information Technology</organization>
             <organizationUrl>https://huit.harvard.edu</organizationUrl>
         </developer>

@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * helper class that tries to identify the file format for a given file
- * or byte array representing the first bytes of a file. <h3>Usage</h3>
+ * or byte array representing the first bytes of a file.
  *
  * @author Marco Schmidt, Modified for use by FITS by Spencer McEwen
  */
