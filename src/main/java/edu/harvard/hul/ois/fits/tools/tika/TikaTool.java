@@ -201,7 +201,7 @@ public class TikaTool extends ToolBase {
 
     private static final Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
     private static final String TOOL_NAME = "Tika";
-    private static final String TOOL_VERSION = "2.6.0"; // Hard-coded version till we can do better
+    private static final String TOOL_VERSION = "2.8.0"; // Hard-coded version till we can do better
 
     private static final MimeTypes mimeTypes = MimeTypes.getDefaultMimeTypes();
     private final Parser tikaParser;

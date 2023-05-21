@@ -35,7 +35,7 @@
       <iccProfileName toolname="Jhove" toolversion="1.26.1">sRGB IEC61966-2.1</iccProfileName>
       <YCbCrSubSampling toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">1 1</YCbCrSubSampling>
       <YCbCrPositioning toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">1</YCbCrPositioning>
-      <orientation toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">normal*</orientation>
+      <orientation toolname="Jhove" toolversion="1.26.1">normal*</orientation>
       <samplingFrequencyUnit toolname="Jhove" toolversion="1.26.1">in.</samplingFrequencyUnit>
       <xSamplingFrequency toolname="Jhove" toolversion="1.26.1">72</xSamplingFrequency>
       <ySamplingFrequency toolname="Jhove" toolversion="1.26.1">72</ySamplingFrequency>

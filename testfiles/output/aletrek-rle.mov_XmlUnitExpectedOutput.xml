@@ -23,8 +23,8 @@
       <format toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">QuickTime</format>
       <duration toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">3333</duration>
       <bitRate toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">567338</bitRate>
-      <dateCreated toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">UTC 2002-10-18 17:15:11</dateCreated>
-      <dateModified toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">UTC 2022-11-05 19:13:39</dateModified>
+      <dateCreated toolname="MediaInfo" toolversion="23.04" status="SINGLE_RESULT">2002-10-18 17:15:11 UTC</dateCreated>
+      <dateModified toolname="MediaInfo" toolversion="23.04" status="SINGLE_RESULT">2022-11-27 22:46:47 UTC</dateModified>
       <track type="video" id="1" toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">
         <videoDataEncoding>rle </videoDataEncoding>
         <codecId>rle </codecId>
@@ -87,7 +87,7 @@
               <ebucore:mimeType typeLabel="video/quicktime" />
               <ebucore:locator>/fits/testfiles/input/aletrek-rle.mov</ebucore:locator>
               <ebucore:technicalAttributeString typeLabel="overallBitRate">567338</ebucore:technicalAttributeString>
-              <ebucore:dateModified startTime="19:13:39Z" startDate="2022-11-05" />
+              <ebucore:dateModified startTime="22:46:47Z" startDate="2022-11-27" />
             </ebucore:format>
           </ebucore:coreMetadata>
         </ebucore:ebuCoreMain>
