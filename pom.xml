@@ -45,7 +45,7 @@
         <tika.dir>lib/tika</tika.dir>
         <droid.version>6.5.2</droid.version>
         <droid.dir>lib/droid</droid.dir>
-        <jhove.version>1.28.0-RC1</jhove.version>
+        <jhove.version>1.28.0</jhove.version>
         <jhove.dir>lib/jhove</jhove.dir>
     </properties>
 
