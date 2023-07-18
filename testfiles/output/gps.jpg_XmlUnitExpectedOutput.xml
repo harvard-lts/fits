@@ -36,7 +36,7 @@
       <colorSpace toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">YCbCr</colorSpace>
       <YCbCrSubSampling toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2 2</YCbCrSubSampling>
       <YCbCrPositioning toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">2</YCbCrPositioning>
-      <orientation toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">normal*</orientation>
+      <orientation toolname="Jhove" toolversion="1.26.1">normal*</orientation>
       <samplingFrequencyUnit toolname="Jhove" toolversion="1.26.1">in.</samplingFrequencyUnit>
       <xSamplingFrequency toolname="Exiftool" toolversion="12.50">72</xSamplingFrequency>
       <ySamplingFrequency toolname="Exiftool" toolversion="12.50">72</ySamplingFrequency>

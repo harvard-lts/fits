@@ -26,8 +26,8 @@
       <duration toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">3971</duration>
       <timecodeStart toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">01:58:41:27</timecodeStart>
       <bitRate toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">30341389</bitRate>
-      <dateCreated toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">UTC 2015-03-13 15:36:19</dateCreated>
-      <dateModified toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">UTC 2022-10-30 15:39:47</dateModified>
+      <dateCreated toolname="MediaInfo" toolversion="23.04" status="SINGLE_RESULT">2015-03-13 15:36:19 UTC</dateCreated>
+      <dateModified toolname="MediaInfo" toolversion="23.04" status="SINGLE_RESULT">2022-10-23 21:57:52 UTC</dateModified>
       <track type="video" id="1" toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">
         <videoDataEncoding>AVdv</videoDataEncoding>
         <codecId>AVdv</codecId>
@@ -152,7 +152,7 @@
               <ebucore:mimeType typeLabel="video/quicktime" />
               <ebucore:locator>/fits/testfiles/input/FITS-SAMPLE-26.mov</ebucore:locator>
               <ebucore:technicalAttributeString typeLabel="overallBitRate">30341389</ebucore:technicalAttributeString>
-              <ebucore:dateModified startTime="15:39:47Z" startDate="2022-10-30" />
+              <ebucore:dateModified startTime="21:57:52Z" startDate="2022-10-23" />
             </ebucore:format>
           </ebucore:coreMetadata>
         </ebucore:ebuCoreMain>

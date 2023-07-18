@@ -1,5 +1,10 @@
 ## Unreleased (TBD)
-- ?
+
+- Tool upgrades
+  - ExifTool 12.60
+  - Jhove 1.28.0
+  - MediaInfo 23.07
+  - Tika 2.8.0
 
 ## Version 1.6.0 (1/16/2023)
 

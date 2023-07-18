@@ -23,8 +23,8 @@
       <formatProfile toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">Base Media / Version 2</formatProfile>
       <duration toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">4137</duration>
       <bitRate toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">17585272</bitRate>
-      <dateCreated toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">UTC 2015-03-13 19:21:21</dateCreated>
-      <dateModified toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">UTC 2023-01-10 13:43:06</dateModified>
+      <dateCreated toolname="MediaInfo" toolversion="23.04" status="SINGLE_RESULT">2015-03-13 19:21:21 UTC</dateCreated>
+      <dateModified toolname="MediaInfo" toolversion="23.04" status="SINGLE_RESULT">2022-10-23 21:57:52 UTC</dateModified>
       <track type="video" id="1" toolname="MediaInfo" toolversion="22.09" status="SINGLE_RESULT">
         <videoDataEncoding>avc1</videoDataEncoding>
         <codecId>avc1</codecId>

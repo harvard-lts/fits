@@ -40,7 +40,7 @@
       <colorSpace toolname="Exiftool" toolversion="12.50" status="CONFLICT">RGB</colorSpace>
       <iccProfileName toolname="Jhove" toolversion="1.26.1">Adobe RGB (1998)</iccProfileName>
       <YCbCrSubSampling toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">1 1</YCbCrSubSampling>
-      <orientation toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">normal*</orientation>
+      <orientation toolname="Jhove" toolversion="1.26.1">normal*</orientation>
       <samplingFrequencyUnit toolname="Jhove" toolversion="1.26.1">in.</samplingFrequencyUnit>
       <xSamplingFrequency toolname="Jhove" toolversion="1.26.1">350</xSamplingFrequency>
       <ySamplingFrequency toolname="Jhove" toolversion="1.26.1">350</ySamplingFrequency>
