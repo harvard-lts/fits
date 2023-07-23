@@ -34,19 +34,13 @@
  */
 package edu.harvard.hul.ois.fits.tools.droid;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.nationalarchives.droid.command.action.CommandExecutionException;
-import uk.gov.nationalarchives.droid.command.container.Ole2ContainerContentIdentifier;
-import uk.gov.nationalarchives.droid.command.container.ZipContainerContentIdentifier;
-import uk.gov.nationalarchives.droid.container.ContainerFileIdentificationRequestFactory;
 import uk.gov.nationalarchives.droid.container.ContainerSignatureDefinitions;
 import uk.gov.nationalarchives.droid.container.TriggerPuid;
-import uk.gov.nationalarchives.droid.container.ole2.Ole2IdentifierEngine;
-import uk.gov.nationalarchives.droid.container.zip.ZipIdentifierEngine;
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationRequest;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResult;
@@ -198,40 +192,48 @@ public class ResultPrinter {
                 }
                 String filePuid = identResult.getPuid();
                 if (filePuid != null) {
-                    TriggerPuid containerPuid = getTriggerPuidByPuid(filePuid);
-                    if (containerPuid != null) {
-
-                        requestFactory = new ContainerFileIdentificationRequestFactory();
-                        String containerType = containerPuid.getContainerType();
-
-                        if (OLE2_CONTAINER.equals(containerType)) {
-                            try {
-                                Ole2ContainerContentIdentifier ole2Identifier = new Ole2ContainerContentIdentifier();
-                                ole2Identifier.init(containerSignatureDefinitions, containerType);
-                                Ole2IdentifierEngine ole2IdentifierEngine = new Ole2IdentifierEngine();
-                                ole2IdentifierEngine.setRequestFactory(requestFactory);
-                                ole2Identifier.setIdentifierEngine(ole2IdentifierEngine);
-                                containerResults =
-                                        ole2Identifier.process(request.getSourceInputStream(), containerResults);
-                            } catch (IOException e) { // carry on after container i/o problems
-                                logger.warn(e + SPACE + L_BRACKET + fileName + R_BRACKET);
-                            }
-                        } else if (ZIP_CONTAINER.equals(containerType)) {
-                            try {
-                                ZipContainerContentIdentifier zipIdentifier = new ZipContainerContentIdentifier();
-                                zipIdentifier.init(containerSignatureDefinitions, containerType);
-                                ZipIdentifierEngine zipIdentifierEngine = new ZipIdentifierEngine();
-                                zipIdentifierEngine.setRequestFactory(requestFactory);
-                                zipIdentifier.setIdentifierEngine(zipIdentifierEngine);
-                                containerResults =
-                                        zipIdentifier.process(request.getSourceInputStream(), containerResults);
-                            } catch (IOException e) { // carry on after container i/o problems
-                                logger.warn(e + SPACE + L_BRACKET + fileName + R_BRACKET);
-                            }
-                        } else {
-                            throw new CommandExecutionException("Unknown container type: " + containerPuid);
-                        }
-                    }
+                    // TODO DROID this is broke
+                    //                    TriggerPuid containerPuid = getTriggerPuidByPuid(filePuid);
+                    //                    if (containerPuid != null) {
+                    //
+                    //                        requestFactory = new ContainerFileIdentificationRequestFactory();
+                    //                        String containerType = containerPuid.getContainerType();
+                    //
+                    //                        if (OLE2_CONTAINER.equals(containerType)) {
+                    //                            try {
+                    //                                Ole2ContainerContentIdentifier ole2Identifier = new
+                    // Ole2ContainerContentIdentifier();
+                    //                                ole2Identifier.init(containerSignatureDefinitions, containerType);
+                    //                                Ole2IdentifierEngine ole2IdentifierEngine = new
+                    // Ole2IdentifierEngine();
+                    //                                ole2IdentifierEngine.setRequestFactory(requestFactory);
+                    //                                ole2Identifier.setIdentifierEngine(ole2IdentifierEngine);
+                    //                                containerResults =
+                    //                                        ole2Identifier.process(request.getSourceInputStream(),
+                    // containerResults);
+                    //                            } catch (IOException e) { // carry on after container i/o problems
+                    //                                logger.warn(e + SPACE + L_BRACKET + fileName + R_BRACKET);
+                    //                            }
+                    //                        } else if (ZIP_CONTAINER.equals(containerType)) {
+                    //                            try {
+                    //                                ZipContainerContentIdentifier zipIdentifier = new
+                    // ZipContainerContentIdentifier();
+                    //                                zipIdentifier.init(containerSignatureDefinitions, containerType);
+                    //                                ZipIdentifierEngine zipIdentifierEngine = new
+                    // ZipIdentifierEngine();
+                    //                                zipIdentifierEngine.setRequestFactory(requestFactory);
+                    //                                zipIdentifier.setIdentifierEngine(zipIdentifierEngine);
+                    //                                containerResults =
+                    //                                        zipIdentifier.process(request.getSourceInputStream(),
+                    // containerResults);
+                    //                            } catch (IOException e) { // carry on after container i/o problems
+                    //                                logger.warn(e + SPACE + L_BRACKET + fileName + R_BRACKET);
+                    //                            }
+                    //                        } else {
+                    //                            throw new CommandExecutionException("Unknown container type: " +
+                    // containerPuid);
+                    //                        }
+                    //                    }
                 }
             }
         }

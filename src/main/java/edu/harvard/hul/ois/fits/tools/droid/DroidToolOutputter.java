@@ -21,14 +21,15 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResult;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
@@ -41,14 +42,14 @@ import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollect
 public class DroidToolOutputter {
 
     private static final Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
+
+    private static final String UNKNOWN_FORMAT = "Unknown";
+
     private static final Map<Integer, String> COMPRESSION_METHOD_TO_STRING_VALUE;
 
-    private static final Logger logger = LoggerFactory.getLogger(DroidToolOutputter.class);
-
-    private final IdentificationResultCollection results;
     private final ToolBase toolBase;
     private final Fits fits;
-    private final ContainerAggregator aggregator; // could be null!!!
+    private final DroidResult result;
 
     static {
         COMPRESSION_METHOD_TO_STRING_VALUE = new HashMap<>();
@@ -56,29 +57,26 @@ public class DroidToolOutputter {
         COMPRESSION_METHOD_TO_STRING_VALUE.put(ZipEntry.DEFLATED, "deflate");
     }
 
-    public DroidToolOutputter(
-            ToolBase toolBase, IdentificationResultCollection results, Fits fits, ContainerAggregator aggregator) {
+    public DroidToolOutputter(ToolBase toolBase, Fits fits, DroidResult result) {
         this.toolBase = toolBase;
-        this.results = results;
         this.fits = fits;
-        this.aggregator = aggregator;
+        this.result = result;
     }
 
     /** Produce a JDOM document with fits as its root element. This
      *  will contain just identification, not metadata elements.
      */
     public ToolOutput toToolOutput() throws FitsToolException {
-        List<IdentificationResult> resList = results.getResults();
+        List<IdentificationResult> resList = result.getPrimaryResult().getResults();
         Document fitsXml = createToolData();
         Document rawOut = buildRawData(resList);
-        ToolOutput output = new ToolOutput(toolBase, fitsXml, rawOut, fits);
-        return output;
+        return new ToolOutput(toolBase, fitsXml, rawOut, fits);
     }
 
     /** Create a base tool data document and add elements
      *  for each format. */
-    private Document createToolData() throws FitsToolException {
-        List<IdentificationResult> resList = results.getResults();
+    private Document createToolData() {
+        List<IdentificationResult> resList = result.getPrimaryResult().getResults();
         Element fitsElem = new Element("fits", fitsNS);
         Document toolDoc = new Document(fitsElem);
         Element idElem = new Element("identification", fitsNS);
@@ -133,46 +131,62 @@ public class DroidToolOutputter {
             }
         }
 
+        List<IdentificationResultCollection> containerResults = result.getContainerResults();
+
         // The only time there will be a metadata section from DROID is when
         // there is an aggregator for ZIP files and there are file entries.
-        if (aggregator != null && aggregator.getTotalEntriesCount() > 0) {
+        if (!containerResults.isEmpty()) {
             Element metadataElem = new Element("metadata", fitsNS);
             fitsElem.addContent(metadataElem);
             Element containerElem = new Element("container", fitsNS);
             metadataElem.addContent(containerElem);
 
-            Element origSizeElem = new Element("originalSize", fitsNS);
-            origSizeElem.addContent(String.valueOf(aggregator.getOriginalSize()));
-            containerElem.addContent(origSizeElem);
+            // TODO DROID we no longer have this
+            //            Element origSizeElem = new Element("originalSize", fitsNS);
+            //            origSizeElem.addContent(String.valueOf(aggregator.getOriginalSize()));
+            //            containerElem.addContent(origSizeElem);
 
-            Element compressionMethodElem = new Element("compressionMethod", fitsNS);
-            compressionMethodElem.addContent(COMPRESSION_METHOD_TO_STRING_VALUE.get(aggregator.getCompressionMethod()));
-            containerElem.addContent(compressionMethodElem);
+            // TODO DROID we no longer have this
+            //            Element compressionMethodElem = new Element("compressionMethod", fitsNS);
+            //
+            // compressionMethodElem.addContent(COMPRESSION_METHOD_TO_STRING_VALUE.get(aggregator.getCompressionMethod()));
+            //            containerElem.addContent(compressionMethodElem);
 
             Element entriesElem = new Element("entries", fitsNS);
-            Attribute totalEntriesCountAttr =
-                    new Attribute("totalEntries", String.valueOf(aggregator.getTotalEntriesCount()));
+            Attribute totalEntriesCountAttr = new Attribute("totalEntries", String.valueOf(containerResults.size()));
             entriesElem.setAttribute(totalEntriesCountAttr);
             containerElem.addContent(entriesElem);
 
-            for (Map.Entry<String, Integer> formatEntry :
-                    aggregator.getFormatCounts().entrySet()) {
+            Map<String, Long> formatCounts = countByFormat(containerResults);
+
+            formatCounts.forEach((format, count) -> {
                 Element entryElem = new Element("format", fitsNS);
-                Attribute nameAttr = new Attribute("name", formatEntry.getKey());
+                Attribute nameAttr = new Attribute("name", format);
                 entryElem.setAttribute(nameAttr);
 
-                Attribute numberAttr = new Attribute("number", String.valueOf(formatEntry.getValue()));
+                Attribute numberAttr = new Attribute("number", String.valueOf(count));
                 entryElem.setAttribute(numberAttr);
 
                 entriesElem.addContent(entryElem);
-            }
+            });
         }
 
         return toolDoc;
     }
 
-    public static String mapFormatName(String formatName) {
+    private Map<String, Long> countByFormat(List<IdentificationResultCollection> containerResults) {
+        return containerResults.stream()
+                .map(r -> {
+                    if (r.getResults().isEmpty()) {
+                        return UNKNOWN_FORMAT;
+                    }
+                    return mapFormatName(r.getResults().get(0).getName());
+                })
+                .collect(Collectors.groupingBy(Function.identity(), () -> new TreeMap<>(), Collectors.counting()));
+    }
 
+    // TODO DROID private?
+    public static String mapFormatName(String formatName) {
         if (formatName == null || formatName.length() == 0) {
             return FitsMetadataValues.DEFAULT_FORMAT;
         } else if (formatName.startsWith("JPEG2000") || formatName.startsWith("JP2 (JPEG 2000")) {
@@ -199,7 +213,6 @@ public class DroidToolOutputter {
     }
 
     private String mapVersion(String version) {
-
         if (version == null || version.length() == 0) {
             return version;
         } else if (version.equals("1987a")) {
@@ -217,7 +230,6 @@ public class DroidToolOutputter {
      * @throws SAXException
      */
     private Document buildRawData(List<IdentificationResult> resList) throws FitsToolException {
-
         StringWriter out = new StringWriter();
 
         out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -241,30 +253,38 @@ public class DroidToolOutputter {
             out.write("</result>");
         }
 
-        if (aggregator != null && aggregator.getTotalEntriesCount() > 0) {
-            out.write("<container originalSize='");
-            out.write(String.valueOf(aggregator.getOriginalSize()));
+        var containerResults = result.getContainerResults();
 
-            String method = COMPRESSION_METHOD_TO_STRING_VALUE.get(aggregator.getCompressionMethod());
-            out.write("' method='");
-            out.write(method);
+        if (!containerResults.isEmpty()) {
+            out.write("<container>");
+            //            out.write("<container originalSize='");
+            // TODO DROID
+            //            out.write(String.valueOf(aggregator.getOriginalSize()));
 
-            out.write("'>");
+            //            String method = COMPRESSION_METHOD_TO_STRING_VALUE.get(aggregator.getCompressionMethod());
+            //            out.write("' method='");
+            //            out.write(method);
+
+            //            out.write("'>");
             out.write("\n");
 
             out.write("<entries totalEntries='");
-            out.write(String.valueOf(aggregator.getTotalEntriesCount()));
+            out.write(String.valueOf(containerResults.size()));
             out.write("'>");
             out.write("\n");
 
-            for (Map.Entry<String, Integer> entry : aggregator.getFormatCounts().entrySet()) {
+            // TODO DROID to me it makes more sense to put the raw values here
+
+            Map<String, Long> formatCounts = countByFormat(containerResults);
+
+            formatCounts.forEach((format, count) -> {
                 out.write("<entry formatName='");
-                out.write(entry.getKey());
+                out.write(format);
                 out.write("' count='");
-                out.write(String.valueOf(entry.getValue()));
+                out.write(String.valueOf(count));
                 out.write("'></entry>");
                 out.write("\n");
-            }
+            });
             out.write("</entries>");
             out.write("\n");
 
