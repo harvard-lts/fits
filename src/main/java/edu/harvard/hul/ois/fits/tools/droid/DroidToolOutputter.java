@@ -18,6 +18,9 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +52,7 @@ public class DroidToolOutputter {
 
     private final ToolBase toolBase;
     private final Fits fits;
+    private final Path file;
     private final DroidResult result;
 
     static {
@@ -57,9 +61,10 @@ public class DroidToolOutputter {
         COMPRESSION_METHOD_TO_STRING_VALUE.put(ZipEntry.DEFLATED, "deflate");
     }
 
-    public DroidToolOutputter(ToolBase toolBase, Fits fits, DroidResult result) {
+    public DroidToolOutputter(ToolBase toolBase, Fits fits, Path file, DroidResult result) {
         this.toolBase = toolBase;
         this.fits = fits;
+        this.file = file;
         this.result = result;
     }
 
@@ -141,16 +146,18 @@ public class DroidToolOutputter {
             Element containerElem = new Element("container", fitsNS);
             metadataElem.addContent(containerElem);
 
-            // TODO DROID we no longer have this
-            //            Element origSizeElem = new Element("originalSize", fitsNS);
-            //            origSizeElem.addContent(String.valueOf(aggregator.getOriginalSize()));
-            //            containerElem.addContent(origSizeElem);
+            var originalSize = computeSize(containerResults);
+            var fileSize = fileSize();
 
-            // TODO DROID we no longer have this
-            //            Element compressionMethodElem = new Element("compressionMethod", fitsNS);
-            //
-            // compressionMethodElem.addContent(COMPRESSION_METHOD_TO_STRING_VALUE.get(aggregator.getCompressionMethod()));
-            //            containerElem.addContent(compressionMethodElem);
+            Element origSizeElem = new Element("originalSize", fitsNS);
+            origSizeElem.addContent(String.valueOf(originalSize));
+            containerElem.addContent(origSizeElem);
+
+            // TODO DROID only do this for zip
+            Element compressionMethodElem = new Element("compressionMethod", fitsNS);
+            var method = fileSize < originalSize ? "deflate" : "stored";
+            compressionMethodElem.addContent(method);
+            containerElem.addContent(compressionMethodElem);
 
             Element entriesElem = new Element("entries", fitsNS);
             Attribute totalEntriesCountAttr = new Attribute("totalEntries", String.valueOf(containerResults.size()));
@@ -182,7 +189,23 @@ public class DroidToolOutputter {
                     }
                     return mapFormatName(r.getResults().get(0).getName());
                 })
-                .collect(Collectors.groupingBy(Function.identity(), () -> new TreeMap<>(), Collectors.counting()));
+                .collect(Collectors.groupingBy(Function.identity(), TreeMap::new, Collectors.counting()));
+    }
+
+    // TODO DROID cleanup
+    private long computeSize(List<IdentificationResultCollection> containerResults) {
+        return containerResults.stream()
+                .map(IdentificationResultCollection::getFileLength)
+                .reduce(0L, Long::sum);
+    }
+
+    // TODO DROID cleanup
+    private long fileSize() {
+        try {
+            return Files.size(file);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     // TODO DROID private?
@@ -256,16 +279,19 @@ public class DroidToolOutputter {
         var containerResults = result.getContainerResults();
 
         if (!containerResults.isEmpty()) {
-            out.write("<container>");
-            //            out.write("<container originalSize='");
+            // TODO DROID cleanup
+            var originalSize = computeSize(containerResults);
+            var fileSize = fileSize();
+
+            out.write("<container originalSize='");
+            out.write(String.valueOf(originalSize));
+
             // TODO DROID
-            //            out.write(String.valueOf(aggregator.getOriginalSize()));
+            String method = fileSize < originalSize ? "deflate" : "stored";
+            out.write("' method='");
+            out.write(method);
 
-            //            String method = COMPRESSION_METHOD_TO_STRING_VALUE.get(aggregator.getCompressionMethod());
-            //            out.write("' method='");
-            //            out.write(method);
-
-            //            out.write("'>");
+            out.write("'>");
             out.write("\n");
 
             out.write("<entries totalEntries='");

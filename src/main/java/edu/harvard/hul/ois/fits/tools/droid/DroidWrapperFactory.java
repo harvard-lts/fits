@@ -14,6 +14,8 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import org.apache.commons.lang.StringUtils;
 import uk.gov.nationalarchives.droid.container.ContainerFileIdentificationRequestFactory;
 import uk.gov.nationalarchives.droid.container.ContainerSignatureFileReader;
 import uk.gov.nationalarchives.droid.container.ole2.Ole2Identifier;
@@ -22,6 +24,8 @@ import uk.gov.nationalarchives.droid.container.zip.ZipIdentifier;
 import uk.gov.nationalarchives.droid.container.zip.ZipIdentifierEngine;
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.SignatureParseException;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationRequest;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 import uk.gov.nationalarchives.droid.core.interfaces.RequestIdentifier;
 import uk.gov.nationalarchives.droid.core.interfaces.archive.ArcArchiveHandler;
 import uk.gov.nationalarchives.droid.core.interfaces.archive.ArchiveFormatResolverImpl;
@@ -155,7 +159,20 @@ class DroidWrapperFactory {
     }
 
     public DroidWrapper createInstance(Set<String> extsToLimitBytesRead, long byteReadLimit) {
-        var submissionGateway = new SubmissionGateway();
+        var submissionGateway = new SubmissionGateway() {
+            @Override
+            public Future<IdentificationResultCollection> submit(IdentificationRequest request) {
+                var depth = StringUtils.countMatches(
+                        request.getIdentifier().getUri().toString(), "!/");
+
+                if (depth > 1) {
+                    // TODO DROID this should be fine...
+                    return null;
+                }
+
+                return super.submit(request);
+            }
+        };
         submissionGateway.setDroidCore(droid);
         submissionGateway.setContainerFormatResolver(containerPuidResolver);
         submissionGateway.setContainerIdentifierFactory(containerIdentifierFactory);

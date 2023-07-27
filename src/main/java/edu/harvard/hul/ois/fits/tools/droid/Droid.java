@@ -89,7 +89,7 @@ public class Droid extends ToolBase {
             throw new FitsToolException("DROID can't query file " + file.getAbsolutePath(), e);
         }
 
-        DroidToolOutputter outputter = new DroidToolOutputter(this, fits, result);
+        DroidToolOutputter outputter = new DroidToolOutputter(this, fits, file.toPath(), result);
         ToolOutput output = outputter.toToolOutput();
 
         duration = Duration.between(startTime, Instant.now()).toMillis();
