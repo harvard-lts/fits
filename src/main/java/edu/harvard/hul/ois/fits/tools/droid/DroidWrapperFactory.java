@@ -11,6 +11,7 @@
 package edu.harvard.hul.ois.fits.tools.droid;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -51,6 +52,9 @@ import uk.gov.nationalarchives.droid.core.interfaces.archive.WebArchiveEntryRequ
 import uk.gov.nationalarchives.droid.core.interfaces.archive.ZipEntryRequestFactory;
 import uk.gov.nationalarchives.droid.core.interfaces.control.PauseAspect;
 import uk.gov.nationalarchives.droid.core.interfaces.signature.SignatureFileException;
+import uk.gov.nationalarchives.droid.profile.referencedata.Format;
+import uk.gov.nationalarchives.droid.signature.SaxSignatureFileParser;
+import uk.gov.nationalarchives.droid.signature.SignatureParser;
 import uk.gov.nationalarchives.droid.submitter.SubmissionGateway;
 import uk.gov.nationalarchives.droid.submitter.SubmissionQueue;
 import uk.gov.nationalarchives.droid.submitter.SubmissionQueueData;
@@ -68,6 +72,7 @@ class DroidWrapperFactory {
         return instance;
     }
 
+    private final Map<String, Format> puidFormatMap;
     private final BinarySignatureIdentifier droid;
     private final ContainerSignatureFileReader signatureFileReader;
     private final ContainerIdentifierFactoryImpl containerIdentifierFactory;
@@ -88,6 +93,13 @@ class DroidWrapperFactory {
 
     private DroidWrapperFactory(Path sigFile, Path containerSigFile, Path tempDir)
             throws SignatureParseException, SignatureFileException {
+        // The following is necessary to init the code that identifies formats like docx, xlsx, etc
+        puidFormatMap = new HashMap<>();
+        SignatureParser sigParser = new SaxSignatureFileParser(sigFile.toUri());
+        sigParser.formats(format -> {
+            puidFormatMap.put(format.getPuid(), format);
+        });
+
         droid = new BinarySignatureIdentifier();
         droid.setSignatureFile(sigFile.toAbsolutePath().toString());
         droid.init();
@@ -260,7 +272,7 @@ class DroidWrapperFactory {
 
         submissionGateway.setArchiveHandlerFactory(archiveHandlerLocator);
 
-        return new DroidWrapper(submissionGateway, resultHandler, extsToLimitBytesRead, byteReadLimit);
+        return new DroidWrapper(submissionGateway, resultHandler, puidFormatMap, extsToLimitBytesRead, byteReadLimit);
     }
 
     private static class NoOpSubmissionQueue implements SubmissionQueue {

@@ -15,14 +15,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import org.apache.commons.io.FilenameUtils;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
+import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultImpl;
 import uk.gov.nationalarchives.droid.core.interfaces.RequestIdentifier;
 import uk.gov.nationalarchives.droid.core.interfaces.resource.FileSystemIdentificationRequest;
 import uk.gov.nationalarchives.droid.core.interfaces.resource.RequestMetaData;
+import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 import uk.gov.nationalarchives.droid.submitter.SubmissionGateway;
 
 // TODO DROID not thread safe
@@ -30,16 +33,19 @@ class DroidWrapper {
 
     private final SubmissionGateway submissionGateway;
     private final CollectingResultHandler resultHandler;
+    private final Map<String, Format> puidFormatMap;
     private final Set<String> extsToLimitBytesRead;
     private final long byteReadLimit;
 
     public DroidWrapper(
             SubmissionGateway submissionGateway,
             CollectingResultHandler resultHandler,
+            Map<String, Format> puidFormatMap,
             Set<String> extsToLimitBytesRead,
             long byteReadLimit) {
         this.submissionGateway = Objects.requireNonNull(submissionGateway, "submissionGateway cannot be null");
         this.resultHandler = Objects.requireNonNull(resultHandler, "resultHandler cannot be null");
+        this.puidFormatMap = Objects.requireNonNull(puidFormatMap, "puidFormatMap cannot be null");
         this.extsToLimitBytesRead = Objects.requireNonNull(extsToLimitBytesRead, "extsToLimitBytesRead cannot be null");
         this.byteReadLimit = byteReadLimit;
     }
@@ -69,6 +75,9 @@ class DroidWrapper {
             submissionGateway.awaitFinished();
 
             var results = resultHandler.getResults();
+
+            results.forEach(this::augmentContainerResults);
+
             List<IdentificationResultCollection> containerResults =
                     results.size() == 1 ? Collections.emptyList() : results.subList(1, results.size());
 
@@ -76,6 +85,18 @@ class DroidWrapper {
         } finally {
             request.close();
         }
+    }
+
+    private void augmentContainerResults(IdentificationResultCollection result) {
+        result.getResults().stream().filter(r -> r.getMimeType() == null).forEach(r -> {
+            var format = puidFormatMap.get(r.getPuid());
+            if (format != null) {
+                var ri = (IdentificationResultImpl) r;
+                ri.setName(format.getName());
+                ri.setMimeType(format.getMimeType());
+                ri.setVersion(format.getVersion());
+            }
+        });
     }
 
     public void close() throws IOException {
