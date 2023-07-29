@@ -119,7 +119,6 @@ class DroidWrapper {
      * @throws IOException
      */
     public void close() throws IOException {
-        // TODO DROID I think we need a Tool.close() method
         submissionGateway.close();
     }
 

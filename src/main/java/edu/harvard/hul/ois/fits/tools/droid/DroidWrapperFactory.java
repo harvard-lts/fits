@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.gov.nationalarchives.droid.container.ContainerFileIdentificationRequestFactory;
 import uk.gov.nationalarchives.droid.container.ContainerSignatureFileReader;
 import uk.gov.nationalarchives.droid.container.ole2.Ole2Identifier;
@@ -60,6 +63,8 @@ import uk.gov.nationalarchives.droid.submitter.SubmissionQueueData;
  * class is based on Droid's <a href="https://github.com/digital-preservation/droid/blob/master/droid-results/src/main/resources/META-INF/spring-results.xml">spring-result.xml</a>.
  */
 class DroidWrapperFactory {
+
+    private static final Logger log = LoggerFactory.getLogger(DroidWrapperFactory.class);
 
     private static DroidWrapperFactory instance;
 
@@ -194,7 +199,19 @@ class DroidWrapperFactory {
         submissionGateway.setArchiveFormatResolver(archivePuidResolver);
         submissionGateway.setPauseAspect(new PauseAspect());
         submissionGateway.setSubmissionQueue(new NoOpSubmissionQueue());
-        submissionGateway.setExecutorService(Executors.newSingleThreadExecutor());
+
+        // We need these threads to be daemon threads so that an application that uses FITS can exit. FITS has not
+        // historically required that users shut it down, so without this user application would hang.
+        submissionGateway.setExecutorService(Executors.newSingleThreadExecutor(new ThreadFactory() {
+            private final ThreadFactory delegate = Executors.defaultThreadFactory();
+
+            @Override
+            public Thread newThread(Runnable runnable) {
+                var thread = delegate.newThread(runnable);
+                thread.setDaemon(true);
+                return thread;
+            }
+        }));
 
         submissionGateway.setProcessZip(true);
         submissionGateway.setProcessTar(true);
