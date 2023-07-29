@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import org.apache.commons.lang.StringUtils;
 import uk.gov.nationalarchives.droid.container.ContainerFileIdentificationRequestFactory;
 import uk.gov.nationalarchives.droid.container.ContainerSignatureFileReader;
 import uk.gov.nationalarchives.droid.container.ole2.Ole2Identifier;
@@ -25,8 +23,6 @@ import uk.gov.nationalarchives.droid.container.zip.ZipIdentifier;
 import uk.gov.nationalarchives.droid.container.zip.ZipIdentifierEngine;
 import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.SignatureParseException;
-import uk.gov.nationalarchives.droid.core.interfaces.IdentificationRequest;
-import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 import uk.gov.nationalarchives.droid.core.interfaces.RequestIdentifier;
 import uk.gov.nationalarchives.droid.core.interfaces.archive.ArcArchiveHandler;
 import uk.gov.nationalarchives.droid.core.interfaces.archive.ArchiveFormatResolverImpl;
@@ -55,15 +51,28 @@ import uk.gov.nationalarchives.droid.core.interfaces.signature.SignatureFileExce
 import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 import uk.gov.nationalarchives.droid.signature.SaxSignatureFileParser;
 import uk.gov.nationalarchives.droid.signature.SignatureParser;
-import uk.gov.nationalarchives.droid.submitter.SubmissionGateway;
 import uk.gov.nationalarchives.droid.submitter.SubmissionQueue;
 import uk.gov.nationalarchives.droid.submitter.SubmissionQueueData;
 
-// TODO DROID docs
+/**
+ * Factory for generating {@link DroidWrapper} instances. This is necessary because {@link DroidWrapper} is not thread
+ * safe, but many of the components that it uses are expensive and can be shared between instances. The setup in this
+ * class is based on Droid's <a href="https://github.com/digital-preservation/droid/blob/master/droid-results/src/main/resources/META-INF/spring-results.xml">spring-result.xml</a>.
+ */
 class DroidWrapperFactory {
 
     private static DroidWrapperFactory instance;
 
+    /**
+     * Creates a new DroidWrapperFactory instance if one does not exist, or returns the existing instance if one does.
+     *
+     * @param sigFile the Droid binary signature file
+     * @param containerSigFile the Droid container signature file
+     * @param tempDir a temp directory to be used by Droid
+     * @return the DroidWrapperFactory
+     * @throws SignatureParseException
+     * @throws SignatureFileException
+     */
     public static synchronized DroidWrapperFactory getOrCreateFactory(Path sigFile, Path containerSigFile, Path tempDir)
             throws SignatureParseException, SignatureFileException {
         if (instance == null) {
@@ -170,28 +179,21 @@ class DroidWrapperFactory {
         fatFactory.setTempDirLocation(tempDir);
     }
 
+    /**
+     * Creates a new {@link DroidWrapper} instance. {@link DroidWrapper} is NOT THREAD SAFE.
+     *
+     * @param extsToLimitBytesRead the file extensions to restrict the number of bytes read
+     * @param byteReadLimit the max number of bytes to read from restricted files
+     * @return {@link DroidWrapper}
+     */
     public DroidWrapper createInstance(Set<String> extsToLimitBytesRead, long byteReadLimit) {
-        var submissionGateway = new SubmissionGateway() {
-            @Override
-            public Future<IdentificationResultCollection> submit(IdentificationRequest request) {
-                var depth = StringUtils.countMatches(
-                        request.getIdentifier().getUri().toString(), "!/");
-
-                if (depth > 1) {
-                    // TODO DROID this should be fine...
-                    return null;
-                }
-
-                return super.submit(request);
-            }
-        };
+        var submissionGateway = new RecursionRestrictedSubmissionGateway();
         submissionGateway.setDroidCore(droid);
         submissionGateway.setContainerFormatResolver(containerPuidResolver);
         submissionGateway.setContainerIdentifierFactory(containerIdentifierFactory);
         submissionGateway.setArchiveFormatResolver(archivePuidResolver);
         submissionGateway.setPauseAspect(new PauseAspect());
         submissionGateway.setSubmissionQueue(new NoOpSubmissionQueue());
-        // TODO DROID more threads?
         submissionGateway.setExecutorService(Executors.newSingleThreadExecutor());
 
         submissionGateway.setProcessZip(true);

@@ -28,7 +28,15 @@ import uk.gov.nationalarchives.droid.core.interfaces.resource.RequestMetaData;
 import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 import uk.gov.nationalarchives.droid.submitter.SubmissionGateway;
 
-// TODO DROID not thread safe
+/**
+ * Submits a file to Droid to identify and returns the identification results for the submitted file and any files that
+ * it contains.
+ * <p>
+ * The intended use is to construct one instance of this class per thread using the {@link DroidWrapperFactory}. This
+ * allows the reuse of expensive, thread-safe components.
+ * <p>
+ * This class is NOT THREAD SAFE.
+ */
 class DroidWrapper {
 
     private final SubmissionGateway submissionGateway;
@@ -37,6 +45,13 @@ class DroidWrapper {
     private final Set<String> extsToLimitBytesRead;
     private final long byteReadLimit;
 
+    /**
+     * @param submissionGateway the Droid entry point
+     * @param resultHandler the handler for collecting identification results
+     * @param puidFormatMap the map of puids to formats
+     * @param extsToLimitBytesRead set of file extensions where the number of bytes read should be restricted
+     * @param byteReadLimit the max number of bytes to read of files with byte restrictions
+     */
     public DroidWrapper(
             SubmissionGateway submissionGateway,
             CollectingResultHandler resultHandler,
@@ -50,6 +65,18 @@ class DroidWrapper {
         this.byteReadLimit = byteReadLimit;
     }
 
+    /**
+     * Submits a file to be analyzed by Droid, and returns the identification results of the file and any files that
+     * it contains.
+     * <p>
+     * Recursion of archive formats is restricted to a depth of 1.
+     *
+     * @param file the file to analyze
+     * @return the identification results
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws ExecutionException
+     */
     public DroidResult analyze(Path file) throws IOException, InterruptedException, ExecutionException {
         var bytesToRead = Files.size(file);
         var filename = file.getFileName().toString();
@@ -62,9 +89,8 @@ class DroidWrapper {
         var meta =
                 new RequestMetaData(bytesToRead, Files.getLastModifiedTime(file).toMillis(), filename);
         var id = new RequestIdentifier(file.toUri());
-        id.setParentId(1L);
-        id.setParentPrefix("X");
-        id.setAncestorId(1L);
+        id.setParentId(DroidId.nextId());
+        id.setParentPrefix("");
         var request = new FileSystemIdentificationRequest(meta, id);
 
         try {
@@ -78,15 +104,31 @@ class DroidWrapper {
 
             results.forEach(this::augmentContainerResults);
 
-            List<IdentificationResultCollection> containerResults =
+            List<IdentificationResultCollection> innerResults =
                     results.size() == 1 ? Collections.emptyList() : results.subList(1, results.size());
 
-            return new DroidResult(results.get(0), containerResults);
+            return new DroidResult(file, results.get(0), innerResults);
         } finally {
             request.close();
         }
     }
 
+    /**
+     * Closes the object and any underlying resources
+     *
+     * @throws IOException
+     */
+    public void close() throws IOException {
+        // TODO DROID I think we need a Tool.close() method
+        submissionGateway.close();
+    }
+
+    /**
+     * Modifies the result objects to include mime type and version. This is necessary because, for some reason Droid
+     * does not include this information for files that were identified by container signature.
+     *
+     * @param result the result to modify
+     */
     private void augmentContainerResults(IdentificationResultCollection result) {
         result.getResults().stream().filter(r -> r.getMimeType() == null).forEach(r -> {
             var format = puidFormatMap.get(r.getPuid());
@@ -97,9 +139,5 @@ class DroidWrapper {
                 ri.setVersion(format.getVersion());
             }
         });
-    }
-
-    public void close() throws IOException {
-        submissionGateway.close();
     }
 }

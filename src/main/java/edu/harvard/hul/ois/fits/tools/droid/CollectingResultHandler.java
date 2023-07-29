@@ -21,17 +21,30 @@ import uk.gov.nationalarchives.droid.core.interfaces.ResourceId;
 import uk.gov.nationalarchives.droid.core.interfaces.ResultHandler;
 import uk.gov.nationalarchives.droid.core.interfaces.filter.Filter;
 
-// TODO DROID
+/**
+ * Droid calls this class whenever it identifies a file, and we collect the results. This is necessary because it's
+ * the only way to get the results from archive contents. Droid only returns the result for the specified file directly,
+ * and will not return the results for any files that are contained within the specified file.
+ * <p>
+ * This class is NOT THREAD SAFE. You must use a different instance per thread, and you must call {@link #reset()}
+ * between files.
+ */
 class CollectingResultHandler implements ResultHandler {
 
     private static final Logger log = LoggerFactory.getLogger(CollectingResultHandler.class);
 
     private final List<IdentificationResultCollection> results = new ArrayList<>();
 
+    /**
+     * Clears the accumulated results in preparation for processing a new file.
+     */
     public void reset() {
         results.clear();
     }
 
+    /**
+     * @return the accumulated identification results
+     */
     public List<IdentificationResultCollection> getResults() {
         return List.copyOf(results);
     }
@@ -39,12 +52,12 @@ class CollectingResultHandler implements ResultHandler {
     @Override
     public ResourceId handle(IdentificationResultCollection identificationResultCollection) {
         results.add(identificationResultCollection);
-        return identificationResultCollection.getCorrelationId();
+        return new ResourceId(DroidId.nextId(), "");
     }
 
     @Override
     public ResourceId handleDirectory(IdentificationResult identificationResult, ResourceId resourceId, boolean b) {
-        return null;
+        return new ResourceId(DroidId.nextId(), "");
     }
 
     @Override

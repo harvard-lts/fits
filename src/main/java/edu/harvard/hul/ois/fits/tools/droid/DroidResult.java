@@ -10,26 +10,52 @@
 
 package edu.harvard.hul.ois.fits.tools.droid;
 
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 
-// TODO DROID
-public class DroidResult {
+/**
+ * Encapsulates the identification results of a file and any files that the file contains.
+ */
+class DroidResult {
 
+    private final Path file;
     private final IdentificationResultCollection primaryResult;
-    private final List<IdentificationResultCollection> containerResults;
+    private final List<IdentificationResultCollection> innerResults;
 
+    /**
+     * @param file the file that was analyzed
+     * @param primaryResult the primary identification result
+     * @param innerResults the identifications result of any files the primary file contained
+     */
     public DroidResult(
-            IdentificationResultCollection primaryResult, List<IdentificationResultCollection> containerResults) {
-        this.primaryResult = primaryResult;
-        this.containerResults = List.copyOf(containerResults);
+            Path file,
+            IdentificationResultCollection primaryResult,
+            List<IdentificationResultCollection> innerResults) {
+        this.file = Objects.requireNonNull(file, "file cannot be null");
+        this.primaryResult = Objects.requireNonNull(primaryResult, "primaryResult cannot be null");
+        this.innerResults = List.copyOf(Objects.requireNonNull(innerResults, "innerResults cannot be null"));
     }
 
+    /**
+     * @return the file that was analyzed
+     */
+    public Path getFile() {
+        return file;
+    }
+
+    /**
+     * @return the primary identification result
+     */
     public IdentificationResultCollection getPrimaryResult() {
         return primaryResult;
     }
 
-    public List<IdentificationResultCollection> getContainerResults() {
-        return List.copyOf(containerResults);
+    /**
+     * @return the identification results for any files contained within the primary file, or an empty list
+     */
+    public List<IdentificationResultCollection> getInnerResults() {
+        return List.copyOf(innerResults);
     }
 }

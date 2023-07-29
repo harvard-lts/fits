@@ -21,13 +21,12 @@ import java.io.StringWriter;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -42,30 +41,45 @@ import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollect
  *
  * @author <a href="http://www.garymcgath.com">Gary McGath</a>
  */
-public class DroidToolOutputter {
+class DroidToolOutputter {
 
     private static final Namespace fitsNS = Namespace.getNamespace(Fits.XML_NAMESPACE);
 
     private static final String UNKNOWN_FORMAT = "Unknown";
-
-    private static final Map<Integer, String> COMPRESSION_METHOD_TO_STRING_VALUE;
+    private static final String ZIP_PUID = "x-fmt/263";
 
     private final ToolBase toolBase;
     private final Fits fits;
-    private final Path file;
     private final DroidResult result;
 
-    static {
-        COMPRESSION_METHOD_TO_STRING_VALUE = new HashMap<>();
-        COMPRESSION_METHOD_TO_STRING_VALUE.put(ZipEntry.STORED, "stored");
-        COMPRESSION_METHOD_TO_STRING_VALUE.put(ZipEntry.DEFLATED, "deflate");
-    }
+    // The following fields are only relevant when the file was an archive containing other files. They're stored at
+    // the class level because we need the values for both the fits output and the raw output and this avoids computing
+    // them twice.
+    private final Map<String, Long> countsByFormat;
+    private final long originalSize;
+    private final long fileSize;
+    private final String compressionMethod;
 
-    public DroidToolOutputter(ToolBase toolBase, Fits fits, Path file, DroidResult result) {
+    public DroidToolOutputter(ToolBase toolBase, Fits fits, DroidResult result) {
         this.toolBase = toolBase;
         this.fits = fits;
-        this.file = file;
         this.result = result;
+
+        if (!result.getInnerResults().isEmpty()) {
+            countsByFormat = countByFormat(result.getInnerResults());
+            originalSize = calculateTotalSize(result.getInnerResults());
+            fileSize = fileSize(result.getFile());
+            if (isZip(result.getPrimaryResult())) {
+                compressionMethod = zipCompressionMethod(fileSize, originalSize);
+            } else {
+                compressionMethod = null;
+            }
+        } else {
+            countsByFormat = Collections.emptyMap();
+            originalSize = -1;
+            fileSize = -1;
+            compressionMethod = null;
+        }
     }
 
     /** Produce a JDOM document with fits as its root element. This
@@ -73,6 +87,7 @@ public class DroidToolOutputter {
      */
     public ToolOutput toToolOutput() throws FitsToolException {
         List<IdentificationResult> resList = result.getPrimaryResult().getResults();
+
         Document fitsXml = createToolData();
         Document rawOut = buildRawData(resList);
         return new ToolOutput(toolBase, fitsXml, rawOut, fits);
@@ -96,7 +111,6 @@ public class DroidToolOutputter {
                 mimeType = FitsMetadataValues.getInstance().normalizeMimeType(mimeType);
             }
 
-            // maybe this block should be moved to mapFormatName() ???
             if (formatName.equals("Digital Negative (DNG)")) {
                 mimeType = "image/x-adobe-dng";
             }
@@ -105,11 +119,9 @@ public class DroidToolOutputter {
             version = mapVersion(version);
 
             Element identityElem = new Element("identity", fitsNS);
-            Attribute attr = null;
-            if (formatName != null) {
-                attr = new Attribute("format", formatName);
-                identityElem.setAttribute(attr);
-            }
+            Attribute attr = new Attribute("format", formatName);
+            identityElem.setAttribute(attr);
+
             if (mimeType != null) {
                 attr = new Attribute("mimetype", mimeType);
                 identityElem.setAttribute(attr);
@@ -136,37 +148,32 @@ public class DroidToolOutputter {
             }
         }
 
-        List<IdentificationResultCollection> containerResults = result.getContainerResults();
+        List<IdentificationResultCollection> innerResults = result.getInnerResults();
 
         // The only time there will be a metadata section from DROID is when
         // there is an aggregator for ZIP files and there are file entries.
-        if (!containerResults.isEmpty()) {
+        if (!innerResults.isEmpty()) {
             Element metadataElem = new Element("metadata", fitsNS);
             fitsElem.addContent(metadataElem);
             Element containerElem = new Element("container", fitsNS);
             metadataElem.addContent(containerElem);
 
-            var originalSize = computeSize(containerResults);
-            var fileSize = fileSize();
-
             Element origSizeElem = new Element("originalSize", fitsNS);
             origSizeElem.addContent(String.valueOf(originalSize));
             containerElem.addContent(origSizeElem);
 
-            // TODO DROID only do this for zip
-            Element compressionMethodElem = new Element("compressionMethod", fitsNS);
-            var method = fileSize < originalSize ? "deflate" : "stored";
-            compressionMethodElem.addContent(method);
-            containerElem.addContent(compressionMethodElem);
+            if (compressionMethod != null) {
+                Element compressionMethodElem = new Element("compressionMethod", fitsNS);
+                compressionMethodElem.addContent(compressionMethod);
+                containerElem.addContent(compressionMethodElem);
+            }
 
             Element entriesElem = new Element("entries", fitsNS);
-            Attribute totalEntriesCountAttr = new Attribute("totalEntries", String.valueOf(containerResults.size()));
+            Attribute totalEntriesCountAttr = new Attribute("totalEntries", String.valueOf(innerResults.size()));
             entriesElem.setAttribute(totalEntriesCountAttr);
             containerElem.addContent(entriesElem);
 
-            Map<String, Long> formatCounts = countByFormat(containerResults);
-
-            formatCounts.forEach((format, count) -> {
+            countsByFormat.forEach((format, count) -> {
                 Element entryElem = new Element("format", fitsNS);
                 Attribute nameAttr = new Attribute("name", format);
                 entryElem.setAttribute(nameAttr);
@@ -181,8 +188,14 @@ public class DroidToolOutputter {
         return toolDoc;
     }
 
-    private Map<String, Long> countByFormat(List<IdentificationResultCollection> containerResults) {
-        return containerResults.stream()
+    /**
+     * Groups and counts the results by format name.
+     *
+     * @param innerResults the identification results of files within an archive
+     * @return a map of format names to the number of occurrences of that format
+     */
+    private Map<String, Long> countByFormat(List<IdentificationResultCollection> innerResults) {
+        return innerResults.stream()
                 .map(r -> {
                     if (r.getResults().isEmpty()) {
                         return UNKNOWN_FORMAT;
@@ -192,15 +205,22 @@ public class DroidToolOutputter {
                 .collect(Collectors.groupingBy(Function.identity(), TreeMap::new, Collectors.counting()));
     }
 
-    // TODO DROID cleanup
-    private long computeSize(List<IdentificationResultCollection> containerResults) {
-        return containerResults.stream()
+    /**
+     * Sums the combined file size based on the file size reported in the identification results.
+     *
+     * @param innerResults the identification results of files within an archive
+     * @return total file size
+     */
+    private long calculateTotalSize(List<IdentificationResultCollection> innerResults) {
+        return innerResults.stream()
                 .map(IdentificationResultCollection::getFileLength)
                 .reduce(0L, Long::sum);
     }
 
-    // TODO DROID cleanup
-    private long fileSize() {
+    /**
+     * @return the file size of the target file on disk
+     */
+    private long fileSize(Path file) {
         try {
             return Files.size(file);
         } catch (IOException e) {
@@ -208,8 +228,26 @@ public class DroidToolOutputter {
         }
     }
 
-    // TODO DROID private?
-    public static String mapFormatName(String formatName) {
+    /**
+     * @return true if the target file was determined to be a zip file
+     */
+    private boolean isZip(IdentificationResultCollection identificationResult) {
+        return identificationResult.getResults().stream()
+                .map(IdentificationResult::getPuid)
+                .anyMatch(ZIP_PUID::equals);
+    }
+
+    /**
+     * @param fileSize the size of the file on disk
+     * @param originalSize the reported size of all of the components of a file, this will be different from the file
+     *                     size if the file is compressed
+     * @return the zip compression method
+     */
+    private String zipCompressionMethod(long fileSize, long originalSize) {
+        return fileSize < originalSize ? "deflate" : "stored";
+    }
+
+    private static String mapFormatName(String formatName) {
         if (formatName == null || formatName.length() == 0) {
             return FitsMetadataValues.DEFAULT_FORMAT;
         } else if (formatName.startsWith("JPEG2000") || formatName.startsWith("JP2 (JPEG 2000")) {
@@ -276,34 +314,26 @@ public class DroidToolOutputter {
             out.write("</result>");
         }
 
-        var containerResults = result.getContainerResults();
+        var innerResults = result.getInnerResults();
 
-        if (!containerResults.isEmpty()) {
-            // TODO DROID cleanup
-            var originalSize = computeSize(containerResults);
-            var fileSize = fileSize();
-
+        if (!innerResults.isEmpty()) {
             out.write("<container originalSize='");
             out.write(String.valueOf(originalSize));
 
-            // TODO DROID
-            String method = fileSize < originalSize ? "deflate" : "stored";
-            out.write("' method='");
-            out.write(method);
+            if (compressionMethod != null) {
+                out.write("' method='");
+                out.write(compressionMethod);
+            }
 
             out.write("'>");
             out.write("\n");
 
             out.write("<entries totalEntries='");
-            out.write(String.valueOf(containerResults.size()));
+            out.write(String.valueOf(innerResults.size()));
             out.write("'>");
             out.write("\n");
 
-            // TODO DROID to me it makes more sense to put the raw values here
-
-            Map<String, Long> formatCounts = countByFormat(containerResults);
-
-            formatCounts.forEach((format, count) -> {
+            countsByFormat.forEach((format, count) -> {
                 out.write("<entry formatName='");
                 out.write(format);
                 out.write("' count='");
