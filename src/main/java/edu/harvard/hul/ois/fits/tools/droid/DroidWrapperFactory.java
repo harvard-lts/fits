@@ -13,6 +13,7 @@ package edu.harvard.hul.ois.fits.tools.droid;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -73,7 +74,7 @@ class DroidWrapperFactory {
      *
      * @param sigFile the Droid binary signature file
      * @param containerSigFile the Droid container signature file
-     * @param tempDir a temp directory to be used by Droid
+     * @param tempDir a temp directory Droid uses to cache processing data, may be null
      * @return the DroidWrapperFactory
      * @throws SignatureParseException
      * @throws SignatureFileException
@@ -81,7 +82,10 @@ class DroidWrapperFactory {
     public static synchronized DroidWrapperFactory getOrCreateFactory(Path sigFile, Path containerSigFile, Path tempDir)
             throws SignatureParseException, SignatureFileException {
         if (instance == null) {
-            instance = new DroidWrapperFactory(sigFile, containerSigFile, tempDir);
+            instance = new DroidWrapperFactory(
+                    Objects.requireNonNull(sigFile, "sigFile cannot be null"),
+                    Objects.requireNonNull(containerSigFile, "containerSigFile cannot be null"),
+                    tempDir);
         }
         return instance;
     }

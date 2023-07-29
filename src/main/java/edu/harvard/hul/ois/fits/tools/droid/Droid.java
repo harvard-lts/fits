@@ -18,7 +18,6 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -52,8 +51,9 @@ public class Droid extends ToolBase {
             Path droidConfigDir = Paths.get(Fits.FITS_TOOLS_DIR + "droid");
             Path sigFile = droidConfigDir.resolve(config.getString("droid_sigfile"));
             Path containerSigFile = droidConfigDir.resolve(config.getString("droid_container_sigfile"));
-            // TODO DROID make temp dir configurable
-            Path tempDir = Files.createDirectories(Paths.get("/var/tmp/droid"));
+
+            String tempStr = config.getString("process.tmpdir", System.getProperty("java.io.tmpdir"));
+            Path tempDir = tempStr == null ? null : Paths.get(tempStr);
 
             List<String> includeExts = (List<String>) (List<?>) config.getList("droid_read_limit[@include-exts]");
             String limit = config.getString("droid_read_limit[@read-limit-kb]");
