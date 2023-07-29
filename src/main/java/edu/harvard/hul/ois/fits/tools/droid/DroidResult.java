@@ -56,6 +56,6 @@ class DroidResult {
      * @return the identification results for any files contained within the primary file, or an empty list
      */
     public List<IdentificationResultCollection> getInnerResults() {
-        return List.copyOf(innerResults);
+        return innerResults;
     }
 }
