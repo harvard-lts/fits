@@ -201,7 +201,10 @@ public class AbstractXmlUnitTest extends AbstractLoggingTest {
         }
 
         // Read in the expected XML file
-        String expectedFile = OUTPUT_DIR + inputFilename + namePart + EXPECTED_OUTPUT_FILE_SUFFIX;
+        String expectedFile = OUTPUT_DIR + inputFilename + namePart + "_" + className + ACTUAL_OUTPUT_FILE_SUFFIX;
+        if (Files.notExists(Paths.get(expectedFile))) {
+            expectedFile = OUTPUT_DIR + inputFilename + namePart + EXPECTED_OUTPUT_FILE_SUFFIX;
+        }
         String expectedXmlStr = FileUtils.readFileToString(new File(expectedFile), StandardCharsets.UTF_8);
 
         if (overwrite) {

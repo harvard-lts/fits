@@ -10,15 +10,11 @@
 
 package edu.harvard.hul.ois.fits.tools.droid;
 
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uk.gov.nationalarchives.droid.container.ContainerFileIdentificationRequestFactory;
 import uk.gov.nationalarchives.droid.container.ContainerSignatureFileReader;
 import uk.gov.nationalarchives.droid.container.ole2.Ole2Identifier;
@@ -65,31 +61,25 @@ import uk.gov.nationalarchives.droid.submitter.SubmissionQueueData;
  */
 class DroidWrapperFactory {
 
-    private static final Logger log = LoggerFactory.getLogger(DroidWrapperFactory.class);
-
     private static DroidWrapperFactory instance;
 
     /**
      * Creates a new DroidWrapperFactory instance if one does not exist, or returns the existing instance if one does.
      *
-     * @param sigFile the Droid binary signature file
-     * @param containerSigFile the Droid container signature file
-     * @param tempDir a temp directory Droid uses to cache processing data, may be null
+     * @param config the droid config
      * @return the DroidWrapperFactory
      * @throws SignatureParseException
      * @throws SignatureFileException
      */
-    public static synchronized DroidWrapperFactory getOrCreateFactory(Path sigFile, Path containerSigFile, Path tempDir)
+    public static synchronized DroidWrapperFactory getOrCreateFactory(DroidConfig config)
             throws SignatureParseException, SignatureFileException {
         if (instance == null) {
-            instance = new DroidWrapperFactory(
-                    Objects.requireNonNull(sigFile, "sigFile cannot be null"),
-                    Objects.requireNonNull(containerSigFile, "containerSigFile cannot be null"),
-                    tempDir);
+            instance = new DroidWrapperFactory(Objects.requireNonNull(config, "config cannot be null"));
         }
         return instance;
     }
 
+    private final DroidConfig config;
     private final Map<String, Format> puidFormatMap;
     private final BinarySignatureIdentifier droid;
     private final ContainerSignatureFileReader signatureFileReader;
@@ -109,21 +99,24 @@ class DroidWrapperFactory {
     private final RarEntryRequestFactory rarFactory;
     private final FatEntryRequestFactory fatFactory;
 
-    private DroidWrapperFactory(Path sigFile, Path containerSigFile, Path tempDir)
-            throws SignatureParseException, SignatureFileException {
+    private DroidWrapperFactory(DroidConfig config) throws SignatureParseException, SignatureFileException {
+        this.config = config;
+
         // The following is necessary to init the code that identifies formats like docx, xlsx, etc
         puidFormatMap = new HashMap<>();
-        SignatureParser sigParser = new SaxSignatureFileParser(sigFile.toUri());
+        SignatureParser sigParser =
+                new SaxSignatureFileParser(config.getSigFile().toUri());
         sigParser.formats(format -> {
             puidFormatMap.put(format.getPuid(), format);
         });
 
         droid = new BinarySignatureIdentifier();
-        droid.setSignatureFile(sigFile.toAbsolutePath().toString());
+        droid.setSignatureFile(config.getSigFile().toAbsolutePath().toString());
         droid.init();
 
         signatureFileReader = new ContainerSignatureFileReader();
-        signatureFileReader.setFilePath(containerSigFile.toAbsolutePath().toString());
+        signatureFileReader.setFilePath(
+                config.getContainerSigFile().toAbsolutePath().toString());
 
         containerIdentifierFactory = new ContainerIdentifierFactoryImpl();
         containerPuidResolver = new ArchiveFormatResolverImpl();
@@ -167,35 +160,33 @@ class DroidWrapperFactory {
                 "FAT", "fmt/1087"));
 
         zipFactory = new ZipEntryRequestFactory();
-        zipFactory.setTempDirLocation(tempDir);
+        zipFactory.setTempDirLocation(config.getTempDir());
         tarFactory = new TarEntryRequestFactory();
-        tarFactory.setTempDirLocation(tempDir);
+        tarFactory.setTempDirLocation(config.getTempDir());
         sevenZipFactory = new SevenZipRequestFactory();
-        sevenZipFactory.setTempDirLocation(tempDir);
+        sevenZipFactory.setTempDirLocation(config.getTempDir());
         bzipFactory = new BZipRequestFactory();
-        bzipFactory.setTempDirLocation(tempDir);
+        bzipFactory.setTempDirLocation(config.getTempDir());
         gzipFactory = new GZipRequestFactory();
-        gzipFactory.setTempDirLocation(tempDir);
+        gzipFactory.setTempDirLocation(config.getTempDir());
         arcFactory = new WebArchiveEntryRequestFactory();
-        arcFactory.setTempDirLocation(tempDir);
+        arcFactory.setTempDirLocation(config.getTempDir());
         warcFactory = new WebArchiveEntryRequestFactory();
-        warcFactory.setTempDirLocation(tempDir);
+        warcFactory.setTempDirLocation(config.getTempDir());
         isoFactory = new ISOEntryRequestFactory();
-        isoFactory.setTempDirLocation(tempDir);
+        isoFactory.setTempDirLocation(config.getTempDir());
         rarFactory = new RarEntryRequestFactory();
-        rarFactory.setTempDirLocation(tempDir);
+        rarFactory.setTempDirLocation(config.getTempDir());
         fatFactory = new FatEntryRequestFactory();
-        fatFactory.setTempDirLocation(tempDir);
+        fatFactory.setTempDirLocation(config.getTempDir());
     }
 
     /**
      * Creates a new {@link DroidWrapper} instance. {@link DroidWrapper} is NOT THREAD SAFE.
      *
-     * @param extsToLimitBytesRead the file extensions to restrict the number of bytes read
-     * @param byteReadLimit the max number of bytes to read from restricted files
      * @return {@link DroidWrapper}
      */
-    public DroidWrapper createInstance(Set<String> extsToLimitBytesRead, long byteReadLimit) {
+    public DroidWrapper createInstance() {
         var submissionGateway = new RecursionRestrictedSubmissionGateway();
         submissionGateway.setDroidCore(droid);
         submissionGateway.setContainerFormatResolver(containerPuidResolver);
@@ -217,15 +208,15 @@ class DroidWrapperFactory {
             }
         }));
 
-        submissionGateway.setProcessZip(true);
-        submissionGateway.setProcessTar(true);
-        submissionGateway.setProcessGzip(true);
-        submissionGateway.setProcessArc(true);
-        submissionGateway.setProcessWarc(true);
-        submissionGateway.setProcessBzip2(true);
-        submissionGateway.setProcess7zip(true);
-        submissionGateway.setProcessIso(true);
-        submissionGateway.setProcessRar(true);
+        submissionGateway.setProcessZip(config.isProcessZip());
+        submissionGateway.setProcessTar(config.isProcessTar());
+        submissionGateway.setProcessGzip(config.isProcessGzip());
+        submissionGateway.setProcessArc(config.isProcessArc());
+        submissionGateway.setProcessWarc(config.isProcessWarc());
+        submissionGateway.setProcessBzip2(config.isProcessBzip2());
+        submissionGateway.setProcess7zip(config.isProcess7zip());
+        submissionGateway.setProcessIso(config.isProcessIso());
+        submissionGateway.setProcessRar(config.isProcessRar());
 
         var resultHandler = new CollectingResultHandler();
 
@@ -295,7 +286,12 @@ class DroidWrapperFactory {
 
         submissionGateway.setArchiveHandlerFactory(archiveHandlerLocator);
 
-        return new DroidWrapper(submissionGateway, resultHandler, puidFormatMap, extsToLimitBytesRead, byteReadLimit);
+        return new DroidWrapper(
+                submissionGateway,
+                resultHandler,
+                puidFormatMap,
+                config.getExtsToLimitBytesRead(),
+                config.getByteReadLimit());
     }
 
     private static class NoOpSubmissionQueue implements SubmissionQueue {

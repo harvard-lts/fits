@@ -18,12 +18,8 @@ import edu.harvard.hul.ois.fits.tools.ToolOutput;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.List;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,29 +44,8 @@ public class Droid extends ToolBase {
 
         try {
             XMLConfiguration config = fits.getConfig();
-            Path droidConfigDir = Paths.get(Fits.FITS_TOOLS_DIR + "droid");
-            Path sigFile = droidConfigDir.resolve(config.getString("droid_sigfile"));
-            Path containerSigFile = droidConfigDir.resolve(config.getString("droid_container_sigfile"));
-
-            String tempStr = config.getString("process.tmpdir", System.getProperty("java.io.tmpdir"));
-            Path tempDir = tempStr == null ? null : Paths.get(tempStr);
-
-            List<String> includeExts = (List<String>) (List<?>) config.getList("droid_read_limit[@include-exts]");
-            String limit = config.getString("droid_read_limit[@read-limit-kb]");
-            long kbReadLimit = -1L;
-            if (limit != null) {
-                try {
-                    kbReadLimit = Long.parseLong(limit);
-                } catch (NumberFormatException nfe) {
-                    throw new FitsToolException(
-                            "Invalid long value in fits.xml droid_read_limit[@read-limit-kb]: " + limit, nfe);
-                }
-            }
-
-            long byteReadLimit = kbReadLimit == -1 ? -1 : 1024 * kbReadLimit;
-
-            droidWrapper = DroidWrapperFactory.getOrCreateFactory(sigFile, containerSigFile, tempDir)
-                    .createInstance(new HashSet<>(includeExts), byteReadLimit);
+            droidWrapper = DroidWrapperFactory.getOrCreateFactory(DroidConfig.fromFitsConfig(config))
+                    .createInstance();
         } catch (Throwable e) {
             throw new FitsToolException("Error initializing DROID", e);
         }
