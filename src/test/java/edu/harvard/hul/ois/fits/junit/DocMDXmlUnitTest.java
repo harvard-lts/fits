@@ -137,9 +137,9 @@ public class DocMDXmlUnitTest extends AbstractXmlUnitTest {
 
         // process multiple files to examine different types of output
         String[] inputFilenames = {
-            "Winnie-the-Pooh-protected.epub", // not properly identified as epub mimetype
+            "Winnie-the-Pooh-protected.epub",
             "GeographyofBliss_oneChapter.epub",
-            "aliceDynamic_images_metadata_tableOfContents.epub", // not properly identified as epub mimetype
+            "aliceDynamic_images_metadata_tableOfContents.epub", // Missing mimetype file; DROID cannot id it
             "epub30-test-font-embedding-obfuscation.epub",
             "Calibre_hasTable_of_Contents.epub"
         };
