@@ -43,7 +43,7 @@
         <!-- Tool properties -->
         <tika.version>2.8.0</tika.version>
         <tika.dir>lib/tika</tika.dir>
-        <droid.version>6.7.0-RC2</droid.version>
+        <droid.version>6.7.0</droid.version>
         <droid.dir>lib/droid</droid.dir>
         <jhove.version>1.28.0</jhove.version>
         <jhove.dir>lib/jhove</jhove.dir>
