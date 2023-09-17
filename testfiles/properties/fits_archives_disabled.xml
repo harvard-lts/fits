@@ -54,15 +54,15 @@
     <droid>
         <!-- If you do not want DROID to examine the contents of any of these file formats, set the format to 'false' -->
         <process>
-            <zip>true</zip>
-            <tar>true</tar>
-            <gzip>true</gzip>
-            <arc>true</arc>
-            <warc>true</warc>
-            <bzip2>true</bzip2>
-            <seven-zip>true</seven-zip>
-            <iso>true</iso>
-            <rar>true</rar>
+            <zip>false</zip>
+            <tar>false</tar>
+            <gzip>false</gzip>
+            <arc>false</arc>
+            <warc>false</warc>
+            <bzip2>false</bzip2>
+            <seven-zip>false</seven-zip>
+            <iso>false</iso>
+            <rar>false</rar>
         </process>
     </droid>
 
