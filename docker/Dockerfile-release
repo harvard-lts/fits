@@ -47,6 +47,7 @@ RUN apt-get update && \
     # mediainfo dependencies
     libmms0 \
     libcurl3-gnutls \
+    mediainfo libmediainfo-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install file https://github.com/file/file
