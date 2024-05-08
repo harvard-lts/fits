@@ -32,7 +32,7 @@
     <tool toolname="Jhove" toolversion="1.26.1" status="did not run" />
     <tool toolname="embARC" toolversion="0.2" status="did not run" />
     <tool toolname="file utility" toolversion="5.43" executionTime="198" />
-    <tool toolname="Exiftool" toolversion="12.50" executionTime="388" />
+    <tool toolname="Exiftool" toolversion="12.76" status="did not run" />
     <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" executionTime="143" />
     <tool toolname="OIS File Information" toolversion="1.0" executionTime="31" />
     <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />

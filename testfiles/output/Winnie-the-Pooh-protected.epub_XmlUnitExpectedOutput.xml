@@ -19,11 +19,11 @@
   <filestatus />
   <metadata>
     <document>
-      <title toolname="Exiftool" toolversion="12.50">Winnie-the-Pooh</title>
-      <author toolname="Exiftool" toolversion="12.50">A. A. Milne</author>
-      <isRightsManaged toolname="Exiftool" toolversion="12.50">yes</isRightsManaged>
-      <identifier toolname="Exiftool" toolversion="12.50">1-101-15893-X</identifier>
-      <language toolname="Exiftool" toolversion="12.50">en</language>
+      <isRightsManaged toolname="Tika" toolversion="2.8.0" status="SINGLE_RESULT">yes</isRightsManaged>
+      <identifier toolname="Tika" toolversion="2.8.0" status="SINGLE_RESULT">1-101-15893-X</identifier>
+      <language toolname="Tika" toolversion="2.8.0" status="SINGLE_RESULT">en</language>
+      <author toolname="Tika" toolversion="2.8.0" status="SINGLE_RESULT">A. A. Milne</author>
+      <title toolname="Tika" toolversion="2.8.0" status="SINGLE_RESULT">Winnie-the-Pooh</title>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:Language>en</docmd:Language>
