@@ -157,7 +157,7 @@ public class ToolInstaller {
 
     private void installExiftool() throws IOException {
         installExiftoolUnix();
-        installExiftoolWindows();
+        //installExiftoolWindows();
     }
 
     private void installMediaInfo() throws IOException {
