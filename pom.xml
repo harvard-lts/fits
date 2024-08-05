@@ -152,14 +152,14 @@
     <distributionManagement>
         <!-- repository URL and credentials set up in local .m2/settings.xml -->
         <repository>
-            <id>harvard-lts-internal-release-repository</id>
-            <name>Harvard LTS internal Release Repository</name>
-            <url>${lts-artifactory-url}/lts-libs-release-local</url>
+            <id>lts-maven</id>
+            <name>Harvard LTS Dependency Repository</name>
+            <url>https://artifactory.huit.harvard.edu/artifactory/lts-maven</url>
         </repository>
         <snapshotRepository>
-            <id>harvard-lts-internal-snapshot-repository</id>
-            <name>Harvard LTS internal Snapshot Repository</name>
-            <url>${lts-artifactory-url}/lts-libs-snapshot-local</url>
+            <id>lts-maven</id>
+            <name>Harvard LTS Dependency Repository</name>
+            <url>https://artifactory.huit.harvard.edu/artifactory/lts-maven</url>
         </snapshotRepository>
     </distributionManagement>
 
