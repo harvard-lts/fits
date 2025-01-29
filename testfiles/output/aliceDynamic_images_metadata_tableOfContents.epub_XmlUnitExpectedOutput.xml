@@ -16,18 +16,31 @@
   </fileinfo>
   <filestatus />
   <metadata>
-    <document>
-      <isRightsManaged toolname="Tika" toolversion="2.6.0" status="SINGLE_RESULT">yes</isRightsManaged>
-      <subject toolname="Tika" toolversion="2.6.0" status="SINGLE_RESULT">fiction</subject>
-      <identifier toolname="Tika" toolversion="2.6.0" status="SINGLE_RESULT">urn:uuid:1a16ce38-82bd-4e9b-861e-773c2e787a50</identifier>
-      <language toolname="Tika" toolversion="2.6.0" status="SINGLE_RESULT">en-GB</language>
-      <author toolname="Tika" toolversion="2.6.0" status="SINGLE_RESULT">Lewis Carroll</author>
-      <title toolname="Tika" toolversion="2.6.0" status="SINGLE_RESULT">Alice's Adventures in Wonderland</title>
+    <container>
+      <originalSize toolname="Droid" toolversion="6.7.0-RC2" status="SINGLE_RESULT">1409497</originalSize>
+      <compressionMethod toolname="Droid" toolversion="6.7.0-RC2" status="SINGLE_RESULT">deflate</compressionMethod>
+      <entries totalEntries="63" toolname="Droid" toolversion="6.7.0-RC2" status="SINGLE_RESULT">
+        <format name="Cascading Style Sheet" number="1" />
+        <format name="Extensible Markup Language" number="9" />
+        <format name="Graphics Interchange Format" number="42" />
+        <format name="Hypertext Markup Language" number="7" />
+        <format name="OpenType Font File" number="2" />
+        <format name="Portable Network Graphics" number="1" />
+        <format name="Unknown" number="1" />
+      </entries>
       <standard>
         <docmd:document xmlns:docmd="http://www.fcla.edu/docmd">
           <docmd:Language>en-GB</docmd:Language>
         </docmd:document>
       </standard>
+    </container>
+    <document>
+      <isRightsManaged toolname="Tika" toolversion="2.8.0" status="SINGLE_RESULT">yes</isRightsManaged>
+      <subject toolname="Tika" toolversion="2.8.0" status="SINGLE_RESULT">fiction</subject>
+      <identifier toolname="Tika" toolversion="2.8.0" status="SINGLE_RESULT">urn:uuid:1a16ce38-82bd-4e9b-861e-773c2e787a50</identifier>
+      <language toolname="Tika" toolversion="2.8.0" status="SINGLE_RESULT">en-GB</language>
+      <author toolname="Tika" toolversion="2.8.0" status="SINGLE_RESULT">Lewis Carroll</author>
+      <title toolname="Tika" toolversion="2.8.0" status="SINGLE_RESULT">Alice's Adventures in Wonderland</title>
     </document>
   </metadata>
   <statistics fitsExecutionTime="472">
