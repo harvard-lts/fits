@@ -59,6 +59,11 @@ public class MixXmlUnitTest extends AbstractXmlUnitTest {
     }
 
     @Test
+    public void testPyramidalTiff() throws Exception {
+        testFile("x059f0483-original_file.ptif");
+    }
+
+    @Test
     public void testJp2_1() throws Exception {
         testFile("test.jp2");
     }

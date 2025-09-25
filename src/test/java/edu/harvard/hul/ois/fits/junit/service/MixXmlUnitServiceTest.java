@@ -68,6 +68,11 @@ public class MixXmlUnitServiceTest extends AbstractWebAppTest {
     }
 
     @Test
+    public void testPyramidalTiff() throws Exception {
+        testFileInWebApp("x059f0483-original_file.ptif");
+    }
+
+    @Test
     public void testJp2_1() throws Exception {
         testFileInWebApp("test.jp2");
     }

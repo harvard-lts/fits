@@ -43,7 +43,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<xsl:value-of select="exiftool/ExifImageWidth[last()]"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="exiftool/ImageWidth[last()]"/>	
+						<xsl:value-of select="substring-before(exiftool/ImageSize, 'x')"/>	
 					</xsl:otherwise>
 				</xsl:choose>
 			</imageWidth>
@@ -53,7 +53,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 						<xsl:value-of select="exiftool/ExifImageHeight[last()]"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="exiftool/ImageHeight[last()]"/>	
+						<xsl:value-of select="substring-after(exiftool/ImageSize, 'x')"/>	
 					</xsl:otherwise>
 				</xsl:choose>
 			</imageHeight>
