@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0" timestamp="9/25/25, 10:42 AM">
+  <identification>
+    <identity format="Tagged Image File Format" mimetype="image/tiff" toolname="FITS" toolversion="1.6.0">
+      <tool toolname="Droid" toolversion="6.5.2" />
+      <tool toolname="Jhove" toolversion="1.26.1" />
+      <tool toolname="file utility" toolversion="5.45" />
+      <tool toolname="Exiftool" toolversion="13.37" />
+      <tool toolname="ffident" toolversion="0.2" />
+      <tool toolname="Tika" toolversion="2.8.0" />
+      <version toolname="Jhove" toolversion="1.26.1">6.0</version>
+      <externalIdentifier toolname="Droid" toolversion="6.5.2" type="puid">fmt/353</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.26.1">12098706</size>
+    <created toolname="Exiftool" toolversion="13.37" status="SINGLE_RESULT">2025-07-10T12:08:01</created>
+    <filepath toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">/fits/testfiles/input/x059f0483-original_file.ptif</filepath>
+    <filename toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">x059f0483-original_file.ptif</filename>
+    <md5checksum toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1a2ebcd15709baca49e031b75ccc69f1</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="1.0" status="SINGLE_RESULT">1758811025421</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <image>
+      <byteOrder toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">little endian</byteOrder>
+      <byteOrder toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">little endian</byteOrder>
+      <byteOrder toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">little endian</byteOrder>
+      <byteOrder toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">little endian</byteOrder>
+      <byteOrder toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">little endian</byteOrder>
+      <byteOrder toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">little endian</byteOrder>
+      <byteOrder toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">little endian</byteOrder>
+      <compressionScheme toolname="Jhove" toolversion="1.26.1" status="CONFLICT">Unknown</compressionScheme>
+      <compressionScheme toolname="Exiftool" toolversion="13.37" status="CONFLICT">JPEG</compressionScheme>
+      <imageWidth toolname="Jhove" toolversion="1.26.1">6164</imageWidth>
+      <imageHeight toolname="Jhove" toolversion="1.26.1">9184</imageHeight>
+      <colorSpace toolname="Jhove" toolversion="1.26.1">YCbCr</colorSpace>
+      <referenceBlackWhite toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255 0 255</referenceBlackWhite>
+      <iccProfileName toolname="Jhove" toolversion="1.26.1" status="CONFLICT">Adobe RGB (1998) Adobe RGB (1998) Adobe RGB (1998) Adobe RGB (1998) Adobe RGB (1998) Adobe RGB (1998) Adobe RGB (1998)</iccProfileName>
+      <iccProfileName toolname="Exiftool" toolversion="13.37" status="CONFLICT">Adobe RGB (1998)</iccProfileName>
+      <YCbCrSubSampling toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">22 22 22 22 22 22 22</YCbCrSubSampling>
+      <YCbCrCoefficients toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">299100058710001141000 299100058710001141000 299100058710001141000 299100058710001141000 299100058710001141000 299100058710001141000 299100058710001141000</YCbCrCoefficients>
+      <YCbCrPositioning toolname="Jhove" toolversion="1.26.1" status="SINGLE_RESULT">Centered</YCbCrPositioning>
+      <orientation toolname="Jhove" toolversion="1.26.1">normal*</orientation>
+      <samplingFrequencyUnit toolname="Jhove" toolversion="1.26.1">in.</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Exiftool" toolversion="13.37">400</xSamplingFrequency>
+      <ySamplingFrequency toolname="Exiftool" toolversion="13.37">400</ySamplingFrequency>
+      <bitsPerSample toolname="Jhove" toolversion="1.26.1" status="CONFLICT">8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8</bitsPerSample>
+      <bitsPerSample toolname="Exiftool" toolversion="13.37" status="CONFLICT">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Jhove" toolversion="1.26.1" status="CONFLICT">3 3 3 3 3 3 3</samplesPerPixel>
+      <samplesPerPixel toolname="Exiftool" toolversion="13.37" status="CONFLICT">3</samplesPerPixel>
+      <flash toolname="Exiftool" toolversion="13.37" status="SINGLE_RESULT">Flash did not fire</flash>
+      <iccProfileVersion toolname="Exiftool" toolversion="13.37" status="SINGLE_RESULT">2.1.0</iccProfileVersion>
+      <scannerManufacturer toolname="Exiftool" toolversion="13.37" status="SINGLE_RESULT">FUJIFILM</scannerManufacturer>
+      <scannerModelName toolname="Exiftool" toolversion="13.37" status="SINGLE_RESULT">GFX100S</scannerModelName>
+      <standard>
+        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20">
+          <mix:BasicDigitalObjectInformation>
+            <mix:byteOrder>little endian</mix:byteOrder>
+            <mix:Compression>
+              <mix:compressionScheme>Unknown</mix:compressionScheme>
+            </mix:Compression>
+          </mix:BasicDigitalObjectInformation>
+          <mix:BasicImageInformation>
+            <mix:BasicImageCharacteristics>
+              <mix:imageWidth>6164</mix:imageWidth>
+              <mix:imageHeight>9184</mix:imageHeight>
+              <mix:PhotometricInterpretation>
+                <mix:colorSpace>YCbCr</mix:colorSpace>
+                <mix:ColorProfile>
+                  <mix:IccProfile>
+                    <mix:iccProfileName>Adobe RGB (1998) Adobe RGB (1998) Adobe RGB (1998) Adobe RGB (1998) Adobe RGB (1998) Adobe RGB (1998) Adobe RGB (1998)</mix:iccProfileName>
+                    <mix:iccProfileVersion>2.1.0</mix:iccProfileVersion>
+                  </mix:IccProfile>
+                </mix:ColorProfile>
+                <mix:YCbCr>
+                  <mix:YCbCrSubSampling />
+                  <mix:YCbCrCoefficients>
+                    <mix:lumaRed>
+                      <mix:numerator>2147483647</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:lumaRed>
+                    <mix:lumaGreen>
+                      <mix:numerator>2147483647</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:lumaGreen>
+                    <mix:lumaBlue>
+                      <mix:numerator>2147483647</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:lumaBlue>
+                  </mix:YCbCrCoefficients>
+                </mix:YCbCr>
+                <mix:ReferenceBlackWhite>
+                  <mix:Component>
+                    <mix:componentPhotometricInterpretation>Y</mix:componentPhotometricInterpretation>
+                    <mix:footroom>
+                      <mix:numerator>25500</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:footroom>
+                    <mix:headroom>
+                      <mix:numerator>0</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:headroom>
+                  </mix:Component>
+                  <mix:Component>
+                    <mix:componentPhotometricInterpretation>Cb</mix:componentPhotometricInterpretation>
+                    <mix:footroom>
+                      <mix:numerator>25500</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:footroom>
+                    <mix:headroom>
+                      <mix:numerator>0</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:headroom>
+                  </mix:Component>
+                  <mix:Component>
+                    <mix:componentPhotometricInterpretation>Cr</mix:componentPhotometricInterpretation>
+                    <mix:footroom>
+                      <mix:numerator>25500</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:footroom>
+                    <mix:headroom>
+                      <mix:numerator>0</mix:numerator>
+                      <mix:denominator>100</mix:denominator>
+                    </mix:headroom>
+                  </mix:Component>
+                </mix:ReferenceBlackWhite>
+              </mix:PhotometricInterpretation>
+            </mix:BasicImageCharacteristics>
+          </mix:BasicImageInformation>
+          <mix:ImageCaptureMetadata>
+            <mix:GeneralCaptureInformation>
+              <mix:dateTimeCreated>2025-07-10T12:08:01</mix:dateTimeCreated>
+            </mix:GeneralCaptureInformation>
+            <mix:ScannerCapture>
+              <mix:scannerManufacturer>FUJIFILM</mix:scannerManufacturer>
+              <mix:ScannerModel>
+                <mix:scannerModelName>GFX100S</mix:scannerModelName>
+              </mix:ScannerModel>
+              <mix:ScanningSystemSoftware />
+            </mix:ScannerCapture>
+            <mix:DigitalCameraCapture>
+              <mix:DigitalCameraModel />
+              <mix:CameraCaptureSettings>
+                <mix:ImageData>
+                  <mix:flash>Flash did not fire</mix:flash>
+                </mix:ImageData>
+              </mix:CameraCaptureSettings>
+            </mix:DigitalCameraCapture>
+            <mix:orientation>normal*</mix:orientation>
+          </mix:ImageCaptureMetadata>
+          <mix:ImageAssessmentMetadata>
+            <mix:SpatialMetrics>
+              <mix:samplingFrequencyUnit>in.</mix:samplingFrequencyUnit>
+              <mix:xSamplingFrequency>
+                <mix:numerator>400</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:xSamplingFrequency>
+              <mix:ySamplingFrequency>
+                <mix:numerator>400</mix:numerator>
+                <mix:denominator>1</mix:denominator>
+              </mix:ySamplingFrequency>
+            </mix:SpatialMetrics>
+            <mix:ImageColorEncoding>
+              <mix:BitsPerSample>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleValue>8</mix:bitsPerSampleValue>
+                <mix:bitsPerSampleUnit>integer</mix:bitsPerSampleUnit>
+              </mix:BitsPerSample>
+            </mix:ImageColorEncoding>
+          </mix:ImageAssessmentMetadata>
+        </mix:mix>
+      </standard>
+    </image>
+  </metadata>
+  <statistics fitsExecutionTime="504">
+    <tool toolname="MediaInfo" toolversion="23.07" status="did not run" />
+    <tool toolname="OIS Audio Information" toolversion="0.1" status="did not run" />
+    <tool toolname="ADL Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="VTT Tool" toolversion="0.1" status="did not run" />
+    <tool toolname="Droid" toolversion="6.5.2" executionTime="84" />
+    <tool toolname="jpylyzer" toolversion="2.1.0" status="did not run" />
+    <tool toolname="Jhove" toolversion="1.26.1" executionTime="463" />
+    <tool toolname="embARC" toolversion="0.2" status="did not run" />
+    <tool toolname="file utility" toolversion="5.45" executionTime="381" />
+    <tool toolname="Exiftool" toolversion="13.37" executionTime="400" />
+    <tool toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="did not run" />
+    <tool toolname="OIS File Information" toolversion="1.0" executionTime="70" />
+    <tool toolname="OIS XML Metadata" toolversion="0.2" status="did not run" />
+    <tool toolname="ffident" toolversion="0.2" executionTime="4" />
+    <tool toolname="Tika" toolversion="2.8.0" executionTime="165" />
+  </statistics>
+</fits>
