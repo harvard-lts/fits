@@ -62,39 +62,32 @@ If, instead, you'd like to replace the binaries:
 
 ### Docker Installation
 
-To run FITS using Docker, you'll need Docker (or Docker-compatible service) installed.
+To run FITS using Docker Compose, you'll need Docker (or Docker-compatible service) with the Compose plugin installed.
 
-1. Download a copy of the [release artifact](http://fitstool.org/downloads).
-2. Extract it to any directory.
-3. Build the Docker image using the distributed Dockerfile.
-4. Optionally, delete the FITS directory as it is no longer needed.
-
-For example:
+1. Clone this repository (or download and extract a copy of the source).
+2. Build the Docker image using the provided `docker-compose.yml`.
 
 ```shell
-mkdir ~/fits
-unzip -d ~/Downloads/fits-1.6.0.zip ~/fits/fits-1.6.0
-cd ~/fits/fits-1.6.0
-docker build -f Dockerfile -t fits:latest -t fits:1.6.0 .
+git clone https://github.com/harvard-lts/fits.git
+cd fits
+docker compose build fits
 ```
 
-After building the image, you can use it directly to analyze files. The following are some examples. Note these
-examples mount the current working directory within the Docker container, which means that the only files that are
-accessible within the container are files that are relative the current working directory. Additionally, these commands
-**do not** need to be run within the FITS root and can be run anywhere on the system.
+After building the image, place the files you want to analyze in the `work/` subdirectory (it is created automatically
+on first run). FITS will have access to anything inside that directory. Run FITS using `docker compose run`:
 
 ```shell
-# Run FITS on a file
-docker run --rm -v `pwd`:/work fits -i file.txt
+# Ready-to-go example using the included sample image
+docker compose run --rm fits -i /work/sample_exif_wikimedia_ant.jpg
 
-# Run a specific version of FITS on a file
-docker run --rm -v `pwd`:/work fits:1.6.0 -i file.txt
+# Run FITS on a file
+docker compose run --rm fits -i /work/file.txt
 
 # Run FITS on a directory
-docker run --rm -v `pwd`:/work fits -r -n -i in-dir -o out-dir
+docker compose run --rm fits -r -n -i /work/in-dir -o /work/out-dir
 
 # Run FITS with alternate configuration
-docker run --rm -v `pwd`:/work fits -f fits-custom.xml -i file.txt
+docker compose run --rm fits -f fits-custom.xml -i /work/file.txt
 ```
 
 ## Configuration
@@ -175,8 +168,8 @@ consistent. To do so, first install Docker, Podman, or an equivalent
 container service, and execute the following:
 
     # The build only needs to be run once
-    docker build -f docker/Dockerfile-test -t fits-test .
-    docker run --rm -v `pwd`:/fits -v ~/.m2:/root/.m2 fits-test mvn clean test
+    docker compose build test
+    docker compose run --rm test
 
 To build yet skip the tests, use the following command:
 
@@ -201,7 +194,7 @@ The test expectation xml files can be overwritten with the current FITS output b
 `-Doverwrite=true` flag. For example:
 
 ```shell
-docker run --rm -v `pwd`:/fits -v ~/.m2:/root/.m2 fits-test mvn -Doverwrite=true clean test
+docker compose run --rm test mvn -Doverwrite=true clean test
 ```
 
 However, generally speaking, test expectation files should be changed as little as possible so that the diffs are
