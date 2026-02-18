@@ -27,6 +27,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -79,6 +80,16 @@ public class ToolInstaller {
     private static final Path ROOT = Paths.get("");
     private static final Path TOOLS_ROOT = ROOT.resolve("tools");
     private static final Path PROPS_FILE = ROOT.resolve("tools.properties");
+
+    /**
+     * Controls which platform-specific tool binaries are installed. Defaults to all platforms.
+     * Override by passing -Dfits.install.platforms=linux (or linux,mac,windows) to the JVM.
+     */
+    private static final Set<String> INSTALL_PLATFORMS = Arrays.stream(
+                    System.getProperty("fits.install.platforms", "linux,mac,windows").split(","))
+            .map(String::trim)
+            .map(String::toLowerCase)
+            .collect(Collectors.toSet());
 
     private static final String VERSION_FILE_NAME = "version";
 
@@ -157,12 +168,18 @@ public class ToolInstaller {
 
     private void installExiftool() throws IOException {
         installExiftoolUnix();
-        installExiftoolWindows();
+        if (INSTALL_PLATFORMS.contains("windows")) {
+            installExiftoolWindows();
+        }
     }
 
     private void installMediaInfo() throws IOException {
-        installMediaInfoMac();
-        installMediaInfoWindows();
+        if (INSTALL_PLATFORMS.contains("mac")) {
+            installMediaInfoMac();
+        }
+        if (INSTALL_PLATFORMS.contains("windows")) {
+            installMediaInfoWindows();
+        }
         installMediaInfoLinux();
     }
 
@@ -261,6 +278,10 @@ public class ToolInstaller {
     }
 
     private void installFileUtility() throws IOException {
+        if (!INSTALL_PLATFORMS.contains("windows")) {
+            return;
+        }
+
         var target = toolDir.resolve(tool.windowsDir);
 
         // Install file utility
@@ -275,7 +296,9 @@ public class ToolInstaller {
     }
 
     private void installJpylyzer() throws IOException {
-        installJpylyzerWindows();
+        if (INSTALL_PLATFORMS.contains("windows")) {
+            installJpylyzerWindows();
+        }
         installJpylyzerUnix();
     }
 

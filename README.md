@@ -62,6 +62,43 @@ If, instead, you'd like to replace the binaries:
 
 ### Docker Installation
 
+To run FITS using Docker, you'll need Docker (or Docker-compatible service) installed.
+
+1. Download a copy of the [release artifact](http://fitstool.org/downloads).
+2. Extract it to any directory.
+3. Build the Docker image using the distributed Dockerfile.
+4. Optionally, delete the FITS directory as it is no longer needed.
+
+For example:
+
+```shell
+mkdir ~/fits
+unzip -d ~/Downloads/fits-1.6.0.zip ~/fits/fits-1.6.0
+cd ~/fits/fits-1.6.0
+docker build -f Dockerfile -t fits:latest -t fits:1.6.0 .
+```
+
+After building the image, you can use it directly to analyze files. The following are some examples. Note these
+examples mount the current working directory within the Docker container, which means that the only files that are
+accessible within the container are files that are relative the current working directory. Additionally, these commands
+**do not** need to be run within the FITS root and can be run anywhere on the system.
+
+```shell
+# Run FITS on a file
+docker run --rm -v `pwd`:/work fits -i file.txt
+
+# Run a specific version of FITS on a file
+docker run --rm -v `pwd`:/work fits:1.6.0 -i file.txt
+
+# Run FITS on a directory
+docker run --rm -v `pwd`:/work fits -r -n -i in-dir -o out-dir
+
+# Run FITS with alternate configuration
+docker run --rm -v `pwd`:/work fits -f fits-custom.xml -i file.txt
+```
+
+### Docker Compose Installation
+
 To run FITS using Docker Compose, you'll need Docker (or Docker-compatible service) with the Compose plugin installed.
 
 1. Clone this repository (or download and extract a copy of the source).

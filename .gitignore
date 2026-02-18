@@ -36,3 +36,6 @@
 /target/
 /version.properties
 /temp/
+
+# Runtime directory for Docker Compose volume mount
+/work/
