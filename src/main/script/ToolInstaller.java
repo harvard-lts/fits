@@ -167,20 +167,24 @@ public class ToolInstaller {
     }
 
     private void installExiftool() throws IOException {
-        installExiftoolUnix();
+        if (INSTALL_PLATFORMS.contains("linux")) {
+            installExiftoolUnix();
+        }
         if (INSTALL_PLATFORMS.contains("windows")) {
             installExiftoolWindows();
         }
     }
 
     private void installMediaInfo() throws IOException {
+        if (INSTALL_PLATFORMS.contains("linux")) {
+            installMediaInfoLinux();
+        }
         if (INSTALL_PLATFORMS.contains("mac")) {
             installMediaInfoMac();
         }
         if (INSTALL_PLATFORMS.contains("windows")) {
             installMediaInfoWindows();
         }
-        installMediaInfoLinux();
     }
 
     private void installMediaInfoMac() throws IOException {
@@ -296,10 +300,12 @@ public class ToolInstaller {
     }
 
     private void installJpylyzer() throws IOException {
+        if (INSTALL_PLATFORMS.contains("linux")) {
+            installJpylyzerUnix();
+        }
         if (INSTALL_PLATFORMS.contains("windows")) {
             installJpylyzerWindows();
         }
-        installJpylyzerUnix();
     }
 
     private void installJpylyzerWindows() throws IOException {
