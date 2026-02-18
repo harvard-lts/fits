@@ -114,9 +114,6 @@ After building the image, place the files you want to analyze in the `work/` sub
 on first run). FITS will have access to anything inside that directory. Run FITS using `docker compose run`:
 
 ```shell
-# Ready-to-go example using the included sample image
-docker compose run --rm fits -i /work/sample_exif_wikimedia_ant.jpg
-
 # Run FITS on a file
 docker compose run --rm fits -i /work/file.txt
 
