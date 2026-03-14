@@ -16,7 +16,6 @@
     <lastmodified toolname="Exiftool" toolversion="12.50" status="CONFLICT">2015-08-20T15:59:10</lastmodified>
     <lastmodified toolname="Tika" toolversion="2.6.0" status="CONFLICT">2015-08-20T15:59:00Z</lastmodified>
     <created toolname="Exiftool" toolversion="12.50" status="CONFLICT">2015-08-20T15:59:00</created>
-    <created toolname="NLNZ Metadata Extractor" toolversion="3.6GA" status="CONFLICT">2015-08-20T11:59:00</created>
     <created toolname="Tika" toolversion="2.6.0" status="CONFLICT">2015-08-20T15:59:00Z</created>
     <creatingApplicationName toolname="Exiftool" toolversion="12.50">Microsoft Office Word</creatingApplicationName>
     <creatingApplicationVersion toolname="Exiftool" toolversion="12.50" status="SINGLE_RESULT">14.0000</creatingApplicationVersion>

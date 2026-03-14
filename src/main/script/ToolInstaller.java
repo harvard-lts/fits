@@ -256,7 +256,11 @@ public class ToolInstaller {
         var archive = downloadAndVerify(WINDOWS);
         var targetDir = toolDir.resolve(tool.windowsDir);
         extractZip(archive, targetDir);
-        Files.move(targetDir.resolve("exiftool(-k).exe"), targetDir.resolve("exiftool.exe"));
+        Path exe = Files.walk(targetDir)
+                .filter(p -> p.getFileName().toString().equalsIgnoreCase("exiftool(-k).exe"))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No exe found!"));
+        Files.move(exe, targetDir.resolve("exiftool.exe"));
         Files.deleteIfExists(archive);
     }
 
