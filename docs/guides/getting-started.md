@@ -19,6 +19,6 @@ Preservationists and digital curators who are concerned with long-term access an
 
 ### Installing FITS
 
-See our <a href="/fits/quick-start">Quick Start guide</a> to get started. Then, come back here to learn more about using FITS.
+See our <a href="/quick-start">Quick Start guide</a> to get started. Then, come back here to learn more about using FITS.
 
 ---

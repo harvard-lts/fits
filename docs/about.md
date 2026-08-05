@@ -11,7 +11,7 @@ The File Information Tool Set (FITS) identifies, validates and extracts technica
 
 Note: FITS is written in Java and is **compatible with Java 1.8 or higher**.
 
-<p><a class="page-link" href="https://github.com/fitstool/fits/releases"><svg class="svg-icon"><use xlink:href="/fits/assets/minima-social-icons.svg#github"></use></svg>Release Notes & Source Code</a></p>
+<p><a class="page-link" href="https://github.com/fitstool/fits/releases"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg>Release Notes & Source Code</a></p>
 </div>
 
 ---
@@ -23,5 +23,5 @@ The FITS Web Service is a project that allows FITS to be deployed as a service o
 
 Note: The latest and future versions of this project are built and tested using Java 8. 
 
-<p><a class="page-link" href="https://github.com/fitstool/FITSservlet/releases"><svg class="svg-icon"><use xlink:href="/fits/assets/minima-social-icons.svg#github"></use></svg>Release Notes & Source Code</a></p>
+<p><a class="page-link" href="https://github.com/fitstool/FITSservlet/releases"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg>Release Notes & Source Code</a></p>
 </div>
