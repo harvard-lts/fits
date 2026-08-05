@@ -22,7 +22,7 @@ title: File Information Tool Set (FITS)
 email: fits-users@googlegroups.com
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation and official code release of the FITS and the FITS Web Service projects
-baseurl: "/fits" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.fitstool.org" # the base hostname & protocol for your site, e.g. http://example.com
 github_reponame_fits:  FITS
 github_url_fits: "https://github.com/fitstool/fits"

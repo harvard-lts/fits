@@ -70,6 +70,6 @@ See the [Developer Manual](https://github.com/fitstool/fits/wiki/Developer-Manua
 
 ## 6. Next steps
 
-After you are up and running see the [User Manual](/fits/user-manual) for more documentation. 
+After you are up and running see the [User Manual](/user-manual) for more documentation. 
 
 </div>
