@@ -14,4 +14,4 @@ author: author
 
 <hr>
 
-For more details, visit our [GitHub project board](https://github.com/orgs/harvard-lts/projects/3/views/1)
+For more details, visit our [GitHub project board](https://github.com/orgs/fitstool/projects/3/views/1)

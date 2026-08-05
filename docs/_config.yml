@@ -23,11 +23,11 @@ email: fits-users@googlegroups.com
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation and official code release of the FITS and the FITS Web Service projects
 baseurl: "/fits" # the subpath of your site, e.g. /blog
-url: "https://harvard-lts.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://www.fitstool.org" # the base hostname & protocol for your site, e.g. http://example.com
 github_reponame_fits:  FITS
-github_url_fits: "https://github.com/harvard-lts/fits"
+github_url_fits: "https://github.com/fitstool/fits"
 github_reponame_fits-servlet: FITSservlet
-github_url_fits-servlet: "https://github.com/harvard-lts/FITSservlet"
+github_url_fits-servlet: "https://github.com/fitstool/FITSservlet"
 
 # Build settings
 theme: minima

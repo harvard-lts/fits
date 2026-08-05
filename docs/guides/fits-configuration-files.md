@@ -1,10 +1,10 @@
 ### FITS configuration files
 
-The FITS configuration files are located in the [xml directory](https://github.com/harvard-lts/fits/tree/dev/xml).
+The FITS configuration files are located in the [xml directory](https://github.com/fitstool/fits/tree/dev/xml).
 
 **The FITS XML output is highly affected by how FITS is configured. In particular, the order of tools near the top of the fits.xml configuration file specifies which tools FITS should prefer when they give conflicting information and if FITS should ignore tool output for particular formats. FITS comes pre-configured based on testing different tools with different formats and the default configuration should only be changed with a great deal of care and testing.**
 
-#### [fits.xml](https://github.com/harvard-lts/fits/blob/dev/xml/fits.xml)
+#### [fits.xml](https://github.com/fitstool/fits/blob/dev/xml/fits.xml)
 This is the main configuration file for FITS. The key pieces are described here:
 
 ##### tool element
@@ -52,7 +52,7 @@ The signature file to use with the Droid tool. [Get the list of all previously r
 This allows for limiting the amount of a file (from its beginning) that is to be examined by the DROID tool (in order to increase processing speed). For example, for some types of large video and audio files, only the first 64K bytes need to be examined to extract relevant metadata. The attribute **include-exts** sets the file extension that this limiter should be applied to, and the attribute **read-limit-kb** sets the limit, in kilobytes, of how much of the beginning of the designated file types should be examined. The default behavior (when this element remains commented-out) is for DROID to examine all files in their entirety. 
 
 
-#### [fits_format_tree.xml](https://github.com/harvard-lts/fits/blob/dev/xml/fits_format_tree.xml)
+#### [fits_format_tree.xml](https://github.com/fitstool/fits/blob/dev/xml/fits_format_tree.xml)
 Certain formats are a more specific subset of a more general format. The format tree in this file specifies these relationships. Nested formats are more specific versions of the formats they are nested under. FITS uses this to know when to report format conflicts and when it should report a more specific format. 
 
 During output consolidation the format tree is consulted, and any less specific format identities are thrown out. For example, OpenOffice text document formats are ZIP-based. Some tools identify these files as ZIP, and others as ODT. Any tools identifying the file as a ZIP would be discarded according to the rules set by the format tree. 
@@ -71,33 +71,33 @@ An example follows using a snippet of the format tree:
 The above snippet of the format tree should be interpreted as: JPEG 2000 JP2 and JPEG 2000 JPX are more specific forms of the JPEG 2000 format. If one FITS-wrapped tool were to report the format of a file as JPEG 2000 and another reported it as JPEG 2000 JP2, FITS would report the more specific format (JPEG 2000 JP2) and would not report that there was a format conflict (because both tools were technically correct). 
 
 
-#### [fits_output.xsd](https://github.com/harvard-lts/fits/blob/dev/xml/fits_output.xsd)
+#### [fits_output.xsd](https://github.com/fitstool/fits/blob/dev/xml/fits_output.xsd)
 Schema for the output of FITS XML files.
 
 
-#### [fits_xml_map.xml](https://github.com/harvard-lts/fits/blob/dev/xml/fits_xml_map.xml)
+#### [fits_xml_map.xml](https://github.com/fitstool/fits/blob/dev/xml/fits_xml_map.xml)
 This mapping file is used to normalize the values output by some of the tools that FITS wraps, for example to change Jhove's Greyscale value to Grayscale. It allows substitution of one value for another on a tool by tool, element by element basis.
 
 For example, if a tool outputs the value "2" as the sampling frequency unit for an image, but you want to use the text string "inches" instead, you could add an entry to fits_xml_map.xml. Mappings are applied automatically when a tool creates its FITS output, prior to output consolidation. You must specify the tool name, version, and element name that you want mapped. Currently all mapping-related needs are handled in the tool's XSLT. 
 
 
-#### [format_map.txt](https://github.com/harvard-lts/fits/blob/dev/xml/format_map.txt)
+#### [format_map.txt](https://github.com/fitstool/fits/blob/dev/xml/format_map.txt)
 The file is used to normalize format names output by some of the tools that FITS wraps. 
 
 
-#### [mime_map.txt](https://github.com/harvard-lts/fits/blob/dev/xml/mime_map.txt)
+#### [mime_map.txt](https://github.com/fitstool/fits/blob/dev/xml/mime_map.txt)
 The file is used to normalize MIME media type values output by some of the tools that FITS wraps.
 
 
-#### [mime_to_format_map.txt](https://github.com/harvard-lts/fits/blob/dev/xml/mime_to_format_map.txt)
+#### [mime_to_format_map.txt](https://github.com/fitstool/fits/blob/dev/xml/mime_to_format_map.txt)
 Used to map format names to MIME media types for some of the tools that FITS wraps.
 
 
-#### [prettyprint.xslt](https://github.com/harvard-lts/fits/blob/dev/xml/prettyprint.xslt)
+#### [prettyprint.xslt](https://github.com/fitstool/fits/blob/dev/xml/prettyprint.xslt)
 Transforms the standard FITS output into “pretty print” XML formatting for easier human readability.
 
 
-#### [xslt_map.xsd](https://github.com/harvard-lts/fits/blob/dev/xml/xslt_map.xsd)
+#### [xslt_map.xsd](https://github.com/fitstool/fits/blob/dev/xml/xslt_map.xsd)
 Schema for transformation maps for these tools: exiftool_xslt_map.xml, jhove_xslt_map.xml, nlnx_xslt_map.xml.
 
 ---
