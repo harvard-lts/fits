@@ -19,7 +19,7 @@ permalink: /connect
     <p>Get involved the community's next 2-week sprint (date TBD). Sign up for the FITS Google Group to learn when the next sprint will be.</p>
   </div>
   <div>
-    <h2><a href="https://github.com/harvard-lts/fits/issues">Discuss on GitHub</a></h2>
+    <h2><a href="https://github.com/fitstool/fits/issues">Discuss on GitHub</a></h2>
     <p>Report bugs, suggest feature enhancements, or request documentation updates by creating an issue on FITS's GitHub issue tracker.</p>
   </div>
 </div>

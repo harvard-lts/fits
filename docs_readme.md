@@ -1,6 +1,6 @@
 # FITS Documentation
 
-The docs directory contains the Jekyll-based documentation website for the File Information Tool Set (FITS) project. The documentation is automatically published to [https://harvard-lts.github.io/fits](https://harvard-lts.github.io/fits) via GitHub Pages.
+The docs directory contains the Jekyll-based documentation website for the File Information Tool Set (FITS) project. The documentation is automatically published to [https://www.fitstool.org](https://www.fitstool.org) via GitHub Pages.
 
 ## Prerequisites
 
@@ -187,7 +187,7 @@ Key configuration options in `_config.yml`:
 
 - Check the [Jekyll documentation](https://jekyllrb.com/docs/)
 - Review [GitHub Pages documentation](https://docs.github.com/en/pages)
-- Search existing [FITS GitHub issues](https://github.com/harvard-lts/fits/issues)
+- Search existing [FITS GitHub issues](https://github.com/fitstool/fits/issues)
 
 ## Deployment
 
