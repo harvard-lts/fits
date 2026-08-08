@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This file is for use in testing FitsOutput.java -->
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.1.0" timestamp="4/24/17 12:01 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output https://some-other-pid-service/fits_output.xsd" version="1.1.0" timestamp="4/24/17 12:01 PM">
   <identification>
     <identity format="Rich Text Format (RTF)" mimetype="application/rtf" toolname="FITS" toolversion="1.1.0">
       <tool toolname="Droid" toolversion="6.1.5" />

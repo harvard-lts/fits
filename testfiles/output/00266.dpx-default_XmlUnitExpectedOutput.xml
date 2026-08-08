@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/12/23, 8:27 PM">
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output https://some-other-pid-service/fits_output.xsd" version="1.6.0-SNAPSHOT" timestamp="1/12/23, 8:27 PM">
   <identification>
     <identity format="Digital Picture Exchange" mimetype="image/x-dpx" toolname="FITS" toolversion="1.6.0-SNAPSHOT">
       <tool toolname="embARC" toolversion="0.2" />

@@ -40,7 +40,7 @@ public class FitsOutputTest extends AbstractLoggingTest {
     }
 
     private String fitsMetadata = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-            + "  <fits xmlns=\"http://hul.harvard.edu/ois/xml/ns/fits/fits_output\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd\" version=\"1.0.2\" timestamp=\"9/23/16 4:35 PM\">"
+            + "  <fits xmlns=\"http://hul.harvard.edu/ois/xml/ns/fits/fits_output\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://hul.harvard.edu/ois/xml/ns/fits/fits_output https://some-other-pid-service/fits_output.xsd\" version=\"1.0.2\" timestamp=\"9/23/16 4:35 PM\">"
             + "    <identification>"
             + "      <identity format=\"Quicktime\" mimetype=\"video/quicktime\" toolname=\"FITS\" toolversion=\"1.0.2\">"
             + "        <tool toolname=\"MediaInfo\" toolversion=\"0.7.75\" />"

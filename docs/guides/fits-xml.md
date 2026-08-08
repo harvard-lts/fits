@@ -1,6 +1,6 @@
 ### FITS XML schema
 
-FITS converts the raw output of each wrapped tool to a structure called FITS XML. [FITS XML schema](http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd) is maintained by Harvard Library.
+FITS converts the raw output of each wrapped tool to a structure called FITS XML. [FITS XML schema](https://some-other-pid-service/fits_output.xsd) is maintained by the FITS community.
 
 #### identification
 This section contains the file format in one or more identity blocks. If all the tools that processed the file and could identify it came up with the same format, there will only be one identity block. If there were tools that processed the file that came up with an alternative format, there will be multiple identity blocks. The tools that identified the format will be nested within the identity elements. Some examples follow. 
