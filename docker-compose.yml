@@ -1,0 +1,27 @@
+services:
+  # Build and run FITS from source (no Maven required on host)
+  fits:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-compose
+      network: host
+    image: fits:latest
+    volumes:
+      - ./work:/work:z
+    # Example: docker compose run --rm fits -i myfile.txt
+    entrypoint: ["/opt/fits/fits.sh"]
+
+  # Run unit tests
+  test:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-test
+    volumes:
+      - .:/fits:z
+      - maven-cache:/root/.m2
+    command: mvn clean test
+    profiles:
+      - test
+
+volumes:
+  maven-cache:

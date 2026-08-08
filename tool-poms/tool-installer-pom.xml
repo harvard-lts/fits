@@ -14,6 +14,12 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
+    <properties>
+        <!-- Comma-separated list of platforms to install tool binaries for.
+             Pass -Dfits.install.platforms=linux to Maven to install only Linux binaries. -->
+        <fits.install.platforms>linux,mac,windows</fits.install.platforms>
+    </properties>
+
     <build>
         <plugins>
             <!-- Copy the scripts dependencies into target -->
@@ -49,6 +55,7 @@
                             <workingDirectory>..</workingDirectory>
                             <executable>java</executable>
                             <arguments>
+                                <argument>-Dfits.install.platforms=${fits.install.platforms}</argument>
                                 <argument>-cp</argument>
                                 <argument>target/tool-installer-lib/*</argument>
                                 <argument>src/main/script/ToolInstaller.java</argument>

@@ -97,6 +97,33 @@ docker run --rm -v `pwd`:/work fits -r -n -i in-dir -o out-dir
 docker run --rm -v `pwd`:/work fits -f fits-custom.xml -i file.txt
 ```
 
+### Docker Compose Installation
+
+To run FITS using Docker Compose, you'll need Docker (or Docker-compatible service) with the Compose plugin installed.
+
+1. Clone this repository (or download and extract a copy of the source).
+2. Build the Docker image using the provided `docker-compose.yml`.
+
+```shell
+git clone https://github.com/harvard-lts/fits.git
+cd fits
+docker compose build fits
+```
+
+After building the image, place the files you want to analyze in the `work/` subdirectory (it is created automatically
+on first run). FITS will have access to anything inside that directory. Run FITS using `docker compose run`:
+
+```shell
+# Run FITS on a file
+docker compose run --rm fits -i /work/file.txt
+
+# Run FITS on a directory
+docker compose run --rm fits -r -n -i /work/in-dir -o /work/out-dir
+
+# Run FITS with alternate configuration
+docker compose run --rm fits -f fits-custom.xml -i /work/file.txt
+```
+
 ## Configuration
 
 ### Logging
@@ -175,8 +202,8 @@ consistent. To do so, first install Docker, Podman, or an equivalent
 container service, and execute the following:
 
     # The build only needs to be run once
-    docker build -f docker/Dockerfile-test -t fits-test .
-    docker run --rm -v `pwd`:/fits -v ~/.m2:/root/.m2 fits-test mvn clean test
+    docker compose build test
+    docker compose run --rm test
 
 To build yet skip the tests, use the following command:
 
@@ -201,7 +228,7 @@ The test expectation xml files can be overwritten with the current FITS output b
 `-Doverwrite=true` flag. For example:
 
 ```shell
-docker run --rm -v `pwd`:/fits -v ~/.m2:/root/.m2 fits-test mvn -Doverwrite=true clean test
+docker compose run --rm test mvn -Doverwrite=true clean test
 ```
 
 However, generally speaking, test expectation files should be changed as little as possible so that the diffs are

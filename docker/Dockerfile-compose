@@ -1,0 +1,64 @@
+# Multi-stage Dockerfile that builds FITS from source without requiring
+# Maven on the host.
+
+# Stage 1: Build with Maven
+FROM docker.io/maven:3-eclipse-temurin-17 AS build
+WORKDIR /src
+COPY . .
+RUN mvn -e -DskipTests -Dfits.install.platforms=linux clean package
+
+# Stage 2: Runtime image (same as docker/Dockerfile)
+FROM docker.io/eclipse-temurin:17-jre-jammy
+
+ARG FILE_VERSION=5.43
+ARG FILE_SHA256=8c8015e91ae0e8d0321d94c78239892ef9dbc70c4ade0008c0e95894abfb1991
+
+RUN apt-get update && \
+    apt-get install -yqq \
+    # jpylyzer dependencies
+    python3 \
+    python-is-python3 \
+    # exiftool dependencies https://github.com/exiftool/exiftool
+    libarchive-zip-perl \
+    libio-compress-perl \
+    libcompress-raw-zlib-perl \
+    libcompress-bzip2-perl \
+    libcompress-raw-bzip2-perl \
+    libio-digest-perl \
+    libdigest-md5-file-perl \
+    libdigest-perl-md5-perl \
+    libdigest-sha-perl \
+    libposix-strptime-perl \
+    libunicode-linebreak-perl\
+    # file dependencies
+    make \
+    gcc \
+    # mediainfo dependencies
+    libmms0 \
+    libcurl3-gnutls \
+    # FITS
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install file https://github.com/file/file
+RUN cd /var/tmp && \
+    curl -so file-${FILE_VERSION}.tar.gz https://astron.com/pub/file/file-${FILE_VERSION}.tar.gz && \
+    echo "${FILE_SHA256}  file-${FILE_VERSION}.tar.gz" | sha256sum --check && \
+    tar xzf file-${FILE_VERSION}.tar.gz && \
+    cd file-${FILE_VERSION} && \
+    ./configure && \
+    make -j4 && \
+    make install && \
+    ldconfig && \
+    cd .. && \
+    rm -rf file-${FILE_VERSION}*
+
+# Install FITS from build stage
+COPY --from=build /src/target/fits-*.zip /opt/fits.zip
+RUN unzip -q /opt/fits.zip -d /opt/fits && \
+    rm /opt/fits.zip && \
+    mkdir -p /var/log/fits
+
+WORKDIR /work
+
+ENTRYPOINT ["/opt/fits/fits.sh"]
