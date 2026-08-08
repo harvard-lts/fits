@@ -61,6 +61,11 @@ public class MixTest extends AbstractOutputTest {
     }
 
     @Test
+    public void testPyramidalTiff() throws Exception {
+        writeOutput("x059f0483-original_file.ptif");
+    }
+
+    @Test
     public void testJp2_1() throws Exception {
         writeOutput("test.jp2");
     }
